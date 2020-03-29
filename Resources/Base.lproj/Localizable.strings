@@ -19,3 +19,5 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT
 
 Little Green Viper Software Development LLC: https://littlegreenviper.com
 */
+"SLUG-SECTION-HEADER-BLE"           =   "BLE";
+"SLUG-SECTION-HEADER-CLASSIC"       =   "BR/EDR";

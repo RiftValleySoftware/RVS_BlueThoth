@@ -10,6 +10,8 @@
 		D4979EDD243123220068F327 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D4979EDA243123220068F327 /* LICENSE */; };
 		D4979EDE243123220068F327 /* jazzy.sh in Resources */ = {isa = PBXBuildFile; fileRef = D4979EDB243123220068F327 /* jazzy.sh */; };
 		D4979EDF243123220068F327 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D4979EDC243123220068F327 /* README.md */; };
+		D4A53AAC24312F2F009647C4 /* RVS_PersistentPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A53AAB24312F2F009647C4 /* RVS_PersistentPrefs.swift */; };
+		D4A53AAE24312F50009647C4 /* RVS_String_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A53AAD24312F50009647C4 /* RVS_String_Extensions.swift */; };
 		D4A6A8702430F4E60084F102 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4A6A86C2430F4E60084F102 /* InfoPlist.strings */; };
 		D4A6A8712430F4E60084F102 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4A6A86E2430F4E60084F102 /* Localizable.strings */; };
 		D4B1C6982430F2DC00D3AC78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4B1C6972430F2DC00D3AC78 /* Assets.xcassets */; };
@@ -28,12 +30,15 @@
 		D4979EDA243123220068F327 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
 		D4979EDB243123220068F327 /* jazzy.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = jazzy.sh; sourceTree = SOURCE_ROOT; };
 		D4979EDC243123220068F327 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		D4A53AAB24312F2F009647C4 /* RVS_PersistentPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RVS_PersistentPrefs.swift; path = Carthage/Checkouts/RVS_PersistentPrefs/RVS_Persistent_Prefs/RVS_PersistentPrefs.swift; sourceTree = "<group>"; };
+		D4A53AAD24312F50009647C4 /* RVS_String_Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RVS_String_Extensions.swift; path = Carthage/Checkouts/RVS_Generic_Swift_Toolbox/src/Extensions/RVS_String_Extensions.swift; sourceTree = "<group>"; };
 		D4A6A86D2430F4E60084F102 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Resources/Base.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		D4A6A86F2430F4E60084F102 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Resources/Base.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		D4B1C6832430F26800D3AC78 /* ClassicalGas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClassicalGas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4B1C6972430F2DC00D3AC78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		D4B1C69A2430F30600D3AC78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Resources/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 		D4B1C69C2430F30600D3AC78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Resources/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
+		D4C3B62924312EE700CD5629 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -43,6 +48,7 @@
 				D496749F242FCEB7002D8D91 /* Project-Meta */,
 				D48D852C2430F13100A925ED /* Meta */,
 				D48D852B2430F10B00A925ED /* Resources */,
+				D4A53AAA24312F0B009647C4 /* FromCarthage */,
 				D48D85172430F05500A925ED /* Source */,
 				D420C895242FCD5600FCB9E0 /* Products */,
 			);
@@ -89,6 +95,7 @@
 		D496749F242FCEB7002D8D91 /* Project-Meta */ = {
 			isa = PBXGroup;
 			children = (
+				D4C3B62924312EE700CD5629 /* Cartfile */,
 				D49674B0242FD3E5002D8D91 /* .swiftlint.yml */,
 				D4979EDB243123220068F327 /* jazzy.sh */,
 				D4979EDA243123220068F327 /* LICENSE */,
@@ -96,6 +103,15 @@
 				D49674A9242FCF35002D8D91 /* Warnings.xcconfig */,
 			);
 			path = "Project-Meta";
+			sourceTree = "<group>";
+		};
+		D4A53AAA24312F0B009647C4 /* FromCarthage */ = {
+			isa = PBXGroup;
+			children = (
+				D4A53AAB24312F2F009647C4 /* RVS_PersistentPrefs.swift */,
+				D4A53AAD24312F50009647C4 /* RVS_String_Extensions.swift */,
+			);
+			name = FromCarthage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,7 +211,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4A53AAC24312F2F009647C4 /* RVS_PersistentPrefs.swift in Sources */,
 				D4B1C6A02430F32900D3AC78 /* CGA_ViewController.swift in Sources */,
+				D4A53AAE24312F50009647C4 /* RVS_String_Extensions.swift in Sources */,
 				D4B1C69F2430F32900D3AC78 /* CGA_AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
