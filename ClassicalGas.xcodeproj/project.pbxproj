@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4979EDD243123220068F327 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D4979EDA243123220068F327 /* LICENSE */; };
+		D4979EDE243123220068F327 /* jazzy.sh in Resources */ = {isa = PBXBuildFile; fileRef = D4979EDB243123220068F327 /* jazzy.sh */; };
+		D4979EDF243123220068F327 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D4979EDC243123220068F327 /* README.md */; };
 		D4A6A8702430F4E60084F102 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4A6A86C2430F4E60084F102 /* InfoPlist.strings */; };
 		D4A6A8712430F4E60084F102 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4A6A86E2430F4E60084F102 /* Localizable.strings */; };
 		D4B1C6982430F2DC00D3AC78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4B1C6972430F2DC00D3AC78 /* Assets.xcassets */; };
@@ -22,6 +25,9 @@
 		D48D85262430F05600A925ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D49674A9242FCF35002D8D91 /* Warnings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Warnings.xcconfig; sourceTree = "<group>"; };
 		D49674B0242FD3E5002D8D91 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
+		D4979EDA243123220068F327 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
+		D4979EDB243123220068F327 /* jazzy.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = jazzy.sh; sourceTree = SOURCE_ROOT; };
+		D4979EDC243123220068F327 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		D4A6A86D2430F4E60084F102 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Resources/Base.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		D4A6A86F2430F4E60084F102 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Resources/Base.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		D4B1C6832430F26800D3AC78 /* ClassicalGas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClassicalGas.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,6 +90,9 @@
 			isa = PBXGroup;
 			children = (
 				D49674B0242FD3E5002D8D91 /* .swiftlint.yml */,
+				D4979EDB243123220068F327 /* jazzy.sh */,
+				D4979EDA243123220068F327 /* LICENSE */,
+				D4979EDC243123220068F327 /* README.md */,
 				D49674A9242FCF35002D8D91 /* Warnings.xcconfig */,
 			);
 			path = "Project-Meta";
@@ -147,10 +156,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4979EDD243123220068F327 /* LICENSE in Resources */,
 				D4A6A8712430F4E60084F102 /* Localizable.strings in Resources */,
 				D4B1C69E2430F30600D3AC78 /* Main.storyboard in Resources */,
 				D4A6A8702430F4E60084F102 /* InfoPlist.strings in Resources */,
 				D4B1C6982430F2DC00D3AC78 /* Assets.xcassets in Resources */,
+				D4979EDE243123220068F327 /* jazzy.sh in Resources */,
+				D4979EDF243123220068F327 /* README.md in Resources */,
 				D4B1C69D2430F30600D3AC78 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
