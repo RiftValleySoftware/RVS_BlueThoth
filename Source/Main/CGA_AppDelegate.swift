@@ -32,6 +32,16 @@ class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
     /* ################################################################## */
     /**
      */
+    static var bleManager: CGA_Bluetooth_CentralManager_BLE?
+
+    /* ################################################################## */
+    /**
+     */
+    static var classicManager: CGA_Bluetooth_CentralManager_Classic?
+
+    /* ################################################################## */
+    /**
+     */
     var window: UIWindow?
     
     /* ################################################################## */

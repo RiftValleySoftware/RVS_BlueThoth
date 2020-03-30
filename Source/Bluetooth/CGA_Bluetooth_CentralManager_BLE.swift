@@ -32,8 +32,11 @@ class CGA_Bluetooth_CentralManager_BLE: CGA_Bluetooth_CentralManager_Base_Class 
     /* ################################################################## */
     /**
      */
-    func updateCollection() {
+    override func updateCollection() {
         #if targetEnvironment(simulator)
+            #if DEBUG
+                print("Generating Mocks for the Central Manager (BLE)")
+            #endif
         #else
         #endif
     }

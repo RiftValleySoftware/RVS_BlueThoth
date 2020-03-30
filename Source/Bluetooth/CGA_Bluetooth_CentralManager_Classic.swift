@@ -32,8 +32,11 @@ class CGA_Bluetooth_CentralManager_Classic: CGA_Bluetooth_CentralManager_Base_Cl
     /* ################################################################## */
     /**
      */
-    func updateCollection() {
+    override func updateCollection() {
         #if targetEnvironment(simulator)
+            #if DEBUG
+                print("Generating Mocks for the Central Manager (Classic)")
+            #endif
         #else
         #endif
     }

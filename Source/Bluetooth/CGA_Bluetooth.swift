@@ -35,16 +35,16 @@ import CoreBluetooth
 /* ###################################################################################################################################### */
 /**
  */
-protocol CGA_Class_Protocol: class, RVS_SequenceProtocol {
+protocol CGA_Class_Protocol: class {
     /* ################################################################## */
     /**
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Class_Protocol
      */
-    var parent: Any? { get set }
+    var parent: CGA_Class_Protocol? { get set }
     
     /* ################################################################## */
     /**
-     REQUIRED: This is called to tell the instance to do whatever it needs to do to handle an error.
+     OPTIONAL: This is called to tell the instance to do whatever it needs to do to handle an error.
      
      - parameter error: The error to be handled.
      */
@@ -52,7 +52,7 @@ protocol CGA_Class_Protocol: class, RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
-     OPTIONAL: This is called to tell the instance to do whatever it needs to do to update its collection.
+     REQUIRED: This is called to tell the instance to do whatever it needs to do to update its collection.
      */
     func updateCollection()
 }
@@ -60,15 +60,16 @@ protocol CGA_Class_Protocol: class, RVS_SequenceProtocol {
 /* ###################################################################################################################################### */
 // MARK: - Defaults
 /* ###################################################################################################################################### */
-/**
- This is here, only so we don't need to declare it in the base class, and do overrides.
- */
 extension CGA_Class_Protocol {
     /* ################################################################## */
     /**
-     The default implementation does nothing.
+     Default simply passes the buck.
      */
-    func updateCollection() { }
+    func handleError(_ inError: Error) {
+        if let parent = parent {
+            parent.handleError(inError)
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -77,12 +78,12 @@ extension CGA_Class_Protocol {
 /**
  This provides common functionality to be used by each of the subclasses.
  */
-class CGA_Bluetooth_CentralManager_Base_Class: NSObject {
+class CGA_Bluetooth_CentralManager_Base_Class: NSObject, RVS_SequenceProtocol {
     /* ################################################################## */
     /**
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Class_Protocol
      */
-    var parent: Any?
+    var parent: CGA_Class_Protocol?
 
     /* ################################################################## */
     /**
@@ -115,6 +116,13 @@ class CGA_Bluetooth_CentralManager_Base_Class: NSObject {
             centralManagerDidUpdateState(CBCentralManager())
         #endif
     }
+    
+    /* ################################################################## */
+    /**
+     This is called to tell the instance to do whatever it needs to do to update its collection.
+     We define this here, so it ca be overriddden.
+     */
+    func updateCollection() { }
 }
 
 /* ###################################################################################################################################### */
@@ -125,14 +133,20 @@ class CGA_Bluetooth_CentralManager_Base_Class: NSObject {
 extension CGA_Bluetooth_CentralManager_Base_Class {
     /* ################################################################## */
     /**
+     Convenience init. This allows "no parameter" inits, and ones that only have the queue.
+     
+     - parameter queue: The queue to be used for this instance. If not specified, the main thread is used.
      */
     convenience init(queue inQueue: DispatchQueue? = nil) {
         self.init(sequence_contents: [])
-        centralManagerInstance = CBCentralManager(delegate: self, queue: inQueue)
+        #if !targetEnvironment(simulator)
+            centralManagerInstance = CBCentralManager(delegate: self, queue: inQueue)
+        #endif
     }
     
     /* ################################################################## */
     /**
+     This handles what happens when we get a .poweredOn state.
      */
     func handlePoweredOn() {
         updateCollection()
@@ -147,6 +161,7 @@ extension CGA_Bluetooth_CentralManager_Base_Class {
 extension CGA_Bluetooth_CentralManager_Base_Class: CGA_Class_Protocol {
     /* ################################################################## */
     /**
+     This class is the "endpoint" of all errors, so it passes the error back to the delegate.
      */
     func handleError(_ inError: Error) {
         
@@ -161,6 +176,9 @@ extension CGA_Bluetooth_CentralManager_Base_Class: CGA_Class_Protocol {
 extension CGA_Bluetooth_CentralManager_Base_Class: CBCentralManagerDelegate {
     /* ################################################################## */
     /**
+     This is called when the CentralManager state updates.
+     
+     - parameter inCentralManager: The CBCentralManager instance that is calling this.
      */
     func centralManagerDidUpdateState(_ inCentralManager: CBCentralManager) {
         switch inCentralManager.state {
@@ -168,7 +186,7 @@ extension CGA_Bluetooth_CentralManager_Base_Class: CBCentralManagerDelegate {
             handlePoweredOn()
             
         default:
-            #if targetEnvironment(simulator)
+            #if targetEnvironment(simulator)    // If we are using a simulator, we pretend we got a .poweredOn state.
                 handlePoweredOn()
             #else
                 break

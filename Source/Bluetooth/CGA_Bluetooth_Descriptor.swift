@@ -28,10 +28,16 @@ import CoreBluetooth
 /* ###################################################################################################################################### */
 /**
  */
-class CGA_Bluetooth_Descriptor {
+class CGA_Bluetooth_Descriptor: CGA_Class_Protocol {
     /* ################################################################## */
     /**
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Class_Protocol
      */
-    var parent: Any?
+    var parent: CGA_Class_Protocol?
+    
+    /* ################################################################## */
+    /**
+     This does nothing in this "leaf" class.
+     */
+    func updateCollection() { }
 }

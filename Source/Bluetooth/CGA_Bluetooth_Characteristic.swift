@@ -43,7 +43,7 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
     /**
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Class_Protocol
      */
-    var parent: Any?
+    var parent: CGA_Class_Protocol?
 
     /* ################################################################## */
     /**
@@ -65,15 +65,11 @@ extension CGA_Bluetooth_Characteristic: CGA_Class_Protocol {
     /* ################################################################## */
     /**
      */
-    func handleError(_ inError: Error) {
-        
-    }
-    
-    /* ################################################################## */
-    /**
-     */
     func updateCollection() {
         #if targetEnvironment(simulator)
+            #if DEBUG
+                print("Generating Mocks for the Characteristic")
+            #endif
         #else
         #endif
     }
