@@ -23,11 +23,14 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 import UIKit
 
 /* ###################################################################################################################################### */
-// MARK: -
+// MARK: - The initial view controller (table of devices) -
 /* ###################################################################################################################################### */
 /**
+ This controls the initial view, which is a basic table of discovered devices.
+ 
+ There are two sections: BLE, and BR/EDR (Classic). Each section has rows of devices that fit in that Bluetooth mode.
  */
-class CGA_ViewController: UIViewController {
+class CGA_InitialViewController: UIViewController {
     /* ################################################################## */
     /**
      These are the indexes for our sections.
@@ -69,20 +72,9 @@ class CGA_ViewController: UIViewController {
 }
 
 /* ###################################################################################################################################### */
-// MARK: -
+// MARK: - UITableViewDataSource Support -
 /* ###################################################################################################################################### */
-/**
- */
-extension CGA_ViewController: UITableViewDelegate {
-    
-}
-
-/* ###################################################################################################################################### */
-// MARK: -
-/* ###################################################################################################################################### */
-/**
- */
-extension CGA_ViewController: UITableViewDataSource {
+extension CGA_InitialViewController: UITableViewDataSource {
     /* ################################################################## */
     /**
      This returns the number of available sections.
@@ -146,4 +138,11 @@ extension CGA_ViewController: UITableViewDataSource {
         
         return tableCell
     }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - UITableViewDelegate Support -
+/* ###################################################################################################################################### */
+extension CGA_InitialViewController: UITableViewDelegate {
+    
 }
