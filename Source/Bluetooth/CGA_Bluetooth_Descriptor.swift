@@ -37,7 +37,45 @@ class CGA_Bluetooth_Descriptor: CGA_Class_Protocol {
     
     /* ################################################################## */
     /**
+     This holds the instance of CBDescriptor that is used by this instance.
+     */
+    var cbElementInstance: CBDescriptor!
+    
+    /* ################################################################## */
+    /**
      This does nothing in this "leaf" class.
      */
     func updateCollection() { }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Special Comparator for the Descriptor Array -
+/* ###################################################################################################################################### */
+/**
+ This allows us to fetch Descriptors, looking for an exact instance.
+ */
+extension Array where Element == CGA_Bluetooth_Descriptor {
+    /* ################################################################## */
+    /**
+     Special subscript that allows us to retrieve an Element by its contained Descriptor.
+     
+     - parameter inItem: The CBDescriptor we're looking to match.
+     - returns: The found Element, or nil, if not found.
+     */
+    subscript(_ inItem: CBDescriptor) -> Element! {
+        return reduce(nil) { (current, nextItem) in
+            return nil == current ? (nextItem.cbElementInstance === inItem ? nextItem : nil) : current
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Checks to see if the Array contains an instance that wraps the given CB element.
+     
+     - parameter inItem: The CB element we're looking to match.
+     - returns: True, if the Array contains a wrapper for the given element.
+     */
+    func contains(_ inItem: CBDescriptor) -> Bool {
+        return nil != self[inItem]
+    }
 }

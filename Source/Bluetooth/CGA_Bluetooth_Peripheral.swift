@@ -31,11 +31,13 @@ import CoreBluetooth
 class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
     /* ################################################################## */
     /**
+     This is the type we're aggregating.
      */
     typealias Element = CGA_Bluetooth_Service
     
     /* ################################################################## */
     /**
+     This is our main cache Array. It contains wrapped instances of our aggregate CB type.
      */
     var sequence_contents: Array<Element> = []
     
@@ -45,6 +47,12 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
      */
     var parent: CGA_Class_Protocol?
 
+    /* ################################################################## */
+    /**
+     This holds the instance of CBPeripheral that is used by this instance.
+     */
+    var cbElementInstance: CBPeripheral!
+    
     /* ################################################################## */
     /**
      The required init, with a "primed" sequence.
@@ -83,4 +91,36 @@ extension CGA_Bluetooth_Peripheral: CGA_Class_Protocol {
  */
 extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Special Comparator for the Peripherals Array -
+/* ###################################################################################################################################### */
+/**
+ This allows us to fetch Peripherals, looking for an exact instance.
+ */
+extension Array where Element == CGA_Bluetooth_Peripheral {
+    /* ################################################################## */
+    /**
+     Special subscript that allows us to retrieve an Element by its contained Peripheral
+     
+     - parameter inItem: The Peripheral we're looking to match.
+     - returns: The found Element, or nil, if not found.
+     */
+    subscript(_ inItem: CBPeripheral) -> Element! {
+        return reduce(nil) { (current, nextItem) in
+            return nil == current ? (nextItem.cbElementInstance === inItem ? nextItem : nil) : current
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Checks to see if the Array contains an instance that wraps the given CB element.
+     
+     - parameter inItem: The CB element we're looking to match.
+     - returns: True, if the Array contains a wrapper for the given element.
+     */
+    func contains(_ inItem: CBPeripheral) -> Bool {
+        return nil != self[inItem]
+    }
 }

@@ -41,7 +41,7 @@ protocol CGA_Class_Protocol: class {
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Class_Protocol
      */
     var parent: CGA_Class_Protocol? { get set }
-    
+
     /* ################################################################## */
     /**
      OPTIONAL: This is called to tell the instance to do whatever it needs to do to handle an error.
@@ -89,7 +89,13 @@ class CGA_Bluetooth_CentralManager_Base_Class: NSObject, RVS_SequenceProtocol {
     /**
      This holds the instance of CBCentralManager that is used by this instance.
      */
-    var centralManagerInstance: CBCentralManager!
+    var cbElementInstance: CBCentralManager!
+    
+    /* ################################################################## */
+    /**
+     This will hold Peripherals, as they are being "loaded." Once they are "complete," they go into the main collection, wrapped in our class.
+     */
+    var stagedPeripherals = [CBPeripheral]()
     
     /* ################################################################## */
     /**

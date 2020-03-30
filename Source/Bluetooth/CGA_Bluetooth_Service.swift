@@ -31,11 +31,13 @@ import CoreBluetooth
 class CGA_Bluetooth_Service: RVS_SequenceProtocol {
     /* ################################################################## */
     /**
+     This is the type we're aggregating.
      */
     typealias Element = CGA_Bluetooth_Characteristic
     
     /* ################################################################## */
     /**
+     This is our main cache Array. It contains wrapped instances of our aggregate CB type.
      */
     var sequence_contents: Array<Element> = []
     
@@ -45,6 +47,12 @@ class CGA_Bluetooth_Service: RVS_SequenceProtocol {
      */
     var parent: CGA_Class_Protocol?
 
+    /* ################################################################## */
+    /**
+     This holds the instance of CBService that is used by this instance.
+     */
+    var cbElementInstance: CBService!
+    
     /* ################################################################## */
     /**
      The required init, with a "primed" sequence.
@@ -72,5 +80,37 @@ extension CGA_Bluetooth_Service: CGA_Class_Protocol {
             #endif
         #else
         #endif
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Special Comparator for the Services Array -
+/* ###################################################################################################################################### */
+/**
+ This allows us to fetch Services, looking for an exact instance.
+ */
+extension Array where Element == CGA_Bluetooth_Service {
+    /* ################################################################## */
+    /**
+     Special subscript that allows us to retrieve an Element by its conatined Service
+     
+     - parameter inItem: The CBService we're looking to match.
+     - returns: The found Element, or nil, if not found.
+     */
+    subscript(_ inItem: CBService) -> Element! {
+        return reduce(nil) { (current, nextItem) in
+            return nil == current ? (nextItem.cbElementInstance === inItem ? nextItem : nil) : current
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Checks to see if the Array contains an instance that wraps the given CB element.
+     
+     - parameter inItem: The CB element we're looking to match.
+     - returns: True, if the Array contains a wrapper for the given element.
+     */
+    func contains(_ inItem: CBService) -> Bool {
+        return nil != self[inItem]
     }
 }

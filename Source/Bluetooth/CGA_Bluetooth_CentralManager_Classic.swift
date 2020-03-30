@@ -41,3 +41,22 @@ class CGA_Bluetooth_CentralManager_Classic: CGA_Bluetooth_CentralManager_Base_Cl
         #endif
     }
 }
+
+/* ###################################################################################################################################### */
+// MARK: -
+/* ###################################################################################################################################### */
+/**
+ */
+extension CGA_Bluetooth_CentralManager_Classic {
+    /* ################################################################## */
+    /**
+     This is called when a Classic device has been connected.
+     
+     - parameters:
+        - inCentralManager: The CBCentralManager instance that is calling this.
+        - connectionEventDidOccur: The Connection event.
+        - for: The CBPeripheral instance that was discovered.
+     */
+    func centralManager(_ inCentralManager: CBCentralManager, connectionEventDidOccur inConnectionEvent: CBConnectionEvent, for inPeripheral: CBPeripheral) {
+    }
+}

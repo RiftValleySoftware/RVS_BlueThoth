@@ -41,3 +41,23 @@ class CGA_Bluetooth_CentralManager_BLE: CGA_Bluetooth_CentralManager_Base_Class 
         #endif
     }
 }
+
+/* ###################################################################################################################################### */
+// MARK: -
+/* ###################################################################################################################################### */
+/**
+ */
+extension CGA_Bluetooth_CentralManager_BLE {
+    /* ################################################################## */
+    /**
+     This is called when a BLE device has been discovered.
+     
+     - parameters:
+        - inCentralManager: The CBCentralManager instance that is calling this.
+        - didDiscover: The CBPeripheral instance that was discovered.
+        - advertisementData: The advertisement data that was provided with the discovery.
+        - rssi: The signal strength, in DB.
+     */
+    func centralManager(_ inCentralManager: CBCentralManager, didDiscover inPeripheral: CBPeripheral, advertisementData inAdvertisementData: [String : Any], rssi inRSSI: NSNumber) {
+    }
+}
