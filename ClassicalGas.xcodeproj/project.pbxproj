@@ -65,21 +65,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D447B9E12431710900F00A7A /* Internal */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Internal;
-			sourceTree = "<group>";
-		};
-		D447B9E22431711500F00A7A /* Public */ = {
-			isa = PBXGroup;
-			children = (
-				D447B9E32431712900F00A7A /* CGA_Bluetooth_Public.swift */,
-			);
-			path = Public;
-			sourceTree = "<group>";
-		};
 		D447B9E5243171AB00F00A7A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -111,8 +96,7 @@
 		D47A34D124316F46000483DF /* Bluetooth */ = {
 			isa = PBXGroup;
 			children = (
-				D447B9E22431711500F00A7A /* Public */,
-				D447B9E12431710900F00A7A /* Internal */,
+				D447B9E32431712900F00A7A /* CGA_Bluetooth_Public.swift */,
 			);
 			path = Bluetooth;
 			sourceTree = "<group>";
