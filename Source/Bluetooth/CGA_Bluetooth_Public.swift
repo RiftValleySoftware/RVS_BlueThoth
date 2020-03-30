@@ -24,6 +24,30 @@ import UIKit
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
+/**
+ These are all classes, as opposed to structs, because we want them to be referenced, not copied.
+ Remember that Bluetooth is a very dynamic, realtime environment. Caches can be extremely problematic. We want caches, but safe ones.
+ Also, the Central and Peripheral classes need to derive from NSObject, so they can be delegates.
+ */
+
+/* ###################################################################################################################################### */
+// MARK: -
+/* ###################################################################################################################################### */
+/**
+ */
+protocol CGA_Class_Protocol: class {
+    /* ################################################################## */
+    /**
+     */
+    func handleError(_ error: Error)
+    
+    /* ################################################################## */
+    /**
+     */
+    func updateCollection()
+}
+
+/* ###################################################################################################################################### */
 // MARK: -
 /* ###################################################################################################################################### */
 /**
@@ -33,7 +57,7 @@ class CGA_Bluetooth_CentralManager_Base_Class: NSObject, RVS_SequenceProtocol {
     /**
      This holds the instance of CBCentralManager that is used by this instance.
      */
-    fileprivate var _centralManagerInstance: CBCentralManager!
+    var centralManagerInstance: CBCentralManager!
     
     /* ################################################################## */
     /**
@@ -64,7 +88,28 @@ extension CGA_Bluetooth_CentralManager_Base_Class {
      */
     convenience init(queue inQueue: DispatchQueue? = nil) {
         self.init(sequence_contents: [])
-        _centralManagerInstance = CBCentralManager(delegate: self, queue: inQueue)
+        centralManagerInstance = CBCentralManager(delegate: self, queue: inQueue)
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: -
+/* ###################################################################################################################################### */
+/**
+ */
+extension CGA_Bluetooth_CentralManager_Base_Class: CGA_Class_Protocol {
+    /* ################################################################## */
+    /**
+     */
+    func handleError(_ inError: Error) {
+        
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func updateCollection() {
+        
     }
 }
 
@@ -99,7 +144,7 @@ class CGA_Bluetooth_CentralManager_Classic: CGA_Bluetooth_CentralManager_Base_Cl
 /* ###################################################################################################################################### */
 /**
  */
-class CGA_Bluetooth_Peripheral: RVS_SequenceProtocol {
+class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
     /* ################################################################## */
     /**
      */
@@ -116,6 +161,36 @@ class CGA_Bluetooth_Peripheral: RVS_SequenceProtocol {
     required init(sequence_contents inSequence_Contents: [Element] = []) {
         sequence_contents = inSequence_Contents
     }
+}
+
+/* ###################################################################################################################################### */
+// MARK: -
+/* ###################################################################################################################################### */
+/**
+ */
+extension CGA_Bluetooth_Peripheral: CGA_Class_Protocol {
+    /* ################################################################## */
+    /**
+     */
+    func handleError(_ inError: Error) {
+        
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func updateCollection() {
+        
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: -
+/* ###################################################################################################################################### */
+/**
+ */
+extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
+    
 }
 
 /* ###################################################################################################################################### */
@@ -147,6 +222,27 @@ class CGA_Bluetooth_Service: RVS_SequenceProtocol {
 /* ###################################################################################################################################### */
 /**
  */
+extension CGA_Bluetooth_Service: CGA_Class_Protocol {
+    /* ################################################################## */
+    /**
+     */
+    func handleError(_ inError: Error) {
+        
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func updateCollection() {
+        
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: -
+/* ###################################################################################################################################### */
+/**
+ */
 class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
     /* ################################################################## */
     /**
@@ -163,6 +259,27 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
      */
     required init(sequence_contents inSequence_Contents: [Element] = []) {
         sequence_contents = inSequence_Contents
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: -
+/* ###################################################################################################################################### */
+/**
+ */
+extension CGA_Bluetooth_Characteristic: CGA_Class_Protocol {
+    /* ################################################################## */
+    /**
+     */
+    func handleError(_ inError: Error) {
+        
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func updateCollection() {
+        
     }
 }
 
