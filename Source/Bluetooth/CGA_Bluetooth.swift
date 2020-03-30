@@ -30,34 +30,60 @@ import CoreBluetooth
  Also, the Central and Peripheral classes need to derive from NSObject, so they can be delegates.
  */
 
-/* This is how we'll be mocking.
-#if targetEnvironment(simulator)
-#endif
-*/
-
 /* ###################################################################################################################################### */
-// MARK: -
+// MARK: - The Main Protocol for Each Type -
 /* ###################################################################################################################################### */
 /**
  */
-protocol CGA_Class_Protocol: class {
+protocol CGA_Class_Protocol: class, RVS_SequenceProtocol {
     /* ################################################################## */
     /**
+     This is used to reference an "owning instance" of this instance, and it should be a CGA_Class_Protocol
+     */
+    var parent: Any? { get set }
+    
+    /* ################################################################## */
+    /**
+     REQUIRED: This is called to tell the instance to do whatever it needs to do to handle an error.
+     
+     - parameter error: The error to be handled.
      */
     func handleError(_ error: Error)
     
     /* ################################################################## */
     /**
+     OPTIONAL: This is called to tell the instance to do whatever it needs to do to update its collection.
      */
     func updateCollection()
 }
 
 /* ###################################################################################################################################### */
-// MARK: -
+// MARK: - Defaults
 /* ###################################################################################################################################### */
 /**
+ This is here, only so we don't need to declare it in the base class, and do overrides.
  */
-class CGA_Bluetooth_CentralManager_Base_Class: NSObject, RVS_SequenceProtocol {
+extension CGA_Class_Protocol {
+    /* ################################################################## */
+    /**
+     The default implementation does nothing.
+     */
+    func updateCollection() { }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - The Base Class for the Two Types of Central Manager -
+/* ###################################################################################################################################### */
+/**
+ This provides common functionality to be used by each of the subclasses.
+ */
+class CGA_Bluetooth_CentralManager_Base_Class: NSObject {
+    /* ################################################################## */
+    /**
+     This is used to reference an "owning instance" of this instance, and it should be a CGA_Class_Protocol
+     */
+    var parent: Any?
+
     /* ################################################################## */
     /**
      This holds the instance of CBCentralManager that is used by this instance.
@@ -66,19 +92,28 @@ class CGA_Bluetooth_CentralManager_Base_Class: NSObject, RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
+     We aggregate Peripherals.
      */
     typealias Element = CGA_Bluetooth_Peripheral
     
     /* ################################################################## */
     /**
+     This holds our cached Array of Peripheral instances.
      */
     var sequence_contents: Array<Element>
     
     /* ################################################################## */
     /**
+     The required init, with a "primed" sequence.
+     
+     - parameter sequence_contents: The initial value of the Array cache.
      */
     required init(sequence_contents inSequenceContents: [Element]) {
         sequence_contents = inSequenceContents
+        super.init()    // Since we derive from NSObject, we must call the super init()
+        #if targetEnvironment(simulator)
+            centralManagerDidUpdateState(CBCentralManager())
+        #endif
     }
 }
 
@@ -95,6 +130,13 @@ extension CGA_Bluetooth_CentralManager_Base_Class {
         self.init(sequence_contents: [])
         centralManagerInstance = CBCentralManager(delegate: self, queue: inQueue)
     }
+    
+    /* ################################################################## */
+    /**
+     */
+    func handlePoweredOn() {
+        updateCollection()
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -109,13 +151,6 @@ extension CGA_Bluetooth_CentralManager_Base_Class: CGA_Class_Protocol {
     func handleError(_ inError: Error) {
         
     }
-    
-    /* ################################################################## */
-    /**
-     */
-    func updateCollection() {
-        
-    }
 }
 
 /* ###################################################################################################################################### */
@@ -124,6 +159,20 @@ extension CGA_Bluetooth_CentralManager_Base_Class: CGA_Class_Protocol {
 /**
  */
 extension CGA_Bluetooth_CentralManager_Base_Class: CBCentralManagerDelegate {
+    /* ################################################################## */
+    /**
+     */
     func centralManagerDidUpdateState(_ inCentralManager: CBCentralManager) {
+        switch inCentralManager.state {
+        case .poweredOn:
+            handlePoweredOn()
+            
+        default:
+            #if targetEnvironment(simulator)
+                handlePoweredOn()
+            #else
+                break
+            #endif
+        }
     }
 }

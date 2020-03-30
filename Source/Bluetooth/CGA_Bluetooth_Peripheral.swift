@@ -37,13 +37,23 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
     /* ################################################################## */
     /**
      */
-    var sequence_contents: Array<Element>
+    var sequence_contents: Array<Element> = []
     
     /* ################################################################## */
     /**
+     This is used to reference an "owning instance" of this instance, and it should be a CGA_Class_Protocol
      */
-    required init(sequence_contents inSequence_Contents: [Element] = []) {
+    var parent: Any?
+
+    /* ################################################################## */
+    /**
+     The required init, with a "primed" sequence.
+     
+     - parameter sequence_contents: The initial value of the Array cache.
+     */
+    required init(sequence_contents inSequence_Contents: [Element]) {
         sequence_contents = inSequence_Contents
+        super.init()    // Since we derive from NSObject, we must call the super init()
     }
 }
 
@@ -64,7 +74,9 @@ extension CGA_Bluetooth_Peripheral: CGA_Class_Protocol {
     /**
      */
     func updateCollection() {
-        
+        #if targetEnvironment(simulator)
+        #else
+        #endif
     }
 }
 

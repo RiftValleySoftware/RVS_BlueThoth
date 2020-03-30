@@ -29,4 +29,9 @@ import CoreBluetooth
 /**
  */
 class CGA_Bluetooth_Descriptor {
+    /* ################################################################## */
+    /**
+     This is used to reference an "owning instance" of this instance, and it should be a CGA_Class_Protocol
+     */
+    var parent: Any?
 }

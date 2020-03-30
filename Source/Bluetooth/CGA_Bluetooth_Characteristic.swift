@@ -37,12 +37,21 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
     /* ################################################################## */
     /**
      */
-    var sequence_contents: Array<Element>
+    var sequence_contents: Array<Element> = []
     
     /* ################################################################## */
     /**
+     This is used to reference an "owning instance" of this instance, and it should be a CGA_Class_Protocol
      */
-    required init(sequence_contents inSequence_Contents: [Element] = []) {
+    var parent: Any?
+
+    /* ################################################################## */
+    /**
+     The required init, with a "primed" sequence.
+     
+     - parameter sequence_contents: The initial value of the Array cache.
+     */
+    required init(sequence_contents inSequence_Contents: [Element]) {
         sequence_contents = inSequence_Contents
     }
 }
@@ -64,6 +73,8 @@ extension CGA_Bluetooth_Characteristic: CGA_Class_Protocol {
     /**
      */
     func updateCollection() {
-        
+        #if targetEnvironment(simulator)
+        #else
+        #endif
     }
 }

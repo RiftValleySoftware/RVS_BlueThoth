@@ -29,4 +29,12 @@ import CoreBluetooth
 /**
  */
 class CGA_Bluetooth_CentralManager_Classic: CGA_Bluetooth_CentralManager_Base_Class {
+    /* ################################################################## */
+    /**
+     */
+    func updateCollection() {
+        #if targetEnvironment(simulator)
+        #else
+        #endif
+    }
 }
