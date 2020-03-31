@@ -73,12 +73,11 @@ extension CGA_Class_Protocol {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - The Base Class for the Two Types of Central Manager -
+// MARK: - The Central Manager -
 /* ###################################################################################################################################### */
 /**
- This provides common functionality to be used by each of the subclasses.
  */
-class CGA_Bluetooth_CentralManager_Base_Class: NSObject, RVS_SequenceProtocol {
+class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
     /* ################################################################## */
     /**
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Class_Protocol
@@ -128,7 +127,14 @@ class CGA_Bluetooth_CentralManager_Base_Class: NSObject, RVS_SequenceProtocol {
      This is called to tell the instance to do whatever it needs to do to update its collection.
      We define this here, so it ca be overriddden.
      */
-    func updateCollection() { }
+    func updateCollection() {
+        #if targetEnvironment(simulator)
+            #if DEBUG
+                print("Generating Mocks for the Central Manager")
+            #endif
+        #else
+        #endif
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -136,7 +142,7 @@ class CGA_Bluetooth_CentralManager_Base_Class: NSObject, RVS_SequenceProtocol {
 /* ###################################################################################################################################### */
 /**
  */
-extension CGA_Bluetooth_CentralManager_Base_Class {
+extension CGA_Bluetooth_CentralManager {
     /* ################################################################## */
     /**
      Convenience init. This allows "no parameter" inits, and ones that only have the queue.
@@ -164,7 +170,7 @@ extension CGA_Bluetooth_CentralManager_Base_Class {
 /* ###################################################################################################################################### */
 /**
  */
-extension CGA_Bluetooth_CentralManager_Base_Class: CGA_Class_Protocol {
+extension CGA_Bluetooth_CentralManager: CGA_Class_Protocol {
     /* ################################################################## */
     /**
      This class is the "endpoint" of all errors, so it passes the error back to the delegate.
@@ -179,7 +185,7 @@ extension CGA_Bluetooth_CentralManager_Base_Class: CGA_Class_Protocol {
 /* ###################################################################################################################################### */
 /**
  */
-extension CGA_Bluetooth_CentralManager_Base_Class: CBCentralManagerDelegate {
+extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
     /* ################################################################## */
     /**
      This is called when the CentralManager state updates.
@@ -198,5 +204,30 @@ extension CGA_Bluetooth_CentralManager_Base_Class: CBCentralManagerDelegate {
                 break
             #endif
         }
+    }
+
+    /* ################################################################## */
+    /**
+     This is called when a Classic device has been connected.
+     
+     - parameters:
+        - inCentralManager: The CBCentralManager instance that is calling this.
+        - connectionEventDidOccur: The Connection event.
+        - for: The CBPeripheral instance that was discovered.
+     */
+    func centralManager(_ inCentralManager: CBCentralManager, connectionEventDidOccur inConnectionEvent: CBConnectionEvent, for inPeripheral: CBPeripheral) {
+    }
+
+    /* ################################################################## */
+    /**
+     This is called when a BLE device has been discovered.
+     
+     - parameters:
+        - inCentralManager: The CBCentralManager instance that is calling this.
+        - didDiscover: The CBPeripheral instance that was discovered.
+        - advertisementData: The advertisement data that was provided with the discovery.
+        - rssi: The signal strength, in DB.
+     */
+    func centralManager(_ inCentralManager: CBCentralManager, didDiscover inPeripheral: CBPeripheral, advertisementData inAdvertisementData: [String : Any], rssi inRSSI: NSNumber) {
     }
 }

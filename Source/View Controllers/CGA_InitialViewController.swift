@@ -68,8 +68,7 @@ class CGA_InitialViewController: UIViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        CGA_AppDelegate.bleManager = CGA_Bluetooth_CentralManager_BLE()
-        CGA_AppDelegate.classicManager = CGA_Bluetooth_CentralManager_Classic()
+        CGA_AppDelegate.centralManager = CGA_Bluetooth_CentralManager()
     }
 }
 
