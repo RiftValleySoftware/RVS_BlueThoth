@@ -58,6 +58,12 @@ class CGA_InitialViewController: UIViewController {
 
     /* ################################################################## */
     /**
+     This implements a "pull to refresh."
+     */
+    private let _refreshControl = UIRefreshControl()
+    
+    /* ################################################################## */
+    /**
      This is the table that will list the discovered devices.
      */
     @IBOutlet weak var deviceTableView: UITableView!
@@ -68,7 +74,17 @@ class CGA_InitialViewController: UIViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        deviceTableView?.refreshControl = _refreshControl
+        _refreshControl.addTarget(self, action: #selector(startOver(_:)), for: .valueChanged)
         CGA_AppDelegate.centralManager = CGA_Bluetooth_CentralManager(delegate: self)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @objc func startOver(_ sender: Any) {
+        CGA_AppDelegate.centralManager?.startOver()
+        _refreshControl.endRefreshing()
     }
 }
 
@@ -78,12 +94,19 @@ class CGA_InitialViewController: UIViewController {
 extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
     /* ################################################################## */
     /**
+     Called to report an error.
+     
+     - parameter inError: The error being reported.
+     - parameter from: The manager wrapper view that is calling this.
      */
     func handleError(_ inError: Error, from inCentralManager: CGA_Bluetooth_CentralManager) {
     }
     
     /* ################################################################## */
     /**
+     Called to tell this controller to recalculate its table.
+     
+     - parameter inCentralManager: The manager wrapper view that is calling this.
      */
     func updateFrom(_ inCentralManager: CGA_Bluetooth_CentralManager) {
         deviceTableView?.reloadData()

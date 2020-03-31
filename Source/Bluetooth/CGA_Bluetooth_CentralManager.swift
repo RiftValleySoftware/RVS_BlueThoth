@@ -73,14 +73,15 @@ extension CGA_Class_Protocol {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - The Main Protocol for Each Type -
+// MARK: - The Central Manager Delegate Protocol -
 /* ###################################################################################################################################### */
 /**
+ All delegate callbacks are made in the main thread.
  */
 protocol CGA_Bluetooth_CentralManagerDelegate: class {
     /* ################################################################## */
     /**
-     REQUIRED: This is called to tell the instance to do whatever it needs to do to handle an error.
+     OPTIONAL: This is called to tell the instance to do whatever it needs to do to handle an error.
      
      - parameter error: The error to be handled.
      */
@@ -88,9 +89,26 @@ protocol CGA_Bluetooth_CentralManagerDelegate: class {
     
     /* ################################################################## */
     /**
-     REQUIRED: This is called to tell the instance to do whatever it needs to do to update its data.
+     OPTIONAL: This is called to tell the instance to do whatever it needs to do to update its data.
      */
     func updateFrom(_ manager: CGA_Bluetooth_CentralManager)
+}
+
+/* ###################################################################################################################################### */
+// MARK: - The Central Manager Delegate Defaults -
+/* ###################################################################################################################################### */
+extension CGA_Bluetooth_CentralManagerDelegate {
+    /* ################################################################## */
+    /**
+     The default does nothing.
+     */
+    func handleError(_: Error, from: CGA_Bluetooth_CentralManager) { }
+
+    /* ################################################################## */
+    /**
+     The default does nothing.
+     */
+    func updateFrom(_: CGA_Bluetooth_CentralManager) { }
 }
 
 /* ###################################################################################################################################### */
@@ -132,12 +150,6 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
-     This will hold Classic Peripherals, as they are being "loaded." Once they are "complete," they go into the main collection, wrapped in our class.
-     */
-    var stagedClassicPeripherals = [DiscoveryData]()
-    
-    /* ################################################################## */
-    /**
      We aggregate Peripherals.
      */
     typealias Element = CGA_Bluetooth_Peripheral
@@ -150,16 +162,44 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
+     This is the indicator as to whether or not the Bluetooth subsystem is actiively scanning for Peripherals.
+     
+     It is really an accessor that reflects the behavior of the Central Manager CB object, and will also notify the delegate of changes in the state.
      */
-    var isScanning: Bool = false {
-        didSet {
-            if let centralManager = cbElementInstance {
-                if isScanning && !oldValue {
-                    centralManager.scanForPeripherals(withServices: nil, options: nil)
-                } else if !isScanning && oldValue {
-                    centralManager.stopScan()
-                }
+    var isScanning: Bool {
+        get {
+            guard let centralManager = cbElementInstance else {
+                #if DEBUG
+                    print("No Central Manager Instance.")
+                #endif
+                return false
             }
+           
+            return centralManager.isScanning
+        }
+        
+        set {
+            guard let centralManager = cbElementInstance else {
+                #if DEBUG
+                    print("No Central Manager Instance.")
+                #endif
+                return
+            }
+
+            let oldValue = centralManager.isScanning
+            
+            #if DEBUG
+                print("Central Manager was \(oldValue ? "" : "not ")scanning.")
+                print("Turning scanning \(newValue ? "on" : "off").")
+            #endif
+            
+            if newValue {
+                centralManager.scanForPeripherals(withServices: nil, options: nil)
+            } else if centralManager.isScanning {
+                centralManager.stopScan()
+            }
+
+            _updateDelegate()
         }
     }
     
@@ -172,9 +212,91 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
     required init(sequence_contents inSequenceContents: [Element]) {
         sequence_contents = inSequenceContents
         super.init()    // Since we derive from NSObject, we must call the super init()
-        #if targetEnvironment(simulator)
-            centralManagerDidUpdateState(CBCentralManager())
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Private Instance Methods -
+/* ###################################################################################################################################### */
+/**
+ These methods ensure that the delegate calls are made in the main thread.
+ */
+extension CGA_Bluetooth_CentralManager {
+    /* ################################################################## */
+    /**
+     Called to report an error.
+     
+     - parameter inError: The error being reported.
+     */
+    private func _reportError(_ inError: Error) {
+        DispatchQueue.main.async {
+            #if DEBUG
+                print("Reporting \(inError.localizedDescription) as an error.")
+            #endif
+            self.delegate?.handleError(inError, from: self)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called to send the "Update Thyself" message to the delegate.
+     */
+    private func _updateDelegate() {
+        DispatchQueue.main.async {
+            #if DEBUG
+                print("Asking delegate to recaclculate.")
+            #endif
+            self.delegate?.updateFrom(self)
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Internal Instance Methods -
+/* ###################################################################################################################################### */
+extension CGA_Bluetooth_CentralManager {
+    /* ################################################################## */
+    /**
+     Convenience init. This allows "no parameter" inits, and ones that only have the queue.
+     This will call the delegate's updateFrom(_:) method, upon starting.
+     
+     - parameter delegate: The delegate instance.
+     - parameter queue: The queue to be used for this instance. If not specified, the main thread is used.
+     */
+    convenience init(delegate inDelegate: CGA_Bluetooth_CentralManagerDelegate! = nil, queue inQueue: DispatchQueue? = nil) {
+        self.init(sequence_contents: [])
+        delegate = inDelegate
+        cbElementInstance = CBCentralManager(delegate: self, queue: inQueue)
+        _updateDelegate()
+    }
+    
+    /* ################################################################## */
+    /**
+     This eliminates all of the stored results, and asks the Bluetooth subsystem to start over from scratch.
+     */
+    func startOver() {
+        #if DEBUG
+            print("Starting Over From Scratch.")
         #endif
+        let wasScanning = isScanning
+        isScanning = false
+        stagedBLEPeripherals = []
+        sequence_contents = []
+        _updateDelegate()
+        isScanning = wasScanning
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - CGA_Class_Protocol Support -
+/* ###################################################################################################################################### */
+extension CGA_Bluetooth_CentralManager: CGA_Class_Protocol {
+    /* ################################################################## */
+    /**
+     This class is the "endpoint" of all errors, so it passes the error back to the delegate.
+     */
+    func handleError(_ inError: Error) {
+        _reportError(inError)
     }
     
     /* ################################################################## */
@@ -183,59 +305,13 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
      We define this here, so it ca be overriddden.
      */
     func updateCollection() {
-        #if targetEnvironment(simulator)
-            #if DEBUG
-                print("Generating Mocks for the Central Manager")
-            #endif
-        #else
-        #endif
-        
-        delegate?.updateFrom(self)
+        _updateDelegate()
     }
 }
 
 /* ###################################################################################################################################### */
-// MARK: -
+// MARK: - CBCentralManagerDelegate Support -
 /* ###################################################################################################################################### */
-/**
- */
-extension CGA_Bluetooth_CentralManager {
-    /* ################################################################## */
-    /**
-     Convenience init. This allows "no parameter" inits, and ones that only have the queue.
-     
-     - parameter delegate: The delegate instance.
-     - parameter queue: The queue to be used for this instance. If not specified, the main thread is used.
-     */
-    convenience init(delegate inDelegate: CGA_Bluetooth_CentralManagerDelegate! = nil, queue inQueue: DispatchQueue? = nil) {
-        self.init(sequence_contents: [])
-        delegate = inDelegate
-        #if !targetEnvironment(simulator)
-            cbElementInstance = CBCentralManager(delegate: self, queue: inQueue)
-        #endif
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: -
-/* ###################################################################################################################################### */
-/**
- */
-extension CGA_Bluetooth_CentralManager: CGA_Class_Protocol {
-    /* ################################################################## */
-    /**
-     This class is the "endpoint" of all errors, so it passes the error back to the delegate.
-     */
-    func handleError(_ inError: Error) {
-        delegate?.handleError(inError, from: self)
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: -
-/* ###################################################################################################################################### */
-/**
- */
 extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
     /* ################################################################## */
     /**
@@ -244,44 +320,51 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
      - parameter inCentralManager: The CBCentralManager instance that is calling this.
      */
     func centralManagerDidUpdateState(_ inCentralManager: CBCentralManager) {
+        #if DEBUG
+            print("Central Manager State Changed.")
+        #endif
         switch inCentralManager.state {
         case .poweredOn:
+            #if DEBUG
+                print("\tState is Powered On.")
+            #endif
             isScanning = true
-            updateCollection()
 
         case .poweredOff:
-            isScanning = false
-            #if targetEnvironment(simulator)    // If we are using a simulator, we pretend we got a .poweredOn state.
-                isScanning = true
-                updateCollection()
-            #else
-                break
+            #if DEBUG
+                print("\tState is Powered Off.")
             #endif
+            isScanning = false
+
+        case .resetting:
+            #if DEBUG
+                print("\tState is Resetting.")
+            #endif
+            isScanning = false
+
+        case .unauthorized:
+            #if DEBUG
+                print("\tState is Unauthorized.")
+            #endif
+            isScanning = false
+
+        case .unknown:
+            #if DEBUG
+                print("\tState is Unknown.")
+            #endif
+            isScanning = false
+
+        case .unsupported:
+            #if DEBUG
+                print("\tState is Unsupported.")
+            #endif
+            isScanning = false
 
         default:
+            #if DEBUG
+                print("\tState is Something Else.")
+            #endif
             isScanning = false
-            updateCollection()
-        }
-    }
-
-    /* ################################################################## */
-    /**
-     This is called when a Classic device has been connected.
-     
-     - parameters:
-        - inCentralManager: The CBCentralManager instance that is calling this.
-        - connectionEventDidOccur: The Connection event.
-        - for: The CBPeripheral instance that was discovered.
-     */
-    func centralManager(_ inCentralManager: CBCentralManager, connectionEventDidOccur inConnectionEvent: CBConnectionEvent, for inPeripheral: CBPeripheral) {
-        if  let name = inPeripheral.name,
-            !name.isEmpty {
-            print("Discovered \(name) (Classic).")
-            if !stagedClassicPeripherals.contains(inPeripheral) {
-                print("Added \(name) (Classic).")
-                stagedClassicPeripherals.append(DiscoveryData(peripheral: inPeripheral, name: name, advertisementData: [:], rssi: 0))
-                updateCollection()
-            }
         }
     }
 
@@ -295,14 +378,23 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
         - advertisementData: The advertisement data that was provided with the discovery.
         - rssi: The signal strength, in DB.
      */
-    func centralManager(_ inCentralManager: CBCentralManager, didDiscover inPeripheral: CBPeripheral, advertisementData inAdvertisementData: [String : Any], rssi inRSSI: NSNumber) {
+    func centralManager(_ inCentralManager: CBCentralManager, didDiscover inPeripheral: CBPeripheral, advertisementData inAdvertisementData: [String: Any], rssi inRSSI: NSNumber) {
         if  let name = inPeripheral.name,
             !name.isEmpty {
-            print("Discovered \(name) (BLE).")
-            if !stagedBLEPeripherals.contains(inPeripheral) {
-                print("Added \(name) (BLE).")
+            #if DEBUG
+                print("Discovered \(name) (BLE).")
+            #endif
+            if  !stagedBLEPeripherals.contains(inPeripheral),
+                !sequence_contents.contains(inPeripheral) {
+                #if DEBUG
+                    print("Added \(name) (BLE).")
+                #endif
                 stagedBLEPeripherals.append(DiscoveryData(peripheral: inPeripheral, name: name, advertisementData: inAdvertisementData, rssi: Double(truncating: inRSSI)))
-                updateCollection()
+                _updateDelegate()
+            } else {
+                #if DEBUG
+                    print("Not Adding \(name) (BLE).")
+                #endif
             }
         }
     }
@@ -312,7 +404,7 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
 // MARK: - Special Comparator for the Peripherals Array -
 /* ###################################################################################################################################### */
 /**
- This allows us to fetch Peripherals, looking for an exact instance.
+ This allows us to fetch Peripherals in our staged Arrays, looking for an exact instance.
  */
 extension Array where Element == CGA_Bluetooth_CentralManager.DiscoveryData {
     /* ################################################################## */
@@ -324,7 +416,7 @@ extension Array where Element == CGA_Bluetooth_CentralManager.DiscoveryData {
      */
     subscript(_ inItem: CBPeripheral) -> Element! {
         return reduce(nil) { (current, nextItem) in
-            return nil == current ? (nextItem.peripheral === inItem ? nextItem : nil) : current
+            return nil == current ? (nextItem.peripheral.identifier == inItem.identifier ? nextItem : nil) : current
         }
     }
     

@@ -99,7 +99,7 @@ extension Array where Element == CGA_Bluetooth_Service {
      */
     subscript(_ inItem: CBService) -> Element! {
         return reduce(nil) { (current, nextItem) in
-            return nil == current ? (nextItem.cbElementInstance === inItem ? nextItem : nil) : current
+            return nil == current ? (nextItem.cbElementInstance.uuid == inItem.uuid ? nextItem : nil) : current
         }
     }
     
