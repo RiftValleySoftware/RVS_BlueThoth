@@ -23,6 +23,17 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 import UIKit
 
 /* ###################################################################################################################################### */
+// MARK: - The CGA_InitialViewController_TableRow Class (Denotes One Row of the Table) -
+/* ###################################################################################################################################### */
+/**
+ */
+class CGA_InitialViewController_TableRow: UITableViewCell {
+    @IBOutlet var nameLabel:UILabel!
+    @IBOutlet var rssiLabel: UILabel!
+    @IBOutlet var advertisingDataLabel: UILabel!
+}
+
+/* ###################################################################################################################################### */
 // MARK: - The initial view controller (table of devices) -
 /* ###################################################################################################################################### */
 /**
@@ -38,8 +49,6 @@ class CGA_InitialViewController: UIViewController {
     private enum _SectionIndexes: Int {
         /// The BLE section index.
         case ble
-        /// The classic section index.
-        case classic
         /// Because we are Int, this will have the number of sections (1-based).
         case numSections
     }
@@ -48,8 +57,14 @@ class CGA_InitialViewController: UIViewController {
     /**
      This is how high each section header will be.
      */
-    private static let _sectionHeaderHeightInDisplayUnits: CGFloat = 20.0
+    private static let _sectionHeaderHeightInDisplayUnits: CGFloat = 21.0
     
+    /* ################################################################## */
+    /**
+     This is how high the labels that comprise one row will need per line of text.
+     */
+    private static let _labelRowHeightInDisplayUnits: CGFloat = 21.0
+
     /* ################################################################## */
     /**
      The reuse ID that we use for creating new table cells.
@@ -151,7 +166,10 @@ extension CGA_InitialViewController: UITableViewDataSource {
         let ret = UILabel()
         
         ret.text = ("SLUG-SECTION-HEADER-" + (_SectionIndexes.ble.rawValue == inSection ? "BLE" : "CLASSIC")).localizedVariant
-        ret.textColor = .white
+        ret.textColor = .blue
+        ret.textAlignment = .center
+        ret.backgroundColor = .white
+        ret.font = .boldSystemFont(ofSize: Self._sectionHeaderHeightInDisplayUnits)
         
         return ret
     }
@@ -177,6 +195,24 @@ extension CGA_InitialViewController: UITableViewDataSource {
     
     /* ################################################################## */
     /**
+     This returns the number of available rows, in the given section.
+     
+     - parameter inTableView: The table view that is asking for the row count.
+     - parameter heightForRowAt: The index of the row.
+     - returns: The height of the row, in display units.
+     */
+    func tableView(_ inTableView: UITableView, heightForRowAt inIndexPath: IndexPath) -> CGFloat {
+        if  let centralManager = CGA_AppDelegate.centralManager,
+            (0..<centralManager.stagedBLEPeripherals.count).contains(inIndexPath.row) {
+            let count = CGFloat(centralManager.stagedBLEPeripherals[inIndexPath.row].advertisementData.count)
+            return (Self._labelRowHeightInDisplayUnits * 2.0) + (count * Self._labelRowHeightInDisplayUnits)
+        }
+        
+        return 0.0
+    }
+    
+    /* ################################################################## */
+    /**
      This returns a view, with the data for the given row and section.
      
      - parameter inTableView: The table view that is asking for the cell.
@@ -185,9 +221,18 @@ extension CGA_InitialViewController: UITableViewDataSource {
     func tableView(_ inTableView: UITableView, cellForRowAt inIndexPath: IndexPath) -> UITableViewCell {
         let tableCell = inTableView.dequeueReusableCell(withIdentifier: Self._deviceRowReuseID, for: inIndexPath)
         
-        if  let centralManager = CGA_AppDelegate.centralManager,
+        if  let tableCell = tableCell as? CGA_InitialViewController_TableRow,
+            let centralManager = CGA_AppDelegate.centralManager,
             (0..<centralManager.stagedBLEPeripherals.count).contains(inIndexPath.row) {
-            tableCell.textLabel?.text = centralManager.stagedBLEPeripherals[inIndexPath.row].name
+            tableCell.nameLabel?.text = centralManager.stagedBLEPeripherals[inIndexPath.row].name
+            tableCell.rssiLabel?.text = String(format: "(%d dBm)", centralManager.stagedBLEPeripherals[inIndexPath.row].rssi)
+            var advLabelCont: [String] = []
+            centralManager.stagedBLEPeripherals[inIndexPath.row].advertisementData.forEach {
+                let key = $0.key.localizedVariant
+                let value = String(describing: $0.value)
+                advLabelCont.append(String(format: "%@: %@", key, value))
+            }
+            tableCell.advertisingDataLabel.text = advLabelCont.joined(separator: "\n")
         }
         
         return tableCell

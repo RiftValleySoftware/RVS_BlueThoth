@@ -121,7 +121,7 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
         let peripheral: CBPeripheral
         let name: String
         let advertisementData: [String: Any]
-        let rssi: Double
+        let rssi: Int
     }
     
     /* ################################################################## */
@@ -207,7 +207,7 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
     /**
      The required init, with a "primed" sequence.
      
-     - parameter sequence_contents: The initial value of the Array cache.
+     - parameter sequence_contents: The initial value of the Array cache. It should be empty.
      */
     required init(sequence_contents inSequenceContents: [Element]) {
         sequence_contents = inSequenceContents
@@ -257,7 +257,9 @@ extension CGA_Bluetooth_CentralManager {
 extension CGA_Bluetooth_CentralManager {
     /* ################################################################## */
     /**
-     Convenience init. This allows "no parameter" inits, and ones that only have the queue.
+     This is the init that should always be used.
+     
+     Convenience init. This allows "no parameter" inits, and ones that only have the queue and/or the delegate.
      This will call the delegate's updateFrom(_:) method, upon starting.
      
      - parameter delegate: The delegate instance.
@@ -389,7 +391,7 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
                 #if DEBUG
                     print("Added \(name) (BLE).")
                 #endif
-                stagedBLEPeripherals.append(DiscoveryData(peripheral: inPeripheral, name: name, advertisementData: inAdvertisementData, rssi: Double(truncating: inRSSI)))
+                stagedBLEPeripherals.append(DiscoveryData(peripheral: inPeripheral, name: name, advertisementData: inAdvertisementData, rssi: inRSSI.intValue))
                 _updateDelegate()
             } else {
                 #if DEBUG
