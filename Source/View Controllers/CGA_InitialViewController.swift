@@ -68,7 +68,25 @@ class CGA_InitialViewController: UIViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        CGA_AppDelegate.centralManager = CGA_Bluetooth_CentralManager()
+        CGA_AppDelegate.centralManager = CGA_Bluetooth_CentralManager(delegate: self)
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - CGA_Bluetooth_CentralManagerDelegate Support -
+/* ###################################################################################################################################### */
+extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
+    /* ################################################################## */
+    /**
+     */
+    func handleError(_ inError: Error, from inCentralManager: CGA_Bluetooth_CentralManager) {
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func updateFrom(_ inCentralManager: CGA_Bluetooth_CentralManager) {
+        deviceTableView?.reloadData()
     }
 }
 
@@ -124,7 +142,14 @@ extension CGA_InitialViewController: UITableViewDataSource {
      - returns: The number of rows in the given section.
      */
     func tableView(_ inTableView: UITableView, numberOfRowsInSection inSection: Int) -> Int {
-        0
+        if  let centralManager = CGA_AppDelegate.centralManager {
+            if  _SectionIndexes.ble.rawValue == inSection,
+                !centralManager.stagedBLEPeripherals.isEmpty {
+                return centralManager.stagedBLEPeripherals.count
+            }
+        }
+        
+        return 0
     }
     
     /* ################################################################## */
@@ -136,6 +161,11 @@ extension CGA_InitialViewController: UITableViewDataSource {
      */
     func tableView(_ inTableView: UITableView, cellForRowAt inIndexPath: IndexPath) -> UITableViewCell {
         let tableCell = inTableView.dequeueReusableCell(withIdentifier: Self._deviceRowReuseID, for: inIndexPath)
+        
+        if  let centralManager = CGA_AppDelegate.centralManager,
+            (0..<centralManager.stagedBLEPeripherals.count).contains(inIndexPath.row) {
+            tableCell.textLabel?.text = centralManager.stagedBLEPeripherals[inIndexPath.row].name
+        }
         
         return tableCell
     }

@@ -73,11 +73,45 @@ extension CGA_Class_Protocol {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - The Main Protocol for Each Type -
+/* ###################################################################################################################################### */
+/**
+ */
+protocol CGA_Bluetooth_CentralManagerDelegate: class {
+    /* ################################################################## */
+    /**
+     REQUIRED: This is called to tell the instance to do whatever it needs to do to handle an error.
+     
+     - parameter error: The error to be handled.
+     */
+    func handleError(_ error: Error, from: CGA_Bluetooth_CentralManager)
+    
+    /* ################################################################## */
+    /**
+     REQUIRED: This is called to tell the instance to do whatever it needs to do to update its data.
+     */
+    func updateFrom(_ manager: CGA_Bluetooth_CentralManager)
+}
+
+/* ###################################################################################################################################### */
 // MARK: - The Central Manager -
 /* ###################################################################################################################################### */
 /**
  */
 class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
+    struct DiscoveryData {
+        let peripheral: CBPeripheral
+        let name: String
+        let advertisementData: [String: Any]
+        let rssi: Double
+    }
+    
+    /* ################################################################## */
+    /**
+     The Central Manager Delegate object.
+     */
+    weak var delegate: CGA_Bluetooth_CentralManagerDelegate?
+    
     /* ################################################################## */
     /**
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Class_Protocol
@@ -92,9 +126,15 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
-     This will hold Peripherals, as they are being "loaded." Once they are "complete," they go into the main collection, wrapped in our class.
+     This will hold BLE Peripherals, as they are being "loaded." Once they are "complete," they go into the main collection, wrapped in our class.
      */
-    var stagedPeripherals = [CBPeripheral]()
+    var stagedBLEPeripherals = [DiscoveryData]()
+    
+    /* ################################################################## */
+    /**
+     This will hold Classic Peripherals, as they are being "loaded." Once they are "complete," they go into the main collection, wrapped in our class.
+     */
+    var stagedClassicPeripherals = [DiscoveryData]()
     
     /* ################################################################## */
     /**
@@ -107,6 +147,21 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
      This holds our cached Array of Peripheral instances.
      */
     var sequence_contents: Array<Element>
+    
+    /* ################################################################## */
+    /**
+     */
+    var isScanning: Bool = false {
+        didSet {
+            if let centralManager = cbElementInstance {
+                if isScanning && !oldValue {
+                    centralManager.scanForPeripherals(withServices: nil, options: nil)
+                } else if !isScanning && oldValue {
+                    centralManager.stopScan()
+                }
+            }
+        }
+    }
     
     /* ################################################################## */
     /**
@@ -134,6 +189,8 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
             #endif
         #else
         #endif
+        
+        delegate?.updateFrom(self)
     }
 }
 
@@ -147,21 +204,15 @@ extension CGA_Bluetooth_CentralManager {
     /**
      Convenience init. This allows "no parameter" inits, and ones that only have the queue.
      
+     - parameter delegate: The delegate instance.
      - parameter queue: The queue to be used for this instance. If not specified, the main thread is used.
      */
-    convenience init(queue inQueue: DispatchQueue? = nil) {
+    convenience init(delegate inDelegate: CGA_Bluetooth_CentralManagerDelegate! = nil, queue inQueue: DispatchQueue? = nil) {
         self.init(sequence_contents: [])
+        delegate = inDelegate
         #if !targetEnvironment(simulator)
-            centralManagerInstance = CBCentralManager(delegate: self, queue: inQueue)
+            cbElementInstance = CBCentralManager(delegate: self, queue: inQueue)
         #endif
-    }
-    
-    /* ################################################################## */
-    /**
-     This handles what happens when we get a .poweredOn state.
-     */
-    func handlePoweredOn() {
-        updateCollection()
     }
 }
 
@@ -176,7 +227,7 @@ extension CGA_Bluetooth_CentralManager: CGA_Class_Protocol {
      This class is the "endpoint" of all errors, so it passes the error back to the delegate.
      */
     func handleError(_ inError: Error) {
-        
+        delegate?.handleError(inError, from: self)
     }
 }
 
@@ -195,14 +246,21 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ inCentralManager: CBCentralManager) {
         switch inCentralManager.state {
         case .poweredOn:
-            handlePoweredOn()
-            
-        default:
+            isScanning = true
+            updateCollection()
+
+        case .poweredOff:
+            isScanning = false
             #if targetEnvironment(simulator)    // If we are using a simulator, we pretend we got a .poweredOn state.
-                handlePoweredOn()
+                isScanning = true
+                updateCollection()
             #else
                 break
             #endif
+
+        default:
+            isScanning = false
+            updateCollection()
         }
     }
 
@@ -216,6 +274,15 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
         - for: The CBPeripheral instance that was discovered.
      */
     func centralManager(_ inCentralManager: CBCentralManager, connectionEventDidOccur inConnectionEvent: CBConnectionEvent, for inPeripheral: CBPeripheral) {
+        if  let name = inPeripheral.name,
+            !name.isEmpty {
+            print("Discovered \(name) (Classic).")
+            if !stagedClassicPeripherals.contains(inPeripheral) {
+                print("Added \(name) (Classic).")
+                stagedClassicPeripherals.append(DiscoveryData(peripheral: inPeripheral, name: name, advertisementData: [:], rssi: 0))
+                updateCollection()
+            }
+        }
     }
 
     /* ################################################################## */
@@ -229,5 +296,46 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
         - rssi: The signal strength, in DB.
      */
     func centralManager(_ inCentralManager: CBCentralManager, didDiscover inPeripheral: CBPeripheral, advertisementData inAdvertisementData: [String : Any], rssi inRSSI: NSNumber) {
+        if  let name = inPeripheral.name,
+            !name.isEmpty {
+            print("Discovered \(name) (BLE).")
+            if !stagedBLEPeripherals.contains(inPeripheral) {
+                print("Added \(name) (BLE).")
+                stagedBLEPeripherals.append(DiscoveryData(peripheral: inPeripheral, name: name, advertisementData: inAdvertisementData, rssi: Double(truncating: inRSSI)))
+                updateCollection()
+            }
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Special Comparator for the Peripherals Array -
+/* ###################################################################################################################################### */
+/**
+ This allows us to fetch Peripherals, looking for an exact instance.
+ */
+extension Array where Element == CGA_Bluetooth_CentralManager.DiscoveryData {
+    /* ################################################################## */
+    /**
+     Special subscript that allows us to retrieve an Element by its contained Peripheral
+     
+     - parameter inItem: The Peripheral we're looking to match.
+     - returns: The found Element, or nil, if not found.
+     */
+    subscript(_ inItem: CBPeripheral) -> Element! {
+        return reduce(nil) { (current, nextItem) in
+            return nil == current ? (nextItem.peripheral === inItem ? nextItem : nil) : current
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Checks to see if the Array contains an instance that wraps the given CB element.
+     
+     - parameter inItem: The CB element we're looking to match.
+     - returns: True, if the Array contains a wrapper for the given element.
+     */
+    func contains(_ inItem: CBPeripheral) -> Bool {
+        return nil != self[inItem]
     }
 }
