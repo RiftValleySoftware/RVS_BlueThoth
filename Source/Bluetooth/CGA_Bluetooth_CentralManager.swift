@@ -118,10 +118,80 @@ extension CGA_Bluetooth_CentralManagerDelegate {
  */
 class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
     struct DiscoveryData {
+        /* ############################################################## */
+        /**
+         The actual Peripheral instance.
+         */
         let peripheral: CBPeripheral
+        
+        /* ############################################################## */
+        /**
+         The initial Peripheral Name
+         */
         let name: String
+        
+        /* ############################################################## */
+        /**
+         */
         let advertisementData: [String: Any]
+        
+        /* ############################################################## */
+        /**
+         */
         let rssi: Int
+        
+        /* ############################################################## */
+        /**
+         */
+        var canConnect: Bool {
+            if !advertisementData.isEmpty {
+                return advertisementData.reduce(false) { (current, next) in
+                    if  !current,
+                        CBAdvertisementDataIsConnectable == next.key {
+                        if let value = next.value as? Int {
+                            return 1 == value
+                        }
+                    }
+                    
+                    return current || false
+                }
+            }
+            
+            return false
+        }
+        
+        /* ############################################################## */
+        /**
+         */
+        var localName: String {
+            if !advertisementData.isEmpty {
+                return advertisementData.reduce("") { (current, next) in
+                    if  current.isEmpty,
+                        CBAdvertisementDataLocalNameKey == next.key {
+                        if let value = next.value as? String {
+                            return value
+                        }
+                    }
+                    
+                    return current
+                }
+            }
+            
+            return ""
+        }
+        
+        /* ############################################################## */
+        /**
+         */
+        var preferredName: String {
+            var ret = localName
+            
+            if ret.isEmpty {
+                ret = name
+            }
+            
+            return ret
+        }
     }
     
     /* ################################################################## */

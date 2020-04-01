@@ -70,6 +70,12 @@ class CGA_InitialViewController: UIViewController {
      The reuse ID that we use for creating new table cells.
      */
     private static let _deviceRowReuseID = "device-row"
+    
+    /* ################################################################## */
+    /**
+     The ID of the segue that is executed to display device details.
+     */
+    private static let _deviceDetailSegueID = "show-device-detail"
 
     /* ################################################################## */
     /**
@@ -82,18 +88,12 @@ class CGA_InitialViewController: UIViewController {
      This is the table that will list the discovered devices.
      */
     @IBOutlet weak var deviceTableView: UITableView!
-    
-    /* ################################################################## */
-    /**
-     Called after the view data has been loaded.
-     */
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        deviceTableView?.refreshControl = _refreshControl
-        _refreshControl.addTarget(self, action: #selector(startOver(_:)), for: .valueChanged)
-        CGA_AppDelegate.centralManager = CGA_Bluetooth_CentralManager(delegate: self)
-    }
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Callback/Observer Methods -
+/* ###################################################################################################################################### */
+extension CGA_InitialViewController {
     /* ################################################################## */
     /**
      This is called by the table's "pull to refresh" handler.
@@ -105,6 +105,60 @@ class CGA_InitialViewController: UIViewController {
     @objc func startOver(_: Any) {
         CGA_AppDelegate.centralManager?.startOver()
         _refreshControl.endRefreshing()
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Overridden Superclass Methods -
+/* ###################################################################################################################################### */
+extension CGA_InitialViewController {
+    /* ################################################################## */
+    /**
+     Called after the view data has been loaded.
+     */
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        deviceTableView?.refreshControl = _refreshControl
+        _refreshControl.addTarget(self, action: #selector(startOver(_:)), for: .valueChanged)
+        CGA_AppDelegate.centralManager = CGA_Bluetooth_CentralManager(delegate: self)
+        navigationItem.backBarButtonItem?.title = navigationItem.backBarButtonItem?.title?.localizedVariant
+    }
+    
+    /* ################################################################## */
+    /**
+     Called just before the view appears. We use this to hide the navBar.
+     
+     - parameter inAnimated: True, if the appearance is animated (we ignore this).
+     */
+    override func viewWillAppear(_ inAnimated: Bool) {
+        super.viewWillAppear(inAnimated)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    /* ################################################################## */
+    /**
+     Called just before the view disappears. We use this to show the navBar.
+     
+     - parameter inAnimated: True, if the appearance is animated (we ignore this).
+     */
+    override func viewWillDisappear(_ inAnimated: Bool) {
+        super.viewWillDisappear(inAnimated)
+        navigationController?.navigationBar.isHidden = false
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called just before we bring in the device screen (or the about screen).
+     
+     - parameter for: The segue being executed.
+     - parameter sender: The data we want passed into the destination.
+     */
+    override func prepare(for inSegue: UIStoryboardSegue, sender inSender: Any?) {
+        // We only go further if we are looking at device details.
+        guard   let destination = inSegue.destination as? CGA_DetailViewController,
+                let senderData = inSender as? CGA_Bluetooth_CentralManager.DiscoveryData else { return }
+        
+        destination.deviceAdvInfo = senderData
     }
 }
 
@@ -295,6 +349,9 @@ extension CGA_InitialViewController: UITableViewDataSource {
         if  let tableCell = tableCell as? CGA_InitialViewController_TableRow,
             let centralManager = CGA_AppDelegate.centralManager,
             (0..<centralManager.stagedBLEPeripherals.count).contains(inIndexPath.row) {
+            let fontColor = UIColor(white: centralManager.stagedBLEPeripherals[inIndexPath.row].canConnect ? 1.0 : 0.75, alpha: 1.0)
+            tableCell.nameLabel?.textColor = fontColor
+            tableCell.rssiLabel?.textColor = fontColor
             tableCell.nameLabel?.text = centralManager.stagedBLEPeripherals[inIndexPath.row].name
             tableCell.rssiLabel?.text = String(format: "(%d dBm)", centralManager.stagedBLEPeripherals[inIndexPath.row].rssi)
             let advertisingData = _createAdvertimentStringsFor(inIndexPath.row)
@@ -307,7 +364,7 @@ extension CGA_InitialViewController: UITableViewDataSource {
                     let bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: containerView.bounds.size.width, height: Self._labelRowHeightInDisplayUnits))
                     let newLabel = UILabel(frame: bounds)
                     newLabel.text = $0
-                    newLabel.textColor = .white
+                    newLabel.textColor = fontColor
                     topAnchor = _addContainedSubView(newLabel, to: containerView, under: topAnchor)
                 }
             
@@ -324,7 +381,35 @@ extension CGA_InitialViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate Support -
 /* ###################################################################################################################################### */
 extension CGA_InitialViewController: UITableViewDelegate {
+    /* ################################################################## */
+    /**
+     Called to test whether or not to allow a row to be selected.
+     
+     - parameter inTableView: The table view that is asking for the cell.
+     - parameter willSelectRowAt: The index path (section, row) for the cell.
+     - returns: The IndexPath of the cell, if approved, or nil, if not.
+     */
+    func tableView(_ inTableView: UITableView, willSelectRowAt inIndexPath: IndexPath) -> IndexPath? {
+        if  let centralManager = CGA_AppDelegate.centralManager,
+            centralManager.stagedBLEPeripherals[inIndexPath.row].canConnect {
+            return inIndexPath
+        }
+        
+        return nil
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when a row is selected.
+     
+     - parameter inTableView: The table view that is asking for the cell.
+     - parameter didSelectRowAt: The index path (section, row) for the cell.
+     */
     func tableView(_ inTableView: UITableView, didSelectRowAt inIndexPath: IndexPath) {
         inTableView.deselectRow(at: inIndexPath, animated: false)
+        
+        if let centralManager = CGA_AppDelegate.centralManager {
+            performSegue(withIdentifier: Self._deviceDetailSegueID, sender: centralManager.stagedBLEPeripherals[inIndexPath.row])
+        }
     }
 }
