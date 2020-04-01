@@ -26,10 +26,25 @@ import UIKit
 // MARK: - The CGA_InitialViewController_TableRow Class (Denotes One Row of the Table) -
 /* ###################################################################################################################################### */
 /**
+ This is a simple class that will be used to display one row in the initial discovery table.
  */
 class CGA_InitialViewController_TableRow: UITableViewCell {
+    /* ################################################################## */
+    /**
+     This will display the advertised name.
+     */
     @IBOutlet var nameLabel:UILabel!
+
+    /* ################################################################## */
+    /**
+     This will display the RSSI level.
+     */
     @IBOutlet var rssiLabel: UILabel!
+
+    /* ################################################################## */
+    /**
+     This will contain a dynamicall-generated series of labels that will contain the advertising data.
+     */
     @IBOutlet var advertisingDataView: UIView!
 }
 
@@ -168,6 +183,10 @@ extension CGA_InitialViewController {
 extension CGA_InitialViewController {
     /* ################################################################## */
     /**
+     This creates an Array of String, containing the advertisement data from the indexed device.
+     
+     - parameter inIndex: The 0-based index of the device to fetch.
+     - returns: An Array of String, with the advertisement data in "key: value" form.
      */
     private func _createAdvertimentStringsFor(_ inIndex: Int) -> [String] {
         if  let centralManager = CGA_AppDelegate.centralManager,

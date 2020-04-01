@@ -34,13 +34,20 @@ import CoreBluetooth
 // MARK: - The Main Protocol for Each Type -
 /* ###################################################################################################################################### */
 /**
+ This protocol is the "base" protocol to which all the exposed types conform.
  */
 protocol CGA_Class_Protocol: class {
     /* ################################################################## */
     /**
-     This is used to reference an "owning instance" of this instance, and it should be a CGA_Class_Protocol
+     REQUIRED: This is used to reference an "owning instance" of this instance.
      */
     var parent: CGA_Class_Protocol? { get set }
+    
+    /* ################################################################## */
+    /**
+     REQUIRED: This is called to tell the instance to do whatever it needs to do to update its collection.
+     */
+    func updateCollection()
 
     /* ################################################################## */
     /**
@@ -49,12 +56,6 @@ protocol CGA_Class_Protocol: class {
      - parameter error: The error to be handled.
      */
     func handleError(_ error: Error)
-    
-    /* ################################################################## */
-    /**
-     REQUIRED: This is called to tell the instance to do whatever it needs to do to update its collection.
-     */
-    func updateCollection()
 }
 
 /* ###################################################################################################################################### */
