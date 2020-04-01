@@ -208,15 +208,19 @@ extension CGA_InitialViewController: UITableViewDataSource {
      - returns: The header for the section, as a view (a label).
      */
     func tableView(_ inTableView: UITableView, viewForHeaderInSection inSection: Int) -> UIView? {
-        let ret = UILabel()
+        if 1 < _SectionIndexes.numSections.rawValue {
+            let ret = UILabel()
+            
+            ret.text = ("SLUG-SECTION-HEADER-" + (_SectionIndexes.ble.rawValue == inSection ? "BLE" : "CLASSIC")).localizedVariant
+            ret.textColor = .blue
+            ret.textAlignment = .center
+            ret.backgroundColor = .white
+            ret.font = .boldSystemFont(ofSize: Self._sectionHeaderHeightInDisplayUnits)
+            
+            return ret
+        }
         
-        ret.text = ("SLUG-SECTION-HEADER-" + (_SectionIndexes.ble.rawValue == inSection ? "BLE" : "CLASSIC")).localizedVariant
-        ret.textColor = .blue
-        ret.textAlignment = .center
-        ret.backgroundColor = .white
-        ret.font = .boldSystemFont(ofSize: Self._sectionHeaderHeightInDisplayUnits)
-        
-        return ret
+        return nil
     }
     
     /* ################################################################## */
@@ -298,6 +302,7 @@ extension CGA_InitialViewController: UITableViewDataSource {
                 containerView.subviews.forEach { $0.removeFromSuperview() }
                 var topAnchor: NSLayoutYAxisAnchor = containerView.topAnchor
 
+                // Each row of advertising data is turned into a new label, which is added to the container view; just under the previous label.
                 advertisingData.forEach {
                     let bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: containerView.bounds.size.width, height: Self._labelRowHeightInDisplayUnits))
                     let newLabel = UILabel(frame: bounds)
@@ -319,5 +324,7 @@ extension CGA_InitialViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate Support -
 /* ###################################################################################################################################### */
 extension CGA_InitialViewController: UITableViewDelegate {
-    
+    func tableView(_ inTableView: UITableView, didSelectRowAt inIndexPath: IndexPath) {
+        inTableView.deselectRow(at: inIndexPath, animated: false)
+    }
 }
