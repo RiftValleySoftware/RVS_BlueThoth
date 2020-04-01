@@ -21,3 +21,10 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 */
 "SLUG-SECTION-HEADER-BLE"           =   "BLE";
 "SLUG-SECTION-HEADER-CLASSIC"       =   "BR/EDR";
+"kCBAdvDataLocalName"               =   "Name";
+"kCBAdvDataIsConnectable"           =   "Can Connect";
+"kCBAdvDataTxPowerLevel"            =   "Transmit Power Level";
+"kCBAdvDataTimestamp"               =   "Timestamp";
+"kCBAdvDataRxPrimaryPHY"            =   "Primary Receive";
+"kCBAdvDataRxSecondaryPHY"          =   "Secondary Receive";
+"kCBAdvDataManufacturerData"        =   "Manufacturer Data";

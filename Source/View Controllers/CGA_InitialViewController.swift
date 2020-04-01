@@ -30,7 +30,7 @@ import UIKit
 class CGA_InitialViewController_TableRow: UITableViewCell {
     @IBOutlet var nameLabel:UILabel!
     @IBOutlet var rssiLabel: UILabel!
-    @IBOutlet var advertisingDataLabel: UILabel!
+    @IBOutlet var advertisingDataView: UIView!
 }
 
 /* ###################################################################################################################################### */
@@ -96,10 +96,55 @@ class CGA_InitialViewController: UIViewController {
     
     /* ################################################################## */
     /**
+     This is called by the table's "pull to refresh" handler.
+     
+     When this is called, the Bluetooth subsystem wipes out all of its cached Peripherals, and starts over from scratch.
+     
+     - parameter: ignored.
      */
-    @objc func startOver(_ sender: Any) {
+    @objc func startOver(_: Any) {
         CGA_AppDelegate.centralManager?.startOver()
         _refreshControl.endRefreshing()
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Private Methods -
+/* ###################################################################################################################################### */
+extension CGA_InitialViewController {
+    /* ################################################################## */
+    /**
+     */
+    private func _createAdvertimentStringsFor(_ inIndex: Int) -> [String] {
+        if  let centralManager = CGA_AppDelegate.centralManager,
+            (0..<centralManager.stagedBLEPeripherals.count).contains(inIndex) {
+            let adData = centralManager.stagedBLEPeripherals[inIndex].advertisementData
+            
+            let retStr = adData.reduce("") { (current, next) in
+                let key = next.key.localizedVariant
+                let value = next.value
+                var ret = current.isEmpty ? "" : "\(current)\n"
+                
+                if let asStringArray = value as? [String] {
+                    ret += current + asStringArray.reduce("\(key): ") { (current2, next2) in
+                        return "\(current2)\n\(next2.localizedVariant)"
+                    }
+                } else if let value = value as? String {
+                    ret += "\(key): \(value.localizedVariant)"
+                } else if let value = value as? Int {
+                    ret += "\(key): \(value)"
+                } else if let value = value as? Double {
+                    ret += "\(key): \(value)"
+                } else {
+                    ret += "\(key): \(String(describing: value))"
+                }
+                
+                return ret
+            }.split(separator: "\n").map { String($0) }
+            
+            return retStr
+        }
+        return []
     }
 }
 
@@ -204,8 +249,8 @@ extension CGA_InitialViewController: UITableViewDataSource {
     func tableView(_ inTableView: UITableView, heightForRowAt inIndexPath: IndexPath) -> CGFloat {
         if  let centralManager = CGA_AppDelegate.centralManager,
             (0..<centralManager.stagedBLEPeripherals.count).contains(inIndexPath.row) {
-            let count = CGFloat(centralManager.stagedBLEPeripherals[inIndexPath.row].advertisementData.count)
-            return (Self._labelRowHeightInDisplayUnits * 2.0) + (count * Self._labelRowHeightInDisplayUnits)
+            let advDataLen = CGFloat(_createAdvertimentStringsFor(inIndexPath.row).count)
+            return (Self._labelRowHeightInDisplayUnits) + (advDataLen * Self._labelRowHeightInDisplayUnits)
         }
         
         return 0.0
@@ -219,20 +264,51 @@ extension CGA_InitialViewController: UITableViewDataSource {
      - parameter cellForRowAt: The index path (section, row) for the cell.
      */
     func tableView(_ inTableView: UITableView, cellForRowAt inIndexPath: IndexPath) -> UITableViewCell {
+        /* ################################################################## */
+        /**
+         This allows us to easily add a new subview to a view, and keep it tied to the one above.
+         
+         - parameter inSubView: The view we are adding.
+         - parameter to: The view we are embedding it in.
+         - parameter under: The bottom constraint of the view just above this one.
+         - returns: The bottom anchor of the embedded view (to be used as "under" in the next iteration).
+         */
+        func _addContainedSubView(_ inSubView: UIView, to inToView: UIView, under inUnderAnchor: NSLayoutYAxisAnchor) -> NSLayoutYAxisAnchor {
+            inToView.addSubview(inSubView)
+            
+            inSubView.translatesAutoresizingMaskIntoConstraints = false
+            
+            inSubView.topAnchor.constraint(equalTo: inUnderAnchor, constant: 0).isActive = true
+            inSubView.leadingAnchor.constraint(equalTo: inToView.leadingAnchor, constant: 0).isActive = true
+            inSubView.trailingAnchor.constraint(equalTo: inToView.trailingAnchor, constant: 0).isActive = true
+            
+            return inSubView.bottomAnchor
+        }
+
         let tableCell = inTableView.dequeueReusableCell(withIdentifier: Self._deviceRowReuseID, for: inIndexPath)
         
+        // We populate the cell dynamically, creating new labels for each of the advertising data rows.
         if  let tableCell = tableCell as? CGA_InitialViewController_TableRow,
             let centralManager = CGA_AppDelegate.centralManager,
             (0..<centralManager.stagedBLEPeripherals.count).contains(inIndexPath.row) {
             tableCell.nameLabel?.text = centralManager.stagedBLEPeripherals[inIndexPath.row].name
             tableCell.rssiLabel?.text = String(format: "(%d dBm)", centralManager.stagedBLEPeripherals[inIndexPath.row].rssi)
-            var advLabelCont: [String] = []
-            centralManager.stagedBLEPeripherals[inIndexPath.row].advertisementData.forEach {
-                let key = $0.key.localizedVariant
-                let value = String(describing: $0.value)
-                advLabelCont.append(String(format: "%@: %@", key, value))
+            let advertisingData = _createAdvertimentStringsFor(inIndexPath.row)
+            if  let containerView = tableCell.advertisingDataView {
+                containerView.subviews.forEach { $0.removeFromSuperview() }
+                var topAnchor: NSLayoutYAxisAnchor = containerView.topAnchor
+
+                advertisingData.forEach {
+                    let bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: containerView.bounds.size.width, height: Self._labelRowHeightInDisplayUnits))
+                    let newLabel = UILabel(frame: bounds)
+                    newLabel.text = $0
+                    newLabel.textColor = .white
+                    topAnchor = _addContainedSubView(newLabel, to: containerView, under: topAnchor)
+                }
+            
+                // Tie the last one off to the bottom of the view.
+                topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 0).isActive = true
             }
-            tableCell.advertisingDataLabel.text = advLabelCont.joined(separator: "\n")
         }
         
         return tableCell
