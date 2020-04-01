@@ -22,12 +22,28 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 
 import UIKit
 
-class CGA_ViewController: UIViewController {
+/* ###################################################################################################################################### */
+// MARK: -
+/* ###################################################################################################################################### */
+/**
+ */
+@UIApplicationMain
+class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
     /* ################################################################## */
     /**
      */
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
+    static var centralManager: CGA_Bluetooth_CentralManager?
+
+    /* ################################################################## */
+    /**
+     */
+    var window: UIWindow?
+    
+    /* ################################################################## */
+    /**
+     */
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+        return true
     }
 }
