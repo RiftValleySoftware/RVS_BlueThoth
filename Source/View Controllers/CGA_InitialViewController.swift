@@ -43,7 +43,7 @@ class CGA_InitialViewController_TableRow: UITableViewCell {
 
     /* ################################################################## */
     /**
-     This will contain a dynamicall-generated series of labels that will contain the advertising data.
+     This will wrap a dynamically-generated series of labels that will display the advertising data.
      */
     @IBOutlet var advertisingDataView: UIView!
 }
@@ -204,11 +204,21 @@ extension CGA_InitialViewController {
                     }
                 } else if let value = value as? String {
                     ret += "\(key): \(value.localizedVariant)"
+                } else if let value = value as? Bool {
+                    ret += "\(key): \(value ? "true" : "false")"
                 } else if let value = value as? Int {
                     ret += "\(key): \(value)"
                 } else if let value = value as? Double {
-                    ret += "\(key): \(value)"
-                } else {
+                    if "kCBAdvDataTimestamp" == next.key {  // If it's the timestamp, we can translate tha, here.
+                        let date = Date(timeIntervalSinceReferenceDate: value)
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "SLUG-MAIN-LIST-DATE-FORMAT".localizedVariant
+                        let displayedDate = dateFormatter.string(from: date)
+                        ret += "\(key): \(displayedDate)"
+                    } else {
+                        ret += "\(key): \(value)"
+                    }
+                } else {    // Anything else is just a described instance of something or other.
                     ret += "\(key): \(String(describing: value))"
                 }
                 

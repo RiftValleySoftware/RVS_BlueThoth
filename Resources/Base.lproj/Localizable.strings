@@ -22,6 +22,7 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 "SLUG-SECTION-HEADER-BLE"           =   "BLE";
 "SLUG-SECTION-HEADER-CLASSIC"       =   "BR/EDR";
 "SLUG-DEVICES"                      =   "Device List";
+"SLUG-MAIN-LIST-DATE-FORMAT"        =   "MM/dd/yyyy h:mm:ss.SSS a";
 "kCBAdvDataLocalName"               =   "Name";
 "kCBAdvDataIsConnectable"           =   "Can Connect";
 "kCBAdvDataTxPowerLevel"            =   "Transmit Power Level";
