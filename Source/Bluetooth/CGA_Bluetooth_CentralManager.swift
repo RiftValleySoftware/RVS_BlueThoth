@@ -91,8 +91,36 @@ protocol CGA_Bluetooth_CentralManagerDelegate: class {
     /* ################################################################## */
     /**
      OPTIONAL: This is called to tell the instance to do whatever it needs to do to update its data.
+     
+     - parameter centralManager: The central manager that is calling this.
      */
-    func updateFrom(_ manager: CGA_Bluetooth_CentralManager)
+    func updateFrom(_ centralManager: CGA_Bluetooth_CentralManager)
+    
+    /* ################################################################## */
+    /**
+     OPTIONAL: This is called to tell the instance that the state of the Central manager just became "powered on."
+     
+     - parameter centralManager: The central manager that is calling this.
+     */
+    func centralManagerPoweredOn(_ centralManager: CGA_Bluetooth_CentralManager)
+
+    /* ################################################################## */
+    /**
+     OPTIONAL: This is called to tell the instance that a new Peripheral device has been added and connected.
+     
+     - parameter centralManager: The central manager that is calling this.
+     - parameter addedDevice: The device instance that was added (and connected).
+     */
+    func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, addedDevice: CGA_Bluetooth_Peripheral)
+    
+    /* ################################################################## */
+    /**
+     OPTIONAL: This is called to tell the instance that a peripheral device is about to be disconnected.
+     
+     - parameter centralManager: The central manager that is calling this.
+     - parameter willRemoveThisDevice: The device instance that will be removed after this call.
+     */
+    func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, willRemoveThisDevice: CGA_Bluetooth_Peripheral)
 }
 
 /* ###################################################################################################################################### */
@@ -104,12 +132,30 @@ extension CGA_Bluetooth_CentralManagerDelegate {
      The default does nothing.
      */
     func handleError(_: Error, from: CGA_Bluetooth_CentralManager) { }
-
+    
     /* ################################################################## */
     /**
      The default does nothing.
      */
     func updateFrom(_: CGA_Bluetooth_CentralManager) { }
+    
+    /* ################################################################## */
+    /**
+     The default does nothing.
+     */
+    func centralManagerPoweredOn(_: CGA_Bluetooth_CentralManager) { }
+
+    /* ################################################################## */
+    /**
+     The default does nothing.
+     */
+    func centralManager(_: CGA_Bluetooth_CentralManager, addedDevice: CGA_Bluetooth_Peripheral) { }
+    
+    /* ################################################################## */
+    /**
+     The default does nothing.
+     */
+    func centralManager(_: CGA_Bluetooth_CentralManager, willRemoveThisDevice: CGA_Bluetooth_Peripheral) { }
 }
 
 /* ###################################################################################################################################### */
@@ -118,12 +164,17 @@ extension CGA_Bluetooth_CentralManagerDelegate {
 /**
  */
 class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
-    struct DiscoveryData {
+    /* ################################################################################################################################## */
+    /**
+     This is a class, as opposed to a struct, because I want to make sure that it is referenced, and not copied.
+     */
+    class DiscoveryData {
         /* ############################################################## */
         /**
-         The actual Peripheral instance.
+         The actual Peripheral instance. This is a strong reference.
+         This will retain the allocation for the Peripheral until after it has been connected and discovery is complete.
          */
-        let peripheral: CBPeripheral
+        var peripheral: CBPeripheral
         
         /* ############################################################## */
         /**
@@ -193,6 +244,16 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
             
             return ret
         }
+        
+        /* ############################################################## */
+        /**
+         */
+        init(peripheral inPeripheral: CBPeripheral, name inName: String, advertisementData inAdvertisementData: [String: Any], rssi inRSSI: Int) {
+            peripheral = inPeripheral
+            name = inName
+            advertisementData = inAdvertisementData
+            rssi = inRSSI
+        }
     }
     
     /* ################################################################## */
@@ -218,6 +279,12 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
         return false
     }
 
+    /* ################################################################## */
+    /**
+     This holds any Services (as Strings) that were specified when scanning started.
+     */
+    var scanningServices: [String] = []
+    
     /* ################################################################## */
     /**
      This holds the instance of CBCentralManager that is used by this instance.
@@ -246,43 +313,17 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
     /**
      This is the indicator as to whether or not the Bluetooth subsystem is actiively scanning for Peripherals.
      
-     It is really an accessor that reflects the behavior of the Central Manager CB object, and will also notify the delegate of changes in the state.
+     This is read-only. Use the <code>startScanning(withServices:)</code> and <code>stopScanning()</code> methods to change the scanning state.
      */
     var isScanning: Bool {
-        get {
-            guard let centralManager = cbElementInstance else {
-                #if DEBUG
-                    print("No Central Manager Instance.")
-                #endif
-                return false
-            }
-           
-            return centralManager.isScanning
-        }
-        
-        set {
-            guard let centralManager = cbElementInstance else {
-                #if DEBUG
-                    print("No Central Manager Instance.")
-                #endif
-                return
-            }
-
-            let oldValue = centralManager.isScanning
-            
+        guard let centralManager = cbElementInstance else {
             #if DEBUG
-                print("Central Manager was \(oldValue ? "" : "not ")scanning.")
-                print("Turning scanning \(newValue ? "on" : "off").")
+                print("No Central Manager Instance.")
             #endif
-            
-            if newValue {
-                centralManager.scanForPeripherals(withServices: nil, options: nil)
-            } else if centralManager.isScanning {
-                centralManager.stopScan()
-            }
-
-            _updateDelegate()
+            return false
         }
+       
+        return centralManager.isScanning
     }
     
     /* ################################################################## */
@@ -323,12 +364,51 @@ extension CGA_Bluetooth_CentralManager {
     /**
      This is called to send the "Update Thyself" message to the delegate.
      */
+    private func _updateDelegatePoweredOn() {
+        DispatchQueue.main.async {
+            #if DEBUG
+                print("Telling the delegate that we just powered on.")
+            #endif
+            self.delegate?.centralManagerPoweredOn(self)
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     This is called to send the "Update Thyself" message to the delegate.
+     */
     private func _updateDelegate() {
         DispatchQueue.main.async {
             #if DEBUG
-                print("Asking delegate to recaclculate.")
+                print("Asking delegate to recalculate.")
             #endif
             self.delegate?.updateFrom(self)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called to send a new peripheral message to the delegate.
+     */
+    private func _sendNewPeripheral(_ inPeripheral: CGA_Bluetooth_Peripheral) {
+        DispatchQueue.main.async {
+            #if DEBUG
+                print("Sending a new Peripheral message to the delegate.")
+            #endif
+            self.delegate?.centralManager(self, addedDevice: inPeripheral)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called to send a disconnecting peripheral message to the delegate.
+     */
+    private func _sendPeripheralDisconnect(_ inPeripheral: CGA_Bluetooth_Peripheral) {
+        DispatchQueue.main.async {
+            #if DEBUG
+                print("Sending a Peripheral will disconnect message to the delegate.")
+            #endif
+            self.delegate?.centralManager(self, willRemoveThisDevice: inPeripheral)
         }
     }
 }
@@ -356,6 +436,83 @@ extension CGA_Bluetooth_CentralManager {
     
     /* ################################################################## */
     /**
+     Asks the Central Manager to start scanning for Peripherals.
+     - parameter withServices: An Array od Strings, with the UUID strings. This is optional, and can be left out, in which case all services will be scanned.
+     - returns: True, if the scan attempt was made (not a guarantee of success, though). Can be ignored.
+     */
+    @discardableResult
+    func startScanning(withServices inWithServices: [String]? = nil) -> Bool {
+        if let cbCentral = cbElementInstance {
+            #if DEBUG
+                print("Asking Central Manager to Start Scanning.")
+                if  let services = inWithServices,
+                    !services.isEmpty {
+                    print("\tWith these Services: \(String(describing: services))")
+                }
+            #endif
+            // Take off and nuke the entire site from orbit.
+            // It's the only way to be sure.
+            if cbCentral.isScanning {
+                cbCentral.stopScan()
+            }
+            
+            var services: [CBUUID]!
+            
+            scanningServices = []
+            
+            if  let inServices = inWithServices,
+                !inServices.isEmpty {
+                scanningServices = inServices   // Save this, if we need to interrupt scanning.
+                services = inServices.compactMap { CBUUID(string: $0) }
+            }
+            
+            cbCentral.scanForPeripherals(withServices: services, options: nil)
+            
+            _updateDelegate()
+
+            return true
+        }
+        
+        return false
+    }
+    
+    /* ################################################################## */
+    /**
+     Asks the Central Manager to start scanning for Peripherals, but use any saved filters.
+     - returns: True, if the scan attempt was made (not a guarantee of success, though). Can be ignored.
+     */
+    @discardableResult
+    func restartScanning() -> Bool {
+        #if DEBUG
+            print("Asking Central Manager to Restart Scanning.")
+        #endif
+        return startScanning(withServices: scanningServices)
+    }
+    
+    /* ################################################################## */
+    /**
+     Asks the Central Manager to stop scanning for Peripherals.
+     - returns: True, if the attempt was made (not a guarantee of success, though). Can be ignored.
+     */
+    @discardableResult
+    func stopScanning() -> Bool {
+        #if DEBUG
+            print("Asking Central Manager to Stop Scanning.")
+        #endif
+        if  let cbCentral = cbElementInstance,
+            cbCentral.isScanning {
+            cbCentral.stopScan()
+            
+            _updateDelegate()
+
+            return true
+        }
+
+        return false
+    }
+
+    /* ################################################################## */
+    /**
      This eliminates all of the stored results, and asks the Bluetooth subsystem to start over from scratch.
      */
     func startOver() {
@@ -363,11 +520,59 @@ extension CGA_Bluetooth_CentralManager {
             print("Starting Over From Scratch.")
         #endif
         let wasScanning = isScanning
-        isScanning = false
+        stopScanning()
         stagedBLEPeripherals = []
         sequence_contents = []
         _updateDelegate()
-        isScanning = wasScanning
+        if wasScanning {
+            restartScanning()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called to initiate a connection (and discovery process) with the peripheral.
+     
+     - parameter inPeripheral: The Peripheral (CB) to connect.
+     - returns: True, if the connection attempt was made (not a guarantee of success, though). Can be ignored.
+     */
+    @discardableResult
+    func connect(_ inPeripheral: CBPeripheral?) -> Bool {
+        if  let peripheral = inPeripheral,
+            let cbCentral = cbElementInstance,
+            stagedBLEPeripherals.contains(peripheral) {
+            #if DEBUG
+                print("Connecting \(String(describing: peripheral.name)).")
+            #endif
+            cbCentral.connect(peripheral, options: nil)
+            
+            return true
+        }
+        
+        return false
+    }
+    
+    /* ################################################################## */
+    /**
+     Called to terminate a connection with the peripheral.
+     
+     - parameter inPeripheral: The Peripheral (CB) to connect.
+     - returns: True, if the disconnection attempt was made (not a guarantee of success, though). Can be ignored.
+     */
+    @discardableResult
+    func disconnect(_ inPeripheral: CBPeripheral) -> Bool {
+        if  let cbCentral = cbElementInstance,
+            sequence_contents.contains(inPeripheral) {
+            
+            #if DEBUG
+                print("Disconnecting \(String(describing: inPeripheral.name)).")
+            #endif
+            cbCentral.cancelPeripheralConnection(inPeripheral)
+            
+            return true
+        }
+        
+        return false
     }
 }
 
@@ -412,43 +617,43 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
             #if DEBUG
                 print("\tState is Powered On.")
             #endif
-            isScanning = true
-
+            _updateDelegatePoweredOn()
+            
         case .poweredOff:
             #if DEBUG
                 print("\tState is Powered Off.")
             #endif
-            isScanning = false
+            stopScanning()
 
         case .resetting:
             #if DEBUG
                 print("\tState is Resetting.")
             #endif
-            isScanning = false
+            stopScanning()
 
         case .unauthorized:
             #if DEBUG
                 print("\tState is Unauthorized.")
             #endif
-            isScanning = false
+            stopScanning()
 
         case .unknown:
             #if DEBUG
                 print("\tState is Unknown.")
             #endif
-            isScanning = false
+            stopScanning()
 
         case .unsupported:
             #if DEBUG
                 print("\tState is Unsupported.")
             #endif
-            isScanning = false
+            stopScanning()
 
         default:
             #if DEBUG
                 print("\tState is Something Else.")
             #endif
-            isScanning = false
+            stopScanning()
         }
         
         _updateDelegate()
@@ -484,6 +689,63 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
             }
         }
     }
+    
+    /* ################################################################## */
+    /**
+     This is called when a Bluetooth device has been connected (but no discovery yet).
+     
+     - parameters:
+        - inCentralManager: The CBCentralManager instance that is calling this.
+        - didConnect: The CBPeripheral instance that was connected.
+     */
+    func centralManager(_ inCentralManager: CBCentralManager, didConnect inPeripheral: CBPeripheral) {
+        #if DEBUG
+            print("Connected \(String(describing: inPeripheral.name)).")
+        #endif
+        inPeripheral.delegate = self
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called when a Bluetooth device has been disconnected.
+     
+     - parameters:
+        - inCentralManager: The CBCentralManager instance that is calling this.
+        - didDisconnectPeripheral: The CBPeripheral instance that was connected.
+        - error: Any error that occurred. It can (and should) be nil.
+     */
+    func centralManager(_ inCentralManager: CBCentralManager, didDisconnectPeripheral inPeripheral: CBPeripheral, error inError: Error?) {
+        #if DEBUG
+            print("Connected \(String(describing: inPeripheral.name)).")
+            if let error = inError {
+                print("\tWith error: \(String(describing: error)).")
+            }
+        #endif
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called when a Bluetooth device connection has failed.
+     
+     - parameters:
+        - inCentralManager: The CBCentralManager instance that is calling this.
+        - didFailToConnect: The CBPeripheral instance that was not connected.
+        - error: Any error that occurred. It can be nil.
+     */
+    func centralManager(_ inCentralManager: CBCentralManager, didFailToConnect inPeripheral: CBPeripheral, error inError: Error?) {
+        #if DEBUG
+            print("Connecting \(String(describing: inPeripheral.name)) Failed.")
+            if let error = inError {
+                print("\tWith error: \(String(describing: error)).")
+            }
+        #endif
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - CBPeripheralDelegate Support -
+/* ###################################################################################################################################### */
+extension CGA_Bluetooth_CentralManager: CBPeripheralDelegate {
 }
 
 /* ###################################################################################################################################### */

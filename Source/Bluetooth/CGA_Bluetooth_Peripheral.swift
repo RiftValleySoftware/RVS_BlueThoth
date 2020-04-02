@@ -67,11 +67,37 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
     /* ################################################################## */
     /**
      Returns true, if the current state of the device is connected.
+     
+     This is read-only. If you want to initiate a connection, use the <code>CGA_Bluetooth_CentralManager.connect(_:)</code> method.
      */
     var isConnected: Bool {
         if let instance = cbElementInstance {
             return .connected == instance.state
         }
+        return false
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Instance Methods
+/* ###################################################################################################################################### */
+/**
+ */
+extension CGA_Bluetooth_Peripheral {
+    /* ################################################################## */
+    /**
+     Disconnect this device.
+     
+     - returns: True, if the disconnection attempt was made (not a guarantee of success). Can be ignored.
+     */
+    @discardableResult
+    func disconnect() -> Bool {
+        if  let instance = cbElementInstance,
+            let centralManager = parent as? CGA_Bluetooth_CentralManager {
+            
+            return centralManager.disconnect(instance)
+        }
+        
         return false
     }
 }
@@ -90,10 +116,8 @@ extension CGA_Bluetooth_Peripheral: CGA_Class_Protocol {
 }
 
 /* ###################################################################################################################################### */
-// MARK: -
+// MARK: - CBPeripheralDelegate Support -
 /* ###################################################################################################################################### */
-/**
- */
 extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     
 }

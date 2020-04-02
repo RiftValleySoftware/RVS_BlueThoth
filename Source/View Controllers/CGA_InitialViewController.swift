@@ -97,6 +97,21 @@ class CGA_InitialViewController: UIViewController {
      This implements a "pull to refresh."
      */
     private let _refreshControl = UIRefreshControl()
+
+    /* ################################################################## */
+    /**
+     Returns the pushed device details screen. Nil, if none.
+     */
+    private var _currentDeviceScreen: CGA_DetailViewController! {
+        return navigationController?.topViewController as? CGA_DetailViewController
+    }
+    
+    /* ################################################################## */
+    /**
+     Used as a semaphore (yuck) to indicate that the Central was (or was not) scanning before the view disappeared.
+     It is not used anywhere else.
+     */
+    private var _wasScanning: Bool = false
     
     /* ################################################################## */
     /**
@@ -109,6 +124,12 @@ class CGA_InitialViewController: UIViewController {
      This image is displayed if there is no bluetooth available.
      */
     @IBOutlet weak var noBTImage: UIImageView!
+    
+    /* ################################################################## */
+    /**
+     This will animate when the central is scanning.
+     */
+    @IBOutlet weak var scanningButton: UIButton!
 }
 
 /* ###################################################################################################################################### */
@@ -127,6 +148,21 @@ extension CGA_InitialViewController {
         CGA_AppDelegate.centralManager?.startOver()
         _refreshControl.endRefreshing()
     }
+    
+    /* ################################################################## */
+    /**
+     This is called when the "Scanning/Not Scanning" button is hit.
+     
+     - parameter: ignored.
+     */
+    @IBAction func scanningButtonHit(_: Any) {
+        if CGA_AppDelegate.centralManager?.isScanning ?? false {
+            CGA_AppDelegate.centralManager?.stopScanning()
+        } else {
+            CGA_AppDelegate.centralManager?.startScanning()
+        }
+        scanningButton.isEnabled = false
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -143,6 +179,7 @@ extension CGA_InitialViewController {
         _refreshControl.addTarget(self, action: #selector(startOver(_:)), for: .valueChanged)
         CGA_AppDelegate.centralManager = CGA_Bluetooth_CentralManager(delegate: self)
         navigationItem.backBarButtonItem?.title = navigationItem.backBarButtonItem?.title?.localizedVariant
+        scanningButton.setTitle(scanningButton.title(for: .normal)?.localizedVariant, for: .normal)
     }
     
     /* ################################################################## */
@@ -154,6 +191,9 @@ extension CGA_InitialViewController {
     override func viewWillAppear(_ inAnimated: Bool) {
         super.viewWillAppear(inAnimated)
         navigationController?.navigationBar.isHidden = true
+        if _wasScanning {
+            CGA_AppDelegate.centralManager?.restartScanning()
+        }
         _updateUI()
     }
     
@@ -165,6 +205,8 @@ extension CGA_InitialViewController {
      */
     override func viewWillDisappear(_ inAnimated: Bool) {
         super.viewWillDisappear(inAnimated)
+        _wasScanning = CGA_AppDelegate.centralManager?.isScanning ?? false
+        CGA_AppDelegate.centralManager?.stopScanning()
         navigationController?.navigationBar.isHidden = false
     }
     
@@ -248,6 +290,14 @@ extension CGA_InitialViewController {
         }
         noBTImage.isHidden = isBTAvailable
         deviceTableView.isHidden = !isBTAvailable
+        if  isBTAvailable,
+            CGA_AppDelegate.centralManager?.isScanning ?? false {
+            scanningButton.setTitle("SLUG-SCANNING".localizedVariant, for: .normal)
+        } else {
+            scanningButton.setTitle("SLUG-NOT-SCANNING".localizedVariant, for: .normal)
+        }
+        
+        scanningButton.isEnabled = true
     }
 }
 
@@ -267,6 +317,16 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
     
     /* ################################################################## */
     /**
+     Called to tell the instance that the state of the Central manager just became "powered on."
+     
+     - parameter inCentralManager: The central manager that is calling this.
+     */
+    func centralManagerPoweredOn(_ inCentralManager: CGA_Bluetooth_CentralManager) {
+        inCentralManager.startScanning()
+    }
+
+    /* ################################################################## */
+    /**
      Called to tell this controller to recalculate its table.
      
      - parameter inCentralManager: The manager wrapper view that is calling this.
@@ -274,6 +334,17 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
     func updateFrom(_ inCentralManager: CGA_Bluetooth_CentralManager) {
         _updateUI()
         deviceTableView?.reloadData()
+    }
+    
+    /* ################################################################## */
+    /**
+     Called to tell the instance that a new Peripheral device has been added and connected.
+     
+     - parameter inCentralManager: The central manager that is calling this.
+     - parameter addedDevice: The device instance that was added (and connected).
+     */
+    func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, addedDevice inDevice: CGA_Bluetooth_Peripheral) {
+        _currentDeviceScreen?.deviceInstance = inDevice
     }
 }
 

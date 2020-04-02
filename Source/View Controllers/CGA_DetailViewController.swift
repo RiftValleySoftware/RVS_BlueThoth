@@ -71,10 +71,53 @@ class CGA_DetailViewController: UIViewController {
     
     /* ################################################################## */
     /**
+     This contains the device instance, once the connection is successful. It is a weak reference.
+     */
+    weak var deviceInstance: CGA_Bluetooth_Peripheral? {
+        didSet {
+            updateUI()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
      This is the table that will list the discovered devices.
      */
     @IBOutlet weak var deviceTableView: UITableView!
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Instance Methods -
+/* ###################################################################################################################################### */
+extension CGA_DetailViewController {
+    /* ################################################################## */
+    /**
+     This is called by the table's "pull to refresh" handler.
+     
+     When this is called, the Bluetooth subsystem wipes out all of its cached Peripherals, and starts over from scratch.
+     
+     - parameter: ignored.
+     */
+    @objc func refresh(_: Any) {
+        _refreshControl.endRefreshing()
+    }
     
+    /* ################################################################## */
+    /**
+     This simply makes sure that the UI matches the state of the device.
+     */
+    func updateUI() {
+        deviceTableView?.isHidden = nil == deviceInstance
+        if nil != deviceInstance {
+            deviceTableView?.reloadData()
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Base Class Override Methods -
+/* ###################################################################################################################################### */
+extension CGA_DetailViewController {
     /* ################################################################## */
     /**
      Called after the view data has been loaded.
@@ -88,21 +131,32 @@ class CGA_DetailViewController: UIViewController {
     
     /* ################################################################## */
     /**
-     This is called by the table's "pull to refresh" handler.
+     Called just before the view is to appear.
+     We use this to initiate a connection.
      
-     When this is called, the Bluetooth subsystem wipes out all of its cached Peripherals, and starts over from scratch.
-     
-     - parameter: ignored.
+     - parameter inAnimated: True, if the appearance is animated.
      */
-    @objc func refresh(_: Any) {
-        _refreshControl.endRefreshing()
+    override func viewWillAppear(_ inAnimated: Bool) {
+        super.viewWillAppear(inAnimated)
+        if  .connected != deviceAdvInfo.peripheral.state {
+            CGA_AppDelegate.centralManager?.connect(deviceAdvInfo.peripheral)
+        }
+        updateUI()
     }
-}
+    
+    /* ################################################################## */
+    /**
+     Called just before the view is to disappear.
+     We use this to close a connection.
 
-/* ###################################################################################################################################### */
-// MARK: - Private Methods -
-/* ###################################################################################################################################### */
-extension CGA_DetailViewController {
+     - parameter inAnimated: True, if the appearance is animated.
+     */
+    override func viewWillDisappear(_ inAnimated: Bool) {
+        super.viewWillDisappear(inAnimated)
+        if let device = deviceInstance {
+            device.disconnect()
+        }
+    }
 }
 
 /* ###################################################################################################################################### */

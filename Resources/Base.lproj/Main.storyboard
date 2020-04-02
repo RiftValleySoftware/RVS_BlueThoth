@@ -60,10 +60,28 @@
                                             <segue destination="JV6-wJ-8zU" kind="showDetail" id="Liy-YK-yTR"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tXo-2J-9xn">
+                                        <rect key="frame" x="107" y="0.0" width="160" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="160" placeholder="YES" id="HFQ-UX-TQG"/>
+                                        </constraints>
+                                        <state key="normal" title="SLUG-NOT-SCANNING">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="scanningButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YKX-6H-N5J"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="tXo-2J-9xn" firstAttribute="centerX" secondItem="amI-Ti-P2k" secondAttribute="centerX" id="Ofc-K2-Wml"/>
+                                    <constraint firstAttribute="bottom" secondItem="tXo-2J-9xn" secondAttribute="bottom" id="R4t-MA-buL"/>
                                     <constraint firstAttribute="height" constant="30" id="WW6-9N-TUt"/>
+                                    <constraint firstItem="tXo-2J-9xn" firstAttribute="top" secondItem="amI-Ti-P2k" secondAttribute="top" id="a6O-bC-RUT"/>
                                     <constraint firstItem="tAq-gq-P11" firstAttribute="leading" secondItem="amI-Ti-P2k" secondAttribute="leading" id="ehJ-F9-c26"/>
                                     <constraint firstItem="tAq-gq-P11" firstAttribute="centerY" secondItem="amI-Ti-P2k" secondAttribute="centerY" id="gGj-Cx-eLa"/>
                                 </constraints>
@@ -167,6 +185,7 @@
                     <connections>
                         <outlet property="deviceTableView" destination="v4D-h1-YBk" id="zV3-O9-vz0"/>
                         <outlet property="noBTImage" destination="OEU-02-sbP" id="6PG-n9-cYN"/>
+                        <outlet property="scanningButton" destination="tXo-2J-9xn" id="m0i-aB-cyz"/>
                         <segue destination="lg0-Vd-GYl" kind="show" identifier="show-device-detail" id="aeU-Zr-NO8"/>
                     </connections>
                 </viewController>
