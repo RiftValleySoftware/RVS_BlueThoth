@@ -206,6 +206,17 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Class_Protocol
      */
     var parent: CGA_Class_Protocol?
+    
+    /* ################################################################## */
+    /**
+     Returns true, if the current state of the Bluetooth system is powered on.
+     */
+    var isBTAvailable: Bool {
+        if let instance = cbElementInstance {
+            return .poweredOn == instance.state
+        }
+        return false
+    }
 
     /* ################################################################## */
     /**
@@ -439,6 +450,8 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
             #endif
             isScanning = false
         }
+        
+        _updateDelegate()
     }
 
     /* ################################################################## */

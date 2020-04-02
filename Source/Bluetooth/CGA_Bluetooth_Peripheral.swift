@@ -63,6 +63,17 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
         sequence_contents = inSequence_Contents
         super.init()    // Since we derive from NSObject, we must call the super init()
     }
+    
+    /* ################################################################## */
+    /**
+     Returns true, if the current state of the device is connected.
+     */
+    var isConnected: Bool {
+        if let instance = cbElementInstance {
+            return .connected == instance.state
+        }
+        return false
+    }
 }
 
 /* ###################################################################################################################################### */

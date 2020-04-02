@@ -103,6 +103,12 @@ class CGA_InitialViewController: UIViewController {
      This is the table that will list the discovered devices.
      */
     @IBOutlet weak var deviceTableView: UITableView!
+    
+    /* ################################################################## */
+    /**
+     This image is displayed if there is no bluetooth available.
+     */
+    @IBOutlet weak var noBTImage: UIImageView!
 }
 
 /* ###################################################################################################################################### */
@@ -148,6 +154,7 @@ extension CGA_InitialViewController {
     override func viewWillAppear(_ inAnimated: Bool) {
         super.viewWillAppear(inAnimated)
         navigationController?.navigationBar.isHidden = true
+        _updateUI()
     }
     
     /* ################################################################## */
@@ -229,6 +236,19 @@ extension CGA_InitialViewController {
         }
         return []
     }
+    
+    /* ################################################################## */
+    /**
+     This simply makes sure that the table is displayed if BT is available, or the "No BT" image is shown, if it is not.
+     */
+    private func _updateUI() {
+        let isBTAvailable = CGA_AppDelegate.centralManager?.isBTAvailable ?? false
+        if !isBTAvailable { // Make sure that we are at the initial view, if BT is not available.
+            navigationController?.popToRootViewController(animated: false)
+        }
+        noBTImage.isHidden = isBTAvailable
+        deviceTableView.isHidden = !isBTAvailable
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -252,6 +272,7 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
      - parameter inCentralManager: The manager wrapper view that is calling this.
      */
     func updateFrom(_ inCentralManager: CGA_Bluetooth_CentralManager) {
+        _updateUI()
         deviceTableView?.reloadData()
     }
 }
