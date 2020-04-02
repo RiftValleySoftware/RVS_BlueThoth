@@ -86,12 +86,6 @@ extension CGA_Bluetooth_Peripheral: CGA_Class_Protocol {
     /**
      */
     func updateCollection() {
-        #if targetEnvironment(simulator)
-            #if DEBUG
-                print("Generating Mocks for the Peripheral")
-            #endif
-        #else
-        #endif
     }
 }
 

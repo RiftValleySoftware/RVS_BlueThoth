@@ -74,12 +74,6 @@ extension CGA_Bluetooth_Characteristic: CGA_Class_Protocol {
     /**
      */
     func updateCollection() {
-        #if targetEnvironment(simulator)
-            #if DEBUG
-                print("Generating Mocks for the Characteristic")
-            #endif
-        #else
-        #endif
     }
 }
 
