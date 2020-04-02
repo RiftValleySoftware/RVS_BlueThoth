@@ -1,4 +1,4 @@
-/**
+/*
 © Copyright 2020, Little Green Viper Software Development LLC
 
 LICENSE:
@@ -19,17 +19,23 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT
 
 Little Green Viper Software Development LLC: https://littlegreenviper.com
 */
-"SLUG-SECTION-HEADER-BLE"           =   "BLE";
-"SLUG-SECTION-HEADER-CLASSIC"       =   "BR/EDR";
-"SLUG-DEVICES"                      =   "Device List";
-"SLUG-MAIN-LIST-DATE-FORMAT"        =   "MM/dd/yyyy h:mm:ss.SSS a";
-"SLUG-SCANNING"                     =   "Scanning";
-"SLUG-NOT-SCANNING"                 =   "Not Scanning";
 
-"kCBAdvDataLocalName"               =   "Name";
-"kCBAdvDataIsConnectable"           =   "Can Connect";
-"kCBAdvDataTxPowerLevel"            =   "Transmit Power Level";
-"kCBAdvDataTimestamp"               =   "Timestamp";
-"kCBAdvDataRxPrimaryPHY"            =   "Primary Receive";
-"kCBAdvDataRxSecondaryPHY"          =   "Secondary Receive";
-"kCBAdvDataManufacturerData"        =   "Manufacturer Data";
+import UIKit
+
+/* ###################################################################################################################################### */
+// MARK: - The initial view controller (table of devices) -
+/* ###################################################################################################################################### */
+/**
+ This controls the initial view, which is a basic table of discovered devices.
+ 
+ There are two sections: BLE, and BR/EDR (Classic). Each section has rows of devices that fit in that Bluetooth mode.
+ */
+class CGA_InfoViewController: UIViewController {
+    /* ################################################################## */
+    /**
+     Called after the view data has been loaded.
+     */
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+}

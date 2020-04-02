@@ -74,12 +74,6 @@ extension CGA_Bluetooth_Service: CGA_Class_Protocol {
     /**
      */
     func updateCollection() {
-        #if targetEnvironment(simulator)
-            #if DEBUG
-                print("Generating Mocks for the Service")
-            #endif
-        #else
-        #endif
     }
 }
 

@@ -26,10 +26,25 @@ import UIKit
 // MARK: - The CGA_InitialViewController_TableRow Class (Denotes One Row of the Table) -
 /* ###################################################################################################################################### */
 /**
+ This is a simple class that will be used to display one row in the initial discovery table.
  */
 class CGA_InitialViewController_TableRow: UITableViewCell {
+    /* ################################################################## */
+    /**
+     This will display the advertised name.
+     */
     @IBOutlet var nameLabel:UILabel!
+
+    /* ################################################################## */
+    /**
+     This will display the RSSI level.
+     */
     @IBOutlet var rssiLabel: UILabel!
+
+    /* ################################################################## */
+    /**
+     This will wrap a dynamically-generated series of labels that will display the advertising data.
+     */
     @IBOutlet var advertisingDataView: UIView!
 }
 
@@ -70,12 +85,33 @@ class CGA_InitialViewController: UIViewController {
      The reuse ID that we use for creating new table cells.
      */
     private static let _deviceRowReuseID = "device-row"
+    
+    /* ################################################################## */
+    /**
+     The ID of the segue that is executed to display device details.
+     */
+    private static let _deviceDetailSegueID = "show-device-detail"
 
     /* ################################################################## */
     /**
      This implements a "pull to refresh."
      */
     private let _refreshControl = UIRefreshControl()
+
+    /* ################################################################## */
+    /**
+     Returns the pushed device details screen. Nil, if none.
+     */
+    private var _currentDeviceScreen: CGA_DetailViewController! {
+        return navigationController?.topViewController as? CGA_DetailViewController
+    }
+    
+    /* ################################################################## */
+    /**
+     Used as a semaphore (yuck) to indicate that the Central was (or was not) scanning before the view disappeared.
+     It is not used anywhere else.
+     */
+    private var _wasScanning: Bool = false
     
     /* ################################################################## */
     /**
@@ -85,15 +121,21 @@ class CGA_InitialViewController: UIViewController {
     
     /* ################################################################## */
     /**
-     Called after the view data has been loaded.
+     This image is displayed if there is no bluetooth available.
      */
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        deviceTableView?.refreshControl = _refreshControl
-        _refreshControl.addTarget(self, action: #selector(startOver(_:)), for: .valueChanged)
-        CGA_AppDelegate.centralManager = CGA_Bluetooth_CentralManager(delegate: self)
-    }
+    @IBOutlet weak var noBTImage: UIImageView!
     
+    /* ################################################################## */
+    /**
+     This will animate when the central is scanning.
+     */
+    @IBOutlet weak var scanningButton: UIButton!
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Callback/Observer Methods -
+/* ###################################################################################################################################### */
+extension CGA_InitialViewController {
     /* ################################################################## */
     /**
      This is called by the table's "pull to refresh" handler.
@@ -106,6 +148,82 @@ class CGA_InitialViewController: UIViewController {
         CGA_AppDelegate.centralManager?.startOver()
         _refreshControl.endRefreshing()
     }
+    
+    /* ################################################################## */
+    /**
+     This is called when the "Scanning/Not Scanning" button is hit.
+     
+     - parameter: ignored.
+     */
+    @IBAction func scanningButtonHit(_: Any) {
+        if CGA_AppDelegate.centralManager?.isScanning ?? false {
+            CGA_AppDelegate.centralManager?.stopScanning()
+        } else {
+            CGA_AppDelegate.centralManager?.startScanning()
+        }
+        scanningButton.isEnabled = false
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Overridden Superclass Methods -
+/* ###################################################################################################################################### */
+extension CGA_InitialViewController {
+    /* ################################################################## */
+    /**
+     Called after the view data has been loaded.
+     */
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        deviceTableView?.refreshControl = _refreshControl
+        _refreshControl.addTarget(self, action: #selector(startOver(_:)), for: .valueChanged)
+        CGA_AppDelegate.centralManager = CGA_Bluetooth_CentralManager(delegate: self)
+        navigationItem.backBarButtonItem?.title = navigationItem.backBarButtonItem?.title?.localizedVariant
+        scanningButton.setTitle(scanningButton.title(for: .normal)?.localizedVariant, for: .normal)
+    }
+    
+    /* ################################################################## */
+    /**
+     Called just before the view appears. We use this to hide the navBar.
+     
+     - parameter inAnimated: True, if the appearance is animated (we ignore this).
+     */
+    override func viewWillAppear(_ inAnimated: Bool) {
+        super.viewWillAppear(inAnimated)
+        navigationController?.navigationBar.isHidden = true
+        if _wasScanning {
+            CGA_AppDelegate.centralManager?.restartScanning()
+        }
+        _updateUI()
+    }
+    
+    /* ################################################################## */
+    /**
+     Called just before the view disappears. We use this to show the navBar.
+     
+     - parameter inAnimated: True, if the appearance is animated (we ignore this).
+     */
+    override func viewWillDisappear(_ inAnimated: Bool) {
+        super.viewWillDisappear(inAnimated)
+        _wasScanning = CGA_AppDelegate.centralManager?.isScanning ?? false
+        CGA_AppDelegate.centralManager?.stopScanning()
+        navigationController?.navigationBar.isHidden = false
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called just before we bring in the device screen (or the about screen).
+     
+     - parameter for: The segue being executed.
+     - parameter sender: The data we want passed into the destination.
+     */
+    override func prepare(for inSegue: UIStoryboardSegue, sender inSender: Any?) {
+        // We only go further if we are looking at device details.
+        guard   let destination = inSegue.destination as? CGA_DetailViewController,
+                let senderData = inSender as? CGA_Bluetooth_CentralManager.DiscoveryData else { return }
+        
+        destination.deviceAdvInfo = senderData
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -114,6 +232,10 @@ class CGA_InitialViewController: UIViewController {
 extension CGA_InitialViewController {
     /* ################################################################## */
     /**
+     This creates an Array of String, containing the advertisement data from the indexed device.
+     
+     - parameter inIndex: The 0-based index of the device to fetch.
+     - returns: An Array of String, with the advertisement data in "key: value" form.
      */
     private func _createAdvertimentStringsFor(_ inIndex: Int) -> [String] {
         if  let centralManager = CGA_AppDelegate.centralManager,
@@ -131,11 +253,21 @@ extension CGA_InitialViewController {
                     }
                 } else if let value = value as? String {
                     ret += "\(key): \(value.localizedVariant)"
+                } else if let value = value as? Bool {
+                    ret += "\(key): \(value ? "true" : "false")"
                 } else if let value = value as? Int {
                     ret += "\(key): \(value)"
                 } else if let value = value as? Double {
-                    ret += "\(key): \(value)"
-                } else {
+                    if "kCBAdvDataTimestamp" == next.key {  // If it's the timestamp, we can translate tha, here.
+                        let date = Date(timeIntervalSinceReferenceDate: value)
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "SLUG-MAIN-LIST-DATE-FORMAT".localizedVariant
+                        let displayedDate = dateFormatter.string(from: date)
+                        ret += "\(key): \(displayedDate)"
+                    } else {
+                        ret += "\(key): \(value)"
+                    }
+                } else {    // Anything else is just a described instance of something or other.
                     ret += "\(key): \(String(describing: value))"
                 }
                 
@@ -145,6 +277,27 @@ extension CGA_InitialViewController {
             return retStr
         }
         return []
+    }
+    
+    /* ################################################################## */
+    /**
+     This simply makes sure that the table is displayed if BT is available, or the "No BT" image is shown, if it is not.
+     */
+    private func _updateUI() {
+        let isBTAvailable = CGA_AppDelegate.centralManager?.isBTAvailable ?? false
+        if !isBTAvailable { // Make sure that we are at the initial view, if BT is not available.
+            navigationController?.popToRootViewController(animated: false)
+        }
+        noBTImage.isHidden = isBTAvailable
+        deviceTableView.isHidden = !isBTAvailable
+        if  isBTAvailable,
+            CGA_AppDelegate.centralManager?.isScanning ?? false {
+            scanningButton.setTitle("SLUG-SCANNING".localizedVariant, for: .normal)
+        } else {
+            scanningButton.setTitle("SLUG-NOT-SCANNING".localizedVariant, for: .normal)
+        }
+        
+        scanningButton.isEnabled = true
     }
 }
 
@@ -164,12 +317,34 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
     
     /* ################################################################## */
     /**
+     Called to tell the instance that the state of the Central manager just became "powered on."
+     
+     - parameter inCentralManager: The central manager that is calling this.
+     */
+    func centralManagerPoweredOn(_ inCentralManager: CGA_Bluetooth_CentralManager) {
+        inCentralManager.startScanning()
+    }
+
+    /* ################################################################## */
+    /**
      Called to tell this controller to recalculate its table.
      
      - parameter inCentralManager: The manager wrapper view that is calling this.
      */
     func updateFrom(_ inCentralManager: CGA_Bluetooth_CentralManager) {
+        _updateUI()
         deviceTableView?.reloadData()
+    }
+    
+    /* ################################################################## */
+    /**
+     Called to tell the instance that a new Peripheral device has been added and connected.
+     
+     - parameter inCentralManager: The central manager that is calling this.
+     - parameter addedDevice: The device instance that was added (and connected).
+     */
+    func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, addedDevice inDevice: CGA_Bluetooth_Peripheral) {
+        _currentDeviceScreen?.deviceInstance = inDevice
     }
 }
 
@@ -295,6 +470,9 @@ extension CGA_InitialViewController: UITableViewDataSource {
         if  let tableCell = tableCell as? CGA_InitialViewController_TableRow,
             let centralManager = CGA_AppDelegate.centralManager,
             (0..<centralManager.stagedBLEPeripherals.count).contains(inIndexPath.row) {
+            let fontColor = UIColor(white: centralManager.stagedBLEPeripherals[inIndexPath.row].canConnect ? 1.0 : 0.75, alpha: 1.0)
+            tableCell.nameLabel?.textColor = fontColor
+            tableCell.rssiLabel?.textColor = fontColor
             tableCell.nameLabel?.text = centralManager.stagedBLEPeripherals[inIndexPath.row].name
             tableCell.rssiLabel?.text = String(format: "(%d dBm)", centralManager.stagedBLEPeripherals[inIndexPath.row].rssi)
             let advertisingData = _createAdvertimentStringsFor(inIndexPath.row)
@@ -307,7 +485,7 @@ extension CGA_InitialViewController: UITableViewDataSource {
                     let bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: containerView.bounds.size.width, height: Self._labelRowHeightInDisplayUnits))
                     let newLabel = UILabel(frame: bounds)
                     newLabel.text = $0
-                    newLabel.textColor = .white
+                    newLabel.textColor = fontColor
                     topAnchor = _addContainedSubView(newLabel, to: containerView, under: topAnchor)
                 }
             
@@ -324,7 +502,35 @@ extension CGA_InitialViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate Support -
 /* ###################################################################################################################################### */
 extension CGA_InitialViewController: UITableViewDelegate {
+    /* ################################################################## */
+    /**
+     Called to test whether or not to allow a row to be selected.
+     
+     - parameter inTableView: The table view that is asking for the cell.
+     - parameter willSelectRowAt: The index path (section, row) for the cell.
+     - returns: The IndexPath of the cell, if approved, or nil, if not.
+     */
+    func tableView(_ inTableView: UITableView, willSelectRowAt inIndexPath: IndexPath) -> IndexPath? {
+        if  let centralManager = CGA_AppDelegate.centralManager,
+            centralManager.stagedBLEPeripherals[inIndexPath.row].canConnect {
+            return inIndexPath
+        }
+        
+        return nil
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when a row is selected.
+     
+     - parameter inTableView: The table view that is asking for the cell.
+     - parameter didSelectRowAt: The index path (section, row) for the cell.
+     */
     func tableView(_ inTableView: UITableView, didSelectRowAt inIndexPath: IndexPath) {
         inTableView.deselectRow(at: inIndexPath, animated: false)
+        
+        if let centralManager = CGA_AppDelegate.centralManager {
+            performSegue(withIdentifier: Self._deviceDetailSegueID, sender: centralManager.stagedBLEPeripherals[inIndexPath.row])
+        }
     }
 }
