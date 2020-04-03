@@ -674,6 +674,28 @@ extension CGA_Bluetooth_CentralManager {
         
         return true
     }
+    
+    /* ################################################################## */
+    /**
+     - parameter inPeripheral: The Peripheral to add.
+     */
+    func addPeripheral(_ inPeripheral: CGA_Bluetooth_Peripheral) {
+        #if DEBUG
+            print("Adding \(inPeripheral.discoveryData.preferredName).")
+        #endif
+        sequence_contents.append(inPeripheral)
+    }
+    
+    /* ################################################################## */
+    /**
+     - parameter inPeripheral: The Peripheral to remove.
+     */
+    func removePeripheral(_ inPeripheral: CGA_Bluetooth_Peripheral) {
+        #if DEBUG
+            print("Removing \(inPeripheral.discoveryData.preferredName).")
+        #endif
+        sequence_contents.removeThisDevice(inPeripheral.discoveryData.cbPeripheral)
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -826,9 +848,7 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
             print("Connected \(String(describing: inPeripheral.name)).")
         #endif
         
-        // TODO: Remove this after I get things up and going.
-        sequence_contents.append(CGA_Bluetooth_Peripheral(discoveryData: discoveredDevice))
-        // END TODO
+        discoveredDevice.peripheralInstance = CGA_Bluetooth_Peripheral(discoveryData: discoveredDevice)
     }
     
     /* ################################################################## */
@@ -850,11 +870,18 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
         
         _sendPeripheralDisconnect(peripheralInstance)
         
+        guard let peripheralObject = peripheralInstance.discoveryData?.peripheralInstance else {
+            #if DEBUG
+                print("The Peripheral \(peripheralInstance.discoveryData?.preferredName ?? "ERROR") has a bad instance!")
+            #endif
+            return
+        }
+        
         #if DEBUG
             print("Disconnected \(peripheralInstance.discoveryData?.preferredName ?? "ERROR").")
         #endif
 
-        sequence_contents.removeThisDevice(inPeripheral)
+        removePeripheral(peripheralObject)
     }
     
     /* ################################################################## */

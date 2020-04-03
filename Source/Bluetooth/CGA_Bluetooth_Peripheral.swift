@@ -76,6 +76,14 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
         sequence_contents = inSequence_Contents
         super.init()    // Since we derive from NSObject, we must call the super init()
     }
+    
+    /* ################################################################## */
+    /**
+     Make sure that we are removed, if we are going away.
+     */
+    deinit {
+        central?.removePeripheral(self)
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -92,6 +100,8 @@ extension CGA_Bluetooth_Peripheral {
         self.init(sequence_contents: [])
         discoveryData = inCBPeriperalDiscoveryData
         cbElementInstance?.delegate = self
+        cbElementInstance?.discoverServices(nil)
+        parent = discoveryData?.central
     }
 }
 
@@ -111,7 +121,22 @@ extension CGA_Bluetooth_Peripheral: CGA_Class_Protocol {
 // MARK: - CBPeripheralDelegate Conformance -
 /* ###################################################################################################################################### */
 extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
+    /* ################################################################## */
+    /**
+     */
+    func peripheral(_ inPeripheral: CBPeripheral, didDiscoverServices inError: Error?) {
+        print("Services Discovered: \(String(describing: inPeripheral.services))")
+        if let central = central {
+            central.addPeripheral(self)
+        }
+    }
     
+    /* ################################################################## */
+    /**
+     */
+    func peripheral(_ inPeripheral: CBPeripheral, didModifyServices inInvalidatedServices: [CBService]) {
+        print("Services Modified: \(String(describing: inInvalidatedServices))")
+    }
 }
 
 /* ###################################################################################################################################### */
