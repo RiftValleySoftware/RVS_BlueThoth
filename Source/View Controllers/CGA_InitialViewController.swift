@@ -97,14 +97,6 @@ class CGA_InitialViewController: UIViewController {
      This implements a "pull to refresh."
      */
     private let _refreshControl = UIRefreshControl()
-
-    /* ################################################################## */
-    /**
-     Returns the pushed device details screen. Nil, if none.
-     */
-    private var _currentDeviceScreen: CGA_DetailViewController! {
-        return navigationController?.topViewController as? CGA_DetailViewController
-    }
     
     /* ################################################################## */
     /**
@@ -113,6 +105,12 @@ class CGA_InitialViewController: UIViewController {
      */
     private var _wasScanning: Bool = false
     
+    /* ################################################################## */
+    /**
+     Returns the pushed device details screen. Nil, if none.
+     */
+    private var _currentDeviceScreen: CGA_DetailViewController! { navigationController?.topViewController as? CGA_DetailViewController }
+
     /* ################################################################## */
     /**
      This is the table that will list the discovered devices.
@@ -320,6 +318,7 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
      - parameter from: The manager wrapper view that is calling this.
      */
     func handleError(_ inError: Error, from inCentralManager: CGA_Bluetooth_CentralManager) {
+        CGA_AppDelegate.displayAlert("SLUG-ERROR".localizedVariant, message: inError.localizedDescription.localizedVariant)
     }
     
     /* ################################################################## */
@@ -377,9 +376,7 @@ extension CGA_InitialViewController: UITableViewDataSource {
      - parameter heightForHeaderInSection: The 0-based section index being queried (ignored).
      - returns: The height, in display units, of the header for the section.
      */
-    func tableView(_ inTableView: UITableView, heightForHeaderInSection inSection: Int) -> CGFloat {
-        Self._sectionHeaderHeightInDisplayUnits
-    }
+    func tableView(_ inTableView: UITableView, heightForHeaderInSection inSection: Int) -> CGFloat { Self._sectionHeaderHeightInDisplayUnits }
     
     /* ################################################################## */
     /**
@@ -390,19 +387,17 @@ extension CGA_InitialViewController: UITableViewDataSource {
      - returns: The header for the section, as a view (a label).
      */
     func tableView(_ inTableView: UITableView, viewForHeaderInSection inSection: Int) -> UIView? {
-        if 1 < _SectionIndexes.numSections.rawValue {
-            let ret = UILabel()
-            
-            ret.text = ("SLUG-SECTION-HEADER-" + (_SectionIndexes.ble.rawValue == inSection ? "BLE" : "CLASSIC")).localizedVariant
-            ret.textColor = .blue
-            ret.textAlignment = .center
-            ret.backgroundColor = .white
-            ret.font = .boldSystemFont(ofSize: Self._sectionHeaderHeightInDisplayUnits)
-            
-            return ret
-        }
+        guard 1 < _SectionIndexes.numSections.rawValue else { return nil }
         
-        return nil
+        let ret = UILabel()
+        
+        ret.text = ("SLUG-SECTION-HEADER-" + (_SectionIndexes.ble.rawValue == inSection ? "BLE" : "CLASSIC")).localizedVariant
+        ret.textColor = .blue
+        ret.textAlignment = .center
+        ret.backgroundColor = .white
+        ret.font = .boldSystemFont(ofSize: Self._sectionHeaderHeightInDisplayUnits)
+        
+        return ret
     }
     
     /* ################################################################## */
@@ -414,14 +409,12 @@ extension CGA_InitialViewController: UITableViewDataSource {
      - returns: The number of rows in the given section.
      */
     func tableView(_ inTableView: UITableView, numberOfRowsInSection inSection: Int) -> Int {
-        if  let centralManager = CGA_AppDelegate.centralManager {
-            if  _SectionIndexes.ble.rawValue == inSection,
-                !centralManager.stagedBLEPeripherals.isEmpty {
-                return centralManager.stagedBLEPeripherals.count
-            }
-        }
-        
-        return 0
+        guard  let centralManager = CGA_AppDelegate.centralManager,
+                _SectionIndexes.ble.rawValue == inSection,
+                !centralManager.stagedBLEPeripherals.isEmpty
+        else { return 0 }
+       
+        return centralManager.stagedBLEPeripherals.count
     }
     
     /* ################################################################## */
@@ -433,13 +426,11 @@ extension CGA_InitialViewController: UITableViewDataSource {
      - returns: The height of the row, in display units.
      */
     func tableView(_ inTableView: UITableView, heightForRowAt inIndexPath: IndexPath) -> CGFloat {
-        if  let centralManager = CGA_AppDelegate.centralManager,
-            (0..<centralManager.stagedBLEPeripherals.count).contains(inIndexPath.row) {
-            let advDataLen = CGFloat(_createAdvertimentStringsFor(inIndexPath.row).count)
-            return (Self._labelRowHeightInDisplayUnits) + (advDataLen * Self._labelRowHeightInDisplayUnits)
-        }
+        guard  let centralManager = CGA_AppDelegate.centralManager,
+            (0..<centralManager.stagedBLEPeripherals.count).contains(inIndexPath.row)
+        else { return 0.0 }
         
-        return 0.0
+        return (Self._labelRowHeightInDisplayUnits) + (CGFloat(_createAdvertimentStringsFor(inIndexPath.row).count) * Self._labelRowHeightInDisplayUnits)
     }
     
     /* ################################################################## */
@@ -493,6 +484,8 @@ extension CGA_InitialViewController: UITableViewDataSource {
                         let bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: containerView.bounds.size.width, height: Self._labelRowHeightInDisplayUnits))
                         let newLabel = UILabel(frame: bounds)
                         newLabel.text = $0
+                        newLabel.adjustsFontSizeToFitWidth = true
+                        newLabel.minimumScaleFactor = 0.75
                         newLabel.font = .systemFont(ofSize: Self._labelRowHeightInDisplayUnits * 0.75)
                         newLabel.textColor = fontColor
                         topAnchor = _addContainedSubView(newLabel, to: containerView, under: topAnchor)

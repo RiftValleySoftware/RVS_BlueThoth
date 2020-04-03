@@ -26,6 +26,8 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 "SLUG-ID"                           =   "ID";
 "SLUG-SCANNING"                     =   "Scanning";
 "SLUG-NOT-SCANNING"                 =   "Not Scanning";
+"SLUG-OK-BUTTON-TEXT"               =   "OK";
+"SLUG-ERROR"                        =   "ERROR";
 
 "kCBAdvDataLocalName"               =   "Name";
 "kCBAdvDataIsConnectable"           =   "Can Connect";

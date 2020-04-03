@@ -31,7 +31,7 @@ import CoreBluetooth
 class CGA_Bluetooth_Descriptor: CGA_Class_Protocol {
     /* ################################################################## */
     /**
-     This is used to reference an "owning instance" of this instance, and it should be a CGA_Class_Protocol
+     This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Characteristic
      */
     var parent: CGA_Class_Protocol?
     
@@ -41,6 +41,14 @@ class CGA_Bluetooth_Descriptor: CGA_Class_Protocol {
      */
     var cbElementInstance: CBDescriptor!
     
+    /* ################################################################## */
+    /**
+     This casts the parent as a Characteristic Wrapper.
+     */
+    var characteristic: CGA_Bluetooth_Characteristic! {
+        parent as? CGA_Bluetooth_Characteristic
+    }
+
     /* ################################################################## */
     /**
      This does nothing in this "leaf" class.

@@ -31,6 +31,31 @@ import UIKit
 class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
     /* ################################################################## */
     /**
+     Displays the given message and title in an alert with an "OK" button.
+     
+     - parameter inTitle: a string to be displayed as the title of the alert. It is localized by this method.
+     - parameter message: a string to be displayed as the message of the alert. It is localized by this method.
+     - parameter presentedBy: An optional UIViewController object that is acting as the presenter context for the alert. If nil, we use the top controller of the Navigation stack.
+     */
+    static func displayAlert(_ inTitle: String, message inMessage: String, presentedBy inPresentingViewController: UIViewController! = nil ) {
+        #if DEBUG
+            print("ALERT:\t\(inTitle)\n\t\t\(inMessage)")
+        #endif
+        DispatchQueue.main.async {  // In case we're called off-thread...
+            guard let presentedBy = inPresentingViewController else { return }
+            
+            let alertController = UIAlertController(title: inTitle, message: inMessage, preferredStyle: .actionSheet)
+            
+            let okAction = UIAlertAction(title: "SLUG-OK-BUTTON-TEXT".localizedVariant, style: UIAlertAction.Style.cancel, handler: nil)
+            
+            alertController.addAction(okAction)
+            
+            presentedBy.present(alertController, animated: true, completion: nil)
+        }
+    }
+
+    /* ################################################################## */
+    /**
      */
     static var centralManager: CGA_Bluetooth_CentralManager?
 

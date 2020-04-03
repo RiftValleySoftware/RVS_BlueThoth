@@ -177,6 +177,12 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
         
         /* ############################################################## */
         /**
+         This is the peripheral wrapper that is instantiated when the device is connected. It is nil, if the device is not connected. It is a strong reference.
+         */
+        var peripheralInstance: CGA_Bluetooth_Peripheral?
+        
+        /* ############################################################## */
+        /**
          The actual Peripheral instance. This is a strong reference.
          This will retain the allocation for the Peripheral until after it has been connected and discovery is complete.
          */
@@ -184,22 +190,30 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
         
         /* ############################################################## */
         /**
-         The initial Peripheral Name
-         */
-        let name: String
-        
-        /* ############################################################## */
-        /**
+         This holds the advertisement data that came with the discovery.
          */
         let advertisementData: [String: Any]
         
         /* ############################################################## */
         /**
+         This is the signal strength, at the time of discovery, in dBm.
          */
         let rssi: Int
         
         /* ############################################################## */
         /**
+         The assigned Peripheral Name
+         */
+        var name: String {
+            guard   let cbPeripheral = cbPeripheral,
+                    let name = cbPeripheral.name else { return "" }
+            
+            return name
+        }
+
+        /* ############################################################## */
+        /**
+         This is true, if the Peripheral advertisement data indicates the Peripheral can be connected.
          */
         var canConnect: Bool {
             if !advertisementData.isEmpty {
@@ -220,6 +234,7 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
         
         /* ############################################################## */
         /**
+         This is the "Local Name," from the advertisement data.
          */
         var localName: String {
             if !advertisementData.isEmpty {
@@ -240,6 +255,7 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
         
         /* ############################################################## */
         /**
+         This is the local name, if available, or the Peripheral name, if the local name is not available.
          */
         var preferredName: String {
             var ret = localName
@@ -271,6 +287,9 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
         
         /* ############################################################## */
         /**
+         This asks the Central Manager to ignore this device.
+         
+         - returns: True, if the ignore worked.
          */
         @discardableResult
         func ignore() -> Bool {
@@ -286,6 +305,9 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
         
         /* ############################################################## */
         /**
+         This asks the Central Manager to "unignore" this device.
+         
+         - returns: True, if the unignore worked.
          */
         @discardableResult
         func unignore() -> Bool {
@@ -301,6 +323,9 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
         
         /* ############################################################## */
         /**
+         This asks the Central Manager to connect this device.
+         
+         - returns: True, if the attempt worked (not a guarantee of success, though).
          */
         @discardableResult
         func connect() -> Bool {
@@ -312,6 +337,9 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
         
         /* ############################################################## */
         /**
+         This asks the Central Manager to disconnect this device.
+         
+         - returns: True, if the attempt worked (not a guarantee of success, though).
          */
         @discardableResult
         func disconnect() -> Bool {
@@ -323,11 +351,17 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
 
         /* ############################################################## */
         /**
+         Basic Init
+         
+         - parameters:
+            - central: The Centarl Manager instance that "owns" this instance.
+            - peripheral: The CBPeripheral instance associated with this. This will be a strong reference, and will be the "anchor" for this instance.
+            - advertisementData: The advertisement data of the discovered Peripheral.
+            - rssi: The signal strength, in dBm.
          */
-        init(central inCentralManager: CGA_Bluetooth_CentralManager, peripheral inPeripheral: Any, name inName: String, advertisementData inAdvertisementData: [String: Any], rssi inRSSI: Int) {
+        init(central inCentralManager: CGA_Bluetooth_CentralManager, peripheral inPeripheral: CBPeripheral, advertisementData inAdvertisementData: [String: Any], rssi inRSSI: Int) {
             central = inCentralManager
             peripheral = inPeripheral
-            name = inName
             advertisementData = inAdvertisementData
             rssi = inRSSI
         }
@@ -379,7 +413,7 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
     /**
      We aggregate Peripherals.
      */
-    typealias Element = CGA_Bluetooth_CentralManager.DiscoveryData
+    typealias Element = CGA_Bluetooth_Peripheral
     
     /* ################################################################## */
     /**
@@ -609,6 +643,12 @@ extension CGA_Bluetooth_CentralManager {
     
     /* ################################################################## */
     /**
+     - returns true, if the given CBPeripheral is in either of our staging lists.
+     */
+    func iGotThis(_ inPeripheral: CBPeripheral) -> Bool { stagedBLEPeripherals.contains(inPeripheral) || ignoredBLEPeripherals.contains(inPeripheral) }
+
+    /* ################################################################## */
+    /**
      Called to initiate a connection (and discovery process) with the peripheral.
      
      - parameter inPeripheral: The Peripheral (CB) to connect, as the opaque DiscoveryData type.
@@ -753,15 +793,14 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
             #if DEBUG
                 print("Discovered \(name) (BLE).")
             #endif
-            if  !stagedBLEPeripherals.contains(inPeripheral),
-                !sequence_contents.contains(inPeripheral),
+            if  !iGotThis(inPeripheral),
                 !inPeripheral.identifier.uuidString.isEmpty {
                 #if DEBUG
                     print("Added \(name) (BLE).")
-                    print("\tUUID: \(String(inPeripheral.identifier.uuidString))\n")
-                    print("\tAdvertising Info:\n\t\(String(describing: inAdvertisementData))\n")
+                    print("\tUUID: \(String(inPeripheral.identifier.uuidString))")
+                    print("\tAdvertising Info:\n\t\t\(String(describing: inAdvertisementData))\n")
                 #endif
-                stagedBLEPeripherals.append(DiscoveryData(central: self, peripheral: inPeripheral, name: name, advertisementData: inAdvertisementData, rssi: inRSSI.intValue))
+                stagedBLEPeripherals.append(DiscoveryData(central: self, peripheral: inPeripheral, advertisementData: inAdvertisementData, rssi: inRSSI.intValue))
                 _updateDelegate()
             } else {
                 #if DEBUG
@@ -793,8 +832,10 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
         #if DEBUG
             print("Connected \(String(describing: inPeripheral.name)).")
         #endif
-        inPeripheral.delegate = self
-        sequence_contents.append(discoveredDevice)
+        
+        // TODO: Remove this after I get things up and going.
+        sequence_contents.append(CGA_Bluetooth_Peripheral(discoveryData: discoveredDevice))
+        // END TODO
     }
     
     /* ################################################################## */
@@ -807,24 +848,20 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
         - error: Any error that occurred. It can (and should) be nil.
      */
     func centralManager(_ inCentralManager: CBCentralManager, didDisconnectPeripheral inPeripheral: CBPeripheral, error inError: Error?) {
-        guard   sequence_contents.contains(inPeripheral),
-                let discoveredDevice = stagedBLEPeripherals[inPeripheral]
-        else {
+        guard let peripheralInstance = sequence_contents[inPeripheral] else {
             #if DEBUG
-                print("\(String(describing: inPeripheral.name)) is not connected!")
+                print("Cannot find \(String(describing: inPeripheral.name)) in the guest list.")
             #endif
-            
             return
         }
-
-        #if DEBUG
-            print("Disconnected \(String(describing: inPeripheral.name)).")
-            if let error = inError {
-                print("\tWith error: \(String(describing: error)).")
-            }
-        #endif
         
-        sequence_contents.removeThisDevice(discoveredDevice)
+        _sendPeripheralDisconnect(peripheralInstance)
+        
+        #if DEBUG
+            print("Disconnected \(peripheralInstance.discoveryData?.preferredName ?? "ERROR").")
+        #endif
+
+        sequence_contents.removeThisPeripheral(inPeripheral)
     }
     
     /* ################################################################## */
@@ -847,12 +884,6 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - CBPeripheralDelegate Support -
-/* ###################################################################################################################################### */
-extension CGA_Bluetooth_CentralManager: CBPeripheralDelegate {
-}
-
-/* ###################################################################################################################################### */
 // MARK: - Special Comparator for the Peripherals Array -
 /* ###################################################################################################################################### */
 /**
@@ -866,7 +897,7 @@ extension Array where Element == CGA_Bluetooth_CentralManager.DiscoveryData {
      - parameter inItem: The Peripheral we're looking to match.
      - returns: The found Element, or nil, if not found.
      */
-    subscript(_ inItem: CGA_Bluetooth_CentralManager.DiscoveryData) -> Element! {
+    subscript(_ inItem: Element) -> Element! {
         return reduce(nil) { (current, nextItem) in
             if  nil == current {
                 if nextItem === inItem {
@@ -904,7 +935,7 @@ extension Array where Element == CGA_Bluetooth_CentralManager.DiscoveryData {
             return current
         }
     }
-    
+
     /* ################################################################## */
     /**
      Removes the element (as the opaque type).
@@ -913,7 +944,7 @@ extension Array where Element == CGA_Bluetooth_CentralManager.DiscoveryData {
      - returns: True, if the item was found and removed. Can be ignored.
      */
     @discardableResult
-    mutating func removeThisDevice(_ inItem: CGA_Bluetooth_CentralManager.DiscoveryData) -> Bool {
+    mutating func removeThisDevice(_ inItem: Element) -> Bool {
         var success = false
         removeAll { (test) -> Bool in
             if test === inItem {
@@ -929,7 +960,7 @@ extension Array where Element == CGA_Bluetooth_CentralManager.DiscoveryData {
         
         return success
     }
-    
+
     /* ################################################################## */
     /**
      Checks to see if the Array contains an instance that wraps the given CB element (as the opaque type).
@@ -937,7 +968,7 @@ extension Array where Element == CGA_Bluetooth_CentralManager.DiscoveryData {
      - parameter inItem: The CB element we're looking to match.
      - returns: True, if the Array contains a wrapper for the given element.
      */
-    func contains(_ inItem: CGA_Bluetooth_CentralManager.DiscoveryData) -> Bool { return nil != self[inItem] }
+    func contains(_ inItem: Element) -> Bool { return nil != self[inItem] }
 
     /* ################################################################## */
     /**

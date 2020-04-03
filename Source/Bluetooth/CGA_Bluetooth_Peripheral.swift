@@ -24,9 +24,10 @@ import UIKit
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
-// MARK: -
+// MARK: - CBPeripheral Wrapper Class -
 /* ###################################################################################################################################### */
 /**
+ This class is instantiated when a Peripheral is connected, and will handle discovery of Services, Characteristics and Descriptors.
  */
 class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
     /* ################################################################## */
@@ -43,16 +44,30 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
-     This is used to reference an "owning instance" of this instance, and it should be a CGA_Class_Protocol
+     This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Parent instance.
      */
     var parent: CGA_Class_Protocol?
 
     /* ################################################################## */
     /**
-     This holds the instance of CBPeripheral that is used by this instance.
+     This returns the instance of CBPeripheral that is used by this instance.
      */
-    var cbElementInstance: CBPeripheral!
+    var cbElementInstance: CBPeripheral! { discoveryData?.cbPeripheral }
     
+    /* ################################################################## */
+    /**
+     This holds the discovery data that applies to this instance.
+     */
+    var discoveryData: CGA_Bluetooth_CentralManager.DiscoveryData!
+    
+    /* ################################################################## */
+    /**
+     This casts the parent as a Central Manager.
+     */
+    var central: CGA_Bluetooth_CentralManager! {
+        parent as? CGA_Bluetooth_CentralManager
+    }
+
     /* ################################################################## */
     /**
      The required init, with a "primed" sequence.
@@ -71,36 +86,43 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
      This is read-only. If you want to initiate a connection, use the <code>CGA_Bluetooth_CentralManager.connect(_:)</code> method.
      */
     var isConnected: Bool {
-        if let instance = cbElementInstance {
-            return .connected == instance.state
-        }
-        return false
+        guard let instance = cbElementInstance else { return false }
+        
+        return .connected == instance.state
     }
 }
 
 /* ###################################################################################################################################### */
 // MARK: - Instance Methods
 /* ###################################################################################################################################### */
-/**
- */
 extension CGA_Bluetooth_Peripheral {
+    /* ################################################################## */
+    /**
+     This is the init that should always be used.
+     
+     - parameter discoveryData: The discovery data of the Peripheral.
+     */
+    convenience init(discoveryData inCBPeriperalDiscoveryData: CGA_Bluetooth_CentralManager.DiscoveryData) {
+        self.init(sequence_contents: [])
+        discoveryData = inCBPeriperalDiscoveryData
+        cbElementInstance?.delegate = self
+    }
 }
 
 /* ###################################################################################################################################### */
-// MARK: -
+// MARK: - CGA_Class_Protocol Conformance -
 /* ###################################################################################################################################### */
-/**
- */
 extension CGA_Bluetooth_Peripheral: CGA_Class_Protocol {
     /* ################################################################## */
     /**
+     This is the required conformance method to update the collection.
      */
     func updateCollection() {
     }
 }
 
 /* ###################################################################################################################################### */
-// MARK: - CBPeripheralDelegate Support -
+// MARK: - CBPeripheralDelegate Conformance -
 /* ###################################################################################################################################### */
 extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     
@@ -145,5 +167,31 @@ extension Array where Element == CGA_Bluetooth_Peripheral {
      */
     func contains(_ inItem: CBPeripheral) -> Bool {
         return nil != self[inItem]
+    }
+    
+    /* ################################################################## */
+    /**
+     Removes the element (as a CBPeripheral).
+     
+     - parameter inItem: The CB element we're looking to remove, as the opaque type.
+     - returns: True, if the item was found and removed. Can be ignored.
+     */
+    @discardableResult
+    mutating func removeThisPeripheral(_ inItem: CBPeripheral) -> Bool {
+        var success = false
+        removeAll { (test) -> Bool in
+            guard let testPeripheral = test.discoveryData?.cbPeripheral else { return false }
+            if testPeripheral === inItem {
+                success = true
+                return true
+            } else if testPeripheral.identifier.uuidString == inItem.identifier.uuidString {
+                success = true
+                return true
+            }
+            
+            return false
+        }
+        
+        return success
     }
 }
