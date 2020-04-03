@@ -23,12 +23,10 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 import UIKit
 
 /* ###################################################################################################################################### */
-// MARK: - The initial view controller (table of devices) -
+// MARK: - The About view controller -
 /* ###################################################################################################################################### */
 /**
- This controls the initial view, which is a basic table of discovered devices.
- 
- There are two sections: BLE, and BR/EDR (Classic). Each section has rows of devices that fit in that Bluetooth mode.
+ This controls the about this app view.
  */
 class CGA_InfoViewController: UIViewController {
     /* ################################################################## */

@@ -11,6 +11,7 @@
 		D41B26D62432444400EFE37C /* CGA_Bluetooth_Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41B26D52432444400EFE37C /* CGA_Bluetooth_Service.swift */; };
 		D41B26D8243244F200EFE37C /* CGA_Bluetooth_Characteristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41B26D7243244F200EFE37C /* CGA_Bluetooth_Characteristic.swift */; };
 		D41B26DA2432451D00EFE37C /* CGA_Bluetooth_Descriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41B26D92432451D00EFE37C /* CGA_Bluetooth_Descriptor.swift */; };
+		D43F05E52436C07B0009EA1B /* CGA_SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43F05E42436C07B0009EA1B /* CGA_SettingsViewController.swift */; };
 		D447B9E42431712900F00A7A /* CGA_Bluetooth_CentralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D447B9E32431712900F00A7A /* CGA_Bluetooth_CentralManager.swift */; };
 		D447B9EF243171AB00F00A7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D447B9E6243171AB00F00A7A /* Assets.xcassets */; };
 		D447B9F0243171AB00F00A7A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D447B9E7243171AB00F00A7A /* LaunchScreen.storyboard */; };
@@ -34,6 +35,7 @@
 		D41B26D52432444400EFE37C /* CGA_Bluetooth_Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Service.swift; sourceTree = "<group>"; };
 		D41B26D7243244F200EFE37C /* CGA_Bluetooth_Characteristic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Characteristic.swift; sourceTree = "<group>"; };
 		D41B26D92432451D00EFE37C /* CGA_Bluetooth_Descriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Descriptor.swift; sourceTree = "<group>"; };
+		D43F05E42436C07B0009EA1B /* CGA_SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_SettingsViewController.swift; sourceTree = "<group>"; };
 		D447B9E32431712900F00A7A /* CGA_Bluetooth_CentralManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_CentralManager.swift; sourceTree = "<group>"; };
 		D447B9E6243171AB00F00A7A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D447B9E8243171AB00F00A7A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				D48D851C2430F05500A925ED /* CGA_InitialViewController.swift */,
 				D4CAA4262434E877007C72AA /* CGA_DetailViewController.swift */,
 				D4F666C62434F06200CD4548 /* CGA_InfoViewController.swift */,
+				D43F05E42436C07B0009EA1B /* CGA_SettingsViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				D4F666C72434F06200CD4548 /* CGA_InfoViewController.swift in Sources */,
 				D4A53AAC24312F2F009647C4 /* RVS_PersistentPrefs.swift in Sources */,
 				D41B26D62432444400EFE37C /* CGA_Bluetooth_Service.swift in Sources */,
+				D43F05E52436C07B0009EA1B /* CGA_SettingsViewController.swift in Sources */,
 				D41B26DA2432451D00EFE37C /* CGA_Bluetooth_Descriptor.swift in Sources */,
 				D447B9E42431712900F00A7A /* CGA_Bluetooth_CentralManager.swift in Sources */,
 				D41B26D8243244F200EFE37C /* CGA_Bluetooth_Characteristic.swift in Sources */,

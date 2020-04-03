@@ -97,14 +97,6 @@ class CGA_InitialViewController: UIViewController {
      This implements a "pull to refresh."
      */
     private let _refreshControl = UIRefreshControl()
-
-    /* ################################################################## */
-    /**
-     Returns the pushed device details screen. Nil, if none.
-     */
-    private var _currentDeviceScreen: CGA_DetailViewController! {
-        return navigationController?.topViewController as? CGA_DetailViewController
-    }
     
     /* ################################################################## */
     /**
@@ -113,6 +105,12 @@ class CGA_InitialViewController: UIViewController {
      */
     private var _wasScanning: Bool = false
     
+    /* ################################################################## */
+    /**
+     Returns the pushed device details screen. Nil, if none.
+     */
+    private var _currentDeviceScreen: CGA_DetailViewController! { navigationController?.topViewController as? CGA_DetailViewController }
+
     /* ################################################################## */
     /**
      This is the table that will list the discovered devices.
@@ -240,12 +238,17 @@ extension CGA_InitialViewController {
     private func _createAdvertimentStringsFor(_ inIndex: Int) -> [String] {
         if  let centralManager = CGA_AppDelegate.centralManager,
             (0..<centralManager.stagedBLEPeripherals.count).contains(inIndex) {
+            let id = centralManager.stagedBLEPeripherals[inIndex].identifier
             let adData = centralManager.stagedBLEPeripherals[inIndex].advertisementData
             
-            let retStr = adData.reduce("") { (current, next) in
+            // This gives us a predictable order of things.
+            let sortedAdDataKeys = adData.keys.sorted()
+            let sortedAdData: [(key: String, value: Any?)] = sortedAdDataKeys.compactMap { (key:$0, value: adData[$0]) }
+
+            let retStr = sortedAdData.reduce("SLUG-ID".localizedVariant + ": \(id)") { (current, next) in
                 let key = next.key.localizedVariant
                 let value = next.value
-                var ret = current.isEmpty ? "" : "\(current)\n"
+                var ret = "\(current)\n"
                 
                 if let asStringArray = value as? [String] {
                     ret += current + asStringArray.reduce("\(key): ") { (current2, next2) in
@@ -258,7 +261,7 @@ extension CGA_InitialViewController {
                 } else if let value = value as? Int {
                     ret += "\(key): \(value)"
                 } else if let value = value as? Double {
-                    if "kCBAdvDataTimestamp" == next.key {  // If it's the timestamp, we can translate tha, here.
+                    if "kCBAdvDataTimestamp" == next.key {  // If it's the timestamp, we can translate that, here.
                         let date = Date(timeIntervalSinceReferenceDate: value)
                         let dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = "SLUG-MAIN-LIST-DATE-FORMAT".localizedVariant
@@ -292,9 +295,11 @@ extension CGA_InitialViewController {
         deviceTableView.isHidden = !isBTAvailable
         if  isBTAvailable,
             CGA_AppDelegate.centralManager?.isScanning ?? false {
-            scanningButton.setTitle("SLUG-SCANNING".localizedVariant, for: .normal)
+            scanningButton.backgroundColor = UIColor(red: 0, green: 0.75, blue: 0, alpha: 1.0)
+            scanningButton.setTitle(" " + "SLUG-SCANNING".localizedVariant + " ", for: .normal)
         } else {
-            scanningButton.setTitle("SLUG-NOT-SCANNING".localizedVariant, for: .normal)
+            scanningButton.backgroundColor = UIColor(red: 0.75, green: 0, blue: 0, alpha: 1.0)
+            scanningButton.setTitle(" " + "SLUG-NOT-SCANNING".localizedVariant + " ", for: .normal)
         }
         
         scanningButton.isEnabled = true
@@ -313,6 +318,7 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
      - parameter from: The manager wrapper view that is calling this.
      */
     func handleError(_ inError: Error, from inCentralManager: CGA_Bluetooth_CentralManager) {
+        CGA_AppDelegate.displayAlert("SLUG-ERROR".localizedVariant, message: inError.localizedDescription.localizedVariant)
     }
     
     /* ################################################################## */
@@ -370,9 +376,7 @@ extension CGA_InitialViewController: UITableViewDataSource {
      - parameter heightForHeaderInSection: The 0-based section index being queried (ignored).
      - returns: The height, in display units, of the header for the section.
      */
-    func tableView(_ inTableView: UITableView, heightForHeaderInSection inSection: Int) -> CGFloat {
-        Self._sectionHeaderHeightInDisplayUnits
-    }
+    func tableView(_ inTableView: UITableView, heightForHeaderInSection inSection: Int) -> CGFloat { Self._sectionHeaderHeightInDisplayUnits }
     
     /* ################################################################## */
     /**
@@ -383,19 +387,17 @@ extension CGA_InitialViewController: UITableViewDataSource {
      - returns: The header for the section, as a view (a label).
      */
     func tableView(_ inTableView: UITableView, viewForHeaderInSection inSection: Int) -> UIView? {
-        if 1 < _SectionIndexes.numSections.rawValue {
-            let ret = UILabel()
-            
-            ret.text = ("SLUG-SECTION-HEADER-" + (_SectionIndexes.ble.rawValue == inSection ? "BLE" : "CLASSIC")).localizedVariant
-            ret.textColor = .blue
-            ret.textAlignment = .center
-            ret.backgroundColor = .white
-            ret.font = .boldSystemFont(ofSize: Self._sectionHeaderHeightInDisplayUnits)
-            
-            return ret
-        }
+        guard 1 < _SectionIndexes.numSections.rawValue else { return nil }
         
-        return nil
+        let ret = UILabel()
+        
+        ret.text = ("SLUG-SECTION-HEADER-" + (_SectionIndexes.ble.rawValue == inSection ? "BLE" : "CLASSIC")).localizedVariant
+        ret.textColor = .blue
+        ret.textAlignment = .center
+        ret.backgroundColor = .white
+        ret.font = .boldSystemFont(ofSize: Self._sectionHeaderHeightInDisplayUnits)
+        
+        return ret
     }
     
     /* ################################################################## */
@@ -407,14 +409,12 @@ extension CGA_InitialViewController: UITableViewDataSource {
      - returns: The number of rows in the given section.
      */
     func tableView(_ inTableView: UITableView, numberOfRowsInSection inSection: Int) -> Int {
-        if  let centralManager = CGA_AppDelegate.centralManager {
-            if  _SectionIndexes.ble.rawValue == inSection,
-                !centralManager.stagedBLEPeripherals.isEmpty {
-                return centralManager.stagedBLEPeripherals.count
-            }
-        }
-        
-        return 0
+        guard  let centralManager = CGA_AppDelegate.centralManager,
+                _SectionIndexes.ble.rawValue == inSection,
+                !centralManager.stagedBLEPeripherals.isEmpty
+        else { return 0 }
+       
+        return centralManager.stagedBLEPeripherals.count
     }
     
     /* ################################################################## */
@@ -426,13 +426,11 @@ extension CGA_InitialViewController: UITableViewDataSource {
      - returns: The height of the row, in display units.
      */
     func tableView(_ inTableView: UITableView, heightForRowAt inIndexPath: IndexPath) -> CGFloat {
-        if  let centralManager = CGA_AppDelegate.centralManager,
-            (0..<centralManager.stagedBLEPeripherals.count).contains(inIndexPath.row) {
-            let advDataLen = CGFloat(_createAdvertimentStringsFor(inIndexPath.row).count)
-            return (Self._labelRowHeightInDisplayUnits) + (advDataLen * Self._labelRowHeightInDisplayUnits)
-        }
+        guard  let centralManager = CGA_AppDelegate.centralManager,
+            (0..<centralManager.stagedBLEPeripherals.count).contains(inIndexPath.row)
+        else { return 0.0 }
         
-        return 0.0
+        return (Self._labelRowHeightInDisplayUnits) + (CGFloat(_createAdvertimentStringsFor(inIndexPath.row).count) * Self._labelRowHeightInDisplayUnits)
     }
     
     /* ################################################################## */
@@ -482,11 +480,16 @@ extension CGA_InitialViewController: UITableViewDataSource {
 
                 // Each row of advertising data is turned into a new label, which is added to the container view; just under the previous label.
                 advertisingData.forEach {
-                    let bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: containerView.bounds.size.width, height: Self._labelRowHeightInDisplayUnits))
-                    let newLabel = UILabel(frame: bounds)
-                    newLabel.text = $0
-                    newLabel.textColor = fontColor
-                    topAnchor = _addContainedSubView(newLabel, to: containerView, under: topAnchor)
+                    if !$0.isEmpty {
+                        let bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: containerView.bounds.size.width, height: Self._labelRowHeightInDisplayUnits))
+                        let newLabel = UILabel(frame: bounds)
+                        newLabel.text = $0
+                        newLabel.adjustsFontSizeToFitWidth = true
+                        newLabel.minimumScaleFactor = 0.75
+                        newLabel.font = .systemFont(ofSize: Self._labelRowHeightInDisplayUnits * 0.75)
+                        newLabel.textColor = fontColor
+                        topAnchor = _addContainedSubView(newLabel, to: containerView, under: topAnchor)
+                    }
                 }
             
                 // Tie the last one off to the bottom of the view.

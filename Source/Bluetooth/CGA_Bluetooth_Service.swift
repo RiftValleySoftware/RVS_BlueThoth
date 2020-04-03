@@ -43,7 +43,7 @@ class CGA_Bluetooth_Service: RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
-     This is used to reference an "owning instance" of this instance, and it should be a CGA_Class_Protocol
+     This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Peripheral
      */
     var parent: CGA_Class_Protocol?
 
@@ -53,6 +53,14 @@ class CGA_Bluetooth_Service: RVS_SequenceProtocol {
      */
     var cbElementInstance: CBService!
     
+    /* ################################################################## */
+    /**
+     This casts the parent as a Peripheral Wrapper.
+     */
+    var peripheral: CGA_Bluetooth_Peripheral! {
+        parent as? CGA_Bluetooth_Peripheral
+    }
+
     /* ################################################################## */
     /**
      The required init, with a "primed" sequence.
@@ -93,7 +101,17 @@ extension Array where Element == CGA_Bluetooth_Service {
      */
     subscript(_ inItem: CBService) -> Element! {
         return reduce(nil) { (current, nextItem) in
-            return nil == current ? (nextItem.cbElementInstance.uuid == inItem.uuid ? nextItem : nil) : current
+            if  nil == current {
+                if nextItem === inItem {
+                    return nextItem
+                } else if nextItem.cbElementInstance.uuid == inItem.uuid {
+                    return nextItem
+                }
+                    
+                return nil
+            }
+            
+            return current
         }
     }
     
