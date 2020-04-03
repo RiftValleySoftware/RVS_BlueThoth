@@ -137,6 +137,12 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     func peripheral(_ inPeripheral: CBPeripheral, didModifyServices inInvalidatedServices: [CBService]) {
         print("Services Modified: \(String(describing: inInvalidatedServices))")
     }
+    
+    /* ################################################################## */
+    /**
+     */
+    func peripheral(_ inPeripheral: CBPeripheral, didDiscoverCharacteristicsFor inService: CBService, error inError: Error?) {
+    }
 }
 
 /* ###################################################################################################################################### */
