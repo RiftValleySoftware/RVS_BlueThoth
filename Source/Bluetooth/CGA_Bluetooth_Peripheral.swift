@@ -163,7 +163,7 @@ extension Array where Element == CGA_Bluetooth_Peripheral {
      - returns: True, if the item was found and removed. Can be ignored.
      */
     @discardableResult
-    mutating func removeThisPeripheral(_ inItem: CBPeripheral) -> Bool {
+    mutating func removeThisDevice(_ inItem: CBPeripheral) -> Bool {
         var success = false
         removeAll { (test) -> Bool in
             guard let testPeripheral = test.discoveryData?.cbPeripheral else { return false }

@@ -235,14 +235,12 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
             guard !advertisementData.isEmpty else { return "" }
             
             return advertisementData.reduce("") { (current, next) in
-                if  current.isEmpty,
-                    CBAdvertisementDataLocalNameKey == next.key {
-                    if let value = next.value as? String {
-                        return value
-                    }
-                }
+                guard   current.isEmpty,
+                        CBAdvertisementDataLocalNameKey == next.key,
+                        let value = next.value as? String
+                else { return current }
                 
-                return current
+                return value
             }
         }
         
@@ -538,7 +536,7 @@ extension CGA_Bluetooth_CentralManager {
     /* ################################################################## */
     /**
      Asks the Central Manager to start scanning for Peripherals.
-     - parameter withServices: An Array od Strings, with the UUID strings. This is optional, and can be left out, in which case all services will be scanned.
+     - parameter withServices: An Array of Strings, with the UUID strings. This is optional, and can be left out, in which case all services will be scanned.
      - returns: True, if the scan attempt was made (not a guarantee of success, though). Can be ignored.
      */
     @discardableResult
@@ -578,7 +576,7 @@ extension CGA_Bluetooth_CentralManager {
     
     /* ################################################################## */
     /**
-     Asks the Central Manager to start scanning for Peripherals, but use any saved filters.
+     Asks the Central Manager to start scanning for Peripherals, but reuse any saved filters (as opposed to supplying them).
      - returns: True, if the scan attempt was made (not a guarantee of success, though). Can be ignored.
      */
     @discardableResult
@@ -596,13 +594,14 @@ extension CGA_Bluetooth_CentralManager {
      */
     @discardableResult
     func stopScanning() -> Bool {
-        #if DEBUG
-            print("Asking Central Manager to Stop Scanning.")
-        #endif
         guard   let cbCentral = cbElementInstance,
                 cbCentral.isScanning
         else { return false }
         
+        #if DEBUG
+            print("Asking Central Manager to Stop Scanning.")
+        #endif
+
         cbCentral.stopScan()
         
         _updateDelegate()
@@ -643,18 +642,16 @@ extension CGA_Bluetooth_CentralManager {
      */
     @discardableResult
     func connect(_ inPeripheral: DiscoveryData?) -> Bool {
-        if  let peripheral = inPeripheral?.cbPeripheral,
-            let cbCentral = cbElementInstance,
-            stagedBLEPeripherals.contains(peripheral) {
-            #if DEBUG
-                print("Connecting \(String(describing: peripheral.name)).")
-            #endif
-            cbCentral.connect(peripheral, options: nil)
-            
-            return true
-        }
+        guard   let peripheral = inPeripheral?.cbPeripheral,
+                let cbCentral = cbElementInstance,
+                stagedBLEPeripherals.contains(peripheral)
+        else { return false }
+        #if DEBUG
+            print("Connecting \(String(describing: peripheral.name)).")
+        #endif
+        cbCentral.connect(peripheral, options: nil)
         
-        return false
+        return true
     }
     
     /* ################################################################## */
@@ -666,18 +663,16 @@ extension CGA_Bluetooth_CentralManager {
      */
     @discardableResult
     func disconnect(_ inPeripheral: DiscoveryData) -> Bool {
-        if  let cbCentral = cbElementInstance,
-            let cbPeripheral = inPeripheral.cbPeripheral,
-            sequence_contents.contains(cbPeripheral) {
-            #if DEBUG
-                print("Disconnecting \(inPeripheral.preferredName).")
-            #endif
-            cbCentral.cancelPeripheralConnection(cbPeripheral)
-            
-            return true
-        }
+        guard   let cbCentral = cbElementInstance,
+                let cbPeripheral = inPeripheral.cbPeripheral,
+                sequence_contents.contains(cbPeripheral)
+        else { return false }
+        #if DEBUG
+            print("Disconnecting \(inPeripheral.preferredName).")
+        #endif
+        cbCentral.cancelPeripheralConnection(cbPeripheral)
         
-        return false
+        return true
     }
 }
 
@@ -775,26 +770,37 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
         - rssi: The signal strength, in DB.
      */
     func centralManager(_ inCentralManager: CBCentralManager, didDiscover inPeripheral: CBPeripheral, advertisementData inAdvertisementData: [String: Any], rssi inRSSI: NSNumber) {
-        if  let name = inPeripheral.name,
-            !name.isEmpty {
+        guard   let name = inPeripheral.name,
+                !name.isEmpty
+        else {
             #if DEBUG
-                print("Discovered \(name) (BLE).")
+                print("Discarding empty-name Peripheral: \(String(describing: inPeripheral)).")
             #endif
-            if  !iGotThis(inPeripheral),
-                !inPeripheral.identifier.uuidString.isEmpty {
-                #if DEBUG
-                    print("Added \(name) (BLE).")
-                    print("\tUUID: \(String(inPeripheral.identifier.uuidString))")
-                    print("\tAdvertising Info:\n\t\t\(String(describing: inAdvertisementData))\n")
-                #endif
-                stagedBLEPeripherals.append(DiscoveryData(central: self, peripheral: inPeripheral, advertisementData: inAdvertisementData, rssi: inRSSI.intValue))
-                _updateDelegate()
-            } else {
-                #if DEBUG
-                    print("Not Adding \(name) (BLE).")
-                #endif
-            }
+            return
         }
+        
+        #if DEBUG
+            print("Discovered \(name) (BLE).")
+        #endif
+        guard   !iGotThis(inPeripheral),
+                !inPeripheral.identifier.uuidString.isEmpty
+        else {
+            #if DEBUG
+                print("Not Adding \(name) (BLE).")
+                if inPeripheral.identifier.uuidString.isEmpty {
+                    print("\tBecause the UUID is empty.")
+                }
+            #endif
+            return
+        }
+        
+        #if DEBUG
+            print("Added \(name) (BLE).")
+            print("\tUUID: \(String(inPeripheral.identifier.uuidString))")
+            print("\tAdvertising Info:\n\t\t\(String(describing: inAdvertisementData))\n")
+        #endif
+        stagedBLEPeripherals.append(DiscoveryData(central: self, peripheral: inPeripheral, advertisementData: inAdvertisementData, rssi: inRSSI.intValue))
+        _updateDelegate()
     }
     
     /* ################################################################## */
@@ -848,7 +854,7 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
             print("Disconnected \(peripheralInstance.discoveryData?.preferredName ?? "ERROR").")
         #endif
 
-        sequence_contents.removeThisPeripheral(inPeripheral)
+        sequence_contents.removeThisDevice(inPeripheral)
     }
     
     /* ################################################################## */
