@@ -138,9 +138,8 @@ extension CGA_DetailViewController {
      */
     override func viewWillAppear(_ inAnimated: Bool) {
         super.viewWillAppear(inAnimated)
-        if  .connected != deviceAdvInfo.peripheral.state {
-            CGA_AppDelegate.centralManager?.connect(deviceAdvInfo.peripheral)
-        }
+        guard let device = deviceAdvInfo else { return }
+        device.connect()
         updateUI()
     }
     
@@ -153,9 +152,9 @@ extension CGA_DetailViewController {
      */
     override func viewWillDisappear(_ inAnimated: Bool) {
         super.viewWillDisappear(inAnimated)
-        if let device = deviceInstance {
-            device.disconnect()
-        }
+        guard let device = deviceAdvInfo else { return }
+        device.disconnect()
+        updateUI()
     }
 }
 

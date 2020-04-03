@@ -84,22 +84,6 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
 /**
  */
 extension CGA_Bluetooth_Peripheral {
-    /* ################################################################## */
-    /**
-     Disconnect this device.
-     
-     - returns: True, if the disconnection attempt was made (not a guarantee of success). Can be ignored.
-     */
-    @discardableResult
-    func disconnect() -> Bool {
-        if  let instance = cbElementInstance,
-            let centralManager = parent as? CGA_Bluetooth_CentralManager {
-            
-            return centralManager.disconnect(instance)
-        }
-        
-        return false
-    }
 }
 
 /* ###################################################################################################################################### */

@@ -240,7 +240,7 @@ extension CGA_InitialViewController {
     private func _createAdvertimentStringsFor(_ inIndex: Int) -> [String] {
         if  let centralManager = CGA_AppDelegate.centralManager,
             (0..<centralManager.stagedBLEPeripherals.count).contains(inIndex) {
-            let id = centralManager.stagedBLEPeripherals[inIndex].peripheral.identifier.uuidString
+            let id = centralManager.stagedBLEPeripherals[inIndex].identifier
             let adData = centralManager.stagedBLEPeripherals[inIndex].advertisementData
             
             // This gives us a predictable order of things.
