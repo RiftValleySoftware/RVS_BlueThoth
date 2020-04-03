@@ -64,7 +64,17 @@ extension Array where Element == CGA_Bluetooth_Descriptor {
      */
     subscript(_ inItem: CBDescriptor) -> Element! {
         return reduce(nil) { (current, nextItem) in
-            return nil == current ? (nextItem.cbElementInstance.uuid == inItem.uuid ? nextItem : nil) : current
+            if  nil == current {
+                if nextItem === inItem {
+                    return nextItem
+                } else if nextItem.cbElementInstance.uuid == inItem.uuid {
+                    return nextItem
+                }
+                
+                return nil
+            }
+            
+            return current
         }
     }
     

@@ -676,9 +676,12 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
                 print("Discovered \(name) (BLE).")
             #endif
             if  !stagedBLEPeripherals.contains(inPeripheral),
-                !sequence_contents.contains(inPeripheral) {
+                !sequence_contents.contains(inPeripheral),
+                !inPeripheral.identifier.uuidString.isEmpty {
                 #if DEBUG
                     print("Added \(name) (BLE).")
+                    print("\tUUID: \(String(inPeripheral.identifier.uuidString))\n")
+                    print("\tAdvertising Info:\n\t\(String(describing: inAdvertisementData))\n")
                 #endif
                 stagedBLEPeripherals.append(DiscoveryData(peripheral: inPeripheral, name: name, advertisementData: inAdvertisementData, rssi: inRSSI.intValue))
                 _updateDelegate()
@@ -764,7 +767,17 @@ extension Array where Element == CGA_Bluetooth_CentralManager.DiscoveryData {
      */
     subscript(_ inItem: CBPeripheral) -> Element! {
         return reduce(nil) { (current, nextItem) in
-            return nil == current ? (nextItem.peripheral.identifier == inItem.identifier ? nextItem : nil) : current
+            if  nil == current {
+                if nextItem === inItem {
+                    return nextItem
+                } else if nextItem.peripheral.identifier == inItem.identifier {
+                    return nextItem
+                }
+               
+                return nil
+            }
+            
+            return current
         }
     }
     

@@ -1,4 +1,4 @@
-/**
+/*
 © Copyright 2020, Little Green Viper Software Development LLC
 
 LICENSE:
@@ -19,18 +19,21 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT
 
 Little Green Viper Software Development LLC: https://littlegreenviper.com
 */
-"SLUG-SECTION-HEADER-BLE"           =   "BLE";
-"SLUG-SECTION-HEADER-CLASSIC"       =   "BR/EDR";
-"SLUG-DEVICES"                      =   "Device List";
-"SLUG-MAIN-LIST-DATE-FORMAT"        =   "MM/dd/yyyy h:mm:ss.SSS a";
-"SLUG-ID"                           =   "ID";
-"SLUG-SCANNING"                     =   "Scanning";
-"SLUG-NOT-SCANNING"                 =   "Not Scanning";
 
-"kCBAdvDataLocalName"               =   "Name";
-"kCBAdvDataIsConnectable"           =   "Can Connect";
-"kCBAdvDataTxPowerLevel"            =   "Transmit Power Level";
-"kCBAdvDataTimestamp"               =   "Timestamp";
-"kCBAdvDataRxPrimaryPHY"            =   "Primary Receive";
-"kCBAdvDataRxSecondaryPHY"          =   "Secondary Receive";
-"kCBAdvDataManufacturerData"        =   "Manufacturer Data";
+import UIKit
+
+/* ###################################################################################################################################### */
+// MARK: - The Settings View Controller -
+/* ###################################################################################################################################### */
+/**
+ This controls the settings view.
+ */
+class CGA_SettingsViewController: UIViewController {
+    /* ################################################################## */
+    /**
+     Called after the view data has been loaded.
+     */
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+}

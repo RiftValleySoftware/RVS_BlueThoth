@@ -240,12 +240,17 @@ extension CGA_InitialViewController {
     private func _createAdvertimentStringsFor(_ inIndex: Int) -> [String] {
         if  let centralManager = CGA_AppDelegate.centralManager,
             (0..<centralManager.stagedBLEPeripherals.count).contains(inIndex) {
+            let id = centralManager.stagedBLEPeripherals[inIndex].peripheral.identifier.uuidString
             let adData = centralManager.stagedBLEPeripherals[inIndex].advertisementData
             
-            let retStr = adData.reduce("") { (current, next) in
+            // This gives us a predictable order of things.
+            let sortedAdDataKeys = adData.keys.sorted()
+            let sortedAdData: [(key: String, value: Any?)] = sortedAdDataKeys.compactMap { (key:$0, value: adData[$0]) }
+
+            let retStr = sortedAdData.reduce("SLUG-ID".localizedVariant + ": \(id)") { (current, next) in
                 let key = next.key.localizedVariant
                 let value = next.value
-                var ret = current.isEmpty ? "" : "\(current)\n"
+                var ret = "\(current)\n"
                 
                 if let asStringArray = value as? [String] {
                     ret += current + asStringArray.reduce("\(key): ") { (current2, next2) in
@@ -258,7 +263,7 @@ extension CGA_InitialViewController {
                 } else if let value = value as? Int {
                     ret += "\(key): \(value)"
                 } else if let value = value as? Double {
-                    if "kCBAdvDataTimestamp" == next.key {  // If it's the timestamp, we can translate tha, here.
+                    if "kCBAdvDataTimestamp" == next.key {  // If it's the timestamp, we can translate that, here.
                         let date = Date(timeIntervalSinceReferenceDate: value)
                         let dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = "SLUG-MAIN-LIST-DATE-FORMAT".localizedVariant
@@ -292,9 +297,11 @@ extension CGA_InitialViewController {
         deviceTableView.isHidden = !isBTAvailable
         if  isBTAvailable,
             CGA_AppDelegate.centralManager?.isScanning ?? false {
-            scanningButton.setTitle("SLUG-SCANNING".localizedVariant, for: .normal)
+            scanningButton.backgroundColor = UIColor(red: 0, green: 0.75, blue: 0, alpha: 1.0)
+            scanningButton.setTitle(" " + "SLUG-SCANNING".localizedVariant + " ", for: .normal)
         } else {
-            scanningButton.setTitle("SLUG-NOT-SCANNING".localizedVariant, for: .normal)
+            scanningButton.backgroundColor = UIColor(red: 0.75, green: 0, blue: 0, alpha: 1.0)
+            scanningButton.setTitle(" " + "SLUG-NOT-SCANNING".localizedVariant + " ", for: .normal)
         }
         
         scanningButton.isEnabled = true
@@ -482,11 +489,14 @@ extension CGA_InitialViewController: UITableViewDataSource {
 
                 // Each row of advertising data is turned into a new label, which is added to the container view; just under the previous label.
                 advertisingData.forEach {
-                    let bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: containerView.bounds.size.width, height: Self._labelRowHeightInDisplayUnits))
-                    let newLabel = UILabel(frame: bounds)
-                    newLabel.text = $0
-                    newLabel.textColor = fontColor
-                    topAnchor = _addContainedSubView(newLabel, to: containerView, under: topAnchor)
+                    if !$0.isEmpty {
+                        let bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: containerView.bounds.size.width, height: Self._labelRowHeightInDisplayUnits))
+                        let newLabel = UILabel(frame: bounds)
+                        newLabel.text = $0
+                        newLabel.font = .systemFont(ofSize: Self._labelRowHeightInDisplayUnits * 0.75)
+                        newLabel.textColor = fontColor
+                        topAnchor = _addContainedSubView(newLabel, to: containerView, under: topAnchor)
+                    }
                 }
             
                 // Tie the last one off to the bottom of the view.

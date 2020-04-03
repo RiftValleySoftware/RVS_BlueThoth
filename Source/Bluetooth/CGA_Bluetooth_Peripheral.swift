@@ -138,7 +138,17 @@ extension Array where Element == CGA_Bluetooth_Peripheral {
      */
     subscript(_ inItem: CBPeripheral) -> Element! {
         return reduce(nil) { (current, nextItem) in
-            return nil == current ? (nextItem.cbElementInstance.identifier == inItem.identifier ? nextItem : nil) : current
+            if  nil == current {
+                if nextItem === inItem {
+                    return nextItem
+                } else if nextItem.cbElementInstance.identifier == inItem.identifier {
+                    return nextItem
+                }
+                
+                return nil
+            }
+            
+            return current
         }
     }
     
