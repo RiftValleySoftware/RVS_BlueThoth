@@ -45,21 +45,19 @@ class CGA_Bluetooth_Service: RVS_SequenceProtocol {
     /**
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Peripheral
      */
-    var parent: CGA_Class_Protocol?
+    weak var parent: CGA_Class_Protocol?
 
     /* ################################################################## */
     /**
      This holds the instance of CBService that is used by this instance.
      */
-    var cbElementInstance: CBService!
+    weak var cbElementInstance: CBService!
     
     /* ################################################################## */
     /**
      This casts the parent as a Peripheral Wrapper.
      */
-    var peripheral: CGA_Bluetooth_Peripheral! {
-        parent as? CGA_Bluetooth_Peripheral
-    }
+    var peripheral: CGA_Bluetooth_Peripheral! { parent as? CGA_Bluetooth_Peripheral }
 
     /* ################################################################## */
     /**
@@ -122,7 +120,5 @@ extension Array where Element == CGA_Bluetooth_Service {
      - parameter inItem: The CB element we're looking to match.
      - returns: True, if the Array contains a wrapper for the given element.
      */
-    func contains(_ inItem: CBService) -> Bool {
-        return nil != self[inItem]
-    }
+    func contains(_ inItem: CBService) -> Bool { nil != self[inItem] }
 }

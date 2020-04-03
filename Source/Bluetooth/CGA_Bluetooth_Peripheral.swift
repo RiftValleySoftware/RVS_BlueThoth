@@ -46,7 +46,7 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
     /**
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Parent instance.
      */
-    var parent: CGA_Class_Protocol?
+    weak var parent: CGA_Class_Protocol?
 
     /* ################################################################## */
     /**
@@ -64,9 +64,7 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
     /**
      This casts the parent as a Central Manager.
      */
-    var central: CGA_Bluetooth_CentralManager! {
-        parent as? CGA_Bluetooth_CentralManager
-    }
+    var central: CGA_Bluetooth_CentralManager! { parent as? CGA_Bluetooth_CentralManager }
 
     /* ################################################################## */
     /**
@@ -81,14 +79,10 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
-     Returns true, if the current state of the device is connected.
-     
-     This is read-only. If you want to initiate a connection, use the <code>CGA_Bluetooth_CentralManager.connect(_:)</code> method.
+     Make sure that we are removed, if we are going away.
      */
-    var isConnected: Bool {
-        guard let instance = cbElementInstance else { return false }
-        
-        return .connected == instance.state
+    deinit {
+        central?.removePeripheral(self)
     }
 }
 
@@ -106,6 +100,8 @@ extension CGA_Bluetooth_Peripheral {
         self.init(sequence_contents: [])
         discoveryData = inCBPeriperalDiscoveryData
         cbElementInstance?.delegate = self
+        cbElementInstance?.discoverServices(nil)
+        parent = discoveryData?.central
     }
 }
 
@@ -125,7 +121,22 @@ extension CGA_Bluetooth_Peripheral: CGA_Class_Protocol {
 // MARK: - CBPeripheralDelegate Conformance -
 /* ###################################################################################################################################### */
 extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
+    /* ################################################################## */
+    /**
+     */
+    func peripheral(_ inPeripheral: CBPeripheral, didDiscoverServices inError: Error?) {
+        print("Services Discovered: \(String(describing: inPeripheral.services))")
+        if let central = central {
+            central.addPeripheral(self)
+        }
+    }
     
+    /* ################################################################## */
+    /**
+     */
+    func peripheral(_ inPeripheral: CBPeripheral, didModifyServices inInvalidatedServices: [CBService]) {
+        print("Services Modified: \(String(describing: inInvalidatedServices))")
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -177,7 +188,7 @@ extension Array where Element == CGA_Bluetooth_Peripheral {
      - returns: True, if the item was found and removed. Can be ignored.
      */
     @discardableResult
-    mutating func removeThisPeripheral(_ inItem: CBPeripheral) -> Bool {
+    mutating func removeThisDevice(_ inItem: CBPeripheral) -> Bool {
         var success = false
         removeAll { (test) -> Bool in
             guard let testPeripheral = test.discoveryData?.cbPeripheral else { return false }

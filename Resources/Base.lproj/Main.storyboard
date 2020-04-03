@@ -61,7 +61,7 @@
                                             <segue destination="JV6-wJ-8zU" kind="showDetail" id="Liy-YK-yTR"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tXo-2J-9xn">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tXo-2J-9xn">
                                         <rect key="frame" x="107" y="0.0" width="160" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="160" placeholder="YES" id="HFQ-UX-TQG"/>
@@ -71,7 +71,10 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <state key="disabled">
-                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="titleColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="1" green="0.97254901959999995" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="scanningButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YKX-6H-N5J"/>
@@ -103,7 +106,7 @@
                                 </constraints>
                             </view>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="white" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="v4D-h1-YBk">
-                                <rect key="frame" x="20" y="74" width="374" height="788"/>
+                                <rect key="frame" x="20" y="82" width="374" height="780"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -178,7 +181,7 @@
                             <constraint firstItem="OEU-02-sbP" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="GZF-bQ-tUb"/>
                             <constraint firstItem="OEU-02-sbP" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.75" priority="999" id="IWB-65-wPW"/>
                             <constraint firstItem="Z4E-sI-brG" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Ize-yD-Fla"/>
-                            <constraint firstItem="v4D-h1-YBk" firstAttribute="top" secondItem="amI-Ti-P2k" secondAttribute="bottom" id="LUI-5e-49V"/>
+                            <constraint firstItem="v4D-h1-YBk" firstAttribute="top" secondItem="amI-Ti-P2k" secondAttribute="bottom" constant="8" id="LUI-5e-49V"/>
                             <constraint firstItem="amI-Ti-P2k" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="N31-m2-ReH"/>
                             <constraint firstItem="F5h-yB-Ah8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Pzi-xc-oo0"/>
                             <constraint firstItem="F5h-yB-Ah8" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="QrO-Cr-onc"/>
