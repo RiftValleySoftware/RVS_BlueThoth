@@ -45,7 +45,7 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
     /**
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Service
      */
-    var parent: CGA_Class_Protocol?
+    weak var parent: CGA_Class_Protocol?
 
     /* ################################################################## */
     /**

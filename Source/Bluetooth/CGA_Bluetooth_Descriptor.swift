@@ -33,7 +33,7 @@ class CGA_Bluetooth_Descriptor: CGA_Class_Protocol {
     /**
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Characteristic
      */
-    var parent: CGA_Class_Protocol?
+    weak var parent: CGA_Class_Protocol?
     
     /* ################################################################## */
     /**
