@@ -64,9 +64,7 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
     /**
      This casts the parent as a Central Manager.
      */
-    var central: CGA_Bluetooth_CentralManager! {
-        parent as? CGA_Bluetooth_CentralManager
-    }
+    var central: CGA_Bluetooth_CentralManager! { parent as? CGA_Bluetooth_CentralManager }
 
     /* ################################################################## */
     /**
@@ -77,18 +75,6 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
     required init(sequence_contents inSequence_Contents: [Element]) {
         sequence_contents = inSequence_Contents
         super.init()    // Since we derive from NSObject, we must call the super init()
-    }
-    
-    /* ################################################################## */
-    /**
-     Returns true, if the current state of the device is connected.
-     
-     This is read-only. If you want to initiate a connection, use the <code>CGA_Bluetooth_CentralManager.connect(_:)</code> method.
-     */
-    var isConnected: Bool {
-        guard let instance = cbElementInstance else { return false }
-        
-        return .connected == instance.state
     }
 }
 

@@ -39,15 +39,13 @@ class CGA_Bluetooth_Descriptor: CGA_Class_Protocol {
     /**
      This holds the instance of CBDescriptor that is used by this instance.
      */
-    var cbElementInstance: CBDescriptor!
+    weak var cbElementInstance: CBDescriptor!
     
     /* ################################################################## */
     /**
      This casts the parent as a Characteristic Wrapper.
      */
-    var characteristic: CGA_Bluetooth_Characteristic! {
-        parent as? CGA_Bluetooth_Characteristic
-    }
+    var characteristic: CGA_Bluetooth_Characteristic! { parent as? CGA_Bluetooth_Characteristic }
 
     /* ################################################################## */
     /**
@@ -93,7 +91,5 @@ extension Array where Element == CGA_Bluetooth_Descriptor {
      - parameter inItem: The CB element we're looking to match.
      - returns: True, if the Array contains a wrapper for the given element.
      */
-    func contains(_ inItem: CBDescriptor) -> Bool {
-        return nil != self[inItem]
-    }
+    func contains(_ inItem: CBDescriptor) -> Bool { nil != self[inItem] }
 }

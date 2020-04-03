@@ -205,8 +205,7 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
          The assigned Peripheral Name
          */
         var name: String {
-            guard   let cbPeripheral = cbPeripheral,
-                    let name = cbPeripheral.name else { return "" }
+            guard let name = cbPeripheral?.name else { return "" }
             
             return name
         }
@@ -216,20 +215,16 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
          This is true, if the Peripheral advertisement data indicates the Peripheral can be connected.
          */
         var canConnect: Bool {
-            if !advertisementData.isEmpty {
-                return advertisementData.reduce(false) { (current, next) in
-                    if  !current,
-                        CBAdvertisementDataIsConnectable == next.key {
-                        if let value = next.value as? Int {
-                            return 1 == value
-                        }
-                    }
-                    
-                    return current || false
-                }
-            }
+            guard !advertisementData.isEmpty else { return false }
             
-            return false
+            return advertisementData.reduce(false) { (current, next) in
+                guard   !current,
+                        CBAdvertisementDataIsConnectable == next.key,
+                        let value = next.value as? Bool
+                else { return current }
+                
+                return value
+            }
         }
         
         /* ############################################################## */
@@ -237,20 +232,18 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
          This is the "Local Name," from the advertisement data.
          */
         var localName: String {
-            if !advertisementData.isEmpty {
-                return advertisementData.reduce("") { (current, next) in
-                    if  current.isEmpty,
-                        CBAdvertisementDataLocalNameKey == next.key {
-                        if let value = next.value as? String {
-                            return value
-                        }
-                    }
-                    
-                    return current
-                }
-            }
+            guard !advertisementData.isEmpty else { return "" }
             
-            return ""
+            return advertisementData.reduce("") { (current, next) in
+                if  current.isEmpty,
+                    CBAdvertisementDataLocalNameKey == next.key {
+                    if let value = next.value as? String {
+                        return value
+                    }
+                }
+                
+                return current
+            }
         }
         
         /* ############################################################## */
@@ -258,13 +251,9 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
          This is the local name, if available, or the Peripheral name, if the local name is not available.
          */
         var preferredName: String {
-            var ret = localName
+            guard localName.isEmpty else { return localName }
             
-            if ret.isEmpty {
-                ret = name
-            }
-            
-            return ret
+            return name
         }
         
         /* ############################################################## */
@@ -554,38 +543,37 @@ extension CGA_Bluetooth_CentralManager {
      */
     @discardableResult
     func startScanning(withServices inWithServices: [String]? = nil) -> Bool {
-        if let cbCentral = cbElementInstance {
-            #if DEBUG
-                print("Asking Central Manager to Start Scanning.")
-                if  let services = inWithServices,
-                    !services.isEmpty {
-                    print("\tWith these Services: \(String(describing: services))")
-                }
-            #endif
-            // Take off and nuke the entire site from orbit.
-            // It's the only way to be sure.
-            if cbCentral.isScanning {
-                cbCentral.stopScan()
+        guard let cbCentral = cbElementInstance else { return false }
+        
+        #if DEBUG
+            print("Asking Central Manager to Start Scanning.")
+            if  let services = inWithServices,
+                !services.isEmpty {
+                print("\tWith these Services: \(String(describing: services))")
             }
-            
-            var services: [CBUUID]!
-            
-            scanningServices = []
-            
-            if  let inServices = inWithServices,
-                !inServices.isEmpty {
-                scanningServices = inServices   // Save this, if we need to interrupt scanning.
-                services = inServices.compactMap { CBUUID(string: $0) }
-            }
-            
-            cbCentral.scanForPeripherals(withServices: services, options: nil)
-            
-            _updateDelegate()
-
-            return true
+        #endif
+        
+        // Take off and nuke the entire site from orbit.
+        // It's the only way to be sure.
+        if cbCentral.isScanning {
+            cbCentral.stopScan()
         }
         
-        return false
+        var services: [CBUUID]!
+        
+        scanningServices = []
+        
+        if  let inServices = inWithServices,
+            !inServices.isEmpty {
+            scanningServices = inServices   // Save this, if we need to interrupt scanning.
+            services = inServices.compactMap { CBUUID(string: $0) }
+        }
+        
+        cbCentral.scanForPeripherals(withServices: services, options: nil)
+        
+        _updateDelegate()
+
+        return true
     }
     
     /* ################################################################## */
@@ -611,16 +599,15 @@ extension CGA_Bluetooth_CentralManager {
         #if DEBUG
             print("Asking Central Manager to Stop Scanning.")
         #endif
-        if  let cbCentral = cbElementInstance,
-            cbCentral.isScanning {
-            cbCentral.stopScan()
-            
-            _updateDelegate()
+        guard   let cbCentral = cbElementInstance,
+                cbCentral.isScanning
+        else { return false }
+        
+        cbCentral.stopScan()
+        
+        _updateDelegate()
 
-            return true
-        }
-
-        return false
+        return true
     }
 
     /* ################################################################## */

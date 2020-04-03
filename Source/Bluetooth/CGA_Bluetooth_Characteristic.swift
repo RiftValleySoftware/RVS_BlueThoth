@@ -51,15 +51,13 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
     /**
      This holds the instance of CBCharacteristic that is used by this instance.
      */
-    var cbElementInstance: CBCharacteristic!
+    weak var cbElementInstance: CBCharacteristic!
     
     /* ################################################################## */
     /**
      This casts the parent as a Service Wrapper.
      */
-    var service: CGA_Bluetooth_Service! {
-        parent as? CGA_Bluetooth_Service
-    }
+    var service: CGA_Bluetooth_Service! { parent as? CGA_Bluetooth_Service }
 
     /* ################################################################## */
     /**
@@ -122,7 +120,5 @@ extension Array where Element == CGA_Bluetooth_Characteristic {
      - parameter inItem: The CB element we're looking to match.
      - returns: True, if the Array contains a wrapper for the given element.
      */
-    func contains(_ inItem: CBCharacteristic) -> Bool {
-        return nil != self[inItem]
-    }
+    func contains(_ inItem: CBCharacteristic) -> Bool { nil != self[inItem] }
 }
