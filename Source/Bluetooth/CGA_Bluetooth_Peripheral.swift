@@ -38,10 +38,16 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
+     This holds our Service wrapper instances until we have received all the Characteristics for them.
+     */
+    var stagedServices: Array<Element> = []
+    
+    /* ################################################################## */
+    /**
      This is our main cache Array. It contains wrapped instances of our aggregate CB type.
      */
     var sequence_contents: Array<Element> = []
-    
+
     /* ################################################################## */
     /**
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Parent instance.
@@ -74,6 +80,14 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
 
     /* ################################################################## */
     /**
+     This will contain any required scan criteria. It simply passes on the Central criteria.
+     */
+    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! {
+        return central?.scanCriteria
+    }
+    
+    /* ################################################################## */
+    /**
      The required init, with a "primed" sequence.
      
      - parameter sequence_contents: The initial value of the Array cache.
@@ -101,15 +115,40 @@ extension CGA_Bluetooth_Peripheral {
      This is the init that should always be used.
      
      - parameter discoveryData: The discovery data of the Peripheral.
-     - parameter services: An optional parameter that is an Array, holding the String UUIDs of Services we are filtering for. If left out, all available Services are found.
+     - parameter services: An optional parameter that is an Array, holding the String UUIDs of Services we are filtering for. If left out, all available Services are found. If specified, this overrides the scanCriteria.
      */
     convenience init(discoveryData inCBPeriperalDiscoveryData: CGA_Bluetooth_CentralManager.DiscoveryData, services inServices: [String] = []) {
         self.init(sequence_contents: [])
-        discoveryServices = inServices
         discoveryData = inCBPeriperalDiscoveryData
         parent = discoveryData?.central
         cbElementInstance?.delegate = self
-        cbElementInstance?.discoverServices(discoveryServices.isEmpty ? nil : discoveryServices.map { CBUUID(string: $0) })
+        
+        var services: [CBUUID]! = inServices.compactMap { CBUUID(string: $0) }
+        
+        if services?.isEmpty ?? false {
+            services = scanCriteria?.services?.compactMap { CBUUID(string: $0) }
+        }
+        
+        if services?.isEmpty ?? false {
+            services = nil
+        }
+        
+        cbElementInstance?.discoverServices(services)
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Private Instance Methods
+/* ###################################################################################################################################### */
+extension CGA_Bluetooth_Peripheral {
+    /* ################################################################## */
+    /**
+     This registers us with the Central wrapper.
+     */
+    private func _registerWithCentral() {
+        if let central = central {
+            central.addPeripheral(self)
+        }
     }
 }
 
@@ -134,8 +173,19 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
      */
     func peripheral(_ inPeripheral: CBPeripheral, didDiscoverServices inError: Error?) {
         print("Services Discovered: \(String(describing: inPeripheral.services))")
-        if let central = central {
-            central.addPeripheral(self)
+        
+        stagedServices = []
+        inPeripheral.services?.forEach {
+            let serviceWrapperInstance = CGA_Bluetooth_Service(sequence_contents: [])
+            serviceWrapperInstance.parent = self
+            serviceWrapperInstance.cbElementInstance = $0
+            stagedServices.append(serviceWrapperInstance)
+        }
+        
+        stagedServices.forEach {
+            if let service = $0.cbElementInstance {
+                inPeripheral.discoverCharacteristics(nil, for: service)
+            }
         }
     }
     
@@ -150,6 +200,19 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     /**
      */
     func peripheral(_ inPeripheral: CBPeripheral, didDiscoverCharacteristicsFor inService: CBService, error inError: Error?) {
+        #if DEBUG
+        print("Service: \(String(describing: inService)) discovered these Characteristics: \(String(describing: inService.characteristics))")
+        #endif
+        if let serviceInstance = stagedServices[inService] {
+            stagedServices.removeThisService(inService)
+            sequence_contents.append(serviceInstance)
+            
+            if stagedServices.isEmpty {
+                // TODO: Remove after getting all the Characteristics loaded.
+                _registerWithCentral()
+                // END TODO
+            }
+        }
     }
 }
 

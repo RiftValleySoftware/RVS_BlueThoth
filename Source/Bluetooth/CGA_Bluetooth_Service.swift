@@ -58,6 +58,14 @@ class CGA_Bluetooth_Service: RVS_SequenceProtocol {
      This casts the parent as a Peripheral Wrapper.
      */
     var peripheral: CGA_Bluetooth_Peripheral! { parent as? CGA_Bluetooth_Peripheral }
+    
+    /* ################################################################## */
+    /**
+     This will contain any required scan criteria. It simply passes on the Central criteria.
+     */
+    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! {
+        return (parent as? CGA_Bluetooth_Peripheral)?.scanCriteria
+    }
 
     /* ################################################################## */
     /**
@@ -113,6 +121,32 @@ extension Array where Element == CGA_Bluetooth_Service {
         }
     }
     
+    /* ################################################################## */
+    /**
+     Removes the element (as a CBService).
+     
+     - parameter inItem: The CB element we're looking to remove.
+     - returns: True, if the item was found and removed. Can be ignored.
+     */
+    @discardableResult
+    mutating func removeThisService(_ inItem: CBService) -> Bool {
+        var success = false
+        removeAll { (test) -> Bool in
+            guard let testService = test.cbElementInstance else { return false }
+            if testService === inItem {
+                success = true
+                return true
+            } else if testService.uuid.uuidString == inItem.uuid.uuidString {
+                success = true
+                return true
+            }
+            
+            return false
+        }
+        
+        return success
+    }
+
     /* ################################################################## */
     /**
      Checks to see if the Array contains an instance that wraps the given CB element.

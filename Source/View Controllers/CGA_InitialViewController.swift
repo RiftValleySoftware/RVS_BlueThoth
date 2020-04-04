@@ -193,6 +193,7 @@ extension CGA_InitialViewController {
             CGA_AppDelegate.centralManager?.restartScanning()
         }
         _updateUI()
+        deviceTableView?.deselectAll(animated: true)
     }
     
     /* ################################################################## */
@@ -291,8 +292,10 @@ extension CGA_InitialViewController {
         if !isBTAvailable { // Make sure that we are at the initial view, if BT is not available.
             navigationController?.popToRootViewController(animated: false)
         }
+        
         noBTImage.isHidden = isBTAvailable
-        deviceTableView.isHidden = !isBTAvailable
+        deviceTableView?.isHidden = !isBTAvailable
+
         if  isBTAvailable,
             CGA_AppDelegate.centralManager?.isScanning ?? false {
             scanningButton.backgroundColor = UIColor(red: 0, green: 0.75, blue: 0, alpha: 1.0)
@@ -524,14 +527,26 @@ extension CGA_InitialViewController: UITableViewDelegate {
     
     /* ################################################################## */
     /**
+     Called to test whether or not to allow a row to be higlighted.
+     
+     This prevents the unselectable row from "flashing" when someone touches it.
+     
+     - parameter inTableView: The table view that is asking for the cell.
+     - parameter shouldHighlightRowAt: The index path (section, row) for the cell.
+     - returns: The IndexPath of the cell, if approved, or nil, if not.
+     */
+    func tableView(_ inTableView: UITableView, shouldHighlightRowAt inIndexPath: IndexPath) -> Bool {
+        return nil != tableView(inTableView, willSelectRowAt: inIndexPath)
+    }
+    
+    /* ################################################################## */
+    /**
      Called when a row is selected.
      
      - parameter inTableView: The table view that is asking for the cell.
      - parameter didSelectRowAt: The index path (section, row) for the cell.
      */
     func tableView(_ inTableView: UITableView, didSelectRowAt inIndexPath: IndexPath) {
-        inTableView.deselectRow(at: inIndexPath, animated: false)
-        
         if let centralManager = CGA_AppDelegate.centralManager {
             performSegue(withIdentifier: Self._deviceDetailSegueID, sender: centralManager.stagedBLEPeripherals[inIndexPath.row])
         }
@@ -564,5 +579,30 @@ extension CGA_InitialViewController: UITableViewDelegate {
             centralManager.stagedBLEPeripherals[inIndexPath.row].ignore()
             inTableView.reloadData()
         }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - UITableView Extension -
+/* ###################################################################################################################################### */
+extension UITableView {
+    /* ################################################################## */
+    /**
+     This will deselect all selected rows.
+     
+     - parameter animated: This can be ignored (defaults to false). If true, the deselection is animated.
+     - returns: an Array of IndexPath, denoting the rows that were deselected. Can be ignored.
+     */
+    @discardableResult
+    func deselectAll(animated inAnimated: Bool = false) -> [IndexPath] {
+        if  let indexPaths = indexPathsForSelectedRows,
+            !indexPaths.isEmpty {
+            indexPaths.forEach {
+                deselectRow(at: $0, animated: inAnimated)
+            }
+            
+            return indexPaths
+        }
+        return []
     }
 }
