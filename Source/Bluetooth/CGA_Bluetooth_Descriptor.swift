@@ -46,6 +46,14 @@ class CGA_Bluetooth_Descriptor: CGA_Class_Protocol {
      This casts the parent as a Characteristic Wrapper.
      */
     var characteristic: CGA_Bluetooth_Characteristic! { parent as? CGA_Bluetooth_Characteristic }
+    
+    /* ################################################################## */
+    /**
+     This will contain any required scan criteria.
+     */
+    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! {
+        return (parent as? CGA_Bluetooth_Characteristic)?.scanCriteria
+    }
 
     /* ################################################################## */
     /**

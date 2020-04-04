@@ -58,6 +58,14 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
      This casts the parent as a Service Wrapper.
      */
     var service: CGA_Bluetooth_Service! { parent as? CGA_Bluetooth_Service }
+    
+    /* ################################################################## */
+    /**
+     This will contain any required scan criteria.
+     */
+    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! {
+        return (parent as? CGA_Bluetooth_Service)?.scanCriteria
+    }
 
     /* ################################################################## */
     /**

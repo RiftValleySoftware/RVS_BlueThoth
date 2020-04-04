@@ -162,8 +162,38 @@ extension CGA_Bluetooth_CentralManagerDelegate {
 // MARK: - The Central Manager -
 /* ###################################################################################################################################### */
 /**
+ This is the main class that is instantiated in order to implement the Bluetooth subsystem.
  */
 class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
+    /* ################################################################################################################################## */
+    /**
+     This is the struct that we use to narrow the search criteria for new instances of the <code>CGA_Bluetooth_CentralManager</code> class.
+          
+     If you will not be looking for particular Bluetooth instances, then leave the corresponding property nil, or empty.
+     
+     All members are String, but these will be converted internally into <code>CBUUID</code>s.
+     
+     These are applied across the board. For example, if you specify a Service, then ALL scans will filter for that Service, and if you specify a Characteristic, then ALL Services, for ALL peripherals, will be scanned for that Characteristic.
+     */
+    struct ScanCriteria {
+        /// This is a list of identifier UUIDs for specific Bluetooth devices.
+        let peripherals: [String]!
+        /// This is a list of UUIDs for Services that will be scanned.
+        let services: [String]!
+        /// This is a list of UUIDs for specific Characteristics to be discovered within Services.
+        let chracteristics: [String]!
+        /// This is a list of UUIDs for specific Descriptors that are to be discovered.
+        let descriptors: [String]!
+        
+        /* ############################################################## */
+        /**
+         This returns true, if all of the specifiers are nil or empty.
+         */
+        var isEmpty: Bool {
+            return (nil == peripherals || peripherals.isEmpty) && (nil == services || services.isEmpty) && (nil == chracteristics || chracteristics.isEmpty) && (nil == descriptors || descriptors.isEmpty)
+        }
+    }
+    
     /* ################################################################################################################################## */
     /**
      This is a class, as opposed to a struct, because I want to make sure that it is referenced, and not copied.
@@ -395,6 +425,12 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
      This will hold BLE Peripherals that have been marked as "ignored."
      */
     var ignoredBLEPeripherals = [DiscoveryData]()
+    
+    /* ################################################################## */
+    /**
+     This will contain any required scan criteria.
+     */
+    var scanCriteria: ScanCriteria!
 
     /* ################################################################## */
     /**
@@ -524,11 +560,13 @@ extension CGA_Bluetooth_CentralManager {
      This will call the delegate's updateFrom(_:) method, upon starting.
      
      - parameter delegate: The delegate instance.
+     - parameter scanCriteria: If there are particular scan criteria to be applied to the discovery process, they are supplied here. If left alone, it will be nil, and all entities will be searched.
      - parameter queue: The queue to be used for this instance. If not specified, the main thread is used.
      */
-    convenience init(delegate inDelegate: CGA_Bluetooth_CentralManagerDelegate! = nil, queue inQueue: DispatchQueue? = nil) {
+    convenience init(delegate inDelegate: CGA_Bluetooth_CentralManagerDelegate! = nil, scanCriteria inScanCriteria: ScanCriteria! = nil, queue inQueue: DispatchQueue? = nil) {
         self.init(sequence_contents: [])
         delegate = inDelegate
+        scanCriteria = inScanCriteria
         cbElementInstance = CBCentralManager(delegate: self, queue: inQueue)
         _updateDelegate()
     }
@@ -561,10 +599,14 @@ extension CGA_Bluetooth_CentralManager {
         
         scanningServices = []
         
+        // We can always override any previously supplied Service scans.
         if  let inServices = inWithServices,
             !inServices.isEmpty {
             scanningServices = inServices   // Save this, if we need to interrupt scanning.
             services = inServices.compactMap { CBUUID(string: $0) }
+        } else if   let services = scanCriteria?.services,
+                    !services.isEmpty {
+            scanningServices = services
         }
         
         cbCentral.scanForPeripherals(withServices: services, options: nil)
@@ -802,28 +844,39 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
             return
         }
         
-        #if DEBUG
-            print("Discovered \(name) (BLE).")
-        #endif
-        guard   !iGotThis(inPeripheral),
-                !inPeripheral.identifier.uuidString.isEmpty
-        else {
+        // See if we have asked for only particular peripherals.
+        if  let peripherals = scanCriteria?.peripherals,
+            !peripherals.reduce(false, { (current, next) -> Bool in
+                current || (next.uppercased() == inPeripheral.identifier.uuidString.uppercased())
+            }) {
             #if DEBUG
-                print("Not Adding \(name) (BLE).")
-                if inPeripheral.identifier.uuidString.isEmpty {
-                    print("\tBecause the UUID is empty.")
-                }
+                print("Discarding Peripheral not on the guest list: \(String(describing: inPeripheral)).")
             #endif
             return
+        } else {
+            #if DEBUG
+                print("Discovered \(name) (BLE).")
+            #endif
+            guard   !iGotThis(inPeripheral),
+                    !inPeripheral.identifier.uuidString.isEmpty
+            else {
+                #if DEBUG
+                    print("Not Adding \(name) (BLE).")
+                    if inPeripheral.identifier.uuidString.isEmpty {
+                        print("\tBecause the UUID is empty.")
+                    }
+                #endif
+                return
+            }
+            
+            #if DEBUG
+                print("Added \(name) (BLE).")
+                print("\tUUID: \(String(inPeripheral.identifier.uuidString))")
+                print("\tAdvertising Info:\n\t\t\(String(describing: inAdvertisementData))\n")
+            #endif
+            stagedBLEPeripherals.append(DiscoveryData(central: self, peripheral: inPeripheral, advertisementData: inAdvertisementData, rssi: inRSSI.intValue))
+            _updateDelegate()
         }
-        
-        #if DEBUG
-            print("Added \(name) (BLE).")
-            print("\tUUID: \(String(inPeripheral.identifier.uuidString))")
-            print("\tAdvertising Info:\n\t\t\(String(describing: inAdvertisementData))\n")
-        #endif
-        stagedBLEPeripherals.append(DiscoveryData(central: self, peripheral: inPeripheral, advertisementData: inAdvertisementData, rssi: inRSSI.intValue))
-        _updateDelegate()
     }
     
     /* ################################################################## */

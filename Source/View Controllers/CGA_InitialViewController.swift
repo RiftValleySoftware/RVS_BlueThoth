@@ -293,6 +293,7 @@ extension CGA_InitialViewController {
         }
         noBTImage.isHidden = isBTAvailable
         deviceTableView.isHidden = !isBTAvailable
+
         if  isBTAvailable,
             CGA_AppDelegate.centralManager?.isScanning ?? false {
             scanningButton.backgroundColor = UIColor(red: 0, green: 0.75, blue: 0, alpha: 1.0)
@@ -530,8 +531,6 @@ extension CGA_InitialViewController: UITableViewDelegate {
      - parameter didSelectRowAt: The index path (section, row) for the cell.
      */
     func tableView(_ inTableView: UITableView, didSelectRowAt inIndexPath: IndexPath) {
-        inTableView.deselectRow(at: inIndexPath, animated: false)
-        
         if let centralManager = CGA_AppDelegate.centralManager {
             performSegue(withIdentifier: Self._deviceDetailSegueID, sender: centralManager.stagedBLEPeripherals[inIndexPath.row])
         }

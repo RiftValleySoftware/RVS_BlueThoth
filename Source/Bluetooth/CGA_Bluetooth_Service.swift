@@ -58,6 +58,14 @@ class CGA_Bluetooth_Service: RVS_SequenceProtocol {
      This casts the parent as a Peripheral Wrapper.
      */
     var peripheral: CGA_Bluetooth_Peripheral! { parent as? CGA_Bluetooth_Peripheral }
+    
+    /* ################################################################## */
+    /**
+     This will contain any required scan criteria.
+     */
+    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! {
+        return (parent as? CGA_Bluetooth_Peripheral)?.scanCriteria
+    }
 
     /* ################################################################## */
     /**

@@ -38,10 +38,16 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
+     This holds our Service wrapper instances until we have received all the Characteristics for them.
+     */
+    var stagedServices: Array<Element> = []
+    
+    /* ################################################################## */
+    /**
      This is our main cache Array. It contains wrapped instances of our aggregate CB type.
      */
     var sequence_contents: Array<Element> = []
-    
+
     /* ################################################################## */
     /**
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Parent instance.
@@ -72,6 +78,14 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
      */
     var central: CGA_Bluetooth_CentralManager! { parent as? CGA_Bluetooth_CentralManager }
 
+    /* ################################################################## */
+    /**
+     This will contain any required scan criteria.
+     */
+    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! {
+        return central?.scanCriteria
+    }
+    
     /* ################################################################## */
     /**
      The required init, with a "primed" sequence.
@@ -114,6 +128,21 @@ extension CGA_Bluetooth_Peripheral {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - Private Instance Methods
+/* ###################################################################################################################################### */
+extension CGA_Bluetooth_Peripheral {
+    /* ################################################################## */
+    /**
+     This registers us with the Central wrapper.
+     */
+    private func _registerWithCentral() {
+        if let central = central {
+            central.addPeripheral(self)
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - CGA_Class_Protocol Conformance -
 /* ###################################################################################################################################### */
 extension CGA_Bluetooth_Peripheral: CGA_Class_Protocol {
@@ -134,9 +163,18 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
      */
     func peripheral(_ inPeripheral: CBPeripheral, didDiscoverServices inError: Error?) {
         print("Services Discovered: \(String(describing: inPeripheral.services))")
-        if let central = central {
-            central.addPeripheral(self)
+        
+        stagedServices = []
+        inPeripheral.services?.forEach {
+            let serviceWrapperInstance = CGA_Bluetooth_Service(sequence_contents: [])
+            serviceWrapperInstance.parent = self
+            serviceWrapperInstance.cbElementInstance = $0
+            stagedServices.append(serviceWrapperInstance)
         }
+        
+        // TODO: Remove after getting all the Characteristics loaded.
+        _registerWithCentral()
+        // END TODO
     }
     
     /* ################################################################## */
