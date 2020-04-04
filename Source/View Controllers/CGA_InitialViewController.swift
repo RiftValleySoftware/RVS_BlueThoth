@@ -469,7 +469,8 @@ extension CGA_InitialViewController: UITableViewDataSource {
         if  let tableCell = tableCell as? CGA_InitialViewController_TableRow,
             let centralManager = CGA_AppDelegate.centralManager,
             (0..<centralManager.stagedBLEPeripherals.count).contains(inIndexPath.row) {
-            let fontColor = UIColor(white: centralManager.stagedBLEPeripherals[inIndexPath.row].canConnect ? 1.0 : 0.75, alpha: 1.0)
+            let canConnect = centralManager.stagedBLEPeripherals[inIndexPath.row].canConnect
+            let fontColor = UIColor(white: canConnect ? 1.0 : 0.75, alpha: 1.0)
             tableCell.nameLabel?.textColor = fontColor
             tableCell.rssiLabel?.textColor = fontColor
             tableCell.nameLabel?.text = centralManager.stagedBLEPeripherals[inIndexPath.row].name
@@ -521,6 +522,20 @@ extension CGA_InitialViewController: UITableViewDelegate {
         }
         
         return nil
+    }
+    
+    /* ################################################################## */
+    /**
+     Called to test whether or not to allow a row to be higlighted.
+     
+     This prevents the unselectable row from "flashing" when someone touches it.
+     
+     - parameter inTableView: The table view that is asking for the cell.
+     - parameter shouldHighlightRowAt: The index path (section, row) for the cell.
+     - returns: The IndexPath of the cell, if approved, or nil, if not.
+     */
+    func tableView(_ inTableView: UITableView, shouldHighlightRowAt inIndexPath: IndexPath) -> Bool {
+        return nil != tableView(inTableView, willSelectRowAt: inIndexPath)
     }
     
     /* ################################################################## */
