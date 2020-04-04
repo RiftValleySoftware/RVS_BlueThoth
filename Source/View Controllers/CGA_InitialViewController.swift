@@ -292,7 +292,7 @@ extension CGA_InitialViewController {
             navigationController?.popToRootViewController(animated: false)
         }
         noBTImage.isHidden = isBTAvailable
-        deviceTableView.isHidden = !isBTAvailable
+        deviceTableView?.isHidden = !isBTAvailable
 
         if  isBTAvailable,
             CGA_AppDelegate.centralManager?.isScanning ?? false {
@@ -469,8 +469,7 @@ extension CGA_InitialViewController: UITableViewDataSource {
         if  let tableCell = tableCell as? CGA_InitialViewController_TableRow,
             let centralManager = CGA_AppDelegate.centralManager,
             (0..<centralManager.stagedBLEPeripherals.count).contains(inIndexPath.row) {
-            let canConnect = centralManager.stagedBLEPeripherals[inIndexPath.row].canConnect
-            let fontColor = UIColor(white: canConnect ? 1.0 : 0.75, alpha: 1.0)
+            let fontColor = UIColor(white: centralManager.stagedBLEPeripherals[inIndexPath.row].canConnect ? 1.0 : 0.75, alpha: 1.0)
             tableCell.nameLabel?.textColor = fontColor
             tableCell.rssiLabel?.textColor = fontColor
             tableCell.nameLabel?.text = centralManager.stagedBLEPeripherals[inIndexPath.row].name
