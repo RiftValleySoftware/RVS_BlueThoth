@@ -193,6 +193,7 @@ extension CGA_InitialViewController {
             CGA_AppDelegate.centralManager?.restartScanning()
         }
         _updateUI()
+        deviceTableView?.deselectAll(animated: true)
     }
     
     /* ################################################################## */
@@ -291,6 +292,7 @@ extension CGA_InitialViewController {
         if !isBTAvailable { // Make sure that we are at the initial view, if BT is not available.
             navigationController?.popToRootViewController(animated: false)
         }
+        
         noBTImage.isHidden = isBTAvailable
         deviceTableView?.isHidden = !isBTAvailable
 
@@ -577,5 +579,30 @@ extension CGA_InitialViewController: UITableViewDelegate {
             centralManager.stagedBLEPeripherals[inIndexPath.row].ignore()
             inTableView.reloadData()
         }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - UITableView Extension -
+/* ###################################################################################################################################### */
+extension UITableView {
+    /* ################################################################## */
+    /**
+     This will deselect all selected rows.
+     
+     - parameter animated: This can be ignored (defaults to false). If true, the deselection is animated.
+     - returns: an Array of IndexPath, denoting the rows that were deselected. Can be ignored.
+     */
+    @discardableResult
+    func deselectAll(animated inAnimated: Bool = false) -> [IndexPath] {
+        if  let indexPaths = indexPathsForSelectedRows,
+            !indexPaths.isEmpty {
+            indexPaths.forEach {
+                deselectRow(at: $0, animated: inAnimated)
+            }
+            
+            return indexPaths
+        }
+        return []
     }
 }

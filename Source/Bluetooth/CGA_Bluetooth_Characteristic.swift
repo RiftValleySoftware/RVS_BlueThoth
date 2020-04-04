@@ -61,7 +61,7 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
-     This will contain any required scan criteria.
+     This will contain any required scan criteria. It simply passes on the Central criteria.
      */
     var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! {
         return (parent as? CGA_Bluetooth_Service)?.scanCriteria
