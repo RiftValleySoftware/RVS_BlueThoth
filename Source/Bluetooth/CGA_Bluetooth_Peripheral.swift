@@ -62,6 +62,12 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
+     This holds any Services (as Strings) that were specified when discovery started.
+     */
+    var discoveryServices: [String] = []
+
+    /* ################################################################## */
+    /**
      This casts the parent as a Central Manager.
      */
     var central: CGA_Bluetooth_CentralManager! { parent as? CGA_Bluetooth_CentralManager }
@@ -95,13 +101,15 @@ extension CGA_Bluetooth_Peripheral {
      This is the init that should always be used.
      
      - parameter discoveryData: The discovery data of the Peripheral.
+     - parameter services: An optional parameter that is an Array, holding the String UUIDs of Services we are filtering for. If left out, all available Services are found.
      */
-    convenience init(discoveryData inCBPeriperalDiscoveryData: CGA_Bluetooth_CentralManager.DiscoveryData) {
+    convenience init(discoveryData inCBPeriperalDiscoveryData: CGA_Bluetooth_CentralManager.DiscoveryData, services inServices: [String] = []) {
         self.init(sequence_contents: [])
+        discoveryServices = inServices
         discoveryData = inCBPeriperalDiscoveryData
-        cbElementInstance?.delegate = self
-        cbElementInstance?.discoverServices(nil)
         parent = discoveryData?.central
+        cbElementInstance?.delegate = self
+        cbElementInstance?.discoverServices(discoveryServices.isEmpty ? nil : discoveryServices.map { CBUUID(string: $0) })
     }
 }
 
