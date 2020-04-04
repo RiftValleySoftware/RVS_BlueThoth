@@ -536,4 +536,33 @@ extension CGA_InitialViewController: UITableViewDelegate {
             performSegue(withIdentifier: Self._deviceDetailSegueID, sender: centralManager.stagedBLEPeripherals[inIndexPath.row])
         }
     }
+    
+    /* ################################################################## */
+    /**
+     Indicate that a row can be edited (for left-swipe delete).
+     
+     - parameter: Ignored
+     - parameter canEditRowAt: Ignored
+     
+     - returns: true, always.
+     */
+    func tableView(_: UITableView, canEditRowAt: IndexPath) -> Bool {
+        return true
+    }
+    
+    /* ################################################################## */
+    /**
+     Called to do a delete action.
+     
+     - parameter inTableView: The table view being checked
+     - parameter commit: The action to perform.
+     - parameter forRowAt: The indexpath of the row to be deleted.
+     */
+    func tableView(_ inTableView: UITableView, commit inEditingStyle: UITableViewCell.EditingStyle, forRowAt inIndexPath: IndexPath) {
+        if  inEditingStyle == UITableViewCell.EditingStyle.delete,
+            let centralManager = CGA_AppDelegate.centralManager {
+            centralManager.stagedBLEPeripherals[inIndexPath.row].ignore()
+            inTableView.reloadData()
+        }
+    }
 }

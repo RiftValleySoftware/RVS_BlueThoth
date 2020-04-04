@@ -341,7 +341,7 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
          Basic Init
          
          - parameters:
-            - central: The Centarl Manager instance that "owns" this instance.
+            - central: The Central Manager instance that "owns" this instance.
             - peripheral: The CBPeripheral instance associated with this. This will be a strong reference, and will be the "anchor" for this instance.
             - advertisementData: The advertisement data of the discovered Peripheral.
             - rssi: The signal strength, in dBm.
@@ -620,6 +620,7 @@ extension CGA_Bluetooth_CentralManager {
         let wasScanning = isScanning
         stopScanning()
         stagedBLEPeripherals = []
+        ignoredBLEPeripherals = []
         sequence_contents = []
         _updateDelegate()
         if wasScanning {
