@@ -620,6 +620,7 @@ extension CGA_Bluetooth_CentralManager {
         let wasScanning = isScanning
         stopScanning()
         stagedBLEPeripherals = []
+        ignoredBLEPeripherals = []
         sequence_contents = []
         _updateDelegate()
         if wasScanning {
