@@ -170,34 +170,53 @@ extension CGA_Bluetooth_Peripheral: CGA_Class_Protocol {
 extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     /* ################################################################## */
     /**
+     Called when the Peripheral has discovered its Services.
+     We treat discovery as "atomic." We ask for all the Services at once, so this callback is complete for this Peripheral.
+     
+     - parameter inPeripheral: The CBPeripheral that has discovered Services.
+     - parameter didDiscoverServices: Any error that may have occured. Hopefully, it is nil.
      */
     func peripheral(_ inPeripheral: CBPeripheral, didDiscoverServices inError: Error?) {
-        print("Services Discovered: \(String(describing: inPeripheral.services))")
-        
-        stagedServices = []
-        inPeripheral.services?.forEach {
-            let serviceWrapperInstance = CGA_Bluetooth_Service(sequence_contents: [])
-            serviceWrapperInstance.parent = self
-            serviceWrapperInstance.cbElementInstance = $0
-            stagedServices.append(serviceWrapperInstance)
-        }
-        
-        stagedServices.forEach {
-            if let service = $0.cbElementInstance {
-                inPeripheral.discoverCharacteristics(scanCriteria?.chracteristics.compactMap { CBUUID(string: $0) }, for: service)
+        if nil != inError {
+            #if DEBUG
+                print("ERROR!: \(inError!.localizedDescription)")
+            #endif
+        } else {
+            #if DEBUG
+                print("Services Discovered: \(String(describing: inPeripheral.services))")
+            #endif
+                
+            stagedServices = inPeripheral.services?.map {
+                CGA_Bluetooth_Service(parent: self, cbElementInstance: $0)
+            } ?? []
+            
+            stagedServices.forEach {
+                $0.discoverCharacteristics()
             }
         }
     }
     
     /* ################################################################## */
     /**
+     Called when the Services for a Peripheral have been modified.
+     
+     - parameter inPeripheral: The CBPeripheral that has modified Services.
+     - parameter didModifyServices: An Array of CBService instances that were modified.
      */
     func peripheral(_ inPeripheral: CBPeripheral, didModifyServices inInvalidatedServices: [CBService]) {
-        print("Services Modified: \(String(describing: inInvalidatedServices))")
+        #if DEBUG
+            print("Services Modified: \(String(describing: inInvalidatedServices))")
+        #endif
     }
     
     /* ################################################################## */
     /**
+     Called when a Service discovers Characteristics.
+     We treat discovery as "atomic." We ask for all the Characteristics at once, so this callback is complete for this Service.
+     
+     - parameter inPeripheral: The CBPeripheral that has discovered Characteristics.
+     - parameter didDiscoverCharacteristicsFor: The Service instance to which the Characteristics apply.
+     - parameter error: Any error that may have occured. Hopefully, it is nil.
      */
     func peripheral(_ inPeripheral: CBPeripheral, didDiscoverCharacteristicsFor inService: CBService, error inError: Error?) {
         #if DEBUG
@@ -224,6 +243,12 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     
     /* ################################################################## */
     /**
+     Called when a Characteristic discovers all of its Descriptors.
+     We treat discovery as "atomic." We ask for all the Descriptors at once, so this callback is complete for this Characteristic.
+
+     - parameter inPeripheral: The CBPeripheral that has discovered Descriptors.
+     - parameter didDiscoverDescriptorsFor: The Characteristic instance to which the Descriptors apply.
+     - parameter error: Any error that may have occured. Hopefully, it is nil.
      */
     func peripheral(_ inPeripheral: CBPeripheral, didDiscoverDescriptorsFor inCharacteristic: CBCharacteristic, error inError: Error?) {
         #if DEBUG

@@ -24,9 +24,10 @@ import UIKit
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
-// MARK: -
+// MARK: - The Main Wrapper Class for Services -
 /* ###################################################################################################################################### */
 /**
+ This class "wraps" instances of CBService, adding some functionality, and linking the hierarchy.
  */
 class CGA_Bluetooth_Service: RVS_SequenceProtocol {
     /* ################################################################## */
@@ -37,10 +38,16 @@ class CGA_Bluetooth_Service: RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
+     This is a "preview cache." It will aggregate instances of Characteristic wrappers that are still in discovery.
+     */
+    var stagedCharacteristics: Array<Element> = []
+    
+    /* ################################################################## */
+    /**
      This is our main cache Array. It contains wrapped instances of our aggregate CB type.
      */
     var sequence_contents: Array<Element> = []
-    
+
     /* ################################################################## */
     /**
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Peripheral
@@ -79,13 +86,59 @@ class CGA_Bluetooth_Service: RVS_SequenceProtocol {
 }
 
 /* ###################################################################################################################################### */
-// MARK: -
+// MARK: - Instance Methods
+/* ###################################################################################################################################### */
+extension CGA_Bluetooth_Service {
+    /* ################################################################## */
+    /**
+     This is the init that should always be used.
+     
+     - parameter parent: The Service instance that "owns" this instance.
+     - parameter cbElementInstance: This is the actual CBService instance to be associated with this instance.
+     */
+    convenience init(parent inParent: CGA_Bluetooth_Peripheral, cbElementInstance inCBService: CBService) {
+        self.init(sequence_contents: [])
+        parent = inParent
+        cbElementInstance = inCBService
+    }
+    
+    /* ################################################################## */
+    /**
+     Called to tell the instance to discover its characteristics.
+     
+     - parameter characteristics: An optional parameter that is an Array, holding the String UUIDs of Characteristics we are filtering for. If left out, all available Characteristics are found. If specified, this overrides the scanCriteria.
+     */
+    func discoverCharacteristics(characteristics inCharacteristics: [String] = []) {
+        if  let cbPeripheral = (parent as? CGA_Bluetooth_Peripheral)?.cbElementInstance,
+            let cbService = cbElementInstance {
+            var characteristics: [CBUUID]! = inCharacteristics.compactMap { CBUUID(string: $0) }
+            
+            if characteristics?.isEmpty ?? false {
+                characteristics = scanCriteria?.chracteristics?.compactMap { CBUUID(string: $0) }
+            }
+            
+            if characteristics?.isEmpty ?? false {
+                characteristics = nil
+            }
+            
+            cbPeripheral.discoverCharacteristics(characteristics, for: cbService)
+        } else {
+            #if DEBUG
+                print("ERROR! Can't get service and peripheral!")
+            #endif
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - CGA_Class_Protocol Conformance -
 /* ###################################################################################################################################### */
 /**
  */
 extension CGA_Bluetooth_Service: CGA_Class_Protocol {
     /* ################################################################## */
     /**
+     The required callback to update the collection.
      */
     func updateCollection() {
     }

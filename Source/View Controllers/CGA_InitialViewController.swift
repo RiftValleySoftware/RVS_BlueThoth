@@ -310,7 +310,7 @@ extension CGA_InitialViewController {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - CGA_Bluetooth_CentralManagerDelegate Support -
+// MARK: - CGA_Bluetooth_CentralManagerDelegate Conformance -
 /* ###################################################################################################################################### */
 extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
     /* ################################################################## */
@@ -358,7 +358,7 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - UITableViewDataSource Support -
+// MARK: - UITableViewDataSource Conformance -
 /* ###################################################################################################################################### */
 extension CGA_InitialViewController: UITableViewDataSource {
     /* ################################################################## */
@@ -505,7 +505,7 @@ extension CGA_InitialViewController: UITableViewDataSource {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - UITableViewDelegate Support -
+// MARK: - UITableViewDelegate Conformance -
 /* ###################################################################################################################################### */
 extension CGA_InitialViewController: UITableViewDelegate {
     /* ################################################################## */

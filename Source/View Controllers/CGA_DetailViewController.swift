@@ -31,12 +31,10 @@ class CGA_DetailViewController_TableRow: UITableViewCell {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - The initial view controller (table of devices) -
+// MARK: - The initial view controller (table of services) -
 /* ###################################################################################################################################### */
 /**
- This controls the initial view, which is a basic table of discovered devices.
- 
- There are two sections: BLE, and BR/EDR (Classic). Each section has rows of devices that fit in that Bluetooth mode.
+ This controls the initial view, which is a basic table of discovered Services.
  */
 class CGA_DetailViewController: UIViewController {
     /* ################################################################## */
@@ -159,7 +157,7 @@ extension CGA_DetailViewController {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - UITableViewDataSource Support -
+// MARK: - UITableViewDataSource Conformance -
 /* ###################################################################################################################################### */
 extension CGA_DetailViewController: UITableViewDataSource {
     /* ################################################################## */
@@ -247,7 +245,7 @@ extension CGA_DetailViewController: UITableViewDataSource {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - UITableViewDelegate Support -
+// MARK: - UITableViewDelegate Conformance -
 /* ###################################################################################################################################### */
 extension CGA_DetailViewController: UITableViewDelegate {
     /* ################################################################## */

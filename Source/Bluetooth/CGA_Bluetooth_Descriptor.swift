@@ -24,9 +24,10 @@ import UIKit
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
-// MARK: -
+// MARK: - The Main Wrapper Class for the Descriptors -
 /* ###################################################################################################################################### */
 /**
+ This class "wraps" instances of CBDescriptor, adding some functionality, and linking the hierarchy.
  */
 class CGA_Bluetooth_Descriptor: CGA_Class_Protocol {
     /* ################################################################## */

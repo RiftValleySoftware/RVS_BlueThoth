@@ -24,9 +24,10 @@ import UIKit
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
-// MARK: -
+// MARK: - Main Characteristic Wrapper Class -
 /* ###################################################################################################################################### */
 /**
+ This class "wraps" instances of CBCharacteristic, adding some functionality, and linking the hierarchy.
  */
 class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
     /* ################################################################## */
@@ -79,13 +80,14 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
 }
 
 /* ###################################################################################################################################### */
-// MARK: -
+// MARK: - CGA_Class_Protocol Conformance -
 /* ###################################################################################################################################### */
 /**
  */
 extension CGA_Bluetooth_Characteristic: CGA_Class_Protocol {
     /* ################################################################## */
     /**
+     The required callback to update the collection.
      */
     func updateCollection() {
     }
