@@ -135,6 +135,30 @@ extension CGA_Bluetooth_Peripheral {
         
         cbElementInstance?.discoverServices(services)
     }
+    
+    /* ################################################################## */
+    /**
+     Called to add a Service to our "keeper" Array.
+     
+     - parameter inService: The Service to add.
+     */
+    func addService(_ inService: CGA_Bluetooth_Service) {
+        if let service = inService.cbElementInstance {
+            #if DEBUG
+                print("Adding \(String(describing: inService)).")
+            #endif
+            stagedServices.removeThisService(service)
+            sequence_contents.append(inService)
+            
+            if stagedServices.isEmpty {
+                _registerWithCentral()
+            }
+        } else {
+            #if DEBUG
+                print("ERROR! \(String(describing: inService)) does not have a CBService instance.")
+            #endif
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -222,22 +246,9 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
         #if DEBUG
             print("Service: \(String(describing: inService)) discovered these Characteristics: \(String(describing: inService.characteristics))")
         #endif
-        if let serviceInstance = stagedServices[inService] {
-            inService.characteristics?.forEach {
-                inPeripheral.discoverDescriptors(for: $0)
-            }
-            // TODO: Remove after getting all the Characteristics loaded.
-            stagedServices.removeThisService(inService)
-            sequence_contents.append(serviceInstance)
-            
-            if stagedServices.isEmpty {
-                _registerWithCentral()
-            }
-            // END TODO
-        } else {
-            #if DEBUG
-                print("ERROR! Service: \(String(describing: inService)) is not on the guest list!")
-            #endif
+        
+        inService.characteristics?.forEach {
+            inPeripheral.discoverDescriptors(for: $0)
         }
     }
     
@@ -254,6 +265,10 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
         #if DEBUG
             print("Characteristic: \(String(describing: inCharacteristic)) discovered these Descriptors: \(String(describing: inCharacteristic.descriptors))")
         #endif
+        
+        if let service = stagedServices[inCharacteristic] {
+            addService(service)
+        }
     }
 }
 

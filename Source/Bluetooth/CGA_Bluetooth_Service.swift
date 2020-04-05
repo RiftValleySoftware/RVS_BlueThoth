@@ -128,6 +128,30 @@ extension CGA_Bluetooth_Service {
             #endif
         }
     }
+    
+    /* ################################################################## */
+    /**
+     Called to add a Characteristic to our "keeper" Array.
+     
+     - parameter inCharacteristic: The Characteristic to add.
+     */
+    func addCharacteristic(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
+        if let characteristic = inCharacteristic.cbElementInstance {
+            #if DEBUG
+                print("Adding \(String(describing: inCharacteristic)).")
+            #endif
+            stagedCharacteristics.removeThisCharacteristic(characteristic)
+            sequence_contents.append(inCharacteristic)
+            
+            if stagedCharacteristics.isEmpty {
+                (parent as? CGA_Bluetooth_Peripheral)?.addService(self)
+            }
+        } else {
+            #if DEBUG
+                print("ERROR! \(String(describing: inCharacteristic)) does not have a CBCharacteristic instance.")
+            #endif
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -153,7 +177,7 @@ extension CGA_Bluetooth_Service: CGA_Class_Protocol {
 extension Array where Element == CGA_Bluetooth_Service {
     /* ################################################################## */
     /**
-     Special subscript that allows us to retrieve an Element by its conatined Service
+     Special subscript that allows us to retrieve an Element by its contained Service
      
      - parameter inItem: The CBService we're looking to match.
      - returns: The found Element, or nil, if not found.
@@ -168,6 +192,23 @@ extension Array where Element == CGA_Bluetooth_Service {
                 }
                     
                 return nil
+            }
+            
+            return current
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This subscript goes through our Services, looking for the one that "owns" the proferred Characteristic.
+     
+     - parameter inItem: The CBCharacteristic that the Service will aggregate.
+     - returns: The found Element, or nil, if not found.
+     */
+    subscript(_ inItem: CBCharacteristic) -> Element! {
+        return reduce(nil) { (current, nextItem) in
+            if  nil == current {
+                return (nil != nextItem.cbElementInstance?.characteristics?[inItem]) ? nextItem : nil
             }
             
             return current
@@ -208,4 +249,35 @@ extension Array where Element == CGA_Bluetooth_Service {
      - returns: True, if the Array contains a wrapper for the given element.
      */
     func contains(_ inItem: CBService) -> Bool { nil != self[inItem] }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Special Comparator for the Characteristics Array (as an Array of CBCharacteristic) -
+/* ###################################################################################################################################### */
+/**
+ This allows us to fetch Characteristics, looking for an exact instance.
+ */
+extension Array where Element == CBCharacteristic {
+    /* ################################################################## */
+    /**
+     Special subscript that allows us to retrieve an Element by its contained Characteristic.
+     
+     - parameter inItem: The CBCharacteristic we're looking to match.
+     - returns: The found Element, or nil, if not found.
+     */
+    subscript(_ inItem: CBCharacteristic) -> Element! {
+        return reduce(nil) { (current, nextItem) in
+            if  nil == current {
+                if nextItem === inItem {
+                    return nextItem
+                } else if nextItem.uuid == inItem.uuid {
+                    return nextItem
+                }
+                
+                return nil
+            }
+            
+            return current
+        }
+    }
 }

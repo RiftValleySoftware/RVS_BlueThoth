@@ -720,6 +720,8 @@ extension CGA_Bluetooth_CentralManager {
     
     /* ################################################################## */
     /**
+     Called to add a Peripheral to our "keeper" Array.
+     
      - parameter inPeripheral: The Peripheral to add.
      */
     func addPeripheral(_ inPeripheral: CGA_Bluetooth_Peripheral) {
@@ -731,6 +733,8 @@ extension CGA_Bluetooth_CentralManager {
     
     /* ################################################################## */
     /**
+     Called to remove a Peripheral from our main Array.
+     
      - parameter inPeripheral: The Peripheral to remove.
      */
     func removePeripheral(_ inPeripheral: CGA_Bluetooth_Peripheral) {

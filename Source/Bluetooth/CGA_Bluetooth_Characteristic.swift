@@ -41,7 +41,7 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
      This is our main cache Array. It contains wrapped instances of our aggregate CB type.
      */
     var sequence_contents: Array<Element> = []
-    
+
     /* ################################################################## */
     /**
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Service
@@ -123,6 +123,32 @@ extension Array where Element == CGA_Bluetooth_Characteristic {
         }
     }
     
+    /* ################################################################## */
+    /**
+     Removes the element (as a CBCharacteristic).
+     
+     - parameter inItem: The CB element we're looking to remove.
+     - returns: True, if the item was found and removed. Can be ignored.
+     */
+    @discardableResult
+    mutating func removeThisCharacteristic(_ inItem: CBCharacteristic) -> Bool {
+        var success = false
+        removeAll { (test) -> Bool in
+            guard let testCharacteristic = test.cbElementInstance else { return false }
+            if testCharacteristic === inItem {
+                success = true
+                return true
+            } else if testCharacteristic.uuid.uuidString == inItem.uuid.uuidString {
+                success = true
+                return true
+            }
+            
+            return false
+        }
+        
+        return success
+    }
+
     /* ################################################################## */
     /**
      Checks to see if the Array contains an instance that wraps the given CB element.
