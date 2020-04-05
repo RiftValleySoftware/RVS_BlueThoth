@@ -131,6 +131,24 @@ extension CGA_Bluetooth_Service {
     
     /* ################################################################## */
     /**
+     Called to tell the instance to discover its characteristics.
+     
+     - parameter inCharacteristics: The discovered Core Bluetooth Characteristics.
+     */
+    func discoveredCharacteristics(_ inCharacteristics: [CBCharacteristic]) {
+        if  let cbPeripheral = (parent as? CGA_Bluetooth_Peripheral)?.cbElementInstance {
+            #if DEBUG
+                print("Staging These Characteristics: \(String(describing: inCharacteristics))")
+            #endif
+            inCharacteristics.forEach {
+                stagedCharacteristics.append(CGA_Bluetooth_Characteristic(parent: self, cbElementInstance: $0))
+                cbPeripheral.discoverDescriptors(for: $0)
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
      Called to add a Characteristic to our "keeper" Array.
      
      - parameter inCharacteristic: The Characteristic to add.
@@ -256,6 +274,8 @@ extension Array where Element == CGA_Bluetooth_Service {
 /* ###################################################################################################################################### */
 /**
  This allows us to fetch Characteristics, looking for an exact instance.
+ 
+ This is applied to the sequence_contentnts Array. It allows us to search by UUID, as well as by identity.
  */
 extension Array where Element == CBCharacteristic {
     /* ################################################################## */
@@ -267,17 +287,7 @@ extension Array where Element == CBCharacteristic {
      */
     subscript(_ inItem: CBCharacteristic) -> Element! {
         return reduce(nil) { (current, nextItem) in
-            if  nil == current {
-                if nextItem === inItem {
-                    return nextItem
-                } else if nextItem.uuid == inItem.uuid {
-                    return nextItem
-                }
-                
-                return nil
-            }
-            
-            return current
+            return nil != current ? current : ((nextItem === inItem || nextItem.uuid == inItem.uuid) ? nextItem : nil)
         }
     }
 }

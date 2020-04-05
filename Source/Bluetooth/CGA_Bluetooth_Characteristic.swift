@@ -80,6 +80,24 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - Instance Methods -
+/* ###################################################################################################################################### */
+extension CGA_Bluetooth_Characteristic {
+    /* ################################################################## */
+    /**
+     This is the init that should always be used.
+     
+     - parameter parent: The Service instance that "owns" this instance.
+     - parameter cbElementInstance: This is the actual CBharacteristic instance to be associated with this instance.
+     */
+    convenience init(parent inParent: CGA_Bluetooth_Service, cbElementInstance inCBharacteristic: CBCharacteristic) {
+        self.init(sequence_contents: [])
+        parent = inParent
+        cbElementInstance = inCBharacteristic
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - CGA_Class_Protocol Conformance -
 /* ###################################################################################################################################### */
 /**

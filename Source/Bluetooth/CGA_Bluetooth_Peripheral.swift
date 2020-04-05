@@ -151,6 +151,9 @@ extension CGA_Bluetooth_Peripheral {
             sequence_contents.append(inService)
             
             if stagedServices.isEmpty {
+                #if DEBUG
+                    print("All Services fulfilled. Adding Peripheral (\(self)) to Central.")
+                #endif
                 _registerWithCentral()
             }
         } else {
@@ -246,9 +249,13 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
         #if DEBUG
             print("Service: \(String(describing: inService)) discovered these Characteristics: \(String(describing: inService.characteristics))")
         #endif
-        
-        inService.characteristics?.forEach {
-            inPeripheral.discoverDescriptors(for: $0)
+        if  let service = stagedServices[inService],
+            let characteristics = inService.characteristics {
+            service.discoveredCharacteristics(characteristics)
+        } else {
+            #if DEBUG
+                print("ERROR! Service not found, or no characteristics!")
+            #endif
         }
     }
     
@@ -263,11 +270,23 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
      */
     func peripheral(_ inPeripheral: CBPeripheral, didDiscoverDescriptorsFor inCharacteristic: CBCharacteristic, error inError: Error?) {
         #if DEBUG
-            print("Characteristic: \(String(describing: inCharacteristic)) discovered these Descriptors: \(String(describing: inCharacteristic.descriptors))")
+            if 1 > (inCharacteristic.descriptors?.count ?? 0) {
+                print("Characteristic: \(String(describing: inCharacteristic)) has no descriptors.")
+            } else {
+                print("Characteristic: \(String(describing: inCharacteristic)) discovered these Descriptors: \(String(describing: inCharacteristic.descriptors))")
+            }
         #endif
         
         if let service = stagedServices[inCharacteristic] {
-            addService(service)
+            #if DEBUG
+                let uuid = service.cbElementInstance?.uuid.uuidString
+                print("Characteristic: \(String(describing: inCharacteristic)) is being added to the Service: \(String(describing: uuid)).")
+            #endif
+            service.addCharacteristic(CGA_Bluetooth_Characteristic(parent: service, cbElementInstance: inCharacteristic))
+        } else {
+            #if DEBUG
+                print("ERROR! There is no Service for this Characteristic: \(String(describing: inCharacteristic))")
+            #endif
         }
     }
 }
