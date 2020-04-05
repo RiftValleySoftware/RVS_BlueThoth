@@ -112,7 +112,7 @@ extension CGA_Bluetooth_Service {
         if  let cbPeripheral = (parent as? CGA_Bluetooth_Peripheral)?.cbElementInstance,
             let cbService = cbElementInstance {
             var characteristics: [CBUUID]! = inCharacteristics.compactMap { CBUUID(string: $0) }
-            
+
             if characteristics?.isEmpty ?? false {
                 characteristics = scanCriteria?.chracteristics?.compactMap { CBUUID(string: $0) }
             }
@@ -121,6 +121,9 @@ extension CGA_Bluetooth_Service {
                 characteristics = nil
             }
             
+            #if DEBUG
+                print("Discovering Characteristics for the \(self) Service.")
+            #endif
             cbPeripheral.discoverCharacteristics(characteristics, for: cbService)
         } else {
             #if DEBUG
@@ -131,19 +134,33 @@ extension CGA_Bluetooth_Service {
     
     /* ################################################################## */
     /**
-     Called to tell the instance to discover its characteristics.
+     Called to tell the instance about its newly discovered Characteristics.
+     This method creates new Characteristic wrappers, and stages them. It then asks each Characteristic to discover its Descriptors.
      
      - parameter inCharacteristics: The discovered Core Bluetooth Characteristics.
      */
     func discoveredCharacteristics(_ inCharacteristics: [CBCharacteristic]) {
         if  let cbPeripheral = (parent as? CGA_Bluetooth_Peripheral)?.cbElementInstance {
             #if DEBUG
-                print("Staging These Characteristics: \(String(describing: inCharacteristics))")
+                print("Staging These Characteristics: \(inCharacteristics.map { $0.uuid.uuidString }.joined(separator: ", ")) for the \(self) Service.")
             #endif
+            
             inCharacteristics.forEach {
                 stagedCharacteristics.append(CGA_Bluetooth_Characteristic(parent: self, cbElementInstance: $0))
+            }
+            
+            #if DEBUG
+                print("Starting Characteristic Descriptor Discovery for the \(self) Service.")
+            #endif
+            
+            // The reason that we do this separately, is that I want to make sure that we have completely loaded up the staging Array before starting the discovery process. Otherwise, it could short-circuit the load.
+            inCharacteristics.forEach {
                 cbPeripheral.discoverDescriptors(for: $0)
             }
+        } else {
+            #if DEBUG
+                print("ERROR! There's no parent Peripheral!")
+            #endif
         }
     }
     
@@ -156,7 +173,7 @@ extension CGA_Bluetooth_Service {
     func addCharacteristic(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
         if let characteristic = inCharacteristic.cbElementInstance {
             #if DEBUG
-                print("Adding \(String(describing: inCharacteristic)).")
+                print("Adding the \(characteristic.uuid.uuidString) to the \(self) Service.")
             #endif
             stagedCharacteristics.removeThisCharacteristic(characteristic)
             sequence_contents.append(inCharacteristic)
