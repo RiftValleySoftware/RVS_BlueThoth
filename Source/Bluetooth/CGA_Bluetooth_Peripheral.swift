@@ -184,7 +184,7 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
         
         stagedServices.forEach {
             if let service = $0.cbElementInstance {
-                inPeripheral.discoverCharacteristics(nil, for: service)
+                inPeripheral.discoverCharacteristics(scanCriteria?.chracteristics.compactMap { CBUUID(string: $0) }, for: service)
             }
         }
     }
@@ -201,18 +201,34 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
      */
     func peripheral(_ inPeripheral: CBPeripheral, didDiscoverCharacteristicsFor inService: CBService, error inError: Error?) {
         #if DEBUG
-        print("Service: \(String(describing: inService)) discovered these Characteristics: \(String(describing: inService.characteristics))")
+            print("Service: \(String(describing: inService)) discovered these Characteristics: \(String(describing: inService.characteristics))")
         #endif
         if let serviceInstance = stagedServices[inService] {
+            inService.characteristics?.forEach {
+                inPeripheral.discoverDescriptors(for: $0)
+            }
+            // TODO: Remove after getting all the Characteristics loaded.
             stagedServices.removeThisService(inService)
             sequence_contents.append(serviceInstance)
             
             if stagedServices.isEmpty {
-                // TODO: Remove after getting all the Characteristics loaded.
                 _registerWithCentral()
-                // END TODO
             }
+            // END TODO
+        } else {
+            #if DEBUG
+                print("ERROR! Service: \(String(describing: inService)) is not on the guest list!")
+            #endif
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func peripheral(_ inPeripheral: CBPeripheral, didDiscoverDescriptorsFor inCharacteristic: CBCharacteristic, error inError: Error?) {
+        #if DEBUG
+            print("Characteristic: \(String(describing: inCharacteristic)) discovered these Descriptors: \(String(describing: inCharacteristic.descriptors))")
+        #endif
     }
 }
 
