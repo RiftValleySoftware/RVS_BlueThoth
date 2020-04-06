@@ -29,7 +29,7 @@ import CoreBluetooth
 /**
  This class "wraps" instances of CBDescriptor, adding some functionality, and linking the hierarchy.
  */
-class CGA_Bluetooth_Descriptor: CGA_Class_Protocol {
+class CGA_Bluetooth_Descriptor {
     /* ################################################################## */
     /**
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Characteristic
@@ -62,6 +62,21 @@ class CGA_Bluetooth_Descriptor: CGA_Class_Protocol {
      */
     var id: String {
         cbElementInstance?.uuid.uuidString ?? "ERROR"
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - CGA_Class_UpdateDescriptor Conformance -
+/* ###################################################################################################################################### */
+extension CGA_Bluetooth_Descriptor: CGA_Class_Protocol {
+    /* ################################################################## */
+    /**
+     This eliminates any stored data.
+     */
+    func clear() {
+        #if DEBUG
+            print("Clearing the decks for a Descriptor: \(self.id).")
+        #endif
     }
 }
 

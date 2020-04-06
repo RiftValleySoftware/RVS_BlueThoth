@@ -29,7 +29,7 @@ import CoreBluetooth
 /**
  This class "wraps" instances of CBService, adding some functionality, and linking the hierarchy.
  */
-class CGA_Bluetooth_Service: RVS_SequenceProtocol, CGA_Class_Protocol {
+class CGA_Bluetooth_Service: RVS_SequenceProtocol {
     /* ################################################################## */
     /**
      This is the type we're aggregating.
@@ -120,10 +120,11 @@ extension CGA_Bluetooth_Service {
     func discoverCharacteristics(characteristics inCharacteristics: [String] = []) {
         if  let cbPeripheral = (parent as? CGA_Bluetooth_Peripheral)?.cbElementInstance,
             let cbService = cbElementInstance {
+            clear()
             var characteristics: [CBUUID]! = inCharacteristics.compactMap { CBUUID(string: $0) }
 
             if characteristics?.isEmpty ?? false {
-                characteristics = scanCriteria?.chracteristics?.compactMap { CBUUID(string: $0) }
+                characteristics = scanCriteria?.characteristics?.compactMap { CBUUID(string: $0) }
             }
             
             if characteristics?.isEmpty ?? false {
@@ -131,7 +132,7 @@ extension CGA_Bluetooth_Service {
             }
             
             #if DEBUG
-                print("Discovering Characteristics for the \(self) Service.")
+                print("Discovering Characteristics for the \(self.id) Service.")
             #endif
             cbPeripheral.discoverCharacteristics(characteristics, for: cbService)
         } else {
@@ -149,28 +150,22 @@ extension CGA_Bluetooth_Service {
      - parameter inCharacteristics: The discovered Core Bluetooth Characteristics.
      */
     func discoveredCharacteristics(_ inCharacteristics: [CBCharacteristic]) {
-        if  let cbPeripheral = (parent as? CGA_Bluetooth_Peripheral)?.cbElementInstance {
-            #if DEBUG
-                print("Staging These Characteristics: \(inCharacteristics.map { $0.uuid.uuidString }.joined(separator: ", ")) for the \(self) Service.")
-            #endif
-            
-            inCharacteristics.forEach {
-                stagedCharacteristics.append(CGA_Bluetooth_Characteristic(parent: self, cbElementInstance: $0))
-            }
-            
-            #if DEBUG
-                print("Starting Characteristic Descriptor Discovery for the \(self) Service.")
-            #endif
-            
-            // The reason that we do this separately, is that I want to make sure that we have completely loaded up the staging Array before starting the discovery process.
-            // Otherwise, it could short-circuit the load.
-            inCharacteristics.forEach {
-                cbPeripheral.discoverDescriptors(for: $0)
-            }
-        } else {
-            #if DEBUG
-                print("ERROR! There's no parent Peripheral!")
-            #endif
+        #if DEBUG
+            print("Staging These Characteristics: \(inCharacteristics.map { $0.uuid.uuidString }.joined(separator: ", ")) for the \(self) Service.")
+        #endif
+        
+        inCharacteristics.forEach {
+            stagedCharacteristics.append(CGA_Bluetooth_Characteristic(parent: self, cbElementInstance: $0))
+        }
+        
+        #if DEBUG
+            print("Starting Characteristic Descriptor Discovery for the \(self) Service.")
+        #endif
+        
+        // The reason that we do this separately, is that I want to make sure that we have completely loaded up the staging Array before starting the discovery process.
+        // Otherwise, it could short-circuit the load.
+        stagedCharacteristics.forEach {
+            $0.discoverDescriptors()
         }
     }
     
@@ -183,12 +178,15 @@ extension CGA_Bluetooth_Service {
     func addCharacteristic(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
         if let characteristic = inCharacteristic.cbElementInstance {
             #if DEBUG
-                print("Adding the Characteristic \(characteristic.uuid.uuidString) to the \(self.id) Service.")
+                print("Adding the \(characteristic.uuid.uuidString) Characteristic to the \(self.id) Service.")
             #endif
             stagedCharacteristics.removeThisCharacteristic(characteristic)
             sequence_contents.append(inCharacteristic)
             
             if stagedCharacteristics.isEmpty {
+                #if DEBUG
+                    print("All Characteristics fulfilled. Adding this Service: \(self.id) to this Peripheral: \((parent as? CGA_Bluetooth_Peripheral)?.id ?? "ERROR")")
+                #endif
                 (parent as? CGA_Bluetooth_Peripheral)?.addService(self)
             }
         } else {
@@ -196,6 +194,24 @@ extension CGA_Bluetooth_Service {
                 print("ERROR! \(String(describing: inCharacteristic)) does not have a CBCharacteristic instance.")
             #endif
         }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - CGA_Class_UpdateDescriptor Conformance -
+/* ###################################################################################################################################### */
+extension CGA_Bluetooth_Service: CGA_Class_Protocol_UpdateDescriptor {
+    /* ################################################################## */
+    /**
+     This eliminates all of the stored and staged results.
+     */
+    func clear() {
+        #if DEBUG
+            print("Clearing the decks for a Service: \(self.id).")
+        #endif
+        
+        stagedCharacteristics = []
+        sequence_contents = []
     }
 }
 

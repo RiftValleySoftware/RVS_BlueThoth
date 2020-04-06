@@ -344,16 +344,26 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
         _updateUI()
         deviceTableView?.reloadData()
     }
+    /* ################################################################## */
+    /**
+     OPTIONAL: This is called to tell the instance that a Peripheral device has been connected.
+     
+     - parameter inCentralManager: The central manager that is calling this.
+     - parameter didConnectThisDevice: The device instance that was connected.
+     */
+    func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, didConnectThisDevice inDevice: CGA_Bluetooth_Peripheral) {
+        _currentDeviceScreen?.deviceInstance = inDevice
+    }
     
     /* ################################################################## */
     /**
-     Called to tell the instance that a new Peripheral device has been added and connected.
+     OPTIONAL: This is called to tell the instance that a Peripheral device will be disconnected.
      
      - parameter inCentralManager: The central manager that is calling this.
-     - parameter addedDevice: The device instance that was added (and connected).
+     - parameter willDisconnectThisDevice: The device instance that will be disconnected.
      */
-    func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, addedDevice inDevice: CGA_Bluetooth_Peripheral) {
-        _currentDeviceScreen?.deviceInstance = inDevice
+    func centralManager(_: CGA_Bluetooth_CentralManager, willDisconnectThisDevice: CGA_Bluetooth_Peripheral) {
+        navigationController?.popToRootViewController(animated: true)
     }
     
     /* ################################################################## */

@@ -82,6 +82,12 @@ class CGA_DetailViewController: UIViewController {
      This is the table that will list the discovered devices.
      */
     @IBOutlet weak var deviceTableView: UITableView!
+    
+    /* ################################################################## */
+    /**
+     This is the "Busy" animation that is displayed while the device connects.
+     */
+    @IBOutlet weak var busyAnimationActivityIndicatorView: UIActivityIndicatorView!
 }
 
 /* ###################################################################################################################################### */
@@ -105,9 +111,13 @@ extension CGA_DetailViewController {
      This simply makes sure that the UI matches the state of the device.
      */
     func updateUI() {
-        deviceTableView?.isHidden = nil == deviceInstance
         if nil != deviceInstance {
+            busyAnimationActivityIndicatorView?.stopAnimating()
+            deviceTableView?.isHidden = false
             deviceTableView?.reloadData()
+        } else {
+            busyAnimationActivityIndicatorView?.startAnimating()
+            deviceTableView?.isHidden = true
         }
     }
 }

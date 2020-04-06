@@ -29,7 +29,7 @@ import CoreBluetooth
 /**
  This class "wraps" instances of CBCharacteristic, adding some functionality, and linking the hierarchy.
  */
-class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol, CGA_Class_Protocol {
+class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
     /* ################################################################## */
     /**
      This is the type we're aggregating.
@@ -106,15 +106,51 @@ extension CGA_Bluetooth_Characteristic {
     
     /* ################################################################## */
     /**
+     Called to tell the instance to discover its descriptors.
+     */
+    func discoverDescriptors() {
+        if  let cbPeripheral = ((parent as? CGA_Bluetooth_Service)?.parent as? CGA_Bluetooth_Peripheral)?.cbElementInstance,
+            let cbCharacteristic = cbElementInstance {
+            clear()
+            #if DEBUG
+                print("Discovering Descriptors for the \(self.id) Characteristic.")
+            #endif
+            cbPeripheral.discoverDescriptors(for: cbCharacteristic)
+        } else {
+            #if DEBUG
+                print("ERROR! Can't get characteristic, service and/or peripheral!")
+            #endif
+        }
+    }
+
+    /* ################################################################## */
+    /**
      Called to add a Descriptor to our main Array.
      
      - parameter inDescriptor: The Descriptor to add.
      */
     func addDescriptor(_ inDescriptor: CGA_Bluetooth_Descriptor) {
         #if DEBUG
-            print("Adding the Descriptor \(inDescriptor.id) to the Characteristic \(self.id).")
+            print("Adding the \(inDescriptor.id) Descriptor to the \(self.id) Characteristic.")
         #endif
         sequence_contents.append(inDescriptor)
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - CGA_Class_UpdateDescriptor Conformance -
+/* ###################################################################################################################################### */
+extension CGA_Bluetooth_Characteristic: CGA_Class_Protocol_UpdateDescriptor {
+    /* ################################################################## */
+    /**
+     This eliminates all of the stored Descriptors.
+     */
+    func clear() {
+        #if DEBUG
+            print("Clearing the decks for A Characteristic: \(self.id).")
+        #endif
+        
+        sequence_contents = []
     }
 }
 
