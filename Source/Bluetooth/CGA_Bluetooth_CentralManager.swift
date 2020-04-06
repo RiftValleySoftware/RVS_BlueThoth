@@ -41,7 +41,7 @@ protocol CGA_Class_Protocol: class {
     /**
      REQUIRED: This is used to reference an "owning instance" of this instance.
      */
-    var parent: CGA_Class_Protocol? { get set }
+    var parent: CGA_Class_Protocol? { get }
     
     /* ################################################################## */
     /**
@@ -91,6 +91,7 @@ protocol CGA_Bluetooth_CentralManagerDelegate: class {
     /* ################################################################## */
     /**
      OPTIONAL: This is called to tell the instance to do whatever it needs to do to update its data.
+               NOTE: There may be no changes, or many changes. What has changed is not specified.
      
      - parameter centralManager: The central manager that is calling this.
      */
@@ -121,6 +122,17 @@ protocol CGA_Bluetooth_CentralManagerDelegate: class {
      - parameter willRemoveThisDevice: The device instance that will be removed after this call.
      */
     func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, willRemoveThisDevice: CGA_Bluetooth_Peripheral)
+    
+    /* ################################################################## */
+    /**
+     OPTIONAL: This is called to tell the instance that a Characteristic changed its value.
+     
+     - parameter centralManager: The central manager that is calling this.
+     - parameter device: The device instance that contained the changed Service.
+     - parameter service: The Service instance that contained the changed Characteristic.
+     - parameter changedCharacteristic: The Characteristic that was changed.
+     */
+    func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, device: CGA_Bluetooth_Peripheral, service: CGA_Bluetooth_Service, changedCharacteristic: CGA_Bluetooth_Characteristic)
 }
 
 /* ###################################################################################################################################### */
@@ -156,6 +168,12 @@ extension CGA_Bluetooth_CentralManagerDelegate {
      The default does nothing.
      */
     func centralManager(_: CGA_Bluetooth_CentralManager, willRemoveThisDevice: CGA_Bluetooth_Peripheral) { }
+    
+    /* ################################################################## */
+    /**
+     The default does nothing.
+     */
+    func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, device: CGA_Bluetooth_Peripheral, service: CGA_Bluetooth_Service, changedCharacteristic: CGA_Bluetooth_Characteristic) { }
 }
 
 /* ###################################################################################################################################### */

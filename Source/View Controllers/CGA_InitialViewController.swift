@@ -355,6 +355,19 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
     func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, addedDevice inDevice: CGA_Bluetooth_Peripheral) {
         _currentDeviceScreen?.deviceInstance = inDevice
     }
+    
+    /* ################################################################## */
+    /**
+     Called to tell the instance that a Characteristic changed its value.
+     
+     - parameter inCentralManager: The central manager that is calling this.
+     - parameter device: The device instance that contained the changed Service.
+     - parameter service: The Service instance that contained the changed Characteristic.
+     - parameter changedCharacteristic: The Characteristic that was changed.
+     */
+    func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, changedCharacteristic inCharacteristic: CGA_Bluetooth_Characteristic) {
+        
+    }
 }
 
 /* ###################################################################################################################################### */
