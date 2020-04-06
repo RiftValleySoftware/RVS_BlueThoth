@@ -45,9 +45,9 @@ protocol CGA_Class_Protocol: class {
     
     /* ################################################################## */
     /**
-     REQUIRED: This is called to tell the instance to do whatever it needs to do to update its collection.
+     REQUIRED: This returns a unique UUID String for the instance.
      */
-    func updateCollection()
+    var id: String { get }
 
     /* ################################################################## */
     /**
@@ -173,7 +173,8 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
      
      All members are String, but these will be converted internally into <code>CBUUID</code>s.
      
-     These are applied across the board. For example, if you specify a Service, then ALL scans will filter for that Service, and if you specify a Characteristic, then ALL Services, for ALL peripherals, will be scanned for that Characteristic.
+     These are applied across the board. For example, if you specify a Service, then ALL scans will filter for that Service,
+     and if you specify a Characteristic, then ALL Services, for ALL peripherals, will be scanned for that Characteristic.
      */
     struct ScanCriteria {
         /// This is a list of identifier UUIDs for specific Bluetooth devices.
@@ -190,7 +191,10 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
          This returns true, if all of the specifiers are nil or empty.
          */
         var isEmpty: Bool {
-            return (nil == peripherals || peripherals.isEmpty) && (nil == services || services.isEmpty) && (nil == chracteristics || chracteristics.isEmpty) && (nil == descriptors || descriptors.isEmpty)
+            return (nil == peripherals || peripherals.isEmpty)
+                && (nil == services || services.isEmpty)
+                && (nil == chracteristics || chracteristics.isEmpty)
+                && (nil == descriptors || descriptors.isEmpty)
         }
     }
     
@@ -759,12 +763,9 @@ extension CGA_Bluetooth_CentralManager: CGA_Class_Protocol {
     
     /* ################################################################## */
     /**
-     This is called to tell the instance to do whatever it needs to do to update its collection.
-     We define this here, so it ca be overriddden.
+     The Central Manager does not have a UUID.
      */
-    func updateCollection() {
-        _updateDelegate()
-    }
+    var id: String { "" }
 }
 
 /* ###################################################################################################################################### */
@@ -843,7 +844,7 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
                 !name.isEmpty
         else {
             #if DEBUG
-                print("Discarding empty-name Peripheral: \(String(describing: inPeripheral)).")
+            print("Discarding empty-name Peripheral: \(inPeripheral.identifier.uuidString).")
             #endif
             return
         }
@@ -854,7 +855,7 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
                 current || (next.uppercased() == inPeripheral.identifier.uuidString.uppercased())
             }) {
             #if DEBUG
-                print("Discarding Peripheral not on the guest list: \(String(describing: inPeripheral)).")
+                print("Discarding Peripheral not on the guest list: \(inPeripheral.identifier.uuidString).")
             #endif
             return
         } else {
@@ -875,7 +876,7 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
             
             #if DEBUG
                 print("Added \(name) (BLE).")
-                print("\tUUID: \(String(inPeripheral.identifier.uuidString))")
+                print("\tUUID: \(inPeripheral.identifier.uuidString)")
                 print("\tAdvertising Info:\n\t\t\(String(describing: inAdvertisementData))\n")
             #endif
             stagedBLEPeripherals.append(DiscoveryData(central: self, peripheral: inPeripheral, advertisementData: inAdvertisementData, rssi: inRSSI.intValue))
@@ -955,7 +956,7 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
         #if DEBUG
             print("Connecting \(String(describing: inPeripheral.name)) Failed.")
             if let error = inError {
-                print("\tWith error: \(String(describing: error)).")
+                print("\tWith error: \(error.localizedDescription).")
             }
         #endif
     }

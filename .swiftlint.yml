@@ -4,14 +4,10 @@ disabled_rules:
 - function_parameter_count
 - trailing_whitespace
 - type_name
-- function_body_length
-- weak_delegate
-- large_tuple
 - todo
 - inert_defer
 - reduce_boolean
 - syntactic_sugar
-- colon
 
 opt_in_rules:
 - control_statement
@@ -21,20 +17,20 @@ opt_in_rules:
 - comma
 
 file_length:
-- 3000 # warning
-- 3001 # error
+- 1499 # warning
+- 1500 # error
 
 type_body_length:
-- 1000 # warning
-- 1001 # error
-
-line_length:
 - 499 # warning
 - 500 # error
 
+line_length:
+- 199 # warning
+- 200 # error
+
 cyclomatic_complexity:
-- 12 # warning
-- 13 # error
+- 9 # warning
+- 10 # error
 
 excluded:
 - Pods

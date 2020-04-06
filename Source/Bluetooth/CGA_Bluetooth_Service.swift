@@ -29,7 +29,7 @@ import CoreBluetooth
 /**
  This class "wraps" instances of CBService, adding some functionality, and linking the hierarchy.
  */
-class CGA_Bluetooth_Service: RVS_SequenceProtocol {
+class CGA_Bluetooth_Service: RVS_SequenceProtocol, CGA_Class_Protocol {
     /* ################################################################## */
     /**
      This is the type we're aggregating.
@@ -73,6 +73,14 @@ class CGA_Bluetooth_Service: RVS_SequenceProtocol {
     var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! {
         return (parent as? CGA_Bluetooth_Peripheral)?.scanCriteria
     }
+    
+    /* ################################################################## */
+    /**
+     This returns a unique UUID String for the instance.
+     */
+    var id: String {
+        cbElementInstance?.uuid.uuidString ?? "ERROR"
+    }
 
     /* ################################################################## */
     /**
@@ -106,7 +114,8 @@ extension CGA_Bluetooth_Service {
     /**
      Called to tell the instance to discover its characteristics.
      
-     - parameter characteristics: An optional parameter that is an Array, holding the String UUIDs of Characteristics we are filtering for. If left out, all available Characteristics are found. If specified, this overrides the scanCriteria.
+     - parameter characteristics: An optional parameter that is an Array, holding the String UUIDs of Characteristics we are filtering for.
+                                  If left out, all available Characteristics are found. If specified, this overrides the scanCriteria.
      */
     func discoverCharacteristics(characteristics inCharacteristics: [String] = []) {
         if  let cbPeripheral = (parent as? CGA_Bluetooth_Peripheral)?.cbElementInstance,
@@ -153,7 +162,8 @@ extension CGA_Bluetooth_Service {
                 print("Starting Characteristic Descriptor Discovery for the \(self) Service.")
             #endif
             
-            // The reason that we do this separately, is that I want to make sure that we have completely loaded up the staging Array before starting the discovery process. Otherwise, it could short-circuit the load.
+            // The reason that we do this separately, is that I want to make sure that we have completely loaded up the staging Array before starting the discovery process.
+            // Otherwise, it could short-circuit the load.
             inCharacteristics.forEach {
                 cbPeripheral.discoverDescriptors(for: $0)
             }
@@ -173,7 +183,7 @@ extension CGA_Bluetooth_Service {
     func addCharacteristic(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
         if let characteristic = inCharacteristic.cbElementInstance {
             #if DEBUG
-                print("Adding the \(characteristic.uuid.uuidString) to the \(self) Service.")
+                print("Adding the Characteristic \(characteristic.uuid.uuidString) to the \(self.id) Service.")
             #endif
             stagedCharacteristics.removeThisCharacteristic(characteristic)
             sequence_contents.append(inCharacteristic)
@@ -186,20 +196,6 @@ extension CGA_Bluetooth_Service {
                 print("ERROR! \(String(describing: inCharacteristic)) does not have a CBCharacteristic instance.")
             #endif
         }
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - CGA_Class_Protocol Conformance -
-/* ###################################################################################################################################### */
-/**
- */
-extension CGA_Bluetooth_Service: CGA_Class_Protocol {
-    /* ################################################################## */
-    /**
-     The required callback to update the collection.
-     */
-    func updateCollection() {
     }
 }
 

@@ -29,7 +29,7 @@ import CoreBluetooth
 /**
  This class "wraps" instances of CBCharacteristic, adding some functionality, and linking the hierarchy.
  */
-class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
+class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol, CGA_Class_Protocol {
     /* ################################################################## */
     /**
      This is the type we're aggregating.
@@ -70,6 +70,14 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
 
     /* ################################################################## */
     /**
+     The UUID of this Characteristic.
+     */
+    var id: String {
+        cbElementInstance?.uuid.uuidString ?? "ERROR"
+    }
+    
+    /* ################################################################## */
+    /**
      The required init, with a "primed" sequence.
      
      - parameter sequence_contents: The initial value of the Array cache.
@@ -95,19 +103,18 @@ extension CGA_Bluetooth_Characteristic {
         parent = inParent
         cbElementInstance = inCBharacteristic
     }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - CGA_Class_Protocol Conformance -
-/* ###################################################################################################################################### */
-/**
- */
-extension CGA_Bluetooth_Characteristic: CGA_Class_Protocol {
+    
     /* ################################################################## */
     /**
-     The required callback to update the collection.
+     Called to add a Descriptor to our main Array.
+     
+     - parameter inDescriptor: The Descriptor to add.
      */
-    func updateCollection() {
+    func addDescriptor(_ inDescriptor: CGA_Bluetooth_Descriptor) {
+        #if DEBUG
+            print("Adding the Descriptor \(inDescriptor.id) to the Characteristic \(self.id).")
+        #endif
+        sequence_contents.append(inDescriptor)
     }
 }
 

@@ -33,7 +33,7 @@ class CGA_InitialViewController_TableRow: UITableViewCell {
     /**
      This will display the advertised name.
      */
-    @IBOutlet var nameLabel:UILabel!
+    @IBOutlet var nameLabel: UILabel!
 
     /* ################################################################## */
     /**

@@ -55,12 +55,14 @@ class CGA_Bluetooth_Descriptor: CGA_Class_Protocol {
     var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! {
         return (parent as? CGA_Bluetooth_Characteristic)?.scanCriteria
     }
-
+    
     /* ################################################################## */
     /**
-     This does nothing in this "leaf" class.
+     This returns a unique UUID String for the instance.
      */
-    func updateCollection() { }
+    var id: String {
+        cbElementInstance?.uuid.uuidString ?? "ERROR"
+    }
 }
 
 /* ###################################################################################################################################### */

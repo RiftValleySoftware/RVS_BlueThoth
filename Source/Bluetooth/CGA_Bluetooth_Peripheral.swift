@@ -29,7 +29,7 @@ import CoreBluetooth
 /**
  This class is instantiated when a Peripheral is connected, and will handle discovery of Services, Characteristics and Descriptors.
  */
-class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
+class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol, CGA_Class_Protocol {
     /* ################################################################## */
     /**
      This is the type we're aggregating.
@@ -88,6 +88,14 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
+     This returns a unique UUID String for the instance.
+     */
+    var id: String {
+        cbElementInstance?.identifier.uuidString ?? "ERROR"
+    }
+
+    /* ################################################################## */
+    /**
      The required init, with a "primed" sequence.
      
      - parameter sequence_contents: The initial value of the Array cache.
@@ -115,7 +123,8 @@ extension CGA_Bluetooth_Peripheral {
      This is the init that should always be used.
      
      - parameter discoveryData: The discovery data of the Peripheral.
-     - parameter services: An optional parameter that is an Array, holding the String UUIDs of Services we are filtering for. If left out, all available Services are found. If specified, this overrides the scanCriteria.
+     - parameter services: An optional parameter that is an Array, holding the String UUIDs of Services we are filtering for.
+                           If left out, all available Services are found. If specified, this overrides the scanCriteria.
      */
     convenience init(discoveryData inCBPeriperalDiscoveryData: CGA_Bluetooth_CentralManager.DiscoveryData, services inServices: [String] = []) {
         self.init(sequence_contents: [])
@@ -145,7 +154,7 @@ extension CGA_Bluetooth_Peripheral {
     func addService(_ inService: CGA_Bluetooth_Service) {
         if let service = inService.cbElementInstance {
             #if DEBUG
-                print("Adding \(String(describing: inService)).")
+                print("Adding \(inService.id).")
             #endif
             stagedServices.removeThisService(service)
             sequence_contents.append(inService)
@@ -180,18 +189,6 @@ extension CGA_Bluetooth_Peripheral {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - CGA_Class_Protocol Conformance -
-/* ###################################################################################################################################### */
-extension CGA_Bluetooth_Peripheral: CGA_Class_Protocol {
-    /* ################################################################## */
-    /**
-     This is the required conformance method to update the collection.
-     */
-    func updateCollection() {
-    }
-}
-
-/* ###################################################################################################################################### */
 // MARK: - CBPeripheralDelegate Conformance -
 /* ###################################################################################################################################### */
 extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
@@ -210,7 +207,11 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             #endif
         } else {
             #if DEBUG
-                print("Services Discovered: \(String(describing: inPeripheral.services))")
+                if let services = inPeripheral.services {
+                    print("Services Discovered: \(services.map({ $0.uuid.uuidString }).joined(separator: ", "))")
+                } else {
+                    print("ERROR!")
+                }
             #endif
                 
             stagedServices = inPeripheral.services?.map {
@@ -232,7 +233,7 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
      */
     func peripheral(_ inPeripheral: CBPeripheral, didModifyServices inInvalidatedServices: [CBService]) {
         #if DEBUG
-            print("Services Modified: \(String(describing: inInvalidatedServices))")
+            print("Services Modified: \(inInvalidatedServices.map({ $0.uuid.uuidString }).joined(separator: ", "))")
         #endif
     }
     
@@ -247,7 +248,7 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
      */
     func peripheral(_ inPeripheral: CBPeripheral, didDiscoverCharacteristicsFor inService: CBService, error inError: Error?) {
         #if DEBUG
-            print("Service: \(String(describing: inService)) discovered these Characteristics: \(String(describing: inService.characteristics))")
+            print("Service: \(inService.uuid.uuidString) discovered these Characteristics: \(String(describing: inService.characteristics))")
         #endif
         if  let service = stagedServices[inService],
             let characteristics = inService.characteristics {
@@ -271,21 +272,27 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     func peripheral(_ inPeripheral: CBPeripheral, didDiscoverDescriptorsFor inCharacteristic: CBCharacteristic, error inError: Error?) {
         #if DEBUG
             if 1 > (inCharacteristic.descriptors?.count ?? 0) {
-                print("Characteristic: \(String(describing: inCharacteristic)) has no descriptors.")
+                print("Characteristic: \(inCharacteristic.uuid.uuidString) has no descriptors.")
             } else {
-                print("Characteristic: \(String(describing: inCharacteristic)) discovered these Descriptors: \(String(describing: inCharacteristic.descriptors))")
+                print("Characteristic: \(inCharacteristic.uuid.uuidString) discovered these Descriptors: \(String(describing: inCharacteristic.descriptors))")
             }
         #endif
         
-        if let service = stagedServices[inCharacteristic] {
+        if  let service = stagedServices[inCharacteristic] {
             #if DEBUG
-                let uuid = service.cbElementInstance?.uuid.uuidString
-                print("Characteristic: \(String(describing: inCharacteristic)) is being added to the Service: \(String(describing: uuid)).")
+                print("Characteristic: \(inCharacteristic.uuid.uuidString) is being added to the Service: \(service.id).")
             #endif
-            service.addCharacteristic(CGA_Bluetooth_Characteristic(parent: service, cbElementInstance: inCharacteristic))
+            let characteristic = CGA_Bluetooth_Characteristic(parent: service, cbElementInstance: inCharacteristic)
+            inCharacteristic.descriptors?.forEach {
+                let descriptor = CGA_Bluetooth_Descriptor()
+                descriptor.parent = characteristic
+                descriptor.cbElementInstance = $0
+                characteristic.addDescriptor(descriptor)
+            }
+            service.addCharacteristic(characteristic)
         } else {
             #if DEBUG
-                print("ERROR! There is no Service for this Characteristic: \(String(describing: inCharacteristic))")
+                print("ERROR! There is no Service for this Characteristic: \(inCharacteristic.uuid.uuidString)")
             #endif
         }
     }
