@@ -104,14 +104,6 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
         sequence_contents = inSequence_Contents
         super.init()    // Since we derive from NSObject, we must call the super init()
     }
-    
-    /* ################################################################## */
-    /**
-     Make sure that we are removed, if we are going away.
-     */
-    deinit {
-        central?.removePeripheral(self)
-    }
 }
 
 /* ###################################################################################################################################### */
@@ -202,7 +194,7 @@ extension CGA_Bluetooth_Peripheral: CGA_Class_Protocol_UpdateDescriptor {
      */
     func clear() {
         #if DEBUG
-            print("Clearing the decks for a Peripheral: \(self.id).")
+            print("Clearing the decks for a Peripheral.")
         #endif
         
         stagedServices = []

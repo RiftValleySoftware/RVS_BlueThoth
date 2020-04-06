@@ -293,19 +293,20 @@ extension CGA_InitialViewController {
             navigationController?.popToRootViewController(animated: false)
         }
         
-        noBTImage.isHidden = isBTAvailable
+        noBTImage?.isHidden = isBTAvailable
         deviceTableView?.isHidden = !isBTAvailable
+        scanningButton?.isHidden = !isBTAvailable
 
         if  isBTAvailable,
             CGA_AppDelegate.centralManager?.isScanning ?? false {
-            scanningButton.backgroundColor = UIColor(red: 0, green: 0.75, blue: 0, alpha: 1.0)
-            scanningButton.setTitle(" " + "SLUG-SCANNING".localizedVariant + " ", for: .normal)
+            scanningButton?.backgroundColor = UIColor(red: 0, green: 0.75, blue: 0, alpha: 1.0)
+            scanningButton?.setTitle(" " + "SLUG-SCANNING".localizedVariant + " ", for: .normal)
         } else {
-            scanningButton.backgroundColor = UIColor(red: 0.75, green: 0, blue: 0, alpha: 1.0)
-            scanningButton.setTitle(" " + "SLUG-NOT-SCANNING".localizedVariant + " ", for: .normal)
+            scanningButton?.backgroundColor = UIColor(red: 0.75, green: 0, blue: 0, alpha: 1.0)
+            scanningButton?.setTitle(" " + "SLUG-NOT-SCANNING".localizedVariant + " ", for: .normal)
         }
         
-        scanningButton.isEnabled = true
+        scanningButton?.isEnabled = true
     }
 }
 
@@ -352,18 +353,7 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
      - parameter didConnectThisDevice: The device instance that was connected.
      */
     func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, didConnectThisDevice inDevice: CGA_Bluetooth_Peripheral) {
-        _currentDeviceScreen?.deviceInstance = inDevice
-    }
-    
-    /* ################################################################## */
-    /**
-     OPTIONAL: This is called to tell the instance that a Peripheral device will be disconnected.
-     
-     - parameter inCentralManager: The central manager that is calling this.
-     - parameter willDisconnectThisDevice: The device instance that will be disconnected.
-     */
-    func centralManager(_: CGA_Bluetooth_CentralManager, willDisconnectThisDevice: CGA_Bluetooth_Peripheral) {
-        navigationController?.popToRootViewController(animated: true)
+        _currentDeviceScreen?.updateUI()
     }
     
     /* ################################################################## */
@@ -376,6 +366,20 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
      - parameter changedCharacteristic: The Characteristic that was changed.
      */
     func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, changedCharacteristic inCharacteristic: CGA_Bluetooth_Characteristic) {
+        
+    }
+    
+    /* ################################################################## */
+    /**
+     OPTIONAL: This is called to tell the instance that a Descriptor changed its value.
+     
+     - parameter inCentralManager: The central manager that is calling this.
+     - parameter device: The device instance that contained the changed Service.
+     - parameter service: The Service instance that contained the changed Characteristic.
+     - parameter characteristic: The Characteristic that contains the Descriptor that was changed.
+     - parameter changedDescriptor: The Descriptor that was changed.
+     */
+    func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, characteristic inCharacteristic: CGA_Bluetooth_Characteristic, changedDescriptor inDescriptor: CGA_Bluetooth_Descriptor) {
         
     }
 }

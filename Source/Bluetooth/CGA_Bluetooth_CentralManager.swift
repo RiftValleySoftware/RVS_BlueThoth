@@ -477,10 +477,22 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
+     This is how many seconds we wait, before declaring a timeout.
+     */
+    private let _timeoutInSeconds: TimeInterval = 3.0
+    
+    /* ################################################################## */
+    /**
+     This is a countdown timer, for use as a timeout trap.
+     */
+    private var _timer: Timer?
+    
+    /* ################################################################## */
+    /**
      The Central Manager Delegate object.
      */
     weak var delegate: CGA_Bluetooth_CentralManagerDelegate?
-    
+
     /* ################################################################## */
     /**
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Class_Protocol
@@ -637,6 +649,31 @@ extension CGA_Bluetooth_CentralManager {
             self.delegate?.centralManager(self, willDisconnectThisDevice: inPeripheral)
         }
     }
+    
+    /* ################################################################## */
+    /**
+     */
+    private func _startTimeout() {
+        #if DEBUG
+            print("Starting Timeout.")
+        #endif
+        _timer = Timer.scheduledTimer(withTimeInterval: _timeoutInSeconds, repeats: false, block: timeout(_:))
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    private func _cancelTimeout() {
+        #if DEBUG
+            if let fireDate = _timer?.fireDate {
+                print("Ending Timeout after \(-(Date().timeIntervalSince(fireDate))) Seconds.")
+            } else {
+                print("ERROR! No Fire Date/Timer!")
+            }
+        #endif
+        _timer?.invalidate()
+        _timer = nil
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -780,6 +817,7 @@ extension CGA_Bluetooth_CentralManager {
         #if DEBUG
             print("Connecting \(String(describing: peripheral.name)).")
         #endif
+        _startTimeout()
         cbCentral.connect(peripheral, options: nil)
         
         return true
@@ -794,6 +832,7 @@ extension CGA_Bluetooth_CentralManager {
      */
     @discardableResult
     func disconnect(_ inPeripheral: DiscoveryData) -> Bool {
+        _cancelTimeout()
         guard   let cbCentral = cbElementInstance,
                 let cbPeripheral = inPeripheral.cbPeripheral,
                 sequence_contents.contains(cbPeripheral)
@@ -801,6 +840,8 @@ extension CGA_Bluetooth_CentralManager {
         #if DEBUG
             print("Disconnecting \(inPeripheral.preferredName).")
         #endif
+        inPeripheral.peripheralInstance?.clear()
+        inPeripheral.peripheralInstance = nil
         cbCentral.cancelPeripheralConnection(cbPeripheral)
         
         return true
@@ -813,10 +854,13 @@ extension CGA_Bluetooth_CentralManager {
      - parameter inPeripheral: The Peripheral to add.
      */
     func addPeripheral(_ inPeripheral: CGA_Bluetooth_Peripheral) {
+        _cancelTimeout()
         #if DEBUG
             print("Adding \(inPeripheral.discoveryData.preferredName).")
         #endif
+        inPeripheral.discoveryData.peripheralInstance = inPeripheral
         sequence_contents.append(inPeripheral)
+        _sendConnectedPeripheral(inPeripheral)
     }
     
     /* ################################################################## */
@@ -829,7 +873,18 @@ extension CGA_Bluetooth_CentralManager {
         #if DEBUG
             print("Removing \(inPeripheral.discoveryData.preferredName).")
         #endif
+        _sendPeripheralDisconnect(inPeripheral)
         sequence_contents.removeThisDevice(inPeripheral.discoveryData.cbPeripheral)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @objc func timeout(_ inTimer: Timer) {
+        #if DEBUG
+            print("ERROR! Timeout.")
+        #endif
+        _cancelTimeout()
     }
 }
 
@@ -1026,7 +1081,6 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
         
         let newInstance = CGA_Bluetooth_Peripheral(discoveryData: discoveredDevice)
         discoveredDevice.peripheralInstance = newInstance
-        _sendConnectedPeripheral(newInstance)
     }
     
     /* ################################################################## */
