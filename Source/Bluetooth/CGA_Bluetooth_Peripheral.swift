@@ -88,6 +88,14 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
+     This returns a unique UUID String for the instance.
+     */
+    var id: String {
+        cbElementInstance?.identifier.uuidString ?? "ERROR"
+    }
+
+    /* ################################################################## */
+    /**
      The required init, with a "primed" sequence.
      
      - parameter sequence_contents: The initial value of the Array cache.
@@ -95,14 +103,6 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
     required init(sequence_contents inSequence_Contents: [Element]) {
         sequence_contents = inSequence_Contents
         super.init()    // Since we derive from NSObject, we must call the super init()
-    }
-    
-    /* ################################################################## */
-    /**
-     Make sure that we are removed, if we are going away.
-     */
-    deinit {
-        central?.removePeripheral(self)
     }
 }
 
@@ -115,7 +115,8 @@ extension CGA_Bluetooth_Peripheral {
      This is the init that should always be used.
      
      - parameter discoveryData: The discovery data of the Peripheral.
-     - parameter services: An optional parameter that is an Array, holding the String UUIDs of Services we are filtering for. If left out, all available Services are found. If specified, this overrides the scanCriteria.
+     - parameter services: An optional parameter that is an Array, holding the String UUIDs of Services we are filtering for.
+                           If left out, all available Services are found. If specified, this overrides the scanCriteria.
      */
     convenience init(discoveryData inCBPeriperalDiscoveryData: CGA_Bluetooth_CentralManager.DiscoveryData, services inServices: [String] = []) {
         self.init(sequence_contents: [])
@@ -133,7 +134,38 @@ extension CGA_Bluetooth_Peripheral {
             services = nil
         }
         
+        #if DEBUG
+            print("Starting Initial Discovery for a Peripheral: \(self.id).")
+        #endif
+
         cbElementInstance?.discoverServices(services)
+    }
+    
+    /* ################################################################## */
+    /**
+     Called to add a Service to our "keeper" Array.
+     
+     - parameter inService: The Service to add.
+     */
+    func addService(_ inService: CGA_Bluetooth_Service) {
+        if let service = inService.cbElementInstance {
+            #if DEBUG
+                print("Adding \(inService.id).")
+            #endif
+            stagedServices.removeThisService(service)
+            sequence_contents.append(inService)
+            
+            if stagedServices.isEmpty {
+                #if DEBUG
+                    print("All Services fulfilled. Adding Peripheral (\(self)) to Central.")
+                #endif
+                _registerWithCentral()
+            }
+        } else {
+            #if DEBUG
+                print("ERROR! \(String(describing: inService)) does not have a CBService instance.")
+            #endif
+        }
     }
 }
 
@@ -153,14 +185,20 @@ extension CGA_Bluetooth_Peripheral {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - CGA_Class_Protocol Conformance -
+// MARK: - CGA_Class_UpdateDescriptor Conformance -
 /* ###################################################################################################################################### */
-extension CGA_Bluetooth_Peripheral: CGA_Class_Protocol {
+extension CGA_Bluetooth_Peripheral: CGA_Class_Protocol_UpdateDescriptor {
     /* ################################################################## */
     /**
-     This is the required conformance method to update the collection.
+     This eliminates all of the stored and staged results.
      */
-    func updateCollection() {
+    func clear() {
+        #if DEBUG
+            print("Clearing the decks for a Peripheral.")
+        #endif
+        
+        stagedServices = []
+        sequence_contents = []
     }
 }
 
@@ -170,48 +208,126 @@ extension CGA_Bluetooth_Peripheral: CGA_Class_Protocol {
 extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     /* ################################################################## */
     /**
+     Called when the Peripheral has discovered its Services.
+     We treat discovery as "atomic." We ask for all the Services at once, so this callback is complete for this Peripheral.
+     
+     - parameter inPeripheral: The CBPeripheral that has discovered Services.
+     - parameter didDiscoverServices: Any error that may have occured. Hopefully, it is nil.
      */
     func peripheral(_ inPeripheral: CBPeripheral, didDiscoverServices inError: Error?) {
-        print("Services Discovered: \(String(describing: inPeripheral.services))")
-        
-        stagedServices = []
-        inPeripheral.services?.forEach {
-            let serviceWrapperInstance = CGA_Bluetooth_Service(sequence_contents: [])
-            serviceWrapperInstance.parent = self
-            serviceWrapperInstance.cbElementInstance = $0
-            stagedServices.append(serviceWrapperInstance)
-        }
-        
-        stagedServices.forEach {
-            if let service = $0.cbElementInstance {
-                inPeripheral.discoverCharacteristics(nil, for: service)
+        if nil != inError {
+            #if DEBUG
+                print("ERROR!: \(inError!.localizedDescription)")
+            #endif
+        } else {
+            #if DEBUG
+                if let services = inPeripheral.services {
+                    print("Services Discovered: \(services.map({ $0.uuid.uuidString }).joined(separator: ", "))")
+                } else {
+                    print("ERROR!")
+                }
+            #endif
+                
+            stagedServices = inPeripheral.services?.map {
+                CGA_Bluetooth_Service(parent: self, cbElementInstance: $0)
+            } ?? []
+            
+            stagedServices.forEach {
+                $0.discoverCharacteristics()
             }
         }
     }
     
     /* ################################################################## */
     /**
+     Called when the Services for a Peripheral have been modified.
+     
+     - parameter inPeripheral: The CBPeripheral that has modified Services.
+     - parameter didModifyServices: An Array of CBService instances that were modified.
      */
     func peripheral(_ inPeripheral: CBPeripheral, didModifyServices inInvalidatedServices: [CBService]) {
-        print("Services Modified: \(String(describing: inInvalidatedServices))")
+        #if DEBUG
+            if 0 < inInvalidatedServices.count {
+                print("Services Modified: \(inInvalidatedServices.map({ $0.uuid.uuidString }).joined(separator: ", "))")
+            } else {
+                print("No Services Modified.")
+            }
+        #endif
     }
     
     /* ################################################################## */
     /**
+     Called when a Service discovers Characteristics.
+     We treat discovery as "atomic." We ask for all the Characteristics at once, so this callback is complete for this Service.
+     
+     - parameter inPeripheral: The CBPeripheral that has discovered Characteristics.
+     - parameter didDiscoverCharacteristicsFor: The Service instance to which the Characteristics apply.
+     - parameter error: Any error that may have occured. Hopefully, it is nil.
      */
     func peripheral(_ inPeripheral: CBPeripheral, didDiscoverCharacteristicsFor inService: CBService, error inError: Error?) {
-        #if DEBUG
-        print("Service: \(String(describing: inService)) discovered these Characteristics: \(String(describing: inService.characteristics))")
-        #endif
-        if let serviceInstance = stagedServices[inService] {
-            stagedServices.removeThisService(inService)
-            sequence_contents.append(serviceInstance)
+        guard let characteristics = inService.characteristics else {
+            #if DEBUG
+                print("ERROR! The characteristics Array is nil!")
+            #endif
             
-            if stagedServices.isEmpty {
-                // TODO: Remove after getting all the Characteristics loaded.
-                _registerWithCentral()
-                // END TODO
+            return
+        }
+        
+        #if DEBUG
+            print("Service: \(inService.uuid.uuidString) discovered these Characteristics: \(characteristics.map { $0.uuid.uuidString }.joined(separator: ", "))")
+        #endif
+        
+        if  let service = stagedServices[inService] {
+            service.discoveredCharacteristics(characteristics)
+        } else {
+            #if DEBUG
+                print("ERROR! Service not found!")
+            #endif
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when a Characteristic discovers all of its Descriptors.
+     We treat discovery as "atomic." We ask for all the Descriptors at once, so this callback is complete for this Characteristic.
+
+     - parameter inPeripheral: The CBPeripheral that has discovered Descriptors.
+     - parameter didDiscoverDescriptorsFor: The Characteristic instance to which the Descriptors apply.
+     - parameter error: Any error that may have occured. Hopefully, it is nil.
+     */
+    func peripheral(_ inPeripheral: CBPeripheral, didDiscoverDescriptorsFor inCharacteristic: CBCharacteristic, error inError: Error?) {
+        guard let descriptors = inCharacteristic.descriptors else {
+            #if DEBUG
+                print("ERROR! The descriptors Array is nil!")
+            #endif
+            
+            return
+        }
+        
+        #if DEBUG
+            if 1 > descriptors.count {
+                print("Characteristic: \(inCharacteristic.uuid.uuidString) has no descriptors.")
+            } else {
+                print("Characteristic: \(inCharacteristic.uuid.uuidString) discovered these Descriptors: \(descriptors.map { $0.uuid.uuidString }.joined(separator: ", "))")
             }
+        #endif
+        
+        if  let service = stagedServices[inCharacteristic] {
+            let characteristic = CGA_Bluetooth_Characteristic(parent: service, cbElementInstance: inCharacteristic)
+            inCharacteristic.descriptors?.forEach {
+                let descriptor = CGA_Bluetooth_Descriptor()
+                descriptor.parent = characteristic
+                descriptor.cbElementInstance = $0
+                characteristic.addDescriptor(descriptor)
+            }
+            #if DEBUG
+                print("All Descriptors fulfilled. Adding this Characteristic: \(characteristic.id) to this Service: \(service.id)")
+            #endif
+            service.addCharacteristic(characteristic)
+        } else {
+            #if DEBUG
+                print("ERROR! There is no Service for this Characteristic: \(inCharacteristic.uuid.uuidString)")
+            #endif
         }
     }
 }

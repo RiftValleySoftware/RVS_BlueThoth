@@ -24,9 +24,10 @@ import UIKit
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
-// MARK: -
+// MARK: - Main Characteristic Wrapper Class -
 /* ###################################################################################################################################### */
 /**
+ This class "wraps" instances of CBCharacteristic, adding some functionality, and linking the hierarchy.
  */
 class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
     /* ################################################################## */
@@ -40,7 +41,7 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
      This is our main cache Array. It contains wrapped instances of our aggregate CB type.
      */
     var sequence_contents: Array<Element> = []
-    
+
     /* ################################################################## */
     /**
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Service
@@ -69,6 +70,14 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
 
     /* ################################################################## */
     /**
+     The UUID of this Characteristic.
+     */
+    var id: String {
+        cbElementInstance?.uuid.uuidString ?? "ERROR"
+    }
+    
+    /* ################################################################## */
+    /**
      The required init, with a "primed" sequence.
      
      - parameter sequence_contents: The initial value of the Array cache.
@@ -79,15 +88,69 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
 }
 
 /* ###################################################################################################################################### */
-// MARK: -
+// MARK: - Instance Methods -
 /* ###################################################################################################################################### */
-/**
- */
-extension CGA_Bluetooth_Characteristic: CGA_Class_Protocol {
+extension CGA_Bluetooth_Characteristic {
     /* ################################################################## */
     /**
+     This is the init that should always be used.
+     
+     - parameter parent: The Service instance that "owns" this instance.
+     - parameter cbElementInstance: This is the actual CBharacteristic instance to be associated with this instance.
      */
-    func updateCollection() {
+    convenience init(parent inParent: CGA_Bluetooth_Service, cbElementInstance inCBharacteristic: CBCharacteristic) {
+        self.init(sequence_contents: [])
+        parent = inParent
+        cbElementInstance = inCBharacteristic
+    }
+    
+    /* ################################################################## */
+    /**
+     Called to tell the instance to discover its descriptors.
+     */
+    func discoverDescriptors() {
+        if  let cbPeripheral = ((parent as? CGA_Bluetooth_Service)?.parent as? CGA_Bluetooth_Peripheral)?.cbElementInstance,
+            let cbCharacteristic = cbElementInstance {
+            clear()
+            #if DEBUG
+                print("Discovering Descriptors for the \(self.id) Characteristic.")
+            #endif
+            cbPeripheral.discoverDescriptors(for: cbCharacteristic)
+        } else {
+            #if DEBUG
+                print("ERROR! Can't get characteristic, service and/or peripheral!")
+            #endif
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     Called to add a Descriptor to our main Array.
+     
+     - parameter inDescriptor: The Descriptor to add.
+     */
+    func addDescriptor(_ inDescriptor: CGA_Bluetooth_Descriptor) {
+        #if DEBUG
+            print("Adding the \(inDescriptor.id) Descriptor to the \(self.id) Characteristic.")
+        #endif
+        sequence_contents.append(inDescriptor)
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - CGA_Class_UpdateDescriptor Conformance -
+/* ###################################################################################################################################### */
+extension CGA_Bluetooth_Characteristic: CGA_Class_Protocol_UpdateDescriptor {
+    /* ################################################################## */
+    /**
+     This eliminates all of the stored Descriptors.
+     */
+    func clear() {
+        #if DEBUG
+            print("Clearing the decks for A Characteristic: \(self.id).")
+        #endif
+        
+        sequence_contents = []
     }
 }
 
@@ -121,6 +184,32 @@ extension Array where Element == CGA_Bluetooth_Characteristic {
         }
     }
     
+    /* ################################################################## */
+    /**
+     Removes the element (as a CBCharacteristic).
+     
+     - parameter inItem: The CB element we're looking to remove.
+     - returns: True, if the item was found and removed. Can be ignored.
+     */
+    @discardableResult
+    mutating func removeThisCharacteristic(_ inItem: CBCharacteristic) -> Bool {
+        var success = false
+        removeAll { (test) -> Bool in
+            guard let testCharacteristic = test.cbElementInstance else { return false }
+            if testCharacteristic === inItem {
+                success = true
+                return true
+            } else if testCharacteristic.uuid.uuidString == inItem.uuid.uuidString {
+                success = true
+                return true
+            }
+            
+            return false
+        }
+        
+        return success
+    }
+
     /* ################################################################## */
     /**
      Checks to see if the Array contains an instance that wraps the given CB element.

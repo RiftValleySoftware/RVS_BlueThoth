@@ -24,9 +24,10 @@ import UIKit
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
-// MARK: -
+// MARK: - The Main Wrapper Class for Services -
 /* ###################################################################################################################################### */
 /**
+ This class "wraps" instances of CBService, adding some functionality, and linking the hierarchy.
  */
 class CGA_Bluetooth_Service: RVS_SequenceProtocol {
     /* ################################################################## */
@@ -37,10 +38,16 @@ class CGA_Bluetooth_Service: RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
+     This is a "preview cache." It will aggregate instances of Characteristic wrappers that are still in discovery.
+     */
+    var stagedCharacteristics: Array<Element> = []
+    
+    /* ################################################################## */
+    /**
      This is our main cache Array. It contains wrapped instances of our aggregate CB type.
      */
     var sequence_contents: Array<Element> = []
-    
+
     /* ################################################################## */
     /**
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Peripheral
@@ -66,6 +73,14 @@ class CGA_Bluetooth_Service: RVS_SequenceProtocol {
     var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! {
         return (parent as? CGA_Bluetooth_Peripheral)?.scanCriteria
     }
+    
+    /* ################################################################## */
+    /**
+     This returns a unique UUID String for the instance.
+     */
+    var id: String {
+        cbElementInstance?.uuid.uuidString ?? "ERROR"
+    }
 
     /* ################################################################## */
     /**
@@ -79,15 +94,124 @@ class CGA_Bluetooth_Service: RVS_SequenceProtocol {
 }
 
 /* ###################################################################################################################################### */
-// MARK: -
+// MARK: - Instance Methods
 /* ###################################################################################################################################### */
-/**
- */
-extension CGA_Bluetooth_Service: CGA_Class_Protocol {
+extension CGA_Bluetooth_Service {
     /* ################################################################## */
     /**
+     This is the init that should always be used.
+     
+     - parameter parent: The Service instance that "owns" this instance.
+     - parameter cbElementInstance: This is the actual CBService instance to be associated with this instance.
      */
-    func updateCollection() {
+    convenience init(parent inParent: CGA_Bluetooth_Peripheral, cbElementInstance inCBService: CBService) {
+        self.init(sequence_contents: [])
+        parent = inParent
+        cbElementInstance = inCBService
+    }
+    
+    /* ################################################################## */
+    /**
+     Called to tell the instance to discover its characteristics.
+     
+     - parameter characteristics: An optional parameter that is an Array, holding the String UUIDs of Characteristics we are filtering for.
+                                  If left out, all available Characteristics are found. If specified, this overrides the scanCriteria.
+     */
+    func discoverCharacteristics(characteristics inCharacteristics: [String] = []) {
+        if  let cbPeripheral = (parent as? CGA_Bluetooth_Peripheral)?.cbElementInstance,
+            let cbService = cbElementInstance {
+            clear()
+            var characteristics: [CBUUID]! = inCharacteristics.compactMap { CBUUID(string: $0) }
+
+            if characteristics?.isEmpty ?? false {
+                characteristics = scanCriteria?.characteristics?.compactMap { CBUUID(string: $0) }
+            }
+            
+            if characteristics?.isEmpty ?? false {
+                characteristics = nil
+            }
+            
+            #if DEBUG
+                print("Discovering Characteristics for the \(self.id) Service.")
+            #endif
+            cbPeripheral.discoverCharacteristics(characteristics, for: cbService)
+        } else {
+            #if DEBUG
+                print("ERROR! Can't get service and peripheral!")
+            #endif
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called to tell the instance about its newly discovered Characteristics.
+     This method creates new Characteristic wrappers, and stages them. It then asks each Characteristic to discover its Descriptors.
+     
+     - parameter inCharacteristics: The discovered Core Bluetooth Characteristics.
+     */
+    func discoveredCharacteristics(_ inCharacteristics: [CBCharacteristic]) {
+        #if DEBUG
+            print("Staging These Characteristics: \(inCharacteristics.map { $0.uuid.uuidString }.joined(separator: ", ")) for the \(self) Service.")
+        #endif
+        
+        inCharacteristics.forEach {
+            stagedCharacteristics.append(CGA_Bluetooth_Characteristic(parent: self, cbElementInstance: $0))
+        }
+        
+        #if DEBUG
+            print("Starting Characteristic Descriptor Discovery for the \(self) Service.")
+        #endif
+        
+        // The reason that we do this separately, is that I want to make sure that we have completely loaded up the staging Array before starting the discovery process.
+        // Otherwise, it could short-circuit the load.
+        stagedCharacteristics.forEach {
+            $0.discoverDescriptors()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called to add a Characteristic to our "keeper" Array.
+     
+     - parameter inCharacteristic: The Characteristic to add.
+     */
+    func addCharacteristic(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
+        if let characteristic = inCharacteristic.cbElementInstance {
+            #if DEBUG
+                print("Adding the \(characteristic.uuid.uuidString) Characteristic to the \(self.id) Service.")
+            #endif
+            stagedCharacteristics.removeThisCharacteristic(characteristic)
+            sequence_contents.append(inCharacteristic)
+            
+            if stagedCharacteristics.isEmpty {
+                #if DEBUG
+                    print("All Characteristics fulfilled. Adding this Service: \(self.id) to this Peripheral: \((parent as? CGA_Bluetooth_Peripheral)?.id ?? "ERROR")")
+                #endif
+                (parent as? CGA_Bluetooth_Peripheral)?.addService(self)
+            }
+        } else {
+            #if DEBUG
+                print("ERROR! \(String(describing: inCharacteristic)) does not have a CBCharacteristic instance.")
+            #endif
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - CGA_Class_UpdateDescriptor Conformance -
+/* ###################################################################################################################################### */
+extension CGA_Bluetooth_Service: CGA_Class_Protocol_UpdateDescriptor {
+    /* ################################################################## */
+    /**
+     This eliminates all of the stored and staged results.
+     */
+    func clear() {
+        #if DEBUG
+            print("Clearing the decks for a Service: \(self.id).")
+        #endif
+        
+        stagedCharacteristics = []
+        sequence_contents = []
     }
 }
 
@@ -100,7 +224,7 @@ extension CGA_Bluetooth_Service: CGA_Class_Protocol {
 extension Array where Element == CGA_Bluetooth_Service {
     /* ################################################################## */
     /**
-     Special subscript that allows us to retrieve an Element by its conatined Service
+     Special subscript that allows us to retrieve an Element by its contained Service
      
      - parameter inItem: The CBService we're looking to match.
      - returns: The found Element, or nil, if not found.
@@ -115,6 +239,23 @@ extension Array where Element == CGA_Bluetooth_Service {
                 }
                     
                 return nil
+            }
+            
+            return current
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This subscript goes through our Services, looking for the one that "owns" the proferred Characteristic.
+     
+     - parameter inItem: The CBCharacteristic that the Service will aggregate.
+     - returns: The found Element, or nil, if not found.
+     */
+    subscript(_ inItem: CBCharacteristic) -> Element! {
+        return reduce(nil) { (current, nextItem) in
+            if  nil == current {
+                return (nil != nextItem.cbElementInstance?.characteristics?[inItem]) ? nextItem : nil
             }
             
             return current
@@ -155,4 +296,27 @@ extension Array where Element == CGA_Bluetooth_Service {
      - returns: True, if the Array contains a wrapper for the given element.
      */
     func contains(_ inItem: CBService) -> Bool { nil != self[inItem] }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Special Comparator for the Characteristics Array (as an Array of CBCharacteristic) -
+/* ###################################################################################################################################### */
+/**
+ This allows us to fetch Characteristics, looking for an exact instance.
+ 
+ This is applied to the sequence_contentnts Array. It allows us to search by UUID, as well as by identity.
+ */
+extension Array where Element == CBCharacteristic {
+    /* ################################################################## */
+    /**
+     Special subscript that allows us to retrieve an Element by its contained Characteristic.
+     
+     - parameter inItem: The CBCharacteristic we're looking to match.
+     - returns: The found Element, or nil, if not found.
+     */
+    subscript(_ inItem: CBCharacteristic) -> Element! {
+        return reduce(nil) { (current, nextItem) in
+            return nil != current ? current : ((nextItem === inItem || nextItem.uuid == inItem.uuid) ? nextItem : nil)
+        }
+    }
 }

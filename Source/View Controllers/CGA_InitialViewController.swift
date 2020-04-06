@@ -33,7 +33,7 @@ class CGA_InitialViewController_TableRow: UITableViewCell {
     /**
      This will display the advertised name.
      */
-    @IBOutlet var nameLabel:UILabel!
+    @IBOutlet var nameLabel: UILabel!
 
     /* ################################################################## */
     /**
@@ -293,24 +293,25 @@ extension CGA_InitialViewController {
             navigationController?.popToRootViewController(animated: false)
         }
         
-        noBTImage.isHidden = isBTAvailable
+        noBTImage?.isHidden = isBTAvailable
         deviceTableView?.isHidden = !isBTAvailable
+        scanningButton?.isHidden = !isBTAvailable
 
         if  isBTAvailable,
             CGA_AppDelegate.centralManager?.isScanning ?? false {
-            scanningButton.backgroundColor = UIColor(red: 0, green: 0.75, blue: 0, alpha: 1.0)
-            scanningButton.setTitle(" " + "SLUG-SCANNING".localizedVariant + " ", for: .normal)
+            scanningButton?.backgroundColor = UIColor(red: 0, green: 0.75, blue: 0, alpha: 1.0)
+            scanningButton?.setTitle(" " + "SLUG-SCANNING".localizedVariant + " ", for: .normal)
         } else {
-            scanningButton.backgroundColor = UIColor(red: 0.75, green: 0, blue: 0, alpha: 1.0)
-            scanningButton.setTitle(" " + "SLUG-NOT-SCANNING".localizedVariant + " ", for: .normal)
+            scanningButton?.backgroundColor = UIColor(red: 0.75, green: 0, blue: 0, alpha: 1.0)
+            scanningButton?.setTitle(" " + "SLUG-NOT-SCANNING".localizedVariant + " ", for: .normal)
         }
         
-        scanningButton.isEnabled = true
+        scanningButton?.isEnabled = true
     }
 }
 
 /* ###################################################################################################################################### */
-// MARK: - CGA_Bluetooth_CentralManagerDelegate Support -
+// MARK: - CGA_Bluetooth_CentralManagerDelegate Conformance -
 /* ###################################################################################################################################### */
 extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
     /* ################################################################## */
@@ -344,21 +345,47 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
         _updateUI()
         deviceTableView?.reloadData()
     }
+    /* ################################################################## */
+    /**
+     OPTIONAL: This is called to tell the instance that a Peripheral device has been connected.
+     
+     - parameter inCentralManager: The central manager that is calling this.
+     - parameter didConnectThisDevice: The device instance that was connected.
+     */
+    func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, didConnectThisDevice inDevice: CGA_Bluetooth_Peripheral) {
+        _currentDeviceScreen?.updateUI()
+    }
     
     /* ################################################################## */
     /**
-     Called to tell the instance that a new Peripheral device has been added and connected.
+     Called to tell the instance that a Characteristic changed its value.
      
      - parameter inCentralManager: The central manager that is calling this.
-     - parameter addedDevice: The device instance that was added (and connected).
+     - parameter device: The device instance that contained the changed Service.
+     - parameter service: The Service instance that contained the changed Characteristic.
+     - parameter changedCharacteristic: The Characteristic that was changed.
      */
-    func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, addedDevice inDevice: CGA_Bluetooth_Peripheral) {
-        _currentDeviceScreen?.deviceInstance = inDevice
+    func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, changedCharacteristic inCharacteristic: CGA_Bluetooth_Characteristic) {
+        
+    }
+    
+    /* ################################################################## */
+    /**
+     OPTIONAL: This is called to tell the instance that a Descriptor changed its value.
+     
+     - parameter inCentralManager: The central manager that is calling this.
+     - parameter device: The device instance that contained the changed Service.
+     - parameter service: The Service instance that contained the changed Characteristic.
+     - parameter characteristic: The Characteristic that contains the Descriptor that was changed.
+     - parameter changedDescriptor: The Descriptor that was changed.
+     */
+    func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, characteristic inCharacteristic: CGA_Bluetooth_Characteristic, changedDescriptor inDescriptor: CGA_Bluetooth_Descriptor) {
+        
     }
 }
 
 /* ###################################################################################################################################### */
-// MARK: - UITableViewDataSource Support -
+// MARK: - UITableViewDataSource Conformance -
 /* ###################################################################################################################################### */
 extension CGA_InitialViewController: UITableViewDataSource {
     /* ################################################################## */
@@ -505,7 +532,7 @@ extension CGA_InitialViewController: UITableViewDataSource {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - UITableViewDelegate Support -
+// MARK: - UITableViewDelegate Conformance -
 /* ###################################################################################################################################### */
 extension CGA_InitialViewController: UITableViewDelegate {
     /* ################################################################## */
