@@ -586,9 +586,7 @@ extension CGA_InitialViewController: UITableViewDelegate {
      - parameter shouldHighlightRowAt: The index path (section, row) for the cell.
      - returns: The IndexPath of the cell, if approved, or nil, if not.
      */
-    func tableView(_ inTableView: UITableView, shouldHighlightRowAt inIndexPath: IndexPath) -> Bool {
-        return nil != tableView(inTableView, willSelectRowAt: inIndexPath)
-    }
+    func tableView(_ inTableView: UITableView, shouldHighlightRowAt inIndexPath: IndexPath) -> Bool { nil != tableView(inTableView, willSelectRowAt: inIndexPath) }
     
     /* ################################################################## */
     /**
@@ -598,9 +596,9 @@ extension CGA_InitialViewController: UITableViewDelegate {
      - parameter didSelectRowAt: The index path (section, row) for the cell.
      */
     func tableView(_ inTableView: UITableView, didSelectRowAt inIndexPath: IndexPath) {
-        if let centralManager = CGA_AppDelegate.centralManager {
-            performSegue(withIdentifier: Self._deviceDetailSegueID, sender: centralManager.stagedBLEPeripherals[inIndexPath.row])
-        }
+        guard let centralManager = CGA_AppDelegate.centralManager  else { return }
+      
+        performSegue(withIdentifier: Self._deviceDetailSegueID, sender: centralManager.stagedBLEPeripherals[inIndexPath.row])
     }
     
     /* ################################################################## */
@@ -612,9 +610,7 @@ extension CGA_InitialViewController: UITableViewDelegate {
      
      - returns: true, always.
      */
-    func tableView(_: UITableView, canEditRowAt: IndexPath) -> Bool {
-        return true
-    }
+    func tableView(_: UITableView, canEditRowAt: IndexPath) -> Bool { true }
     
     /* ################################################################## */
     /**

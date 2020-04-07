@@ -40,7 +40,7 @@ class CGA_PeripheralViewController_TableRow: UITableViewCell {
 // MARK: - The initial view controller (table of services) -
 /* ###################################################################################################################################### */
 /**
- This controls the initial view, which is a basic table of discovered Services.
+ This controls the Peripheral Information View.
  */
 class CGA_PeripheralViewController: UIViewController {
     /* ################################################################## */
