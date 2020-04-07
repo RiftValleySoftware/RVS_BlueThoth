@@ -28,15 +28,11 @@ import UIKit
 /**
  This is the class that defines one row of the table that displays the Services.
  */
-<<<<<<< HEAD:Source/View Controllers/CGA_DetailViewController.swift
-class CGA_DetailViewController_TableRow: UITableViewCell {
-=======
 class CGA_PeripheralViewController_TableRow: UITableViewCell {
     /* ################################################################## */
     /**
      The label that we use to display the Service ID.
      */
->>>>>>> master:Source/View Controllers/CGA_PeripheralViewController.swift
     @IBOutlet weak var serviceIDLabel: UILabel!
 }
 
@@ -46,11 +42,7 @@ class CGA_PeripheralViewController_TableRow: UITableViewCell {
 /**
  This controls the initial view, which is a basic table of discovered Services.
  */
-<<<<<<< HEAD:Source/View Controllers/CGA_DetailViewController.swift
-class CGA_DetailViewController: UIViewController {
-=======
 class CGA_PeripheralViewController: UIViewController {
->>>>>>> master:Source/View Controllers/CGA_PeripheralViewController.swift
     /* ################################################################## */
     /**
      The reuse ID that we use for creating new table cells.
@@ -59,15 +51,12 @@ class CGA_PeripheralViewController: UIViewController {
     
     /* ################################################################## */
     /**
-<<<<<<< HEAD:Source/View Controllers/CGA_DetailViewController.swift
-=======
      The ID of the segue that is executed to display Service details.
      */
     private static let _serviceDetailSegueID = "show-service-detail"
 
     /* ################################################################## */
     /**
->>>>>>> master:Source/View Controllers/CGA_PeripheralViewController.swift
      This contains the device discovery data.
      */
     var deviceAdvInfo: CGA_Bluetooth_CentralManager.DiscoveryData!
@@ -94,11 +83,7 @@ class CGA_PeripheralViewController: UIViewController {
 /* ###################################################################################################################################### */
 // MARK: - Instance Methods -
 /* ###################################################################################################################################### */
-<<<<<<< HEAD:Source/View Controllers/CGA_DetailViewController.swift
-extension CGA_DetailViewController {
-=======
 extension CGA_PeripheralViewController {
->>>>>>> master:Source/View Controllers/CGA_PeripheralViewController.swift
     /* ################################################################## */
     /**
      This simply makes sure that the UI matches the state of the device.
@@ -133,17 +118,6 @@ extension CGA_PeripheralViewController {
     
     /* ################################################################## */
     /**
-<<<<<<< HEAD:Source/View Controllers/CGA_DetailViewController.swift
-     Called just before the view is to disappear.
-     We use this to close a connection.
-
-     - parameter inAnimated: True, if the disappearance is animated.
-     */
-    override func viewWillDisappear(_ inAnimated: Bool) {
-        super.viewWillDisappear(inAnimated)
-        guard let device = deviceAdvInfo else { return }
-        device.disconnect()
-=======
      This is called just before we bring in the Service screen.
      
      - parameter for: The segue being executed.
@@ -155,18 +129,13 @@ extension CGA_PeripheralViewController {
                 let senderData = inSender as? CGA_Bluetooth_Service else { return }
         
         destination.serviceInstance = senderData
->>>>>>> master:Source/View Controllers/CGA_PeripheralViewController.swift
     }
 }
 
 /* ###################################################################################################################################### */
 // MARK: - UITableViewDataSource Conformance -
 /* ###################################################################################################################################### */
-<<<<<<< HEAD:Source/View Controllers/CGA_DetailViewController.swift
-extension CGA_DetailViewController: UITableViewDataSource {
-=======
 extension CGA_PeripheralViewController: UITableViewDataSource {
->>>>>>> master:Source/View Controllers/CGA_PeripheralViewController.swift
     /* ################################################################## */
     /**
      This returns the number of available rows, in the given section.
@@ -185,11 +154,7 @@ extension CGA_PeripheralViewController: UITableViewDataSource {
      - parameter cellForRowAt: The index path (section, row) for the cell.
      */
     func tableView(_ inTableView: UITableView, cellForRowAt inIndexPath: IndexPath) -> UITableViewCell {
-<<<<<<< HEAD:Source/View Controllers/CGA_DetailViewController.swift
-        guard let tableCell = inTableView.dequeueReusableCell(withIdentifier: Self._deviceRowReuseID, for: inIndexPath) as? CGA_DetailViewController_TableRow else { return UITableViewCell() }
-=======
         guard let tableCell = inTableView.dequeueReusableCell(withIdentifier: Self._deviceRowReuseID, for: inIndexPath) as? CGA_PeripheralViewController_TableRow else { return UITableViewCell() }
->>>>>>> master:Source/View Controllers/CGA_PeripheralViewController.swift
         
         tableCell.serviceIDLabel?.text = deviceInstance?[inIndexPath.row].id.localizedVariant ?? "ERROR"
         

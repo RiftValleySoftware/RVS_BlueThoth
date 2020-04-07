@@ -365,11 +365,7 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
     }
     /* ################################################################## */
     /**
-<<<<<<< HEAD
-     OPTIONAL: This is called to tell the instance that a Peripheral device has been connected.
-=======
      Called to tell the instance that a Peripheral device has been connected.
->>>>>>> master
      
      - parameter inCentralManager: The central manager that is calling this.
      - parameter didConnectThisDevice: The device instance that was connected.
@@ -393,11 +389,7 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
     
     /* ################################################################## */
     /**
-<<<<<<< HEAD
-     OPTIONAL: This is called to tell the instance that a Descriptor changed its value.
-=======
      Called to tell the instance that a Descriptor changed its value.
->>>>>>> master
      
      - parameter inCentralManager: The central manager that is calling this.
      - parameter device: The device instance that contained the changed Service.

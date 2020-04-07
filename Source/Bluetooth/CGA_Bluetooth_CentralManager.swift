@@ -840,8 +840,6 @@ extension CGA_Bluetooth_CentralManager {
         #if DEBUG
             print("Disconnecting \(inPeripheral.preferredName).")
         #endif
-        inPeripheral.peripheralInstance?.clear()
-        inPeripheral.peripheralInstance = nil
         cbCentral.cancelPeripheralConnection(cbPeripheral)
         
         return true
@@ -911,7 +909,6 @@ extension CGA_Bluetooth_CentralManager: CGA_Class_Protocol_UpdateDescriptor {
      This is called to inform an instance that a Characteristic downstream changed.
      
      - parameter inCharacteristic: The Characteristic wrapper instance that changed.
-<<<<<<< HEAD
      */
     func updateThisCharacteristic(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
     }
@@ -929,25 +926,6 @@ extension CGA_Bluetooth_CentralManager: CGA_Class_Protocol_UpdateDescriptor {
     /**
      This eliminates all of the stored and staged results.
      */
-=======
-     */
-    func updateThisCharacteristic(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
-    }
-
-    /* ################################################################## */
-    /**
-     This is called to inform an instance that a Descriptor downstream changed.
-     
-     - parameter inDescriptor: The Descriptor wrapper instance that changed.
-     */
-    func updateThisDescriptor(_ inDescriptor: CGA_Bluetooth_Descriptor) {
-    }
-    
-    /* ################################################################## */
-    /**
-     This eliminates all of the stored and staged results.
-     */
->>>>>>> master
     func clear() {
         #if DEBUG
             print("Clearing the decks.")
