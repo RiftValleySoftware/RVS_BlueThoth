@@ -27,8 +27,8 @@ import UIKit
 /* ###################################################################################################################################### */
 /**
  */
-class CGA_DetailViewController_TableRow: UITableViewCell {
-    @IBOutlet weak var serviceIDLabel: UILabel!
+class CGA_ServiceViewController_TableRow: UITableViewCell {
+    @IBOutlet weak var characteristicIDLabel: UILabel!
 }
 
 /* ###################################################################################################################################### */
@@ -37,103 +37,55 @@ class CGA_DetailViewController_TableRow: UITableViewCell {
 /**
  This controls the initial view, which is a basic table of discovered Services.
  */
-class CGA_DetailViewController: UIViewController {
+class CGA_ServiceViewController: UIViewController {
     /* ################################################################## */
     /**
      The reuse ID that we use for creating new table cells.
      */
-    private static let _deviceRowReuseID = "detail-row"
-
-    /* ################################################################## */
-    /**
-     This contains the device discovery data.
-     */
-    var deviceAdvInfo: CGA_Bluetooth_CentralManager.DiscoveryData!
+    private static let _descriptorRowReuseID = "detail-row"
     
     /* ################################################################## */
     /**
-     This contains the device instance, once the connection is successful. It is a weak reference.
+     The Service that is associated with this view controller.
      */
-    weak var deviceInstance: CGA_Bluetooth_Peripheral? { deviceAdvInfo?.peripheralInstance }
+    var serviceInstance: CGA_Bluetooth_Service!
     
     /* ################################################################## */
     /**
      This is the table that will list the discovered devices.
      */
-    @IBOutlet weak var deviceTableView: UITableView!
-    
-    /* ################################################################## */
-    /**
-     This is the "Busy" animation that is displayed while the device connects.
-     */
-    @IBOutlet weak var busyAnimationActivityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var descriptorsTableView: UITableView!
 }
 
 /* ###################################################################################################################################### */
 // MARK: - Instance Methods -
 /* ###################################################################################################################################### */
-extension CGA_DetailViewController {
+extension CGA_ServiceViewController {
     /* ################################################################## */
     /**
      This simply makes sure that the UI matches the state of the device.
      */
     func updateUI() {
-        if nil != deviceInstance {
-            busyAnimationActivityIndicatorView?.stopAnimating()
-            deviceTableView?.isHidden = false
-            deviceTableView?.reloadData()
-        } else {
-            busyAnimationActivityIndicatorView?.startAnimating()
-            deviceTableView?.isHidden = true
-        }
     }
 }
 
 /* ###################################################################################################################################### */
 // MARK: - Base Class Override Methods -
 /* ###################################################################################################################################### */
-extension CGA_DetailViewController {
+extension CGA_ServiceViewController {
     /* ################################################################## */
     /**
      Called after the view data has been loaded.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = deviceAdvInfo?.preferredName
-    }
-    
-    /* ################################################################## */
-    /**
-     Called just before the view is to appear.
-     We use this to initiate a connection.
-     
-     - parameter inAnimated: True, if the appearance is animated.
-     */
-    override func viewWillAppear(_ inAnimated: Bool) {
-        super.viewWillAppear(inAnimated)
-        guard let device = deviceAdvInfo else { return }
-        updateUI()
-        device.connect()
-    }
-    
-    /* ################################################################## */
-    /**
-     Called just before the view is to disappear.
-     We use this to close a connection.
-
-     - parameter inAnimated: True, if the disappearance is animated.
-     */
-    override func viewWillDisappear(_ inAnimated: Bool) {
-        super.viewWillDisappear(inAnimated)
-        guard let device = deviceAdvInfo else { return }
-        device.disconnect()
     }
 }
 
 /* ###################################################################################################################################### */
 // MARK: - UITableViewDataSource Conformance -
 /* ###################################################################################################################################### */
-extension CGA_DetailViewController: UITableViewDataSource {
+extension CGA_ServiceViewController: UITableViewDataSource {
     /* ################################################################## */
     /**
      This returns the number of available rows, in the given section.
@@ -142,7 +94,7 @@ extension CGA_DetailViewController: UITableViewDataSource {
      - parameter numberOfRowsInSection: The 0-based section index being queried.
      - returns: The number of rows in the given section.
      */
-    func tableView(_ inTableView: UITableView, numberOfRowsInSection inSection: Int) -> Int { deviceInstance?.count ?? 0 }
+    func tableView(_ inTableView: UITableView, numberOfRowsInSection inSection: Int) -> Int { serviceInstance?.count ?? 0 }
     
     /* ################################################################## */
     /**
@@ -152,10 +104,8 @@ extension CGA_DetailViewController: UITableViewDataSource {
      - parameter cellForRowAt: The index path (section, row) for the cell.
      */
     func tableView(_ inTableView: UITableView, cellForRowAt inIndexPath: IndexPath) -> UITableViewCell {
-        guard let tableCell = inTableView.dequeueReusableCell(withIdentifier: Self._deviceRowReuseID, for: inIndexPath) as? CGA_DetailViewController_TableRow else { return UITableViewCell() }
-        
-        tableCell.serviceIDLabel?.text = deviceInstance?[inIndexPath.row].id.localizedVariant ?? "ERROR"
-        
+        guard let tableCell = inTableView.dequeueReusableCell(withIdentifier: Self._descriptorRowReuseID, for: inIndexPath) as? CGA_ServiceViewController_TableRow else { return UITableViewCell() }
+        tableCell.characteristicIDLabel?.text = serviceInstance?[inIndexPath.row].id.localizedVariant ?? "ERROR"
         return tableCell
     }
 }
@@ -163,7 +113,7 @@ extension CGA_DetailViewController: UITableViewDataSource {
 /* ###################################################################################################################################### */
 // MARK: - UITableViewDelegate Conformance -
 /* ###################################################################################################################################### */
-extension CGA_DetailViewController: UITableViewDelegate {
+extension CGA_ServiceViewController: UITableViewDelegate {
     /* ################################################################## */
     /**
      Called when a row is selected.
