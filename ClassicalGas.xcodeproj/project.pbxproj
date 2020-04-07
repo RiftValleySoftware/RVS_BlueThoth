@@ -20,6 +20,7 @@
 		D447B9F2243171AB00F00A7A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D447B9EB243171AB00F00A7A /* Localizable.strings */; };
 		D447B9F3243171AB00F00A7A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D447B9ED243171AB00F00A7A /* InfoPlist.strings */; };
 		D447B9F52431724700F00A7A /* RVS_SequenceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D447B9F42431724700F00A7A /* RVS_SequenceProtocol.swift */; };
+		D480CE2E243CEFE20074CFE4 /* CGA_CharacteristicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480CE2D243CEFE20074CFE4 /* CGA_CharacteristicViewController.swift */; };
 		D4979EDD243123220068F327 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D4979EDA243123220068F327 /* LICENSE */; };
 		D4979EDE243123220068F327 /* jazzy.sh in Resources */ = {isa = PBXBuildFile; fileRef = D4979EDB243123220068F327 /* jazzy.sh */; };
 		D4979EDF243123220068F327 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D4979EDC243123220068F327 /* README.md */; };
@@ -45,6 +46,7 @@
 		D447B9EC243171AB00F00A7A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D447B9EE243171AB00F00A7A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D447B9F42431724700F00A7A /* RVS_SequenceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RVS_SequenceProtocol.swift; path = "Carthage/Checkouts/RVS_Generic_Swift_Toolbox/src/Collection Tools/RVS_SequenceProtocol.swift"; sourceTree = "<group>"; };
+		D480CE2D243CEFE20074CFE4 /* CGA_CharacteristicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_CharacteristicViewController.swift; sourceTree = "<group>"; };
 		D48D85182430F05500A925ED /* CGA_AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGA_AppDelegate.swift; sourceTree = "<group>"; };
 		D48D851C2430F05500A925ED /* CGA_InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGA_InitialViewController.swift; sourceTree = "<group>"; };
 		D48D85262430F05600A925ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				D48D851C2430F05500A925ED /* CGA_InitialViewController.swift */,
 				D4CAA4262434E877007C72AA /* CGA_PeripheralViewController.swift */,
 				D436B44C243CC1C6003619D9 /* CGA_ServiceViewController.swift */,
+				D480CE2D243CEFE20074CFE4 /* CGA_CharacteristicViewController.swift */,
 				D4F666C62434F06200CD4548 /* CGA_InfoViewController.swift */,
 				D43F05E42436C07B0009EA1B /* CGA_SettingsViewController.swift */,
 			);
@@ -278,6 +281,7 @@
 				D4B1C6A02430F32900D3AC78 /* CGA_InitialViewController.swift in Sources */,
 				D4CAA4272434E878007C72AA /* CGA_PeripheralViewController.swift in Sources */,
 				D4A53AAE24312F50009647C4 /* RVS_String_Extensions.swift in Sources */,
+				D480CE2E243CEFE20074CFE4 /* CGA_CharacteristicViewController.swift in Sources */,
 				D4B1C69F2430F32900D3AC78 /* CGA_AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
