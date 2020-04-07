@@ -840,8 +840,6 @@ extension CGA_Bluetooth_CentralManager {
         #if DEBUG
             print("Disconnecting \(inPeripheral.preferredName).")
         #endif
-        inPeripheral.peripheralInstance?.clear()
-        inPeripheral.peripheralInstance = nil
         cbCentral.cancelPeripheralConnection(cbPeripheral)
         
         return true
@@ -1112,6 +1110,9 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
         #if DEBUG
             print("Disconnected \(peripheralInstance.discoveryData?.preferredName ?? "ERROR").")
         #endif
+        
+        peripheralObject.clear()
+        peripheralInstance.discoveryData?.peripheralInstance = nil
 
         removePeripheral(peripheralObject)
     }

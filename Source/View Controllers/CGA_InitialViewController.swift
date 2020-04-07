@@ -109,7 +109,7 @@ class CGA_InitialViewController: UIViewController {
     /**
      Returns the pushed device details screen. Nil, if none.
      */
-    private var _currentDeviceScreen: CGA_DetailViewController! { navigationController?.topViewController as? CGA_DetailViewController }
+    private var _currentDeviceScreen: CGA_PeripheralViewController! { navigationController?.topViewController as? CGA_PeripheralViewController }
 
     /* ################################################################## */
     /**
@@ -188,12 +188,21 @@ extension CGA_InitialViewController {
      */
     override func viewWillAppear(_ inAnimated: Bool) {
         super.viewWillAppear(inAnimated)
+        deviceTableView?.deselectAll(animated: true)
+        // We always make sure that nothing is connected.
+        if  let count = CGA_AppDelegate.centralManager?.count,
+            0 < count {
+            CGA_AppDelegate.centralManager?.forEach {
+                $0.discoveryData?.disconnect()
+            }
+        }
+        
         navigationController?.navigationBar.isHidden = true
         if _wasScanning {
             CGA_AppDelegate.centralManager?.restartScanning()
         }
+        
         _updateUI()
-        deviceTableView?.deselectAll(animated: true)
     }
     
     /* ################################################################## */
@@ -218,7 +227,7 @@ extension CGA_InitialViewController {
      */
     override func prepare(for inSegue: UIStoryboardSegue, sender inSender: Any?) {
         // We only go further if we are looking at device details.
-        guard   let destination = inSegue.destination as? CGA_DetailViewController,
+        guard   let destination = inSegue.destination as? CGA_PeripheralViewController,
                 let senderData = inSender as? CGA_Bluetooth_CentralManager.DiscoveryData else { return }
         
         destination.deviceAdvInfo = senderData
@@ -285,12 +294,21 @@ extension CGA_InitialViewController {
     
     /* ################################################################## */
     /**
+     Make sure that the Navigation Controller is at tits baseline.
+     */
+    private func _resetToRoot() {
+        navigationController?.popToRootViewController(animated: false)
+        deviceTableView?.deselectAll()
+    }
+    
+    /* ################################################################## */
+    /**
      This simply makes sure that the table is displayed if BT is available, or the "No BT" image is shown, if it is not.
      */
     private func _updateUI() {
         let isBTAvailable = CGA_AppDelegate.centralManager?.isBTAvailable ?? false
         if !isBTAvailable { // Make sure that we are at the initial view, if BT is not available.
-            navigationController?.popToRootViewController(animated: false)
+            _resetToRoot()
         }
         
         noBTImage?.isHidden = isBTAvailable
@@ -347,7 +365,7 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
     }
     /* ################################################################## */
     /**
-     OPTIONAL: This is called to tell the instance that a Peripheral device has been connected.
+     Called to tell the instance that a Peripheral device has been connected.
      
      - parameter inCentralManager: The central manager that is calling this.
      - parameter didConnectThisDevice: The device instance that was connected.
@@ -371,7 +389,7 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
     
     /* ################################################################## */
     /**
-     OPTIONAL: This is called to tell the instance that a Descriptor changed its value.
+     Called to tell the instance that a Descriptor changed its value.
      
      - parameter inCentralManager: The central manager that is calling this.
      - parameter device: The device instance that contained the changed Service.
@@ -544,12 +562,18 @@ extension CGA_InitialViewController: UITableViewDelegate {
      - returns: The IndexPath of the cell, if approved, or nil, if not.
      */
     func tableView(_ inTableView: UITableView, willSelectRowAt inIndexPath: IndexPath) -> IndexPath? {
-        if  let centralManager = CGA_AppDelegate.centralManager,
-            centralManager.stagedBLEPeripherals[inIndexPath.row].canConnect {
-            return inIndexPath
+        // No double-dips.
+        if  let indexPaths = inTableView.indexPathsForSelectedRows,
+            indexPaths.contains(inIndexPath) {
+            return nil
         }
         
-        return nil
+        if let centralManager = CGA_AppDelegate.centralManager,
+            centralManager.stagedBLEPeripherals[inIndexPath.row].canConnect {
+            return inIndexPath
+        } else {
+            return nil
+        }
     }
     
     /* ################################################################## */
@@ -606,30 +630,5 @@ extension CGA_InitialViewController: UITableViewDelegate {
             centralManager.stagedBLEPeripherals[inIndexPath.row].ignore()
             inTableView.reloadData()
         }
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - UITableView Extension -
-/* ###################################################################################################################################### */
-extension UITableView {
-    /* ################################################################## */
-    /**
-     This will deselect all selected rows.
-     
-     - parameter animated: This can be ignored (defaults to false). If true, the deselection is animated.
-     - returns: an Array of IndexPath, denoting the rows that were deselected. Can be ignored.
-     */
-    @discardableResult
-    func deselectAll(animated inAnimated: Bool = false) -> [IndexPath] {
-        if  let indexPaths = indexPathsForSelectedRows,
-            !indexPaths.isEmpty {
-            indexPaths.forEach {
-                deselectRow(at: $0, animated: inAnimated)
-            }
-            
-            return indexPaths
-        }
-        return []
     }
 }
