@@ -56,28 +56,6 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
-     This casts the parent as a Service Wrapper.
-     */
-    var service: CGA_Bluetooth_Service! { parent as? CGA_Bluetooth_Service }
-    
-    /* ################################################################## */
-    /**
-     This will contain any required scan criteria. It simply passes on the Central criteria.
-     */
-    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! {
-        return (parent as? CGA_Bluetooth_Service)?.scanCriteria
-    }
-
-    /* ################################################################## */
-    /**
-     The UUID of this Characteristic.
-     */
-    var id: String {
-        cbElementInstance?.uuid.uuidString ?? "ERROR"
-    }
-    
-    /* ################################################################## */
-    /**
      The required init, with a "primed" sequence.
      
      - parameter sequence_contents: The initial value of the Array cache.
@@ -85,6 +63,79 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
     required init(sequence_contents inSequence_Contents: [Element]) {
         sequence_contents = inSequence_Contents
     }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Computed Properties -
+/* ###################################################################################################################################### */
+extension CGA_Bluetooth_Characteristic {
+    /* ################################################################## */
+    /**
+     This casts the parent as a Service Wrapper.
+     */
+    var service: CGA_Bluetooth_Service! { parent as? CGA_Bluetooth_Service }
+        
+    /* ################################################################## */
+    /**
+     This will contain any required scan criteria. It simply passes on the Central criteria.
+     */
+    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! { (parent as? CGA_Bluetooth_Service)?.scanCriteria }
+
+    /* ################################################################## */
+    /**
+     The UUID of this Characteristic.
+     */
+    var id: String { cbElementInstance?.uuid.uuidString ?? "ERROR" }
+    
+    /* ################################################################## */
+    /**
+     */
+    var canWrite: Bool { (.write == cbElementInstance?.properties) || (.writeWithoutResponse == cbElementInstance?.properties) }
+    
+    /* ################################################################## */
+    /**
+     */
+    var canWriteWithoutResponse: Bool { (.writeWithoutResponse == cbElementInstance?.properties) }
+    
+    /* ################################################################## */
+    /**
+     */
+    var canRead: Bool { (.read == cbElementInstance?.properties) }
+    
+    /* ################################################################## */
+    /**
+     */
+    var canNotify: Bool { (.notify == cbElementInstance?.properties) }
+    
+    /* ################################################################## */
+    /**
+     */
+    var canBroadcast: Bool { (.broadcast == cbElementInstance?.properties) }
+    
+    /* ################################################################## */
+    /**
+     */
+    var canIndicate: Bool { (.indicate == cbElementInstance?.properties) }
+    
+    /* ################################################################## */
+    /**
+     */
+    var requiresAuthenticatedSignedWrites: Bool { (.authenticatedSignedWrites == cbElementInstance?.properties) }
+    
+    /* ################################################################## */
+    /**
+     */
+    var requiresNotifyEncryption: Bool { (.notifyEncryptionRequired == cbElementInstance?.properties) }
+    
+    /* ################################################################## */
+    /**
+     */
+    var requiresIndicateEncryption: Bool { (.indicateEncryptionRequired == cbElementInstance?.properties) }
+    
+    /* ################################################################## */
+    /**
+     */
+    var hasExtendedProperties: Bool { (.extendedProperties == cbElementInstance?.properties) }
 }
 
 /* ###################################################################################################################################### */
