@@ -330,6 +330,32 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             #endif
         }
     }
+    
+    /* ################################################################## */
+    /**
+
+     - parameter inPeripheral: The CBPeripheral that has the updated Characteristic.
+     - parameter didUpdateValueFor: The Characteristic instance to which the Update applies.
+     - parameter error: Any error that may have occured. Hopefully, it is nil.
+     */
+    func peripheral(_ inPeripheral: CBPeripheral, didUpdateValueFor inCharacteristic: CBCharacteristic, error inError: Error?) {
+        #if DEBUG
+            print("Received a Characteristic Update delegate callback.")
+        #endif
+        if let characteristic = sequence_contents.characteristic(inCharacteristic) {
+            central?.updateThisCharacteristic(characteristic)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+
+     - parameter inPeripheral: The CBPeripheral that has the updated Descriptor.
+     - parameter didUpdateValueFor: The Descriptor instance to which the Update applies.
+     - parameter error: Any error that may have occured. Hopefully, it is nil.
+     */
+    func peripheral(_ inPeripheral: CBPeripheral, didUpdateValueFor inDescriptor: CBDescriptor, error inError: Error?) {
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -364,14 +390,21 @@ extension Array where Element == CGA_Bluetooth_Peripheral {
     
     /* ################################################################## */
     /**
+     Method that allows us to retrieve an Element by its contained Characteristic
+     
+     - parameter inItem: The Characteristic that belongs to the element that we're looking to match.
+     - returns: The found Element, or nil, if not found.
+     */
+    func characteristic(_ inItem: CBCharacteristic) -> CGA_Bluetooth_Characteristic! { reduce(nil) { (current, next) in nil == current ? next.sequence_contents.characteristic(inItem) : current } }
+
+    /* ################################################################## */
+    /**
      Checks to see if the Array contains an instance that wraps the given CB element.
      
      - parameter inItem: The CB element we're looking to match.
      - returns: True, if the Array contains a wrapper for the given element.
      */
-    func contains(_ inItem: CBPeripheral) -> Bool {
-        return nil != self[inItem]
-    }
+    func contains(_ inItem: CBPeripheral) -> Bool { nil != self[inItem] }
     
     /* ################################################################## */
     /**

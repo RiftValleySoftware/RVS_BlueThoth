@@ -264,6 +264,19 @@ extension Array where Element == CGA_Bluetooth_Service {
     
     /* ################################################################## */
     /**
+     This method goes through the Services, looking for the one that "owns" the proferred Characteristic, and then returning the "wrapper" for the Characteristic.
+     
+     - parameter inItem: The CBCharacteristic that the Service will aggregate.
+     - returns: The found Element, or nil, if not found.
+     */
+    func characteristic(_ inItem: CBCharacteristic) -> CGA_Bluetooth_Characteristic! {
+        guard let service: CGA_Bluetooth_Service = self[inItem] else { return nil }
+        
+        return service.sequence_contents[inItem]
+    }
+
+    /* ################################################################## */
+    /**
      Removes the element (as a CBService).
      
      - parameter inItem: The CB element we're looking to remove.

@@ -22,6 +22,10 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 
 import UIKit
 
+protocol CGA_UpdatableScreenViewController {
+    func updateUI()
+}
+
 /* ###################################################################################################################################### */
 // MARK: - The CGA_InitialViewController_TableRow Class (Denotes One Row of the Table) -
 /* ###################################################################################################################################### */
@@ -109,7 +113,7 @@ class CGA_InitialViewController: UIViewController {
     /**
      Returns the pushed device details screen. Nil, if none.
      */
-    private var _currentDeviceScreen: CGA_PeripheralViewController! { navigationController?.topViewController as? CGA_PeripheralViewController }
+    private var _currentDeviceScreen: CGA_UpdatableScreenViewController! { navigationController?.topViewController as? CGA_UpdatableScreenViewController }
 
     /* ################################################################## */
     /**
@@ -395,7 +399,7 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
      - parameter changedCharacteristic: The Characteristic that was changed.
      */
     func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, changedCharacteristic inCharacteristic: CGA_Bluetooth_Characteristic) {
-        
+        _currentDeviceScreen?.updateUI()
     }
     
     /* ################################################################## */
@@ -409,7 +413,7 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
      - parameter changedDescriptor: The Descriptor that was changed.
      */
     func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, characteristic inCharacteristic: CGA_Bluetooth_Characteristic, changedDescriptor inDescriptor: CGA_Bluetooth_Descriptor) {
-        
+        _currentDeviceScreen?.updateUI()
     }
 }
 

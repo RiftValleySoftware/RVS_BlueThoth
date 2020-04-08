@@ -141,6 +141,18 @@ extension CGA_Bluetooth_Characteristic {
     /**
      */
     var hasExtendedProperties: Bool { cbElementInstance?.properties.contains(.extendedProperties) ?? false }
+    
+    /* ################################################################## */
+    /**
+     If the Characteristic has a value, it is returned here.
+     */
+    var value: Data! { cbElementInstance?.value }
+    
+    /* ################################################################## */
+    /**
+     If the Characteristic has a value, and that value can be expressed as a String, it is returned here.
+     */
+    var stringValue: String! { nil != value ? String(data: value, encoding: .utf8) : nil }
 }
 
 /* ###################################################################################################################################### */
@@ -190,6 +202,21 @@ extension CGA_Bluetooth_Characteristic {
             print("Adding the \(inDescriptor.id) Descriptor to the \(self.id) Characteristic.")
         #endif
         sequence_contents.append(inDescriptor)
+    }
+    
+    /* ################################################################## */
+    /**
+     If we have read permission, the Peripheral is asked to read our value.
+     */
+    func readValue() {
+        if  canRead,
+            let peripheralWrapper = service?.peripheral,
+            let peripheral = peripheralWrapper.cbElementInstance {
+            #if DEBUG
+                print("Reading the value for the \(self.id) Characteristic.")
+            #endif
+            peripheral.readValue(for: cbElementInstance)
+        }
     }
 }
 
