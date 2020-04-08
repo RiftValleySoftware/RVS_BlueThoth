@@ -141,6 +141,18 @@ extension CGA_Bluetooth_Characteristic {
     /**
      */
     var hasExtendedProperties: Bool { cbElementInstance?.properties.contains(.extendedProperties) ?? false }
+    
+    /* ################################################################## */
+    /**
+     If the Characteristic has a value, it is returned here.
+     */
+    var value: Data! { cbElementInstance?.value }
+    
+    /* ################################################################## */
+    /**
+     If the Characteristic has a value, and that value can be expressed as a String, it is returned here.
+     */
+    var stringValue: String! { nil != value ? String(data: value, encoding: .utf8) : nil }
 }
 
 /* ###################################################################################################################################### */

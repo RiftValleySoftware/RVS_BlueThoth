@@ -30,6 +30,7 @@ import UIKit
 class CGA_ServiceViewController_TableRow: UITableViewCell {
     @IBOutlet weak var characteristicIDLabel: UILabel!
     @IBOutlet weak var propertiesStackView: UIStackView!
+    @IBOutlet weak var valueLabel: UILabel!
 }
 
 /* ###################################################################################################################################### */
@@ -295,6 +296,8 @@ extension CGA_ServiceViewController: UITableViewDataSource {
                 view.bottomAnchor.constraint(equalTo: tableCell.propertiesStackView.bottomAnchor).isActive = true
             }
         }
+        
+        tableCell.valueLabel.text = characteristic.stringValue ?? ""
         
         return tableCell
     }
