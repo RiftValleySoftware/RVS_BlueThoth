@@ -203,6 +203,21 @@ extension CGA_Bluetooth_Characteristic {
         #endif
         sequence_contents.append(inDescriptor)
     }
+    
+    /* ################################################################## */
+    /**
+     If we have read permission, the Peripheral is asked to read our value.
+     */
+    func readValue() {
+        if  canRead,
+            let peripheralWrapper = service?.peripheral,
+            let peripheral = peripheralWrapper.cbElementInstance {
+            #if DEBUG
+                print("Reading the value for the \(self.id) Characteristic.")
+            #endif
+            peripheral.readValue(for: cbElementInstance)
+        }
+    }
 }
 
 /* ###################################################################################################################################### */

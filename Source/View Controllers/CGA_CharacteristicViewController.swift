@@ -58,14 +58,15 @@ class CGA_CharacteristicViewController: UIViewController {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - Instance Methods -
+// MARK: - CGA_UpdatableScreenViewController Conformance -
 /* ###################################################################################################################################### */
-extension CGA_CharacteristicViewController {
+extension CGA_CharacteristicViewController: CGA_UpdatableScreenViewController {
     /* ################################################################## */
     /**
      This simply makes sure that the UI matches the state of the Characteristic.
      */
     func updateUI() {
+        descriptorsTableView?.reloadData()
     }
 }
 

@@ -652,6 +652,22 @@ extension CGA_Bluetooth_CentralManager {
     
     /* ################################################################## */
     /**
+     This is called to send a Characteristic update message to the delegate.
+     */
+    private func _sendCharacteristicUpdate(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
+        DispatchQueue.main.async {
+            #if DEBUG
+                print("Sending a Characteristic Update message to the delegate.")
+            #endif
+            if  let service = inCharacteristic.service,
+                let device = service.peripheral {
+                self.delegate?.centralManager(self, device: device, service: service, changedCharacteristic: inCharacteristic)
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
      */
     private func _startTimeout() {
         #if DEBUG
@@ -911,6 +927,7 @@ extension CGA_Bluetooth_CentralManager: CGA_Class_Protocol_UpdateDescriptor {
      - parameter inCharacteristic: The Characteristic wrapper instance that changed.
      */
     func updateThisCharacteristic(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
+        _sendCharacteristicUpdate(inCharacteristic)
     }
 
     /* ################################################################## */

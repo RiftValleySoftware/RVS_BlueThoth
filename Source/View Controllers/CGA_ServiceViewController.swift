@@ -66,14 +66,15 @@ class CGA_ServiceViewController: UIViewController {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - Instance Methods -
+// MARK: - CGA_UpdatableScreenViewController Conformance -
 /* ###################################################################################################################################### */
-extension CGA_ServiceViewController {
+extension CGA_ServiceViewController: CGA_UpdatableScreenViewController {
     /* ################################################################## */
     /**
      This simply makes sure that the UI matches the state of the Service.
      */
     func updateUI() {
+        characteristicsTableView?.reloadData()
     }
 }
 
@@ -88,6 +89,7 @@ extension CGA_ServiceViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = serviceInstance?.id.localizedVariant
+        serviceInstance?.forEach { $0.readValue() }
     }
     
     /* ################################################################## */

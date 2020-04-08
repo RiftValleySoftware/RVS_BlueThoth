@@ -81,9 +81,9 @@ class CGA_PeripheralViewController: UIViewController {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - Instance Methods -
+// MARK: - CGA_UpdatableScreenViewController Conformance -
 /* ###################################################################################################################################### */
-extension CGA_PeripheralViewController {
+extension CGA_PeripheralViewController: CGA_UpdatableScreenViewController {
     /* ################################################################## */
     /**
      This simply makes sure that the UI matches the state of the device.
