@@ -19,16 +19,30 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT
 
 Little Green Viper Software Development LLC: https://littlegreenviper.com
 */
+
 "SLUG-SECTION-HEADER-BLE"           =   "BLE";
 "SLUG-SECTION-HEADER-CLASSIC"       =   "BR/EDR";
 "SLUG-DEVICES"                      =   "Device List";
 "SLUG-MAIN-LIST-DATE-FORMAT"        =   "MM/dd/yyyy h:mm:ss.SSS a";
 "SLUG-ID"                           =   "ID";
-"SLUG-SCANNING"                     =   "Scanning";
-"SLUG-NOT-SCANNING"                 =   "Not Scanning";
+"SLUG-SCANNING"                     =   "SCANNING";
+"SLUG-NOT-SCANNING"                 =   "NOT SCANNING";
 "SLUG-OK-BUTTON-TEXT"               =   "OK";
 "SLUG-ERROR"                        =   "ERROR";
 
+// These are for display in the Characteristics Table Cell.
+"SLUG-PROPERTIES-READ"              =   "RD";
+"SLUG-PROPERTIES-WRITE"             =   "WN";
+"SLUG-PROPERTIES-WRITE-RESPONSE"    =   "WR";
+"SLUG-PROPERTIES-NOTIFY"            =   "NO";
+"SLUG-PROPERTIES-INDICATE"          =   "IN";
+"SLUG-PROPERTIES-BROADCAST"         =   "BR";
+"SLUG-PROPERTIES-AUTH-SIGNED-WRITE" =   "AW";
+"SLUG-PROPERTIES-NOTIFY-ENCRYPT"    =   "NE";
+"SLUG-PROPERTIES-INDICATE-ENCRYPT"  =   "IE";
+"SLUG-PROPERTIES-EXTENDED"          =   "EX";
+
+// These are Advertising Data Strings.
 "kCBAdvDataLocalName"               =   "Name";
 "kCBAdvDataIsConnectable"           =   "Can Connect";
 "kCBAdvDataTxPowerLevel"            =   "Transmit Power Level";

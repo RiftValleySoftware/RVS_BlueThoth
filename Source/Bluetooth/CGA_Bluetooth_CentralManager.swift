@@ -666,9 +666,9 @@ extension CGA_Bluetooth_CentralManager {
     private func _cancelTimeout() {
         #if DEBUG
             if let fireDate = _timer?.fireDate {
-                print("Ending Timeout after \(-(Date().timeIntervalSince(fireDate))) Seconds.")
+                print("Ending Timeout after \(_timeoutInSeconds - fireDate.timeIntervalSinceNow) Seconds.")
             } else {
-                print("ERROR! No Fire Date/Timer!")
+                print("No timer.")
             }
         #endif
         _timer?.invalidate()

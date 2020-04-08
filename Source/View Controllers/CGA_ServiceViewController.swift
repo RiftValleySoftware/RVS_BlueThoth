@@ -29,6 +29,7 @@ import UIKit
  */
 class CGA_ServiceViewController_TableRow: UITableViewCell {
     @IBOutlet weak var characteristicIDLabel: UILabel!
+    @IBOutlet weak var propertiesStackView: UIStackView!
 }
 
 /* ###################################################################################################################################### */
@@ -85,6 +86,7 @@ extension CGA_ServiceViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = serviceInstance?.id.localizedVariant
     }
     
     /* ################################################################## */
@@ -125,9 +127,44 @@ extension CGA_ServiceViewController: UITableViewDataSource {
      - parameter cellForRowAt: The index path (section, row) for the cell.
      */
     func tableView(_ inTableView: UITableView, cellForRowAt inIndexPath: IndexPath) -> UITableViewCell {
-        guard let tableCell = inTableView.dequeueReusableCell(withIdentifier: Self._characteristicRowReuseID, for: inIndexPath) as? CGA_ServiceViewController_TableRow else { return UITableViewCell() }
+        guard   let tableCell = inTableView.dequeueReusableCell(withIdentifier: Self._characteristicRowReuseID, for: inIndexPath) as? CGA_ServiceViewController_TableRow,
+                let characteristic = serviceInstance?[inIndexPath.row]
+        else { return UITableViewCell() }
+        
         tableCell.characteristicIDLabel?.textColor = UIColor(white: tableView(inTableView, shouldHighlightRowAt: inIndexPath) ? 1.0 : 0.75, alpha: 1.0)
-        tableCell.characteristicIDLabel?.text = serviceInstance?[inIndexPath.row].id.localizedVariant ?? "ERROR"
+        tableCell.characteristicIDLabel?.text = characteristic.id.localizedVariant
+        
+        for index in 0..<tableCell.propertiesStackView.subviews.count {
+            if let label = tableCell.propertiesStackView.subviews[index] as? UILabel {
+                switch index {
+                case 0:
+                    label.text = characteristic.canRead ? "SLUG-PROPERTIES-READ".localizedVariant : ""
+                case 1:
+                    label.text = characteristic.canWriteWithoutResponse ? "SLUG-PROPERTIES-WRITE".localizedVariant : characteristic.canWrite ? "SLUG-PROPERTIES-WRITE-RESPONSE".localizedVariant : ""
+                case 2:
+                    label.text = characteristic.canNotify ? "SLUG-PROPERTIES-NOTIFY".localizedVariant : ""
+                case 3:
+                    label.text = characteristic.canIndicate ? "SLUG-PROPERTIES-INDICATE".localizedVariant : ""
+                case 4:
+                    label.text = characteristic.canBroadcast ? "SLUG-PROPERTIES-BROADCAST".localizedVariant : ""
+                case 5:
+                    label.text = characteristic.requiresAuthenticatedSignedWrites ? "SLUG-PROPERTIES-AUTH-SIGNED-WRITE".localizedVariant : ""
+                case 6:
+                    label.text = characteristic.requiresNotifyEncryption ? "SLUG-PROPERTIES-NOTIFY-ENCRYPT".localizedVariant : ""
+                case 7:
+                    label.text = characteristic.requiresIndicateEncryption ? "SLUG-PROPERTIES-INDICATE-ENCRYPT".localizedVariant : ""
+                case 8:
+                    label.text = characteristic.hasExtendedProperties ? "SLUG-PROPERTIES-EXTENDED".localizedVariant : ""
+                default:
+                    #if DEBUG
+                        print("ERROR! Too Many Labels!")
+                    #else
+                        break
+                    #endif
+                }
+            }
+        }
+        
         return tableCell
     }
 }

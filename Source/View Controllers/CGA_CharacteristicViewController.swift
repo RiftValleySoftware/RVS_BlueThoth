@@ -79,6 +79,7 @@ extension CGA_CharacteristicViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = characteristicInstance?.id.localizedVariant
     }
 }
 
