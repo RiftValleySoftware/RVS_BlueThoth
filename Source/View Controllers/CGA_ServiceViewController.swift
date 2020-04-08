@@ -111,6 +111,157 @@ extension CGA_ServiceViewController {
 extension CGA_ServiceViewController: UITableViewDataSource {
     /* ################################################################## */
     /**
+     This struct is used to create a dynamic set of labels, indicating the Characteristic Properties.
+     */
+    struct _LabelGenerator {
+        /* ############################################################## */
+        /**
+         The Characteristic that is providing the Properties to inspect.
+         */
+        let characteristic: CGA_Bluetooth_Characteristic!
+        
+        /* ############################################################## */
+        /**
+         Returns a label, with The "RD" filler, if supported. Otherwise, nil.
+         */
+        var readLabel: UILabel! {
+            if characteristic.canRead {
+                let ret = UILabel()
+                ret.text = "SLUG-PROPERTIES-READ".localizedVariant
+                return ret
+            }
+            return nil
+        }
+        
+        /* ############################################################## */
+        /**
+         Returns a label, with The "WR" or "WN" filler, if supported. Otherwise, nil.
+         */
+        var writeLabel: UILabel! {
+            if characteristic.canWriteWithResponse {
+                let ret = UILabel()
+                ret.text = "SLUG-PROPERTIES-WRITE-RESPONSE".localizedVariant
+                return ret
+            } else if characteristic.canWriteWithoutResponse {
+                let ret = UILabel()
+                ret.text = "SLUG-PROPERTIES-WRITE".localizedVariant
+                return ret
+            }
+            return nil
+        }
+        
+        /* ############################################################## */
+        /**
+         Returns a label, with The "NO" filler, if supported. Otherwise, nil.
+         */
+        var notifyLabel: UILabel! {
+           if characteristic.canNotify {
+               let ret = UILabel()
+               ret.text = "SLUG-PROPERTIES-NOTIFY".localizedVariant
+               return ret
+           }
+           return nil
+        }
+        
+        /* ############################################################## */
+        /**
+         Returns a label, with The "IN" filler, if supported. Otherwise, nil.
+         */
+        var indicateLabel: UILabel! {
+           if characteristic.canIndicate {
+               let ret = UILabel()
+               ret.text = "SLUG-PROPERTIES-INDICATE".localizedVariant
+               return ret
+           }
+           return nil
+        }
+        
+        /* ############################################################## */
+        /**
+         Returns a label, with The "BR" filler, if supported. Otherwise, nil.
+         */
+        var broadcastLabel: UILabel! {
+           if characteristic.canBroadcast {
+               let ret = UILabel()
+               ret.text = "SLUG-PROPERTIES-BROADCAST".localizedVariant
+               return ret
+           }
+           return nil
+        }
+        
+        /* ############################################################## */
+        /**
+         Returns a label, with The "AW" filler, if supported. Otherwise, nil.
+         */
+        var authSignedRightsLabelLabel: UILabel! {
+           if characteristic.requiresAuthenticatedSignedWrites {
+               let ret = UILabel()
+               ret.text = "SLUG-PROPERTIES-AUTH-SIGNED-WRITE".localizedVariant
+               return ret
+           }
+           return nil
+        }
+        
+        /* ############################################################## */
+        /**
+         Returns a label, with The "NE" filler, if supported. Otherwise, nil.
+         */
+        var requiresNotifyEncryptionLabel: UILabel! {
+           if characteristic.requiresNotifyEncryption {
+               let ret = UILabel()
+               ret.text = "SLUG-PROPERTIES-NOTIFY-ENCRYPT".localizedVariant
+               return ret
+           }
+           return nil
+        }
+        
+        /* ############################################################## */
+        /**
+         Returns a label, with The "IE" filler, if supported. Otherwise, nil.
+         */
+        var requiresIndicateEncryptionLabel: UILabel! {
+           if characteristic.requiresNotifyEncryption {
+               let ret = UILabel()
+               ret.text = "SLUG-PROPERTIES-INDICATE-ENCRYPT".localizedVariant
+               return ret
+           }
+           return nil
+        }
+        
+        /* ############################################################## */
+        /**
+         Returns a label, with The "EX" filler, if supported. Otherwise, nil.
+         */
+        var hasExtendedPropertiesLabel: UILabel! {
+           if characteristic.hasExtendedProperties {
+               let ret = UILabel()
+               ret.text = "SLUG-PROPERTIES-EXTENDED".localizedVariant
+               return ret
+           }
+           return nil
+        }
+        
+        /* ############################################################## */
+        /**
+         Returns an Array of labels, or nil.
+         */
+        var labels: [UILabel?] {
+            [
+                readLabel,
+                writeLabel,
+                notifyLabel,
+                indicateLabel,
+                broadcastLabel,
+                authSignedRightsLabelLabel,
+                requiresNotifyEncryptionLabel,
+                requiresIndicateEncryptionLabel,
+                hasExtendedPropertiesLabel
+            ]
+        }
+    }
+    
+    /* ################################################################## */
+    /**
      This returns the number of available rows, in the given section.
      
      - parameter inTableView: The table view that is asking for the row count.
@@ -134,34 +285,14 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         tableCell.characteristicIDLabel?.textColor = UIColor(white: tableView(inTableView, shouldHighlightRowAt: inIndexPath) ? 1.0 : 0.75, alpha: 1.0)
         tableCell.characteristicIDLabel?.text = characteristic.id.localizedVariant
         
-        for index in 0..<tableCell.propertiesStackView.subviews.count {
-            if let label = tableCell.propertiesStackView.subviews[index] as? UILabel {
-                switch index {
-                case 0:
-                    label.text = characteristic.canRead ? "SLUG-PROPERTIES-READ".localizedVariant : ""
-                case 1:
-                    label.text = characteristic.canWriteWithoutResponse ? "SLUG-PROPERTIES-WRITE".localizedVariant : characteristic.canWrite ? "SLUG-PROPERTIES-WRITE-RESPONSE".localizedVariant : ""
-                case 2:
-                    label.text = characteristic.canNotify ? "SLUG-PROPERTIES-NOTIFY".localizedVariant : ""
-                case 3:
-                    label.text = characteristic.canIndicate ? "SLUG-PROPERTIES-INDICATE".localizedVariant : ""
-                case 4:
-                    label.text = characteristic.canBroadcast ? "SLUG-PROPERTIES-BROADCAST".localizedVariant : ""
-                case 5:
-                    label.text = characteristic.requiresAuthenticatedSignedWrites ? "SLUG-PROPERTIES-AUTH-SIGNED-WRITE".localizedVariant : ""
-                case 6:
-                    label.text = characteristic.requiresNotifyEncryption ? "SLUG-PROPERTIES-NOTIFY-ENCRYPT".localizedVariant : ""
-                case 7:
-                    label.text = characteristic.requiresIndicateEncryption ? "SLUG-PROPERTIES-INDICATE-ENCRYPT".localizedVariant : ""
-                case 8:
-                    label.text = characteristic.hasExtendedProperties ? "SLUG-PROPERTIES-EXTENDED".localizedVariant : ""
-                default:
-                    #if DEBUG
-                        print("ERROR! Too Many Labels!")
-                    #else
-                        break
-                    #endif
-                }
+        // Populate the Properties view.
+        tableCell.propertiesStackView.subviews.forEach { $0.removeFromSuperview() }
+        _LabelGenerator(characteristic: characteristic).labels.forEach {
+            if let view = $0 {
+                tableCell.propertiesStackView.addArrangedSubview(view)
+                view.translatesAutoresizingMaskIntoConstraints = false
+                view.topAnchor.constraint(equalTo: tableCell.propertiesStackView.topAnchor).isActive = true
+                view.bottomAnchor.constraint(equalTo: tableCell.propertiesStackView.bottomAnchor).isActive = true
             }
         }
         

@@ -17,20 +17,20 @@ opt_in_rules:
 - comma
 
 file_length:
-- 1499 # warning
-- 1500 # error
+- 1500 # warning
+- 1501 # error
 
 type_body_length:
-- 499 # warning
-- 500 # error
+- 500 # warning
+- 501 # error
 
 line_length:
-- 299 # warning
-- 300 # error
+- 300 # warning
+- 301 # error
 
 cyclomatic_complexity:
-- 14 # warning
-- 15 # error
+- 10 # warning
+- 11 # error
 
 excluded:
 - Pods
