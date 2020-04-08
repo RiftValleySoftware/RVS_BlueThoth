@@ -310,26 +310,3 @@ extension Array where Element == CGA_Bluetooth_Service {
      */
     func contains(_ inItem: CBService) -> Bool { nil != self[inItem] }
 }
-
-/* ###################################################################################################################################### */
-// MARK: - Special Comparator for the Characteristics Array (as an Array of CBCharacteristic) -
-/* ###################################################################################################################################### */
-/**
- This allows us to fetch Characteristics, looking for an exact instance.
- 
- This is applied to the sequence_contentnts Array. It allows us to search by UUID, as well as by identity.
- */
-extension Array where Element == CBCharacteristic {
-    /* ################################################################## */
-    /**
-     Special subscript that allows us to retrieve an Element by its contained Characteristic.
-     
-     - parameter inItem: The CBCharacteristic we're looking to match.
-     - returns: The found Element, or nil, if not found.
-     */
-    subscript(_ inItem: CBCharacteristic) -> Element! {
-        return reduce(nil) { (current, nextItem) in
-            return nil != current ? current : ((nextItem === inItem || nextItem.uuid == inItem.uuid) ? nextItem : nil)
-        }
-    }
-}
