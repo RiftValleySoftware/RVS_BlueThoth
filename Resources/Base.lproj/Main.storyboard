@@ -353,6 +353,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="Uaa-w7-TfP" secondAttribute="bottom" id="ZqJ-DC-6bu"/>
                                                 <constraint firstItem="Uaa-w7-TfP" firstAttribute="leading" secondItem="wVw-x3-uB7" secondAttribute="leading" constant="20" id="hv5-k2-BS1"/>
                                                 <constraint firstItem="hzW-eI-epk" firstAttribute="top" secondItem="wVw-x3-uB7" secondAttribute="topMargin" id="rFd-Js-kIG"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Uaa-w7-TfP" secondAttribute="trailing" constant="20" id="uu8-wz-rac"/>
                                                 <constraint firstItem="hzW-eI-epk" firstAttribute="leading" secondItem="wVw-x3-uB7" secondAttribute="leadingMargin" id="xJh-2W-prs"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="hzW-eI-epk" secondAttribute="trailing" id="zUG-BC-MXI"/>
                                             </constraints>

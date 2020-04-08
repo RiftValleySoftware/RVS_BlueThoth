@@ -113,7 +113,7 @@ extension CGA_ServiceViewController: UITableViewDataSource {
     /**
      This struct is used to create a dynamic set of labels, indicating the Characteristic Properties.
      */
-    struct _LabelGenerator {
+    struct _PropertyLabelGenerator {
         /* ############################################################## */
         /**
          The Characteristic that is providing the Properties to inspect.
@@ -287,7 +287,7 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         
         // Populate the Properties view.
         tableCell.propertiesStackView.subviews.forEach { $0.removeFromSuperview() }
-        _LabelGenerator(characteristic: characteristic).labels.forEach {
+        _PropertyLabelGenerator(characteristic: characteristic).labels.forEach {
             if let view = $0 {
                 tableCell.propertiesStackView.addArrangedSubview(view)
                 view.translatesAutoresizingMaskIntoConstraints = false
