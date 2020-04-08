@@ -90,52 +90,57 @@ extension CGA_Bluetooth_Characteristic {
     /* ################################################################## */
     /**
      */
-    var canWrite: Bool { (.write == cbElementInstance?.properties) || (.writeWithoutResponse == cbElementInstance?.properties) }
+    var canWrite: Bool { canWriteWithResponse || canWriteWithoutResponse }
     
     /* ################################################################## */
     /**
      */
-    var canWriteWithoutResponse: Bool { (.writeWithoutResponse == cbElementInstance?.properties) }
+    var canWriteWithResponse: Bool { cbElementInstance?.properties.contains(.write) ?? false }
     
     /* ################################################################## */
     /**
      */
-    var canRead: Bool { (.read == cbElementInstance?.properties) }
+    var canWriteWithoutResponse: Bool { cbElementInstance?.properties.contains(.writeWithoutResponse) ?? false }
+
+    /* ################################################################## */
+    /**
+     */
+    var canRead: Bool { cbElementInstance?.properties.contains(.read) ?? false }
     
     /* ################################################################## */
     /**
      */
-    var canNotify: Bool { (.notify == cbElementInstance?.properties) }
+    var canNotify: Bool { cbElementInstance?.properties.contains(.notify) ?? false }
     
     /* ################################################################## */
     /**
      */
-    var canBroadcast: Bool { (.broadcast == cbElementInstance?.properties) }
+    var canBroadcast: Bool { cbElementInstance?.properties.contains(.broadcast) ?? false }
     
     /* ################################################################## */
     /**
      */
-    var canIndicate: Bool { (.indicate == cbElementInstance?.properties) }
+    var canIndicate: Bool { cbElementInstance?.properties.contains(.indicate) ?? false }
     
     /* ################################################################## */
     /**
      */
-    var requiresAuthenticatedSignedWrites: Bool { (.authenticatedSignedWrites == cbElementInstance?.properties) }
+    var requiresAuthenticatedSignedWrites: Bool { cbElementInstance?.properties.contains(.authenticatedSignedWrites) ?? false }
     
     /* ################################################################## */
     /**
      */
-    var requiresNotifyEncryption: Bool { (.notifyEncryptionRequired == cbElementInstance?.properties) }
+    var requiresNotifyEncryption: Bool { cbElementInstance?.properties.contains(.notifyEncryptionRequired) ?? false }
     
     /* ################################################################## */
     /**
      */
-    var requiresIndicateEncryption: Bool { (.indicateEncryptionRequired == cbElementInstance?.properties) }
+    var requiresIndicateEncryption: Bool { cbElementInstance?.properties.contains(.indicateEncryptionRequired) ?? false }
     
     /* ################################################################## */
     /**
      */
-    var hasExtendedProperties: Bool { (.extendedProperties == cbElementInstance?.properties) }
+    var hasExtendedProperties: Bool { cbElementInstance?.properties.contains(.extendedProperties) ?? false }
 }
 
 /* ###################################################################################################################################### */
