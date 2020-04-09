@@ -81,6 +81,12 @@ class CGA_Bluetooth_Service: RVS_SequenceProtocol {
     var id: String {
         cbElementInstance?.uuid.uuidString ?? "ERROR"
     }
+    
+    /* ################################################################## */
+    /**
+     This returns the parent Central Manager
+     */
+    var central: CGA_Bluetooth_CentralManager? { parent?.central }
 
     /* ################################################################## */
     /**
@@ -139,6 +145,8 @@ extension CGA_Bluetooth_Service {
             #if DEBUG
                 print("ERROR! Can't get service and peripheral!")
             #endif
+            
+            central?.reportError(.internalError(nil))
         }
     }
     
@@ -193,6 +201,8 @@ extension CGA_Bluetooth_Service {
             #if DEBUG
                 print("ERROR! \(String(describing: inCharacteristic)) does not have a CBCharacteristic instance.")
             #endif
+            
+            central?.reportError(.internalError(nil))
         }
     }
 }

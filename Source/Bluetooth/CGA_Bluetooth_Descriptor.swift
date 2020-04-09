@@ -63,6 +63,12 @@ class CGA_Bluetooth_Descriptor {
     var id: String {
         cbElementInstance?.uuid.uuidString ?? "ERROR"
     }
+    
+    /* ################################################################## */
+    /**
+     This returns the parent Central Manager
+     */
+    var central: CGA_Bluetooth_CentralManager? { parent?.central }
 }
 
 /* ###################################################################################################################################### */

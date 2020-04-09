@@ -150,6 +150,12 @@ extension CGA_Bluetooth_Characteristic {
     
     /* ################################################################## */
     /**
+     This returns the parent Central Manager
+     */
+    var central: CGA_Bluetooth_CentralManager? { parent?.central }
+
+    /* ################################################################## */
+    /**
      If the Characteristic has a value, and that value can be expressed as a String, it is returned here.
      */
     var stringValue: String! { nil != value ? String(data: value, encoding: .utf8) : nil }
@@ -180,14 +186,22 @@ extension CGA_Bluetooth_Characteristic {
         if  let cbPeripheral = ((parent as? CGA_Bluetooth_Service)?.parent as? CGA_Bluetooth_Peripheral)?.cbElementInstance,
             let cbCharacteristic = cbElementInstance {
             clear()
-            #if DEBUG
-                print("Discovering Descriptors for the \(self.id) Characteristic.")
-            #endif
-            cbPeripheral.discoverDescriptors(for: cbCharacteristic)
+            if cbCharacteristic.properties.contains(.read) {
+                #if DEBUG
+                    print("Discovering Descriptors for the \(self.id) Characteristic.")
+                #endif
+                cbPeripheral.discoverDescriptors(for: cbCharacteristic)
+            } else {
+                #if DEBUG
+                    print("Cannot Discover Descriptors for the \(self.id) Characteristic, Because There is No Read Permission.")
+                #endif
+            }
         } else {
             #if DEBUG
                 print("ERROR! Can't get characteristic, service and/or peripheral!")
             #endif
+            
+            central?.reportError(.internalError(nil))
         }
     }
 

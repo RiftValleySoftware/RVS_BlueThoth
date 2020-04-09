@@ -115,6 +115,12 @@ protocol CGA_Class_Protocol: class {
     
     /* ################################################################## */
     /**
+     REQUIRED: This is used to reference an "owning instance" of this instance.
+     */
+    var central: CGA_Bluetooth_CentralManager? { get }
+    
+    /* ################################################################## */
+    /**
      REQUIRED: This returns a unique UUID String for the instance.
      */
     var id: String { get }
@@ -126,8 +132,6 @@ protocol CGA_Class_Protocol: class {
      - parameter error: The error to be handled.
      */
     func handleError(_ error: CGA_Errors)
-    
-    func clear()
 }
 
 /* ###################################################################################################################################### */

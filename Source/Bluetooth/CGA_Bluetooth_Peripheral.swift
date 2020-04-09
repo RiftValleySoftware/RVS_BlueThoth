@@ -35,6 +35,12 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
      This is the type we're aggregating.
      */
     typealias Element = CGA_Bluetooth_Service
+    
+    /* ################################################################## */
+    /**
+     This holds a list of UUIDs, holding the IDs of Services we are looking for. It is initialized when the class is instantiated.
+     */
+    private var _discoveryFilter: [CBUUID] = []
 
     /* ################################################################## */
     /**
@@ -47,7 +53,7 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
      This is our main cache Array. It contains wrapped instances of our aggregate CB type.
      */
     var sequence_contents: Array<Element> = []
-
+    
     /* ################################################################## */
     /**
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Parent instance.
@@ -65,34 +71,24 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
      This holds the discovery data that applies to this instance.
      */
     var discoveryData: CGA_Bluetooth_CentralManager.DiscoveryData!
-    
-    /* ################################################################## */
-    /**
-     This holds any Services (as Strings) that were specified when discovery started.
-     */
-    var discoveryServices: [String] = []
 
     /* ################################################################## */
     /**
-     This casts the parent as a Central Manager.
+     This returns the parent Central Manager
      */
-    var central: CGA_Bluetooth_CentralManager! { parent as? CGA_Bluetooth_CentralManager }
+    var central: CGA_Bluetooth_CentralManager? { parent?.central }
 
     /* ################################################################## */
     /**
      This will contain any required scan criteria. It simply passes on the Central criteria.
      */
-    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! {
-        return central?.scanCriteria
-    }
+    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! { central?.scanCriteria }
     
     /* ################################################################## */
     /**
      This returns a unique UUID String for the instance.
      */
-    var id: String {
-        cbElementInstance?.identifier.uuidString ?? "ERROR"
-    }
+    var id: String { cbElementInstance?.identifier.uuidString ?? "ERROR" }
 
     /* ################################################################## */
     /**
@@ -124,21 +120,13 @@ extension CGA_Bluetooth_Peripheral {
         parent = discoveryData?.central
         cbElementInstance?.delegate = self
         
-        var services: [CBUUID]! = inServices.compactMap { CBUUID(string: $0) }
+        _discoveryFilter = inServices.compactMap { CBUUID(string: $0) }
         
-        if services?.isEmpty ?? false {
-            services = scanCriteria?.services?.compactMap { CBUUID(string: $0) }
+        if _discoveryFilter.isEmpty {
+            _discoveryFilter = scanCriteria?.services?.compactMap { CBUUID(string: $0) } ?? []
         }
         
-        if services?.isEmpty ?? false {
-            services = nil
-        }
-        
-        #if DEBUG
-            print("Starting Initial Discovery for a Peripheral: \(self.id).")
-        #endif
-
-        cbElementInstance?.discoverServices(services)
+        startOver()
     }
     
     /* ################################################################## */
@@ -165,7 +153,22 @@ extension CGA_Bluetooth_Peripheral {
             #if DEBUG
                 print("ERROR! \(String(describing: inService)) does not have a CBService instance.")
             #endif
+            
+            central?.reportError(.internalError(nil))
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     This eliminates all of the stored results, and asks the Bluetooth subsystem to start over from scratch.
+     */
+    func startOver() {
+        #if DEBUG
+            print("Starting The Service Discovery Over From Scratch for \(self.discoveryData.preferredName).")
+        #endif
+        clear()
+        let services: [CBUUID]! = _discoveryFilter.isEmpty ? nil : _discoveryFilter
+        cbElementInstance?.discoverServices(services)
     }
 }
 
@@ -178,9 +181,7 @@ extension CGA_Bluetooth_Peripheral {
      This registers us with the Central wrapper.
      */
     private func _registerWithCentral() {
-        if let central = central {
-            central.addPeripheral(self)
-        }
+        central?.addPeripheral(self)
     }
 }
 
@@ -215,26 +216,24 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
      - parameter didDiscoverServices: Any error that may have occured. Hopefully, it is nil.
      */
     func peripheral(_ inPeripheral: CBPeripheral, didDiscoverServices inError: Error?) {
-        if nil != inError {
+        if let error = inError {
             #if DEBUG
-                print("ERROR!: \(inError!.localizedDescription)")
+                print("ERROR!: \(error.localizedDescription)")
             #endif
+            central?.reportError(.internalError(error))
         } else {
             #if DEBUG
                 if let services = inPeripheral.services {
                     print("Services Discovered: \(services.map({ $0.uuid.uuidString }).joined(separator: ", "))")
                 } else {
                     print("ERROR!")
+                    central?.reportError(.internalError(nil))
                 }
             #endif
                 
-            stagedServices = inPeripheral.services?.map {
-                CGA_Bluetooth_Service(parent: self, cbElementInstance: $0)
-            } ?? []
+            stagedServices = inPeripheral.services?.map { CGA_Bluetooth_Service(parent: self, cbElementInstance: $0) } ?? []
             
-            stagedServices.forEach {
-                $0.discoverCharacteristics()
-            }
+            stagedServices.forEach { $0.discoverCharacteristics() }
         }
     }
     
@@ -265,24 +264,32 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
      - parameter error: Any error that may have occured. Hopefully, it is nil.
      */
     func peripheral(_ inPeripheral: CBPeripheral, didDiscoverCharacteristicsFor inService: CBService, error inError: Error?) {
-        guard let characteristics = inService.characteristics else {
+        if let error = inError {
             #if DEBUG
-                print("ERROR! The characteristics Array is nil!")
+                print("ERROR!: \(error.localizedDescription)")
+            #endif
+            central?.reportError(.internalError(error))
+        } else {
+            guard let characteristics = inService.characteristics else {
+                #if DEBUG
+                    print("ERROR! The characteristics Array is nil!")
+                #endif
+                central?.reportError(.internalError(nil))
+                return
+            }
+            
+            #if DEBUG
+                print("Service: \(inService.uuid.uuidString) discovered these Characteristics: \(characteristics.map { $0.uuid.uuidString }.joined(separator: ", "))")
             #endif
             
-            return
-        }
-        
-        #if DEBUG
-            print("Service: \(inService.uuid.uuidString) discovered these Characteristics: \(characteristics.map { $0.uuid.uuidString }.joined(separator: ", "))")
-        #endif
-        
-        if  let service = stagedServices[inService] {
-            service.discoveredCharacteristics(characteristics)
-        } else {
-            #if DEBUG
-                print("ERROR! Service not found!")
-            #endif
+            if  let service = stagedServices[inService] {
+                service.discoveredCharacteristics(characteristics)
+            } else {
+                #if DEBUG
+                    print("ERROR! Service not found!")
+                #endif
+                central?.reportError(.internalError(nil))
+            }
         }
     }
     
@@ -296,38 +303,46 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
      - parameter error: Any error that may have occured. Hopefully, it is nil.
      */
     func peripheral(_ inPeripheral: CBPeripheral, didDiscoverDescriptorsFor inCharacteristic: CBCharacteristic, error inError: Error?) {
-        guard let descriptors = inCharacteristic.descriptors else {
+        if let error = inError {
             #if DEBUG
-                print("ERROR! The descriptors Array is nil!")
+                print("ERROR!: \(error.localizedDescription)")
+            #endif
+            central?.reportError(.internalError(error))
+        } else {
+            guard let descriptors = inCharacteristic.descriptors else {
+                #if DEBUG
+                    print("ERROR! The descriptors Array is nil!")
+                #endif
+                central?.reportError(.internalError(nil))
+                return
+            }
+            
+            #if DEBUG
+                if 1 > descriptors.count {
+                    print("Characteristic: \(inCharacteristic.uuid.uuidString) has no descriptors.")
+                } else {
+                    print("Characteristic: \(inCharacteristic.uuid.uuidString) discovered these Descriptors: \(descriptors.map { $0.uuid.uuidString }.joined(separator: ", "))")
+                }
             #endif
             
-            return
-        }
-        
-        #if DEBUG
-            if 1 > descriptors.count {
-                print("Characteristic: \(inCharacteristic.uuid.uuidString) has no descriptors.")
+            if  let service = stagedServices[inCharacteristic] {
+                let characteristic = CGA_Bluetooth_Characteristic(parent: service, cbElementInstance: inCharacteristic)
+                inCharacteristic.descriptors?.forEach {
+                    let descriptor = CGA_Bluetooth_Descriptor()
+                    descriptor.parent = characteristic
+                    descriptor.cbElementInstance = $0
+                    characteristic.addDescriptor(descriptor)
+                }
+                #if DEBUG
+                    print("All Descriptors fulfilled. Adding this Characteristic: \(characteristic.id) to this Service: \(service.id)")
+                #endif
+                service.addCharacteristic(characteristic)
             } else {
-                print("Characteristic: \(inCharacteristic.uuid.uuidString) discovered these Descriptors: \(descriptors.map { $0.uuid.uuidString }.joined(separator: ", "))")
+                #if DEBUG
+                    print("ERROR! There is no Service for this Characteristic: \(inCharacteristic.uuid.uuidString)")
+                #endif
+                central?.reportError(.internalError(nil))
             }
-        #endif
-        
-        if  let service = stagedServices[inCharacteristic] {
-            let characteristic = CGA_Bluetooth_Characteristic(parent: service, cbElementInstance: inCharacteristic)
-            inCharacteristic.descriptors?.forEach {
-                let descriptor = CGA_Bluetooth_Descriptor()
-                descriptor.parent = characteristic
-                descriptor.cbElementInstance = $0
-                characteristic.addDescriptor(descriptor)
-            }
-            #if DEBUG
-                print("All Descriptors fulfilled. Adding this Characteristic: \(characteristic.id) to this Service: \(service.id)")
-            #endif
-            service.addCharacteristic(characteristic)
-        } else {
-            #if DEBUG
-                print("ERROR! There is no Service for this Characteristic: \(inCharacteristic.uuid.uuidString)")
-            #endif
         }
     }
     
@@ -342,7 +357,12 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
         #if DEBUG
             print("Received a Characteristic Update delegate callback.")
         #endif
-        if let characteristic = sequence_contents.characteristic(inCharacteristic) {
+        if let error = inError {
+            #if DEBUG
+                print("ERROR!: \(String(describing: error))")
+            #endif
+            central?.reportError(.internalError(error))
+        } else if let characteristic = sequence_contents.characteristic(inCharacteristic) {
             central?.updateThisCharacteristic(characteristic)
         }
     }
@@ -355,5 +375,22 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
      - parameter error: Any error that may have occured. Hopefully, it is nil.
      */
     func peripheral(_ inPeripheral: CBPeripheral, didUpdateValueFor inDescriptor: CBDescriptor, error inError: Error?) {
+        #if DEBUG
+            print("Received a Descriptor Update delegate callback.")
+        #endif
+        if let error = inError {
+            #if DEBUG
+                print("ERROR!: \(error.localizedDescription)")
+            #endif
+            central?.reportError(.internalError(error))
+        } else if   let characteristic = sequence_contents.characteristic(inDescriptor.characteristic),
+                    let descriptor = characteristic.sequence_contents[inDescriptor] {
+            central?.updateThisDescriptor(descriptor)
+        } else {
+            #if DEBUG
+                print("ERROR! Can't find Descriptor!")
+            #endif
+            central?.reportError(.internalError(nil))
+        }
     }
 }
