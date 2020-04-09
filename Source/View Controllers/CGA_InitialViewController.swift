@@ -381,7 +381,8 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
     
     /* ################################################################## */
     /**
-     OPTIONAL: This is called to tell the instance that a peripheral device is about to be disconnected.
+     Called to tell the instance that a peripheral device is about to be disconnected.
+     We use this to reset the view stack to the initial (Peripheral List) screen.
      
      - parameter inCentralManager: The central manager that is calling this.
      - parameter willDisconnectThisDevice: The device instance that will be removed after this call.

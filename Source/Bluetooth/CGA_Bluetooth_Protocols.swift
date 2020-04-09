@@ -35,12 +35,6 @@ enum CGA_Errors: Error {
     
     /* ################################################################## */
     /**
-     This is called if we try to connect a Peripheral, while a connection attempt is already under way.
-     */
-    case tooManyConnectionsError(CGA_Bluetooth_CentralManager.DiscoveryData!)
-    
-    /* ################################################################## */
-    /**
      A generic internal error.
      */
     case internalError(Error!)
@@ -55,9 +49,6 @@ enum CGA_Errors: Error {
         switch self {
         case .timeoutError:
             ret = "CGA-ERROR-TIMEOUT"
-            
-        case .tooManyConnectionsError:
-            ret = "CGA-ERROR-CONNECTION-OVERLAP"
 
         case .internalError:
             ret = "CGA-ERROR-INTERNAL"
@@ -77,9 +68,6 @@ enum CGA_Errors: Error {
         case .timeoutError:
             ret = [localizedDescription]
             
-        case .tooManyConnectionsError:
-            ret = [localizedDescription]
-            
         case .internalError:
             ret = [localizedDescription]
         }
@@ -96,9 +84,6 @@ enum CGA_Errors: Error {
         
         switch self {
         case .timeoutError(let value):
-            ret = value
-            
-        case .tooManyConnectionsError(let value):
             ret = value
             
         case .internalError(let value):

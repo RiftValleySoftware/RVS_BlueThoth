@@ -32,7 +32,6 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 
 // These are error reports.
 "CGA-ERROR-TIMEOUT"                 =   "There was a timeout, while attempting a connection to a Peripheral.";
-"CGA-ERROR-CONNECTION-OVERLAP"      =   "Tried to connect to a Peripheral, while there is already a connection in progress.";
 "CGA-ERROR-INTERNAL"                =   "Internal Error";
 
 // These are for display in the Characteristics Table Cell.

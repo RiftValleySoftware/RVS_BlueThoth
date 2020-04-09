@@ -35,7 +35,7 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
      This is the type we're aggregating.
      */
     typealias Element = CGA_Bluetooth_Service
-    
+
     /* ################################################################## */
     /**
      This holds our Service wrapper instances until we have received all the Characteristics for them.
