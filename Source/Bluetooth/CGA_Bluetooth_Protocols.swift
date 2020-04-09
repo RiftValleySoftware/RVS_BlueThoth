@@ -31,8 +31,20 @@ enum CGA_Errors: Error {
     /**
      This indicates that a connection attempt timed out.
      */
-    case timeoutError
+    case timeoutError(CGA_Bluetooth_CentralManager.DiscoveryData!)
     
+    /* ################################################################## */
+    /**
+     This is called if we try to connect a Peripheral, while a connection attempt is already under way.
+     */
+    case tooManyConnectionsError(CGA_Bluetooth_CentralManager.DiscoveryData!)
+    
+    /* ################################################################## */
+    /**
+     A generic internal error.
+     */
+    case internalError(Error!)
+
     /* ################################################################## */
     /**
      Returns a localizable slug for the error. This does not include associated data.
@@ -43,6 +55,12 @@ enum CGA_Errors: Error {
         switch self {
         case .timeoutError:
             ret = "CGA-ERROR-TIMEOUT"
+            
+        case .tooManyConnectionsError:
+            ret = "CGA-ERROR-CONNECTION-OVERLAP"
+
+        case .internalError:
+            ret = "CGA-ERROR-INTERNAL"
         }
         
         return ret
@@ -58,6 +76,12 @@ enum CGA_Errors: Error {
         switch self {
         case .timeoutError:
             ret = [localizedDescription]
+            
+        case .tooManyConnectionsError:
+            ret = [localizedDescription]
+            
+        case .internalError:
+            ret = [localizedDescription]
         }
         
         return ret
@@ -68,11 +92,17 @@ enum CGA_Errors: Error {
      This returns any associated data with the current status.
      */
     var associatedData: Any? {
-        let ret: Any! = nil // This will become a var, when we have something to add.
+        var ret: Any! = nil
         
         switch self {
-        case .timeoutError:
-            ()
+        case .timeoutError(let value):
+            ret = value
+            
+        case .tooManyConnectionsError(let value):
+            ret = value
+            
+        case .internalError(let value):
+            ret = value
         }
         
         return ret
@@ -110,7 +140,7 @@ protocol CGA_Class_Protocol: class {
      
      - parameter error: The error to be handled.
      */
-    func handleError(_ error: Error)
+    func handleError(_ error: CGA_Errors)
     
     func clear()
 }
@@ -123,7 +153,7 @@ extension CGA_Class_Protocol {
     /**
      Default simply passes the buck.
      */
-    func handleError(_ inError: Error) {
+    func handleError(_ inError: CGA_Errors) {
         if let parent = parent {
             parent.handleError(inError)
         }
@@ -203,7 +233,7 @@ protocol CGA_Bluetooth_CentralManagerDelegate: class {
      
      - parameter error: The error to be handled.
      */
-    func handleError(_ error: Error, from: CGA_Bluetooth_CentralManager)
+    func handleError(_ error: CGA_Errors, from: CGA_Bluetooth_CentralManager)
     
     /* ################################################################## */
     /**

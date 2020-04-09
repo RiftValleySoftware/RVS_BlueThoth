@@ -119,130 +119,56 @@ extension CGA_ServiceViewController: UITableViewDataSource {
     struct _PropertyLabelGenerator {
         /* ############################################################## */
         /**
-         The Characteristic that is providing the Properties to inspect.
+         The size (in display points) of the label text.
          */
-        let characteristic: CGA_Bluetooth_Characteristic!
+        private let _labelFontSize: CGFloat = 20
         
         /* ############################################################## */
         /**
-         Returns a label, with The "RD" filler, if supported. Otherwise, nil.
+         The color of the label text.
          */
-        var readLabel: UILabel! {
-            if characteristic.canRead {
-                let ret = UILabel()
-                ret.text = "SLUG-PROPERTIES-READ".localizedVariant
-                return ret
-            }
-            return nil
+        private let _labelTextColor = UIColor.blue
+        
+        /* ############################################################## */
+        /**
+         The color of the label text.
+         */
+        private let _labelBackgroundColor = UIColor.white
+        
+        /* ############################################################## */
+        /**
+         A simple "factory" for the label.
+         */
+        private func _makeLabel(_ inText: String) -> UILabel {
+            let ret = UILabel()
+            ret.textColor = _labelTextColor
+            ret.backgroundColor = _labelBackgroundColor
+            ret.font = .boldSystemFont(ofSize: _labelFontSize)
+            ret.text = inText
+            ret.minimumScaleFactor = 0.75
+            ret.adjustsFontSizeToFitWidth = true
+            
+            return ret
         }
         
         /* ############################################################## */
         /**
          Returns a label, with The "WR" or "WN" filler, if supported. Otherwise, nil.
          */
-        var writeLabel: UILabel! {
+        private var _writeLabel: UILabel! {
             if characteristic.canWriteWithResponse {
-                let ret = UILabel()
-                ret.text = "SLUG-PROPERTIES-WRITE-RESPONSE".localizedVariant
-                return ret
+                return _makeLabel("SLUG-PROPERTIES-WRITE-RESPONSE".localizedVariant)
             } else if characteristic.canWriteWithoutResponse {
-                let ret = UILabel()
-                ret.text = "SLUG-PROPERTIES-WRITE".localizedVariant
-                return ret
+                return _makeLabel("SLUG-PROPERTIES-WRITE".localizedVariant)
             }
             return nil
         }
-        
+
         /* ############################################################## */
         /**
-         Returns a label, with The "NO" filler, if supported. Otherwise, nil.
+         The Characteristic that is providing the Properties to inspect.
          */
-        var notifyLabel: UILabel! {
-           if characteristic.canNotify {
-               let ret = UILabel()
-               ret.text = "SLUG-PROPERTIES-NOTIFY".localizedVariant
-               return ret
-           }
-           return nil
-        }
-        
-        /* ############################################################## */
-        /**
-         Returns a label, with The "IN" filler, if supported. Otherwise, nil.
-         */
-        var indicateLabel: UILabel! {
-           if characteristic.canIndicate {
-               let ret = UILabel()
-               ret.text = "SLUG-PROPERTIES-INDICATE".localizedVariant
-               return ret
-           }
-           return nil
-        }
-        
-        /* ############################################################## */
-        /**
-         Returns a label, with The "BR" filler, if supported. Otherwise, nil.
-         */
-        var broadcastLabel: UILabel! {
-           if characteristic.canBroadcast {
-               let ret = UILabel()
-               ret.text = "SLUG-PROPERTIES-BROADCAST".localizedVariant
-               return ret
-           }
-           return nil
-        }
-        
-        /* ############################################################## */
-        /**
-         Returns a label, with The "AW" filler, if supported. Otherwise, nil.
-         */
-        var authSignedRightsLabelLabel: UILabel! {
-           if characteristic.requiresAuthenticatedSignedWrites {
-               let ret = UILabel()
-               ret.text = "SLUG-PROPERTIES-AUTH-SIGNED-WRITE".localizedVariant
-               return ret
-           }
-           return nil
-        }
-        
-        /* ############################################################## */
-        /**
-         Returns a label, with The "NE" filler, if supported. Otherwise, nil.
-         */
-        var requiresNotifyEncryptionLabel: UILabel! {
-           if characteristic.requiresNotifyEncryption {
-               let ret = UILabel()
-               ret.text = "SLUG-PROPERTIES-NOTIFY-ENCRYPT".localizedVariant
-               return ret
-           }
-           return nil
-        }
-        
-        /* ############################################################## */
-        /**
-         Returns a label, with The "IE" filler, if supported. Otherwise, nil.
-         */
-        var requiresIndicateEncryptionLabel: UILabel! {
-           if characteristic.requiresNotifyEncryption {
-               let ret = UILabel()
-               ret.text = "SLUG-PROPERTIES-INDICATE-ENCRYPT".localizedVariant
-               return ret
-           }
-           return nil
-        }
-        
-        /* ############################################################## */
-        /**
-         Returns a label, with The "EX" filler, if supported. Otherwise, nil.
-         */
-        var hasExtendedPropertiesLabel: UILabel! {
-           if characteristic.hasExtendedProperties {
-               let ret = UILabel()
-               ret.text = "SLUG-PROPERTIES-EXTENDED".localizedVariant
-               return ret
-           }
-           return nil
-        }
+        let characteristic: CGA_Bluetooth_Characteristic!
         
         /* ############################################################## */
         /**
@@ -250,15 +176,15 @@ extension CGA_ServiceViewController: UITableViewDataSource {
          */
         var labels: [UILabel?] {
             [
-                readLabel,
-                writeLabel,
-                notifyLabel,
-                indicateLabel,
-                broadcastLabel,
-                authSignedRightsLabelLabel,
-                requiresNotifyEncryptionLabel,
-                requiresIndicateEncryptionLabel,
-                hasExtendedPropertiesLabel
+                characteristic.canRead ? _makeLabel("SLUG-PROPERTIES-READ".localizedVariant) : nil,
+                _writeLabel,
+                characteristic.canNotify ? _makeLabel("SLUG-PROPERTIES-NOTIFY".localizedVariant): nil,
+                characteristic.canIndicate ? _makeLabel("SLUG-PROPERTIES-INDICATE".localizedVariant) : nil,
+                characteristic.canBroadcast ? _makeLabel("SLUG-PROPERTIES-BROADCAST".localizedVariant) : nil,
+                characteristic.requiresAuthenticatedSignedWrites ? _makeLabel("SLUG-PROPERTIES-AUTH-SIGNED-WRITE".localizedVariant) : nil,
+                characteristic.requiresNotifyEncryption ? _makeLabel("SLUG-PROPERTIES-NOTIFY-ENCRYPT".localizedVariant) : nil,
+                characteristic.requiresNotifyEncryption ? _makeLabel("SLUG-PROPERTIES-INDICATE-ENCRYPT".localizedVariant) : nil,
+                characteristic.hasExtendedProperties ? _makeLabel("SLUG-PROPERTIES-EXTENDED".localizedVariant) : nil
             ]
         }
     }

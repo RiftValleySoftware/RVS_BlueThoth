@@ -249,16 +249,16 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
-     This is how many seconds we wait, before declaring a timeout.
-     */
-    private let _timeoutInSeconds: TimeInterval = 3.0
-    
-    /* ################################################################## */
-    /**
      This is a countdown timer, for use as a timeout trap.
      */
     private var _timer: Timer?
     
+    /* ################################################################## */
+    /**
+     While we are trying to connect a Peripheral, this will be set to the current connecting Peripheral. There can only be one.
+     */
+    private var _connectingPeripheral: DiscoveryData!
+
     /* ################################################################## */
     /**
      The Central Manager Delegate object.
@@ -276,6 +276,13 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
      Returns true, if the current state of the Bluetooth system is powered on.
      */
     var isBTAvailable: Bool { return .poweredOn == cbElementInstance?.state }
+    
+    /* ################################################################## */
+    /**
+     This is how many seconds we wait, before declaring a timeout.
+     Default is 5 seconds, but the value can be changed.
+     */
+    var timeoutInSeconds: TimeInterval = 5.0
 
     /* ################################################################## */
     /**
@@ -361,7 +368,7 @@ extension CGA_Bluetooth_CentralManager {
      
      - parameter inError: The error being reported.
      */
-    private func _reportError(_ inError: Error) {
+    private func _reportError(_ inError: CGA_Errors) {
         DispatchQueue.main.async {
             #if DEBUG
                 print("Reporting \(inError.localizedDescription) as an error.")
@@ -445,7 +452,7 @@ extension CGA_Bluetooth_CentralManager {
         #if DEBUG
             print("Starting Timeout.")
         #endif
-        _timer = Timer.scheduledTimer(withTimeInterval: _timeoutInSeconds, repeats: false, block: timeout(_:))
+        _timer = Timer.scheduledTimer(withTimeInterval: timeoutInSeconds, repeats: false, block: timeout(_:))
     }
     
     /* ################################################################## */
@@ -454,11 +461,12 @@ extension CGA_Bluetooth_CentralManager {
     private func _cancelTimeout() {
         #if DEBUG
             if let fireDate = _timer?.fireDate {
-                print("Ending Timeout after \(_timeoutInSeconds - fireDate.timeIntervalSinceNow) Seconds.")
+                print("Ending Timeout after \(timeoutInSeconds - fireDate.timeIntervalSinceNow) Seconds.")
             } else {
                 print("No timer.")
             }
         #endif
+        _connectingPeripheral = nil  // Make sure that our "overlap protection" is turned off.
         _timer?.invalidate()
         _timer = nil
     }
@@ -598,13 +606,27 @@ extension CGA_Bluetooth_CentralManager {
      */
     @discardableResult
     func connect(_ inPeripheral: DiscoveryData?) -> Bool {
+        guard nil == _connectingPeripheral else {
+            #if DEBUG
+                print("ERROR! \(String(describing: inPeripheral?.name)) cannot be connected, because \(String(describing: _connectingPeripheral?.name)) is already being connected.")
+            #endif
+            _reportError(CGA_Errors.tooManyConnectionsError(inPeripheral))
+            return false
+        }
         guard   let peripheral = inPeripheral?.cbPeripheral,
                 let cbCentral = cbElementInstance,
                 stagedBLEPeripherals.contains(peripheral)
-        else { return false }
+        else {
+            #if DEBUG
+                print("ERROR! \(String(describing: inPeripheral?.name)) cannot be connected, because of an internal error.")
+            #endif
+            _reportError(CGA_Errors.internalError(nil))
+            return false
+        }
         #if DEBUG
             print("Connecting \(String(describing: peripheral.name)).")
         #endif
+        _connectingPeripheral = inPeripheral
         _startTimeout()
         cbCentral.connect(peripheral, options: nil)
         
@@ -670,6 +692,7 @@ extension CGA_Bluetooth_CentralManager {
         #if DEBUG
             print("ERROR! Timeout.")
         #endif
+        _reportError(CGA_Errors.timeoutError(_connectingPeripheral))
         _cancelTimeout()
     }
 }
@@ -682,7 +705,7 @@ extension CGA_Bluetooth_CentralManager: CGA_Class_Protocol_UpdateDescriptor {
     /**
      This class is the "endpoint" of all errors, so it passes the error back to the delegate.
      */
-    func handleError(_ inError: Error) {
+    func handleError(_ inError: CGA_Errors) {
         _reportError(inError)
     }
     
