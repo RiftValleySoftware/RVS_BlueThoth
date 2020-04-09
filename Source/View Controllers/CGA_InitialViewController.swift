@@ -343,7 +343,8 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
      - parameter inError: The error being reported.
      - parameter from: The manager wrapper view that is calling this.
      */
-    func handleError(_ inError: Error, from inCentralManager: CGA_Bluetooth_CentralManager) {
+    func handleError(_ inError: CGA_Errors, from inCentralManager: CGA_Bluetooth_CentralManager) {
+        _resetToRoot()
         CGA_AppDelegate.displayAlert("SLUG-ERROR".localizedVariant, message: inError.localizedDescription.localizedVariant)
     }
     
@@ -380,13 +381,14 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
     
     /* ################################################################## */
     /**
-     OPTIONAL: This is called to tell the instance that a peripheral device is about to be disconnected.
+     Called to tell the instance that a peripheral device is about to be disconnected.
+     We use this to reset the view stack to the initial (Peripheral List) screen.
      
      - parameter inCentralManager: The central manager that is calling this.
      - parameter willDisconnectThisDevice: The device instance that will be removed after this call.
      */
     func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, willDisconnectThisDevice inDevice: CGA_Bluetooth_Peripheral) {
-        _currentDeviceScreen?.updateUI()
+        _resetToRoot()
     }
 
     /* ################################################################## */

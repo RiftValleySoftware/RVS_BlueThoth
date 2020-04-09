@@ -63,6 +63,12 @@ class CGA_Bluetooth_Descriptor {
     var id: String {
         cbElementInstance?.uuid.uuidString ?? "ERROR"
     }
+    
+    /* ################################################################## */
+    /**
+     This returns the parent Central Manager
+     */
+    var central: CGA_Bluetooth_CentralManager? { parent?.central }
 }
 
 /* ###################################################################################################################################### */
@@ -78,44 +84,4 @@ extension CGA_Bluetooth_Descriptor: CGA_Class_Protocol {
             print("Clearing the decks for a Descriptor: \(self.id).")
         #endif
     }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - Special Comparator for the Descriptor Array -
-/* ###################################################################################################################################### */
-/**
- This allows us to fetch Descriptors, looking for an exact instance.
- */
-extension Array where Element == CGA_Bluetooth_Descriptor {
-    /* ################################################################## */
-    /**
-     Special subscript that allows us to retrieve an Element by its contained Descriptor.
-     
-     - parameter inItem: The CBDescriptor we're looking to match.
-     - returns: The found Element, or nil, if not found.
-     */
-    subscript(_ inItem: CBDescriptor) -> Element! {
-        return reduce(nil) { (current, nextItem) in
-            if  nil == current {
-                if nextItem === inItem {
-                    return nextItem
-                } else if nextItem.cbElementInstance.uuid == inItem.uuid {
-                    return nextItem
-                }
-                
-                return nil
-            }
-            
-            return current
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     Checks to see if the Array contains an instance that wraps the given CB element.
-     
-     - parameter inItem: The CB element we're looking to match.
-     - returns: True, if the Array contains a wrapper for the given element.
-     */
-    func contains(_ inItem: CBDescriptor) -> Bool { nil != self[inItem] }
 }

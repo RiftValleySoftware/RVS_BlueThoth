@@ -118,6 +118,18 @@ extension CGA_PeripheralViewController {
     
     /* ################################################################## */
     /**
+     Called just before the view is to disappear (slide out, usually, or get covered).
+     We use this to make sure that any connection timeouts are canceled.
+     
+     - parameter inAnimated: This is true, if the disappearance is to be animated.
+     */
+    override func viewWillDisappear(_ inAnimated: Bool) {
+        super.viewWillDisappear(inAnimated)
+        deviceAdvInfo?.clear()
+    }
+    
+    /* ################################################################## */
+    /**
      This is called just before we bring in the Service screen.
      
      - parameter for: The segue being executed.

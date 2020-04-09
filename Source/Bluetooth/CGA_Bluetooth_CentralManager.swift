@@ -26,236 +26,8 @@ import CoreBluetooth
 /* ###################################################################################################################################### */
 /**
  These are all classes, as opposed to structs, because we want them to be referenced, not copied.
- Remember that Bluetooth is a very dynamic, realtime environment. Caches can be extremely problematic. We want caches, but safe ones.
  Also, the Central and Peripheral classes need to derive from NSObject, so they can be delegates.
  */
-
-/* ###################################################################################################################################### */
-// MARK: - The Main Protocol for Each Type -
-/* ###################################################################################################################################### */
-/**
- This protocol is the "base" protocol to which all the exposed types conform.
- */
-protocol CGA_Class_Protocol: class {
-    /* ################################################################## */
-    /**
-     REQUIRED: This is used to reference an "owning instance" of this instance.
-     */
-    var parent: CGA_Class_Protocol? { get }
-    
-    /* ################################################################## */
-    /**
-     REQUIRED: This returns a unique UUID String for the instance.
-     */
-    var id: String { get }
-
-    /* ################################################################## */
-    /**
-     OPTIONAL: This is called to tell the instance to do whatever it needs to do to handle an error.
-     
-     - parameter error: The error to be handled.
-     */
-    func handleError(_ error: Error)
-    
-    func clear()
-}
-
-/* ###################################################################################################################################### */
-// MARK: - Protocol Defaults -
-/* ###################################################################################################################################### */
-extension CGA_Class_Protocol {
-    /* ################################################################## */
-    /**
-     Default simply passes the buck.
-     */
-    func handleError(_ inError: Error) {
-        if let parent = parent {
-            parent.handleError(inError)
-        }
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - CGA_Class_Protocol_UpdateCharacteristic Protocol -
-/* ###################################################################################################################################### */
-/**
- */
-protocol CGA_Class_Protocol_UpdateCharacteristic: CGA_Class_Protocol {
-    /* ################################################################## */
-    /**
-     This is called to inform an instance that a Characteristic downstream changed.
-     
-     - parameter characteristic: The Characteristic wrapper instance that changed.
-     */
-    func updateThisCharacteristic(_ characteristic: CGA_Bluetooth_Characteristic)
-}
-
-/* ###################################################################################################################################### */
-// MARK: - Protocol Defaults -
-/* ###################################################################################################################################### */
-extension CGA_Class_Protocol_UpdateCharacteristic {
-    /* ################################################################## */
-    /**
-     Default simply passes the buck.
-     */
-    func updateThisCharacteristic(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
-        if let parent = parent as? CGA_Class_Protocol_UpdateCharacteristic {
-            parent.updateThisCharacteristic(inCharacteristic)
-        }
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - The CGA_Class_Protocol_UpdateDescriptor Protocol -
-/* ###################################################################################################################################### */
-/**
- */
-protocol CGA_Class_Protocol_UpdateDescriptor: CGA_Class_Protocol_UpdateCharacteristic {
-    /* ################################################################## */
-    /**
-     This is called to inform an instance that a Descriptor downstream changed.
-     
-     - parameter descriptor: The Descriptor wrapper instance that changed.
-     */
-    func updateThisDescriptor(_ descriptor: CGA_Bluetooth_Descriptor)
-}
-
-/* ###################################################################################################################################### */
-// MARK: - Protocol Defaults -
-/* ###################################################################################################################################### */
-extension CGA_Class_Protocol_UpdateDescriptor {
-    /* ################################################################## */
-    /**
-     Default simply passes the buck.
-     */
-    func updateThisDescriptor(_ inDescriptor: CGA_Bluetooth_Descriptor) {
-        if let parent = parent as? CGA_Class_Protocol_UpdateDescriptor {
-            parent.updateThisDescriptor(inDescriptor)
-        }
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - The Central Manager Delegate Protocol -
-/* ###################################################################################################################################### */
-/**
- All delegate callbacks are made in the main thread.
- */
-protocol CGA_Bluetooth_CentralManagerDelegate: class {
-    /* ################################################################## */
-    /**
-     OPTIONAL: This is called to tell the instance to do whatever it needs to do to handle an error.
-     
-     - parameter error: The error to be handled.
-     */
-    func handleError(_ error: Error, from: CGA_Bluetooth_CentralManager)
-    
-    /* ################################################################## */
-    /**
-     OPTIONAL: This is called to tell the instance to do whatever it needs to do to update its data.
-               NOTE: There may be no changes, or many changes. What has changed is not specified.
-     
-     - parameter centralManager: The central manager that is calling this.
-     */
-    func updateFrom(_ centralManager: CGA_Bluetooth_CentralManager)
-    
-    /* ################################################################## */
-    /**
-     OPTIONAL: This is called to tell the instance that the state of the Central manager just became "powered on."
-     
-     - parameter centralManager: The central manager that is calling this.
-     */
-    func centralManagerPoweredOn(_ centralManager: CGA_Bluetooth_CentralManager)
-
-    /* ################################################################## */
-    /**
-     OPTIONAL: This is called to tell the instance that a Peripheral device has been connected.
-     
-     - parameter centralManager: The central manager that is calling this.
-     - parameter didConnectThisDevice: The device instance that was connected.
-     */
-    func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, didConnectThisDevice: CGA_Bluetooth_Peripheral)
-    
-    /* ################################################################## */
-    /**
-     OPTIONAL: This is called to tell the instance that a peripheral device is about to be disconnected.
-     
-     - parameter centralManager: The central manager that is calling this.
-     - parameter willDisconnectThisDevice: The device instance that will be removed after this call.
-     */
-    func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, willDisconnectThisDevice: CGA_Bluetooth_Peripheral)
-    
-    /* ################################################################## */
-    /**
-     OPTIONAL: This is called to tell the instance that a Characteristic changed its value.
-     
-     - parameter centralManager: The central manager that is calling this.
-     - parameter device: The device instance that contained the changed Service.
-     - parameter service: The Service instance that contained the changed Characteristic.
-     - parameter changedCharacteristic: The Characteristic that was changed.
-     */
-    func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, device: CGA_Bluetooth_Peripheral, service: CGA_Bluetooth_Service, changedCharacteristic: CGA_Bluetooth_Characteristic)
-    
-    /* ################################################################## */
-    /**
-     OPTIONAL: This is called to tell the instance that a Descriptor changed its value.
-     
-     - parameter centralManager: The central manager that is calling this.
-     - parameter device: The device instance that contained the changed Service.
-     - parameter service: The Service instance that contained the changed Characteristic.
-     - parameter characteristic: The Characteristic that contains the Descriptor that was changed.
-     - parameter changedDescriptor: The Descriptor that was changed.
-     */
-    func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, device: CGA_Bluetooth_Peripheral, service: CGA_Bluetooth_Service, characteristic: CGA_Bluetooth_Characteristic, changedDescriptor: CGA_Bluetooth_Descriptor)
-}
-
-/* ###################################################################################################################################### */
-// MARK: - The Central Manager Delegate Defaults -
-/* ###################################################################################################################################### */
-extension CGA_Bluetooth_CentralManagerDelegate {
-    /* ################################################################## */
-    /**
-     The default does nothing.
-     */
-    func handleError(_: Error, from: CGA_Bluetooth_CentralManager) { }
-    
-    /* ################################################################## */
-    /**
-     The default does nothing.
-     */
-    func updateFrom(_: CGA_Bluetooth_CentralManager) { }
-    
-    /* ################################################################## */
-    /**
-     The default does nothing.
-     */
-    func centralManagerPoweredOn(_: CGA_Bluetooth_CentralManager) { }
-
-    /* ################################################################## */
-    /**
-     The default does nothing.
-     */
-    func centralManager(_: CGA_Bluetooth_CentralManager, didConnectThisDevice: CGA_Bluetooth_Peripheral) { }
-    
-    /* ################################################################## */
-    /**
-     The default does nothing.
-     */
-    func centralManager(_: CGA_Bluetooth_CentralManager, willDisconnectThisDevice: CGA_Bluetooth_Peripheral) { }
-    
-    /* ################################################################## */
-    /**
-     The default does nothing.
-     */
-    func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, device: CGA_Bluetooth_Peripheral, service: CGA_Bluetooth_Service, changedCharacteristic: CGA_Bluetooth_Characteristic) { }
-    
-    /* ################################################################## */
-    /**
-     The default does nothing.
-     */
-    func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, device: CGA_Bluetooth_Peripheral, service: CGA_Bluetooth_Service, characteristic: CGA_Bluetooth_Characteristic, changedDescriptor: CGA_Bluetooth_Descriptor) { }
-}
-
 /* ###################################################################################################################################### */
 // MARK: - The Central Manager -
 /* ###################################################################################################################################### */
@@ -263,6 +35,13 @@ extension CGA_Bluetooth_CentralManagerDelegate {
  This is the main class that is instantiated in order to implement the Bluetooth subsystem.
  */
 class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
+    /* ################################################################## */
+    /**
+     This is how many seconds we wait, before declaring a timeout.
+     Default is 5 seconds, but the value can be changed.
+     */
+    static var static_timeoutInSeconds: TimeInterval = 5.0
+
     /* ################################################################################################################################## */
     /**
      This is the struct that we use to narrow the search criteria for new instances of the <code>CGA_Bluetooth_CentralManager</code> class.
@@ -300,15 +79,21 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
     class DiscoveryData {
         /* ############################################################## */
         /**
-         The Central manager that "owns" this discovered device. This is a weak reference.
+         This holds the advertisement data that came with the discovery.
          */
-        weak var central: CGA_Bluetooth_CentralManager?
+        let advertisementData: [String: Any]
         
         /* ############################################################## */
         /**
-         This is the peripheral wrapper that is instantiated when the device is connected. It is nil, if the device is not connected. It is a strong reference.
+         This is the signal strength, at the time of discovery, in dBm.
          */
-        var peripheralInstance: CGA_Bluetooth_Peripheral?
+        let rssi: Int
+        
+        /* ################################################################## */
+        /**
+         This is a countdown timer, for use as a timeout trap during connection.
+         */
+        private var _timer: Timer?
         
         /* ############################################################## */
         /**
@@ -319,15 +104,19 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
         
         /* ############################################################## */
         /**
-         This holds the advertisement data that came with the discovery.
+         The Central manager that "owns" this discovered device. This is a weak reference.
          */
-        let advertisementData: [String: Any]
+        weak var central: CGA_Bluetooth_CentralManager?
         
         /* ############################################################## */
         /**
-         This is the signal strength, at the time of discovery, in dBm.
+         This is the peripheral wrapper that is instantiated when the device is connected. It is nil, if the device is not connected. It is a strong reference.
          */
-        let rssi: Int
+        var peripheralInstance: CGA_Bluetooth_Peripheral? {
+            didSet {
+                clear()
+            }
+        }
         
         /* ############################################################## */
         /**
@@ -393,6 +182,34 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
          */
         var isConnected: Bool { .connected == cbPeripheral?.state }
         
+        /* ################################################################## */
+        /**
+         Calling this starts the timeout clock.
+         */
+        private func _startTimeout() {
+            #if DEBUG
+                print("Starting Timeout.")
+            #endif
+            clear() // Just to be sure...
+            _timer = Timer.scheduledTimer(withTimeInterval: static_timeoutInSeconds, repeats: false, block: timeout(_:))
+        }
+        
+        /* ################################################################## */
+        /**
+         This stops the timeout clock, invalidates the timer, and clears the Timer instance.
+         */
+        private func _cancelTimeout() {
+            #if DEBUG
+                if let fireDate = _timer?.fireDate {
+                    print("Ending Timeout after \(static_timeoutInSeconds - fireDate.timeIntervalSinceNow) Seconds.")
+                } else {
+                    print("No timer.")
+                }
+            #endif
+            _timer?.invalidate()
+            _timer = nil
+        }
+
         /* ############################################################## */
         /**
          This asks the Central Manager to ignore this device.
@@ -401,6 +218,7 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
          */
         @discardableResult
         func ignore() -> Bool {
+            clear()
             guard   !(central?.ignoredBLEPeripherals.contains(self) ?? false),
                     (central?.stagedBLEPeripherals.contains(self) ?? false)
             else { return false }
@@ -419,6 +237,7 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
          */
         @discardableResult
         func unignore() -> Bool {
+            clear()
             guard   !(central?.stagedBLEPeripherals.contains(self) ?? false),
                     (central?.ignoredBLEPeripherals.contains(self) ?? false)
             else { return false }
@@ -437,9 +256,10 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
          */
         @discardableResult
         func connect() -> Bool {
+            clear()
             guard   let central = central,
                     !isConnected else { return false }
-            
+            _startTimeout()
             return central.connect(self)
         }
         
@@ -451,10 +271,33 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
          */
         @discardableResult
         func disconnect() -> Bool {
+            clear()
             guard   let central = central,
                     isConnected else { return false }
-            
             return central.disconnect(self)
+        }
+
+        /* ############################################################## */
+        /**
+         Cancels the timeout.
+         */
+        func clear() {
+            _cancelTimeout()
+        }
+        
+        /* ################################################################## */
+        /**
+         This is the callback for the timeout Timer firing.
+         It is @objc, because it is a Timer callback.
+         
+         - parameter inTimer: The timer instance that fired.
+         */
+        @objc func timeout(_ inTimer: Timer) {
+            #if DEBUG
+                print("ERROR! Timeout.")
+            #endif
+            clear()
+            central?.reportError(CGA_Errors.timeoutError(self))
         }
 
         /* ############################################################## */
@@ -473,20 +316,16 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
             advertisementData = inAdvertisementData
             rssi = inRSSI
         }
+        
+        /* ############################################################## */
+        /**
+         Make sure that we don't leave any open timers.
+         */
+        deinit {
+            clear()
+        }
     }
-    
-    /* ################################################################## */
-    /**
-     This is how many seconds we wait, before declaring a timeout.
-     */
-    private let _timeoutInSeconds: TimeInterval = 3.0
-    
-    /* ################################################################## */
-    /**
-     This is a countdown timer, for use as a timeout trap.
-     */
-    private var _timer: Timer?
-    
+
     /* ################################################################## */
     /**
      The Central Manager Delegate object.
@@ -585,21 +424,6 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
 extension CGA_Bluetooth_CentralManager {
     /* ################################################################## */
     /**
-     Called to report an error.
-     
-     - parameter inError: The error being reported.
-     */
-    private func _reportError(_ inError: Error) {
-        DispatchQueue.main.async {
-            #if DEBUG
-                print("Reporting \(inError.localizedDescription) as an error.")
-            #endif
-            self.delegate?.handleError(inError, from: self)
-        }
-    }
-    
-    /* ################################################################## */
-    /**
      This is called to send the "Update Thyself" message to the delegate.
      */
     private func _updateDelegatePoweredOn() {
@@ -665,37 +489,27 @@ extension CGA_Bluetooth_CentralManager {
             }
         }
     }
-    
-    /* ################################################################## */
-    /**
-     */
-    private func _startTimeout() {
-        #if DEBUG
-            print("Starting Timeout.")
-        #endif
-        _timer = Timer.scheduledTimer(withTimeInterval: _timeoutInSeconds, repeats: false, block: timeout(_:))
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    private func _cancelTimeout() {
-        #if DEBUG
-            if let fireDate = _timer?.fireDate {
-                print("Ending Timeout after \(_timeoutInSeconds - fireDate.timeIntervalSinceNow) Seconds.")
-            } else {
-                print("No timer.")
-            }
-        #endif
-        _timer?.invalidate()
-        _timer = nil
-    }
 }
 
 /* ###################################################################################################################################### */
 // MARK: - Internal Instance Methods -
 /* ###################################################################################################################################### */
 extension CGA_Bluetooth_CentralManager {
+    /* ################################################################## */
+    /**
+     Called to report an error.
+     
+     - parameter inError: The error being reported.
+     */
+    func reportError(_ inError: CGA_Errors) {
+        DispatchQueue.main.async {
+            #if DEBUG
+                print("Reporting \(inError.localizedDescription) as an error.")
+            #endif
+            self.delegate?.handleError(inError, from: self)
+        }
+    }
+    
     /* ################################################################## */
     /**
      This is the init that should always be used.
@@ -801,7 +615,7 @@ extension CGA_Bluetooth_CentralManager {
      */
     func startOver() {
         #if DEBUG
-            print("Starting Over From Scratch.")
+            print("Starting The Central Manager Peripheral Discovery Over From Scratch.")
         #endif
         let wasScanning = isScanning
         stopScanning()
@@ -829,11 +643,16 @@ extension CGA_Bluetooth_CentralManager {
         guard   let peripheral = inPeripheral?.cbPeripheral,
                 let cbCentral = cbElementInstance,
                 stagedBLEPeripherals.contains(peripheral)
-        else { return false }
+        else {
+            #if DEBUG
+                print("ERROR! \(String(describing: inPeripheral?.name)) cannot be connected, because of an internal error.")
+            #endif
+            reportError(CGA_Errors.internalError(nil))
+            return false
+        }
         #if DEBUG
             print("Connecting \(String(describing: peripheral.name)).")
         #endif
-        _startTimeout()
         cbCentral.connect(peripheral, options: nil)
         
         return true
@@ -848,7 +667,6 @@ extension CGA_Bluetooth_CentralManager {
      */
     @discardableResult
     func disconnect(_ inPeripheral: DiscoveryData) -> Bool {
-        _cancelTimeout()
         guard   let cbCentral = cbElementInstance,
                 let cbPeripheral = inPeripheral.cbPeripheral,
                 sequence_contents.contains(cbPeripheral)
@@ -868,7 +686,6 @@ extension CGA_Bluetooth_CentralManager {
      - parameter inPeripheral: The Peripheral to add.
      */
     func addPeripheral(_ inPeripheral: CGA_Bluetooth_Peripheral) {
-        _cancelTimeout()
         #if DEBUG
             print("Adding \(inPeripheral.discoveryData.preferredName).")
         #endif
@@ -890,16 +707,6 @@ extension CGA_Bluetooth_CentralManager {
         _sendPeripheralDisconnect(inPeripheral)
         sequence_contents.removeThisDevice(inPeripheral.discoveryData.cbPeripheral)
     }
-    
-    /* ################################################################## */
-    /**
-     */
-    @objc func timeout(_ inTimer: Timer) {
-        #if DEBUG
-            print("ERROR! Timeout.")
-        #endif
-        _cancelTimeout()
-    }
 }
 
 /* ###################################################################################################################################### */
@@ -908,10 +715,16 @@ extension CGA_Bluetooth_CentralManager {
 extension CGA_Bluetooth_CentralManager: CGA_Class_Protocol_UpdateDescriptor {
     /* ################################################################## */
     /**
+     This returns the parent Central Manager(Ourself)
+     */
+    var central: CGA_Bluetooth_CentralManager? { self }
+
+    /* ################################################################## */
+    /**
      This class is the "endpoint" of all errors, so it passes the error back to the delegate.
      */
-    func handleError(_ inError: Error) {
-        _reportError(inError)
+    func handleError(_ inError: CGA_Errors) {
+        reportError(inError)
     }
     
     /* ################################################################## */
@@ -966,51 +779,49 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
      - parameter inCentralManager: The CBCentralManager instance that is calling this.
      */
     func centralManagerDidUpdateState(_ inCentralManager: CBCentralManager) {
-        #if DEBUG
-            print("Central Manager State Changed.")
-        #endif
         switch inCentralManager.state {
         case .poweredOn:
             #if DEBUG
-                print("\tState is Powered On.")
+                print("Central Manager State Changed to Powered On.")
             #endif
             _updateDelegatePoweredOn()
             
         case .poweredOff:
             #if DEBUG
-                print("\tState is Powered Off.")
+                print("Central Manager State Changed to Powered Off.")
             #endif
             stopScanning()
 
         case .resetting:
             #if DEBUG
-                print("\tState is Resetting.")
+                print("Central Manager State Changed to Resetting.")
             #endif
             stopScanning()
 
         case .unauthorized:
             #if DEBUG
-                print("\tState is Unauthorized.")
+                print("Central Manager State Changed to Unauthorized.")
             #endif
             stopScanning()
 
         case .unknown:
             #if DEBUG
-                print("\tState is Unknown.")
+                print("Central Manager State Changed to Unknown.")
             #endif
             stopScanning()
 
         case .unsupported:
             #if DEBUG
-                print("\tState is Unsupported.")
+                print("Central Manager State Changed to Unsupported.")
             #endif
             stopScanning()
 
         default:
             #if DEBUG
-                print("\tState is Something Else.")
+                print("ERROR! Central Manager Changed to an Unknown State!")
             #endif
             stopScanning()
+            central?.reportError(.internalError(nil))
         }
         
         _updateDelegate()
@@ -1108,30 +919,37 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
         - error: Any error that occurred. It can (and should) be nil.
      */
     func centralManager(_ inCentralManager: CBCentralManager, didDisconnectPeripheral inPeripheral: CBPeripheral, error inError: Error?) {
-        guard let peripheralInstance = sequence_contents[inPeripheral] else {
+        if let error = inError {
             #if DEBUG
-                print("Cannot find \(String(describing: inPeripheral.name)) in the guest list.")
+                print("ERROR!: \(error.localizedDescription)")
             #endif
-            return
-        }
-        
-        _sendPeripheralDisconnect(peripheralInstance)
-        
-        guard let peripheralObject = peripheralInstance.discoveryData?.peripheralInstance else {
+            reportError(.internalError(error))
+        } else {
+            guard let peripheralInstance = sequence_contents[inPeripheral] else {
+                #if DEBUG
+                    print("Cannot find \(String(describing: inPeripheral.name)) in the guest list.")
+                #endif
+                return
+            }
+            
+            _sendPeripheralDisconnect(peripheralInstance)
+            
+            guard let peripheralObject = peripheralInstance.discoveryData?.peripheralInstance else {
+                #if DEBUG
+                    print("The Peripheral \(peripheralInstance.discoveryData?.preferredName ?? "ERROR") has a bad instance!")
+                #endif
+                return
+            }
+            
             #if DEBUG
-                print("The Peripheral \(peripheralInstance.discoveryData?.preferredName ?? "ERROR") has a bad instance!")
+                print("Disconnected \(peripheralInstance.discoveryData?.preferredName ?? "ERROR").")
             #endif
-            return
-        }
-        
-        #if DEBUG
-            print("Disconnected \(peripheralInstance.discoveryData?.preferredName ?? "ERROR").")
-        #endif
-        
-        peripheralObject.clear()
-        peripheralInstance.discoveryData?.peripheralInstance = nil
+            
+            peripheralObject.clear()
+            peripheralInstance.discoveryData?.peripheralInstance = nil
 
-        removePeripheral(peripheralObject)
+            removePeripheral(peripheralObject)
+        }
     }
     
     /* ################################################################## */
@@ -1150,102 +968,8 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
                 print("\tWith error: \(error.localizedDescription).")
             }
         #endif
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - Special Comparator for the Peripherals Array -
-/* ###################################################################################################################################### */
-/**
- This allows us to fetch Peripherals in our staged Arrays, looking for an exact instance.
- */
-extension Array where Element == CGA_Bluetooth_CentralManager.DiscoveryData {
-    /* ################################################################## */
-    /**
-     Special subscript that allows us to retrieve an Element by its contained Peripheral (as the opaque type).
-     
-     - parameter inItem: The Peripheral we're looking to match.
-     - returns: The found Element, or nil, if not found.
-     */
-    subscript(_ inItem: Element) -> Element! {
-        return reduce(nil) { (current, nextItem) in
-            if  nil == current {
-                if nextItem === inItem {
-                    return nextItem
-                } else if nextItem.identifier == inItem.identifier {
-                    return nextItem
-                }
-               
-                return nil
-            }
-            
-            return current
+        if let error = inError {
+            central?.reportError(.internalError(error))
         }
     }
-    
-    /* ################################################################## */
-    /**
-     Special subscript that allows us to retrieve an Element by its contained Peripheral
-     
-     - parameter inItem: The Peripheral we're looking to match.
-     - returns: The found Element, or nil, if not found.
-     */
-    subscript(_ inItem: CBPeripheral) -> Element! {
-        return reduce(nil) { (current, nextItem) in
-            if  nil == current {
-                if nextItem === inItem {
-                    return nextItem
-                } else if nextItem.cbPeripheral.identifier == inItem.identifier {
-                    return nextItem
-                }
-               
-                return nil
-            }
-            
-            return current
-        }
-    }
-
-    /* ################################################################## */
-    /**
-     Removes the element (as the opaque type).
-     
-     - parameter inItem: The CB element we're looking to remove, as the opaque type.
-     - returns: True, if the item was found and removed. Can be ignored.
-     */
-    @discardableResult
-    mutating func removeThisDevice(_ inItem: Element) -> Bool {
-        var success = false
-        removeAll { (test) -> Bool in
-            if test === inItem {
-                success = true
-                return true
-            } else if test.identifier == inItem.identifier {
-                success = true
-                return true
-            }
-            
-            return false
-        }
-        
-        return success
-    }
-
-    /* ################################################################## */
-    /**
-     Checks to see if the Array contains an instance that wraps the given CB element (as the opaque type).
-     
-     - parameter inItem: The CB element we're looking to match.
-     - returns: True, if the Array contains a wrapper for the given element.
-     */
-    func contains(_ inItem: Element) -> Bool { return nil != self[inItem] }
-
-    /* ################################################################## */
-    /**
-     Checks to see if the Array contains an instance that wraps the given CB element.
-     
-     - parameter inItem: The CB element we're looking to match.
-     - returns: True, if the Array contains a wrapper for the given element.
-     */
-    func contains(_ inItem: CBPeripheral) -> Bool { return nil != self[inItem] }
 }

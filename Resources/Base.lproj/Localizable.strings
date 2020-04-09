@@ -30,17 +30,21 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 "SLUG-OK-BUTTON-TEXT"               =   "OK";
 "SLUG-ERROR"                        =   "ERROR";
 
+// These are error reports.
+"CGA-ERROR-TIMEOUT"                 =   "There was a timeout, while attempting a connection to a Peripheral.";
+"CGA-ERROR-INTERNAL"                =   "Internal Error";
+
 // These are for display in the Characteristics Table Cell.
-"SLUG-PROPERTIES-READ"              =   "RD";
-"SLUG-PROPERTIES-WRITE"             =   "WN";
-"SLUG-PROPERTIES-WRITE-RESPONSE"    =   "WR";
-"SLUG-PROPERTIES-NOTIFY"            =   "NO";
-"SLUG-PROPERTIES-INDICATE"          =   "IN";
-"SLUG-PROPERTIES-BROADCAST"         =   "BR";
-"SLUG-PROPERTIES-AUTH-SIGNED-WRITE" =   "AW";
-"SLUG-PROPERTIES-NOTIFY-ENCRYPT"    =   "NE";
-"SLUG-PROPERTIES-INDICATE-ENCRYPT"  =   "IE";
-"SLUG-PROPERTIES-EXTENDED"          =   "EX";
+"SLUG-PROPERTIES-READ"              =   " RD ";
+"SLUG-PROPERTIES-WRITE"             =   " WN ";
+"SLUG-PROPERTIES-WRITE-RESPONSE"    =   " WR ";
+"SLUG-PROPERTIES-NOTIFY"            =   " NO ";
+"SLUG-PROPERTIES-INDICATE"          =   " IN ";
+"SLUG-PROPERTIES-BROADCAST"         =   " BR ";
+"SLUG-PROPERTIES-AUTH-SIGNED-WRITE" =   " AW ";
+"SLUG-PROPERTIES-NOTIFY-ENCRYPT"    =   " NE ";
+"SLUG-PROPERTIES-INDICATE-ENCRYPT"  =   " IE ";
+"SLUG-PROPERTIES-EXTENDED"          =   " EX ";
 
 // These are Advertising Data Strings.
 "kCBAdvDataLocalName"               =   "Name";

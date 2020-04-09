@@ -150,6 +150,12 @@ extension CGA_Bluetooth_Characteristic {
     
     /* ################################################################## */
     /**
+     This returns the parent Central Manager
+     */
+    var central: CGA_Bluetooth_CentralManager? { parent?.central }
+
+    /* ################################################################## */
+    /**
      If the Characteristic has a value, and that value can be expressed as a String, it is returned here.
      */
     var stringValue: String! { nil != value ? String(data: value, encoding: .utf8) : nil }
@@ -180,14 +186,22 @@ extension CGA_Bluetooth_Characteristic {
         if  let cbPeripheral = ((parent as? CGA_Bluetooth_Service)?.parent as? CGA_Bluetooth_Peripheral)?.cbElementInstance,
             let cbCharacteristic = cbElementInstance {
             clear()
-            #if DEBUG
-                print("Discovering Descriptors for the \(self.id) Characteristic.")
-            #endif
-            cbPeripheral.discoverDescriptors(for: cbCharacteristic)
+            if cbCharacteristic.properties.contains(.read) {
+                #if DEBUG
+                    print("Discovering Descriptors for the \(self.id) Characteristic.")
+                #endif
+                cbPeripheral.discoverDescriptors(for: cbCharacteristic)
+            } else {
+                #if DEBUG
+                    print("Cannot Discover Descriptors for the \(self.id) Characteristic, Because There is No Read Permission.")
+                #endif
+            }
         } else {
             #if DEBUG
                 print("ERROR! Can't get characteristic, service and/or peripheral!")
             #endif
+            
+            central?.reportError(.internalError(nil))
         }
     }
 
@@ -235,70 +249,4 @@ extension CGA_Bluetooth_Characteristic: CGA_Class_Protocol_UpdateDescriptor {
         
         sequence_contents = []
     }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - Special Comparator for the Characteristics Array -
-/* ###################################################################################################################################### */
-/**
- This allows us to fetch Characteristics, looking for an exact instance.
- */
-extension Array where Element == CGA_Bluetooth_Characteristic {
-    /* ################################################################## */
-    /**
-     Special subscript that allows us to retrieve an Element by its contained Characteristic.
-     
-     - parameter inItem: The CBCharacteristic we're looking to match.
-     - returns: The found Element, or nil, if not found.
-     */
-    subscript(_ inItem: CBCharacteristic) -> Element! {
-        return reduce(nil) { (current, nextItem) in
-            if  nil == current {
-                if nextItem === inItem {
-                    return nextItem
-                } else if nextItem.cbElementInstance.uuid == inItem.uuid {
-                    return nextItem
-                }
-                
-                return nil
-            }
-            
-            return current
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     Removes the element (as a CBCharacteristic).
-     
-     - parameter inItem: The CB element we're looking to remove.
-     - returns: True, if the item was found and removed. Can be ignored.
-     */
-    @discardableResult
-    mutating func removeThisCharacteristic(_ inItem: CBCharacteristic) -> Bool {
-        var success = false
-        removeAll { (test) -> Bool in
-            guard let testCharacteristic = test.cbElementInstance else { return false }
-            if testCharacteristic === inItem {
-                success = true
-                return true
-            } else if testCharacteristic.uuid.uuidString == inItem.uuid.uuidString {
-                success = true
-                return true
-            }
-            
-            return false
-        }
-        
-        return success
-    }
-
-    /* ################################################################## */
-    /**
-     Checks to see if the Array contains an instance that wraps the given CB element.
-     
-     - parameter inItem: The CB element we're looking to match.
-     - returns: True, if the Array contains a wrapper for the given element.
-     */
-    func contains(_ inItem: CBCharacteristic) -> Bool { nil != self[inItem] }
 }
