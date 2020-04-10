@@ -51,6 +51,12 @@ class CGA_ServiceViewController: UIViewController {
      The ID of the segue that is executed to display Characteristic details.
      */
     private static let _characteristicDetailSegueID = "show-characteristic-detail"
+    
+    /* ################################################################## */
+    /**
+     This implements a "pull to refresh."
+     */
+    private let _refreshControl = UIRefreshControl()
 
     /* ################################################################## */
     /**
@@ -63,6 +69,25 @@ class CGA_ServiceViewController: UIViewController {
      This is the table that will list the discovered Services.
      */
     @IBOutlet weak var characteristicsTableView: UITableView!
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Callback/Observer Methods -
+/* ###################################################################################################################################### */
+extension CGA_ServiceViewController {
+    /* ################################################################## */
+    /**
+     This is called by the table's "pull to refresh" handler.
+     
+     When this is called, the Service wipes out its Characteristics, and starts over from scratch.
+     
+     - parameter: ignored.
+     */
+    @objc func startOver(_: Any) {
+        serviceInstance?.startOver()
+        _refreshControl.endRefreshing()
+        updateUI()
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -89,6 +114,8 @@ extension CGA_ServiceViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = serviceInstance?.id.localizedVariant
+        characteristicsTableView?.refreshControl = _refreshControl
+        _refreshControl.addTarget(self, action: #selector(startOver(_:)), for: .valueChanged)
         serviceInstance?.forEach { $0.readValue() }
     }
     

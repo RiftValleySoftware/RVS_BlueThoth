@@ -137,18 +137,25 @@ extension CGA_Bluetooth_Peripheral {
      */
     func addService(_ inService: CGA_Bluetooth_Service) {
         if let service = inService.cbElementInstance {
-            #if DEBUG
-                print("Adding \(inService.id).")
-            #endif
-            stagedServices.removeThisService(service)
-            sequence_contents.append(inService)
-            
-            if stagedServices.isEmpty {
+            if stagedServices.contains(service) {
                 #if DEBUG
-                    print("All Services fulfilled. Adding Peripheral (\(self)) to Central.")
+                    print("Adding the \(inService.id) Service to the \(self.id) Peripheral.")
                 #endif
-                _registerWithCentral()
+                stagedServices.removeThisService(service)
+                sequence_contents.append(inService)
+                
+                if stagedServices.isEmpty {
+                    #if DEBUG
+                        print("All Services fulfilled. Adding Peripheral (\(self.id)) to Central.")
+                    #endif
+                    _registerWithCentral()
+                }
+            } else {
+                #if DEBUG
+                    print("The \(inService.id) will not be added to the Peripheral, as it was not staged.")
+                #endif
             }
+            central?.updateThisService(inService)
         } else {
             #if DEBUG
                 print("ERROR! \(String(describing: inService)) does not have a CBService instance.")
@@ -239,23 +246,6 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     
     /* ################################################################## */
     /**
-     Called when the Services for a Peripheral have been modified.
-     
-     - parameter inPeripheral: The CBPeripheral that has modified Services.
-     - parameter didModifyServices: An Array of CBService instances that were modified.
-     */
-    func peripheral(_ inPeripheral: CBPeripheral, didModifyServices inInvalidatedServices: [CBService]) {
-        #if DEBUG
-            if 0 < inInvalidatedServices.count {
-                print("Services Modified: \(inInvalidatedServices.map({ $0.uuid.uuidString }).joined(separator: ", "))")
-            } else {
-                print("No Services Modified.")
-            }
-        #endif
-    }
-    
-    /* ################################################################## */
-    /**
      Called when a Service discovers Characteristics.
      We treat discovery as "atomic." We ask for all the Characteristics at once, so this callback is complete for this Service.
      
@@ -282,7 +272,7 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
                 print("Service: \(inService.uuid.uuidString) discovered these Characteristics: \(characteristics.map { $0.uuid.uuidString }.joined(separator: ", "))")
             #endif
             
-            if  let service = stagedServices[inService] {
+            if let service = (stagedServices[inService] ?? sequence_contents[inService]) {
                 service.discoveredCharacteristics(characteristics)
             } else {
                 #if DEBUG
@@ -325,7 +315,7 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
                 }
             #endif
             
-            if  let service = stagedServices[inCharacteristic] {
+            if  let service = (stagedServices[inCharacteristic] ?? sequence_contents[inCharacteristic]) {
                 let characteristic = CGA_Bluetooth_Characteristic(parent: service, cbElementInstance: inCharacteristic)
                 inCharacteristic.descriptors?.forEach {
                     let descriptor = CGA_Bluetooth_Descriptor()
@@ -348,7 +338,8 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     
     /* ################################################################## */
     /**
-
+     Called to update a Characteristic value (either in response to a read request, or a notify).
+     
      - parameter inPeripheral: The CBPeripheral that has the updated Characteristic.
      - parameter didUpdateValueFor: The Characteristic instance to which the Update applies.
      - parameter error: Any error that may have occured. Hopefully, it is nil.
@@ -369,7 +360,8 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     
     /* ################################################################## */
     /**
-
+     Called to update a descriptor.
+     
      - parameter inPeripheral: The CBPeripheral that has the updated Descriptor.
      - parameter didUpdateValueFor: The Descriptor instance to which the Update applies.
      - parameter error: Any error that may have occured. Hopefully, it is nil.
@@ -391,6 +383,29 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
                 print("ERROR! Can't find Descriptor!")
             #endif
             central?.reportError(.internalError(nil))
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when any Services have been modified.
+     
+     - parameter inPeripheral: The CBPeripheral that has modified Services.
+     - parameter didModifyServices: An Array of CBService instances that were modified.
+     */
+    func peripheral(_ inPeripheral: CBPeripheral, didModifyServices inInvalidatedServices: [CBService]) {
+        #if DEBUG
+            if 0 < inInvalidatedServices.count {
+                print("Services Modified: \(inInvalidatedServices.map({ $0.uuid.uuidString }).joined(separator: ", "))")
+            } else {
+                print("No Services Modified.")
+            }
+        #endif
+        
+        inInvalidatedServices.forEach {
+            guard let service = stagedServices[$0] ?? sequence_contents[$0]else { return }
+            
+            service.startOver()
         }
     }
 }

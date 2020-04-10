@@ -54,6 +54,12 @@ class CGA_PeripheralViewController: UIViewController {
      The ID of the segue that is executed to display Service details.
      */
     private static let _serviceDetailSegueID = "show-service-detail"
+    
+    /* ################################################################## */
+    /**
+     This implements a "pull to refresh."
+     */
+    private let _refreshControl = UIRefreshControl()
 
     /* ################################################################## */
     /**
@@ -71,13 +77,32 @@ class CGA_PeripheralViewController: UIViewController {
     /**
      This is the table that will list the discovered devices.
      */
-    @IBOutlet weak var deviceTableView: UITableView!
+    @IBOutlet weak var serviceTableView: UITableView!
     
     /* ################################################################## */
     /**
      This is the "Busy" animation that is displayed while the device connects.
      */
     @IBOutlet weak var busyAnimationActivityIndicatorView: UIActivityIndicatorView!
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Callback/Observer Methods -
+/* ###################################################################################################################################### */
+extension CGA_PeripheralViewController {
+    /* ################################################################## */
+    /**
+     This is called by the table's "pull to refresh" handler.
+     
+     When this is called, the Peripheral wipes out its Services, and starts over from scratch.
+     
+     - parameter: ignored.
+     */
+    @objc func startOver(_: Any) {
+        deviceAdvInfo?.peripheralInstance?.startOver()
+        _refreshControl.endRefreshing()
+        updateUI()
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -91,11 +116,11 @@ extension CGA_PeripheralViewController: CGA_UpdatableScreenViewController {
     func updateUI() {
         if nil != deviceInstance {
             busyAnimationActivityIndicatorView?.stopAnimating()
-            deviceTableView?.isHidden = false
-            deviceTableView?.reloadData()
+            serviceTableView?.isHidden = false
+            serviceTableView?.reloadData()
         } else {
             busyAnimationActivityIndicatorView?.startAnimating()
-            deviceTableView?.isHidden = true
+            serviceTableView?.isHidden = true
         }
     }
 }
@@ -111,6 +136,8 @@ extension CGA_PeripheralViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = deviceAdvInfo?.preferredName
+        serviceTableView?.refreshControl = _refreshControl
+        _refreshControl.addTarget(self, action: #selector(startOver(_:)), for: .valueChanged)
         guard let device = deviceAdvInfo else { return }
         updateUI()
         device.connect()

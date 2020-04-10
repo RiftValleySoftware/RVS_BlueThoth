@@ -89,56 +89,73 @@ extension CGA_Bluetooth_Characteristic {
     
     /* ################################################################## */
     /**
+     Returns true, if the Characteristic can write (eithe with or without response).
      */
     var canWrite: Bool { canWriteWithResponse || canWriteWithoutResponse }
     
     /* ################################################################## */
     /**
+     Returns true, if the Characteristic can write, and returns a receipt response.
      */
     var canWriteWithResponse: Bool { cbElementInstance?.properties.contains(.write) ?? false }
     
     /* ################################################################## */
     /**
+     Returns true, if the Characteristic can write, and does not return a response.
      */
     var canWriteWithoutResponse: Bool { cbElementInstance?.properties.contains(.writeWithoutResponse) ?? false }
 
     /* ################################################################## */
     /**
+     Returns true, if the Characteristic can be read.
      */
     var canRead: Bool { cbElementInstance?.properties.contains(.read) ?? false }
     
     /* ################################################################## */
     /**
+     Returns true, if the Characteristic can notify.
      */
     var canNotify: Bool { cbElementInstance?.properties.contains(.notify) ?? false }
     
     /* ################################################################## */
     /**
+     Returns true, if the Characteristic can broadcast.
      */
     var canBroadcast: Bool { cbElementInstance?.properties.contains(.broadcast) ?? false }
     
     /* ################################################################## */
     /**
+     Returns true, if the Characteristic can indicate.
      */
     var canIndicate: Bool { cbElementInstance?.properties.contains(.indicate) ?? false }
     
     /* ################################################################## */
     /**
+     Returns true, if the Characteristic is currently notifying.
+     */
+    var isNotifying: Bool { cbElementInstance?.isNotifying ?? false }
+
+    /* ################################################################## */
+    /**
+     Returns true, if the Characteristic requires authenticated writes.
      */
     var requiresAuthenticatedSignedWrites: Bool { cbElementInstance?.properties.contains(.authenticatedSignedWrites) ?? false }
     
     /* ################################################################## */
     /**
+     Returns true, if the Characteristic requires encrypted notification.
      */
     var requiresNotifyEncryption: Bool { cbElementInstance?.properties.contains(.notifyEncryptionRequired) ?? false }
     
     /* ################################################################## */
     /**
+     Returns true, if the Characteristic requires encrypted indicates.
      */
     var requiresIndicateEncryption: Bool { cbElementInstance?.properties.contains(.indicateEncryptionRequired) ?? false }
     
     /* ################################################################## */
     /**
+     Returns true, if the Characteristic has extension properties.
      */
     var hasExtendedProperties: Bool { cbElementInstance?.properties.contains(.extendedProperties) ?? false }
     
@@ -189,6 +206,7 @@ extension CGA_Bluetooth_Characteristic {
             print("Adding the \(inDescriptor.id) Descriptor to the \(self.id) Characteristic.")
         #endif
         sequence_contents.append(inDescriptor)
+        central?.updateThisDescriptor(inDescriptor)
     }
     
     /* ################################################################## */
@@ -205,7 +223,7 @@ extension CGA_Bluetooth_Characteristic {
             peripheral.readValue(for: cbElementInstance)
         }
     }
-
+    
     /* ################################################################## */
     /**
      This eliminates all of the stored Descriptors.
