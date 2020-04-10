@@ -30,6 +30,18 @@ import CoreBluetooth
  This class "wraps" instances of CBCharacteristic, adding some functionality, and linking the hierarchy.
  */
 class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
+    struct ExtensionProperties: OptionSet {
+        let rawValue: UInt16
+        
+        static let notifications = 1 << 0
+        
+        static let indications = 1 << 1
+        
+        init(rawValue inRawValue: UInt16 = 0) {
+            rawValue = inRawValue
+        }
+    }
+    
     /* ################################################################## */
     /**
      This is the type we're aggregating.
@@ -161,9 +173,24 @@ extension CGA_Bluetooth_Characteristic {
     
     /* ################################################################## */
     /**
+     This will return any extension properties, as an OptionSet, or nil, if there are none.
+     */
+    var extendedProperties: ExtensionProperties? {
+        guard hasExtendedProperties else { return nil }
+        
+        let extensionDescriptors = sequence_contents.filter { CBUUIDCharacteristicExtendedPropertiesString == $0.cbElementInstance.uuid.uuidString }
+        if  1 == extensionDescriptors.count,
+            let value = extensionDescriptors[0].value as? NSNumber {
+            return ExtensionProperties(rawValue: value.uint16Value)
+        }
+        return nil
+    }
+
+    /* ################################################################## */
+    /**
      If the Characteristic has a value, it is returned here.
      */
-    var value: Data! { cbElementInstance?.value }
+    var value: Data? { cbElementInstance?.value }
     
     /* ################################################################## */
     /**
@@ -175,7 +202,14 @@ extension CGA_Bluetooth_Characteristic {
     /**
      If the Characteristic has a value, and that value can be expressed as a String, it is returned here.
      */
-    var stringValue: String! { nil != value ? String(data: value, encoding: .utf8) : nil }
+    var stringValue: String? { nil != value ? String(data: value!, encoding: .utf8) : nil }
+    
+    /* ################################################################## */
+    /**
+     */
+    var intValue: Int64? {
+        return nil
+    }
 }
 
 /* ###################################################################################################################################### */

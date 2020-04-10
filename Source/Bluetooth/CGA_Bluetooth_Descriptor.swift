@@ -69,6 +69,12 @@ class CGA_Bluetooth_Descriptor {
      This returns the parent Central Manager
      */
     var central: CGA_Bluetooth_CentralManager? { parent?.central }
+    
+    /* ################################################################## */
+    /**
+     If the Descriptor has a value, it is returned here. It is completely untyped, as each descriptor has its own types.
+     */
+    var value: Any? { cbElementInstance?.value }
 }
 
 /* ###################################################################################################################################### */
