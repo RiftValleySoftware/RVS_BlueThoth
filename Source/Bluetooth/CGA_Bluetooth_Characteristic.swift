@@ -35,7 +35,7 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
      This is the type we're aggregating.
      */
     typealias Element = CGA_Bluetooth_Descriptor
-    
+
     /* ################################################################## */
     /**
      This is our main cache Array. It contains wrapped instances of our aggregate CB type.
@@ -177,33 +177,6 @@ extension CGA_Bluetooth_Characteristic {
         parent = inParent
         cbElementInstance = inCBharacteristic
     }
-    
-    /* ################################################################## */
-    /**
-     Called to tell the instance to discover its descriptors.
-     */
-    func discoverDescriptors() {
-        if  let cbPeripheral = ((parent as? CGA_Bluetooth_Service)?.parent as? CGA_Bluetooth_Peripheral)?.cbElementInstance,
-            let cbCharacteristic = cbElementInstance {
-            clear()
-            if cbCharacteristic.properties.contains(.read) {
-                #if DEBUG
-                    print("Discovering Descriptors for the \(self.id) Characteristic.")
-                #endif
-                cbPeripheral.discoverDescriptors(for: cbCharacteristic)
-            } else {
-                #if DEBUG
-                    print("Cannot Discover Descriptors for the \(self.id) Characteristic, Because There is No Read Permission.")
-                #endif
-            }
-        } else {
-            #if DEBUG
-                print("ERROR! Can't get characteristic, service and/or peripheral!")
-            #endif
-            
-            central?.reportError(.internalError(nil))
-        }
-    }
 
     /* ################################################################## */
     /**
@@ -232,12 +205,7 @@ extension CGA_Bluetooth_Characteristic {
             peripheral.readValue(for: cbElementInstance)
         }
     }
-}
 
-/* ###################################################################################################################################### */
-// MARK: - CGA_Class_UpdateDescriptor Conformance -
-/* ###################################################################################################################################### */
-extension CGA_Bluetooth_Characteristic: CGA_Class_Protocol_UpdateDescriptor {
     /* ################################################################## */
     /**
      This eliminates all of the stored Descriptors.
@@ -248,5 +216,31 @@ extension CGA_Bluetooth_Characteristic: CGA_Class_Protocol_UpdateDescriptor {
         #endif
         
         sequence_contents = []
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - CGA_Class_UpdateDescriptor Conformance -
+/* ###################################################################################################################################### */
+extension CGA_Bluetooth_Characteristic: CGA_Class_Protocol_UpdateDescriptor {
+    /* ################################################################## */
+    /**
+     This eliminates all of the stored results, and asks the Bluetooth subsystem to start over from scratch.
+     */
+    func startOver() {
+        if  let cbPeripheral = ((parent as? CGA_Bluetooth_Service)?.parent as? CGA_Bluetooth_Peripheral)?.cbElementInstance,
+            let cbCharacteristic = cbElementInstance {
+            clear()
+            #if DEBUG
+                print("Discovering Descriptors for the \(self.id) Characteristic.")
+            #endif
+            cbPeripheral.discoverDescriptors(for: cbCharacteristic)
+        } else {
+            #if DEBUG
+                print("ERROR! Can't get characteristic, service and/or peripheral!")
+            #endif
+            
+            central?.reportError(.internalError(nil))
+        }
     }
 }

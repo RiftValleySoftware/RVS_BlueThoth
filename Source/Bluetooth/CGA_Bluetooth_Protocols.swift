@@ -132,6 +132,12 @@ protocol CGA_Class_Protocol: class {
      - parameter error: The error to be handled.
      */
     func handleError(_ error: CGA_Errors)
+    
+    /* ################################################################## */
+    /**
+     OPTIONAL: Forces the instance to restart its discovery process.
+     */
+    func startOver()
 }
 
 /* ###################################################################################################################################### */
@@ -143,9 +149,41 @@ extension CGA_Class_Protocol {
      Default simply passes the buck.
      */
     func handleError(_ inError: CGA_Errors) {
-        if let parent = parent {
-            parent.handleError(inError)
-        }
+        parent?.handleError(inError)
+    }
+    
+    /* ################################################################## */
+    /**
+     Default does nothing.
+     */
+    func startOver() { }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - CGA_Class_Protocol_UpdateService Protocol -
+/* ###################################################################################################################################### */
+/**
+ */
+protocol CGA_Class_Protocol_UpdateService: CGA_Class_Protocol {
+    /* ################################################################## */
+    /**
+     This is called to inform an instance that a Service downstream changed.
+     
+     - parameter service: The Service wrapper instance that changed.
+     */
+    func updateThisService(_ service: CGA_Bluetooth_Service)
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Protocol Defaults -
+/* ###################################################################################################################################### */
+extension CGA_Class_Protocol_UpdateService {
+    /* ################################################################## */
+    /**
+     Default simply passes the buck.
+     */
+    func updateThisService(_ inService: CGA_Bluetooth_Service) {
+        (parent as? CGA_Class_Protocol_UpdateService)?.updateThisService(inService)
     }
 }
 
@@ -173,9 +211,7 @@ extension CGA_Class_Protocol_UpdateCharacteristic {
      Default simply passes the buck.
      */
     func updateThisCharacteristic(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
-        if let parent = parent as? CGA_Class_Protocol_UpdateCharacteristic {
-            parent.updateThisCharacteristic(inCharacteristic)
-        }
+        (parent as? CGA_Class_Protocol_UpdateCharacteristic)?.updateThisCharacteristic(inCharacteristic)
     }
 }
 
@@ -203,9 +239,7 @@ extension CGA_Class_Protocol_UpdateDescriptor {
      Default simply passes the buck.
      */
     func updateThisDescriptor(_ inDescriptor: CGA_Bluetooth_Descriptor) {
-        if let parent = parent as? CGA_Class_Protocol_UpdateDescriptor {
-            parent.updateThisDescriptor(inDescriptor)
-        }
+        (parent as? CGA_Class_Protocol_UpdateDescriptor)?.updateThisDescriptor(inDescriptor)
     }
 }
 
@@ -345,17 +379,9 @@ extension Array where Element == CGA_Bluetooth_CentralManager.DiscoveryData {
      - returns: The found Element, or nil, if not found.
      */
     subscript(_ inItem: Element) -> Element! {
-        return reduce(nil) { (current, nextItem) in
-            if  nil == current {
-                if nextItem === inItem {
-                    return nextItem
-                } else if nextItem.identifier == inItem.identifier {
-                    return nextItem
-                }
-               
-                return nil
-            }
-            
+        reduce(nil) { (current, nextItem) in
+            guard let current = current else { return (nextItem === inItem) || nextItem.identifier == inItem.identifier ? nextItem : nil }
+
             return current
         }
     }
@@ -368,7 +394,7 @@ extension Array where Element == CGA_Bluetooth_CentralManager.DiscoveryData {
      - returns: The found Element, or nil, if not found.
      */
     subscript(_ inItem: CBPeripheral) -> Element! {
-        return reduce(nil) { (current, nextItem) in
+        reduce(nil) { (current, nextItem) in
             if  nil == current {
                 if nextItem === inItem {
                     return nextItem
@@ -415,7 +441,7 @@ extension Array where Element == CGA_Bluetooth_CentralManager.DiscoveryData {
      - parameter inItem: The CB element we're looking to match.
      - returns: True, if the Array contains a wrapper for the given element.
      */
-    func contains(_ inItem: Element) -> Bool { return nil != self[inItem] }
+    func contains(_ inItem: Element) -> Bool { nil != self[inItem] }
 
     /* ################################################################## */
     /**
@@ -424,7 +450,7 @@ extension Array where Element == CGA_Bluetooth_CentralManager.DiscoveryData {
      - parameter inItem: The CB element we're looking to match.
      - returns: True, if the Array contains a wrapper for the given element.
      */
-    func contains(_ inItem: CBPeripheral) -> Bool { return nil != self[inItem] }
+    func contains(_ inItem: CBPeripheral) -> Bool { nil != self[inItem] }
 }
 
 /* ###################################################################################################################################### */
@@ -442,16 +468,8 @@ extension Array where Element == CGA_Bluetooth_Peripheral {
      - returns: The found Element, or nil, if not found.
      */
     subscript(_ inItem: CBPeripheral) -> Element! {
-        return reduce(nil) { (current, nextItem) in
-            if  nil == current {
-                if nextItem === inItem {
-                    return nextItem
-                } else if nextItem.cbElementInstance.identifier == inItem.identifier {
-                    return nextItem
-                }
-                
-                return nil
-            }
+        reduce(nil) { (current, nextItem) in
+            guard let current = current else { return (nextItem === inItem) || nextItem.cbElementInstance.identifier == inItem.identifier ? nextItem : nil }
             
             return current
         }
@@ -464,7 +482,11 @@ extension Array where Element == CGA_Bluetooth_Peripheral {
      - parameter inItem: The Characteristic that belongs to the element that we're looking to match.
      - returns: The found Element, or nil, if not found.
      */
-    func characteristic(_ inItem: CBCharacteristic) -> CGA_Bluetooth_Characteristic! { reduce(nil) { (current, next) in nil == current ? next.sequence_contents.characteristic(inItem) : current } }
+    func characteristic(_ inItem: CBCharacteristic) -> CGA_Bluetooth_Characteristic! {
+        reduce(nil) { (current, next) in
+            nil == current ? next.sequence_contents.characteristic(inItem) : current
+        }
+    }
 
     /* ################################################################## */
     /**
@@ -519,8 +541,8 @@ extension Array where Element == CBCharacteristic {
      - returns: The found Element, or nil, if not found.
      */
     subscript(_ inItem: CBCharacteristic) -> Element! {
-        return reduce(nil) { (current, nextItem) in
-            return nil != current ? current : ((nextItem === inItem || nextItem.uuid == inItem.uuid) ? nextItem : nil)
+        reduce(nil) { (current, nextItem) in
+            nil != current ? current : ((nextItem === inItem || nextItem.uuid == inItem.uuid) ? nextItem : nil)
         }
     }
 }
@@ -540,17 +562,9 @@ extension Array where Element == CGA_Bluetooth_Characteristic {
      - returns: The found Element, or nil, if not found.
      */
     subscript(_ inItem: CBCharacteristic) -> Element! {
-        return reduce(nil) { (current, nextItem) in
-            if  nil == current {
-                if nextItem === inItem {
-                    return nextItem
-                } else if nextItem.cbElementInstance.uuid == inItem.uuid {
-                    return nextItem
-                }
-                
-                return nil
-            }
-            
+        reduce(nil) { (current, nextItem) in
+            guard let current = current else { return (nextItem === inItem) || nextItem.cbElementInstance.uuid.uuidString == inItem.uuid.uuidString ? nextItem : nil }
+
             return current
         }
     }
@@ -606,17 +620,9 @@ extension Array where Element == CGA_Bluetooth_Descriptor {
      - returns: The found Element, or nil, if not found.
      */
     subscript(_ inItem: CBDescriptor) -> Element! {
-        return reduce(nil) { (current, nextItem) in
-            if  nil == current {
-                if nextItem === inItem {
-                    return nextItem
-                } else if nextItem.cbElementInstance.uuid == inItem.uuid {
-                    return nextItem
-                }
-                
-                return nil
-            }
-            
+        reduce(nil) { (current, nextItem) in
+            guard let current = current else { return (nextItem === inItem) || nextItem.cbElementInstance.uuid.uuidString == inItem.uuid.uuidString ? nextItem : nil }
+
             return current
         }
     }
