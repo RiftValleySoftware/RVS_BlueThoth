@@ -38,6 +38,12 @@ class CGA_Bluetooth_Service: RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
+     This holds a list of UUIDs, holding the IDs of Characteristics we are looking for. It is initialized when the class is instantiated.
+     */
+    private var _discoveryFilter: [CBUUID] = []
+
+    /* ################################################################## */
+    /**
      This is a "preview cache." It will aggregate instances of Characteristic wrappers that are still in discovery.
      */
     var stagedCharacteristics: Array<Element> = []
@@ -124,30 +130,13 @@ extension CGA_Bluetooth_Service {
                                   If left out, all available Characteristics are found. If specified, this overrides the scanCriteria.
      */
     func discoverCharacteristics(characteristics inCharacteristics: [String] = []) {
-        if  let cbPeripheral = (parent as? CGA_Bluetooth_Peripheral)?.cbElementInstance,
-            let cbService = cbElementInstance {
-            clear()
-            var characteristics: [CBUUID]! = inCharacteristics.compactMap { CBUUID(string: $0) }
+        _discoveryFilter = inCharacteristics.compactMap { CBUUID(string: $0) }
 
-            if characteristics?.isEmpty ?? false {
-                characteristics = scanCriteria?.characteristics?.compactMap { CBUUID(string: $0) }
-            }
-            
-            if characteristics?.isEmpty ?? false {
-                characteristics = nil
-            }
-            
-            #if DEBUG
-                print("Discovering Characteristics for the \(self.id) Service.")
-            #endif
-            cbPeripheral.discoverCharacteristics(characteristics, for: cbService)
-        } else {
-            #if DEBUG
-                print("ERROR! Can't get service and peripheral!")
-            #endif
-            
-            central?.reportError(.internalError(nil))
+        if _discoveryFilter.isEmpty {
+            _discoveryFilter = scanCriteria?.characteristics?.compactMap { CBUUID(string: $0) } ?? []
         }
+        
+        startOver()
     }
     
     /* ################################################################## */
@@ -173,7 +162,7 @@ extension CGA_Bluetooth_Service {
         // The reason that we do this separately, is that I want to make sure that we have completely loaded up the staging Array before starting the discovery process.
         // Otherwise, it could short-circuit the load.
         stagedCharacteristics.forEach {
-            $0.discoverDescriptors()
+            $0.startOver()
         }
     }
     
@@ -205,12 +194,7 @@ extension CGA_Bluetooth_Service {
             central?.reportError(.internalError(nil))
         }
     }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - CGA_Class_UpdateDescriptor Conformance -
-/* ###################################################################################################################################### */
-extension CGA_Bluetooth_Service: CGA_Class_Protocol_UpdateDescriptor {
+    
     /* ################################################################## */
     /**
      This eliminates all of the stored and staged results.
@@ -222,6 +206,36 @@ extension CGA_Bluetooth_Service: CGA_Class_Protocol_UpdateDescriptor {
         
         stagedCharacteristics = []
         sequence_contents = []
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - CGA_Class_UpdateDescriptor Conformance -
+/* ###################################################################################################################################### */
+extension CGA_Bluetooth_Service: CGA_Class_Protocol_UpdateDescriptor {
+    /* ################################################################## */
+    /**
+     This eliminates all of the stored results, and asks the Bluetooth subsystem to start over from scratch.
+     */
+    func startOver() {
+        guard let cbElementInstance = cbElementInstance else {
+            #if DEBUG
+                print("ERROR! No CBService!")
+            #endif
+            
+            central?.reportError(.internalError(nil))
+
+            return
+        }
+        #if DEBUG
+            print("Starting The Characteristic Discovery Over From Scratch for \(self.id).")
+        #endif
+        
+        clear()
+        
+        let filters: [CBUUID]! = _discoveryFilter.isEmpty ? nil : _discoveryFilter
+
+        peripheral?.cbElementInstance?.discoverCharacteristics(filters, for: cbElementInstance)
     }
 }
 
