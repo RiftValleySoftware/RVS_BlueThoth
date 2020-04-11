@@ -76,17 +76,13 @@ class CGA_Bluetooth_Service: RVS_SequenceProtocol {
     /**
      This will contain any required scan criteria. It simply passes on the Central criteria.
      */
-    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! {
-        return (parent as? CGA_Bluetooth_Peripheral)?.scanCriteria
-    }
+    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! { peripheral?.scanCriteria }
     
     /* ################################################################## */
     /**
      This returns a unique UUID String for the instance.
      */
-    var id: String {
-        cbElementInstance?.uuid.uuidString ?? "ERROR"
-    }
+    var id: String { cbElementInstance?.uuid.uuidString ?? "ERROR" }
     
     /* ################################################################## */
     /**

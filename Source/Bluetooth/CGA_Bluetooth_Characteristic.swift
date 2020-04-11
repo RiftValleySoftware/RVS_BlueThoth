@@ -91,7 +91,7 @@ extension CGA_Bluetooth_Characteristic {
     /**
      This will contain any required scan criteria. It simply passes on the Central criteria.
      */
-    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! { (parent as? CGA_Bluetooth_Service)?.scanCriteria }
+    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! { service?.scanCriteria }
 
     /* ################################################################## */
     /**
@@ -206,10 +206,9 @@ extension CGA_Bluetooth_Characteristic {
     
     /* ################################################################## */
     /**
+     TODO: NOT IMPLEMENTED YET
      */
-    var intValue: Int64? {
-        return nil
-    }
+    var intValue: Int64? { nil }
 }
 
 /* ###################################################################################################################################### */
