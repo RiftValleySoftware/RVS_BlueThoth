@@ -46,6 +46,12 @@ class CGA_CharacteristicViewController: UIViewController {
     
     /* ################################################################## */
     /**
+     This implements a "pull to refresh."
+     */
+    private let _refreshControl = UIRefreshControl()
+
+    /* ################################################################## */
+    /**
      The Characteristic that is associated with this view controller.
      */
     var characteristicInstance: CGA_Bluetooth_Characteristic!
@@ -55,6 +61,25 @@ class CGA_CharacteristicViewController: UIViewController {
      This is the table that will list the descriptors.
      */
     @IBOutlet weak var descriptorsTableView: UITableView!
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Callback/Observer Methods -
+/* ###################################################################################################################################### */
+extension CGA_CharacteristicViewController {
+    /* ################################################################## */
+    /**
+     This is called by the table's "pull to refresh" handler.
+     
+     When this is called, the Characteristic wipes out its Descriptors, and starts over from scratch.
+     
+     - parameter: ignored.
+     */
+    @objc func startOver(_: Any) {
+        characteristicInstance?.startOver()
+        _refreshControl.endRefreshing()
+        updateUI()
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -81,6 +106,8 @@ extension CGA_CharacteristicViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = characteristicInstance?.id.localizedVariant
+        descriptorsTableView?.refreshControl = _refreshControl
+        _refreshControl.addTarget(self, action: #selector(startOver(_:)), for: .valueChanged)
     }
 }
 

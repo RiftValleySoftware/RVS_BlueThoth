@@ -174,18 +174,25 @@ extension CGA_Bluetooth_Service {
      */
     func addCharacteristic(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
         if let characteristic = inCharacteristic.cbElementInstance {
-            #if DEBUG
-                print("Adding the \(characteristic.uuid.uuidString) Characteristic to the \(self.id) Service.")
-            #endif
-            stagedCharacteristics.removeThisCharacteristic(characteristic)
-            sequence_contents.append(inCharacteristic)
-            
-            if stagedCharacteristics.isEmpty {
+            if stagedCharacteristics.contains(characteristic) {
                 #if DEBUG
-                    print("All Characteristics fulfilled. Adding this Service: \(self.id) to this Peripheral: \((parent as? CGA_Bluetooth_Peripheral)?.id ?? "ERROR")")
+                    print("Adding the \(characteristic.uuid.uuidString) Characteristic to the \(self.id) Service.")
                 #endif
-                (parent as? CGA_Bluetooth_Peripheral)?.addService(self)
+                stagedCharacteristics.removeThisCharacteristic(characteristic)
+                sequence_contents.append(inCharacteristic)
+                
+                if stagedCharacteristics.isEmpty {
+                    #if DEBUG
+                        print("All Characteristics fulfilled. Adding this Service: \(self.id) to this Peripheral: \((parent as? CGA_Bluetooth_Peripheral)?.id ?? "ERROR")")
+                    #endif
+                    (parent as? CGA_Bluetooth_Peripheral)?.addService(self)
+                }
+            } else {
+                #if DEBUG
+                    print("The \(characteristic.uuid.uuidString) Characteristic will not be added to the \(self.id) Service, as it is not staged.")
+                #endif
             }
+            central?.updateThisCharacteristic(inCharacteristic)
         } else {
             #if DEBUG
                 print("ERROR! \(String(describing: inCharacteristic)) does not have a CBCharacteristic instance.")

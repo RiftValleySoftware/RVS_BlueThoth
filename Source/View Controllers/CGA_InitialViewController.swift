@@ -390,7 +390,21 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
     func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, willDisconnectThisDevice inDevice: CGA_Bluetooth_Peripheral) {
         _resetToRoot()
     }
-
+    
+    /* ################################################################## */
+    /**
+     Called to tell the instance that a Service changed.
+     
+     - parameter inCentralManager: The central manager that is calling this.
+     - parameter device: The device instance that contained the changed Service.
+     - parameter changedService: The Service instance that contained the changed Characteristic.
+     */
+    func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, device inDevice: CGA_Bluetooth_Peripheral, changedService inService: CGA_Bluetooth_Service) {
+        if let currentScreen = _currentDeviceScreen as? CGA_ServiceViewController {
+            currentScreen.updateUI()
+        }
+    }
+    
     /* ################################################################## */
     /**
      Called to tell the instance that a Characteristic changed its value.
@@ -401,12 +415,16 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
      - parameter changedCharacteristic: The Characteristic that was changed.
      */
     func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, changedCharacteristic inCharacteristic: CGA_Bluetooth_Characteristic) {
-        _currentDeviceScreen?.updateUI()
+        if let currentScreen = _currentDeviceScreen as? CGA_ServiceViewController {
+            currentScreen.updateUI()
+        } else if let currentScreen = _currentDeviceScreen as? CGA_CharacteristicViewController {
+            currentScreen.updateUI()
+        }
     }
-    
+
     /* ################################################################## */
     /**
-     Called to tell the instance that a Descriptor changed its value.
+     Called to tell the instance that a Descriptor changed.
      
      - parameter inCentralManager: The central manager that is calling this.
      - parameter device: The device instance that contained the changed Service.
@@ -415,7 +433,9 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
      - parameter changedDescriptor: The Descriptor that was changed.
      */
     func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, characteristic inCharacteristic: CGA_Bluetooth_Characteristic, changedDescriptor inDescriptor: CGA_Bluetooth_Descriptor) {
-        _currentDeviceScreen?.updateUI()
+        if let currentScreen = _currentDeviceScreen as? CGA_CharacteristicViewController {
+            currentScreen.updateUI()
+        }
     }
 }
 

@@ -1,6 +1,6 @@
 ![Icon](icon.png)
 
-ClassicalGas
+Blue Van Clef
 =
 
-This is a "Bluetooth Explorer" app that was written in order to demonstrate using Bluetooth Classic in iOS, using CoreBluetooth.
+This is a "Bluetooth Explorer" app that was written in order to develop a general-purpose Core Bluetooth "Wrapper" SDK, and learn Bluetooth.

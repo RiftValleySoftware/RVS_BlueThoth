@@ -58,7 +58,7 @@
 		D4979EDC243123220068F327 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		D4A53AAB24312F2F009647C4 /* RVS_PersistentPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RVS_PersistentPrefs.swift; path = Carthage/Checkouts/RVS_PersistentPrefs/RVS_Persistent_Prefs/RVS_PersistentPrefs.swift; sourceTree = "<group>"; };
 		D4A53AAD24312F50009647C4 /* RVS_String_Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RVS_String_Extensions.swift; path = Carthage/Checkouts/RVS_Generic_Swift_Toolbox/src/Extensions/RVS_String_Extensions.swift; sourceTree = "<group>"; };
-		D4B1C6832430F26800D3AC78 /* ClassicalGas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClassicalGas.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4B1C6832430F26800D3AC78 /* Blue Van Clef.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blue Van Clef.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4C3B62924312EE700CD5629 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
 		D4CAA4262434E877007C72AA /* CGA_PeripheralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_PeripheralViewController.swift; sourceTree = "<group>"; };
 		D4D53D0D243E480F00FBD897 /* CGA_Bluetooth_Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Protocols.swift; sourceTree = "<group>"; };
@@ -80,7 +80,7 @@
 		D420C895242FCD5600FCB9E0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D4B1C6832430F26800D3AC78 /* ClassicalGas.app */,
+				D4B1C6832430F26800D3AC78 /* Blue Van Clef.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -177,9 +177,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D4B1C6822430F26800D3AC78 /* ClassicalGas */ = {
+		D4B1C6822430F26800D3AC78 /* Blue Van Clef */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D4B1C6942430F26800D3AC78 /* Build configuration list for PBXNativeTarget "ClassicalGas" */;
+			buildConfigurationList = D4B1C6942430F26800D3AC78 /* Build configuration list for PBXNativeTarget "Blue Van Clef" */;
 			buildPhases = (
 				D4A6A8652430F4430084F102 /* SwiftLint */,
 				D4B1C67F2430F26800D3AC78 /* Sources */,
@@ -189,9 +189,9 @@
 			);
 			dependencies = (
 			);
-			name = ClassicalGas;
+			name = "Blue Van Clef";
 			productName = ClassicalGas;
-			productReference = D4B1C6832430F26800D3AC78 /* ClassicalGas.app */;
+			productReference = D4B1C6832430F26800D3AC78 /* Blue Van Clef.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -222,7 +222,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D4B1C6822430F26800D3AC78 /* ClassicalGas */,
+				D4B1C6822430F26800D3AC78 /* Blue Van Clef */,
 			);
 		};
 /* End PBXProject section */
@@ -459,8 +459,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.littlegreenviper.ClassicalGas;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.littlegreenviper.BlueVanClef;
+				PRODUCT_NAME = "Blue Van Clef";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -481,8 +481,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.littlegreenviper.ClassicalGas;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.littlegreenviper.BlueVanClef;
+				PRODUCT_NAME = "Blue Van Clef";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -502,7 +502,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D4B1C6942430F26800D3AC78 /* Build configuration list for PBXNativeTarget "ClassicalGas" */ = {
+		D4B1C6942430F26800D3AC78 /* Build configuration list for PBXNativeTarget "Blue Van Clef" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D4B1C6952430F26800D3AC78 /* Debug */,

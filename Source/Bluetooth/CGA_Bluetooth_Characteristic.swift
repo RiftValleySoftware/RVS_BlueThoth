@@ -30,6 +30,18 @@ import CoreBluetooth
  This class "wraps" instances of CBCharacteristic, adding some functionality, and linking the hierarchy.
  */
 class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
+    struct ExtensionProperties: OptionSet {
+        let rawValue: UInt16
+        
+        static let notifications = 1 << 0
+        
+        static let indications = 1 << 1
+        
+        init(rawValue inRawValue: UInt16 = 0) {
+            rawValue = inRawValue
+        }
+    }
+    
     /* ################################################################## */
     /**
      This is the type we're aggregating.
@@ -89,64 +101,96 @@ extension CGA_Bluetooth_Characteristic {
     
     /* ################################################################## */
     /**
+     Returns true, if the Characteristic can write (eithe with or without response).
      */
     var canWrite: Bool { canWriteWithResponse || canWriteWithoutResponse }
     
     /* ################################################################## */
     /**
+     Returns true, if the Characteristic can write, and returns a receipt response.
      */
     var canWriteWithResponse: Bool { cbElementInstance?.properties.contains(.write) ?? false }
     
     /* ################################################################## */
     /**
+     Returns true, if the Characteristic can write, and does not return a response.
      */
     var canWriteWithoutResponse: Bool { cbElementInstance?.properties.contains(.writeWithoutResponse) ?? false }
 
     /* ################################################################## */
     /**
+     Returns true, if the Characteristic can be read.
      */
     var canRead: Bool { cbElementInstance?.properties.contains(.read) ?? false }
     
     /* ################################################################## */
     /**
+     Returns true, if the Characteristic can notify.
      */
     var canNotify: Bool { cbElementInstance?.properties.contains(.notify) ?? false }
     
     /* ################################################################## */
     /**
+     Returns true, if the Characteristic can broadcast.
      */
     var canBroadcast: Bool { cbElementInstance?.properties.contains(.broadcast) ?? false }
     
     /* ################################################################## */
     /**
+     Returns true, if the Characteristic can indicate.
      */
     var canIndicate: Bool { cbElementInstance?.properties.contains(.indicate) ?? false }
     
     /* ################################################################## */
     /**
+     Returns true, if the Characteristic is currently notifying.
+     */
+    var isNotifying: Bool { cbElementInstance?.isNotifying ?? false }
+
+    /* ################################################################## */
+    /**
+     Returns true, if the Characteristic requires authenticated writes.
      */
     var requiresAuthenticatedSignedWrites: Bool { cbElementInstance?.properties.contains(.authenticatedSignedWrites) ?? false }
     
     /* ################################################################## */
     /**
+     Returns true, if the Characteristic requires encrypted notification.
      */
     var requiresNotifyEncryption: Bool { cbElementInstance?.properties.contains(.notifyEncryptionRequired) ?? false }
     
     /* ################################################################## */
     /**
+     Returns true, if the Characteristic requires encrypted indicates.
      */
     var requiresIndicateEncryption: Bool { cbElementInstance?.properties.contains(.indicateEncryptionRequired) ?? false }
     
     /* ################################################################## */
     /**
+     Returns true, if the Characteristic has extension properties.
      */
     var hasExtendedProperties: Bool { cbElementInstance?.properties.contains(.extendedProperties) ?? false }
     
     /* ################################################################## */
     /**
+     This will return any extension properties, as an OptionSet, or nil, if there are none.
+     */
+    var extendedProperties: ExtensionProperties? {
+        guard hasExtendedProperties else { return nil }
+        
+        let extensionDescriptors = sequence_contents.filter { CBUUIDCharacteristicExtendedPropertiesString == $0.cbElementInstance.uuid.uuidString }
+        if  1 == extensionDescriptors.count,
+            let value = extensionDescriptors[0].value as? NSNumber {
+            return ExtensionProperties(rawValue: value.uint16Value)
+        }
+        return nil
+    }
+
+    /* ################################################################## */
+    /**
      If the Characteristic has a value, it is returned here.
      */
-    var value: Data! { cbElementInstance?.value }
+    var value: Data? { cbElementInstance?.value }
     
     /* ################################################################## */
     /**
@@ -158,7 +202,14 @@ extension CGA_Bluetooth_Characteristic {
     /**
      If the Characteristic has a value, and that value can be expressed as a String, it is returned here.
      */
-    var stringValue: String! { nil != value ? String(data: value, encoding: .utf8) : nil }
+    var stringValue: String? { nil != value ? String(data: value!, encoding: .utf8) : nil }
+    
+    /* ################################################################## */
+    /**
+     */
+    var intValue: Int64? {
+        return nil
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -189,6 +240,7 @@ extension CGA_Bluetooth_Characteristic {
             print("Adding the \(inDescriptor.id) Descriptor to the \(self.id) Characteristic.")
         #endif
         sequence_contents.append(inDescriptor)
+        central?.updateThisDescriptor(inDescriptor)
     }
     
     /* ################################################################## */
@@ -205,7 +257,7 @@ extension CGA_Bluetooth_Characteristic {
             peripheral.readValue(for: cbElementInstance)
         }
     }
-
+    
     /* ################################################################## */
     /**
      This eliminates all of the stored Descriptors.

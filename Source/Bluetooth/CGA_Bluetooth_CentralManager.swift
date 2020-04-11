@@ -476,6 +476,21 @@ extension CGA_Bluetooth_CentralManager {
     
     /* ################################################################## */
     /**
+     This is called to send a Service update message to the delegate.
+     */
+    private func _sendServiceUpdate(_ inService: CGA_Bluetooth_Service) {
+        DispatchQueue.main.async {
+            #if DEBUG
+                print("Sending a Service Update message to the delegate.")
+            #endif
+            if  let device = inService.peripheral {
+                self.delegate?.centralManager(self, device: device, changedService: inService)
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
      This is called to send a Characteristic update message to the delegate.
      */
     private func _sendCharacteristicUpdate(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
@@ -486,6 +501,23 @@ extension CGA_Bluetooth_CentralManager {
             if  let service = inCharacteristic.service,
                 let device = service.peripheral {
                 self.delegate?.centralManager(self, device: device, service: service, changedCharacteristic: inCharacteristic)
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called to send a Descriptor update message to the delegate.
+     */
+    private func _sendDescriptorUpdate(_ inDescriptor: CGA_Bluetooth_Descriptor) {
+        DispatchQueue.main.async {
+            #if DEBUG
+                print("Sending a Descriptor Update message to the delegate.")
+            #endif
+            if  let characteristic = inDescriptor.characteristic,
+                let service = characteristic.service,
+                let device = service.peripheral {
+                self.delegate?.centralManager(self, device: device, service: service, characteristic: characteristic, changedDescriptor: inDescriptor)
             }
         }
     }
@@ -735,6 +767,16 @@ extension CGA_Bluetooth_CentralManager: CGA_Class_Protocol_UpdateDescriptor {
     
     /* ################################################################## */
     /**
+     This is called to inform an instance that a Service changed.
+     
+     - parameter inService: The Service wrapper instance that changed.
+     */
+    func updateThisService(_ inService: CGA_Bluetooth_Service) {
+        _sendServiceUpdate(inService)
+    }
+    
+    /* ################################################################## */
+    /**
      This is called to inform an instance that a Characteristic downstream changed.
      
      - parameter inCharacteristic: The Characteristic wrapper instance that changed.
@@ -750,6 +792,7 @@ extension CGA_Bluetooth_CentralManager: CGA_Class_Protocol_UpdateDescriptor {
      - parameter inDescriptor: The Descriptor wrapper instance that changed.
      */
     func updateThisDescriptor(_ inDescriptor: CGA_Bluetooth_Descriptor) {
+        _sendDescriptorUpdate(inDescriptor)
     }
     
     /* ################################################################## */
@@ -947,7 +990,6 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
             
             peripheralObject.clear()
             peripheralInstance.discoveryData?.peripheralInstance = nil
-
             removePeripheral(peripheralObject)
         }
     }
