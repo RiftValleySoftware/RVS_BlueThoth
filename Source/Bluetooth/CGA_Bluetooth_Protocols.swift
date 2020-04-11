@@ -499,9 +499,7 @@ extension Array where Element == CGA_Bluetooth_Peripheral {
      - returns: The found Element, or nil, if not found.
      */
     func characteristic(_ inItem: CBCharacteristic) -> CGA_Bluetooth_Characteristic! {
-        reduce(nil) { (current, next) in
-            nil == current ? next.sequence_contents.characteristic(inItem) : current
-        }
+        reduce(nil) { (current, next) in nil == current ? next.sequence_contents.characteristic(inItem) : current }
     }
 
     /* ################################################################## */
@@ -557,9 +555,7 @@ extension Array where Element == CBCharacteristic {
      - returns: The found Element, or nil, if not found.
      */
     subscript(_ inItem: CBCharacteristic) -> Element! {
-        reduce(nil) { (current, nextItem) in
-            nil != current ? current : ((nextItem === inItem || nextItem.uuid == inItem.uuid) ? nextItem : nil)
-        }
+        reduce(nil) { (current, nextItem) in nil != current ? current : ((nextItem === inItem || nextItem.uuid == inItem.uuid) ? nextItem : nil) }
     }
 }
 

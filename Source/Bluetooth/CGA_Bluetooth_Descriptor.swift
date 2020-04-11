@@ -52,17 +52,13 @@ class CGA_Bluetooth_Descriptor {
     /**
      This will contain any required scan criteria. It simply passes on the Central criteria.
      */
-    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! {
-        return (parent as? CGA_Bluetooth_Characteristic)?.scanCriteria
-    }
+    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! { characteristic?.scanCriteria }
     
     /* ################################################################## */
     /**
      This returns a unique UUID String for the instance.
      */
-    var id: String {
-        cbElementInstance?.uuid.uuidString ?? "ERROR"
-    }
+    var id: String { cbElementInstance?.uuid.uuidString ?? "ERROR" }
     
     /* ################################################################## */
     /**
@@ -83,11 +79,7 @@ class CGA_Bluetooth_Descriptor {
 extension CGA_Bluetooth_Descriptor: CGA_Class_Protocol {
     /* ################################################################## */
     /**
-     This eliminates any stored data.
+     This does nothing for this "leaf" class.
      */
-    func clear() {
-        #if DEBUG
-            print("Clearing the decks for a Descriptor: \(self.id).")
-        #endif
-    }
+    func clear() { }
 }

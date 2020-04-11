@@ -67,9 +67,7 @@ class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
     /**
      Quick access to the app delegate object.
      */
-    class var appDelegateObject: CGA_AppDelegate! {
-        return UIApplication.shared.delegate as? CGA_AppDelegate
-    }
+    class var appDelegateObject: CGA_AppDelegate! { UIApplication.shared.delegate as? CGA_AppDelegate }
 
     /* ################################################################## */
     /**
@@ -79,10 +77,7 @@ class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
     /* ################################################################## */
     /**
      */
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        return true
-    }
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool { true }
 }
 
 /* ###################################################################################################################################### */
