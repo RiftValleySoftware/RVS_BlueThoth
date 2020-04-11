@@ -65,7 +65,7 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
         /**
          This returns true, if all of the specifiers are nil or empty.
          */
-        var isEmpty: Bool { (nil == peripherals || peripherals.isEmpty) && (nil == services || services.isEmpty) && (nil == characteristics || characteristics.isEmpty) }
+        var isEmpty: Bool { (peripherals?.isEmpty ?? false) && (services?.isEmpty ?? false) && (characteristics?.isEmpty ?? false) }
     }
     
     /* ################################################################################################################################## */
