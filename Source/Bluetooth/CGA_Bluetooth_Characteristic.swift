@@ -149,6 +149,12 @@ extension CGA_Bluetooth_Characteristic {
 
     /* ################################################################## */
     /**
+     Returns the maximum number of bytes that can be written for this Peripheral.
+     */
+    var maximumWriteLength: Int { service?.peripheral?.cbElementInstance?.maximumWriteValueLength(for: canWriteWithoutResponse ? .withoutResponse : .withResponse) ?? 0 }
+    
+    /* ################################################################## */
+    /**
      Returns true, if the Characteristic requires authenticated writes.
      */
     var requiresAuthenticatedSignedWrites: Bool { cbElementInstance?.properties.contains(.authenticatedSignedWrites) ?? false }
@@ -267,6 +273,41 @@ extension CGA_Bluetooth_Characteristic {
         #endif
         
         sequence_contents = []
+    }
+    
+    /* ################################################################## */
+    /**
+     Tells the Peripheral to start notifying on this Characteristic.
+     
+     - returns: True, if the request was made (not a guarantee of success, though). Can be ignored.
+     */
+    @discardableResult
+    func startNotifying() -> Bool {
+        if  let characteristic = cbElementInstance,
+            let peripheral = service?.peripheral?.cbElementInstance {
+            peripheral.setNotifyValue(true, for: characteristic)
+            return true
+        }
+        
+        return false
+    }
+    
+    /* ################################################################## */
+    /**
+     Tells the Peripheral to stop notifying on this Characteristic.
+     
+     - returns: True, if the request was made (not a guarantee of success, though). Can be ignored.
+     */
+    @discardableResult
+    func stopNotifying() -> Bool {
+        if  isNotifying,
+            let characteristic = cbElementInstance,
+            let peripheral = service?.peripheral?.cbElementInstance {
+            peripheral.setNotifyValue(false, for: characteristic)
+            return true
+        }
+        
+        return false
     }
 }
 

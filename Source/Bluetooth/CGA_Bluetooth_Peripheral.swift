@@ -78,6 +78,25 @@ class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
      */
     var central: CGA_Bluetooth_CentralManager? { parent?.central }
 
+    /* ############################################################## */
+    /**
+     The Peripheral is capable of sending writes back (without response).
+     */
+    var canSendWriteWithoutResponse: Bool { discoveryData.canSendWriteWithoutResponse }
+    
+    /* ############################################################## */
+    /**
+     This is the signal strength, at the time of discovery, in dBm.
+     This is also updated, as we receive RSSI change notifications.
+     */
+    var rssi: Int { discoveryData.rssi }
+    
+    /* ############################################################## */
+    /**
+     Returns true, if the peripheral is authorized to receive data over the ANCS protocol.
+     */
+    var isANCSAuthorized: Bool { discoveryData.isANCSAuthorized }
+
     /* ################################################################## */
     /**
      This will contain any required scan criteria. It simply passes on the Central criteria.
@@ -177,6 +196,14 @@ extension CGA_Bluetooth_Peripheral {
         let services: [CBUUID]! = _discoveryFilter.isEmpty ? nil : _discoveryFilter
         cbElementInstance?.discoverServices(services)
     }
+    
+    /* ################################################################## */
+    /**
+     Request that the RSSI be updated.
+     */
+    func updateRSSI() {
+        cbElementInstance?.readRSSI()
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -214,6 +241,29 @@ extension CGA_Bluetooth_Peripheral: CGA_Class_Protocol_UpdateDescriptor {
 // MARK: - CBPeripheralDelegate Conformance -
 /* ###################################################################################################################################### */
 extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
+    /* ################################################################## */
+    /**
+     Called when the RSSI changes.
+     
+     - parameter inPeripheral: The CBPeripheral that has discovered Services.
+     - parameter didReadRSSI: The new RSSI value, in dBm.
+     - parameter error: Any error that may have occured. Hopefully, it is nil.
+     */
+    func peripheral(_ inPeripheral: CBPeripheral, didReadRSSI inRSSI: NSNumber, error inError: Error?) {
+        if let error = inError {
+            #if DEBUG
+                print("ERROR!: \(error.localizedDescription)")
+            #endif
+            central?.reportError(.internalError(error))
+        } else {
+            #if DEBUG
+                print("RSSI: \(inRSSI) updated for the Peripheral: \(id)")
+            #endif
+            discoveryData.rssi = inRSSI.intValue
+            central?.updateThisDevice(self)
+        }
+    }
+    
     /* ################################################################## */
     /**
      Called when the Peripheral has discovered its Services.
@@ -407,5 +457,37 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             
             service.startOver()
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the notification state for a Characteristic changes.
+     
+     - parameter inPeripheral: The CBPeripheral that has the modified Characteristic.
+     - parameter didUpdateNotificationStateFor: The Characteristic that had its notification state changed.
+     - parameter error: Any error that may have occured. Hopefully, it is nil.
+     */
+    func peripheral(_ inPeripheral: CBPeripheral, didUpdateNotificationStateFor inCharacteristic: CBCharacteristic, error inError: Error?) {
+        if let error = inError {
+            #if DEBUG
+                print("ERROR!: \(error.localizedDescription)")
+            #endif
+            central?.reportError(.internalError(error))
+        } else if let characteristic = sequence_contents.characteristic(inCharacteristic) {
+            central?.updateThisCharacteristic(characteristic)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the Peripheral is ready to listen to our advice.
+     This can come some time after a failed write attempt.
+     
+     - parameter toSendWriteWithoutResponse: The CBPeripheral that is now ready.
+     */
+    func peripheralIsReady(toSendWriteWithoutResponse inPeripheral: CBPeripheral) {
+        #if DEBUG
+            print("Received a Ready to Write Message From the Peripheral \(inPeripheral.identifier.uuidString).")
+        #endif
     }
 }

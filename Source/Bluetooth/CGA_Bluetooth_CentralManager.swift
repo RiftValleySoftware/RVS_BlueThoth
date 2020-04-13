@@ -65,7 +65,7 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
         /**
          This returns true, if all of the specifiers are nil or empty.
          */
-        var isEmpty: Bool { (nil == peripherals || peripherals.isEmpty) && (nil == services || services.isEmpty) && (nil == characteristics || characteristics.isEmpty) }
+        var isEmpty: Bool { (peripherals?.isEmpty ?? false) && (services?.isEmpty ?? false) && (characteristics?.isEmpty ?? false) }
     }
     
     /* ################################################################################################################################## */
@@ -82,8 +82,9 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
         /* ############################################################## */
         /**
          This is the signal strength, at the time of discovery, in dBm.
+         This is also updated, as we receive RSSI change notifications.
          */
-        let rssi: Int
+        var rssi: Int
         
         /* ################################################################## */
         /**
@@ -114,6 +115,12 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
             }
         }
         
+        /* ############################################################## */
+        /**
+         The Peripheral is capable of sending writes back (without response).
+         */
+        var canSendWriteWithoutResponse: Bool { cbPeripheral?.canSendWriteWithoutResponse ?? false }
+
         /* ############################################################## */
         /**
          The assigned Peripheral Name
@@ -177,6 +184,12 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
          Returns true, if the peripheral is currently connected.
          */
         var isConnected: Bool { .connected == cbPeripheral?.state }
+        
+        /* ############################################################## */
+        /**
+         Returns true, if the peripheral is authorized to receive data over the ANCS protocol.
+         */
+        var isANCSAuthorized: Bool { cbPeripheral?.ancsAuthorized ?? false }
         
         /* ################################################################## */
         /**
@@ -472,6 +485,19 @@ extension CGA_Bluetooth_CentralManager {
     
     /* ################################################################## */
     /**
+     This is called to send a Device update message to the delegate.
+     */
+    private func _sendDeviceUpdate(_ inDevice: CGA_Bluetooth_Peripheral) {
+        DispatchQueue.main.async {
+            #if DEBUG
+                print("Sending a Device Update message to the delegate.")
+            #endif
+            self.delegate?.centralManager(self, deviceInfoChanged: inDevice)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
      This is called to send a Service update message to the delegate.
      */
     private func _sendServiceUpdate(_ inService: CGA_Bluetooth_Service) {
@@ -484,7 +510,7 @@ extension CGA_Bluetooth_CentralManager {
             }
         }
     }
-    
+
     /* ################################################################## */
     /**
      This is called to send a Characteristic update message to the delegate.
@@ -763,6 +789,16 @@ extension CGA_Bluetooth_CentralManager: CGA_Class_Protocol_UpdateDescriptor {
     
     /* ################################################################## */
     /**
+     This is called to inform an instance that a Device changed.
+     
+     - parameter inDevice: The Peripheral wrapper instance that changed.
+     */
+    func updateThisDevice(_ inDevice: CGA_Bluetooth_Peripheral) {
+        _sendDeviceUpdate(inDevice)
+    }
+    
+    /* ################################################################## */
+    /**
      This is called to inform an instance that a Service changed.
      
      - parameter inService: The Service wrapper instance that changed.
@@ -770,7 +806,7 @@ extension CGA_Bluetooth_CentralManager: CGA_Class_Protocol_UpdateDescriptor {
     func updateThisService(_ inService: CGA_Bluetooth_Service) {
         _sendServiceUpdate(inService)
     }
-    
+
     /* ################################################################## */
     /**
      This is called to inform an instance that a Characteristic downstream changed.
@@ -811,6 +847,23 @@ extension CGA_Bluetooth_CentralManager: CGA_Class_Protocol_UpdateDescriptor {
 // MARK: - CBCentralManagerDelegate Conformance -
 /* ###################################################################################################################################### */
 extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
+    /* ################################################################## */
+    /**
+     This is called when a Peripheral's ANCS authorization state changes.
+     
+     - parameter inCentralManager: The CBCentralManager instance that is calling this.
+     - parameter didUpdateANCSAuthorizationFor: The Peripheral that had its authorization change state.
+     */
+    func centralManager(_ inCentralManager: CBCentralManager, didUpdateANCSAuthorizationFor inPeripheral: CBPeripheral) {
+        #if DEBUG
+            print("The ANCS authorization state for the Peripheral \(inPeripheral.identifier.uuidString) changed to \(inPeripheral.ancsAuthorized ? "true" : "false").")
+        #endif
+        
+        if let device = (sequence_contents[inPeripheral] ?? stagedBLEPeripherals[inPeripheral].peripheralInstance) {
+            updateThisDevice(device)
+        }
+    }
+    
     /* ################################################################## */
     /**
      This is called when the CentralManager state updates.
@@ -1009,4 +1062,8 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
             central?.reportError(.internalError(error))
         }
     }
+}
+
+extension CBPeripheral {
+    var uuid: CBUUID { CBUUID(nsuuid: identifier) }
 }

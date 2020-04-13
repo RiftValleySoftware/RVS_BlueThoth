@@ -26,11 +26,38 @@ import UIKit
 // MARK: - The CGA_DetailViewController_TableRow Class (Denotes One Row of the Table) -
 /* ###################################################################################################################################### */
 /**
+ Our table cells have three rows.
  */
 class CGA_ServiceViewController_TableRow: UITableViewCell {
+    /* ################################################################## */
+    /**
+     The label at the top, containing the Characteristic ID
+     */
     @IBOutlet weak var characteristicIDLabel: UILabel!
+    /* ################################################################## */
+    /**
+     The horizontal stack view in the middle, showing our various flags (and maybe the NOTIFY button).
+     */
     @IBOutlet weak var propertiesStackView: UIStackView!
+    /* ################################################################## */
+    /**
+     The label at the bottom, containing the Characteristic value, if it can be expressed as a String.
+     */
     @IBOutlet weak var valueLabel: UILabel!
+}
+
+/* ###################################################################################################################################### */
+// MARK: - A Special Tap Gesture Recognizer for Table Rows -
+/* ###################################################################################################################################### */
+/**
+ This simply allows us to attach a row index to a gesture, so we know which Characteristic to use.
+ */
+class CG_TapGestureRecognizer: UITapGestureRecognizer {
+    /* ################################################################## */
+    /**
+     the 0-based row index of the Characteristic table row that corresponds to our Characteristic.
+     */
+    var rowIndex: Int = 0
 }
 
 /* ###################################################################################################################################### */
@@ -52,6 +79,12 @@ class CGA_ServiceViewController: UIViewController {
      */
     private static let _characteristicDetailSegueID = "show-characteristic-detail"
     
+    /* ################################################################## */
+    /**
+     The margin we use for our labels.
+     */
+    private static let _marginToFlagLabel: CGFloat = 4.0
+
     /* ################################################################## */
     /**
      This implements a "pull to refresh."
@@ -87,6 +120,40 @@ extension CGA_ServiceViewController {
         serviceInstance?.startOver()
         _refreshControl.endRefreshing()
         updateUI()
+    }
+    
+    /* ################################################################## */
+    /**
+     This is a gesture callback for a single-tap in a row, and the Characteristic can notify.
+     It toggles the notify state of the Characteristic.
+     
+     - parameter inGestureRecognizer: The special gesture recognizer, with our row index.
+     */
+    @objc func notifyTapped(_ inGestureRecognizer: CG_TapGestureRecognizer) {
+        if  let characteristicInstance = serviceInstance?[inGestureRecognizer.rowIndex],
+            characteristicInstance.canNotify {
+            if characteristicInstance.isNotifying {
+                characteristicInstance.stopNotifying()
+            } else {
+                characteristicInstance.startNotifying()
+            }
+            characteristicsTableView?.reloadData()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This is a gesture callback for a double-tap in a row, and the Characteristic has descriptors.
+     It causes the Descriptor List screen to appear.
+     
+     - parameter inGestureRecognizer: The special gesture recognizer, with our row index.
+     */
+    @objc func descriptorTapped(_ inGestureRecognizer: CG_TapGestureRecognizer) {
+        if  let characteristic = serviceInstance?[inGestureRecognizer.rowIndex],
+            0 < characteristic.count {
+            performSegue(withIdentifier: Self._characteristicDetailSegueID, sender: characteristic)
+            characteristicsTableView.deselectRow(at: IndexPath(row: inGestureRecognizer.rowIndex, section: 0), animated: false)
+        }
     }
 }
 
@@ -238,61 +305,60 @@ extension CGA_ServiceViewController: UITableViewDataSource {
                 let characteristic = serviceInstance?[inIndexPath.row]
         else { return UITableViewCell() }
         
-        tableCell.characteristicIDLabel?.textColor = UIColor(white: tableView(inTableView, shouldHighlightRowAt: inIndexPath) ? 1.0 : 0.75, alpha: 1.0)
+        tableCell.characteristicIDLabel?.textColor = UIColor(white: 0 < characteristic.count ? 1.0 : 0.75, alpha: 1.0)
         tableCell.characteristicIDLabel?.text = characteristic.id.localizedVariant
         
         // Populate the Properties view.
         tableCell.propertiesStackView.subviews.forEach { $0.removeFromSuperview() }
+        tableCell.gestureRecognizers?.forEach { $0.removeTarget(nil, action: nil) }
         _PropertyLabelGenerator(characteristic: characteristic).labels.forEach {
             if let view = $0 {
                 tableCell.propertiesStackView.addArrangedSubview(view)
                 view.translatesAutoresizingMaskIntoConstraints = false
-                view.topAnchor.constraint(equalTo: tableCell.propertiesStackView.topAnchor).isActive = true
-                view.bottomAnchor.constraint(equalTo: tableCell.propertiesStackView.bottomAnchor).isActive = true
+                view.topAnchor.constraint(equalTo: tableCell.propertiesStackView.topAnchor, constant: 0).isActive = true
+                view.bottomAnchor.constraint(equalTo: tableCell.propertiesStackView.bottomAnchor, constant: -Self._marginToFlagLabel).isActive = true
             }
+        }
+        
+        // This is the double-tap gesture recognizer for bringing in the Descriptors.
+        let gestureRecognizer = CG_TapGestureRecognizer(target: self, action: #selector(descriptorTapped(_:)))
+        gestureRecognizer.cancelsTouchesInView = true
+        gestureRecognizer.numberOfTouchesRequired = 1
+        gestureRecognizer.numberOfTapsRequired = 2
+        
+        if 0 < characteristic.count {   // Only if we have Descriptors.
+            tableCell.addGestureRecognizer(gestureRecognizer)
+        }
+
+        // If we can notify, we add a throbber to the end. It will animate when we are notifying.
+        if characteristic.canNotify {
+            let view = UIActivityIndicatorView(style: .large)
+            view.color = characteristic.isNotifying ? .green : .red
+            view.hidesWhenStopped = false
+            if characteristic.isNotifying {
+                view.startAnimating()
+            } else {
+                view.stopAnimating()
+            }
+            
+            tableCell.propertiesStackView.addArrangedSubview(view)
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.topAnchor.constraint(equalTo: tableCell.propertiesStackView.topAnchor, constant: 0).isActive = true
+
+            // We add a single-touch gesture recognizer.
+            let notifyGestureRecognizer = CG_TapGestureRecognizer(target: self, action: #selector(notifyTapped(_:)))
+            notifyGestureRecognizer.cancelsTouchesInView = true
+            notifyGestureRecognizer.numberOfTouchesRequired = 1
+            notifyGestureRecognizer.numberOfTapsRequired = 1
+            if 0 < characteristic.count {   // Only if we have Descriptors.
+                notifyGestureRecognizer.require(toFail: gestureRecognizer)
+            }
+            
+            tableCell.addGestureRecognizer(notifyGestureRecognizer)
         }
         
         tableCell.valueLabel.text = characteristic.stringValue ?? ""
         
         return tableCell
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - UITableViewDelegate Conformance -
-/* ###################################################################################################################################### */
-extension CGA_ServiceViewController: UITableViewDelegate {
-    /* ################################################################## */
-    /**
-     Called to test whether or not to allow a row to be selected.
-     
-     - parameter inTableView: The table view that is asking for the cell.
-     - parameter willSelectRowAt: The index path (section, row) for the cell.
-     - returns: The IndexPath of the cell, if approved, or nil, if not.
-     */
-    func tableView(_ inTableView: UITableView, willSelectRowAt inIndexPath: IndexPath) -> IndexPath? { 0 < (serviceInstance?[inIndexPath.row].count ?? 0) ? inIndexPath : nil }
-    
-    /* ################################################################## */
-    /**
-     Called to test whether or not to allow a row to be higlighted.
-     
-     This prevents the unselectable row from "flashing" when someone touches it.
-     
-     - parameter inTableView: The table view that is asking for the cell.
-     - parameter shouldHighlightRowAt: The index path (section, row) for the cell.
-     - returns: The IndexPath of the cell, if approved, or nil, if not.
-     */
-    func tableView(_ inTableView: UITableView, shouldHighlightRowAt inIndexPath: IndexPath) -> Bool { nil != tableView(inTableView, willSelectRowAt: inIndexPath) }
-
-    /* ################################################################## */
-    /**
-     Called when a row is selected.
-     
-     - parameter inTableView: The table view that is asking for the cell.
-     - parameter didSelectRowAt: The index path (section, row) for the cell.
-     */
-    func tableView(_ inTableView: UITableView, didSelectRowAt inIndexPath: IndexPath) {
-        performSegue(withIdentifier: Self._characteristicDetailSegueID, sender: serviceInstance?[inIndexPath.row])
-        inTableView.deselectRow(at: inIndexPath, animated: false)
     }
 }
