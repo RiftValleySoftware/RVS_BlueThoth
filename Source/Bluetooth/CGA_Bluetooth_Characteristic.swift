@@ -279,8 +279,9 @@ extension CGA_Bluetooth_Characteristic {
     /**
      Tells the Peripheral to start notifying on this Characteristic.
      
-     - returns: True, if the request was made (not a guarantee of success, though).
+     - returns: True, if the request was made (not a guarantee of success, though). Can be ignored.
      */
+    @discardableResult
     func startNotifying() -> Bool {
         if  let characteristic = cbElementInstance,
             let peripheral = service?.peripheral?.cbElementInstance {
@@ -295,8 +296,9 @@ extension CGA_Bluetooth_Characteristic {
     /**
      Tells the Peripheral to stop notifying on this Characteristic.
      
-     - returns: True, if the request was made (not a guarantee of success, though).
+     - returns: True, if the request was made (not a guarantee of success, though). Can be ignored.
      */
+    @discardableResult
     func stopNotifying() -> Bool {
         if  isNotifying,
             let characteristic = cbElementInstance,
