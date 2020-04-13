@@ -206,7 +206,7 @@ extension CGA_InitialViewController {
             CGA_AppDelegate.centralManager?.restartScanning()
         }
         
-        _updateUI()
+        updateUI()
     }
     
     /* ################################################################## */
@@ -253,13 +253,14 @@ extension CGA_InitialViewController {
         if  let centralManager = CGA_AppDelegate.centralManager,
             (0..<centralManager.stagedBLEPeripherals.count).contains(inIndex) {
             let id = centralManager.stagedBLEPeripherals[inIndex].identifier
+            let ancs = centralManager.stagedBLEPeripherals[inIndex].isANCSAuthorized ? "true" : "false"
             let adData = centralManager.stagedBLEPeripherals[inIndex].advertisementData
             
             // This gives us a predictable order of things.
             let sortedAdDataKeys = adData.keys.sorted()
             let sortedAdData: [(key: String, value: Any?)] = sortedAdDataKeys.compactMap { (key:$0, value: adData[$0]) }
 
-            let retStr = sortedAdData.reduce("SLUG-ID".localizedVariant + ": \(id)") { (current, next) in
+            let retStr = sortedAdData.reduce("SLUG-ID".localizedVariant + ": \(id)\n" + "SLUG-ANCS".localizedVariant + ": \(ancs)") { (current, next) in
                 let key = next.key.localizedVariant
                 let value = next.value
                 var ret = "\(current)\n"
@@ -304,12 +305,17 @@ extension CGA_InitialViewController {
         navigationController?.popToRootViewController(animated: false)
         deviceTableView?.deselectAll()
     }
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Instance Methods -
+/* ###################################################################################################################################### */
+extension CGA_InitialViewController {
     /* ################################################################## */
     /**
      This simply makes sure that the table is displayed if BT is available, or the "No BT" image is shown, if it is not.
      */
-    private func _updateUI() {
+    func updateUI() {
         let isBTAvailable = CGA_AppDelegate.centralManager?.isBTAvailable ?? false
         if !isBTAvailable { // Make sure that we are at the initial view, if BT is not available.
             _resetToRoot()
@@ -365,7 +371,7 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
      - parameter inCentralManager: The manager wrapper view that is calling this.
      */
     func updateFrom(_ inCentralManager: CGA_Bluetooth_CentralManager) {
-        _updateUI()
+        updateUI()
         deviceTableView?.reloadData()
     }
     /* ################################################################## */
@@ -391,6 +397,19 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
         _resetToRoot()
     }
     
+    /* ################################################################## */
+    /**
+     OPTIONAL: This is called to tell the instance that a Peripheral device has had some change.
+     
+     - parameter inCentralManager: The central manager that is calling this.
+     - parameter deviceInfoChanged: The device instance that was connected.
+     */
+    func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, deviceInfoChanged inDevice: CGA_Bluetooth_Peripheral) {
+        if let currentScreen = _currentDeviceScreen as? CGA_InitialViewController {
+            currentScreen.deviceTableView.reloadData()
+        }
+    }
+
     /* ################################################################## */
     /**
      Called to tell the instance that a Service changed.

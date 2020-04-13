@@ -24,6 +24,7 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 "SLUG-SECTION-HEADER-CLASSIC"       =   "BR/EDR";
 "SLUG-DEVICES"                      =   "Device List";
 "SLUG-MAIN-LIST-DATE-FORMAT"        =   "MM/dd/yyyy h:mm:ss.SSS a";
+"SLUG-ANCS"                         =   "ANCS AUTH";
 "SLUG-ID"                           =   "ID";
 "SLUG-SCANNING"                     =   "SCANNING";
 "SLUG-NOT-SCANNING"                 =   "NOT SCANNING";

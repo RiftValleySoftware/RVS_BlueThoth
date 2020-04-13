@@ -295,6 +295,15 @@ protocol CGA_Bluetooth_CentralManagerDelegate: class {
     
     /* ################################################################## */
     /**
+     OPTIONAL: This is called to tell the instance that a Peripheral device has had some change.
+     
+     - parameter centralManager: The central manager that is calling this.
+     - parameter deviceInfoChanged: The device instance that was connected.
+     */
+    func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, deviceInfoChanged: CGA_Bluetooth_Peripheral)
+
+    /* ################################################################## */
+    /**
      OPTIONAL: This is called to tell the instance that a Service changed.
      
      - parameter centralManager: The central manager that is calling this.
@@ -361,6 +370,12 @@ extension CGA_Bluetooth_CentralManagerDelegate {
      */
     func centralManager(_: CGA_Bluetooth_CentralManager, willDisconnectThisDevice: CGA_Bluetooth_Peripheral) { }
     
+    /* ################################################################## */
+    /**
+     The default does nothing.
+     */
+    func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, deviceInfoChanged: CGA_Bluetooth_Peripheral) { }
+
     /* ################################################################## */
     /**
      The default does nothing.
