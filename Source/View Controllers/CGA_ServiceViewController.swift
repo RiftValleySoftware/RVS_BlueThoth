@@ -236,7 +236,8 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         private func _makeLabel(_ inText: String) -> UILabel {
             let ret = UILabel()
             ret.textColor = _labelTextColor
-            ret.backgroundColor = _labelBackgroundColor
+            ret.textColor = ("SLUG-PROPERTIES-NOTIFY".localizedVariant == inText) ? (characteristic.isNotifying ? _labelTextColor : .white) : _labelTextColor
+            ret.backgroundColor = ("SLUG-PROPERTIES-NOTIFY".localizedVariant == inText) ? (characteristic.isNotifying ? .green : .red) : _labelBackgroundColor
             ret.font = .boldSystemFont(ofSize: _labelFontSize)
             ret.text = inText
             ret.minimumScaleFactor = 0.75
@@ -272,13 +273,13 @@ extension CGA_ServiceViewController: UITableViewDataSource {
             [
                 characteristic.canRead ? _makeLabel("SLUG-PROPERTIES-READ".localizedVariant) : nil,
                 _writeLabel,
-                characteristic.canNotify ? _makeLabel("SLUG-PROPERTIES-NOTIFY".localizedVariant): nil,
                 characteristic.canIndicate ? _makeLabel("SLUG-PROPERTIES-INDICATE".localizedVariant) : nil,
                 characteristic.canBroadcast ? _makeLabel("SLUG-PROPERTIES-BROADCAST".localizedVariant) : nil,
                 characteristic.requiresAuthenticatedSignedWrites ? _makeLabel("SLUG-PROPERTIES-AUTH-SIGNED-WRITE".localizedVariant) : nil,
                 characteristic.requiresNotifyEncryption ? _makeLabel("SLUG-PROPERTIES-NOTIFY-ENCRYPT".localizedVariant) : nil,
                 characteristic.requiresNotifyEncryption ? _makeLabel("SLUG-PROPERTIES-INDICATE-ENCRYPT".localizedVariant) : nil,
-                characteristic.hasExtendedProperties ? _makeLabel("SLUG-PROPERTIES-EXTENDED".localizedVariant) : nil
+                characteristic.hasExtendedProperties ? _makeLabel("SLUG-PROPERTIES-EXTENDED".localizedVariant) : nil,
+                characteristic.canNotify ? _makeLabel("SLUG-PROPERTIES-NOTIFY".localizedVariant): nil
             ]
         }
     }
@@ -315,8 +316,7 @@ extension CGA_ServiceViewController: UITableViewDataSource {
             if let view = $0 {
                 tableCell.propertiesStackView.addArrangedSubview(view)
                 view.translatesAutoresizingMaskIntoConstraints = false
-                view.topAnchor.constraint(equalTo: tableCell.propertiesStackView.topAnchor, constant: 0).isActive = true
-                view.bottomAnchor.constraint(equalTo: tableCell.propertiesStackView.bottomAnchor, constant: -Self._marginToFlagLabel).isActive = true
+                view.heightAnchor.constraint(equalTo: tableCell.propertiesStackView.heightAnchor).isActive = true
             }
         }
         
@@ -334,7 +334,7 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         if characteristic.canNotify {
             let view = UIActivityIndicatorView(style: .large)
             view.color = characteristic.isNotifying ? .green : .red
-            view.hidesWhenStopped = false
+            view.hidesWhenStopped = true
             if characteristic.isNotifying {
                 view.startAnimating()
             } else {
@@ -343,7 +343,8 @@ extension CGA_ServiceViewController: UITableViewDataSource {
             
             tableCell.propertiesStackView.addArrangedSubview(view)
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.topAnchor.constraint(equalTo: tableCell.propertiesStackView.topAnchor, constant: 0).isActive = true
+            view.heightAnchor.constraint(equalTo: tableCell.propertiesStackView.heightAnchor).isActive = true
+            view.widthAnchor.constraint(equalTo: view.heightAnchor).isActive = true
 
             // We add a single-touch gesture recognizer.
             let notifyGestureRecognizer = CG_TapGestureRecognizer(target: self, action: #selector(notifyTapped(_:)))
