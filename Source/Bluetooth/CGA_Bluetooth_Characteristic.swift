@@ -265,6 +265,23 @@ extension CGA_Bluetooth_Characteristic {
     
     /* ################################################################## */
     /**
+     If we have write permission, the Peripheral is asked to write the given data into its value.
+     
+     - parameter inData: The Data instance to write.
+     */
+    func writeValue(_ inData: Data) {
+        if  canWrite,
+            let peripheralWrapper = service?.peripheral,
+            let peripheral = peripheralWrapper.cbElementInstance {
+            #if DEBUG
+                print("Writing this value: \(inData) for the \(self.id) Characteristic.")
+            #endif
+            peripheral.writeValue(inData, for: cbElementInstance, type: canWriteWithoutResponse ? .withoutResponse : .withResponse)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
      This eliminates all of the stored Descriptors.
      */
     func clear() {

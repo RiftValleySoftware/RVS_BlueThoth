@@ -337,16 +337,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="hzW-eI-epk">
-                                                    <rect key="frame" x="20" y="11" width="334" height="20"/>
+                                                    <rect key="frame" x="20" y="11" width="334" height="24"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="00J-cz-8Dc"/>
+                                                        <constraint firstAttribute="height" constant="24" id="00J-cz-8Dc"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Uaa-w7-TfP">
-                                                    <rect key="frame" x="20" y="37" width="334" height="35"/>
+                                                    <rect key="frame" x="20" y="35" width="334" height="37"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </stackView>
@@ -365,7 +365,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="vHg-VK-CtY" secondAttribute="trailing" constant="20" id="615-Rn-8Bj"/>
                                                 <constraint firstAttribute="bottom" secondItem="vHg-VK-CtY" secondAttribute="bottom" constant="4" id="8e3-63-57h"/>
                                                 <constraint firstItem="vHg-VK-CtY" firstAttribute="leading" secondItem="wVw-x3-uB7" secondAttribute="leading" constant="20" id="CbA-lj-meQ"/>
-                                                <constraint firstItem="Uaa-w7-TfP" firstAttribute="top" secondItem="hzW-eI-epk" secondAttribute="bottom" constant="6" id="FYK-wB-kda"/>
+                                                <constraint firstItem="Uaa-w7-TfP" firstAttribute="top" secondItem="hzW-eI-epk" secondAttribute="bottom" id="FYK-wB-kda"/>
                                                 <constraint firstAttribute="trailing" secondItem="Uaa-w7-TfP" secondAttribute="trailing" constant="20" placeholder="YES" id="ZaH-U0-20R"/>
                                                 <constraint firstItem="vHg-VK-CtY" firstAttribute="top" secondItem="Uaa-w7-TfP" secondAttribute="bottom" constant="4" id="hbu-K3-aSD"/>
                                                 <constraint firstItem="Uaa-w7-TfP" firstAttribute="leading" secondItem="wVw-x3-uB7" secondAttribute="leading" constant="20" id="hv5-k2-BS1"/>
@@ -515,14 +515,14 @@
                                 <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="detail-row" id="0fh-jK-Bg4" customClass="CGA_CharacteristicViewController_TableRow" customModule="Blue_Van_Clef" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="374" height="43"/>
+                                        <rect key="frame" x="0.0" y="28" width="374" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0fh-jK-Bg4" id="POm-77-IRb">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvt-V6-bQI">
-                                                    <rect key="frame" x="20" y="11" width="334" height="21"/>
+                                                    <rect key="frame" x="20" y="11" width="334" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>

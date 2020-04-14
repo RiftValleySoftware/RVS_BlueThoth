@@ -388,56 +388,6 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     
     /* ################################################################## */
     /**
-     Called to update a Characteristic value (either in response to a read request, or a notify).
-     
-     - parameter inPeripheral: The CBPeripheral that has the updated Characteristic.
-     - parameter didUpdateValueFor: The Characteristic instance to which the Update applies.
-     - parameter error: Any error that may have occured. Hopefully, it is nil.
-     */
-    func peripheral(_ inPeripheral: CBPeripheral, didUpdateValueFor inCharacteristic: CBCharacteristic, error inError: Error?) {
-        #if DEBUG
-            print("Received a Characteristic Update delegate callback.")
-        #endif
-        if let error = inError {
-            #if DEBUG
-                print("ERROR!: \(String(describing: error))")
-            #endif
-            central?.reportError(.internalError(error))
-        } else if let characteristic = sequence_contents.characteristic(inCharacteristic) {
-            central?.updateThisCharacteristic(characteristic)
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     Called to update a descriptor.
-     
-     - parameter inPeripheral: The CBPeripheral that has the updated Descriptor.
-     - parameter didUpdateValueFor: The Descriptor instance to which the Update applies.
-     - parameter error: Any error that may have occured. Hopefully, it is nil.
-     */
-    func peripheral(_ inPeripheral: CBPeripheral, didUpdateValueFor inDescriptor: CBDescriptor, error inError: Error?) {
-        #if DEBUG
-            print("Received a Descriptor Update delegate callback.")
-        #endif
-        if let error = inError {
-            #if DEBUG
-                print("ERROR!: \(error.localizedDescription)")
-            #endif
-            central?.reportError(.internalError(error))
-        } else if   let characteristic = sequence_contents.characteristic(inDescriptor.characteristic),
-                    let descriptor = characteristic.sequence_contents[inDescriptor] {
-            central?.updateThisDescriptor(descriptor)
-        } else {
-            #if DEBUG
-                print("ERROR! Can't find Descriptor!")
-            #endif
-            central?.reportError(.internalError(nil))
-        }
-    }
-    
-    /* ################################################################## */
-    /**
      Called when any Services have been modified.
      
      - parameter inPeripheral: The CBPeripheral that has modified Services.
@@ -475,6 +425,109 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             central?.reportError(.internalError(error))
         } else if let characteristic = sequence_contents.characteristic(inCharacteristic) {
             central?.updateThisCharacteristic(characteristic)
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     Called to update a Characteristic value (either in response to a read request, or a notify).
+     
+     - parameter inPeripheral: The CBPeripheral that has the updated Characteristic.
+     - parameter didUpdateValueFor: The Characteristic instance to which the Update applies.
+     - parameter error: Any error that may have occured. Hopefully, it is nil.
+     */
+    func peripheral(_ inPeripheral: CBPeripheral, didUpdateValueFor inCharacteristic: CBCharacteristic, error inError: Error?) {
+        #if DEBUG
+            print("Received a Characteristic Update delegate callback.")
+        #endif
+        if let error = inError {
+            #if DEBUG
+                print("ERROR!: \(String(describing: error))")
+            #endif
+            central?.reportError(.internalError(error))
+        } else if let characteristic = sequence_contents.characteristic(inCharacteristic) {
+            central?.updateThisCharacteristic(characteristic)
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     Called to update a descriptor.
+     
+     - parameter inPeripheral: The CBPeripheral that has the updated Descriptor.
+     - parameter didUpdateValueFor: The Descriptor instance to which the Update applies.
+     - parameter error: Any error that may have occured. Hopefully, it is nil.
+     */
+    func peripheral(_ inPeripheral: CBPeripheral, didUpdateValueFor inDescriptor: CBDescriptor, error inError: Error?) {
+        #if DEBUG
+            print("Received a Descriptor Update delegate callback.")
+        #endif
+        if let error = inError {
+            #if DEBUG
+                print("ERROR!: \(error.localizedDescription)")
+            #endif
+            central?.reportError(.internalError(error))
+        } else if   let characteristic = sequence_contents.characteristic(inDescriptor.characteristic),
+                    let descriptor = characteristic.sequence_contents[inDescriptor] {
+            central?.updateThisDescriptor(descriptor)
+        } else {
+            #if DEBUG
+                print("ERROR! Can't find Descriptor!")
+            #endif
+            central?.reportError(.internalError(nil))
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called to indicate that a write to the a Characteristic was successful.
+     **MAJOR CAVEAT**: The <code>value</code> property of the Characteristic will not necessarily have the newly-written value.
+     This method is only called to act as a semaphore to let us know that the last write attempt succeeded.
+     
+     - parameter inPeripheral: The CBPeripheral that has the updated Characteristic.
+     - parameter didWriteValueFor: The Characteristic instance to which the write applies.
+     - parameter error: Any error that may have occured. Hopefully, it is nil.
+     */
+    func peripheral(_ inPeripheral: CBPeripheral, didWriteValueFor inCharacteristic: CBCharacteristic, error inError: Error?) {
+        #if DEBUG
+            print("Received a Characteristic Write delegate callback.")
+        #endif
+        if let error = inError {
+            #if DEBUG
+                print("ERROR!: \(String(describing: error))")
+            #endif
+            central?.reportError(.internalError(error))
+        } else {
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     Called to indicate that a write to the a Descriptor was successful.
+     **MAJOR CAVEAT**: The <code>value</code> property of the Descriptor will not necessarily have the newly-written value.
+     This method is only called to act as a semaphore to let us know that the last write attempt succeeded.
+     
+     - parameter inPeripheral: The CBPeripheral that has the updated Descriptor.
+     - parameter didWriteValueFor: The Descriptor instance to which the write applies.
+     - parameter error: Any error that may have occured. Hopefully, it is nil.
+     */
+    func peripheral(_ inPeripheral: CBPeripheral, didWriteValueFor inDescriptor: CBDescriptor, error inError: Error?) {
+        #if DEBUG
+            print("Received a Descriptor Write delegate callback.")
+        #endif
+        if let error = inError {
+            #if DEBUG
+                print("ERROR!: \(String(describing: error))")
+            #endif
+            central?.reportError(.internalError(error))
+        } else if   let characteristic = sequence_contents.characteristic(inDescriptor.characteristic),
+                    let descriptor = characteristic.sequence_contents[inDescriptor] {
+            central?.updateThisDescriptor(descriptor)
+        } else {
+            #if DEBUG
+                print("ERROR! Can't find Descriptor!")
+            #endif
+            central?.reportError(.internalError(nil))
         }
     }
     
