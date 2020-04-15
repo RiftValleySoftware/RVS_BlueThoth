@@ -22,7 +22,17 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 
 import UIKit
 
+/* ###################################################################################################################################### */
+// MARK: - Simple Protocol That Defines A UI Updater Method -
+/* ###################################################################################################################################### */
+/**
+ We use this to ensure that all our View Controllers can get a generic "Update Thyself" message.
+ */
 protocol CGA_UpdatableScreenViewController {
+    /* ################################################################## */
+    /**
+     Do whatever is necessary to update the UI.
+     */
     func updateUI()
 }
 
@@ -74,10 +84,16 @@ class CGA_InitialViewController: UIViewController {
     
     /* ################################################################## */
     /**
+     The time between repeats of the RSSI update timer.
+     */
+    private static let _rssiTimerIntervalInSeconds: TimeInterval = 0.5
+    
+    /* ################################################################## */
+    /**
      This is how high each section header will be.
      */
     private static let _sectionHeaderHeightInDisplayUnits: CGFloat = 21.0
-    
+
     /* ################################################################## */
     /**
      This is how high the labels that comprise one row will need per line of text.
@@ -308,9 +324,9 @@ extension CGA_InitialViewController {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - Instance Methods -
+// MARK: - CGA_UpdatableScreenViewController Conformance -
 /* ###################################################################################################################################### */
-extension CGA_InitialViewController {
+extension CGA_InitialViewController: CGA_UpdatableScreenViewController {
     /* ################################################################## */
     /**
      This simply makes sure that the table is displayed if BT is available, or the "No BT" image is shown, if it is not.
