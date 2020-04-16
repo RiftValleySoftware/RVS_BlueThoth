@@ -61,6 +61,20 @@ class CG_TapGestureRecognizer: UITapGestureRecognizer {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - A Special Button for Table Rows -
+/* ###################################################################################################################################### */
+/**
+ This simply allows us to attach a row index to a button, so we know which Characteristic to use.
+ */
+class CG_NotificationButton: UIButton {
+    /* ################################################################## */
+    /**
+     the 0-based row index of the Characteristic table row that corresponds to our Characteristic.
+     */
+    var rowIndex: Int = 0
+}
+
+/* ###################################################################################################################################### */
 // MARK: - The initial view controller (table of services) -
 /* ###################################################################################################################################### */
 /**
@@ -124,13 +138,13 @@ extension CGA_ServiceViewController {
     
     /* ################################################################## */
     /**
-     This is a gesture callback for a single-tap in a row, and the Characteristic can notify.
+     This is a button callback for a single-tap in a row, and the Characteristic can notify.
      It toggles the notify state of the Characteristic.
      
-     - parameter inGestureRecognizer: The special gesture recognizer, with our row index.
+     - parameter inButton: The special button, with our row index.
      */
-    @objc func notifyTapped(_ inGestureRecognizer: CG_TapGestureRecognizer) {
-        if  let characteristicInstance = serviceInstance?[inGestureRecognizer.rowIndex],
+    @objc func notifyTapped(_ inButton: CG_NotificationButton) {
+        if  let characteristicInstance = serviceInstance?[inButton.rowIndex],
             characteristicInstance.canNotify {
             if characteristicInstance.isNotifying {
                 characteristicInstance.stopNotifying()
@@ -151,7 +165,6 @@ extension CGA_ServiceViewController {
         if  let characteristic = serviceInstance?[inGestureRecognizer.rowIndex],
             0 < characteristic.count {
             performSegue(withIdentifier: Self._characteristicDetailSegueID, sender: characteristic)
-            characteristicsTableView.deselectRow(at: IndexPath(row: inGestureRecognizer.rowIndex, section: 0), animated: false)
         }
     }
 }
@@ -230,14 +243,26 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         
         /* ############################################################## */
         /**
+         A simple "factory" for the Notification button.
+         */
+        private func _makeNotifyButton() -> UIButton {
+            let ret = CG_NotificationButton()
+            ret.setTitle("SLUG-PROPERTIES-NOTIFY-\(characteristic.isNotifying ? "ON" : "OFF")".localizedVariant, for: .normal)
+            ret.setTitleColor(characteristic.isNotifying ? _labelTextColor : .white, for: .normal)
+            ret.backgroundColor = characteristic.isNotifying ? .green : .red
+            ret.addTarget(ownerViewController, action: #selector(notifyTapped(_:)), for: .touchUpInside)
+            return ret
+        }
+        
+        /* ############################################################## */
+        /**
          A simple "factory" for the label.
          */
         private func _makeLabel(_ inText: String) -> UILabel {
             let ret = UILabel()
             ret.textColor = _labelTextColor
-            // Notify is treated a bit differently. It's red, with white text, if not actively notifying. Green, with blue text, otherwise.
-            ret.textColor = ("SLUG-PROPERTIES-NOTIFY".localizedVariant == inText) ? (characteristic.isNotifying ? _labelTextColor : .white) : _labelTextColor
-            ret.backgroundColor = ("SLUG-PROPERTIES-NOTIFY".localizedVariant == inText) ? (characteristic.isNotifying ? .green : .red) : _labelBackgroundColor
+            ret.textColor = _labelTextColor
+            ret.backgroundColor = _labelBackgroundColor
             ret.font = .boldSystemFont(ofSize: _labelFontSize)
             ret.text = inText
             ret.minimumScaleFactor = 0.75
@@ -245,12 +270,12 @@ extension CGA_ServiceViewController: UITableViewDataSource {
             
             return ret
         }
-        
+
         /* ############################################################## */
         /**
          Returns a label, with The "WR" or "WN" filler, if supported. Otherwise, nil.
          */
-        private var _writeLabel: UILabel! {
+        private var _writeLabel: UIView! {
             if characteristic.canWriteWithResponse {
                 return _makeLabel("SLUG-PROPERTIES-WRITE-RESPONSE".localizedVariant)
             } else if characteristic.canWriteWithoutResponse {
@@ -267,9 +292,15 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         
         /* ############################################################## */
         /**
-         Returns an Array of labels, or nil.
+         This will be set to the containing View ViewController, so we can target it.
          */
-        var labels: [UILabel?] {
+        let ownerViewController: CGA_ServiceViewController!
+        
+        /* ############################################################## */
+        /**
+         Returns an Array of views (labels, but including maybe one button), or nil.
+         */
+        var labels: [UIView?] {
             [
                 characteristic.canRead ? _makeLabel("SLUG-PROPERTIES-READ".localizedVariant) : nil,
                 _writeLabel,
@@ -279,7 +310,7 @@ extension CGA_ServiceViewController: UITableViewDataSource {
                 characteristic.requiresNotifyEncryption ? _makeLabel("SLUG-PROPERTIES-NOTIFY-ENCRYPT".localizedVariant) : nil,
                 characteristic.requiresNotifyEncryption ? _makeLabel("SLUG-PROPERTIES-INDICATE-ENCRYPT".localizedVariant) : nil,
                 characteristic.hasExtendedProperties ? _makeLabel("SLUG-PROPERTIES-EXTENDED".localizedVariant) : nil,
-                characteristic.canNotify ? _makeLabel("SLUG-PROPERTIES-NOTIFY".localizedVariant): nil   // Notify gos on the end, because we'll also maybe attach a throbber, annd want to associate it with Notify.
+                characteristic.canNotify ? _makeNotifyButton() : nil  // Notify goes on the end, because it's a big-ass button, and will move things around.
             ]
         }
     }
@@ -308,56 +339,29 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         
         // Remove any existing gesture recognizers.
         tableCell.gestureRecognizers?.forEach { $0.removeTarget(nil, action: nil) }
+        // Remove any previous views in the properties stack.
+        tableCell.propertiesStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
         // We set the ID label.
         tableCell.characteristicIDLabel?.textColor = UIColor(white: 0 < characteristic.count ? 1.0 : 0.75, alpha: 1.0)
         tableCell.characteristicIDLabel?.text = characteristic.id.localizedVariant
         
-        // Remove any previous views in the properties stack.
-        tableCell.propertiesStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        
         // Populate the Properties view.
-        _PropertyLabelGenerator(characteristic: characteristic).labels.forEach {
+        _PropertyLabelGenerator(characteristic: characteristic, ownerViewController: self).labels.forEach {
             if let view = $0 {
                 tableCell.propertiesStackView.addArrangedSubview(view)
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.heightAnchor.constraint(equalTo: tableCell.propertiesStackView.heightAnchor).isActive = true
+                // The notify button gets a row index attached.
+                if let button = view as? CG_NotificationButton {
+                    button.rowIndex = inIndexPath.row
+                }
             }
         }
         
-        // This is the double-tap gesture recognizer for bringing in the Descriptors.
-        let gestureRecognizer = CG_TapGestureRecognizer(target: self, action: #selector(descriptorTapped(_:)))
-        gestureRecognizer.cancelsTouchesInView = true
-        gestureRecognizer.numberOfTouchesRequired = 1
-        gestureRecognizer.numberOfTapsRequired = 2
-        
+        // This is a single-tap gesture recognizer for bringing in the Descriptors. It is attached to the table cell, in general.
         if 0 < characteristic.count {   // Only if we have Descriptors.
-            tableCell.addGestureRecognizer(gestureRecognizer)
-        }
-
-        // If we can notify, we add a throbber to the end. It will appear and animate when we are notifying.
-        if characteristic.canNotify {
-            let view = UIActivityIndicatorView(style: .medium)
-            view.color = .green
-            view.hidesWhenStopped = true
-            if characteristic.isNotifying {
-                view.startAnimating()
-            } else {
-                view.stopAnimating()
-            }
-            
-            tableCell.propertiesStackView.addArrangedSubview(view)
-
-            // We add a single-touch gesture recognizer.
-            let notifyGestureRecognizer = CG_TapGestureRecognizer(target: self, action: #selector(notifyTapped(_:)))
-            notifyGestureRecognizer.cancelsTouchesInView = true
-            notifyGestureRecognizer.numberOfTouchesRequired = 1
-            notifyGestureRecognizer.numberOfTapsRequired = 1
-            if 0 < characteristic.count {   // Only if we have Descriptors.
-                notifyGestureRecognizer.require(toFail: gestureRecognizer)
-            }
-            
-            tableCell.addGestureRecognizer(notifyGestureRecognizer)
+            tableCell.addGestureRecognizer(CG_TapGestureRecognizer(target: self, action: #selector(descriptorTapped(_:))))
         }
         
         // If there is a String-convertible value, we display it. Otherwise, we either display a described Data item, or blank.
