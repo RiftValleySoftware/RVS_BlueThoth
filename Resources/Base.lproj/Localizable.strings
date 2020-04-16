@@ -30,6 +30,7 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 "SLUG-NOT-SCANNING"                 =   "NOT SCANNING";
 "SLUG-OK-BUTTON-TEXT"               =   "OK";
 "SLUG-ERROR"                        =   "ERROR";
+"SLUG-CONNECTING"                   =   "CONNECTING...";
 
 // These are error reports.
 "CGA-ERROR-TIMEOUT"                 =   "There was a timeout, while attempting a connection to a Peripheral.";

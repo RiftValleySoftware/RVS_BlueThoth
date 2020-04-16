@@ -73,19 +73,6 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
      This is a class, as opposed to a struct, because I want to make sure that it is referenced, and not copied.
      */
     class DiscoveryData {
-        /* ############################################################## */
-        /**
-         This holds the advertisement data that came with the discovery.
-         */
-        let advertisementData: [String: Any]
-        
-        /* ############################################################## */
-        /**
-         This is the signal strength, at the time of discovery, in dBm.
-         This is also updated, as we receive RSSI change notifications.
-         */
-        var rssi: Int
-        
         /* ################################################################## */
         /**
          This is a countdown timer, for use as a timeout trap during connection.
@@ -94,8 +81,21 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
         
         /* ############################################################## */
         /**
+         This holds the advertisement data that came with the discovery.
+         */
+        var advertisementData: [String: Any]
+        
+        /* ############################################################## */
+        /**
+         This is the signal strength, at the time of discovery, in dBm.
+         This is also updated, as we receive RSSI change notifications.
+         */
+        var rssi: Int
+        
+        /* ############################################################## */
+        /**
          The actual Peripheral instance. This is a strong reference.
-         This will retain the allocation for the Peripheral until after it has been connected and discovery is complete.
+         This will retain the allocation for the Peripheral, so it is a strong reference.
          */
         var peripheral: Any
         
@@ -361,6 +361,12 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
+     If tue (default), then scanning is done with duplicate filtering on, which reduces the number of times the discovery callback is made.
+     */
+    var duplicateFilteringIsOn: Bool = true
+    
+    /* ################################################################## */
+    /**
      This holds the instance of CBCentralManager that is used by this instance.
      */
     var cbElementInstance: CBCentralManager!
@@ -409,7 +415,7 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
             return false
         }
        
-        return centralManager.isScanning
+        return isBTAvailable && centralManager.isScanning
     }
     
     /* ################################################################## */
@@ -587,12 +593,12 @@ extension CGA_Bluetooth_CentralManager {
     /**
      Asks the Central Manager to start scanning for Peripherals.
      - parameter withServices: An Array of Strings, with the UUID strings. This is optional, and can be left out, in which case all services will be scanned.
+     - parameter duplicateFilteringIsOn: If true, then scans will be made with duplicate filtering, which reduces the number of times the discovery callback is made.
      - returns: True, if the scan attempt was made (not a guarantee of success, though). Can be ignored.
      */
     @discardableResult
-    func startScanning(withServices inWithServices: [String]? = nil) -> Bool {
+    func startScanning(withServices inWithServices: [String]? = nil, duplicateFilteringIsOn inDuplicateFilteringIsOn: Bool = true) -> Bool {
         guard let cbCentral = cbElementInstance else { return false }
-        
         #if DEBUG
             print("Asking Central Manager to Start Scanning.")
             if  let services = inWithServices,
@@ -601,6 +607,8 @@ extension CGA_Bluetooth_CentralManager {
             }
         #endif
         
+        duplicateFilteringIsOn = inDuplicateFilteringIsOn
+        
         // Take off and nuke the entire site from orbit.
         // It's the only way to be sure.
         if cbCentral.isScanning {
@@ -608,6 +616,7 @@ extension CGA_Bluetooth_CentralManager {
         }
         
         var services: [CBUUID]!
+        let options: [String : Any]! = duplicateFilteringIsOn ? nil : [CBCentralManagerScanOptionAllowDuplicatesKey: true]
         
         scanningServices = []
         
@@ -621,7 +630,8 @@ extension CGA_Bluetooth_CentralManager {
             scanningServices = services
         }
         
-        cbCentral.scanForPeripherals(withServices: services, options: nil)
+        
+        cbCentral.scanForPeripherals(withServices: services, options: options)
         
         _updateDelegate()
 
@@ -638,7 +648,7 @@ extension CGA_Bluetooth_CentralManager {
         #if DEBUG
             print("Asking Central Manager to Restart Scanning.")
         #endif
-        return startScanning(withServices: scanningServices)
+        return startScanning(withServices: scanningServices, duplicateFilteringIsOn: duplicateFilteringIsOn)
     }
     
     /* ################################################################## */
@@ -948,12 +958,11 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
                 print("Discarding Peripheral not on the guest list: \(inPeripheral.identifier.uuidString).")
             #endif
             return
-        } else {
+        } else if !ignoredBLEPeripherals.contains(inPeripheral) {
             #if DEBUG
                 print("Discovered \(name) (BLE).")
             #endif
-            guard   !iGotThis(inPeripheral),
-                    !inPeripheral.identifier.uuidString.isEmpty
+            guard   !inPeripheral.identifier.uuidString.isEmpty
             else {
                 #if DEBUG
                     print("Not Adding \(name) (BLE).")
@@ -969,8 +978,18 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
                 print("\tUUID: \(inPeripheral.identifier.uuidString)")
                 print("\tAdvertising Info:\n\t\t\(String(describing: inAdvertisementData))\n")
             #endif
-            stagedBLEPeripherals.append(DiscoveryData(central: self, peripheral: inPeripheral, advertisementData: inAdvertisementData, rssi: inRSSI.intValue))
+            if  let deviceInStaging = stagedBLEPeripherals[inPeripheral] {
+                deviceInStaging.advertisementData = inAdvertisementData
+                deviceInStaging.rssi = inRSSI.intValue
+            } else {
+                stagedBLEPeripherals.append(DiscoveryData(central: self, peripheral: inPeripheral, advertisementData: inAdvertisementData, rssi: inRSSI.intValue))
+            }
+            
             _updateDelegate()
+        } else {
+            #if DEBUG
+                print("Discarding Ignored Peripheral: \(inPeripheral.identifier.uuidString).")
+            #endif
         }
     }
     

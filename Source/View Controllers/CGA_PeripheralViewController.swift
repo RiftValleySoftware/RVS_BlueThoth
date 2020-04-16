@@ -84,6 +84,12 @@ class CGA_PeripheralViewController: UIViewController {
      This is the "Busy" animation that is displayed while the device connects.
      */
     @IBOutlet weak var busyAnimationActivityIndicatorView: UIActivityIndicatorView!
+    
+    /* ################################################################## */
+    /**
+     The label that displays the "CONNECTING..." message.
+     */
+    @IBOutlet weak var connectingLabel: UILabel!
 }
 
 /* ###################################################################################################################################### */
@@ -116,11 +122,13 @@ extension CGA_PeripheralViewController: CGA_UpdatableScreenViewController {
     func updateUI() {
         if nil != deviceInstance {
             busyAnimationActivityIndicatorView?.stopAnimating()
+            connectingLabel?.isHidden = true
             serviceTableView?.isHidden = false
             serviceTableView?.reloadData()
         } else {
             busyAnimationActivityIndicatorView?.startAnimating()
             serviceTableView?.isHidden = true
+            connectingLabel?.isHidden = false
         }
     }
 }
@@ -137,6 +145,7 @@ extension CGA_PeripheralViewController {
         super.viewDidLoad()
         navigationItem.title = deviceAdvInfo?.preferredName
         serviceTableView?.refreshControl = _refreshControl
+        connectingLabel?.text = connectingLabel?.text?.localizedVariant ?? "ERROR"
         _refreshControl.addTarget(self, action: #selector(startOver(_:)), for: .valueChanged)
         guard let device = deviceAdvInfo else { return }
         updateUI()
