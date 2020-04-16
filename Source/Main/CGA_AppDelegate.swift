@@ -26,6 +26,7 @@ import UIKit
 // MARK: -
 /* ###################################################################################################################################### */
 /**
+ The primary application delegate for the app.
  */
 @UIApplicationMain
 class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
@@ -60,8 +61,15 @@ class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
 
     /* ################################################################## */
     /**
+     This is the Bluetooth Central Manager instance. Everything goes through this.
      */
     static var centralManager: CGA_Bluetooth_CentralManager?
+    
+    /* ################################################################## */
+    /**
+     The required window property.
+     */
+    var window: UIWindow?
     
     /* ################################################################## */
     /**
@@ -71,36 +79,9 @@ class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
 
     /* ################################################################## */
     /**
-     */
-    var window: UIWindow?
-    
-    /* ################################################################## */
-    /**
+     Called upon application initialization and setup.
+     
+     - returns: True (always)
      */
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool { true }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - UITableView Extension -
-/* ###################################################################################################################################### */
-extension UITableView {
-    /* ################################################################## */
-    /**
-     This will deselect all selected rows.
-     
-     - parameter animated: This can be ignored (defaults to false). If true, the deselection is animated.
-     - returns: an Array of IndexPath, denoting the rows that were deselected. Can be ignored.
-     */
-    @discardableResult
-    func deselectAll(animated inAnimated: Bool = false) -> [IndexPath] {
-        if  let indexPaths = indexPathsForSelectedRows,
-            !indexPaths.isEmpty {
-            indexPaths.forEach {
-                deselectRow(at: $0, animated: inAnimated)
-            }
-            
-            return indexPaths
-        }
-        return []
-    }
 }

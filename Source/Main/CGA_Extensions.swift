@@ -23,51 +23,29 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 import UIKit
 
 /* ###################################################################################################################################### */
-// MARK: - The About view controller -
+// MARK: - UITableView Extension -
 /* ###################################################################################################################################### */
 /**
- This controls the about this app view.
+ This extension adds a method for deselecting all the table rows..
  */
-class CGA_InfoViewController: UIViewController {
+extension UITableView {
     /* ################################################################## */
     /**
-     The label that displays the app name.
-     */
-    @IBOutlet weak var appNameLabel: UILabel!
-    
-    /* ################################################################## */
-    /**
-     The label just below the app name label, displaying the version.
-     */
-    @IBOutlet weak var appVersionLabel: UILabel!
-
-    /* ################################################################## */
-    /**
-     The button at the bottom that will link to the site.
-     */
-    @IBOutlet weak var copyrightButton: UIButton!
-    
-    /* ################################################################## */
-    /**
-     Called when the copyright button is hit.
+     This will deselect all selected rows.
      
-     - parameter: ignored
+     - parameter animated: This can be ignored (defaults to false). If true, the deselection is animated.
+     - returns: an Array of IndexPath, denoting the rows that were deselected. Can be ignored.
      */
-    @IBAction func copyrightButtonHit(_: Any) {
-        guard let uri = Bundle.main.siteURI else { return }
+    @discardableResult
+    func deselectAll(animated inAnimated: Bool = false) -> [IndexPath] {
+        if  let indexPaths = indexPathsForSelectedRows,
+            !indexPaths.isEmpty {
+            indexPaths.forEach { deselectRow(at: $0, animated: inAnimated) }
+            
+            return indexPaths
+        }
         
-        UIApplication.shared.open(uri)
-    }
-    
-    /* ################################################################## */
-    /**
-     Called after the view data has been loaded.
-     */
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        appNameLabel?.text = Bundle.main.appDisplayName
-        appVersionLabel?.text = String(format: "SLUG-VERSION-FORMAT".localizedVariant, Bundle.main.appVersionString, Bundle.main.appVersionBuildString)
-        copyrightButton.setTitle(Bundle.main.copyrightString, for: .normal)
+        return []
     }
 }
 
@@ -75,18 +53,30 @@ class CGA_InfoViewController: UIViewController {
 // MARK: - Bundle Extension -
 /* ###################################################################################################################################### */
 /**
- This extension adds a couple of accessors for a URI that is unique to this app.
+ This extension adds a few simple accessors for some of the more common bundle items.
  */
 extension Bundle {
     /* ################################################################## */
     /**
-     If there is a copyright site URI, it is returned here as a String. It may be nil.
+     The app name, as a string. It is required, and "ERROR" is returned if it is not present.
      */
-    var siteURIAsString: String? { object(forInfoDictionaryKey: "LGVInfoScreenCopyrightSiteURL") as? String }
+    var appDisplayName: String { (object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ?? object(forInfoDictionaryKey: "CFBundleName") as? String) ?? "ERROR" }
+
+    /* ################################################################## */
+    /**
+     The app version, as a string. It is required, and "ERROR" is returned if it is not present.
+     */
+    var appVersionString: String { object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "ERROR" }
     
     /* ################################################################## */
     /**
-     If there is a copyright site URI, it is returned here as a URL. It may be nil.
+     The build version, as a string. It is required, and "ERROR" is returned if it is not present.
      */
-    var siteURI: URL? { URL(string: siteURIAsString ?? "") }
+    var appVersionBuildString: String { object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "ERROR" }
+    
+    /* ################################################################## */
+    /**
+     If there is a copyright string, it is returned here. It may be nil.
+     */
+    var copyrightString: String? { object(forInfoDictionaryKey: "NSHumanReadableCopyright") as? String }
 }

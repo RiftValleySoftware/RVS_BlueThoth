@@ -514,6 +514,16 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z8f-zS-wq6">
+                                <rect key="frame" x="20" y="788" width="374" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="d0V-uy-urj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
+                                <connections>
+                                    <action selector="copyrightButtonHit:" destination="JV6-wJ-8zU" eventType="touchUpInside" id="6cI-On-cfR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -521,12 +531,15 @@
                             <constraint firstItem="i1e-D9-KwF" firstAttribute="trailing" secondItem="OqY-cl-yOO" secondAttribute="trailing" constant="20" id="Cwi-as-1sH"/>
                             <constraint firstItem="0tU-cW-FnB" firstAttribute="centerY" secondItem="RdX-n5-pjh" secondAttribute="centerY" id="JJq-LJ-59I"/>
                             <constraint firstItem="OqY-cl-yOO" firstAttribute="top" secondItem="WSN-0z-Uau" secondAttribute="bottom" id="Mqi-Td-woP"/>
+                            <constraint firstItem="Z8f-zS-wq6" firstAttribute="bottom" secondItem="i1e-D9-KwF" secondAttribute="bottom" id="NPP-ec-W0S"/>
                             <constraint firstItem="OqY-cl-yOO" firstAttribute="leading" secondItem="i1e-D9-KwF" secondAttribute="leading" constant="20" id="PLe-eE-OUF"/>
                             <constraint firstItem="i1e-D9-KwF" firstAttribute="trailing" secondItem="WSN-0z-Uau" secondAttribute="trailing" constant="20" id="Spv-zC-dc1"/>
+                            <constraint firstItem="i1e-D9-KwF" firstAttribute="trailing" secondItem="Z8f-zS-wq6" secondAttribute="trailing" constant="20" id="Xp8-VM-r3p"/>
                             <constraint firstItem="WSN-0z-Uau" firstAttribute="leading" secondItem="i1e-D9-KwF" secondAttribute="leading" constant="20" id="YMO-aF-KJq"/>
                             <constraint firstItem="WSN-0z-Uau" firstAttribute="top" secondItem="i1e-D9-KwF" secondAttribute="top" constant="20" id="ZcO-JK-9p0"/>
                             <constraint firstAttribute="trailing" secondItem="nIb-SW-Wm9" secondAttribute="trailing" id="ZdP-2Z-1uS"/>
                             <constraint firstItem="nIb-SW-Wm9" firstAttribute="leading" secondItem="RdX-n5-pjh" secondAttribute="leading" id="cg3-lh-ymL"/>
+                            <constraint firstItem="Z8f-zS-wq6" firstAttribute="leading" secondItem="i1e-D9-KwF" secondAttribute="leading" constant="20" id="hLd-Dw-3Ql"/>
                             <constraint firstAttribute="bottom" secondItem="nIb-SW-Wm9" secondAttribute="bottom" id="iDf-od-xTG"/>
                             <constraint firstItem="0tU-cW-FnB" firstAttribute="height" relation="lessThanOrEqual" secondItem="nIb-SW-Wm9" secondAttribute="height" multiplier="0.6" priority="999" id="mWZ-se-MFI"/>
                             <constraint firstItem="0tU-cW-FnB" firstAttribute="width" relation="lessThanOrEqual" secondItem="nIb-SW-Wm9" secondAttribute="width" multiplier="0.6" priority="999" id="qF9-fM-JFy"/>
@@ -538,6 +551,7 @@
                     <connections>
                         <outlet property="appNameLabel" destination="WSN-0z-Uau" id="SOH-ca-Vf6"/>
                         <outlet property="appVersionLabel" destination="OqY-cl-yOO" id="CMo-8P-dXs"/>
+                        <outlet property="copyrightButton" destination="Z8f-zS-wq6" id="ThF-Vh-R1Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZDZ-HF-NDb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

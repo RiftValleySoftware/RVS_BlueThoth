@@ -43,5 +43,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSHumanReadableCopyright</key>
+	<string>SLUG-COPYRIGHT</string>
+	<key>LGVInfoScreenCopyrightSiteURL</key>
+	<string>SLUG-URL</string>
 </dict>
 </plist>
