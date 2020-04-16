@@ -616,7 +616,7 @@ extension CGA_Bluetooth_CentralManager {
         }
         
         var services: [CBUUID]!
-        let options: [String : Any]! = duplicateFilteringIsOn ? nil : [CBCentralManagerScanOptionAllowDuplicatesKey: true]
+        let options: [String: Any]! = duplicateFilteringIsOn ? nil : [CBCentralManagerScanOptionAllowDuplicatesKey: true]
         
         scanningServices = []
         
@@ -629,7 +629,6 @@ extension CGA_Bluetooth_CentralManager {
                     !services.isEmpty {
             scanningServices = services
         }
-        
         
         cbCentral.scanForPeripherals(withServices: services, options: options)
         

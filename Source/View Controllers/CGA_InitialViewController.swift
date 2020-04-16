@@ -139,6 +139,11 @@ class CGA_InitialViewController: UIViewController {
 
     /* ################################################################## */
     /**
+     */
+    @IBOutlet weak var deviceLabel: UILabel!
+    
+    /* ################################################################## */
+    /**
      This is the table that will list the discovered devices.
      */
     @IBOutlet weak var deviceTableView: UITableView!
@@ -154,6 +159,16 @@ class CGA_InitialViewController: UIViewController {
      This will animate when the central is scanning.
      */
     @IBOutlet weak var scanningButton: UIButton!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var editButtonStackView: UIStackView!
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var editButton: UIButton!
 }
 
 /* ###################################################################################################################################### */
@@ -183,6 +198,18 @@ extension CGA_InitialViewController {
         _toggleScanningMode()
         scanningButton.isEnabled = false
     }
+
+    /* ################################################################## */
+    /**
+     
+     - parameter: ignored.
+     */
+    @IBAction func editButtonHit(_: Any) {
+        if !isScanning {
+            deviceTableView?.isEditing = !(deviceTableView?.isEditing ?? true)
+            updateUI()
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -200,6 +227,7 @@ extension CGA_InitialViewController {
         CGA_AppDelegate.centralManager = CGA_Bluetooth_CentralManager(delegate: self)
         navigationItem.backBarButtonItem?.title = navigationItem.backBarButtonItem?.title?.localizedVariant
         scanningButton.setTitle(scanningButton.title(for: .normal)?.localizedVariant, for: .normal)
+        deviceLabel?.text = deviceLabel?.text?.localizedVariant ?? "ERROR"
     }
     
     /* ################################################################## */
@@ -370,6 +398,12 @@ extension CGA_InitialViewController: CGA_UpdatableScreenViewController {
         noBTImage?.isHidden = isBTAvailable
         deviceTableView?.isHidden = !isBTAvailable
         scanningButton?.isHidden = !isBTAvailable
+        editButtonStackView?.isHidden = !isBTAvailable
+        editButton?.isHidden = isScanning
+        
+        editButton.setTitle((deviceTableView.isEditing ? "SLUG-DONE" : "SLUG-EDIT").localizedVariant, for: .normal)
+        
+        scanningButton?.isEnabled = true
 
         if  isScanning {
             scanningButton?.backgroundColor = UIColor(red: 0, green: 0.75, blue: 0, alpha: 1.0)
@@ -378,8 +412,6 @@ extension CGA_InitialViewController: CGA_UpdatableScreenViewController {
             scanningButton?.backgroundColor = UIColor(red: 0.75, green: 0, blue: 0, alpha: 1.0)
             scanningButton?.setTitle(" " + "SLUG-NOT-SCANNING".localizedVariant + " ", for: .normal)
         }
-        
-        scanningButton?.isEnabled = true
     }
 }
 
