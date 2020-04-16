@@ -90,6 +90,18 @@ class CGA_PeripheralViewController: UIViewController {
      The label that displays the "CONNECTING..." message.
      */
     @IBOutlet weak var connectingLabel: UILabel!
+    
+    /* ################################################################## */
+    /**
+     The stack view that contains all the device information.
+     */
+    @IBOutlet weak var deviceInfoStackView: UIStackView!
+    
+    /* ################################################################## */
+    /**
+     The label for the Services table.
+     */
+    @IBOutlet weak var servicesLabel: UILabel!
 }
 
 /* ###################################################################################################################################### */
@@ -122,13 +134,18 @@ extension CGA_PeripheralViewController: CGA_UpdatableScreenViewController {
     func updateUI() {
         if nil != deviceInstance {
             busyAnimationActivityIndicatorView?.stopAnimating()
+            deviceInfoStackView?.isHidden = false
             connectingLabel?.isHidden = true
             serviceTableView?.isHidden = false
+            servicesLabel?.isHidden = false
+            
             serviceTableView?.reloadData()
         } else {
             busyAnimationActivityIndicatorView?.startAnimating()
-            serviceTableView?.isHidden = true
+            deviceInfoStackView?.isHidden = true
             connectingLabel?.isHidden = false
+            serviceTableView?.isHidden = true
+            servicesLabel?.isHidden = true
         }
     }
 }
@@ -146,6 +163,7 @@ extension CGA_PeripheralViewController {
         navigationItem.title = deviceAdvInfo?.preferredName
         serviceTableView?.refreshControl = _refreshControl
         connectingLabel?.text = connectingLabel?.text?.localizedVariant ?? "ERROR"
+        servicesLabel?.text = servicesLabel?.text?.localizedVariant ?? "ERROR"
         _refreshControl.addTarget(self, action: #selector(startOver(_:)), for: .valueChanged)
         guard let device = deviceAdvInfo else { return }
         updateUI()
