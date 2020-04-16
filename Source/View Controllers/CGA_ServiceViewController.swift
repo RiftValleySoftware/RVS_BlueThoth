@@ -137,7 +137,6 @@ extension CGA_ServiceViewController {
             } else {
                 characteristicInstance.startNotifying()
             }
-            characteristicsTableView?.reloadData()
         }
     }
     
@@ -236,7 +235,9 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         private func _makeLabel(_ inText: String) -> UILabel {
             let ret = UILabel()
             ret.textColor = _labelTextColor
-            ret.backgroundColor = _labelBackgroundColor
+            // Notify is treated a bit differently. It's red, with white text, if not actively notifying. Green, with blue text, otherwise.
+            ret.textColor = ("SLUG-PROPERTIES-NOTIFY".localizedVariant == inText) ? (characteristic.isNotifying ? _labelTextColor : .white) : _labelTextColor
+            ret.backgroundColor = ("SLUG-PROPERTIES-NOTIFY".localizedVariant == inText) ? (characteristic.isNotifying ? .green : .red) : _labelBackgroundColor
             ret.font = .boldSystemFont(ofSize: _labelFontSize)
             ret.text = inText
             ret.minimumScaleFactor = 0.75
@@ -272,13 +273,13 @@ extension CGA_ServiceViewController: UITableViewDataSource {
             [
                 characteristic.canRead ? _makeLabel("SLUG-PROPERTIES-READ".localizedVariant) : nil,
                 _writeLabel,
-                characteristic.canNotify ? _makeLabel("SLUG-PROPERTIES-NOTIFY".localizedVariant): nil,
                 characteristic.canIndicate ? _makeLabel("SLUG-PROPERTIES-INDICATE".localizedVariant) : nil,
                 characteristic.canBroadcast ? _makeLabel("SLUG-PROPERTIES-BROADCAST".localizedVariant) : nil,
                 characteristic.requiresAuthenticatedSignedWrites ? _makeLabel("SLUG-PROPERTIES-AUTH-SIGNED-WRITE".localizedVariant) : nil,
                 characteristic.requiresNotifyEncryption ? _makeLabel("SLUG-PROPERTIES-NOTIFY-ENCRYPT".localizedVariant) : nil,
                 characteristic.requiresNotifyEncryption ? _makeLabel("SLUG-PROPERTIES-INDICATE-ENCRYPT".localizedVariant) : nil,
-                characteristic.hasExtendedProperties ? _makeLabel("SLUG-PROPERTIES-EXTENDED".localizedVariant) : nil
+                characteristic.hasExtendedProperties ? _makeLabel("SLUG-PROPERTIES-EXTENDED".localizedVariant) : nil,
+                characteristic.canNotify ? _makeLabel("SLUG-PROPERTIES-NOTIFY".localizedVariant): nil   // Notify gos on the end, because we'll also maybe attach a throbber, annd want to associate it with Notify.
             ]
         }
     }
@@ -305,18 +306,22 @@ extension CGA_ServiceViewController: UITableViewDataSource {
                 let characteristic = serviceInstance?[inIndexPath.row]
         else { return UITableViewCell() }
         
+        // Remove any existing gesture recognizers.
+        tableCell.gestureRecognizers?.forEach { $0.removeTarget(nil, action: nil) }
+
+        // We set the ID label.
         tableCell.characteristicIDLabel?.textColor = UIColor(white: 0 < characteristic.count ? 1.0 : 0.75, alpha: 1.0)
         tableCell.characteristicIDLabel?.text = characteristic.id.localizedVariant
         
+        // Remove any previous views in the properties stack.
+        tableCell.propertiesStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        
         // Populate the Properties view.
-        tableCell.propertiesStackView.subviews.forEach { $0.removeFromSuperview() }
-        tableCell.gestureRecognizers?.forEach { $0.removeTarget(nil, action: nil) }
         _PropertyLabelGenerator(characteristic: characteristic).labels.forEach {
             if let view = $0 {
                 tableCell.propertiesStackView.addArrangedSubview(view)
                 view.translatesAutoresizingMaskIntoConstraints = false
-                view.topAnchor.constraint(equalTo: tableCell.propertiesStackView.topAnchor, constant: 0).isActive = true
-                view.bottomAnchor.constraint(equalTo: tableCell.propertiesStackView.bottomAnchor, constant: -Self._marginToFlagLabel).isActive = true
+                view.heightAnchor.constraint(equalTo: tableCell.propertiesStackView.heightAnchor).isActive = true
             }
         }
         
@@ -330,11 +335,11 @@ extension CGA_ServiceViewController: UITableViewDataSource {
             tableCell.addGestureRecognizer(gestureRecognizer)
         }
 
-        // If we can notify, we add a throbber to the end. It will animate when we are notifying.
+        // If we can notify, we add a throbber to the end. It will appear and animate when we are notifying.
         if characteristic.canNotify {
-            let view = UIActivityIndicatorView(style: .large)
-            view.color = characteristic.isNotifying ? .green : .red
-            view.hidesWhenStopped = false
+            let view = UIActivityIndicatorView(style: .medium)
+            view.color = .green
+            view.hidesWhenStopped = true
             if characteristic.isNotifying {
                 view.startAnimating()
             } else {
@@ -342,8 +347,6 @@ extension CGA_ServiceViewController: UITableViewDataSource {
             }
             
             tableCell.propertiesStackView.addArrangedSubview(view)
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.topAnchor.constraint(equalTo: tableCell.propertiesStackView.topAnchor, constant: 0).isActive = true
 
             // We add a single-touch gesture recognizer.
             let notifyGestureRecognizer = CG_TapGestureRecognizer(target: self, action: #selector(notifyTapped(_:)))
@@ -357,7 +360,8 @@ extension CGA_ServiceViewController: UITableViewDataSource {
             tableCell.addGestureRecognizer(notifyGestureRecognizer)
         }
         
-        tableCell.valueLabel.text = characteristic.stringValue ?? ""
+        // If there is a String-convertible value, we display it. Otherwise, we either display a described Data item, or blank.
+        tableCell.valueLabel.text = characteristic.stringValue ?? (nil != characteristic.value ? String(describing: characteristic.value) : "")
         
         return tableCell
     }

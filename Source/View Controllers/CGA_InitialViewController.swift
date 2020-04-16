@@ -22,7 +22,17 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 
 import UIKit
 
+/* ###################################################################################################################################### */
+// MARK: - Simple Protocol That Defines A UI Updater Method -
+/* ###################################################################################################################################### */
+/**
+ We use this to ensure that all our View Controllers can get a generic "Update Thyself" message.
+ */
 protocol CGA_UpdatableScreenViewController {
+    /* ################################################################## */
+    /**
+     Do whatever is necessary to update the UI.
+     */
     func updateUI()
 }
 
@@ -74,10 +84,16 @@ class CGA_InitialViewController: UIViewController {
     
     /* ################################################################## */
     /**
+     The time between repeats of the RSSI update timer.
+     */
+    private static let _rssiTimerIntervalInSeconds: TimeInterval = 0.5
+    
+    /* ################################################################## */
+    /**
      This is how high each section header will be.
      */
     private static let _sectionHeaderHeightInDisplayUnits: CGFloat = 21.0
-    
+
     /* ################################################################## */
     /**
      This is how high the labels that comprise one row will need per line of text.
@@ -105,7 +121,7 @@ class CGA_InitialViewController: UIViewController {
     /* ################################################################## */
     /**
      Used as a semaphore (yuck) to indicate that the Central was (or was not) scanning before the view disappeared.
-     It is not used anywhere else.
+     It is also used for editing the table, to prevent it from aborting deletes.
      */
     private var _wasScanning: Bool = false
     
@@ -114,6 +130,12 @@ class CGA_InitialViewController: UIViewController {
      Returns the pushed device details screen. Nil, if none.
      */
     private var _currentDeviceScreen: CGA_UpdatableScreenViewController! { navigationController?.topViewController as? CGA_UpdatableScreenViewController }
+
+    /* ################################################################## */
+    /**
+     Returns true, if the Central Manager is currently scanning.
+     */
+    var isScanning: Bool { CGA_AppDelegate.centralManager?.isScanning ?? false }
 
     /* ################################################################## */
     /**
@@ -158,11 +180,7 @@ extension CGA_InitialViewController {
      - parameter: ignored.
      */
     @IBAction func scanningButtonHit(_: Any) {
-        if CGA_AppDelegate.centralManager?.isScanning ?? false {
-            CGA_AppDelegate.centralManager?.stopScanning()
-        } else {
-            CGA_AppDelegate.centralManager?.startScanning()
-        }
+        _toggleScanningMode()
         scanningButton.isEnabled = false
     }
 }
@@ -217,7 +235,7 @@ extension CGA_InitialViewController {
      */
     override func viewWillDisappear(_ inAnimated: Bool) {
         super.viewWillDisappear(inAnimated)
-        _wasScanning = CGA_AppDelegate.centralManager?.isScanning ?? false
+        _wasScanning = isScanning
         CGA_AppDelegate.centralManager?.stopScanning()
         navigationController?.navigationBar.isHidden = false
     }
@@ -305,12 +323,40 @@ extension CGA_InitialViewController {
         navigationController?.popToRootViewController(animated: false)
         deviceTableView?.deselectAll()
     }
+    
+    /* ################################################################## */
+    /**
+     Calling this toggles the scanning mode.
+     */
+    private func _toggleScanningMode() {
+        if isScanning {
+            _stopScanning()
+        } else {
+            _startScanning()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Starts scanning for Peripherals. If already scanning, nothing happens.
+     */
+    private func _startScanning() {
+        CGA_AppDelegate.centralManager?.startScanning(withServices: nil, duplicateFilteringIsOn: false)
+    }
+    
+    /* ################################################################## */
+    /**
+     Stops scanning for Peripherals. If already stopped, nothing happens.
+     */
+    private func _stopScanning() {
+        CGA_AppDelegate.centralManager?.stopScanning()
+    }
 }
 
 /* ###################################################################################################################################### */
-// MARK: - Instance Methods -
+// MARK: - CGA_UpdatableScreenViewController Conformance -
 /* ###################################################################################################################################### */
-extension CGA_InitialViewController {
+extension CGA_InitialViewController: CGA_UpdatableScreenViewController {
     /* ################################################################## */
     /**
      This simply makes sure that the table is displayed if BT is available, or the "No BT" image is shown, if it is not.
@@ -325,8 +371,7 @@ extension CGA_InitialViewController {
         deviceTableView?.isHidden = !isBTAvailable
         scanningButton?.isHidden = !isBTAvailable
 
-        if  isBTAvailable,
-            CGA_AppDelegate.centralManager?.isScanning ?? false {
+        if  isScanning {
             scanningButton?.backgroundColor = UIColor(red: 0, green: 0.75, blue: 0, alpha: 1.0)
             scanningButton?.setTitle(" " + "SLUG-SCANNING".localizedVariant + " ", for: .normal)
         } else {
@@ -361,7 +406,7 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
      - parameter inCentralManager: The central manager that is calling this.
      */
     func centralManagerPoweredOn(_ inCentralManager: CGA_Bluetooth_CentralManager) {
-        inCentralManager.startScanning()
+        _startScanning()
     }
 
     /* ################################################################## */
@@ -664,15 +709,15 @@ extension CGA_InitialViewController: UITableViewDelegate {
      - parameter: Ignored
      - parameter canEditRowAt: Ignored
      
-     - returns: true, always.
+     - returns: true, but only if we are not scanning. If we are scanning, we can't edit table rows.
      */
-    func tableView(_: UITableView, canEditRowAt: IndexPath) -> Bool { true }
+    func tableView(_: UITableView, canEditRowAt: IndexPath) -> Bool { !isScanning }
     
     /* ################################################################## */
     /**
      Called to do a delete action.
      
-     - parameter inTableView: The table view being checked
+     - parameter inTableView: The table view being edited
      - parameter commit: The action to perform.
      - parameter forRowAt: The indexpath of the row to be deleted.
      */
