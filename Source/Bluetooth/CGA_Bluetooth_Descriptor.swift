@@ -76,10 +76,36 @@ class CGA_Bluetooth_Descriptor {
 /* ###################################################################################################################################### */
 // MARK: - Instance Methods -
 /* ###################################################################################################################################### */
-extension CGA_Bluetooth_Descriptor: CGA_Class_Protocol {
+extension CGA_Bluetooth_Descriptor {
     /* ################################################################## */
     /**
-     This does nothing for this "leaf" class.
+     The Peripheral is asked to read our value.
      */
-    func clear() { }
+    func readValue() {
+        if  let serviceWrapper = characteristic?.service,
+            let peripheralWrapper = serviceWrapper.peripheral,
+            let peripheral = peripheralWrapper.cbElementInstance {
+            #if DEBUG
+                print("Reading the value for the \(self.id) Descriptor.")
+            #endif
+            peripheral.readValue(for: cbElementInstance)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     The Peripheral is asked to write the given data into its value.
+     
+     - parameter inData: The Data instance to write.
+     */
+    func writeValue(_ inData: Data) {
+        if  let serviceWrapper = characteristic?.service,
+            let peripheralWrapper = serviceWrapper.peripheral,
+            let peripheral = peripheralWrapper.cbElementInstance {
+            #if DEBUG
+                print("Writing this value: \(inData) for the \(self.id) Descriptor.")
+            #endif
+            peripheral.writeValue(inData, for: cbElementInstance)
+        }
+    }
 }
