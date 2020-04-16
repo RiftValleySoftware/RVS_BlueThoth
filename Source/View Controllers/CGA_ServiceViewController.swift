@@ -165,7 +165,6 @@ extension CGA_ServiceViewController {
         if  let characteristic = serviceInstance?[inGestureRecognizer.rowIndex],
             0 < characteristic.count {
             performSegue(withIdentifier: Self._characteristicDetailSegueID, sender: characteristic)
-            characteristicsTableView.deselectRow(at: IndexPath(row: inGestureRecognizer.rowIndex, section: 0), animated: false)
         }
     }
 }
@@ -299,7 +298,7 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         
         /* ############################################################## */
         /**
-         Returns an Array of labels, or nil.
+         Returns an Array of views (labels, but including maybe one button), or nil.
          */
         var labels: [UIView?] {
             [
@@ -311,7 +310,7 @@ extension CGA_ServiceViewController: UITableViewDataSource {
                 characteristic.requiresNotifyEncryption ? _makeLabel("SLUG-PROPERTIES-NOTIFY-ENCRYPT".localizedVariant) : nil,
                 characteristic.requiresNotifyEncryption ? _makeLabel("SLUG-PROPERTIES-INDICATE-ENCRYPT".localizedVariant) : nil,
                 characteristic.hasExtendedProperties ? _makeLabel("SLUG-PROPERTIES-EXTENDED".localizedVariant) : nil,
-                characteristic.canNotify ? _makeNotifyButton() : nil  // Notify goes on the end, because we'll also maybe attach a throbber, annd want to associate it with Notify.
+                characteristic.canNotify ? _makeNotifyButton() : nil  // Notify goes on the end, because it's a big-ass button, and will move things around.
             ]
         }
     }
@@ -340,13 +339,12 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         
         // Remove any existing gesture recognizers.
         tableCell.gestureRecognizers?.forEach { $0.removeTarget(nil, action: nil) }
+        // Remove any previous views in the properties stack.
+        tableCell.propertiesStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
         // We set the ID label.
         tableCell.characteristicIDLabel?.textColor = UIColor(white: 0 < characteristic.count ? 1.0 : 0.75, alpha: 1.0)
         tableCell.characteristicIDLabel?.text = characteristic.id.localizedVariant
-        
-        // Remove any previous views in the properties stack.
-        tableCell.propertiesStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
         // Populate the Properties view.
         _PropertyLabelGenerator(characteristic: characteristic, ownerViewController: self).labels.forEach {
@@ -361,14 +359,9 @@ extension CGA_ServiceViewController: UITableViewDataSource {
             }
         }
         
-        // This is the tap gesture recognizer for bringing in the Descriptors. It is attached to the table cell, in general.
-        let gestureRecognizer = CG_TapGestureRecognizer(target: self, action: #selector(descriptorTapped(_:)))
-        gestureRecognizer.cancelsTouchesInView = true
-        gestureRecognizer.numberOfTouchesRequired = 1
-        gestureRecognizer.numberOfTapsRequired = 1
-        
+        // This is a single-tap gesture recognizer for bringing in the Descriptors. It is attached to the table cell, in general.
         if 0 < characteristic.count {   // Only if we have Descriptors.
-            tableCell.addGestureRecognizer(gestureRecognizer)
+            tableCell.addGestureRecognizer(CG_TapGestureRecognizer(target: self, action: #selector(descriptorTapped(_:))))
         }
         
         // If there is a String-convertible value, we display it. Otherwise, we either display a described Data item, or blank.
