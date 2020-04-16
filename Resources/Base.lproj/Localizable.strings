@@ -35,6 +35,7 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 "SLUG-CONNECTING"                   =   "CONNECTING...";
 "SLUG-DISCOVERED-DEVICES"           =   "DISCOVERED DEVICES";
 "SLUG-SERVICES"                     =   "SERVICES";
+"SLUG-VERSION-FORMAT"               =   "VERSION: %@ (%@)";
 
 // These are error reports.
 "CGA-ERROR-TIMEOUT"                 =   "There was a timeout, while attempting a connection to a Peripheral.";
@@ -44,7 +45,8 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 "SLUG-PROPERTIES-READ"              =   " RD ";
 "SLUG-PROPERTIES-WRITE"             =   " WN ";
 "SLUG-PROPERTIES-WRITE-RESPONSE"    =   " WR ";
-"SLUG-PROPERTIES-NOTIFY"            =   " NO ";
+"SLUG-PROPERTIES-NOTIFY-ON"         =   " NOTIFY ON ";
+"SLUG-PROPERTIES-NOTIFY-OFF"        =   " NOTIFY OFF ";
 "SLUG-PROPERTIES-INDICATE"          =   " IN ";
 "SLUG-PROPERTIES-BROADCAST"         =   " BR ";
 "SLUG-PROPERTIES-AUTH-SIGNED-WRITE" =   " AW ";

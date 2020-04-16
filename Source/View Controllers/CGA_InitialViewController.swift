@@ -404,7 +404,7 @@ extension CGA_InitialViewController: CGA_UpdatableScreenViewController {
         editButton.setTitle((deviceTableView.isEditing ? "SLUG-DONE" : "SLUG-EDIT").localizedVariant, for: .normal)
         
         scanningButton?.isEnabled = true
-
+        
         if  isScanning {
             scanningButton?.backgroundColor = UIColor(red: 0, green: 0.75, blue: 0, alpha: 1.0)
             scanningButton?.setTitle(" " + "SLUG-SCANNING".localizedVariant + " ", for: .normal)

@@ -29,11 +29,26 @@ import UIKit
  This controls the about this app view.
  */
 class CGA_InfoViewController: UIViewController {
+    @IBOutlet weak var appNameLabel: UILabel!
+    @IBOutlet weak var appVersionLabel: UILabel!
     /* ################################################################## */
     /**
      Called after the view data has been loaded.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        appNameLabel?.text = Bundle.main.appDisplayName
+        appVersionLabel?.text = String(format: "SLUG-VERSION-FORMAT".localizedVariant, Bundle.main.appVersionString, Bundle.main.appVersionBuildString)
     }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Bundle Extension -
+/* ###################################################################################################################################### */
+/**
+ */
+extension Bundle {
+    var appDisplayName: String { (object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ?? object(forInfoDictionaryKey: "CFBundleName") as? String) ?? "ERROR" }
+    var appVersionString: String { object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "ERROR" }
+    var appVersionBuildString: String { object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "ERROR" }
 }
