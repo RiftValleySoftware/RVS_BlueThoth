@@ -369,7 +369,7 @@ extension CGA_InitialViewController {
      Starts scanning for Peripherals. If already scanning, nothing happens.
      */
     private func _startScanning() {
-        CGA_AppDelegate.centralManager?.startScanning(withServices: nil, duplicateFilteringIsOn: false)
+        CGA_AppDelegate.centralManager?.startScanning()
     }
     
     /* ################################################################## */

@@ -26,9 +26,20 @@ import UIKit
 // MARK: - The CGA_DetailViewController_TableRow Class (Denotes One Row of the Table) -
 /* ###################################################################################################################################### */
 /**
+ This denotes one row of the table of Descriptors. Each row denotes one Descriptor.
  */
 class CGA_CharacteristicViewController_TableRow: UITableViewCell {
+    /* ################################################################## */
+    /**
+     This is the top label that displays the Descriptor ID
+     */
     @IBOutlet weak var descriptorIDLabel: UILabel!
+
+    /* ################################################################## */
+    /**
+     The bottom label displays the Descriptor value (interpreted)
+     */
+    @IBOutlet weak var descriptorValueLabel: UILabel!
 }
 
 /* ###################################################################################################################################### */
