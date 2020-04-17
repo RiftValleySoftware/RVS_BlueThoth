@@ -23,6 +23,19 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 import UIKit
 
 /* ###################################################################################################################################### */
+// MARK: - Simple Protocol That Defines A Scan Restart Method -
+/* ###################################################################################################################################### */
+/**
+ */
+protocol CGA_ScannerViewController {
+    /* ################################################################## */
+    /**
+     This is a method to restart scanning, if it was running beforehand. If not, nothing happens.
+     */
+    func restartScanningIfNecessary()
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Simple Protocol That Defines A UI Updater Method -
 /* ###################################################################################################################################### */
 /**
@@ -278,7 +291,11 @@ extension CGA_InitialViewController {
     override func prepare(for inSegue: UIStoryboardSegue, sender inSender: Any?) {
         // We only go further if we are looking at device details.
         guard   let destination = inSegue.destination as? CGA_PeripheralViewController,
-                let senderData = inSender as? CGA_Bluetooth_CentralManager.DiscoveryData else { return }
+                let senderData = inSender as? CGA_Bluetooth_CentralManager.DiscoveryData else {
+            _wasScanning = isScanning
+            CGA_AppDelegate.centralManager?.stopScanning()
+            return
+        }
         
         destination.deviceAdvInfo = senderData
     }
@@ -369,7 +386,7 @@ extension CGA_InitialViewController {
      Starts scanning for Peripherals. If already scanning, nothing happens.
      */
     private func _startScanning() {
-        CGA_AppDelegate.centralManager?.startScanning(withServices: nil, duplicateFilteringIsOn: CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals)
+        CGA_AppDelegate.centralManager?.startScanning(withServices: nil, duplicateFilteringIsOn: !CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals)
     }
     
     /* ################################################################## */
@@ -378,6 +395,21 @@ extension CGA_InitialViewController {
      */
     private func _stopScanning() {
         CGA_AppDelegate.centralManager?.stopScanning()
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - CGA_ScannerViewController Conformance -
+/* ###################################################################################################################################### */
+extension CGA_InitialViewController: CGA_ScannerViewController {
+    /* ################################################################## */
+    /**
+     This is called from presented view controllers, and will restart scanning, if we were scanning before. If not, nothing happens.
+     */
+    func restartScanningIfNecessary() {
+        if _wasScanning {
+            _startScanning()
+        }
     }
 }
 
@@ -406,11 +438,11 @@ extension CGA_InitialViewController: CGA_UpdatableScreenViewController {
         scanningButton?.isEnabled = true
         
         if  isScanning {
-            scanningButton?.backgroundColor = UIColor(red: 0, green: 0.75, blue: 0, alpha: 1.0)
             scanningButton?.setTitle(" " + "SLUG-SCANNING".localizedVariant + " ", for: .normal)
+            scanningButton?.backgroundColor = UIColor(red: 0, green: 0.75, blue: 0, alpha: 1.0)
         } else {
-            scanningButton?.backgroundColor = UIColor(red: 0.75, green: 0, blue: 0, alpha: 1.0)
             scanningButton?.setTitle(" " + "SLUG-NOT-SCANNING".localizedVariant + " ", for: .normal)
+            scanningButton?.backgroundColor = UIColor(red: 0.75, green: 0, blue: 0, alpha: 1.0)
         }
     }
 }

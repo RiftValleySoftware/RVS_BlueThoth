@@ -46,7 +46,12 @@ class CGA_InfoViewController: UIViewController {
      The button at the bottom that will link to the site.
      */
     @IBOutlet weak var copyrightButton: UIButton!
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Callback/Observer Methods -
+/* ###################################################################################################################################### */
+extension CGA_InfoViewController {
     /* ################################################################## */
     /**
      Called when the copyright button is hit.
@@ -58,7 +63,12 @@ class CGA_InfoViewController: UIViewController {
         
         UIApplication.shared.open(uri)
     }
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Base Class Override Methods -
+/* ###################################################################################################################################### */
+extension CGA_InfoViewController {
     /* ################################################################## */
     /**
      Called after the view data has been loaded.
@@ -68,6 +78,19 @@ class CGA_InfoViewController: UIViewController {
         appNameLabel?.text = Bundle.main.appDisplayName
         appVersionLabel?.text = String(format: "SLUG-VERSION-FORMAT".localizedVariant, Bundle.main.appVersionString, Bundle.main.appVersionBuildString)
         copyrightButton.setTitle(Bundle.main.copyrightString, for: .normal)
+    }
+    
+    /* ################################################################## */
+    /**
+     This allows us to restart scanning in the main screen, if it was running before we were called.
+     */
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if  let navigationController = presentingViewController as? UINavigationController,
+            0 < navigationController.viewControllers.count,
+            let presenter = navigationController.viewControllers[0] as? CGA_ScannerViewController {
+            presenter.restartScanningIfNecessary()
+        }
     }
 }
 

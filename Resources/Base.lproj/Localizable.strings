@@ -35,7 +35,10 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 "SLUG-CONNECTING"                   =   "CONNECTING...";
 "SLUG-DISCOVERED-DEVICES"           =   "DISCOVERED DEVICES";
 "SLUG-SERVICES"                     =   "SERVICES";
+
 "SLUG-VERSION-FORMAT"               =   "VERSION: %@ (%@)";
+
+"SLUG-IGNORE-DUPES"                 =   "Continuously Update Scans:";
 
 // These are error reports.
 "CGA-ERROR-TIMEOUT"                 =   "There was a timeout, while attempting a connection to a Peripheral.";

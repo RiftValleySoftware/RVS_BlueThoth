@@ -31,9 +31,72 @@ import UIKit
 class CGA_SettingsViewController: UIViewController {
     /* ################################################################## */
     /**
+     */
+    @IBOutlet weak var ignoreDuplicatesScanningSwitch: UISwitch!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var ignoreDuplicatesSwitchButton: UIButton!
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Callback/Observer Methods -
+/* ###################################################################################################################################### */
+extension CGA_SettingsViewController {
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func ignoreDuplicatesSwitchHit(_ inSwitch: UISwitch) {
+        CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals = inSwitch.isOn
+        updateUI()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func ignoreDuplicatesButtonHit(_: Any) {
+        CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals = !CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals
+        updateUI()
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Instance Methods -
+/* ###################################################################################################################################### */
+extension CGA_SettingsViewController {
+    /* ################################################################## */
+    /**
+     */
+    func updateUI() {
+        ignoreDuplicatesScanningSwitch?.setOn(CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals, animated: true)
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Base Class Override Methods -
+/* ###################################################################################################################################### */
+extension CGA_SettingsViewController {
+    /* ################################################################## */
+    /**
      Called after the view data has been loaded.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        ignoreDuplicatesSwitchButton?.setTitle(ignoreDuplicatesSwitchButton?.title(for: .normal)?.localizedVariant, for: .normal)
+        updateUI()
+    }
+    
+    /* ################################################################## */
+    /**
+     This allows us to restart scanning in the main screen, if it was running before we were called.
+     */
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if  let navigationController = presentingViewController as? UINavigationController,
+            0 < navigationController.viewControllers.count,
+            let presenter = navigationController.viewControllers[0] as? CGA_ScannerViewController {
+            presenter.restartScanningIfNecessary()
+        }
     }
 }
