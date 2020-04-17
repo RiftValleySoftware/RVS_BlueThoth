@@ -95,7 +95,7 @@ class CGA_PeripheralViewController: UIViewController {
     /**
      The stack view that contains all the device information.
      */
-    @IBOutlet weak var deviceInfoStackView: UIStackView!
+    @IBOutlet weak var deviceInfoTextView: UITextView!
     
     /* ################################################################## */
     /**
@@ -134,7 +134,7 @@ extension CGA_PeripheralViewController: CGA_UpdatableScreenViewController {
     func updateUI() {
         if nil != deviceInstance {
             busyAnimationActivityIndicatorView?.stopAnimating()
-            deviceInfoStackView?.isHidden = false
+            deviceInfoTextView?.isHidden = false
             connectingLabel?.isHidden = true
             serviceTableView?.isHidden = false
             servicesLabel?.isHidden = false
@@ -142,7 +142,7 @@ extension CGA_PeripheralViewController: CGA_UpdatableScreenViewController {
             serviceTableView?.reloadData()
         } else {
             busyAnimationActivityIndicatorView?.startAnimating()
-            deviceInfoStackView?.isHidden = true
+            deviceInfoTextView?.isHidden = true
             connectingLabel?.isHidden = false
             serviceTableView?.isHidden = true
             servicesLabel?.isHidden = true

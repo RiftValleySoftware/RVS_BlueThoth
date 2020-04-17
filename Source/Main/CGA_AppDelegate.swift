@@ -23,7 +23,7 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 import UIKit
 
 /* ###################################################################################################################################### */
-// MARK: -
+// MARK: - The Main Application Delegate -
 /* ###################################################################################################################################### */
 /**
  The primary application delegate for the app.
@@ -76,6 +76,12 @@ class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
      Quick access to the app delegate object.
      */
     class var appDelegateObject: CGA_AppDelegate! { UIApplication.shared.delegate as? CGA_AppDelegate }
+    
+    /* ################################################################## */
+    /**
+     This will contain our persistent prefs
+     */
+    var prefs = CGA_PersistentPrefs()
 
     /* ################################################################## */
     /**
