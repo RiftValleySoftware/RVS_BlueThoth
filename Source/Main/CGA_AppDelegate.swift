@@ -23,31 +23,6 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 import UIKit
 
 /* ###################################################################################################################################### */
-// MARK: - The Persistent Prefs Class -
-/* ###################################################################################################################################### */
-/**
- */
-class CGA_PersistentPrefs: RVS_PersistentPrefs {
-    /* ################################################################################################################################## */
-    // MARK: - The Persistent Prefs Keys (As An Enum) -
-    /* ################################################################################################################################## */
-    /**
-     */
-    enum PrefsKeys: String {
-        case continuouslyUpdatePeripherals = "kUpdatePeripherals"
-        
-        static var keys: [String] { [continuouslyUpdatePeripherals.rawValue] }
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    override var keys: [String] {
-        PrefsKeys.keys
-    }
-}
-
-/* ###################################################################################################################################### */
 // MARK: - The Main Application Delegate -
 /* ###################################################################################################################################### */
 /**
@@ -106,7 +81,7 @@ class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
     /**
      This will contain our persistent prefs
      */
-    var prefs = RVS_PersistentPrefs()
+    var prefs = CGA_PersistentPrefs()
 
     /* ################################################################## */
     /**
