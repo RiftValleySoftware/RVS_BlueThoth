@@ -630,6 +630,8 @@ extension CGA_Bluetooth_CentralManager {
             scanningServices = services
         }
         
+        services = scanningServices.compactMap { CBUUID(string: $0) }
+        
         cbCentral.scanForPeripherals(withServices: services, options: options)
         
         _updateDelegate()
@@ -950,6 +952,7 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
         
         // See if we have asked for only particular peripherals.
         if  let peripherals = scanCriteria?.peripherals,
+            0 < peripherals.count,
             !peripherals.reduce(false, { (current, next) -> Bool in
                 current || (next.uppercased() == inPeripheral.identifier.uuidString.uppercased())
             }) {

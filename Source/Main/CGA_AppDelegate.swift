@@ -58,12 +58,51 @@ class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    /* ################################################################## */
+    /**
+     This will change the app orientation mask to what is provided.
+     It can be used to force orientation of the interface.
+     It records the interface orientation prior to the change, so that can be restored later.
+     
+     - parameter inOrientation: The orientation that should be locked.
+     */
+    class func lockOrientation(_ inOrientation: UIInterfaceOrientationMask) {
+        Self.appDelegateObject?.orientationLock = inOrientation
+    }
+    
+    /* ################################################################## */
+    /**
+     This will force the screen to ignore the accelerometer setting and force the screen into that orientation.
+     
+     - parameter inOrientation: The orientation that should be locked.
+     - parameter andRotateTo: The orientation that should be forced.
+     */
+    class func lockOrientation(_ inOrientation: UIInterfaceOrientationMask, andRotateTo inRotateOrientation: UIInterfaceOrientation) {
+        lockOrientation(inOrientation)
+        UIDevice.current.setValue(inRotateOrientation.rawValue, forKey: "orientation")
+    }
+    
+    /* ################################################################## */
+    /**
+     This will return the app orientation to the state it was before the orientation was locked.
+     This is not 100% perfect. If, for example, the device was landscape, then the user physically rotated it to portrait after this call, the rotation will return to landscape, even if the device is still portrait.
+     */
+    class func unlockOrientation() {
+        lockOrientation(.allButUpsideDown)
+    }
 
     /* ################################################################## */
     /**
      This is the Bluetooth Central Manager instance. Everything goes through this.
      */
     static var centralManager: CGA_Bluetooth_CentralManager?
+
+    /* ################################################################## */
+    /**
+     Used to force orientation for the Settings screen.
+     */
+    var orientationLock = UIInterfaceOrientationMask.allButUpsideDown
     
     /* ################################################################## */
     /**
@@ -90,4 +129,13 @@ class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
      - returns: True (always)
      */
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool { true }
+    
+    /* ################################################################## */
+    /**
+     This is used to lock the orientation while the timer editor is up.
+     
+     - parameter: ignored
+     - parameter supportedInterfaceOrientationsFor: ignored
+     */
+    func application(_: UIApplication, supportedInterfaceOrientationsFor: UIWindow?) -> UIInterfaceOrientationMask { orientationLock }
 }

@@ -42,9 +42,31 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
         
         /* ############################################################## */
         /**
+         This will be an Array of String, containing the UUIDs of specific Peripherals for which we are filtering.
+         */
+        case peripheralFilterIDArray = "kPeripheralIDs"
+        
+        /* ############################################################## */
+        /**
+         This will be an Array of String, containing the UUIDs of specific Services for which we are filtering.
+         */
+        case serviceFilterIDArray = "kServiceIDs"
+        
+        /* ############################################################## */
+        /**
+         This will be an Array of String, containing the UUIDs of specific Characteristics for which we are filtering.
+         */
+        case characteristicFilterIDArray = "kCharacteristicIDs"
+
+        /* ############################################################## */
+        /**
          These are all the keys, in an Array of String.
          */
-        static var allKeys: [String] { [continuouslyUpdatePeripherals.rawValue] }
+        static var allKeys: [String] { [continuouslyUpdatePeripherals.rawValue,
+                                        peripheralFilterIDArray.rawValue,
+                                        serviceFilterIDArray.rawValue,
+                                        characteristicFilterIDArray.rawValue
+                                        ] }
     }
     
     /* ################################################################## */
@@ -62,4 +84,38 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
         get { values[Keys.continuouslyUpdatePeripherals.rawValue] as? Bool ?? false }
         set { values[Keys.continuouslyUpdatePeripherals.rawValue] = newValue }
     }
+    
+    /* ################################################################## */
+    /**
+     This is an Array of String, containing the UUIDs of specific Peripherals for which we are filtering.
+     */
+    var peripheralFilterIDArray: [String] {
+        get { values[Keys.peripheralFilterIDArray.rawValue] as? [String] ?? [] }
+        set { values[Keys.peripheralFilterIDArray.rawValue] = newValue }
+    }
+    
+    /* ################################################################## */
+    /**
+     This is an Array of String, containing the UUIDs of specific Services for which we are filtering.
+     */
+    var serviceFilterIDArray: [String] {
+        get { values[Keys.serviceFilterIDArray.rawValue] as? [String] ?? [] }
+        set { values[Keys.serviceFilterIDArray.rawValue] = newValue }
+    }
+    
+    /* ################################################################## */
+    /**
+     This is an Array of String, containing the UUIDs of specific Characteristics for which we are filtering.
+     */
+    var characteristicFilterIDArray: [String] {
+        get { values[Keys.characteristicFilterIDArray.rawValue] as? [String] ?? [] }
+        set { values[Keys.characteristicFilterIDArray.rawValue] = newValue }
+    }
+    
+    /* ################################################################## */
+    /**
+     This is the scan criteria object to be used for filtering scans.
+     It is provided in the struct required by the Bluetooth subsystem.
+     */
+    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! { CGA_Bluetooth_CentralManager.ScanCriteria(peripherals: peripheralFilterIDArray, services: serviceFilterIDArray, characteristics: characteristicFilterIDArray) }
 }

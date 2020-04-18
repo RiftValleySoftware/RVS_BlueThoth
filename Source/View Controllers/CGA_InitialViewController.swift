@@ -386,7 +386,9 @@ extension CGA_InitialViewController {
      Starts scanning for Peripherals. If already scanning, nothing happens.
      */
     private func _startScanning() {
-        CGA_AppDelegate.centralManager?.startScanning(withServices: nil, duplicateFilteringIsOn: !CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals)
+        let scanCriteria = CGA_AppDelegate.appDelegateObject.prefs.scanCriteria
+        CGA_AppDelegate.centralManager?.scanCriteria = scanCriteria
+        CGA_AppDelegate.centralManager?.startScanning(duplicateFilteringIsOn: !CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals)
     }
     
     /* ################################################################## */
@@ -409,6 +411,7 @@ extension CGA_InitialViewController: CGA_ScannerViewController {
     func restartScanningIfNecessary() {
         if _wasScanning {
             _startScanning()
+            deviceTableView?.reloadData()
         }
     }
 }

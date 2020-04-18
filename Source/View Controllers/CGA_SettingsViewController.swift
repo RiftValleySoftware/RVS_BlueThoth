@@ -21,6 +21,7 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 */
 
 import UIKit
+import CoreBluetooth
 
 /* ###################################################################################################################################### */
 // MARK: - The Settings View Controller -
@@ -31,13 +32,77 @@ import UIKit
 class CGA_SettingsViewController: UIViewController {
     /* ################################################################## */
     /**
+     This switch will determine whether or not duplicate filtering is applied to the Peripheral scanning.
+     If it is applied, then duplicates will be ignored during the discovery process (meaning that the devices are not continuously updated).
+     False/Off means that duplicates ARE being filtered.
      */
     @IBOutlet weak var ignoreDuplicatesScanningSwitch: UISwitch!
     
     /* ################################################################## */
     /**
+     This button is the "label" for the switch. I always like my labels to actuate their targets. This toggles the value of the switch.
      */
     @IBOutlet weak var ignoreDuplicatesSwitchButton: UIButton!
+    
+    /* ################################################################## */
+    /**
+     The label for the header over the three TextFields.
+     */
+    @IBOutlet weak var filterHeaderLabel: UILabel!
+    
+    /* ################################################################## */
+    /**
+     The Label for the device/Peripheral filter TextField.
+     */
+    @IBOutlet weak var deviceFilterLabel: UILabel!
+    
+    /* ################################################################## */
+    /**
+     The TextField for entry of the device/Peripheral filters.
+     */
+    @IBOutlet weak var deviceFilterTextView: UITextView!
+    
+    /* ################################################################## */
+    /**
+     The Label for the Service filter TextField.
+     */
+    @IBOutlet weak var serviceFilterLabel: UILabel!
+    
+    /* ################################################################## */
+    /**
+     The TextField for entry of the Service filters.
+     */
+    @IBOutlet weak var serviceFilterTextView: UITextView!
+    
+    /* ################################################################## */
+    /**
+     The Label for the Characteristic filter TextField.
+     */
+    @IBOutlet weak var characteristicFilterLabel: UILabel!
+    
+    /* ################################################################## */
+    /**
+     The TextField for entry of the Characteristic filters.
+     */
+    @IBOutlet weak var characteristicFilterTextView: UITextView!
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Private Methods -
+/* ###################################################################################################################################### */
+extension CGA_SettingsViewController {
+    /* ################################################################## */
+    /**
+     This is a utility method that "scrubs" the contents of the passed-in text, so it is an Array of String, containing valid UUID values.
+     
+     - parameter inTextToParse: The String to be parsed. The Array will be formed from split by linefeed ("\n").
+     - returns: an Array of String, containing the UUIDs extracted from the text.
+     */
+    private class func _parseThisTextForUUIDs(_ inTextToParse: String!) -> [String] {
+        let ret = inTextToParse?.split(separator: "\n").compactMap { return ((4 == $0.hexOnly.count) || (32 == $0.hexOnly.count)) ? $0.hexOnly : nil } ?? []
+        
+        return ret.map { CBUUID(string: $0).uuidString }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -46,6 +111,10 @@ class CGA_SettingsViewController: UIViewController {
 extension CGA_SettingsViewController {
     /* ################################################################## */
     /**
+     Called when the "Continuous Scan" switch is hit.
+     This immediately updates our prefs.
+     
+     - parameter inSwitch: The switch object.
      */
     @IBAction func ignoreDuplicatesSwitchHit(_ inSwitch: UISwitch) {
         CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals = inSwitch.isOn
@@ -54,10 +123,26 @@ extension CGA_SettingsViewController {
     
     /* ################################################################## */
     /**
+     Called when the label for the switch is hit.
+     It toggles the value in the prefs, and forces a UI update, which will change the switch.
+     
+     - parameter: ignored.
      */
     @IBAction func ignoreDuplicatesButtonHit(_: Any) {
         CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals = !CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals
         updateUI()
+    }
+    
+    /* ################################################################## */
+    /**
+     This dismisses any open keyboard.
+     
+     - parameter: ignored (and optional).
+     */
+    @IBAction func dismissKeyboard(_: Any! = nil) {
+        deviceFilterTextView?.resignFirstResponder()
+        serviceFilterTextView?.resignFirstResponder()
+        characteristicFilterTextView?.resignFirstResponder()
     }
 }
 
@@ -67,9 +152,38 @@ extension CGA_SettingsViewController {
 extension CGA_SettingsViewController {
     /* ################################################################## */
     /**
+     Updates all the values to match the prefs.
      */
     func updateUI() {
+        dismissKeyboard()
         ignoreDuplicatesScanningSwitch?.setOn(CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals, animated: true)
+        deviceFilterTextView?.text = CGA_AppDelegate.appDelegateObject.prefs.peripheralFilterIDArray.joined(separator: "\n")
+        serviceFilterTextView?.text = CGA_AppDelegate.appDelegateObject.prefs.serviceFilterIDArray.joined(separator: "\n")
+        characteristicFilterTextView?.text = CGA_AppDelegate.appDelegateObject.prefs.characteristicFilterIDArray.joined(separator: "\n")
+    }
+    
+    /* ################################################################## */
+    /**
+     Forces a prefs update on the contents of the Peripheral filter TextView.
+     */
+    func parseDeviceTextView() {
+        CGA_AppDelegate.appDelegateObject.prefs.peripheralFilterIDArray = Self._parseThisTextForUUIDs(deviceFilterTextView?.text)
+    }
+    
+    /* ################################################################## */
+    /**
+     Forces a prefs update on the contents of the Service filter TextView.
+     */
+    func parseServiceTextView() {
+        CGA_AppDelegate.appDelegateObject.prefs.serviceFilterIDArray = Self._parseThisTextForUUIDs(serviceFilterTextView?.text)
+    }
+    
+    /* ################################################################## */
+    /**
+     Forces a prefs update on the contents of the Characteristic filter TextView.
+     */
+    func parseCharacteristicTextView() {
+        CGA_AppDelegate.appDelegateObject.prefs.characteristicFilterIDArray = Self._parseThisTextForUUIDs(characteristicFilterTextView?.text)
     }
 }
 
@@ -84,19 +198,65 @@ extension CGA_SettingsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ignoreDuplicatesSwitchButton?.setTitle(ignoreDuplicatesSwitchButton?.title(for: .normal)?.localizedVariant, for: .normal)
+        filterHeaderLabel?.text = filterHeaderLabel?.text?.localizedVariant
+        deviceFilterLabel?.text = deviceFilterLabel?.text?.localizedVariant
+        serviceFilterLabel?.text = serviceFilterLabel?.text?.localizedVariant
+        characteristicFilterLabel?.text = characteristicFilterLabel?.text?.localizedVariant
         updateUI()
     }
     
     /* ################################################################## */
     /**
-     This allows us to restart scanning in the main screen, if it was running before we were called.
+     Called before the view is displayed.
+     We use this to ensure that the orientation is portrait.
+     
+     - parameter inAnimated: ignored.
      */
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewWillAppear(_ inAnimated: Bool) {
+        super.viewWillAppear(inAnimated)
+        CGA_AppDelegate.lockOrientation(.portrait, andRotateTo: .portrait)
+    }
+    
+    /* ################################################################## */
+    /**
+     This allows us to restart scanning in the main screen, if it was running before we were called.
+     It also allows us to restore the orientation.
+     
+     - parameter inAnimated: ignored.
+     */
+    override func viewWillDisappear(_ inAnimated: Bool) {
+        super.viewWillDisappear(inAnimated)
         if  let navigationController = presentingViewController as? UINavigationController,
             0 < navigationController.viewControllers.count,
             let presenter = navigationController.viewControllers[0] as? CGA_ScannerViewController {
+            CGA_AppDelegate.unlockOrientation()
+            CGA_AppDelegate.centralManager?.startOver() // Because we can move a lot of cheese, we start over from scratch. That also means unignoring previously ignored Peripherals.
             presenter.restartScanningIfNecessary()
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - UITextViewDelegate Conformance -
+/* ###################################################################################################################################### */
+extension CGA_SettingsViewController: UITextViewDelegate {
+    /* ################################################################## */
+    /**
+     Called when any of the TextFields change.
+     We use this to parse the values.
+     
+     - parameter inTextView: The TextView that is being changed.
+     */
+    func textViewDidChange(_ inTextView: UITextView) {
+        switch inTextView {
+        case deviceFilterTextView:
+            parseDeviceTextView()
+        case serviceFilterTextView:
+            parseServiceTextView()
+        case characteristicFilterTextView:
+            parseCharacteristicTextView()
+        default:
+            ()
         }
     }
 }
