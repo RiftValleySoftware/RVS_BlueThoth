@@ -58,7 +58,7 @@
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <segue destination="JV6-wJ-8zU" kind="showDetail" id="Liy-YK-yTR"/>
+                                            <segue destination="JV6-wJ-8zU" kind="presentation" id="Liy-YK-yTR"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tXo-2J-9xn">
@@ -89,7 +89,7 @@
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" image="Gear"/>
                                         <connections>
-                                            <segue destination="cy1-Z9-e68" kind="showDetail" id="Gf5-1G-5W8"/>
+                                            <segue destination="cy1-Z9-e68" kind="presentation" id="Gf5-1G-5W8"/>
                                         </connections>
                                     </button>
                                 </subviews>

@@ -111,4 +111,11 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
         get { values[Keys.characteristicFilterIDArray.rawValue] as? [String] ?? [] }
         set { values[Keys.characteristicFilterIDArray.rawValue] = newValue }
     }
+    
+    /* ################################################################## */
+    /**
+     This is the scan criteria object to be used for filtering scans.
+     It is provided in the struct required by the Bluetooth subsystem.
+     */
+    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! { CGA_Bluetooth_CentralManager.ScanCriteria(peripherals: peripheralFilterIDArray, services: serviceFilterIDArray, characteristics: characteristicFilterIDArray) }
 }

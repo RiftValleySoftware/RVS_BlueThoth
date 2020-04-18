@@ -21,6 +21,7 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 */
 
 import UIKit
+import CoreBluetooth
 
 /* ###################################################################################################################################### */
 // MARK: - The Settings View Controller -
@@ -98,15 +99,9 @@ extension CGA_SettingsViewController {
      - returns: an Array of String, containing the UUIDs extracted from the text.
      */
     private class func _parseThisTextForUUIDs(_ inTextToParse: String!) -> [String] {
-        guard let textToParse = inTextToParse else { return [] }
-        let hexDigits = CharacterSet(charactersIn: "0123456789ABCDEF-")
-        return textToParse.uppercased().split(separator: "\n").map {
-            String($0).filter {
-                guard let cha = UnicodeScalar($0.unicodeScalars.map { $0.value }.reduce(0, +)) else { return false }
-                
-                return hexDigits.contains(cha)
-            }
-        }.compactMap { !$0.isEmpty ? $0 : nil }
+        let ret = inTextToParse?.split(separator: "\n").compactMap { return ((4 == $0.hexOnly.count) || (32 == $0.hexOnly.count)) ? $0.hexOnly : nil } ?? []
+        
+        return ret.map { CBUUID(string: $0).uuidString }
     }
 }
 
@@ -235,6 +230,7 @@ extension CGA_SettingsViewController {
             0 < navigationController.viewControllers.count,
             let presenter = navigationController.viewControllers[0] as? CGA_ScannerViewController {
             CGA_AppDelegate.unlockOrientation()
+            CGA_AppDelegate.centralManager?.startOver() // Because we can move a lot of cheese, we start over from scratch. That also means unignoring previously ignored Peripherals.
             presenter.restartScanningIfNecessary()
         }
     }
