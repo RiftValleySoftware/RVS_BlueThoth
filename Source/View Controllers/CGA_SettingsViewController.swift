@@ -128,13 +128,29 @@ extension CGA_SettingsViewController {
     
     /* ################################################################## */
     /**
-     This allows us to restart scanning in the main screen, if it was running before we were called.
+     Called before the view is displayed.
+     We use this to ensure that the orientation is portrait.
+     
+     - parameter inAnimated: ignored.
      */
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewWillAppear(_ inAnimated: Bool) {
+        super.viewWillAppear(inAnimated)
+        CGA_AppDelegate.lockOrientation(.portrait, andRotateTo: .portrait)
+    }
+    
+    /* ################################################################## */
+    /**
+     This allows us to restart scanning in the main screen, if it was running before we were called.
+     It also allows us to restore the orientation.
+     
+     - parameter inAnimated: ignored.
+     */
+    override func viewWillDisappear(_ inAnimated: Bool) {
+        super.viewWillDisappear(inAnimated)
         if  let navigationController = presentingViewController as? UINavigationController,
             0 < navigationController.viewControllers.count,
             let presenter = navigationController.viewControllers[0] as? CGA_ScannerViewController {
+            CGA_AppDelegate.unlockOrientation()
             presenter.restartScanningIfNecessary()
         }
     }

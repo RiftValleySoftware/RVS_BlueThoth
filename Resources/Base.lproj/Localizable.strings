@@ -52,8 +52,8 @@ Little Green Viper Software Development LLC: https://littlegreenviper.com
 "SLUG-PROPERTIES-READ"              =   " RD ";
 "SLUG-PROPERTIES-WRITE"             =   " WN ";
 "SLUG-PROPERTIES-WRITE-RESPONSE"    =   " WR ";
-"SLUG-PROPERTIES-NOTIFY-ON"         =   " NOTIFY ON ";
-"SLUG-PROPERTIES-NOTIFY-OFF"        =   " NOTIFY OFF ";
+"SLUG-PROPERTIES-NOTIFY-ON"         =   " NOTIFYING ";
+"SLUG-PROPERTIES-NOTIFY-OFF"        =   " NOTIFY ";
 "SLUG-PROPERTIES-INDICATE"          =   " IN ";
 "SLUG-PROPERTIES-BROADCAST"         =   " BR ";
 "SLUG-PROPERTIES-AUTH-SIGNED-WRITE" =   " AW ";
