@@ -99,13 +99,14 @@ extension CGA_Bluetooth_Descriptor {
      - parameter inData: The Data instance to write.
      */
     func writeValue(_ inData: Data) {
-        if  let serviceWrapper = characteristic?.service,
-            let peripheralWrapper = serviceWrapper.peripheral,
-            let peripheral = peripheralWrapper.cbElementInstance {
-            #if DEBUG
-                print("Writing this value: \(inData) for the \(self.id) Descriptor.")
-            #endif
-            peripheral.writeValue(inData, for: cbElementInstance)
-        }
+// TODO: Implement this when we can test it.
+//        if  let serviceWrapper = characteristic?.service,
+//            let peripheralWrapper = serviceWrapper.peripheral,
+//            let peripheral = peripheralWrapper.cbElementInstance {
+//            #if DEBUG
+//                print("Writing this value: \(inData) for the \(self.id) Descriptor.")
+//            #endif
+//            peripheral.writeValue(inData, for: cbElementInstance)
+//        }
     }
 }

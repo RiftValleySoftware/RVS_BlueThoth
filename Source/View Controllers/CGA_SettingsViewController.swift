@@ -38,6 +38,41 @@ class CGA_SettingsViewController: UIViewController {
     /**
      */
     @IBOutlet weak var ignoreDuplicatesSwitchButton: UIButton!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var filterHeaderLabel: UILabel!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var deviceFilterLabel: UILabel!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var deviceFilterTextView: UITextView!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var serviceFilterLabel: UILabel!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var serviceFilterTextView: UITextView!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var characteristicFilterLabel: UILabel!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var characteristicFilterTextView: UITextView!
 }
 
 /* ###################################################################################################################################### */
@@ -84,6 +119,10 @@ extension CGA_SettingsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ignoreDuplicatesSwitchButton?.setTitle(ignoreDuplicatesSwitchButton?.title(for: .normal)?.localizedVariant, for: .normal)
+        filterHeaderLabel?.text = filterHeaderLabel?.text?.localizedVariant
+        deviceFilterLabel?.text = deviceFilterLabel?.text?.localizedVariant
+        serviceFilterLabel?.text = serviceFilterLabel?.text?.localizedVariant
+        characteristicFilterLabel?.text = characteristicFilterLabel?.text?.localizedVariant
         updateUI()
     }
     

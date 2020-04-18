@@ -489,16 +489,17 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
      - parameter error: Any error that may have occured. Hopefully, it is nil.
      */
     func peripheral(_ inPeripheral: CBPeripheral, didWriteValueFor inCharacteristic: CBCharacteristic, error inError: Error?) {
-        #if DEBUG
-            print("Received a Characteristic Write delegate callback.")
-        #endif
-        if let error = inError {
-            #if DEBUG
-                print("ERROR!: \(String(describing: error))")
-            #endif
-            central?.reportError(.internalError(error))
-        } else {
-        }
+// TODO: Implement this when we can test it.
+//        #if DEBUG
+//            print("Received a Characteristic Write delegate callback.")
+//        #endif
+//        if let error = inError {
+//            #if DEBUG
+//                print("ERROR!: \(String(describing: error))")
+//            #endif
+//            central?.reportError(.internalError(error))
+//        } else {
+//        }
     }
 
     /* ################################################################## */
@@ -512,23 +513,24 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
      - parameter error: Any error that may have occured. Hopefully, it is nil.
      */
     func peripheral(_ inPeripheral: CBPeripheral, didWriteValueFor inDescriptor: CBDescriptor, error inError: Error?) {
-        #if DEBUG
-            print("Received a Descriptor Write delegate callback.")
-        #endif
-        if let error = inError {
-            #if DEBUG
-                print("ERROR!: \(String(describing: error))")
-            #endif
-            central?.reportError(.internalError(error))
-        } else if   let characteristic = sequence_contents.characteristic(inDescriptor.characteristic),
-                    let descriptor = characteristic.sequence_contents[inDescriptor] {
-            central?.updateThisDescriptor(descriptor)
-        } else {
-            #if DEBUG
-                print("ERROR! Can't find Descriptor!")
-            #endif
-            central?.reportError(.internalError(nil))
-        }
+// TODO: Implement this when we can test it.
+//        #if DEBUG
+//            print("Received a Descriptor Write delegate callback.")
+//        #endif
+//        if let error = inError {
+//            #if DEBUG
+//                print("ERROR!: \(String(describing: error))")
+//            #endif
+//            central?.reportError(.internalError(error))
+//        } else if   let characteristic = sequence_contents.characteristic(inDescriptor.characteristic),
+//                    let descriptor = characteristic.sequence_contents[inDescriptor] {
+//            central?.updateThisDescriptor(descriptor)
+//        } else {
+//            #if DEBUG
+//                print("ERROR! Can't find Descriptor!")
+//            #endif
+//            central?.reportError(.internalError(nil))
+//        }
     }
     
     /* ################################################################## */
@@ -539,8 +541,9 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
      - parameter toSendWriteWithoutResponse: The CBPeripheral that is now ready.
      */
     func peripheralIsReady(toSendWriteWithoutResponse inPeripheral: CBPeripheral) {
-        #if DEBUG
-            print("Received a Ready to Write Message From the Peripheral \(inPeripheral.identifier.uuidString).")
-        #endif
+// TODO: Implement this when we can test it.
+//        #if DEBUG
+//            print("Received a Ready to Write Message From the Peripheral \(inPeripheral.identifier.uuidString).")
+//        #endif
     }
 }

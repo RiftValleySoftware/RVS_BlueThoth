@@ -269,16 +269,17 @@ extension CGA_Bluetooth_Characteristic {
      
      - parameter inData: The Data instance to write.
      */
-    func writeValue(_ inData: Data) {
-        if  canWrite,
-            let peripheralWrapper = service?.peripheral,
-            let peripheral = peripheralWrapper.cbElementInstance {
-            #if DEBUG
-                print("Writing this value: \(inData) for the \(self.id) Characteristic.")
-            #endif
-            peripheral.writeValue(inData, for: cbElementInstance, type: canWriteWithoutResponse ? .withoutResponse : .withResponse)
-        }
-    }
+// TODO: Implement this when we can test it.
+//    func writeValue(_ inData: Data) {
+//        if  canWrite,
+//            let peripheralWrapper = service?.peripheral,
+//            let peripheral = peripheralWrapper.cbElementInstance {
+//            #if DEBUG
+//                print("Writing this value: \(inData) for the \(self.id) Characteristic.")
+//            #endif
+//            peripheral.writeValue(inData, for: cbElementInstance, type: canWriteWithoutResponse ? .withoutResponse : .withResponse)
+//        }
+//    }
     
     /* ################################################################## */
     /**
