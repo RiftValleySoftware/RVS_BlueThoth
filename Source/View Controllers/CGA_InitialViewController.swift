@@ -33,6 +33,13 @@ protocol CGA_ScannerViewController {
      This is a method to restart scanning, if it was running beforehand. If not, nothing happens.
      */
     func restartScanningIfNecessary()
+    
+    /* ################################################################## */
+    /**
+     Used as a semaphore (yuck) to indicate that the Central was (or was not) scanning before the view disappeared.
+     It is also used for editing the table, to prevent it from aborting deletes.
+     */
+    var wasScanning: Bool { get }
 }
 
 /* ###################################################################################################################################### */
@@ -133,13 +140,6 @@ class CGA_InitialViewController: UIViewController {
     
     /* ################################################################## */
     /**
-     Used as a semaphore (yuck) to indicate that the Central was (or was not) scanning before the view disappeared.
-     It is also used for editing the table, to prevent it from aborting deletes.
-     */
-    private var _wasScanning: Bool = false
-    
-    /* ################################################################## */
-    /**
      Returns the pushed device details screen. Nil, if none.
      */
     private var _currentDeviceScreen: CGA_UpdatableScreenViewController! { navigationController?.topViewController as? CGA_UpdatableScreenViewController }
@@ -149,6 +149,13 @@ class CGA_InitialViewController: UIViewController {
      Returns true, if the Central Manager is currently scanning.
      */
     var isScanning: Bool { CGA_AppDelegate.centralManager?.isScanning ?? false }
+    
+    /* ################################################################## */
+    /**
+     Used as a semaphore (yuck) to indicate that the Central was (or was not) scanning before the view disappeared.
+     It is also used for editing the table, to prevent it from aborting deletes.
+     */
+    var wasScanning: Bool = false
 
     /* ################################################################## */
     /**
@@ -261,7 +268,7 @@ extension CGA_InitialViewController {
         }
         
         navigationController?.navigationBar.isHidden = true
-        if _wasScanning {
+        if wasScanning {
             CGA_AppDelegate.centralManager?.restartScanning()
         }
         
@@ -276,7 +283,7 @@ extension CGA_InitialViewController {
      */
     override func viewWillDisappear(_ inAnimated: Bool) {
         super.viewWillDisappear(inAnimated)
-        _wasScanning = isScanning
+        wasScanning = isScanning
         CGA_AppDelegate.centralManager?.stopScanning()
         navigationController?.navigationBar.isHidden = false
     }
@@ -292,7 +299,7 @@ extension CGA_InitialViewController {
         // We only go further if we are looking at device details.
         guard   let destination = inSegue.destination as? CGA_PeripheralViewController,
                 let senderData = inSender as? CGA_Bluetooth_CentralManager.DiscoveryData else {
-            _wasScanning = isScanning
+            wasScanning = isScanning
             CGA_AppDelegate.centralManager?.stopScanning()
             return
         }
@@ -305,61 +312,6 @@ extension CGA_InitialViewController {
 // MARK: - Private Methods -
 /* ###################################################################################################################################### */
 extension CGA_InitialViewController {
-    /* ################################################################## */
-    /**
-     This creates an Array of String, containing the advertisement data from the indexed device.
-     
-     - parameter inIndex: The 0-based index of the device to fetch.
-     - returns: An Array of String, with the advertisement data in "key: value" form.
-     */
-    private func _createAdvertimentStringsFor(_ inIndex: Int) -> [String] {
-        if  let centralManager = CGA_AppDelegate.centralManager,
-            (0..<centralManager.stagedBLEPeripherals.count).contains(inIndex) {
-            let id = centralManager.stagedBLEPeripherals[inIndex].identifier
-            let ancs = centralManager.stagedBLEPeripherals[inIndex].isANCSAuthorized ? "true" : "false"
-            let adData = centralManager.stagedBLEPeripherals[inIndex].advertisementData
-            
-            // This gives us a predictable order of things.
-            let sortedAdDataKeys = adData.keys.sorted()
-            let sortedAdData: [(key: String, value: Any?)] = sortedAdDataKeys.compactMap { (key:$0, value: adData[$0]) }
-
-            let retStr = sortedAdData.reduce("SLUG-ID".localizedVariant + ": \(id)\n" + "SLUG-ANCS".localizedVariant + ": \(ancs)") { (current, next) in
-                let key = next.key.localizedVariant
-                let value = next.value
-                var ret = "\(current)\n"
-                
-                if let asStringArray = value as? [String] {
-                    ret += current + asStringArray.reduce("\(key): ") { (current2, next2) in
-                        return "\(current2)\n\(next2.localizedVariant)"
-                    }
-                } else if let value = value as? String {
-                    ret += "\(key): \(value.localizedVariant)"
-                } else if let value = value as? Bool {
-                    ret += "\(key): \(value ? "true" : "false")"
-                } else if let value = value as? Int {
-                    ret += "\(key): \(value)"
-                } else if let value = value as? Double {
-                    if "kCBAdvDataTimestamp" == next.key {  // If it's the timestamp, we can translate that, here.
-                        let date = Date(timeIntervalSinceReferenceDate: value)
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "SLUG-MAIN-LIST-DATE-FORMAT".localizedVariant
-                        let displayedDate = dateFormatter.string(from: date)
-                        ret += "\(key): \(displayedDate)"
-                    } else {
-                        ret += "\(key): \(value)"
-                    }
-                } else {    // Anything else is just a described instance of something or other.
-                    ret += "\(key): \(String(describing: value))"
-                }
-                
-                return ret
-            }.split(separator: "\n").map { String($0) }
-            
-            return retStr
-        }
-        return []
-    }
-    
     /* ################################################################## */
     /**
      Make sure that the Navigation Controller is at tits baseline.
@@ -409,7 +361,7 @@ extension CGA_InitialViewController: CGA_ScannerViewController {
      This is called from presented view controllers, and will restart scanning, if we were scanning before. If not, nothing happens.
      */
     func restartScanningIfNecessary() {
-        if _wasScanning {
+        if wasScanning {
             _startScanning()
             deviceTableView?.reloadData()
         }
@@ -440,13 +392,17 @@ extension CGA_InitialViewController: CGA_UpdatableScreenViewController {
         
         scanningButton?.isEnabled = true
         
+        var title: String = " " + "SLUG-NOT-SCANNING".localizedVariant + " "
+        var color: UIColor = .red
+        
         if  isScanning {
-            scanningButton?.setTitle(" " + "SLUG-SCANNING".localizedVariant + " ", for: .normal)
-            scanningButton?.backgroundColor = UIColor(red: 0, green: 0.75, blue: 0, alpha: 1.0)
-        } else {
-            scanningButton?.setTitle(" " + "SLUG-NOT-SCANNING".localizedVariant + " ", for: .normal)
-            scanningButton?.backgroundColor = UIColor(red: 0.75, green: 0, blue: 0, alpha: 1.0)
+            title = " " + "SLUG-SCANNING".localizedVariant + " "
+            color = UIColor(red: 0, green: 0.75, blue: 0, alpha: 1.0)
         }
+        
+        scanningButton?.setTitle(title, for: .normal)
+        scanningButton?.titleLabel?.text = title    // We do this to prevent that "flash" of old text.
+        scanningButton?.backgroundColor = color
     }
 }
 
@@ -646,7 +602,7 @@ extension CGA_InitialViewController: UITableViewDataSource {
             (0..<centralManager.stagedBLEPeripherals.count).contains(inIndexPath.row)
         else { return 0.0 }
         
-        return (Self._labelRowHeightInDisplayUnits) + (CGFloat(_createAdvertimentStringsFor(inIndexPath.row).count) * Self._labelRowHeightInDisplayUnits)
+        return (Self._labelRowHeightInDisplayUnits) + (CGFloat(CGA_AppDelegate.createAdvertimentStringsFor(inIndexPath.row).count) * Self._labelRowHeightInDisplayUnits)
     }
     
     /* ################################################################## */
@@ -689,7 +645,7 @@ extension CGA_InitialViewController: UITableViewDataSource {
             tableCell.rssiLabel?.textColor = fontColor
             tableCell.nameLabel?.text = centralManager.stagedBLEPeripherals[inIndexPath.row].name
             tableCell.rssiLabel?.text = String(format: "(%d dBm)", centralManager.stagedBLEPeripherals[inIndexPath.row].rssi)
-            let advertisingData = _createAdvertimentStringsFor(inIndexPath.row)
+            let advertisingData = CGA_AppDelegate.createAdvertimentStringsFor(inIndexPath.row)
             if  let containerView = tableCell.advertisingDataView {
                 containerView.subviews.forEach { $0.removeFromSuperview() }
                 var topAnchor: NSLayoutYAxisAnchor = containerView.topAnchor

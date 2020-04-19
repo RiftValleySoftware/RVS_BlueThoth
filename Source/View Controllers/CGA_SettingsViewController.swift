@@ -98,11 +98,7 @@ extension CGA_SettingsViewController {
      - parameter inTextToParse: The String to be parsed. The Array will be formed from split by linefeed ("\n").
      - returns: an Array of String, containing the UUIDs extracted from the text.
      */
-    private class func _parseThisTextForUUIDs(_ inTextToParse: String!) -> [String] {
-        let ret = inTextToParse?.split(separator: "\n").compactMap { return ((4 == $0.hexOnly.count) || (32 == $0.hexOnly.count)) ? $0.hexOnly : nil } ?? []
-        
-        return ret.map { CBUUID(string: $0).uuidString }
-    }
+    private class func _parseThisTextForUUIDs(_ inTextToParse: String!) -> [String] { (inTextToParse?.split(separator: "\n").compactMap { $0.uuidFormat } ?? []).map { CBUUID(string: $0).uuidString } }
 }
 
 /* ###################################################################################################################################### */
@@ -230,8 +226,10 @@ extension CGA_SettingsViewController {
             0 < navigationController.viewControllers.count,
             let presenter = navigationController.viewControllers[0] as? CGA_ScannerViewController {
             CGA_AppDelegate.unlockOrientation()
-            CGA_AppDelegate.centralManager?.startOver() // Because we can move a lot of cheese, we start over from scratch. That also means unignoring previously ignored Peripherals.
-            presenter.restartScanningIfNecessary()
+            if presenter.wasScanning {  // We only reset if we were originally scanning before we came here.
+                CGA_AppDelegate.centralManager?.startOver() // Because we can move a lot of cheese, we may start over from scratch. That also means unignoring previously ignored Peripherals.
+                presenter.restartScanningIfNecessary()
+            }
         }
     }
 }

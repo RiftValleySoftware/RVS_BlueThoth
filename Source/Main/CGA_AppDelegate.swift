@@ -38,7 +38,7 @@ class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
      - parameter message: a string to be displayed as the message of the alert. It is localized by this method.
      - parameter presentedBy: An optional UIViewController object that is acting as the presenter context for the alert. If nil, we use the top controller of the Navigation stack.
      */
-    static func displayAlert(_ inTitle: String, message inMessage: String ) {
+    class func displayAlert(_ inTitle: String, message inMessage: String ) {
         #if DEBUG
             print("ALERT:\t\(inTitle)\n\t\t\(inMessage)")
         #endif
@@ -59,6 +59,72 @@ class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    /* ################################################################## */
+    /**
+     This creates an Array of String, containing the advertisement data from the indexed device.
+     
+     - parameter inIndex: The 0-based index of the device to fetch.
+     - returns: An Array of String, with the advertisement data in "key: value" form.
+     */
+    class func createAdvertimentStringsFor(_ inIndex: Int) -> [String] {
+        guard let centralManager = centralManager, (0..<centralManager.stagedBLEPeripherals.count).contains(inIndex) else { return [] }
+        
+        let id = centralManager.stagedBLEPeripherals[inIndex].identifier
+        let ancs = centralManager.stagedBLEPeripherals[inIndex].isANCSAuthorized ? "true" : "false"
+        let adData = centralManager.stagedBLEPeripherals[inIndex].advertisementData
+        
+        return createAdvertimentStringsFor(adData, id: id, ancs: ancs)
+    }
+    
+    /* ################################################################## */
+    /**
+     This creates an Array of String, containing the advertisement data from the indexed device.
+     
+     - parameter inAdData: The advertisement data.
+     - parameter id: The ID string.
+     - parameter ancs: "true" or "false", depending on the ANCS auth state.
+     - returns: An Array of String, with the advertisement data in "key: value" form.
+     */
+    class func createAdvertimentStringsFor(_ inAdData: [String: Any], id inID: String, ancs inANCS: String) -> [String] {
+        // This gives us a predictable order of things.
+        let sortedAdDataKeys = inAdData.keys.sorted()
+        let sortedAdData: [(key: String, value: Any?)] = sortedAdDataKeys.compactMap { (key:$0, value: inAdData[$0]) }
+
+        let retStr = sortedAdData.reduce("SLUG-ID".localizedVariant + ": \(inID)\n" + "SLUG-ANCS".localizedVariant + ": \(inANCS)") { (current, next) in
+            let key = next.key.localizedVariant
+            let value = next.value
+            var ret = "\(current)\n"
+            
+            if let asStringArray = value as? [String] {
+                ret += current + asStringArray.reduce("\(key): ") { (current2, next2) in
+                    return "\(current2)\n\(next2.localizedVariant)"
+                }
+            } else if let value = value as? String {
+                ret += "\(key): \(value.localizedVariant)"
+            } else if let value = value as? Bool {
+                ret += "\(key): \(value ? "true" : "false")"
+            } else if let value = value as? Int {
+                ret += "\(key): \(value)"
+            } else if let value = value as? Double {
+                if "kCBAdvDataTimestamp" == next.key {  // If it's the timestamp, we can translate that, here.
+                    let date = Date(timeIntervalSinceReferenceDate: value)
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "SLUG-MAIN-LIST-DATE-FORMAT".localizedVariant
+                    let displayedDate = dateFormatter.string(from: date)
+                    ret += "\(key): \(displayedDate)"
+                } else {
+                    ret += "\(key): \(value)"
+                }
+            } else {    // Anything else is just a described instance of something or other.
+                ret += "\(key): \(String(describing: value))"
+            }
+            
+            return ret
+        }.split(separator: "\n").map { String($0) }
+        
+        return retStr
+    }
+
     /* ################################################################## */
     /**
      This will change the app orientation mask to what is provided.
