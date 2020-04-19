@@ -33,6 +33,13 @@ protocol CGA_ScannerViewController {
      This is a method to restart scanning, if it was running beforehand. If not, nothing happens.
      */
     func restartScanningIfNecessary()
+    
+    /* ################################################################## */
+    /**
+     Used as a semaphore (yuck) to indicate that the Central was (or was not) scanning before the view disappeared.
+     It is also used for editing the table, to prevent it from aborting deletes.
+     */
+    var wasScanning: Bool { get }
 }
 
 /* ###################################################################################################################################### */
