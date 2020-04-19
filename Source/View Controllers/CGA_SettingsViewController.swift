@@ -98,35 +98,7 @@ extension CGA_SettingsViewController {
      - parameter inTextToParse: The String to be parsed. The Array will be formed from split by linefeed ("\n").
      - returns: an Array of String, containing the UUIDs extracted from the text.
      */
-    private class func _parseThisTextForUUIDs(_ inTextToParse: String!) -> [String] {
-        let ret = inTextToParse?.split(separator: "\n").compactMap { Self._convertToUUIDFormat(String($0)) } ?? []
-        
-        return ret.map { CBUUID(string: $0).uuidString }
-    }
-    
-    /* ################################################################## */
-    /**
-     This "scrubs" a String, returning it as a proper UUID format (either 4 hex characters, or a split 32-hex-character String, in 8-4-4-4-12 format.
-     
-     - parameter inParseString: The String to be parsed and scrubbed.
-     - returns: A traditional UUID format (may be XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX, or only 4 hex characters), or nil.
-     */
-    private static func _convertToUUIDFormat(_ inParseString: String) -> String? {
-        let str = inParseString.hexOnly
-        
-        // If we are only 4 characters, we just return them. Anything other than 32 or 4 hex characters results in a nil return.
-        guard 32 == str.count else { return 4 == str.count ? str : nil }
-
-        // 32-digit strings need to be split up into the standard pattern, separated by dashes, or the CBUUID constructor will puke.
-        // This is the traditional UUID pattern (XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX).
-        let firstRange = str.startIndex..<str.index(str.startIndex, offsetBy: 8)
-        let secondRange = firstRange.upperBound..<str.index(firstRange.upperBound, offsetBy: 4)
-        let thirdRange = secondRange.upperBound..<str.index(secondRange.upperBound, offsetBy: 4)
-        let fourthRange = thirdRange.upperBound..<str.index(thirdRange.upperBound, offsetBy: 4)
-        let fifthRange = fourthRange.upperBound..<str.index(fourthRange.upperBound, offsetBy: 12)
-
-        return String(format: "%@-%@-%@-%@-%@", String(str[firstRange]), String(str[secondRange]), String(str[thirdRange]), String(str[fourthRange]), String(str[fifthRange]))
-    }
+    private class func _parseThisTextForUUIDs(_ inTextToParse: String!) -> [String] { (inTextToParse?.split(separator: "\n").compactMap { $0.uuidFormat } ?? []).map { CBUUID(string: $0).uuidString } }
 }
 
 /* ###################################################################################################################################### */
