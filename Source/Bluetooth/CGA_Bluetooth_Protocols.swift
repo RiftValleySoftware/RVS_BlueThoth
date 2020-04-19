@@ -551,6 +551,18 @@ extension Array where Element == CGA_Bluetooth_Peripheral {
         
         return success
     }
+    
+    /* ################################################################## */
+    /**
+     Returns the first index of the submitted Peripheral warapper.
+     
+     - parameter inPeripheral: The Peripheral to find.
+     */
+    func indexOf(_ inPeripheral: CGA_Bluetooth_Peripheral) -> Int { firstIndex {
+            let sameID = $0.cbElementInstance.identifier.uuidString == inPeripheral.id
+            return sameID
+        } ?? -1
+    }
 }
 
 /* ###################################################################################################################################### */

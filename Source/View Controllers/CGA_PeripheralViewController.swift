@@ -132,15 +132,24 @@ extension CGA_PeripheralViewController: CGA_UpdatableScreenViewController {
      This simply makes sure that the UI matches the state of the device.
      */
     func updateUI() {
-        if nil != deviceInstance {
+        if let deviceInstance = deviceInstance {
+            // Make sure the main sections are displayed.
             busyAnimationActivityIndicatorView?.stopAnimating()
             deviceInfoTextView?.isHidden = false
             connectingLabel?.isHidden = true
             serviceTableView?.isHidden = false
             servicesLabel?.isHidden = false
             
+            // Fill in the discovery data section.
+            let id = deviceInstance.discoveryData.identifier
+            let ancs = deviceInstance.discoveryData.isANCSAuthorized ? "true" : "false"
+            let adData = deviceInstance.discoveryData.advertisementData
+        
+            let advertisementStrings = CGA_AppDelegate.createAdvertimentStringsFor(adData, id: id, ancs: ancs)
+            deviceInfoTextView.text = advertisementStrings.joined(separator: "\n")
+            
             serviceTableView?.reloadData()
-        } else {
+        } else {    // Hide everything except the "loading" stuff.
             busyAnimationActivityIndicatorView?.startAnimating()
             deviceInfoTextView?.isHidden = true
             connectingLabel?.isHidden = false

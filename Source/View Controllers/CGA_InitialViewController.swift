@@ -307,61 +307,6 @@ extension CGA_InitialViewController {
 extension CGA_InitialViewController {
     /* ################################################################## */
     /**
-     This creates an Array of String, containing the advertisement data from the indexed device.
-     
-     - parameter inIndex: The 0-based index of the device to fetch.
-     - returns: An Array of String, with the advertisement data in "key: value" form.
-     */
-    private func _createAdvertimentStringsFor(_ inIndex: Int) -> [String] {
-        if  let centralManager = CGA_AppDelegate.centralManager,
-            (0..<centralManager.stagedBLEPeripherals.count).contains(inIndex) {
-            let id = centralManager.stagedBLEPeripherals[inIndex].identifier
-            let ancs = centralManager.stagedBLEPeripherals[inIndex].isANCSAuthorized ? "true" : "false"
-            let adData = centralManager.stagedBLEPeripherals[inIndex].advertisementData
-            
-            // This gives us a predictable order of things.
-            let sortedAdDataKeys = adData.keys.sorted()
-            let sortedAdData: [(key: String, value: Any?)] = sortedAdDataKeys.compactMap { (key:$0, value: adData[$0]) }
-
-            let retStr = sortedAdData.reduce("SLUG-ID".localizedVariant + ": \(id)\n" + "SLUG-ANCS".localizedVariant + ": \(ancs)") { (current, next) in
-                let key = next.key.localizedVariant
-                let value = next.value
-                var ret = "\(current)\n"
-                
-                if let asStringArray = value as? [String] {
-                    ret += current + asStringArray.reduce("\(key): ") { (current2, next2) in
-                        return "\(current2)\n\(next2.localizedVariant)"
-                    }
-                } else if let value = value as? String {
-                    ret += "\(key): \(value.localizedVariant)"
-                } else if let value = value as? Bool {
-                    ret += "\(key): \(value ? "true" : "false")"
-                } else if let value = value as? Int {
-                    ret += "\(key): \(value)"
-                } else if let value = value as? Double {
-                    if "kCBAdvDataTimestamp" == next.key {  // If it's the timestamp, we can translate that, here.
-                        let date = Date(timeIntervalSinceReferenceDate: value)
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "SLUG-MAIN-LIST-DATE-FORMAT".localizedVariant
-                        let displayedDate = dateFormatter.string(from: date)
-                        ret += "\(key): \(displayedDate)"
-                    } else {
-                        ret += "\(key): \(value)"
-                    }
-                } else {    // Anything else is just a described instance of something or other.
-                    ret += "\(key): \(String(describing: value))"
-                }
-                
-                return ret
-            }.split(separator: "\n").map { String($0) }
-            
-            return retStr
-        }
-        return []
-    }
-    
-    /* ################################################################## */
-    /**
      Make sure that the Navigation Controller is at tits baseline.
      */
     private func _resetToRoot() {
@@ -650,7 +595,7 @@ extension CGA_InitialViewController: UITableViewDataSource {
             (0..<centralManager.stagedBLEPeripherals.count).contains(inIndexPath.row)
         else { return 0.0 }
         
-        return (Self._labelRowHeightInDisplayUnits) + (CGFloat(_createAdvertimentStringsFor(inIndexPath.row).count) * Self._labelRowHeightInDisplayUnits)
+        return (Self._labelRowHeightInDisplayUnits) + (CGFloat(CGA_AppDelegate.createAdvertimentStringsFor(inIndexPath.row).count) * Self._labelRowHeightInDisplayUnits)
     }
     
     /* ################################################################## */
@@ -693,7 +638,7 @@ extension CGA_InitialViewController: UITableViewDataSource {
             tableCell.rssiLabel?.textColor = fontColor
             tableCell.nameLabel?.text = centralManager.stagedBLEPeripherals[inIndexPath.row].name
             tableCell.rssiLabel?.text = String(format: "(%d dBm)", centralManager.stagedBLEPeripherals[inIndexPath.row].rssi)
-            let advertisingData = _createAdvertimentStringsFor(inIndexPath.row)
+            let advertisingData = CGA_AppDelegate.createAdvertimentStringsFor(inIndexPath.row)
             if  let containerView = tableCell.advertisingDataView {
                 containerView.subviews.forEach { $0.removeFromSuperview() }
                 var topAnchor: NSLayoutYAxisAnchor = containerView.topAnchor
