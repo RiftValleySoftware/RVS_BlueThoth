@@ -133,13 +133,6 @@ class CGA_InitialViewController: UIViewController {
     
     /* ################################################################## */
     /**
-     Used as a semaphore (yuck) to indicate that the Central was (or was not) scanning before the view disappeared.
-     It is also used for editing the table, to prevent it from aborting deletes.
-     */
-    private var _wasScanning: Bool = false
-    
-    /* ################################################################## */
-    /**
      Returns the pushed device details screen. Nil, if none.
      */
     private var _currentDeviceScreen: CGA_UpdatableScreenViewController! { navigationController?.topViewController as? CGA_UpdatableScreenViewController }
@@ -149,6 +142,13 @@ class CGA_InitialViewController: UIViewController {
      Returns true, if the Central Manager is currently scanning.
      */
     var isScanning: Bool { CGA_AppDelegate.centralManager?.isScanning ?? false }
+    
+    /* ################################################################## */
+    /**
+     Used as a semaphore (yuck) to indicate that the Central was (or was not) scanning before the view disappeared.
+     It is also used for editing the table, to prevent it from aborting deletes.
+     */
+    var wasScanning: Bool = false
 
     /* ################################################################## */
     /**
@@ -261,7 +261,7 @@ extension CGA_InitialViewController {
         }
         
         navigationController?.navigationBar.isHidden = true
-        if _wasScanning {
+        if wasScanning {
             CGA_AppDelegate.centralManager?.restartScanning()
         }
         
@@ -276,7 +276,7 @@ extension CGA_InitialViewController {
      */
     override func viewWillDisappear(_ inAnimated: Bool) {
         super.viewWillDisappear(inAnimated)
-        _wasScanning = isScanning
+        wasScanning = isScanning
         CGA_AppDelegate.centralManager?.stopScanning()
         navigationController?.navigationBar.isHidden = false
     }
@@ -292,7 +292,7 @@ extension CGA_InitialViewController {
         // We only go further if we are looking at device details.
         guard   let destination = inSegue.destination as? CGA_PeripheralViewController,
                 let senderData = inSender as? CGA_Bluetooth_CentralManager.DiscoveryData else {
-            _wasScanning = isScanning
+            wasScanning = isScanning
             CGA_AppDelegate.centralManager?.stopScanning()
             return
         }
@@ -409,7 +409,7 @@ extension CGA_InitialViewController: CGA_ScannerViewController {
      This is called from presented view controllers, and will restart scanning, if we were scanning before. If not, nothing happens.
      */
     func restartScanningIfNecessary() {
-        if _wasScanning {
+        if wasScanning {
             _startScanning()
             deviceTableView?.reloadData()
         }
@@ -440,13 +440,17 @@ extension CGA_InitialViewController: CGA_UpdatableScreenViewController {
         
         scanningButton?.isEnabled = true
         
+        var title: String = " " + "SLUG-NOT-SCANNING".localizedVariant + " "
+        var color: UIColor = .red
+        
         if  isScanning {
-            scanningButton?.setTitle(" " + "SLUG-SCANNING".localizedVariant + " ", for: .normal)
-            scanningButton?.backgroundColor = UIColor(red: 0, green: 0.75, blue: 0, alpha: 1.0)
-        } else {
-            scanningButton?.setTitle(" " + "SLUG-NOT-SCANNING".localizedVariant + " ", for: .normal)
-            scanningButton?.backgroundColor = UIColor(red: 0.75, green: 0, blue: 0, alpha: 1.0)
+            title = " " + "SLUG-SCANNING".localizedVariant + " "
+            color = UIColor(red: 0, green: 0.75, blue: 0, alpha: 1.0)
         }
+        
+        scanningButton?.setTitle(title, for: .normal)
+        scanningButton?.titleLabel?.text = title    // We do this to prevent that "flash" of old text.
+        scanningButton?.backgroundColor = color
     }
 }
 

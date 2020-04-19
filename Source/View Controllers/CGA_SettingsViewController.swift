@@ -228,10 +228,12 @@ extension CGA_SettingsViewController {
         super.viewWillDisappear(inAnimated)
         if  let navigationController = presentingViewController as? UINavigationController,
             0 < navigationController.viewControllers.count,
-            let presenter = navigationController.viewControllers[0] as? CGA_ScannerViewController {
+            let presenter = navigationController.viewControllers[0] as? CGA_InitialViewController {
             CGA_AppDelegate.unlockOrientation()
-            CGA_AppDelegate.centralManager?.startOver() // Because we can move a lot of cheese, we start over from scratch. That also means unignoring previously ignored Peripherals.
-            presenter.restartScanningIfNecessary()
+            if presenter.wasScanning {
+                CGA_AppDelegate.centralManager?.startOver() // Because we can move a lot of cheese, we may start over from scratch. That also means unignoring previously ignored Peripherals.
+                presenter.restartScanningIfNecessary()
+            }
         }
     }
 }
