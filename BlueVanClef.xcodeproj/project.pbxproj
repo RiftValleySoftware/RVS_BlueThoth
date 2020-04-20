@@ -215,7 +215,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D420C88F242FCD5600FCB9E0 /* Build configuration list for PBXProject "ClassicalGas" */;
+			buildConfigurationList = D420C88F242FCD5600FCB9E0 /* Build configuration list for PBXProject "BlueVanClef" */;
 			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -458,7 +458,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1000;
 				DEVELOPMENT_TEAM = P53V4JS928;
 				INFOPLIST_FILE = "$(SRCROOT)/Meta/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -480,7 +480,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1000;
 				DEVELOPMENT_TEAM = P53V4JS928;
 				INFOPLIST_FILE = "$(SRCROOT)/Meta/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -501,7 +501,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D420C88F242FCD5600FCB9E0 /* Build configuration list for PBXProject "ClassicalGas" */ = {
+		D420C88F242FCD5600FCB9E0 /* Build configuration list for PBXProject "BlueVanClef" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D420C8A2242FCD5700FCB9E0 /* Debug */,
