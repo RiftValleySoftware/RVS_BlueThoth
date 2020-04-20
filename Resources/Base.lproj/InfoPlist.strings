@@ -21,6 +21,6 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 */
 
 /* [Details here](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW20) */
-"NSBluetoothPeripheralUsageDescription" =   "The App Needs to Connect to Bluetooth Devices.";
-"NSHumanReadableCopyright"              =   "©2020 Little Green Viper Software Development LLC";
-"LGVInfoScreenCopyrightSiteURL"         =   "https://littlegreenviper.com";
+"NSBluetoothPeripheralUsageDescription" =   "The App Needs to Discover and Connect to Bluetooth Devices.";
+"NSHumanReadableCopyright"              =   "©2020 The Great Rift Valley Software Company";
+"LGVInfoScreenCopyrightSiteURL"         =   "https://riftvalleysoftware.com";
