@@ -86,7 +86,7 @@ extension CGA_Bluetooth_Descriptor {
             let peripheralWrapper = serviceWrapper.peripheral,
             let peripheral = peripheralWrapper.cbElementInstance {
             #if DEBUG
-                print("Reading the value for the \(self.id) Descriptor.")
+                print("Reading the value for the \(id) Descriptor.")
             #endif
             peripheral.readValue(for: cbElementInstance)
         }
@@ -104,7 +104,7 @@ extension CGA_Bluetooth_Descriptor {
 //            let peripheralWrapper = serviceWrapper.peripheral,
 //            let peripheral = peripheralWrapper.cbElementInstance {
 //            #if DEBUG
-//                print("Writing this value: \(inData) for the \(self.id) Descriptor.")
+//                print("Writing this value: \(inData) for the \(id) Descriptor.")
 //            #endif
 //            peripheral.writeValue(inData, for: cbElementInstance)
 //        }

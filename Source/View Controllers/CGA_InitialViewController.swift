@@ -23,9 +23,10 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 import UIKit
 
 /* ###################################################################################################################################### */
-// MARK: - Simple Protocol That Defines A Scan Restart Method -
+// MARK: - Simple Protocol That Defines A Scan Restart Method and a "Was Scanning" property -
 /* ###################################################################################################################################### */
 /**
+ This will allow us to "reflect" on the main view controller, without needing to look at the entire class.
  */
 protocol CGA_ScannerViewController {
     /* ################################################################## */
@@ -71,7 +72,7 @@ class CGA_InitialViewController_TableRow: UITableViewCell {
 
     /* ################################################################## */
     /**
-     This will display the RSSI level.
+     This will display the RSSI level, in dBm.
      */
     @IBOutlet var rssiLabel: UILabel!
 

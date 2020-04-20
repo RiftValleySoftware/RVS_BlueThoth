@@ -105,7 +105,7 @@ extension Bundle {
     /**
      If there is a copyright site URI, it is returned here as a String. It may be nil.
      */
-    var siteURIAsString: String? { object(forInfoDictionaryKey: "LGVInfoScreenCopyrightSiteURL") as? String }
+    var siteURIAsString: String? { object(forInfoDictionaryKey: "InfoScreenCopyrightSiteURL") as? String }
     
     /* ################################################################## */
     /**

@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "group:Project-Meta"
+      name = "Project-Meta">
+      <FileRef
+         location = "group:Cartfile">
+      </FileRef>
+      <FileRef
+         location = "group:.swiftlint.yml">
+      </FileRef>
+      <FileRef
+         location = "group:jazzy.sh">
+      </FileRef>
+      <FileRef
+         location = "group:LICENSE">
+      </FileRef>
+      <FileRef
+         location = "group:README.md">
+      </FileRef>
+      <FileRef
+         location = "group:Project-Meta/Warnings.xcconfig">
+      </FileRef>
+   </Group>
    <FileRef
-      location = "group:/Volumes/Development/LGV/ClassicalGas/BlueVanClef.xcodeproj">
+      location = "group:BlueVanClef.xcodeproj">
    </FileRef>
 </Workspace>
