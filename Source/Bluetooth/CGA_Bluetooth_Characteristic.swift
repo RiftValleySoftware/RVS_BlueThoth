@@ -242,7 +242,7 @@ extension CGA_Bluetooth_Characteristic {
      */
     func addDescriptor(_ inDescriptor: CGA_Bluetooth_Descriptor) {
         #if DEBUG
-            print("Adding the \(inDescriptor.id) Descriptor to the \(self.id) Characteristic.")
+            print("Adding the \(inDescriptor.id) Descriptor to the \(id) Characteristic.")
         #endif
         sequence_contents.append(inDescriptor)
         central?.updateThisDescriptor(inDescriptor)
@@ -257,7 +257,7 @@ extension CGA_Bluetooth_Characteristic {
             let peripheralWrapper = service?.peripheral,
             let peripheral = peripheralWrapper.cbElementInstance {
             #if DEBUG
-                print("Reading the value for the \(self.id) Characteristic.")
+                print("Reading the value for the \(id) Characteristic.")
             #endif
             peripheral.readValue(for: cbElementInstance)
         }
@@ -275,7 +275,7 @@ extension CGA_Bluetooth_Characteristic {
 //            let peripheralWrapper = service?.peripheral,
 //            let peripheral = peripheralWrapper.cbElementInstance {
 //            #if DEBUG
-//                print("Writing this value: \(inData) for the \(self.id) Characteristic.")
+//                print("Writing this value: \(inData) for the \(id) Characteristic.")
 //            #endif
 //            peripheral.writeValue(inData, for: cbElementInstance, type: canWriteWithoutResponse ? .withoutResponse : .withResponse)
 //        }
@@ -301,13 +301,12 @@ extension CGA_Bluetooth_Characteristic {
      */
     @discardableResult
     func startNotifying() -> Bool {
-        if  let characteristic = cbElementInstance,
-            let peripheral = service?.peripheral?.cbElementInstance {
-            peripheral.setNotifyValue(true, for: characteristic)
-            return true
-        }
+        guard   !isNotifying,
+                let characteristic = cbElementInstance,
+                let peripheral = service?.peripheral?.cbElementInstance else { return false }
         
-        return false
+        peripheral.setNotifyValue(true, for: characteristic)
+        return true
     }
     
     /* ################################################################## */
@@ -318,14 +317,12 @@ extension CGA_Bluetooth_Characteristic {
      */
     @discardableResult
     func stopNotifying() -> Bool {
-        if  isNotifying,
-            let characteristic = cbElementInstance,
-            let peripheral = service?.peripheral?.cbElementInstance {
-            peripheral.setNotifyValue(false, for: characteristic)
-            return true
-        }
+        guard   isNotifying,
+                let characteristic = cbElementInstance,
+                let peripheral = service?.peripheral?.cbElementInstance else { return false }
         
-        return false
+        peripheral.setNotifyValue(false, for: characteristic)
+        return true
     }
 }
 
