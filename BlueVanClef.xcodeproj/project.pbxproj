@@ -23,9 +23,6 @@
 		D447B9F52431724700F00A7A /* RVS_SequenceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D447B9F42431724700F00A7A /* RVS_SequenceProtocol.swift */; };
 		D47D71E22448DD70004D9923 /* CGA_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D71E12448DD70004D9923 /* CGA_Extensions.swift */; };
 		D480CE2E243CEFE20074CFE4 /* CGA_CharacteristicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480CE2D243CEFE20074CFE4 /* CGA_CharacteristicViewController.swift */; };
-		D4979EDD243123220068F327 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D4979EDA243123220068F327 /* LICENSE */; };
-		D4979EDE243123220068F327 /* jazzy.sh in Resources */ = {isa = PBXBuildFile; fileRef = D4979EDB243123220068F327 /* jazzy.sh */; };
-		D4979EDF243123220068F327 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D4979EDC243123220068F327 /* README.md */; };
 		D4A53AAC24312F2F009647C4 /* RVS_PersistentPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A53AAB24312F2F009647C4 /* RVS_PersistentPrefs.swift */; };
 		D4A53AAE24312F50009647C4 /* RVS_String_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A53AAD24312F50009647C4 /* RVS_String_Extensions.swift */; };
 		D4B1C69F2430F32900D3AC78 /* CGA_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D85182430F05500A925ED /* CGA_AppDelegate.swift */; };
@@ -55,15 +52,9 @@
 		D48D85182430F05500A925ED /* CGA_AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGA_AppDelegate.swift; sourceTree = "<group>"; };
 		D48D851C2430F05500A925ED /* CGA_InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGA_InitialViewController.swift; sourceTree = "<group>"; };
 		D48D85262430F05600A925ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D49674A9242FCF35002D8D91 /* Warnings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Warnings.xcconfig; sourceTree = "<group>"; };
-		D49674B0242FD3E5002D8D91 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
-		D4979EDA243123220068F327 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
-		D4979EDB243123220068F327 /* jazzy.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = jazzy.sh; sourceTree = SOURCE_ROOT; };
-		D4979EDC243123220068F327 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		D4A53AAB24312F2F009647C4 /* RVS_PersistentPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RVS_PersistentPrefs.swift; path = Carthage/Checkouts/RVS_PersistentPrefs/RVS_Persistent_Prefs/RVS_PersistentPrefs.swift; sourceTree = "<group>"; };
 		D4A53AAD24312F50009647C4 /* RVS_String_Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RVS_String_Extensions.swift; path = Carthage/Checkouts/RVS_Generic_Swift_Toolbox/src/Extensions/RVS_String_Extensions.swift; sourceTree = "<group>"; };
 		D4B1C6832430F26800D3AC78 /* Blue Van Clef.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blue Van Clef.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4C3B62924312EE700CD5629 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
 		D4CAA4262434E877007C72AA /* CGA_PeripheralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_PeripheralViewController.swift; sourceTree = "<group>"; };
 		D4D53D0D243E480F00FBD897 /* CGA_Bluetooth_Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Protocols.swift; sourceTree = "<group>"; };
 		D4F666C62434F06200CD4548 /* CGA_InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_InfoViewController.swift; sourceTree = "<group>"; };
@@ -73,10 +64,9 @@
 		D420C88B242FCD5600FCB9E0 = {
 			isa = PBXGroup;
 			children = (
-				D496749F242FCEB7002D8D91 /* Project-Meta */,
 				D48D852C2430F13100A925ED /* Meta */,
-				D48D85172430F05500A925ED /* Source */,
 				D447B9E5243171AB00F00A7A /* Resources */,
+				D48D85172430F05500A925ED /* Source */,
 				D420C895242FCD5600FCB9E0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -156,19 +146,6 @@
 			path = Meta;
 			sourceTree = "<group>";
 		};
-		D496749F242FCEB7002D8D91 /* Project-Meta */ = {
-			isa = PBXGroup;
-			children = (
-				D4C3B62924312EE700CD5629 /* Cartfile */,
-				D49674B0242FD3E5002D8D91 /* .swiftlint.yml */,
-				D4979EDB243123220068F327 /* jazzy.sh */,
-				D4979EDA243123220068F327 /* LICENSE */,
-				D4979EDC243123220068F327 /* README.md */,
-				D49674A9242FCF35002D8D91 /* Warnings.xcconfig */,
-			);
-			path = "Project-Meta";
-			sourceTree = "<group>";
-		};
 		D4A53AAA24312F0B009647C4 /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,14 +215,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4979EDD243123220068F327 /* LICENSE in Resources */,
 				D447B9F3243171AB00F00A7A /* InfoPlist.strings in Resources */,
-				D4979EDE243123220068F327 /* jazzy.sh in Resources */,
 				D447B9EF243171AB00F00A7A /* Assets.xcassets in Resources */,
 				D447B9F2243171AB00F00A7A /* Localizable.strings in Resources */,
 				D447B9F1243171AB00F00A7A /* Main.storyboard in Resources */,
 				D447B9F0243171AB00F00A7A /* LaunchScreen.storyboard in Resources */,
-				D4979EDF243123220068F327 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,7 +312,6 @@
 /* Begin XCBuildConfiguration section */
 		D420C8A2242FCD5700FCB9E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D49674A9242FCF35002D8D91 /* Warnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -400,7 +373,6 @@
 		};
 		D420C8A3242FCD5700FCB9E0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D49674A9242FCF35002D8D91 /* Warnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
