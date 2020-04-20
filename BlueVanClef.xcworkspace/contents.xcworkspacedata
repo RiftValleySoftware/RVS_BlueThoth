@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:ClassicalGas.xcodeproj">
+      location = "group:/Volumes/Development/LGV/ClassicalGas/BlueVanClef.xcodeproj">
    </FileRef>
 </Workspace>
