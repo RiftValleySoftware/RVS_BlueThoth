@@ -138,12 +138,24 @@ protocol CGA_Class_Protocol: class {
      OPTIONAL: Forces the instance to restart its discovery process.
      */
     func startOver()
+    
+    /* ################################################################## */
+    /**
+     OPTIONAL: This returns a unique UUID String for the Service or Characteristic, if this is a specialized class.
+     */
+    static var cbUUIDString: String { get }
 }
 
 /* ###################################################################################################################################### */
 // MARK: - Protocol Defaults -
 /* ###################################################################################################################################### */
 extension CGA_Class_Protocol {
+    /* ################################################################## */
+    /**
+     Default is an empty String.
+     */
+    static var cbUUIDString: String { "" }
+
     /* ################################################################## */
     /**
      Default simply passes the buck.
@@ -493,6 +505,21 @@ extension Array where Element == CGA_Bluetooth_CentralManager.DiscoveryData {
 extension Array where Element == CGA_Bluetooth_Peripheral {
     /* ################################################################## */
     /**
+     Special subscript that allows us to retrieve an Element by its UUID
+     
+     - parameter inItem: The UUID of the item we want
+     - returns: The found Element, or nil, if not found.
+     */
+    subscript(_ inItem: CBUUID) -> Element! {
+        reduce(nil) { (current, nextItem) in
+            guard let current = current else { return nextItem.cbElementInstance.identifier.uuidString == inItem.uuidString ? nextItem : nil }
+            
+            return current
+        }
+    }
+    
+    /* ################################################################## */
+    /**
      Special subscript that allows us to retrieve an Element by its contained Peripheral
      
      - parameter inItem: The Peripheral we're looking to match.
@@ -576,6 +603,21 @@ extension Array where Element == CGA_Bluetooth_Peripheral {
 extension Array where Element == CBCharacteristic {
     /* ################################################################## */
     /**
+     Special subscript that allows us to retrieve an Element by its UUID
+     
+     - parameter inItem: The UUID of the item we want
+     - returns: The found Element, or nil, if not found.
+     */
+    subscript(_ inItem: CBUUID) -> Element! {
+        reduce(nil) { (current, nextItem) in
+            guard let current = current else { return nextItem.uuid.uuidString == inItem.uuidString ? nextItem : nil }
+            
+            return current
+        }
+    }
+    
+    /* ################################################################## */
+    /**
      Special subscript that allows us to retrieve an Element by its contained Characteristic.
      
      - parameter inItem: The CBCharacteristic we're looking to match.
@@ -593,6 +635,21 @@ extension Array where Element == CBCharacteristic {
  This allows us to fetch Characteristics, looking for an exact instance.
  */
 extension Array where Element == CGA_Bluetooth_Characteristic {
+    /* ################################################################## */
+    /**
+     Special subscript that allows us to retrieve an Element by its UUID
+     
+     - parameter inItem: The UUID of the item we want
+     - returns: The found Element, or nil, if not found.
+     */
+    subscript(_ inItem: CBUUID) -> Element! {
+        reduce(nil) { (current, nextItem) in
+            guard let current = current else { return nextItem.cbElementInstance.uuid.uuidString == inItem.uuidString ? nextItem : nil }
+            
+            return current
+        }
+    }
+    
     /* ################################################################## */
     /**
      Special subscript that allows us to retrieve an Element by its contained Characteristic.
@@ -651,6 +708,21 @@ extension Array where Element == CGA_Bluetooth_Characteristic {
  This allows us to fetch Descriptors, looking for an exact instance.
  */
 extension Array where Element == CGA_Bluetooth_Descriptor {
+    /* ################################################################## */
+    /**
+     Special subscript that allows us to retrieve an Element by its UUID
+     
+     - parameter inItem: The UUID of the item we want
+     - returns: The found Element, or nil, if not found.
+     */
+    subscript(_ inItem: CBUUID) -> Element! {
+        reduce(nil) { (current, nextItem) in
+            guard let current = current else { return nextItem.cbElementInstance.uuid.uuidString == inItem.uuidString ? nextItem : nil }
+            
+            return current
+        }
+    }
+    
     /* ################################################################## */
     /**
      Special subscript that allows us to retrieve an Element by its contained Descriptor.

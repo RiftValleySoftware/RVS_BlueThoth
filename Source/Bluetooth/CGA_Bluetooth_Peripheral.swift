@@ -287,8 +287,18 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
                     central?.reportError(.internalError(nil))
                 }
             #endif
-                
-            stagedServices = inPeripheral.services?.map { CGA_Bluetooth_Service(parent: self, cbElementInstance: $0) } ?? []
+            
+            stagedServices = inPeripheral.services?.map {
+                var serviceToAdd: CGA_Bluetooth_Service
+                switch $0.uuid.uuidString {
+                case CGA_Bluetooth_Service_Battery.cbUUIDString:
+                    serviceToAdd = CGA_Bluetooth_Service_Battery(parent: self, cbElementInstance: $0)
+                default:
+                    serviceToAdd = CGA_Bluetooth_Service(parent: self, cbElementInstance: $0)
+                }
+            
+                return serviceToAdd
+            } ?? []
             
             stagedServices.forEach { $0.discoverCharacteristics() }
         }
@@ -366,7 +376,13 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             #endif
             
             if  let service = (stagedServices[inCharacteristic] ?? sequence_contents[inCharacteristic]) {
-                let characteristic = CGA_Bluetooth_Characteristic(parent: service, cbElementInstance: inCharacteristic)
+                var characteristic: CGA_Bluetooth_Characteristic = CGA_Bluetooth_Characteristic(parent: service, cbElementInstance: inCharacteristic)
+                switch inCharacteristic.uuid.uuidString {
+                case CGA_Bluetooth_Characteristic_BatteryLevel.cbUUIDString:
+                    characteristic = CGA_Bluetooth_Characteristic_BatteryLevel(parent: service, cbElementInstance: inCharacteristic)
+                default:
+                    characteristic = CGA_Bluetooth_Characteristic(parent: service, cbElementInstance: inCharacteristic)
+                }
                 inCharacteristic.descriptors?.forEach {
                     let descriptor = CGA_Bluetooth_Descriptor()
                     descriptor.parent = characteristic

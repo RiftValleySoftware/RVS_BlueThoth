@@ -68,6 +68,32 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
+     If the Characteristic has a value, and that value can be expressed as a String, it is returned here.
+     This computed property is defined here, so it can be overridden by subclasses.
+     */
+    var stringValue: String? { nil != value ? String(data: value!, encoding: .utf8) : nil }
+    
+    /* ################################################################## */
+    /**
+     Returns the number (if possible) as an Int64. This assumes littlendian, but you can try bigendian if you want.
+     This computed property is defined here, so it can be overridden by subclasses.
+     */
+    var intValue: Int64? {
+        if let data = value {
+            var number = Int64(0)
+            let len = Swift.min(MemoryLayout<Int64>.size, data.count)   // Makes sure that we don't try to read past the end of the data, if it is less than 8 bytes long.
+            _ = withUnsafeMutableBytes(of: &number) {
+                data.copyBytes(to: $0, from: 0..<len)
+            }
+            
+            return number
+        }
+        
+        return nil
+    }
+
+    /* ################################################################## */
+    /**
      The required init, with a "primed" sequence.
      
      - parameter sequence_contents: The initial value of the Array cache.
@@ -203,18 +229,6 @@ extension CGA_Bluetooth_Characteristic {
      This returns the parent Central Manager
      */
     var central: CGA_Bluetooth_CentralManager? { parent?.central }
-
-    /* ################################################################## */
-    /**
-     If the Characteristic has a value, and that value can be expressed as a String, it is returned here.
-     */
-    var stringValue: String? { nil != value ? String(data: value!, encoding: .utf8) : nil }
-    
-    /* ################################################################## */
-    /**
-     TODO: NOT IMPLEMENTED YET
-     */
-    var intValue: Int64? { nil }
 }
 
 /* ###################################################################################################################################### */
