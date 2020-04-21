@@ -39,6 +39,10 @@ class CGA_Bluetooth_Characteristic_BatteryLevel: CGA_Bluetooth_Characteristic {
         return Int(truncatingIfNeeded: intValue)
     }
     
+    /* ################################################################## */
+    /**
+     - returns: the battery level, as a String.
+     */
     override var stringValue: String? {
         guard let intValue = batteryLevel else { return nil }
         return String(intValue)

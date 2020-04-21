@@ -158,14 +158,14 @@ extension CGA_Bluetooth_Peripheral {
         if let service = inService.cbElementInstance {
             if stagedServices.contains(service) {
                 #if DEBUG
-                    print("Adding the \(inService.id) Service to the \(self.id) Peripheral.")
+                    print("Adding the \(inService.id) Service to the \(id) Peripheral.")
                 #endif
                 stagedServices.removeThisService(service)
                 sequence_contents.append(inService)
                 
                 if stagedServices.isEmpty {
                     #if DEBUG
-                        print("All Services fulfilled. Adding Peripheral (\(self.id)) to Central.")
+                        print("All Services fulfilled. Adding Peripheral (\(id)) to Central.")
                     #endif
                     _registerWithCentral()
                 }
@@ -190,7 +190,7 @@ extension CGA_Bluetooth_Peripheral {
      */
     func startOver() {
         #if DEBUG
-            print("Starting The Service Discovery Over From Scratch for \(self.discoveryData.preferredName).")
+            print("Starting The Service Discovery Over From Scratch for \(discoveryData.preferredName).")
         #endif
         clear()
         let services: [CBUUID]! = _discoveryFilter.isEmpty ? nil : _discoveryFilter

@@ -747,3 +747,31 @@ extension Array where Element == CGA_Bluetooth_Descriptor {
      */
     func contains(_ inItem: CBDescriptor) -> Bool { nil != self[inItem] }
 }
+
+/* ###################################################################################################################################### */
+// MARK: - Data Extension -
+/* ###################################################################################################################################### */
+/**
+ This extension adds the ability to extract data from a Data instance, cast into various types.
+ */
+public extension Data {
+    /* ################################################################## */
+    /**
+     This method allows a Data instance to be cast into various standard types.
+     
+     **NOTE** This is not a "safe" method! It circumvents Swift's safety bumpers, and could get you in trouble if you don't use trivial types!
+     
+     - parameter inValue: This is an inout parameter, and the type will be used to determine the cast.
+     - returns: the cast value (the parameter will also be set to the cast value). Can be ignored.
+     */
+    @discardableResult
+    mutating func castInto<T>(_ inValue: inout T) -> T {
+        // Makes sure that we don't try to read past the end of the data.
+        let len = Swift.min(MemoryLayout<T>.size, self.count)
+        _ = Swift.withUnsafeMutableBytes(of: &inValue) {
+            self.copyBytes(to: $0, from: 0..<len)
+        }
+        
+        return inValue
+    }
+}

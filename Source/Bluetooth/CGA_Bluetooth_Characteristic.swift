@@ -79,19 +79,11 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
      This computed property is defined here, so it can be overridden by subclasses.
      */
     var intValue: Int64? {
-        if let data = value {
-            var number = Int64(0)
-            let len = Swift.min(MemoryLayout<Int64>.size, data.count)   // Makes sure that we don't try to read past the end of the data, if it is less than 8 bytes long.
-            _ = withUnsafeMutableBytes(of: &number) {
-                data.copyBytes(to: $0, from: 0..<len)
-            }
-            
-            return number
-        }
-        
-        return nil
+        guard var data = value else { return nil }
+        var number = Int64(0)
+        return data.castInto(&number)
     }
-
+    
     /* ################################################################## */
     /**
      The required init, with a "primed" sequence.
@@ -301,7 +293,7 @@ extension CGA_Bluetooth_Characteristic {
      */
     func clear() {
         #if DEBUG
-            print("Clearing the decks for A Characteristic: \(self.id).")
+            print("Clearing the decks for A Characteristic: \(id).")
         #endif
         
         sequence_contents = []
@@ -353,7 +345,7 @@ extension CGA_Bluetooth_Characteristic: CGA_Class_Protocol_UpdateDescriptor {
             let cbCharacteristic = cbElementInstance {
             clear()
             #if DEBUG
-                print("Discovering Descriptors for the \(self.id) Characteristic.")
+                print("Discovering Descriptors for the \(id) Characteristic.")
             #endif
             cbPeripheral.discoverDescriptors(for: cbCharacteristic)
         } else {
