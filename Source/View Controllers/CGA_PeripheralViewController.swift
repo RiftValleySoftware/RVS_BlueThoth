@@ -233,6 +233,10 @@ extension CGA_PeripheralViewController: UITableViewDataSource {
         
         tableCell.serviceIDLabel?.text = deviceInstance?[inIndexPath.row].id.localizedVariant ?? "ERROR"
         
+        // This ensures that we maintain a consistent backround color upon selection.
+        tableCell.selectedBackgroundView = UIView()
+        tableCell.selectedBackgroundView?.backgroundColor = UIColor(cgColor: CGA_AppDelegate.appDelegateObject.prefs.tableSelectionBackgroundColor)
+
         return tableCell
     }
 }

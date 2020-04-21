@@ -70,6 +70,63 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
     
     /* ################################################################################################################################## */
     /**
+     This struct allows us to apply some data interpretation to the advertisement data.
+     */
+    struct AdvertisementData {
+        /* ################################################################## */
+        /**
+         This holds the raw advertisement data that came with the discovery.
+         */
+        let advertisementData: [String: Any]
+        
+        /* ################################################################## */
+        /**
+         Returns the local name, if provided. If not provided, will return an empty String.
+         */
+        var localName: String { advertisementData["kCBAdvDataLocalName"] as? String ?? "" }
+        
+        /* ################################################################## */
+        /**
+         Returns true or false. True, if the Peripheral is connectable.
+         */
+        var isConnectable: Bool { advertisementData["kCBAdvDataIsConnectable"] as? Bool ?? false }
+        
+        /* ################################################################## */
+        /**
+         Returns the transmit power level. Nil, if not provided.
+         */
+        var transmitPowerLevel: Int? { advertisementData["kCBAdvDataTxPowerLevel"] as? Int }
+        
+        /* ################################################################## */
+        /**
+         Returns the timestamp, as a date. Nil, if not provided.
+         */
+        var timestamp: Date? {
+            guard let timeInterval = advertisementData["kCBAdvDataTimestamp"] as? Double else { return nil }
+            return Date(timeIntervalSinceReferenceDate: timeInterval)
+        }
+        
+        /* ################################################################## */
+        /**
+         Returns true, if the Peripheral has a primary PHY.
+         */
+        var hasPrimaryPHY: Bool { advertisementData["kCBAdvDataRxPrimaryPHY"] as? Bool ?? false }
+        
+        /* ################################################################## */
+        /**
+         Returns true, if the Peripheral has a secondary PHY.
+         */
+        var hasSecondaryPHY: Bool { advertisementData["kCBAdvDataRxSecondaryPHY"] as? Bool ?? false }
+        
+        /* ################################################################## */
+        /**
+         Returns any manufacturer-specific data. Nil, if not provided.
+         */
+        var manufacturerData: Data? { advertisementData["kCBAdvDataRxSecondaryPHY"] as? Data }
+    }
+    
+    /* ################################################################################################################################## */
+    /**
      This is a class, as opposed to a struct, because I want to make sure that it is referenced, and not copied.
      */
     class DiscoveryData {
@@ -83,7 +140,7 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
         /**
          This holds the advertisement data that came with the discovery.
          */
-        var advertisementData: [String: Any]
+        var advertisementData: AdvertisementData!
         
         /* ############################################################## */
         /**
@@ -131,35 +188,13 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
         /**
          This is true, if the Peripheral advertisement data indicates the Peripheral can be connected.
          */
-        var canConnect: Bool {
-            guard !advertisementData.isEmpty else { return false }
-            
-            return advertisementData.reduce(false) { (current, next) in
-                guard   !current,
-                        CBAdvertisementDataIsConnectable == next.key,
-                        let value = next.value as? Bool
-                else { return current }
-                
-                return value
-            }
-        }
+        var canConnect: Bool { advertisementData.isConnectable }
         
         /* ############################################################## */
         /**
          This is the "Local Name," from the advertisement data.
          */
-        var localName: String {
-            guard !advertisementData.isEmpty else { return "" }
-            
-            return advertisementData.reduce("") { (current, next) in
-                guard   current.isEmpty,
-                        CBAdvertisementDataLocalNameKey == next.key,
-                        let value = next.value as? String
-                else { return current }
-                
-                return value
-            }
-        }
+        var localName: String { advertisementData.localName }
         
         /* ############################################################## */
         /**
@@ -322,7 +357,7 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
         init(central inCentralManager: CGA_Bluetooth_CentralManager, peripheral inPeripheral: CBPeripheral, advertisementData inAdvertisementData: [String: Any], rssi inRSSI: Int) {
             central = inCentralManager
             peripheral = inPeripheral
-            advertisementData = inAdvertisementData
+            advertisementData = AdvertisementData(advertisementData: inAdvertisementData)
             rssi = inRSSI
         }
         
@@ -981,7 +1016,7 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
                 print("\tAdvertising Info:\n\t\t\(String(describing: inAdvertisementData))\n")
             #endif
             if  let deviceInStaging = stagedBLEPeripherals[inPeripheral] {
-                deviceInStaging.advertisementData = inAdvertisementData
+                deviceInStaging.advertisementData = AdvertisementData(advertisementData: inAdvertisementData)
                 deviceInStaging.rssi = inRSSI.intValue
             } else {
                 stagedBLEPeripherals.append(DiscoveryData(central: self, peripheral: inPeripheral, advertisementData: inAdvertisementData, rssi: inRSSI.intValue))

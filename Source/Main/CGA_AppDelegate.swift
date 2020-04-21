@@ -85,10 +85,10 @@ class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
      - parameter ancs: "true" or "false", depending on the ANCS auth state.
      - returns: An Array of String, with the advertisement data in "key: value" form.
      */
-    class func createAdvertimentStringsFor(_ inAdData: [String: Any], id inID: String, ancs inANCS: String) -> [String] {
+    class func createAdvertimentStringsFor(_ inAdData: CGA_Bluetooth_CentralManager.AdvertisementData?, id inID: String, ancs inANCS: String) -> [String] {
         // This gives us a predictable order of things.
-        let sortedAdDataKeys = inAdData.keys.sorted()
-        let sortedAdData: [(key: String, value: Any?)] = sortedAdDataKeys.compactMap { (key:$0, value: inAdData[$0]) }
+        guard let sortedAdDataKeys = inAdData?.advertisementData.keys.sorted() else { return [] }
+        let sortedAdData: [(key: String, value: Any?)] = sortedAdDataKeys.compactMap { (key:$0, value: inAdData?.advertisementData[$0]) }
 
         let retStr = sortedAdData.reduce("SLUG-ID".localizedVariant + ": \(inID)\n" + "SLUG-ANCS".localizedVariant + ": \(inANCS)") { (current, next) in
             let key = next.key.localizedVariant
