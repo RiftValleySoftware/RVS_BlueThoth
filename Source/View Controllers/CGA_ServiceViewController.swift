@@ -58,6 +58,12 @@ class CG_TapGestureRecognizer: UITapGestureRecognizer {
      the 0-based row index of the Characteristic table row that corresponds to our Characteristic.
      */
     var rowIndex: Int = 0
+    
+    /* ################################################################## */
+    /**
+     This is the view that we will be highlighting.
+     */
+    var backgroundView: UIView!
 }
 
 /* ###################################################################################################################################### */
@@ -164,6 +170,7 @@ extension CGA_ServiceViewController {
     @objc func descriptorTapped(_ inGestureRecognizer: CG_TapGestureRecognizer) {
         if  let characteristic = serviceInstance?[inGestureRecognizer.rowIndex],
             0 < characteristic.count {
+            inGestureRecognizer.backgroundView.backgroundColor = .darkGray
             performSegue(withIdentifier: Self._characteristicDetailSegueID, sender: characteristic)
         }
     }
@@ -196,6 +203,15 @@ extension CGA_ServiceViewController {
         characteristicsTableView?.refreshControl = _refreshControl
         _refreshControl.addTarget(self, action: #selector(startOver(_:)), for: .valueChanged)
         serviceInstance?.forEach { $0.readValue() }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called just before the view will appear.
+     */
+    override func viewWillAppear(_ inAnimated: Bool) {
+        super.viewWillAppear(inAnimated)
+        characteristicsTableView?.reloadData()
     }
     
     /* ################################################################## */
@@ -342,6 +358,8 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         // Remove any previous views in the properties stack.
         tableCell.propertiesStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
+        tableCell.backgroundColor = .clear
+        
         // We set the ID label.
         tableCell.characteristicIDLabel?.textColor = UIColor(white: 0 < characteristic.count ? 1.0 : 0.75, alpha: 1.0)
         tableCell.characteristicIDLabel?.text = characteristic.id.localizedVariant
@@ -361,7 +379,10 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         
         // This is a single-tap gesture recognizer for bringing in the Descriptors. It is attached to the table cell, in general.
         if 0 < characteristic.count {   // Only if we have Descriptors.
-            tableCell.addGestureRecognizer(CG_TapGestureRecognizer(target: self, action: #selector(descriptorTapped(_:))))
+            let tapGestureRecognizer = CG_TapGestureRecognizer(target: self, action: #selector(descriptorTapped(_:)))
+            tapGestureRecognizer.rowIndex = inIndexPath.row
+            tapGestureRecognizer.backgroundView = tableCell
+            tableCell.addGestureRecognizer(tapGestureRecognizer)
         }
         
         // If there is a String-convertible value, we display it. Otherwise, we either display a described Data item, or blank.
