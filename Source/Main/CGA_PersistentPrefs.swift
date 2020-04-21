@@ -20,6 +20,8 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT
 The Great Rift Valley Software Company: https://riftvalleysoftware.com
 */
 
+import CoreGraphics   // For the CGColor
+
 /* ###################################################################################################################################### */
 // MARK: - The Persistent Prefs Subclass -
 /* ###################################################################################################################################### */
@@ -57,6 +59,12 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
          This will be an Array of String, containing the UUIDs of specific Characteristics for which we are filtering.
          */
         case characteristicFilterIDArray = "kCharacteristicIDs"
+        
+        /* ############################################################## */
+        /**
+         This will be a CGColor, indicating the color to use for the selected table cells.
+         */
+        case tableSelectionBackgroundColor = "kBackgroundColorForTableSelection"
 
         /* ############################################################## */
         /**
@@ -65,7 +73,8 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
         static var allKeys: [String] { [continuouslyUpdatePeripherals.rawValue,
                                         peripheralFilterIDArray.rawValue,
                                         serviceFilterIDArray.rawValue,
-                                        characteristicFilterIDArray.rawValue
+                                        characteristicFilterIDArray.rawValue,
+                                        tableSelectionBackgroundColor.rawValue
                                         ] }
     }
     
@@ -111,6 +120,13 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
         get { values[Keys.characteristicFilterIDArray.rawValue] as? [String] ?? [] }
         set { values[Keys.characteristicFilterIDArray.rawValue] = newValue }
     }
+    
+    /* ################################################################## */
+    /**
+     This is a CGColor, indicating the color to use for the selected table cells.
+     Instead of storing it, we simply return the same color.
+     */
+    var tableSelectionBackgroundColor: CGColor { CGColor(srgbRed: 0.5, green: 0.35, blue: 0, alpha: 1) }
     
     /* ################################################################## */
     /**

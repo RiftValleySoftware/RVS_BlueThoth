@@ -68,6 +68,24 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
+     If the Characteristic has a value, and that value can be expressed as a String, it is returned here.
+     This computed property is defined here, so it can be overridden by subclasses.
+     */
+    var stringValue: String? { nil != value ? String(data: value!, encoding: .utf8) : nil }
+    
+    /* ################################################################## */
+    /**
+     Returns the number (if possible) as an Int64. This assumes littlendian, but you can try bigendian if you want.
+     This computed property is defined here, so it can be overridden by subclasses.
+     */
+    var intValue: Int64? {
+        guard var data = value else { return nil }
+        var number = Int64(0)
+        return data.castInto(&number)
+    }
+    
+    /* ################################################################## */
+    /**
      The required init, with a "primed" sequence.
      
      - parameter sequence_contents: The initial value of the Array cache.
@@ -203,18 +221,6 @@ extension CGA_Bluetooth_Characteristic {
      This returns the parent Central Manager
      */
     var central: CGA_Bluetooth_CentralManager? { parent?.central }
-
-    /* ################################################################## */
-    /**
-     If the Characteristic has a value, and that value can be expressed as a String, it is returned here.
-     */
-    var stringValue: String? { nil != value ? String(data: value!, encoding: .utf8) : nil }
-    
-    /* ################################################################## */
-    /**
-     TODO: NOT IMPLEMENTED YET
-     */
-    var intValue: Int64? { nil }
 }
 
 /* ###################################################################################################################################### */
@@ -287,7 +293,7 @@ extension CGA_Bluetooth_Characteristic {
      */
     func clear() {
         #if DEBUG
-            print("Clearing the decks for A Characteristic: \(self.id).")
+            print("Clearing the decks for A Characteristic: \(id).")
         #endif
         
         sequence_contents = []
@@ -339,7 +345,7 @@ extension CGA_Bluetooth_Characteristic: CGA_Class_Protocol_UpdateDescriptor {
             let cbCharacteristic = cbElementInstance {
             clear()
             #if DEBUG
-                print("Discovering Descriptors for the \(self.id) Characteristic.")
+                print("Discovering Descriptors for the \(id) Characteristic.")
             #endif
             cbPeripheral.discoverDescriptors(for: cbCharacteristic)
         } else {

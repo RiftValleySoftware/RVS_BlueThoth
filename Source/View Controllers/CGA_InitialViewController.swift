@@ -670,6 +670,10 @@ extension CGA_InitialViewController: UITableViewDataSource {
             }
         }
         
+        // This ensures that we maintain a consistent backround color upon selection.
+        tableCell.selectedBackgroundView = UIView()
+        tableCell.selectedBackgroundView?.backgroundColor = UIColor(cgColor: CGA_AppDelegate.appDelegateObject.prefs.tableSelectionBackgroundColor)
+
         return tableCell
     }
 }

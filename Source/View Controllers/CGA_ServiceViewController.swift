@@ -170,7 +170,7 @@ extension CGA_ServiceViewController {
     @objc func descriptorTapped(_ inGestureRecognizer: CG_TapGestureRecognizer) {
         if  let characteristic = serviceInstance?[inGestureRecognizer.rowIndex],
             0 < characteristic.count {
-            inGestureRecognizer.backgroundView.backgroundColor = .darkGray
+            inGestureRecognizer.backgroundView.backgroundColor = UIColor(cgColor: CGA_AppDelegate.appDelegateObject.prefs.tableSelectionBackgroundColor)
             performSegue(withIdentifier: Self._characteristicDetailSegueID, sender: characteristic)
         }
     }
@@ -387,7 +387,7 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         
         // If there is a String-convertible value, we display it. Otherwise, we either display a described Data item, or blank.
         tableCell.valueLabel.text = characteristic.stringValue ?? (nil != characteristic.value ? String(describing: characteristic.value) : "")
-        
+
         return tableCell
     }
 }

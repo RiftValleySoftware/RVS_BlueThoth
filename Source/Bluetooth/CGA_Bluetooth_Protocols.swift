@@ -138,12 +138,24 @@ protocol CGA_Class_Protocol: class {
      OPTIONAL: Forces the instance to restart its discovery process.
      */
     func startOver()
+    
+    /* ################################################################## */
+    /**
+     OPTIONAL: This returns a unique UUID String for the Service or Characteristic, if this is a specialized class.
+     */
+    static var cbUUIDString: String { get }
 }
 
 /* ###################################################################################################################################### */
 // MARK: - Protocol Defaults -
 /* ###################################################################################################################################### */
 extension CGA_Class_Protocol {
+    /* ################################################################## */
+    /**
+     Default is an empty String.
+     */
+    static var cbUUIDString: String { "" }
+
     /* ################################################################## */
     /**
      Default simply passes the buck.
@@ -493,6 +505,21 @@ extension Array where Element == CGA_Bluetooth_CentralManager.DiscoveryData {
 extension Array where Element == CGA_Bluetooth_Peripheral {
     /* ################################################################## */
     /**
+     Special subscript that allows us to retrieve an Element by its UUID
+     
+     - parameter inItem: The UUID of the item we want
+     - returns: The found Element, or nil, if not found.
+     */
+    subscript(_ inItem: CBUUID) -> Element! {
+        reduce(nil) { (current, nextItem) in
+            guard let current = current else { return nextItem.cbElementInstance.identifier.uuidString == inItem.uuidString ? nextItem : nil }
+            
+            return current
+        }
+    }
+    
+    /* ################################################################## */
+    /**
      Special subscript that allows us to retrieve an Element by its contained Peripheral
      
      - parameter inItem: The Peripheral we're looking to match.
@@ -576,6 +603,21 @@ extension Array where Element == CGA_Bluetooth_Peripheral {
 extension Array where Element == CBCharacteristic {
     /* ################################################################## */
     /**
+     Special subscript that allows us to retrieve an Element by its UUID
+     
+     - parameter inItem: The UUID of the item we want
+     - returns: The found Element, or nil, if not found.
+     */
+    subscript(_ inItem: CBUUID) -> Element! {
+        reduce(nil) { (current, nextItem) in
+            guard let current = current else { return nextItem.uuid.uuidString == inItem.uuidString ? nextItem : nil }
+            
+            return current
+        }
+    }
+    
+    /* ################################################################## */
+    /**
      Special subscript that allows us to retrieve an Element by its contained Characteristic.
      
      - parameter inItem: The CBCharacteristic we're looking to match.
@@ -593,6 +635,21 @@ extension Array where Element == CBCharacteristic {
  This allows us to fetch Characteristics, looking for an exact instance.
  */
 extension Array where Element == CGA_Bluetooth_Characteristic {
+    /* ################################################################## */
+    /**
+     Special subscript that allows us to retrieve an Element by its UUID
+     
+     - parameter inItem: The UUID of the item we want
+     - returns: The found Element, or nil, if not found.
+     */
+    subscript(_ inItem: CBUUID) -> Element! {
+        reduce(nil) { (current, nextItem) in
+            guard let current = current else { return nextItem.cbElementInstance.uuid.uuidString == inItem.uuidString ? nextItem : nil }
+            
+            return current
+        }
+    }
+    
     /* ################################################################## */
     /**
      Special subscript that allows us to retrieve an Element by its contained Characteristic.
@@ -653,6 +710,21 @@ extension Array where Element == CGA_Bluetooth_Characteristic {
 extension Array where Element == CGA_Bluetooth_Descriptor {
     /* ################################################################## */
     /**
+     Special subscript that allows us to retrieve an Element by its UUID
+     
+     - parameter inItem: The UUID of the item we want
+     - returns: The found Element, or nil, if not found.
+     */
+    subscript(_ inItem: CBUUID) -> Element! {
+        reduce(nil) { (current, nextItem) in
+            guard let current = current else { return nextItem.cbElementInstance.uuid.uuidString == inItem.uuidString ? nextItem : nil }
+            
+            return current
+        }
+    }
+    
+    /* ################################################################## */
+    /**
      Special subscript that allows us to retrieve an Element by its contained Descriptor.
      
      - parameter inItem: The CBDescriptor we're looking to match.
@@ -674,4 +746,32 @@ extension Array where Element == CGA_Bluetooth_Descriptor {
      - returns: True, if the Array contains a wrapper for the given element.
      */
     func contains(_ inItem: CBDescriptor) -> Bool { nil != self[inItem] }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Data Extension -
+/* ###################################################################################################################################### */
+/**
+ This extension adds the ability to extract data from a Data instance, cast into various types.
+ */
+public extension Data {
+    /* ################################################################## */
+    /**
+     This method allows a Data instance to be cast into various standard types.
+     
+     **NOTE** This is not a "safe" method! It circumvents Swift's safety bumpers, and could get you in trouble if you don't use trivial types!
+     
+     - parameter inValue: This is an inout parameter, and the type will be used to determine the cast.
+     - returns: the cast value (the parameter will also be set to the cast value). Can be ignored.
+     */
+    @discardableResult
+    mutating func castInto<T>(_ inValue: inout T) -> T {
+        // Makes sure that we don't try to read past the end of the data.
+        let len = Swift.min(MemoryLayout<T>.size, self.count)
+        _ = Swift.withUnsafeMutableBytes(of: &inValue) {
+            self.copyBytes(to: $0, from: 0..<len)
+        }
+        
+        return inValue
+    }
 }
