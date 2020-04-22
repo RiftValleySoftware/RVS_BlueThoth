@@ -31,6 +31,8 @@
 		D4B1C6A02430F32900D3AC78 /* CGA_InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D851C2430F05500A925ED /* CGA_InitialViewController.swift */; };
 		D4CAA4272434E878007C72AA /* CGA_PeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CAA4262434E877007C72AA /* CGA_PeripheralViewController.swift */; };
 		D4D53D0E243E480F00FBD897 /* CGA_Bluetooth_Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D53D0D243E480F00FBD897 /* CGA_Bluetooth_Protocols.swift */; };
+		D4E0C4082450972B00EC8BAF /* CGA_Bluetooth_Service_CurrentTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E0C4072450972B00EC8BAF /* CGA_Bluetooth_Service_CurrentTime.swift */; };
+		D4E0C40A245097B600EC8BAF /* CGA_Bluetooth_Characteristic_CurrentTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E0C409245097B600EC8BAF /* CGA_Bluetooth_Characteristic_CurrentTime.swift */; };
 		D4F666C72434F06200CD4548 /* CGA_InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F666C62434F06200CD4548 /* CGA_InfoViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +63,8 @@
 		D4B1C6832430F26800D3AC78 /* Blue Van Clef.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blue Van Clef.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4CAA4262434E877007C72AA /* CGA_PeripheralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_PeripheralViewController.swift; sourceTree = "<group>"; };
 		D4D53D0D243E480F00FBD897 /* CGA_Bluetooth_Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Protocols.swift; sourceTree = "<group>"; };
+		D4E0C4072450972B00EC8BAF /* CGA_Bluetooth_Service_CurrentTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Service_CurrentTime.swift; sourceTree = "<group>"; };
+		D4E0C409245097B600EC8BAF /* CGA_Bluetooth_Characteristic_CurrentTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Characteristic_CurrentTime.swift; sourceTree = "<group>"; };
 		D4F666C62434F06200CD4548 /* CGA_InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_InfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -126,8 +130,10 @@
 				D41B26D32432442700EFE37C /* CGA_Bluetooth_Peripheral.swift */,
 				D41B26D52432444400EFE37C /* CGA_Bluetooth_Service.swift */,
 				D4A2027B244F4DFB00CE2A70 /* CGA_Bluetooth_Service_Battery.swift */,
+				D4E0C4072450972B00EC8BAF /* CGA_Bluetooth_Service_CurrentTime.swift */,
 				D41B26D7243244F200EFE37C /* CGA_Bluetooth_Characteristic.swift */,
 				D4A2027D244F536B00CE2A70 /* CGA_Bluetooth_Characteristic_BatteryLevel.swift */,
+				D4E0C409245097B600EC8BAF /* CGA_Bluetooth_Characteristic_CurrentTime.swift */,
 				D41B26D92432451D00EFE37C /* CGA_Bluetooth_Descriptor.swift */,
 			);
 			path = Bluetooth;
@@ -259,6 +265,7 @@
 			files = (
 				D4F666C72434F06200CD4548 /* CGA_InfoViewController.swift in Sources */,
 				D4A53AAC24312F2F009647C4 /* RVS_PersistentPrefs.swift in Sources */,
+				D4E0C40A245097B600EC8BAF /* CGA_Bluetooth_Characteristic_CurrentTime.swift in Sources */,
 				D41B26D62432444400EFE37C /* CGA_Bluetooth_Service.swift in Sources */,
 				D436B44D243CC1C6003619D9 /* CGA_ServiceViewController.swift in Sources */,
 				D43F05E52436C07B0009EA1B /* CGA_SettingsViewController.swift in Sources */,
@@ -273,6 +280,7 @@
 				D4CAA4272434E878007C72AA /* CGA_PeripheralViewController.swift in Sources */,
 				D4D53D0E243E480F00FBD897 /* CGA_Bluetooth_Protocols.swift in Sources */,
 				D4A53AAE24312F50009647C4 /* RVS_String_Extensions.swift in Sources */,
+				D4E0C4082450972B00EC8BAF /* CGA_Bluetooth_Service_CurrentTime.swift in Sources */,
 				D4A2027E244F536B00CE2A70 /* CGA_Bluetooth_Characteristic_BatteryLevel.swift in Sources */,
 				D480CE2E243CEFE20074CFE4 /* CGA_CharacteristicViewController.swift in Sources */,
 				D47D71E22448DD70004D9923 /* CGA_Extensions.swift in Sources */,

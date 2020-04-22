@@ -81,9 +81,34 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
     var intValue: Int64? {
         guard var data = value else { return nil }
         var number = Int64(0)
-        return data.castInto(&number)
+        data.castInto(&number)
+        return number
     }
     
+    /* ################################################################## */
+    /**
+     Returns the value as a Boolean. It should be noted that ANY non-zero number will return true.
+     This computed property is defined here, so it can be overridden by subclasses.
+     */
+    var boolValue: Bool? {
+        guard var data = value else { return nil }
+        var ret = Bool(false)
+        data.castInto(&ret)
+        return ret
+    }
+    
+    /* ################################################################## */
+    /**
+     Returns the value as a Double.
+     This computed property is defined here, so it can be overridden by subclasses.
+     */
+    var doubleValue: Double? {
+        guard var data = value else { return nil }
+        var ret = Double(0.0)
+        data.castInto(&ret)
+        return ret
+    }
+
     /* ################################################################## */
     /**
      The required init, with a "primed" sequence.

@@ -293,6 +293,8 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
                 switch $0.uuid.uuidString {
                 case CGA_Bluetooth_Service_Battery.cbUUIDString:
                     serviceToAdd = CGA_Bluetooth_Service_Battery(parent: self, cbElementInstance: $0)
+                case CGA_Bluetooth_Service_CurrentTime.cbUUIDString:
+                    serviceToAdd = CGA_Bluetooth_Service_CurrentTime(parent: self, cbElementInstance: $0)
                 default:
                     serviceToAdd = CGA_Bluetooth_Service(parent: self, cbElementInstance: $0)
                 }
@@ -380,6 +382,8 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
                 switch inCharacteristic.uuid.uuidString {
                 case CGA_Bluetooth_Characteristic_BatteryLevel.cbUUIDString:
                     characteristic = CGA_Bluetooth_Characteristic_BatteryLevel(parent: service, cbElementInstance: inCharacteristic)
+                case CGA_Bluetooth_Characteristic_CurrentTime.cbUUIDString:
+                    characteristic = CGA_Bluetooth_Characteristic_CurrentTime(parent: service, cbElementInstance: inCharacteristic)
                 default:
                     characteristic = CGA_Bluetooth_Characteristic(parent: service, cbElementInstance: inCharacteristic)
                 }
