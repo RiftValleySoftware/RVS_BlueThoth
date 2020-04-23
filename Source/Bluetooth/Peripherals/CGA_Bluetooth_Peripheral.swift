@@ -326,11 +326,8 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             
             stagedServices = inPeripheral.services?.compactMap { (service) in
                 var serviceToAdd: CGA_Bluetooth_Service!
-                _serviceFactory.forEach { (factory) in
-                    if  nil == serviceToAdd,
-                        service.uuid.uuidString == factory.uuid {
-                        serviceToAdd = factory.createInstance(parent: self, cbElementInstance: service)
-                    }
+                for serviceInstance in _serviceFactory where nil == serviceToAdd && service.uuid.uuidString == serviceInstance.uuid {
+                    serviceToAdd = serviceInstance.createInstance(parent: self, cbElementInstance: service)
                 }
                 
                 // If none of the specialized ones worked out, we use the first one (which is always the generic one).
@@ -417,23 +414,20 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             #endif
             
             if  let service = (stagedServices[inCharacteristic] ?? sequence_contents[inCharacteristic]) {
-                var characteristic: CGA_Bluetooth_Characteristic!
-                _characteristicFactory.forEach { (factory) in
-                    if  nil == characteristic,
-                        inCharacteristic.uuid.uuidString == factory.uuid {
-                        characteristic = factory.createInstance(parent: service, cbElementInstance: inCharacteristic)
-                    }
+                var characteristicToAdd: CGA_Bluetooth_Characteristic!
+                for characteristicInstance in _characteristicFactory where nil == characteristicToAdd && inCharacteristic.uuid.uuidString == characteristicInstance.uuid {
+                    characteristicToAdd = characteristicInstance.createInstance(parent: service, cbElementInstance: inCharacteristic)
                 }
                 
                 // If none of the specialized ones worked out, we use the first one (which is always the generic one).
-                if nil == characteristic {
-                    characteristic = _characteristicFactory[0].createInstance(parent: service, cbElementInstance: inCharacteristic)
+                if nil == characteristicToAdd {
+                    characteristicToAdd = _characteristicFactory[0].createInstance(parent: service, cbElementInstance: inCharacteristic)
                 }
 
                 #if DEBUG
-                    print("All Descriptors fulfilled. Adding this Characteristic: \(characteristic.id) to this Service: \(service.id)")
+                    print("All Descriptors fulfilled. Adding this Characteristic: \(characteristicToAdd.id) to this Service: \(service.id)")
                 #endif
-                service.addCharacteristic(characteristic)
+                service.addCharacteristic(characteristicToAdd)
             } else {
                 #if DEBUG
                     print("ERROR! There is no Service for this Characteristic: \(inCharacteristic.uuid.uuidString)")
