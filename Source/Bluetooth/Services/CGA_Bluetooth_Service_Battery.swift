@@ -40,5 +40,5 @@ class CGA_Bluetooth_Service_Battery: CGA_Bluetooth_Service {
     /**
      This returns a unique GATT UUID String for the Service.
      */
-    class var cbUUIDString: String { "180F" }
+    class override var uuid: String { "180F" }
 }

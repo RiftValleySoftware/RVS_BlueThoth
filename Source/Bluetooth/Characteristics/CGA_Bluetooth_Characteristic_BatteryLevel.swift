@@ -52,5 +52,5 @@ class CGA_Bluetooth_Characteristic_BatteryLevel: CGA_Bluetooth_Characteristic {
     /**
      This returns a unique GATT UUID String for the Characteristic.
      */
-    class var cbUUIDString: String { "2A19" }
+    class override var uuid: String { "2A19" }
 }

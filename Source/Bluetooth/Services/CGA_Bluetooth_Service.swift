@@ -38,6 +38,12 @@ class CGA_Bluetooth_Service: RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
+     Root class does nothing.
+     */
+    class var uuid: String { "" }
+
+    /* ################################################################## */
+    /**
      This holds a list of UUIDs, holding the IDs of Characteristics we are looking for. It is initialized when the class is instantiated.
      */
     private var _discoveryFilter: [CBUUID] = []
@@ -256,16 +262,6 @@ extension CGA_Bluetooth_Service: CGA_ServiceFactory {
         
         return ret
     }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - CGA_TypeFactory Conformance -
-/* ###################################################################################################################################### */
-/**
- This is the base (empty) implementation of TypeFactory.
- */
-extension CGA_Bluetooth_Service: CGA_TypeFactory {
-    var uuid: String { "" }
 }
 
 /* ###################################################################################################################################### */

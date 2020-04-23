@@ -47,6 +47,12 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
      This is the type we're aggregating.
      */
     typealias Element = CGA_Bluetooth_Descriptor
+    
+    /* ################################################################## */
+    /**
+     Root class does nothing.
+     */
+    class var uuid: String { "" }
 
     /* ################################################################## */
     /**
@@ -397,14 +403,4 @@ extension CGA_Bluetooth_Characteristic: CGA_CharacteristicFactory {
         
         return ret
     }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - CGA_TypeFactory Conformance -
-/* ###################################################################################################################################### */
-/**
- This is the base (empty) implementation of TypeFactory.
- */
-extension CGA_Bluetooth_Characteristic: CGA_TypeFactory {
-    var uuid: String { "" }
 }

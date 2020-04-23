@@ -408,26 +408,18 @@ extension CGA_Bluetooth_CentralManagerDelegate {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - Base UUID Protocol -
-/* ###################################################################################################################################### */
-/**
- This protocol defines a type that can return a UUID as a String. This is used for "registering" factories.
- */
-protocol CGA_TypeFactory {
-    /* ################################################################## */
-    /**
-     - returns: A String, with the UUID for this class' element type.
-     */
-    var uuid: String { get }
-}
-
-/* ###################################################################################################################################### */
 // MARK: - Factory Protocol for Service Instances -
 /* ###################################################################################################################################### */
 /**
  This allows a generic factory method for Services.
  */
-protocol CGA_ServiceFactory: CGA_TypeFactory {
+protocol CGA_ServiceFactory {
+    /* ################################################################## */
+    /**
+     - returns: A String, with the UUID for this class' element type.
+     */
+    static var uuid: String { get }
+
     /* ################################################################## */
     /**
      REQUIRED: This creates an instance of the class, using the subclass-defined factory method.
@@ -445,7 +437,13 @@ protocol CGA_ServiceFactory: CGA_TypeFactory {
 /**
  This allows a generic factory method for Characteristics.
  */
-protocol CGA_CharacteristicFactory: CGA_TypeFactory {
+protocol CGA_CharacteristicFactory {
+    /* ################################################################## */
+    /**
+     - returns: A String, with the UUID for this class' element type.
+     */
+    static var uuid: String { get }
+
     /* ################################################################## */
     /**
      REQUIRED: This creates an instance of the class, using the subclass-defined factory method.

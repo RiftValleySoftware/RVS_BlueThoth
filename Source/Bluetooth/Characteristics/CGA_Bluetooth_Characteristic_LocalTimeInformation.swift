@@ -66,5 +66,5 @@ class CGA_Bluetooth_Characteristic_LocalTimeInformation: CGA_Bluetooth_Character
     /**
      This returns a unique GATT UUID String for the Characteristic.
      */
-    class var cbUUIDString: String { "2A0F" }
+    class override var uuid: String { "2A0F" }
 }
