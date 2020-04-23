@@ -24,57 +24,52 @@ import UIKit
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
-// MARK: - Local Time Information Characteristic Wrapper Class -
+// MARK: - System ID Characteristic Wrapper Class -
 /* ###################################################################################################################################### */
 /**
- This adds a specialized accessor to the Local Time Information Characteristic.
+ This adds a specialized accessor to the System ID Characteristic.
  */
-class CGA_Bluetooth_Characteristic_LocalTimeInformation: CGA_Bluetooth_Characteristic {
+class CGA_Bluetooth_Characteristic_SystemID: CGA_Bluetooth_Characteristic {
     /* ################################################################## */
     /**
-     - returns: The offset from UTC, in seconds. Nil, if not available, or out of range.
+     - returns: The 40-bit Manufacturer ID
      */
-    var timezone: TimeInterval? {
-        var fifteenMinuteIntervals = Int8(0)
+    var manufacturerID: UInt64? {
+        var id = UInt64(0)
         guard var data = value else { return nil }
-        data.castInto(&fifteenMinuteIntervals)
-        let ret = TimeInterval(Double(fifteenMinuteIntervals) * 15.0 * 60.0)
-        return (-86400.00...86400.00).contains(ret) ? ret : nil
+        data.castInto(&id)
+        
+        id &= 0xFFFFFFFFFF000000
+        
+        return id >> 24
     }
     
     /* ################################################################## */
     /**
-     - returns: the Daylight Savings time offset, in seconds. Nil, if not available, or out of range.
+     - returns: The 24-bit Organizationally Unique ID
      */
-    var dstOffset: TimeInterval? {
-        var fifteenMinuteIntervals = Int8(0)
+    var ouID: UInt32? {
+        var id = UInt64(0)
         guard var data = value else { return nil }
-        data.castInto(&fifteenMinuteIntervals, offsetInBytes: 1)
-        return (0...8).contains(fifteenMinuteIntervals) ? TimeInterval(Double(fifteenMinuteIntervals) * 15 * 60) : nil
+        data.castInto(&id)
+        
+        id &= 0x0000000000FFFFFF
+        
+        return UInt32(id)
     }
     
     /* ################################################################## */
     /**
-     - returns: the local time offset from UTC, in seconds, including DST.
-     */
-    var offsetFromUTCInSeconds: TimeInterval? {
-        guard   let timezone = timezone,
-                let dstOffset = dstOffset else { return nil }
-        return timezone + dstOffset
-    }
-    
-    /* ################################################################## */
-    /**
-     - returns: the DST offset, as a String.
+     - returns: the ID as a String.
      */
     override var stringValue: String? {
-        guard   let offsetFromUTC = offsetFromUTCInSeconds else { return nil }
-        return "\(offsetFromUTC)"
+        guard let intValue = intValue else { return nil }
+        return String(format: "%016X", intValue)
     }
     
     /* ################################################################## */
     /**
      This returns a unique GATT UUID String for the Characteristic.
      */
-    class override var uuid: String { "2A0F" }
+    class override var uuid: String { "2A23" }
 }

@@ -36,7 +36,7 @@ import CoreBluetooth
  Since this is a polymorphic thingamuhjig, we exercise the specific subclass factory function.
  If we are writing specialization subclasses of the "generic" Service or Characteristic classes, we should add our subclasses to these Arrays.
  Yes, we could be clever, and use the uuid as a hash into a Dictionary, but we don't need to, and this allows us to put the "default" factory into the first position.
- So we have one or two extra lines when we use this. Big deal. It's all internal to this file. If it really bothers you, look away.
+ So we have one or two extra lines, and a few milliseconds upon initial connection, when we use this. Big deal. It's all internal to this file. If it really bothers you, look away.
  */
 /* ###################################################################### */
 /**
@@ -45,7 +45,8 @@ import CoreBluetooth
 private var _serviceFactory: [CGA_ServiceFactory.Type] = [
     CGA_Bluetooth_Service.self,
     CGA_Bluetooth_Service_Battery.self,
-    CGA_Bluetooth_Service_CurrentTime.self
+    CGA_Bluetooth_Service_CurrentTime.self,
+    CGA_Bluetooth_Service_DeviceInfo.self
 ]
 
 /* ###################################################################### */
@@ -56,7 +57,14 @@ private var _characteristicFactory: [CGA_CharacteristicFactory.Type] = [
     CGA_Bluetooth_Characteristic.self,
     CGA_Bluetooth_Characteristic_BatteryLevel.self,
     CGA_Bluetooth_Characteristic_CurrentTime.self,
-    CGA_Bluetooth_Characteristic_LocalTimeInformation.self
+    CGA_Bluetooth_Characteristic_LocalTimeInformation.self,
+    CGA_Bluetooth_Characteristic_ManufacturerName.self,
+    CGA_Bluetooth_Characteristic_ModelNumber.self,
+    CGA_Bluetooth_Characteristic_SerialNumber.self,
+    CGA_Bluetooth_Characteristic_HardwareRevision.self,
+    CGA_Bluetooth_Characteristic_FirmwareRevision.self,
+    CGA_Bluetooth_Characteristic_SoftwareRevision.self,
+    CGA_Bluetooth_Characteristic_SystemID.self
 ]
 
 /* ###################################################################################################################################### */

@@ -24,32 +24,15 @@ import UIKit
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
-// MARK: - Service Specialization for Current Time -
+// MARK: - Serial Number Characteristic Wrapper Class -
 /* ###################################################################################################################################### */
 /**
- This adds some specialized accessors.
+ This adds a specialized accessor to the Serial Number Characteristic.
  */
-class CGA_Bluetooth_Service_CurrentTime: CGA_Bluetooth_Service {
+class CGA_Bluetooth_Characteristic_SerialNumber: CGA_Bluetooth_Characteristic {
     /* ################################################################## */
     /**
-     - returns: The Current Time Characteristic value, as a Date instance, at the local time/date.
+     This returns a unique GATT UUID String for the Characteristic.
      */
-    var currentLocalTime: Date? { (sequence_contents[CBUUID(string: CGA_Bluetooth_Characteristic_CurrentTime.cbUUIDString)] as? CGA_Bluetooth_Characteristic_CurrentTime)?.currentTime }
-
-    /* ################################################################## */
-    /**
-     - returns: The Current Time Characteristic value, as a Date instance, at the UTC time/date.
-     */
-    var currentUTCTime: Date? {
-        guard   let localTime = (sequence_contents[CBUUID(string: CGA_Bluetooth_Characteristic_CurrentTime.cbUUIDString)] as? CGA_Bluetooth_Characteristic_CurrentTime)?.timeSinceUNIXEpochInSeconds,
-                let utcOffset = (sequence_contents[CBUUID(string: CGA_Bluetooth_Characteristic_LocalTimeInformation.cbUUIDString)] as? CGA_Bluetooth_Characteristic_LocalTimeInformation)?.offsetFromUTCInSeconds else { return nil }
-        
-        return Date(timeIntervalSinceReferenceDate: localTime + utcOffset)
-    }
-    
-    /* ################################################################## */
-    /**
-     This returns a unique GATT UUID String for the Service.
-     */
-    class var cbUUIDString: String { "1805" }
+    class override var uuid: String { "2A25" }
 }
