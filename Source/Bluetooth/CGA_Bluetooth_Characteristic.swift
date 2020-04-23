@@ -75,7 +75,7 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
-     Returns the number (if possible) as an Int64. This assumes littlendian, but you can try bigendian if you want.
+     Returns the number (if possible) as an Int64. This assumes littlendian.
      This computed property is defined here, so it can be overridden by subclasses.
      */
     var intValue: Int64? {

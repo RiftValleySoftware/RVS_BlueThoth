@@ -384,6 +384,8 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
                     characteristic = CGA_Bluetooth_Characteristic_BatteryLevel(parent: service, cbElementInstance: inCharacteristic)
                 case CGA_Bluetooth_Characteristic_CurrentTime.cbUUIDString:
                     characteristic = CGA_Bluetooth_Characteristic_CurrentTime(parent: service, cbElementInstance: inCharacteristic)
+                case CGA_Bluetooth_Characteristic_LocalTimeInformation.cbUUIDString:
+                    characteristic = CGA_Bluetooth_Characteristic_LocalTimeInformation(parent: service, cbElementInstance: inCharacteristic)
                 default:
                     characteristic = CGA_Bluetooth_Characteristic(parent: service, cbElementInstance: inCharacteristic)
                 }
