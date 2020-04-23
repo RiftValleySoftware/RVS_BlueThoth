@@ -408,6 +408,56 @@ extension CGA_Bluetooth_CentralManagerDelegate {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - Base UUID Protocol -
+/* ###################################################################################################################################### */
+/**
+ This protocol defines a type that can return a UUID as a String. This is used for "registering" factories.
+ */
+protocol CGA_TypeFactory {
+    /* ################################################################## */
+    /**
+     - returns: A String, with the UUID for this class' element type.
+     */
+    var uuid: String { get }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Factory Protocol for Service Instances -
+/* ###################################################################################################################################### */
+/**
+ This allows a generic factory method for Services.
+ */
+protocol CGA_ServiceFactory: CGA_TypeFactory {
+    /* ################################################################## */
+    /**
+     REQUIRED: This creates an instance of the class, using the subclass-defined factory method.
+     
+     - parameter parent: The Peripheral that "owns" this Service
+     - parameter cbElementInstance: The CB element for this Service.
+     - returns: A new instance of CGA_Bluetooth_Service, or a subclass, thereof. Nil, if it fails.
+     */
+    static func createInstance(parent: CGA_Bluetooth_Peripheral, cbElementInstance: CBService) -> CGA_Bluetooth_Service?
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Factory Protocol for Characteristic Instances -
+/* ###################################################################################################################################### */
+/**
+ This allows a generic factory method for Characteristics.
+ */
+protocol CGA_CharacteristicFactory: CGA_TypeFactory {
+    /* ################################################################## */
+    /**
+     REQUIRED: This creates an instance of the class, using the subclass-defined factory method.
+     
+     - parameter parent: The Service that "owns" this Characteristic
+     - parameter cbElementInstance: The CB element for this Characteristic.
+     - returns: A new instance of CGA_Bluetooth_Characteristic, or a subclass, thereof. Nil, if it fails.
+     */
+    static func createInstance(parent: CGA_Bluetooth_Service, cbElementInstance: CBCharacteristic) -> CGA_Bluetooth_Characteristic?
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Special Comparator for the Peripherals Array -
 /* ###################################################################################################################################### */
 /**

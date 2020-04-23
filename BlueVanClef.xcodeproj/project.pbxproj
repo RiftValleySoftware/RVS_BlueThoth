@@ -129,17 +129,49 @@
 			children = (
 				D4D53D0D243E480F00FBD897 /* CGA_Bluetooth_Protocols.swift */,
 				D447B9E32431712900F00A7A /* CGA_Bluetooth_CentralManager.swift */,
-				D41B26D32432442700EFE37C /* CGA_Bluetooth_Peripheral.swift */,
-				D41B26D52432444400EFE37C /* CGA_Bluetooth_Service.swift */,
-				D4A2027B244F4DFB00CE2A70 /* CGA_Bluetooth_Service_Battery.swift */,
-				D4E0C4072450972B00EC8BAF /* CGA_Bluetooth_Service_CurrentTime.swift */,
+				D48CEC772451A7860078D081 /* Peripherals */,
+				D48CEC752451A7710078D081 /* Services */,
+				D48CEC742451A7620078D081 /* Characteristics */,
+				D48CEC762451A7790078D081 /* Descriptors */,
+			);
+			path = Bluetooth;
+			sourceTree = "<group>";
+		};
+		D48CEC742451A7620078D081 /* Characteristics */ = {
+			isa = PBXGroup;
+			children = (
 				D41B26D7243244F200EFE37C /* CGA_Bluetooth_Characteristic.swift */,
 				D4A2027D244F536B00CE2A70 /* CGA_Bluetooth_Characteristic_BatteryLevel.swift */,
 				D4E0C409245097B600EC8BAF /* CGA_Bluetooth_Characteristic_CurrentTime.swift */,
 				D4613A132450D98D004736E4 /* CGA_Bluetooth_Characteristic_LocalTimeInformation.swift */,
+			);
+			path = Characteristics;
+			sourceTree = "<group>";
+		};
+		D48CEC752451A7710078D081 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D41B26D52432444400EFE37C /* CGA_Bluetooth_Service.swift */,
+				D4A2027B244F4DFB00CE2A70 /* CGA_Bluetooth_Service_Battery.swift */,
+				D4E0C4072450972B00EC8BAF /* CGA_Bluetooth_Service_CurrentTime.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D48CEC762451A7790078D081 /* Descriptors */ = {
+			isa = PBXGroup;
+			children = (
 				D41B26D92432451D00EFE37C /* CGA_Bluetooth_Descriptor.swift */,
 			);
-			path = Bluetooth;
+			path = Descriptors;
+			sourceTree = "<group>";
+		};
+		D48CEC772451A7860078D081 /* Peripherals */ = {
+			isa = PBXGroup;
+			children = (
+				D41B26D32432442700EFE37C /* CGA_Bluetooth_Peripheral.swift */,
+			);
+			path = Peripherals;
 			sourceTree = "<group>";
 		};
 		D48D85172430F05500A925ED /* Source */ = {

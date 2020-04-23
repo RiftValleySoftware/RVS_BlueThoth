@@ -288,13 +288,13 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
                 }
             #endif
             
-            stagedServices = inPeripheral.services?.map {
-                var serviceToAdd: CGA_Bluetooth_Service
+            stagedServices = inPeripheral.services?.compactMap {
+                var serviceToAdd: CGA_Bluetooth_Service!
                 switch $0.uuid.uuidString {
                 case CGA_Bluetooth_Service_Battery.cbUUIDString:
-                    serviceToAdd = CGA_Bluetooth_Service_Battery(parent: self, cbElementInstance: $0)
+                    serviceToAdd = CGA_Bluetooth_Service_Battery.createInstance(parent: self, cbElementInstance: $0)
                 case CGA_Bluetooth_Service_CurrentTime.cbUUIDString:
-                    serviceToAdd = CGA_Bluetooth_Service_CurrentTime(parent: self, cbElementInstance: $0)
+                    serviceToAdd = CGA_Bluetooth_Service_CurrentTime.createInstance(parent: self, cbElementInstance: $0)
                 default:
                     serviceToAdd = CGA_Bluetooth_Service(parent: self, cbElementInstance: $0)
                 }
@@ -378,16 +378,16 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             #endif
             
             if  let service = (stagedServices[inCharacteristic] ?? sequence_contents[inCharacteristic]) {
-                var characteristic: CGA_Bluetooth_Characteristic = CGA_Bluetooth_Characteristic(parent: service, cbElementInstance: inCharacteristic)
+                var characteristic: CGA_Bluetooth_Characteristic!
                 switch inCharacteristic.uuid.uuidString {
                 case CGA_Bluetooth_Characteristic_BatteryLevel.cbUUIDString:
-                    characteristic = CGA_Bluetooth_Characteristic_BatteryLevel(parent: service, cbElementInstance: inCharacteristic)
+                    characteristic = CGA_Bluetooth_Characteristic_BatteryLevel.createInstance(parent: service, cbElementInstance: inCharacteristic)
                 case CGA_Bluetooth_Characteristic_CurrentTime.cbUUIDString:
-                    characteristic = CGA_Bluetooth_Characteristic_CurrentTime(parent: service, cbElementInstance: inCharacteristic)
+                    characteristic = CGA_Bluetooth_Characteristic_CurrentTime.createInstance(parent: service, cbElementInstance: inCharacteristic)
                 case CGA_Bluetooth_Characteristic_LocalTimeInformation.cbUUIDString:
-                    characteristic = CGA_Bluetooth_Characteristic_LocalTimeInformation(parent: service, cbElementInstance: inCharacteristic)
+                    characteristic = CGA_Bluetooth_Characteristic_LocalTimeInformation.createInstance(parent: service, cbElementInstance: inCharacteristic)
                 default:
-                    characteristic = CGA_Bluetooth_Characteristic(parent: service, cbElementInstance: inCharacteristic)
+                    characteristic = CGA_Bluetooth_Characteristic.createInstance(parent: service, cbElementInstance: inCharacteristic)
                 }
                 inCharacteristic.descriptors?.forEach {
                     let descriptor = CGA_Bluetooth_Descriptor()

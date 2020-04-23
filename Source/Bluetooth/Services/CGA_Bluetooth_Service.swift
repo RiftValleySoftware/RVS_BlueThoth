@@ -243,6 +243,32 @@ extension CGA_Bluetooth_Service: CGA_Class_Protocol_UpdateDescriptor {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - CGA_ServiceFactory Conformance -
+/* ###################################################################################################################################### */
+/**
+ This allows us to create Services.
+ */
+extension CGA_Bluetooth_Service: CGA_ServiceFactory {
+    class func createInstance(parent inParent: CGA_Bluetooth_Peripheral, cbElementInstance inCBService: CBService) -> CGA_Bluetooth_Service? {
+        let ret = Self.init(sequence_contents: [])
+        ret.parent = inParent
+        ret.cbElementInstance = inCBService
+        
+        return ret
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - CGA_TypeFactory Conformance -
+/* ###################################################################################################################################### */
+/**
+ This is the base (empty) implementation of TypeFactory.
+ */
+extension CGA_Bluetooth_Service: CGA_TypeFactory {
+    var uuid: String { "" }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Special Comparator for the Services Array -
 /* ###################################################################################################################################### */
 /**

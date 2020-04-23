@@ -382,3 +382,29 @@ extension CGA_Bluetooth_Characteristic: CGA_Class_Protocol_UpdateDescriptor {
         }
     }
 }
+
+/* ###################################################################################################################################### */
+// MARK: - CGA_CharacteristicFactory Conformance -
+/* ###################################################################################################################################### */
+/**
+ This allows us to create Characteristics.
+ */
+extension CGA_Bluetooth_Characteristic: CGA_CharacteristicFactory {
+    class func createInstance(parent inParent: CGA_Bluetooth_Service, cbElementInstance inCBCharacteristic: CBCharacteristic) -> CGA_Bluetooth_Characteristic? {
+        let ret = Self.init(sequence_contents: [])
+        ret.parent = inParent
+        ret.cbElementInstance = inCBCharacteristic
+        
+        return ret
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - CGA_TypeFactory Conformance -
+/* ###################################################################################################################################### */
+/**
+ This is the base (empty) implementation of TypeFactory.
+ */
+extension CGA_Bluetooth_Characteristic: CGA_TypeFactory {
+    var uuid: String { "" }
+}
