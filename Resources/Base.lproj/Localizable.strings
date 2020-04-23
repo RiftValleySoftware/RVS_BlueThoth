@@ -24,7 +24,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-SECTION-HEADER-CLASSIC"       =   "BR/EDR";
 "SLUG-DEVICES"                      =   "Device List";
 "SLUG-MAIN-LIST-DATE-FORMAT"        =   "MM/dd/yyyy h:mm:ss.SSS a";
-"SLUG-CURRENT-TIME-DATE-FORMAT"     =   "MM/dd/yyyy h:mm:ss a";
+"SLUG-CURRENT-TIME-DATE-FORMAT"     =   "MM/dd/yyyy h:mm:ss.SSS a";
 "SLUG-ANCS"                         =   "ANCS AUTH";
 "SLUG-ID"                           =   "ID";
 "SLUG-EDIT"                         =   "EDIT";

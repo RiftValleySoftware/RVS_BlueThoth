@@ -41,6 +41,7 @@ class CGA_Bluetooth_Characteristic_CurrentTime: CGA_Bluetooth_Characteristic {
         var hour: UInt8 = 0
         var minute: UInt8 = 0
         var second: UInt8 = 0
+        var fractionalSecond: UInt8 = 0
 
         guard var data = value else { return nil }
         var offset = UInt(data.castInto(&year))
@@ -48,9 +49,12 @@ class CGA_Bluetooth_Characteristic_CurrentTime: CGA_Bluetooth_Characteristic {
         offset += UInt(data.castInto(&day, offsetInBytes: offset))
         offset += UInt(data.castInto(&hour, offsetInBytes: offset))
         offset += UInt(data.castInto(&minute, offsetInBytes: offset))
-        data.castInto(&second, offsetInBytes: offset)
+        offset += UInt(data.castInto(&second, offsetInBytes: offset))
+        data.castInto(&fractionalSecond, offsetInBytes: offset)
 
-        let components = DateComponents(calendar: .current, year: Int(year), month: Int(month), day: Int(day), hour: Int(hour), minute: Int(minute), second: Int(second))
+        let nanoseconds = Int((Double(fractionalSecond) / 256.0) * 1E9)
+        
+        let components = DateComponents(calendar: .current, year: Int(year), month: Int(month), day: Int(day), hour: Int(hour), minute: Int(minute), second: Int(second), nanosecond: nanoseconds)
         return components.date
     }
     
