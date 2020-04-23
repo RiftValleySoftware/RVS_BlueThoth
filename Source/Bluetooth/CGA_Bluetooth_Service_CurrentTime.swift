@@ -24,33 +24,21 @@ import UIKit
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
-// MARK: - Battery Level Characteristic Wrapper Class -
+// MARK: - Service Specialization for Current Time -
 /* ###################################################################################################################################### */
 /**
- This adds a specialized accessor to the Battery Level Characteristic.
+ This adds some specialized accessors.
  */
-class CGA_Bluetooth_Characteristic_BatteryLevel: CGA_Bluetooth_Characteristic {
+class CGA_Bluetooth_Service_CurrentTime: CGA_Bluetooth_Service {
     /* ################################################################## */
     /**
-     - returns: 0-100 (percentage of battery), or nil.
+     - returns: The Current Time Characteristic value, as a Date instance.
      */
-    var batteryLevel: Int? {
-        guard let intValue = intValue else { return nil }
-        return Int(truncatingIfNeeded: intValue)
-    }
-    
+    var currentTime: Date? { (sequence_contents[CBUUID(string: CGA_Bluetooth_Characteristic_CurrentTime.cbUUIDString)] as? CGA_Bluetooth_Characteristic_CurrentTime)?.currentTime }
+
     /* ################################################################## */
     /**
-     - returns: the battery level, as a String.
+     This returns a unique GATT UUID String for the Service.
      */
-    override var stringValue: String? {
-        guard let intValue = batteryLevel else { return nil }
-        return String(intValue)
-    }
-    
-    /* ################################################################## */
-    /**
-     This returns a unique GATT UUID String for the Characteristic.
-     */
-    class var cbUUIDString: String { "2A19" }
+    class var cbUUIDString: String { "1805" }
 }

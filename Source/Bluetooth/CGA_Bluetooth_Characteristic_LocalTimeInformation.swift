@@ -24,19 +24,32 @@ import UIKit
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
-// MARK: - Battery Level Characteristic Wrapper Class -
+// MARK: - Current Time Characteristic Wrapper Class -
 /* ###################################################################################################################################### */
 /**
- This adds a specialized accessor to the Battery Level Characteristic.
+ This adds a specialized accessor to the Current Time Characteristic.
  */
-class CGA_Bluetooth_Characteristic_BatteryLevel: CGA_Bluetooth_Characteristic {
+class CGA_Bluetooth_Characteristic_LocalTimeInformation: CGA_Bluetooth_Characteristic {
     /* ################################################################## */
     /**
-     - returns: 0-100 (percentage of battery), or nil.
+     - returns: the timezone, as an integer.
      */
-    var batteryLevel: Int? {
-        guard let intValue = intValue else { return nil }
-        return Int(truncatingIfNeeded: intValue)
+    var timezone: Int? {
+        var timezone = UInt8(0)
+        guard var data = value else { return nil }
+        data.castInto(&timezone)
+        return Int(timezone)
+    }
+    
+    /* ################################################################## */
+    /**
+     - returns: the Daylight Savings time offset.
+     */
+    var dstOffset: Int? {
+        var ret = Int(0)
+        guard var data = value else { return 0 }
+        data.castInto(&ret)
+        return ret
     }
     
     /* ################################################################## */
@@ -44,13 +57,14 @@ class CGA_Bluetooth_Characteristic_BatteryLevel: CGA_Bluetooth_Characteristic {
      - returns: the battery level, as a String.
      */
     override var stringValue: String? {
-        guard let intValue = batteryLevel else { return nil }
-        return String(intValue)
+        guard   let timezone = timezone,
+                let dstOffset = dstOffset else { return nil }
+        return "\(timezone), \(dstOffset)"
     }
     
     /* ################################################################## */
     /**
      This returns a unique GATT UUID String for the Characteristic.
      */
-    class var cbUUIDString: String { "2A19" }
+    class var cbUUIDString: String { "2A0F" }
 }

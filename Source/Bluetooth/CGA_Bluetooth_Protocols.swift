@@ -762,16 +762,19 @@ public extension Data {
      **NOTE** This is not a "safe" method! It circumvents Swift's safety bumpers, and could get you in trouble if you don't use trivial types!
      
      - parameter inValue: This is an inout parameter, and the type will be used to determine the cast.
-     - returns: the cast value (the parameter will also be set to the cast value). Can be ignored.
+     - parameter offsetInBytes: The number of bytes "into" the data we will go to perform the interpretation. This is an unsigned, 0-based integer. Default is 0 (can be ignored).
+     - returns: The number of bytes read. Can be ignored.
      */
     @discardableResult
-    mutating func castInto<T>(_ inValue: inout T) -> T {
+    mutating func castInto<T>(_ inValue: inout T, offsetInBytes inOffsetInBytes: UInt = 0) -> Int {
         // Makes sure that we don't try to read past the end of the data.
-        let len = Swift.min(MemoryLayout<T>.size, self.count)
+        let endPoint = Swift.max(0, Swift.min(MemoryLayout<T>.size, count - Int(inOffsetInBytes))) + Int(inOffsetInBytes)
+        let len = endPoint - Int(inOffsetInBytes)
+        guard 0 < len else { return 0 }   // We cannot go past the end.
         _ = Swift.withUnsafeMutableBytes(of: &inValue) {
-            self.copyBytes(to: $0, from: 0..<len)
+            self.copyBytes(to: $0, from: Int(inOffsetInBytes)..<endPoint)
         }
         
-        return inValue
+        return len
     }
 }

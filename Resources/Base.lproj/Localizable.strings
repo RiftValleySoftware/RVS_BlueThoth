@@ -24,6 +24,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-SECTION-HEADER-CLASSIC"       =   "BR/EDR";
 "SLUG-DEVICES"                      =   "Device List";
 "SLUG-MAIN-LIST-DATE-FORMAT"        =   "MM/dd/yyyy h:mm:ss.SSS a";
+"SLUG-CURRENT-TIME-DATE-FORMAT"     =   "MM/dd/yyyy h:mm:ss a";
 "SLUG-ANCS"                         =   "ANCS AUTH";
 "SLUG-ID"                           =   "ID";
 "SLUG-EDIT"                         =   "EDIT";
@@ -43,6 +44,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-DEVICE-FILTERS"               =   "Specific Device Identifiers:";
 "SLUG-SERVICE-FILTERS"              =   "Advertised Services:";
 "SLUG-CHARACTERISTIC-FILTERS"       =   "Characteristics:";
+"SLUG-PERCENTAGE-INDICATOR"         =   "%";
 
 // These are error reports.
 "CGA-ERROR-TIMEOUT"                 =   "There was a timeout, while attempting a connection to a Peripheral.";

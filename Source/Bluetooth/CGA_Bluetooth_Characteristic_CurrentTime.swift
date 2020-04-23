@@ -24,19 +24,34 @@ import UIKit
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
-// MARK: - Battery Level Characteristic Wrapper Class -
+// MARK: - Current Time Characteristic Wrapper Class -
 /* ###################################################################################################################################### */
 /**
- This adds a specialized accessor to the Battery Level Characteristic.
+ This adds a specialized accessor to the Current Time Characteristic.
  */
-class CGA_Bluetooth_Characteristic_BatteryLevel: CGA_Bluetooth_Characteristic {
+class CGA_Bluetooth_Characteristic_CurrentTime: CGA_Bluetooth_Characteristic {
     /* ################################################################## */
     /**
-     - returns: 0-100 (percentage of battery), or nil.
+     - returns: the current time, as a Date instance, or nil.
      */
-    var batteryLevel: Int? {
-        guard let intValue = intValue else { return nil }
-        return Int(truncatingIfNeeded: intValue)
+    var currentTime: Date? {
+        var year: UInt16 = 0
+        var month: UInt8 = 0
+        var day: UInt8 = 0
+        var hour: UInt8 = 0
+        var minute: UInt8 = 0
+        var second: UInt8 = 0
+
+        guard var data = value else { return nil }
+        var offset = UInt(data.castInto(&year))
+        offset += UInt(data.castInto(&month, offsetInBytes: offset))
+        offset += UInt(data.castInto(&day, offsetInBytes: offset))
+        offset += UInt(data.castInto(&hour, offsetInBytes: offset))
+        offset += UInt(data.castInto(&minute, offsetInBytes: offset))
+        data.castInto(&second, offsetInBytes: offset)
+
+        let components = DateComponents(calendar: .current, year: Int(year), month: Int(month), day: Int(day), hour: Int(hour), minute: Int(minute), second: Int(second))
+        return components.date
     }
     
     /* ################################################################## */
@@ -44,13 +59,17 @@ class CGA_Bluetooth_Characteristic_BatteryLevel: CGA_Bluetooth_Characteristic {
      - returns: the battery level, as a String.
      */
     override var stringValue: String? {
-        guard let intValue = batteryLevel else { return nil }
-        return String(intValue)
+        guard let date = currentTime else { return nil }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "SLUG-CURRENT-TIME-DATE-FORMAT".localizedVariant
+        let retStr = dateFormatter.string(from: date)
+        
+        return retStr
     }
     
     /* ################################################################## */
     /**
      This returns a unique GATT UUID String for the Characteristic.
      */
-    class var cbUUIDString: String { "2A19" }
+    class var cbUUIDString: String { "2A2B" }
 }
