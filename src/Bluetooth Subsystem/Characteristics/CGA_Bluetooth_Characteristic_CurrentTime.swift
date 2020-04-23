@@ -60,16 +60,15 @@ class CGA_Bluetooth_Characteristic_CurrentTime: CGA_Bluetooth_Characteristic {
     
     /* ################################################################## */
     /**
-     - returns: the battery level, as a String.
+     - returns: the date, as a standard UNIX epoch offset in seconds, or nil
      */
-    override var stringValue: String? {
-        guard let date = currentTime else { return nil }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "SLUG-CURRENT-TIME-DATE-FORMAT".localizedVariant
-        let retStr = dateFormatter.string(from: date)
-        
-        return retStr
-    }
+    var timeSinceUNIXEpochInSeconds: TimeInterval? { currentTime?.timeIntervalSinceReferenceDate }
+    
+    /* ################################################################## */
+    /**
+     - returns: The standard UNIX epoch offset in seconds, as a String.
+     */
+    override var stringValue: String? { nil != timeSinceUNIXEpochInSeconds ? "\(timeSinceUNIXEpochInSeconds!)" : nil }
     
     /* ################################################################## */
     /**

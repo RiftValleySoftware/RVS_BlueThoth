@@ -74,9 +74,7 @@
 		D420C88B242FCD5600FCB9E0 = {
 			isa = PBXGroup;
 			children = (
-				D48D852C2430F13100A925ED /* Meta */,
-				D447B9E5243171AB00F00A7A /* Resources */,
-				D48D85172430F05500A925ED /* Source */,
+				D48D85172430F05500A925ED /* src */,
 				D420C895242FCD5600FCB9E0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -124,7 +122,7 @@
 			path = "View Controllers";
 			sourceTree = "<group>";
 		};
-		D47A34D124316F46000483DF /* Bluetooth */ = {
+		D47A34D124316F46000483DF /* Bluetooth Subsystem */ = {
 			isa = PBXGroup;
 			children = (
 				D4D53D0D243E480F00FBD897 /* CGA_Bluetooth_Protocols.swift */,
@@ -134,7 +132,18 @@
 				D48CEC742451A7620078D081 /* Characteristics */,
 				D48CEC762451A7790078D081 /* Descriptors */,
 			);
-			path = Bluetooth;
+			path = "Bluetooth Subsystem";
+			sourceTree = "<group>";
+		};
+		D47DE23C2452032D00E6CB26 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				D48D852C2430F13100A925ED /* Meta */,
+				D447B9E5243171AB00F00A7A /* Resources */,
+				D47A34CF24316F2A000483DF /* Main */,
+				D47A34D024316F38000483DF /* View Controllers */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 		D48CEC742451A7620078D081 /* Characteristics */ = {
@@ -174,15 +183,14 @@
 			path = Peripherals;
 			sourceTree = "<group>";
 		};
-		D48D85172430F05500A925ED /* Source */ = {
+		D48D85172430F05500A925ED /* src */ = {
 			isa = PBXGroup;
 			children = (
-				D47A34CF24316F2A000483DF /* Main */,
-				D47A34D024316F38000483DF /* View Controllers */,
-				D47A34D124316F46000483DF /* Bluetooth */,
+				D47DE23C2452032D00E6CB26 /* App */,
+				D47A34D124316F46000483DF /* Bluetooth Subsystem */,
 				D4A53AAA24312F0B009647C4 /* Carthage */,
 			);
-			path = Source;
+			path = src;
 			sourceTree = "<group>";
 		};
 		D48D852C2430F13100A925ED /* Meta */ = {
@@ -484,7 +492,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1000;
 				DEVELOPMENT_TEAM = P53V4JS928;
-				INFOPLIST_FILE = "$(SRCROOT)/Meta/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/src/App/Meta/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -506,7 +514,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1000;
 				DEVELOPMENT_TEAM = P53V4JS928;
-				INFOPLIST_FILE = "$(SRCROOT)/Meta/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/src/App/Meta/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
