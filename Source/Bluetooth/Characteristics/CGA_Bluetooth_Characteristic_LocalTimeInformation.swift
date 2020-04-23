@@ -46,10 +46,10 @@ class CGA_Bluetooth_Characteristic_LocalTimeInformation: CGA_Bluetooth_Character
      - returns: the Daylight Savings time offset.
      */
     var dstOffset: Int? {
-        var ret = Int(0)
+        var ret = UInt8(0)
         guard var data = value else { return 0 }
-        data.castInto(&ret)
-        return ret
+        data.castInto(&ret, offsetInBytes: 1)
+        return Int(ret)
     }
     
     /* ################################################################## */
