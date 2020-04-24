@@ -67,6 +67,14 @@ private var _characteristicFactory: [CGA_CharacteristicFactory.Type] = [
     CGA_Bluetooth_Characteristic_SystemID.self
 ]
 
+/* ###################################################################### */
+/**
+ This holds references to the various subclasses for Descriptors.
+ */
+private var _descriptorFactory: [CGA_DescriptorFactory.Type] = [
+    CGA_Bluetooth_Descriptor.self
+]
+
 /* ###################################################################################################################################### */
 // MARK: - CBPeripheral Wrapper Class -
 /* ###################################################################################################################################### */
@@ -432,6 +440,24 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
                     characteristicToAdd = _characteristicFactory[0].createInstance(parent: service, cbElementInstance: inCharacteristic)
                 }
 
+                // We now add any Descriptors that are associated with this Characteristic.
+                if nil != characteristicToAdd {
+                    descriptors.forEach {
+                        var descriptorToAdd: CGA_Bluetooth_Descriptor!
+                        for descriptorInstance in _descriptorFactory where nil == descriptorToAdd && $0.uuid.uuidString == descriptorInstance.uuid {
+                            descriptorToAdd = descriptorInstance.createInstance(parent: characteristicToAdd, cbElementInstance: $0)
+                        }
+                        
+                        if nil == descriptorToAdd {
+                            descriptorToAdd = _descriptorFactory[0].createInstance(parent: characteristicToAdd, cbElementInstance: $0)
+                        }
+                        
+                        if nil != descriptorToAdd {
+                            characteristicToAdd.addDescriptor(descriptorToAdd)
+                        }
+                    }
+                }
+                
                 #if DEBUG
                     print("All Descriptors fulfilled. Adding this Characteristic: \(characteristicToAdd.id) to this Service: \(service.id)")
                 #endif

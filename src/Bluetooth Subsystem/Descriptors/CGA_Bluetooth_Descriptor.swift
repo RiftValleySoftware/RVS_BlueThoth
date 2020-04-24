@@ -32,6 +32,12 @@ import CoreBluetooth
 class CGA_Bluetooth_Descriptor {
     /* ################################################################## */
     /**
+     Root class does nothing.
+     */
+    class var uuid: String { "" }
+
+    /* ################################################################## */
+    /**
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Characteristic
      */
     weak var parent: CGA_Class_Protocol?
@@ -71,6 +77,12 @@ class CGA_Bluetooth_Descriptor {
      If the Descriptor has a value, it is returned here. It is completely untyped, as each descriptor has its own types.
      */
     var value: Any? { cbElementInstance?.value }
+    
+    /* ################################################################## */
+    /**
+     Required init. Doesn't do anything, but we have to have it for the factory.
+     */
+    required init() { }
 }
 
 /* ###################################################################################################################################### */
@@ -108,5 +120,26 @@ extension CGA_Bluetooth_Descriptor {
 //            #endif
 //            peripheral.writeValue(inData, for: cbElementInstance)
 //        }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - CGA_DescriptorFactory Conformance -
+/* ###################################################################################################################################### */
+extension CGA_Bluetooth_Descriptor: CGA_DescriptorFactory {
+    /* ################################################################## */
+    /**
+     This creates an instance of the class, using the subclass-defined factory method.
+     
+     - parameter parent: The Characteristic that "owns" this Service
+     - parameter cbElementInstance: The CB element for this Service.
+     - returns: A new instance of CGA_Bluetooth_Descriptor, or a subclass, thereof. Nil, if it fails.
+     */
+    class func createInstance(parent inParent: CGA_Bluetooth_Characteristic, cbElementInstance inCBDescriptor: CBDescriptor) -> CGA_Bluetooth_Descriptor? {
+        let ret = Self()
+        ret.parent = inParent
+        ret.cbElementInstance = inCBDescriptor
+        
+        return ret
     }
 }

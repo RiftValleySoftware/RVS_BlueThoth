@@ -64,7 +64,7 @@ class CGA_Bluetooth_Characteristic_SystemID: CGA_Bluetooth_Characteristic {
      */
     override var stringValue: String? {
         guard let intValue = intValue else { return nil }
-        return String(format: "%016X", intValue)
+        return String(format: "%016X", UInt64(intValue))
     }
     
     /* ################################################################## */

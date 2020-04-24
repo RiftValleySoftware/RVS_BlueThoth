@@ -411,7 +411,7 @@ extension CGA_Bluetooth_CentralManagerDelegate {
 // MARK: - Factory Protocol for Service Instances -
 /* ###################################################################################################################################### */
 /**
- This allows a generic factory method for Services.
+ This allows a generic factory method for Service Wrappers.
  */
 protocol CGA_ServiceFactory {
     /* ################################################################## */
@@ -435,7 +435,7 @@ protocol CGA_ServiceFactory {
 // MARK: - Factory Protocol for Characteristic Instances -
 /* ###################################################################################################################################### */
 /**
- This allows a generic factory method for Characteristics.
+ This allows a generic factory method for Characteristic Wrappers.
  */
 protocol CGA_CharacteristicFactory {
     /* ################################################################## */
@@ -453,6 +453,30 @@ protocol CGA_CharacteristicFactory {
      - returns: A new instance of CGA_Bluetooth_Characteristic, or a subclass, thereof. Nil, if it fails.
      */
     static func createInstance(parent: CGA_Bluetooth_Service, cbElementInstance: CBCharacteristic) -> CGA_Bluetooth_Characteristic?
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Factory Protocol for Characteristic Instances -
+/* ###################################################################################################################################### */
+/**
+ This allows a generic factory method for Descriptor Wrappers.
+ */
+protocol CGA_DescriptorFactory {
+    /* ################################################################## */
+    /**
+     - returns: A String, with the UUID for this class' element type.
+     */
+    static var uuid: String { get }
+
+    /* ################################################################## */
+    /**
+     REQUIRED: This creates an instance of the class, using the subclass-defined factory method.
+     
+     - parameter parent: The Characteristic that "owns" this Descriptor
+     - parameter cbElementInstance: The CB element for this Descriptor.
+     - returns: A new instance of CGA_Bluetooth_Descriptor, or a subclass, thereof. Nil, if it fails.
+     */
+    static func createInstance(parent: CGA_Bluetooth_Characteristic, cbElementInstance: CBDescriptor) -> CGA_Bluetooth_Descriptor?
 }
 
 /* ###################################################################################################################################### */
