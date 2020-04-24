@@ -35,25 +35,14 @@ class CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration: CGA_Bluetooth_
      This is the UUID for the Client Characteristic Configuration Descriptor.
      */
     class override var uuid: String { "2902" }
-}
 
-/* ###################################################################################################################################### */
-// MARK: - Accessor Computed Properties -
-/* ###################################################################################################################################### */
-extension CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration {
     /* ################################################################## */
     /**
      - returns: True, if the Characteristic is currently notifying.
      */
     var isNotifying: Bool {
-        print("CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration Value: \(String(describing: cbElementInstance.value))")
-        if let value = cbElementInstance.value {
-            if let value = value as? Int8 {
-                return 1 == value & 0x01
-            }
-        }
-        
-        return false
+        guard let value = cbElementInstance.value as? Int8 else { return false }
+        return 1 == value & 0x01
     }
     
     /* ################################################################## */
@@ -61,10 +50,7 @@ extension CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration {
      - returns: True, if the Characteristic is currently indicating.
      */
     var isIndicating: Bool {
-        if let value = value as? UInt8 {
-            return 2 == value & 0x02
-        }
-        
-        return false
+        guard let value = cbElementInstance.value as? Int8 else { return false }
+        return 2 == value & 0x02
     }
 }
