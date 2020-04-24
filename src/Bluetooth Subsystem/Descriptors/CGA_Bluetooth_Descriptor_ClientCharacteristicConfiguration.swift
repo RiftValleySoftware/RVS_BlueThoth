@@ -24,52 +24,47 @@ import UIKit
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
-// MARK: - System ID Characteristic Wrapper Class -
+// MARK: - The Wrapper Class for the Client Characteristic Configuration Descriptor -
 /* ###################################################################################################################################### */
 /**
- This adds a specialized accessor to the System ID Characteristic.
+ This class "wraps" instances of The Client Characteristic Configuration CBDescriptor, adding some functionality, and linking the hierarchy.
  */
-class CGA_Bluetooth_Characteristic_SystemID: CGA_Bluetooth_Characteristic {
+class CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration: CGA_Bluetooth_Descriptor {
     /* ################################################################## */
     /**
-     - returns: The 40-bit Manufacturer ID
+     This is the UUID for the Client Characteristic Configuration Descriptor.
      */
-    var manufacturerID: UInt64? {
-        var id = UInt64(0)
-        guard var data = value else { return nil }
-        data.castInto(&id)
+    class override var uuid: String { "2902" }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Accessor Computed Properties -
+/* ###################################################################################################################################### */
+extension CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration {
+    /* ################################################################## */
+    /**
+     - returns: True, if the Characteristic is currently notifying.
+     */
+    var isNotifying: Bool {
+        print("CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration Value: \(String(describing: cbElementInstance.value))")
+        if let value = cbElementInstance.value {
+            if let value = value as? Int8 {
+                return 1 == value & 0x01
+            }
+        }
         
-        id &= 0xFFFFFFFFFF000000
-        
-        return id >> 24
+        return false
     }
     
     /* ################################################################## */
     /**
-     - returns: The 24-bit Organizationally Unique ID
+     - returns: True, if the Characteristic is currently indicating.
      */
-    var ouID: UInt32? {
-        var id = UInt64(0)
-        guard var data = value else { return nil }
-        data.castInto(&id)
+    var isIndicating: Bool {
+        if let value = value as? UInt8 {
+            return 2 == value & 0x02
+        }
         
-        id &= 0x0000000000FFFFFF
-        
-        return UInt32(id)
+        return false
     }
-    
-    /* ################################################################## */
-    /**
-     - returns: the ID as a String.
-     */
-    override var stringValue: String? {
-        guard let intValue = intValue else { return nil }
-        return String(format: "%016X", UInt64(intValue))
-    }
-    
-    /* ################################################################## */
-    /**
-     This returns a unique GATT UUID String for the Characteristic.
-     */
-    class override var uuid: String { "2A23" }
 }

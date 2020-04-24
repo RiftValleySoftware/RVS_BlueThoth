@@ -43,9 +43,16 @@ import CoreBluetooth
  This holds references to the various subclasses for Services.
  */
 private var _serviceFactory: [CGA_ServiceFactory.Type] = [
+    /// Default Service
     CGA_Bluetooth_Service.self,
+    
+    /// Battery Level Service
     CGA_Bluetooth_Service_Battery.self,
+    
+    /// Current Time Service
     CGA_Bluetooth_Service_CurrentTime.self,
+    
+    /// Device Information Service
     CGA_Bluetooth_Service_DeviceInfo.self
 ]
 
@@ -54,10 +61,17 @@ private var _serviceFactory: [CGA_ServiceFactory.Type] = [
  This holds references to the various subclasses for Characteristics.
  */
 private var _characteristicFactory: [CGA_CharacteristicFactory.Type] = [
+    /// Default Characteristic
     CGA_Bluetooth_Characteristic.self,
+    
+    /// Battery Level Characteristics
     CGA_Bluetooth_Characteristic_BatteryLevel.self,
+    
+    /// Current Time Characteristics
     CGA_Bluetooth_Characteristic_CurrentTime.self,
     CGA_Bluetooth_Characteristic_LocalTimeInformation.self,
+    
+    /// Device Information Characteristics
     CGA_Bluetooth_Characteristic_ManufacturerName.self,
     CGA_Bluetooth_Characteristic_ModelNumber.self,
     CGA_Bluetooth_Characteristic_SerialNumber.self,
@@ -65,6 +79,18 @@ private var _characteristicFactory: [CGA_CharacteristicFactory.Type] = [
     CGA_Bluetooth_Characteristic_FirmwareRevision.self,
     CGA_Bluetooth_Characteristic_SoftwareRevision.self,
     CGA_Bluetooth_Characteristic_SystemID.self
+]
+
+/* ###################################################################### */
+/**
+ This holds references to the various subclasses for Descriptors.
+ */
+private var _descriptorFactory: [CGA_DescriptorFactory.Type] = [
+    /// Default Descriptor
+    CGA_Bluetooth_Descriptor.self,
+    
+    /// The Client Characteristic Configuration Descriptor
+    CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration.self
 ]
 
 /* ###################################################################################################################################### */
@@ -432,6 +458,24 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
                     characteristicToAdd = _characteristicFactory[0].createInstance(parent: service, cbElementInstance: inCharacteristic)
                 }
 
+                // We now add any Descriptors that are associated with this Characteristic.
+                if nil != characteristicToAdd {
+                    descriptors.forEach {
+                        var descriptorToAdd: CGA_Bluetooth_Descriptor!
+                        for descriptorInstance in _descriptorFactory where nil == descriptorToAdd && $0.uuid.uuidString == descriptorInstance.uuid {
+                            descriptorToAdd = descriptorInstance.createInstance(parent: characteristicToAdd, cbElementInstance: $0)
+                        }
+                        
+                        if nil == descriptorToAdd {
+                            descriptorToAdd = _descriptorFactory[0].createInstance(parent: characteristicToAdd, cbElementInstance: $0)
+                        }
+                        
+                        if nil != descriptorToAdd {
+                            characteristicToAdd.addDescriptor(descriptorToAdd)
+                        }
+                    }
+                }
+                
                 #if DEBUG
                     print("All Descriptors fulfilled. Adding this Characteristic: \(characteristicToAdd.id) to this Service: \(service.id)")
                 #endif

@@ -87,9 +87,22 @@ extension CGA_CharacteristicViewController {
      - parameter: ignored.
      */
     @objc func startOver(_: Any) {
-        characteristicInstance?.startOver()
+        updateAllDescriptors()
         _refreshControl.endRefreshing()
         updateUI()
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Instance Methods -
+/* ###################################################################################################################################### */
+extension CGA_CharacteristicViewController {
+    /* ################################################################## */
+    /**
+     This forces a re-read of all descriptors.
+     */
+    func updateAllDescriptors() {
+        characteristicInstance?.forEach { $0.readValue() }
     }
 }
 
@@ -117,8 +130,9 @@ extension CGA_CharacteristicViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = characteristicInstance?.id.localizedVariant
-        descriptorsTableView?.refreshControl = _refreshControl
         _refreshControl.addTarget(self, action: #selector(startOver(_:)), for: .valueChanged)
+        descriptorsTableView?.refreshControl = _refreshControl
+        updateAllDescriptors()
     }
 }
 
@@ -147,10 +161,35 @@ extension CGA_CharacteristicViewController: UITableViewDataSource {
         guard let tableCell = inTableView.dequeueReusableCell(withIdentifier: Self._descriptorRowReuseID, for: inIndexPath) as? CGA_CharacteristicViewController_TableRow else { return UITableViewCell() }
         tableCell.descriptorIDLabel?.text = characteristicInstance?[inIndexPath.row].id.localizedVariant ?? "ERROR"
         
+        var labelText = ""
+        
+        if let characteristic = characteristicInstance?[inIndexPath.row] as? CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration {
+            labelText = "Is \(characteristic.isNotifying ? "" : "Not ")Notifying. Is \(characteristic.isIndicating ? "" : "Not ")Indicating."
+        }
+        
+        tableCell.descriptorValueLabel.text = labelText
+        
         // This ensures that we maintain a consistent backround color upon selection.
         tableCell.selectedBackgroundView = UIView()
         tableCell.selectedBackgroundView?.backgroundColor = UIColor(cgColor: CGA_AppDelegate.appDelegateObject.prefs.tableSelectionBackgroundColor)
 
         return tableCell
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - UITableViewDelegate Conformance -
+/* ###################################################################################################################################### */
+extension CGA_CharacteristicViewController: UITableViewDelegate {
+    /* ################################################################## */
+    /**
+     Called when a row is selected.
+     
+     - parameter inTableView: The table view that is asking for the cell.
+     - parameter didSelectRowAt: The index path (section, row) for the cell.
+     */
+    func tableView(_ inTableView: UITableView, didSelectRowAt inIndexPath: IndexPath) {
+        characteristicInstance?[inIndexPath.row].readValue()
+        inTableView.deselectRow(at: inIndexPath, animated: false)
     }
 }

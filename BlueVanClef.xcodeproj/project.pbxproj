@@ -12,6 +12,7 @@
 		D41B26D8243244F200EFE37C /* CGA_Bluetooth_Characteristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41B26D7243244F200EFE37C /* CGA_Bluetooth_Characteristic.swift */; };
 		D41B26DA2432451D00EFE37C /* CGA_Bluetooth_Descriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41B26D92432451D00EFE37C /* CGA_Bluetooth_Descriptor.swift */; };
 		D436B44D243CC1C6003619D9 /* CGA_ServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D436B44C243CC1C6003619D9 /* CGA_ServiceViewController.swift */; };
+		D43B2CC2245327B800DC5180 /* CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43B2CC1245327B800DC5180 /* CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration.swift */; };
 		D43F05E52436C07B0009EA1B /* CGA_SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43F05E42436C07B0009EA1B /* CGA_SettingsViewController.swift */; };
 		D43FA92724521451001D7E5D /* CGA_Bluetooth_Service_DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43FA92624521451001D7E5D /* CGA_Bluetooth_Service_DeviceInfo.swift */; };
 		D43FA9292452157C001D7E5D /* CGA_Bluetooth_Characteristic_ManufacturerName.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43FA9282452157C001D7E5D /* CGA_Bluetooth_Characteristic_ManufacturerName.swift */; };
@@ -51,6 +52,7 @@
 		D41B26D7243244F200EFE37C /* CGA_Bluetooth_Characteristic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Characteristic.swift; sourceTree = "<group>"; };
 		D41B26D92432451D00EFE37C /* CGA_Bluetooth_Descriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Descriptor.swift; sourceTree = "<group>"; };
 		D436B44C243CC1C6003619D9 /* CGA_ServiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_ServiceViewController.swift; sourceTree = "<group>"; };
+		D43B2CC1245327B800DC5180 /* CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration.swift; sourceTree = "<group>"; };
 		D43F05E42436C07B0009EA1B /* CGA_SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_SettingsViewController.swift; sourceTree = "<group>"; };
 		D43FA92624521451001D7E5D /* CGA_Bluetooth_Service_DeviceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Service_DeviceInfo.swift; sourceTree = "<group>"; };
 		D43FA9282452157C001D7E5D /* CGA_Bluetooth_Characteristic_ManufacturerName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Characteristic_ManufacturerName.swift; sourceTree = "<group>"; };
@@ -74,9 +76,11 @@
 		D48D85182430F05500A925ED /* CGA_AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGA_AppDelegate.swift; sourceTree = "<group>"; };
 		D48D851C2430F05500A925ED /* CGA_InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGA_InitialViewController.swift; sourceTree = "<group>"; };
 		D48D85262430F05600A925ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D49F9AAD245316A00061DC2B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D49F9AAF245316F70061DC2B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D4A2027B244F4DFB00CE2A70 /* CGA_Bluetooth_Service_Battery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Service_Battery.swift; sourceTree = "<group>"; };
 		D4A2027D244F536B00CE2A70 /* CGA_Bluetooth_Characteristic_BatteryLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Characteristic_BatteryLevel.swift; sourceTree = "<group>"; };
-		D4A53AAB24312F2F009647C4 /* RVS_PersistentPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RVS_PersistentPrefs.swift; path = Carthage/Checkouts/RVS_PersistentPrefs/RVS_Persistent_Prefs/RVS_PersistentPrefs.swift; sourceTree = "<group>"; };
+		D4A53AAB24312F2F009647C4 /* RVS_PersistentPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RVS_PersistentPrefs.swift; path = ../../Carthage/Checkouts/RVS_PersistentPrefs/RVS_Persistent_Prefs/RVS_PersistentPrefs.swift; sourceTree = "<group>"; };
 		D4A53AAD24312F50009647C4 /* RVS_String_Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RVS_String_Extensions.swift; path = Carthage/Checkouts/RVS_Generic_Swift_Toolbox/src/Extensions/RVS_String_Extensions.swift; sourceTree = "<group>"; };
 		D4B1C6832430F26800D3AC78 /* Blue Van Clef.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blue Van Clef.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4CAA4262434E877007C72AA /* CGA_PeripheralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_PeripheralViewController.swift; sourceTree = "<group>"; };
@@ -141,12 +145,14 @@
 		D47A34D124316F46000483DF /* Bluetooth Subsystem */ = {
 			isa = PBXGroup;
 			children = (
+				D49F9AAD245316A00061DC2B /* README.md */,
 				D4D53D0D243E480F00FBD897 /* CGA_Bluetooth_Protocols.swift */,
 				D447B9E32431712900F00A7A /* CGA_Bluetooth_CentralManager.swift */,
 				D48CEC772451A7860078D081 /* Peripherals */,
 				D48CEC752451A7710078D081 /* Services */,
 				D48CEC742451A7620078D081 /* Characteristics */,
 				D48CEC762451A7790078D081 /* Descriptors */,
+				D4A53AAA24312F0B009647C4 /* Carthage */,
 			);
 			path = "Bluetooth Subsystem";
 			sourceTree = "<group>";
@@ -154,10 +160,12 @@
 		D47DE23C2452032D00E6CB26 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				D49F9AAF245316F70061DC2B /* README.md */,
 				D48D852C2430F13100A925ED /* Meta */,
 				D447B9E5243171AB00F00A7A /* Resources */,
 				D47A34CF24316F2A000483DF /* Main */,
 				D47A34D024316F38000483DF /* View Controllers */,
+				D49F9AAC245314A70061DC2B /* Carthage */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -195,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				D41B26D92432451D00EFE37C /* CGA_Bluetooth_Descriptor.swift */,
+				D43B2CC1245327B800DC5180 /* CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration.swift */,
 			);
 			path = Descriptors;
 			sourceTree = "<group>";
@@ -212,7 +221,6 @@
 			children = (
 				D47DE23C2452032D00E6CB26 /* App */,
 				D47A34D124316F46000483DF /* Bluetooth Subsystem */,
-				D4A53AAA24312F0B009647C4 /* Carthage */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -225,15 +233,22 @@
 			path = Meta;
 			sourceTree = "<group>";
 		};
-		D4A53AAA24312F0B009647C4 /* Carthage */ = {
+		D49F9AAC245314A70061DC2B /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
 				D4A53AAB24312F2F009647C4 /* RVS_PersistentPrefs.swift */,
+			);
+			name = Carthage;
+			sourceTree = "<group>";
+		};
+		D4A53AAA24312F0B009647C4 /* Carthage */ = {
+			isa = PBXGroup;
+			children = (
 				D4A53AAD24312F50009647C4 /* RVS_String_Extensions.swift */,
 				D447B9F42431724700F00A7A /* RVS_SequenceProtocol.swift */,
 			);
 			name = Carthage;
-			path = ..;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -331,6 +346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4F666C72434F06200CD4548 /* CGA_InfoViewController.swift in Sources */,
+				D43B2CC2245327B800DC5180 /* CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration.swift in Sources */,
 				D4A53AAC24312F2F009647C4 /* RVS_PersistentPrefs.swift in Sources */,
 				D4E0C40A245097B600EC8BAF /* CGA_Bluetooth_Characteristic_CurrentTime.swift in Sources */,
 				D41B26D62432444400EFE37C /* CGA_Bluetooth_Service.swift in Sources */,

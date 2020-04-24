@@ -2,13 +2,13 @@
 <Workspace
    version = "1.0">
    <Group
-      location = "group:Project-Meta"
+      location = "container:"
       name = "Project-Meta">
       <FileRef
-         location = "group:Cartfile">
+         location = "group:README.md">
       </FileRef>
       <FileRef
-         location = "group:.swiftlint.yml">
+         location = "group:Cartfile">
       </FileRef>
       <FileRef
          location = "group:jazzy.sh">
@@ -17,10 +17,7 @@
          location = "group:LICENSE">
       </FileRef>
       <FileRef
-         location = "group:README.md">
-      </FileRef>
-      <FileRef
-         location = "group:Project-Meta/Warnings.xcconfig">
+         location = "group:.swiftlint.yml">
       </FileRef>
    </Group>
    <FileRef

@@ -255,6 +255,14 @@ extension CGA_Bluetooth_Service: CGA_Class_Protocol_UpdateDescriptor {
  This allows us to create Services.
  */
 extension CGA_Bluetooth_Service: CGA_ServiceFactory {
+    /* ################################################################## */
+    /**
+     This creates an instance of the class, using the subclass-defined factory method.
+     
+     - parameter parent: The Peripheral that "owns" this Service
+     - parameter cbElementInstance: The CB element for this Service.
+     - returns: A new instance of CGA_Bluetooth_Service, or a subclass, thereof. Nil, if it fails.
+     */
     class func createInstance(parent inParent: CGA_Bluetooth_Peripheral, cbElementInstance inCBService: CBService) -> CGA_Bluetooth_Service? {
         let ret = Self.init(sequence_contents: [])
         ret.parent = inParent
