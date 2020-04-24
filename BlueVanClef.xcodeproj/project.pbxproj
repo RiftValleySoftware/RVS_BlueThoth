@@ -76,7 +76,7 @@
 		D48D85262430F05600A925ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4A2027B244F4DFB00CE2A70 /* CGA_Bluetooth_Service_Battery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Service_Battery.swift; sourceTree = "<group>"; };
 		D4A2027D244F536B00CE2A70 /* CGA_Bluetooth_Characteristic_BatteryLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Characteristic_BatteryLevel.swift; sourceTree = "<group>"; };
-		D4A53AAB24312F2F009647C4 /* RVS_PersistentPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RVS_PersistentPrefs.swift; path = Carthage/Checkouts/RVS_PersistentPrefs/RVS_Persistent_Prefs/RVS_PersistentPrefs.swift; sourceTree = "<group>"; };
+		D4A53AAB24312F2F009647C4 /* RVS_PersistentPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RVS_PersistentPrefs.swift; path = ../../Carthage/Checkouts/RVS_PersistentPrefs/RVS_Persistent_Prefs/RVS_PersistentPrefs.swift; sourceTree = "<group>"; };
 		D4A53AAD24312F50009647C4 /* RVS_String_Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RVS_String_Extensions.swift; path = Carthage/Checkouts/RVS_Generic_Swift_Toolbox/src/Extensions/RVS_String_Extensions.swift; sourceTree = "<group>"; };
 		D4B1C6832430F26800D3AC78 /* Blue Van Clef.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blue Van Clef.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4CAA4262434E877007C72AA /* CGA_PeripheralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_PeripheralViewController.swift; sourceTree = "<group>"; };
@@ -147,6 +147,7 @@
 				D48CEC752451A7710078D081 /* Services */,
 				D48CEC742451A7620078D081 /* Characteristics */,
 				D48CEC762451A7790078D081 /* Descriptors */,
+				D4A53AAA24312F0B009647C4 /* Carthage */,
 			);
 			path = "Bluetooth Subsystem";
 			sourceTree = "<group>";
@@ -158,6 +159,7 @@
 				D447B9E5243171AB00F00A7A /* Resources */,
 				D47A34CF24316F2A000483DF /* Main */,
 				D47A34D024316F38000483DF /* View Controllers */,
+				D49F9AAC245314A70061DC2B /* Carthage */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -212,7 +214,6 @@
 			children = (
 				D47DE23C2452032D00E6CB26 /* App */,
 				D47A34D124316F46000483DF /* Bluetooth Subsystem */,
-				D4A53AAA24312F0B009647C4 /* Carthage */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -225,15 +226,22 @@
 			path = Meta;
 			sourceTree = "<group>";
 		};
-		D4A53AAA24312F0B009647C4 /* Carthage */ = {
+		D49F9AAC245314A70061DC2B /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
 				D4A53AAB24312F2F009647C4 /* RVS_PersistentPrefs.swift */,
+			);
+			name = Carthage;
+			sourceTree = "<group>";
+		};
+		D4A53AAA24312F0B009647C4 /* Carthage */ = {
+			isa = PBXGroup;
+			children = (
 				D4A53AAD24312F50009647C4 /* RVS_String_Extensions.swift */,
 				D447B9F42431724700F00A7A /* RVS_SequenceProtocol.swift */,
 			);
 			name = Carthage;
-			path = ..;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
