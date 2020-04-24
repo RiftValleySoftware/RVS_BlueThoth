@@ -74,6 +74,8 @@
 		D48D85182430F05500A925ED /* CGA_AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGA_AppDelegate.swift; sourceTree = "<group>"; };
 		D48D851C2430F05500A925ED /* CGA_InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGA_InitialViewController.swift; sourceTree = "<group>"; };
 		D48D85262430F05600A925ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D49F9AAD245316A00061DC2B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D49F9AAF245316F70061DC2B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D4A2027B244F4DFB00CE2A70 /* CGA_Bluetooth_Service_Battery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Service_Battery.swift; sourceTree = "<group>"; };
 		D4A2027D244F536B00CE2A70 /* CGA_Bluetooth_Characteristic_BatteryLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Characteristic_BatteryLevel.swift; sourceTree = "<group>"; };
 		D4A53AAB24312F2F009647C4 /* RVS_PersistentPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RVS_PersistentPrefs.swift; path = ../../Carthage/Checkouts/RVS_PersistentPrefs/RVS_Persistent_Prefs/RVS_PersistentPrefs.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 		D47A34D124316F46000483DF /* Bluetooth Subsystem */ = {
 			isa = PBXGroup;
 			children = (
+				D49F9AAD245316A00061DC2B /* README.md */,
 				D4D53D0D243E480F00FBD897 /* CGA_Bluetooth_Protocols.swift */,
 				D447B9E32431712900F00A7A /* CGA_Bluetooth_CentralManager.swift */,
 				D48CEC772451A7860078D081 /* Peripherals */,
@@ -155,6 +158,7 @@
 		D47DE23C2452032D00E6CB26 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				D49F9AAF245316F70061DC2B /* README.md */,
 				D48D852C2430F13100A925ED /* Meta */,
 				D447B9E5243171AB00F00A7A /* Resources */,
 				D47A34CF24316F2A000483DF /* Main */,
