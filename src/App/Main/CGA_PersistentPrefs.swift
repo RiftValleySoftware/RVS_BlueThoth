@@ -62,6 +62,12 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
         
         /* ############################################################## */
         /**
+         This will be a signed Integer, with the minimum RSSI.
+         */
+        case minimumRSSILevel = "kMinimumRSSILevel"
+
+        /* ############################################################## */
+        /**
          This will be a CGColor, indicating the color to use for the selected table cells.
          */
         case tableSelectionBackgroundColor = "kBackgroundColorForTableSelection"
@@ -74,7 +80,8 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
                                         peripheralFilterIDArray.rawValue,
                                         serviceFilterIDArray.rawValue,
                                         characteristicFilterIDArray.rawValue,
-                                        tableSelectionBackgroundColor.rawValue
+                                        tableSelectionBackgroundColor.rawValue,
+                                        minimumRSSILevel.rawValue
                                         ] }
     }
     
@@ -94,6 +101,15 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
         set { values[Keys.continuouslyUpdatePeripherals.rawValue] = newValue }
     }
     
+    /* ################################################################## */
+    /**
+     This is a Boolean value. If true, then the scan will not use duplicate filtering (meaning that it will be continuously updating).
+     */
+    var minimumRSSILevel: Int {
+        get { values[Keys.minimumRSSILevel.rawValue] as? Int ?? 0 }
+        set { values[Keys.minimumRSSILevel.rawValue] = newValue }
+    }
+
     /* ################################################################## */
     /**
      This is an Array of String, containing the UUIDs of specific Peripherals for which we are filtering.

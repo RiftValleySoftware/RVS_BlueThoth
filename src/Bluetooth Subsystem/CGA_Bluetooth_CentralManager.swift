@@ -402,6 +402,13 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
+     This is a "Minimum RSSI Level" for filtering. If a device is discovered with an RSSI less than this, it is ignored.
+     The Default is -100. It can be changed by the SDK user, for subsequent scans.
+     */
+    var minimumRSSILevelIndBm: Int = -100
+    
+    /* ################################################################## */
+    /**
      This holds the instance of CBCentralManager that is used by this instance.
      */
     var cbElementInstance: CBCentralManager!
@@ -981,6 +988,13 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
         else {
             #if DEBUG
                 print("Discarding empty-name Peripheral: \(inPeripheral.identifier.uuidString).")
+            #endif
+            return
+        }
+        
+        guard minimumRSSILevelIndBm <= inRSSI.intValue else {
+            #if DEBUG
+                print("Discarding Peripheral: \(inPeripheral.identifier.uuidString), because its RSSI level of \(inRSSI.intValue) is less than our minimum RSSI threshold of \(minimumRSSILevelIndBm)")
             #endif
             return
         }
