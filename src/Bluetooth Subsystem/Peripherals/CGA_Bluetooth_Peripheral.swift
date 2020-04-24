@@ -43,9 +43,16 @@ import CoreBluetooth
  This holds references to the various subclasses for Services.
  */
 private var _serviceFactory: [CGA_ServiceFactory.Type] = [
+    /// Default Service
     CGA_Bluetooth_Service.self,
+    
+    /// Battery Level Service
     CGA_Bluetooth_Service_Battery.self,
+    
+    /// Current Time Service
     CGA_Bluetooth_Service_CurrentTime.self,
+    
+    /// Device Information Service
     CGA_Bluetooth_Service_DeviceInfo.self
 ]
 
@@ -54,10 +61,17 @@ private var _serviceFactory: [CGA_ServiceFactory.Type] = [
  This holds references to the various subclasses for Characteristics.
  */
 private var _characteristicFactory: [CGA_CharacteristicFactory.Type] = [
+    /// Default Characteristic
     CGA_Bluetooth_Characteristic.self,
+    
+    /// Battery Level Characteristics
     CGA_Bluetooth_Characteristic_BatteryLevel.self,
+    
+    /// Current Time Characteristics
     CGA_Bluetooth_Characteristic_CurrentTime.self,
     CGA_Bluetooth_Characteristic_LocalTimeInformation.self,
+    
+    /// Device Information Characteristics
     CGA_Bluetooth_Characteristic_ManufacturerName.self,
     CGA_Bluetooth_Characteristic_ModelNumber.self,
     CGA_Bluetooth_Characteristic_SerialNumber.self,
@@ -72,7 +86,11 @@ private var _characteristicFactory: [CGA_CharacteristicFactory.Type] = [
  This holds references to the various subclasses for Descriptors.
  */
 private var _descriptorFactory: [CGA_DescriptorFactory.Type] = [
-    CGA_Bluetooth_Descriptor.self
+    /// Default Descriptor
+    CGA_Bluetooth_Descriptor.self,
+    
+    /// The Client Characteristic Configuration Descriptor
+    CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration.self
 ]
 
 /* ###################################################################################################################################### */

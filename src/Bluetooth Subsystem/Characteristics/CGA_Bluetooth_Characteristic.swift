@@ -282,7 +282,7 @@ extension CGA_Bluetooth_Characteristic {
             print("Adding the \(inDescriptor.id) Descriptor to the \(id) Characteristic.")
         #endif
         sequence_contents.append(inDescriptor)
-        central?.updateThisDescriptor(inDescriptor)
+        inDescriptor.readValue()
     }
     
     /* ################################################################## */
