@@ -341,6 +341,7 @@ extension CGA_InitialViewController {
     private func _startScanning() {
         let scanCriteria = CGA_AppDelegate.appDelegateObject.prefs.scanCriteria
         CGA_AppDelegate.centralManager?.scanCriteria = scanCriteria
+        CGA_AppDelegate.centralManager?.minimumRSSILevelIndBm = CGA_AppDelegate.appDelegateObject.prefs.minimumRSSILevel
         CGA_AppDelegate.centralManager?.startScanning(duplicateFilteringIsOn: !CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals)
     }
     

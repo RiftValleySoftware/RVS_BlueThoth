@@ -44,7 +44,10 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-DEVICE-FILTERS"               =   "Specific Device Identifiers:";
 "SLUG-SERVICE-FILTERS"              =   "Advertised Services:";
 "SLUG-CHARACTERISTIC-FILTERS"       =   "Characteristics:";
-"SLUG-PERCENTAGE-INDICATOR"         =   "%";
+"SLUG-MINIMUM-RSSI-LABEL"           =   "Minimum RSSI:";
+"SLUG-RSSI-LEVEL-FORMAT"            =   "%d dBm";
+"SLUG-MINIMUM-RSSI-LEFT"            =   "-100";
+"SLUG-MINIMUM-RSSI-RIGHT"           =   "0";
 
 // These are error reports.
 "CGA-ERROR-TIMEOUT"                 =   "There was a timeout, while attempting a connection to a Peripheral.";

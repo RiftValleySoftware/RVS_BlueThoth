@@ -85,6 +85,36 @@ class CGA_SettingsViewController: UIViewController {
      The TextField for entry of the Characteristic filters.
      */
     @IBOutlet weak var characteristicFilterTextView: UITextView!
+    
+    /* ################################################################## */
+    /**
+     The Label for the Minimum RSSI threshold.
+     */
+    @IBOutlet weak var minimumRSSILevelLabel: UILabel!
+    
+    /* ################################################################## */
+    /**
+     The Label for the Left (minimum) RSSI threshold.
+     */
+    @IBOutlet weak var minimumRSSILevelMinValLabel: UILabel!
+    
+    /* ################################################################## */
+    /**
+     The Label for the Right (maximum) RSSI threshold.
+     */
+    @IBOutlet weak var minimumRSSILevelMaxValLabel: UILabel!
+
+    /* ################################################################## */
+    /**
+     The Label for the Current Value of the Minimum RSSI threshold.
+     */
+    @IBOutlet weak var minimumRSSILevelValueLabel: UILabel!
+
+    /* ################################################################## */
+    /**
+     The Slider for the Minimum RSSI threshold.
+     */
+    @IBOutlet weak var minimumRSSILevelSlider: UISlider!
 }
 
 /* ###################################################################################################################################### */
@@ -131,6 +161,17 @@ extension CGA_SettingsViewController {
     
     /* ################################################################## */
     /**
+     - parameter inSlider: The slider instance.
+     */
+    @IBAction func minimumRSSISliderChanged(_ inSlider: UISlider) {
+        let valueAsInt = ceil(inSlider.value)
+        inSlider.value = valueAsInt
+        CGA_AppDelegate.appDelegateObject.prefs.minimumRSSILevel = Int(valueAsInt)
+        updateMInimumRSSIValue()
+    }
+    
+    /* ################################################################## */
+    /**
      This dismisses any open keyboard.
      
      - parameter: ignored (and optional).
@@ -156,8 +197,16 @@ extension CGA_SettingsViewController {
         deviceFilterTextView?.text = CGA_AppDelegate.appDelegateObject.prefs.peripheralFilterIDArray.joined(separator: "\n")
         serviceFilterTextView?.text = CGA_AppDelegate.appDelegateObject.prefs.serviceFilterIDArray.joined(separator: "\n")
         characteristicFilterTextView?.text = CGA_AppDelegate.appDelegateObject.prefs.characteristicFilterIDArray.joined(separator: "\n")
+        updateMInimumRSSIValue()
     }
     
+    /* ################################################################## */
+    /**
+     */
+    func updateMInimumRSSIValue() {
+        minimumRSSILevelValueLabel?.text = String(format: "SLUG-RSSI-LEVEL-FORMAT".localizedVariant, CGA_AppDelegate.appDelegateObject.prefs.minimumRSSILevel)
+    }
+
     /* ################################################################## */
     /**
      Forces a prefs update on the contents of the Peripheral filter TextView.
@@ -198,6 +247,10 @@ extension CGA_SettingsViewController {
         deviceFilterLabel?.text = deviceFilterLabel?.text?.localizedVariant
         serviceFilterLabel?.text = serviceFilterLabel?.text?.localizedVariant
         characteristicFilterLabel?.text = characteristicFilterLabel?.text?.localizedVariant
+        minimumRSSILevelLabel?.text = minimumRSSILevelLabel?.text?.localizedVariant
+        minimumRSSILevelMinValLabel?.text = minimumRSSILevelMinValLabel?.text?.localizedVariant
+        minimumRSSILevelMaxValLabel?.text = minimumRSSILevelMaxValLabel?.text?.localizedVariant
+        minimumRSSILevelSlider?.value = Float(CGA_AppDelegate.appDelegateObject.prefs.minimumRSSILevel)
         updateUI()
     }
     
