@@ -24,47 +24,57 @@ import UIKit
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
-// MARK: - Current Time Characteristic Wrapper Class -
+// MARK: - Local Time Information Characteristic Wrapper Class -
 /* ###################################################################################################################################### */
 /**
- This adds a specialized accessor to the Current Time Characteristic.
+ This adds a specialized accessor to the Local Time Information Characteristic.
  */
 class CGA_Bluetooth_Characteristic_LocalTimeInformation: CGA_Bluetooth_Characteristic {
     /* ################################################################## */
     /**
-     - returns: the timezone, as an integer.
+     - returns: The offset from UTC, in seconds. Nil, if not available, or out of range.
      */
-    var timezone: Int? {
-        var timezone = UInt8(0)
+    var timezone: TimeInterval? {
+        var fifteenMinuteIntervals = Int8(0)
         guard var data = value else { return nil }
-        data.castInto(&timezone)
-        return Int(timezone)
+        data.castInto(&fifteenMinuteIntervals)
+        let ret = TimeInterval(Double(fifteenMinuteIntervals) * 15.0 * 60.0)
+        return (-86400.00...86400.00).contains(ret) ? ret : nil
     }
     
     /* ################################################################## */
     /**
-     - returns: the Daylight Savings time offset.
+     - returns: the Daylight Savings time offset, in seconds. Nil, if not available, or out of range.
      */
-    var dstOffset: Int? {
-        var ret = Int(0)
-        guard var data = value else { return 0 }
-        data.castInto(&ret)
-        return ret
+    var dstOffset: TimeInterval? {
+        var fifteenMinuteIntervals = Int8(0)
+        guard var data = value else { return nil }
+        data.castInto(&fifteenMinuteIntervals, offsetInBytes: 1)
+        return (0...8).contains(fifteenMinuteIntervals) ? TimeInterval(Double(fifteenMinuteIntervals) * 15 * 60) : nil
     }
     
     /* ################################################################## */
     /**
-     - returns: the battery level, as a String.
+     - returns: the local time offset from UTC, in seconds, including DST.
      */
-    override var stringValue: String? {
+    var offsetFromUTCInSeconds: TimeInterval? {
         guard   let timezone = timezone,
                 let dstOffset = dstOffset else { return nil }
-        return "\(timezone), \(dstOffset)"
+        return timezone + dstOffset
+    }
+    
+    /* ################################################################## */
+    /**
+     - returns: the DST offset, as a String.
+     */
+    override var stringValue: String? {
+        guard   let offsetFromUTC = offsetFromUTCInSeconds else { return nil }
+        return "\(offsetFromUTC)"
     }
     
     /* ################################################################## */
     /**
      This returns a unique GATT UUID String for the Characteristic.
      */
-    class var cbUUIDString: String { "2A0F" }
+    class override var uuid: String { "2A0F" }
 }

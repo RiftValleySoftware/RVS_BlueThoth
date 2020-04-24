@@ -38,6 +38,12 @@ class CGA_Bluetooth_Service: RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
+     Root class does nothing.
+     */
+    class var uuid: String { "" }
+
+    /* ################################################################## */
+    /**
      This holds a list of UUIDs, holding the IDs of Characteristics we are looking for. It is initialized when the class is instantiated.
      */
     private var _discoveryFilter: [CBUUID] = []
@@ -239,6 +245,22 @@ extension CGA_Bluetooth_Service: CGA_Class_Protocol_UpdateDescriptor {
         let filters: [CBUUID]! = _discoveryFilter.isEmpty ? nil : _discoveryFilter
 
         peripheral?.cbElementInstance?.discoverCharacteristics(filters, for: cbElementInstance)
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - CGA_ServiceFactory Conformance -
+/* ###################################################################################################################################### */
+/**
+ This allows us to create Services.
+ */
+extension CGA_Bluetooth_Service: CGA_ServiceFactory {
+    class func createInstance(parent inParent: CGA_Bluetooth_Peripheral, cbElementInstance inCBService: CBService) -> CGA_Bluetooth_Service? {
+        let ret = Self.init(sequence_contents: [])
+        ret.parent = inParent
+        ret.cbElementInstance = inCBService
+        
+        return ret
     }
 }
 

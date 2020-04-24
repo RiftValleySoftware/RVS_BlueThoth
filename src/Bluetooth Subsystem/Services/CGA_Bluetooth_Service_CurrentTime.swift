@@ -24,21 +24,32 @@ import UIKit
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
-// MARK: - Service Specialization for Battery Service -
+// MARK: - Service Specialization for Current Time -
 /* ###################################################################################################################################### */
 /**
  This adds some specialized accessors.
  */
-class CGA_Bluetooth_Service_Battery: CGA_Bluetooth_Service {
+class CGA_Bluetooth_Service_CurrentTime: CGA_Bluetooth_Service {
     /* ################################################################## */
     /**
-     - returns: 0-100 (percentage of battery), or nil.
+     - returns: The Current Time Characteristic value, as a Date instance, at the local time/date.
      */
-    var batteryLevel: Int? { (sequence_contents[CBUUID(string: CGA_Bluetooth_Characteristic_BatteryLevel.cbUUIDString)] as? CGA_Bluetooth_Characteristic_BatteryLevel)?.batteryLevel }
+    var currentLocalTime: Date? { (sequence_contents[CBUUID(string: CGA_Bluetooth_Characteristic_CurrentTime.cbUUIDString)] as? CGA_Bluetooth_Characteristic_CurrentTime)?.currentTime }
+
+    /* ################################################################## */
+    /**
+     - returns: The Current Time Characteristic value, as a Date instance, at the UTC time/date.
+     */
+    var currentUTCTime: Date? {
+        guard   let localTime = (sequence_contents[CBUUID(string: CGA_Bluetooth_Characteristic_CurrentTime.cbUUIDString)] as? CGA_Bluetooth_Characteristic_CurrentTime)?.timeSinceUNIXEpochInSeconds,
+                let utcOffset = (sequence_contents[CBUUID(string: CGA_Bluetooth_Characteristic_LocalTimeInformation.cbUUIDString)] as? CGA_Bluetooth_Characteristic_LocalTimeInformation)?.offsetFromUTCInSeconds else { return nil }
+        
+        return Date(timeIntervalSinceReferenceDate: localTime + utcOffset)
+    }
     
     /* ################################################################## */
     /**
      This returns a unique GATT UUID String for the Service.
      */
-    class var cbUUIDString: String { "180F" }
+    class var cbUUIDString: String { "1805" }
 }

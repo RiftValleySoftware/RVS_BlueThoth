@@ -47,6 +47,12 @@ class CGA_Bluetooth_Characteristic: RVS_SequenceProtocol {
      This is the type we're aggregating.
      */
     typealias Element = CGA_Bluetooth_Descriptor
+    
+    /* ################################################################## */
+    /**
+     Root class does nothing.
+     */
+    class var uuid: String { "" }
 
     /* ################################################################## */
     /**
@@ -380,5 +386,21 @@ extension CGA_Bluetooth_Characteristic: CGA_Class_Protocol_UpdateDescriptor {
             
             central?.reportError(.internalError(nil))
         }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - CGA_CharacteristicFactory Conformance -
+/* ###################################################################################################################################### */
+/**
+ This allows us to create Characteristics.
+ */
+extension CGA_Bluetooth_Characteristic: CGA_CharacteristicFactory {
+    class func createInstance(parent inParent: CGA_Bluetooth_Service, cbElementInstance inCBCharacteristic: CBCharacteristic) -> CGA_Bluetooth_Characteristic? {
+        let ret = Self.init(sequence_contents: [])
+        ret.parent = inParent
+        ret.cbElementInstance = inCBCharacteristic
+        
+        return ret
     }
 }

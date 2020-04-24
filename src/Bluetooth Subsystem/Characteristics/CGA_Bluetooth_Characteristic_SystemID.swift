@@ -24,52 +24,52 @@ import UIKit
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
-// MARK: - Current Time Characteristic Wrapper Class -
+// MARK: - System ID Characteristic Wrapper Class -
 /* ###################################################################################################################################### */
 /**
- This adds a specialized accessor to the Current Time Characteristic.
+ This adds a specialized accessor to the System ID Characteristic.
  */
-class CGA_Bluetooth_Characteristic_CurrentTime: CGA_Bluetooth_Characteristic {
+class CGA_Bluetooth_Characteristic_SystemID: CGA_Bluetooth_Characteristic {
     /* ################################################################## */
     /**
-     - returns: the current time, as a Date instance, or nil.
+     - returns: The 40-bit Manufacturer ID
      */
-    var currentTime: Date? {
-        var year: UInt16 = 0
-        var month: UInt8 = 0
-        var day: UInt8 = 0
-        var hour: UInt8 = 0
-        var minute: UInt8 = 0
-        var second: UInt8 = 0
-
+    var manufacturerID: UInt64? {
+        var id = UInt64(0)
         guard var data = value else { return nil }
-        var offset = UInt(data.castInto(&year))
-        offset += UInt(data.castInto(&month, offsetInBytes: offset))
-        offset += UInt(data.castInto(&day, offsetInBytes: offset))
-        offset += UInt(data.castInto(&hour, offsetInBytes: offset))
-        offset += UInt(data.castInto(&minute, offsetInBytes: offset))
-        data.castInto(&second, offsetInBytes: offset)
-
-        let components = DateComponents(calendar: .current, year: Int(year), month: Int(month), day: Int(day), hour: Int(hour), minute: Int(minute), second: Int(second))
-        return components.date
+        data.castInto(&id)
+        
+        id &= 0xFFFFFFFFFF000000
+        
+        return id >> 24
     }
     
     /* ################################################################## */
     /**
-     - returns: the battery level, as a String.
+     - returns: The 24-bit Organizationally Unique ID
+     */
+    var ouID: UInt32? {
+        var id = UInt64(0)
+        guard var data = value else { return nil }
+        data.castInto(&id)
+        
+        id &= 0x0000000000FFFFFF
+        
+        return UInt32(id)
+    }
+    
+    /* ################################################################## */
+    /**
+     - returns: the ID as a String.
      */
     override var stringValue: String? {
-        guard let date = currentTime else { return nil }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "SLUG-CURRENT-TIME-DATE-FORMAT".localizedVariant
-        let retStr = dateFormatter.string(from: date)
-        
-        return retStr
+        guard let intValue = intValue else { return nil }
+        return String(format: "%016X", intValue)
     }
     
     /* ################################################################## */
     /**
      This returns a unique GATT UUID String for the Characteristic.
      */
-    class var cbUUIDString: String { "2A2B" }
+    class override var uuid: String { "2A23" }
 }

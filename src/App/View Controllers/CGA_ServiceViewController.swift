@@ -67,12 +67,12 @@ class CG_TapGestureRecognizer: UITapGestureRecognizer {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - A Special Button for Table Rows -
+// MARK: - A Special Button for Table Rows (NOTIFY) -
 /* ###################################################################################################################################### */
 /**
  This simply allows us to attach a row index to a button, so we know which Characteristic to use.
  */
-class CG_NotificationButton: UIButton {
+class CG_TappableButton: UIButton {
     /* ################################################################## */
     /**
      the 0-based row index of the Characteristic table row that corresponds to our Characteristic.
@@ -144,14 +144,26 @@ extension CGA_ServiceViewController {
     
     /* ################################################################## */
     /**
-     This is a button callback for a single-tap in a row, and the Characteristic can notify.
+     This is a button callback for a tap in the read button, and the Characteristic can read.
      It toggles the notify state of the Characteristic.
      
      - parameter inButton: The special button, with our row index.
      */
-    @objc func notifyTapped(_ inButton: CG_NotificationButton) {
-        if  let characteristicInstance = serviceInstance?[inButton.rowIndex],
-            characteristicInstance.canNotify {
+    @objc func readTapped(_ inButton: CG_TappableButton) {
+        if let characteristicInstance = serviceInstance?[inButton.rowIndex] {
+            characteristicInstance.readValue()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This is a button callback for a tap in the notify button, and the Characteristic can notify.
+     It toggles the notify state of the Characteristic.
+     
+     - parameter inButton: The special button, with our row index.
+     */
+    @objc func notifyTapped(_ inButton: CG_TappableButton) {
+        if  let characteristicInstance = serviceInstance?[inButton.rowIndex] {
             if characteristicInstance.isNotifying {
                 characteristicInstance.stopNotifying()
             } else {
@@ -159,7 +171,7 @@ extension CGA_ServiceViewController {
             }
         }
     }
-    
+
     /* ################################################################## */
     /**
      This is a gesture callback for a double-tap in a row, and the Characteristic has descriptors.
@@ -259,24 +271,36 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         
         /* ############################################################## */
         /**
+         A simple "factory" for the Read button.
+         */
+        private func _makeReadButton() -> UIButton {
+            let ret = CG_TappableButton()
+            ret.setTitle("SLUG-PROPERTIES-READ".localizedVariant, for: .normal)
+            ret.setTitleColor(_labelTextColor, for: .normal)
+            ret.backgroundColor = _labelBackgroundColor
+            ret.addTarget(ownerViewController, action: #selector(readTapped(_:)), for: .touchUpInside)
+            return ret
+        }
+        
+        /* ############################################################## */
+        /**
          A simple "factory" for the Notification button.
          */
         private func _makeNotifyButton() -> UIButton {
-            let ret = CG_NotificationButton()
+            let ret = CG_TappableButton()
             ret.setTitle("SLUG-PROPERTIES-NOTIFY-\(characteristic.isNotifying ? "ON" : "OFF")".localizedVariant, for: .normal)
             ret.setTitleColor(characteristic.isNotifying ? _labelTextColor : .white, for: .normal)
             ret.backgroundColor = characteristic.isNotifying ? .green : .red
             ret.addTarget(ownerViewController, action: #selector(notifyTapped(_:)), for: .touchUpInside)
             return ret
         }
-        
+
         /* ############################################################## */
         /**
          A simple "factory" for the label.
          */
         private func _makeLabel(_ inText: String) -> UILabel {
             let ret = UILabel()
-            ret.textColor = _labelTextColor
             ret.textColor = _labelTextColor
             ret.backgroundColor = _labelBackgroundColor
             ret.font = .boldSystemFont(ofSize: _labelFontSize)
@@ -318,7 +342,7 @@ extension CGA_ServiceViewController: UITableViewDataSource {
          */
         var labels: [UIView?] {
             [
-                characteristic.canRead ? _makeLabel("SLUG-PROPERTIES-READ".localizedVariant) : nil,
+                characteristic.canRead ? _makeReadButton() : nil,
                 _writeLabel,
                 characteristic.canIndicate ? _makeLabel("SLUG-PROPERTIES-INDICATE".localizedVariant) : nil,
                 characteristic.canBroadcast ? _makeLabel("SLUG-PROPERTIES-BROADCAST".localizedVariant) : nil,
@@ -371,7 +395,7 @@ extension CGA_ServiceViewController: UITableViewDataSource {
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.heightAnchor.constraint(equalTo: tableCell.propertiesStackView.heightAnchor).isActive = true
                 // The notify button gets a row index attached.
-                if let button = view as? CG_NotificationButton {
+                if let button = view as? CG_TappableButton {
                     button.rowIndex = inIndexPath.row
                 }
             }

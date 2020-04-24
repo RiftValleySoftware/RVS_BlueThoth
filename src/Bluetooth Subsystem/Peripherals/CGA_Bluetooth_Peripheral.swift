@@ -24,6 +24,50 @@ import UIKit
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
+// MARK: - Special "Factory" Collections -
+/* ###################################################################################################################################### */
+/**
+ These Arrays contain _class type_ instances of the classes we will use to implement the Service and Characteristic wrappers.
+ 
+ The way this works, is that each instance conforms to the <code>CGA_ServiceFactory</code> or <code>CGA_CharacteristicFactory</code> protocol.
+ 
+ We then cycle through the Arrays, and look for a match with the <code>uuid</code> class variable.
+ If that matches, we then exercise the <code>createInstance(parent:, cbElementInstance:)</code> class function to instantiate the class.
+ Since this is a polymorphic thingamuhjig, we exercise the specific subclass factory function.
+ If we are writing specialization subclasses of the "generic" Service or Characteristic classes, we should add our subclasses to these Arrays.
+ Yes, we could be clever, and use the uuid as a hash into a Dictionary, but we don't need to, and this allows us to put the "default" factory into the first position.
+ So we have one or two extra lines, and a few milliseconds upon initial connection, when we use this. Big deal. It's all internal to this file. If it really bothers you, look away.
+ */
+/* ###################################################################### */
+/**
+ This holds references to the various subclasses for Services.
+ */
+private var _serviceFactory: [CGA_ServiceFactory.Type] = [
+    CGA_Bluetooth_Service.self,
+    CGA_Bluetooth_Service_Battery.self,
+    CGA_Bluetooth_Service_CurrentTime.self,
+    CGA_Bluetooth_Service_DeviceInfo.self
+]
+
+/* ###################################################################### */
+/**
+ This holds references to the various subclasses for Characteristics.
+ */
+private var _characteristicFactory: [CGA_CharacteristicFactory.Type] = [
+    CGA_Bluetooth_Characteristic.self,
+    CGA_Bluetooth_Characteristic_BatteryLevel.self,
+    CGA_Bluetooth_Characteristic_CurrentTime.self,
+    CGA_Bluetooth_Characteristic_LocalTimeInformation.self,
+    CGA_Bluetooth_Characteristic_ManufacturerName.self,
+    CGA_Bluetooth_Characteristic_ModelNumber.self,
+    CGA_Bluetooth_Characteristic_SerialNumber.self,
+    CGA_Bluetooth_Characteristic_HardwareRevision.self,
+    CGA_Bluetooth_Characteristic_FirmwareRevision.self,
+    CGA_Bluetooth_Characteristic_SoftwareRevision.self,
+    CGA_Bluetooth_Characteristic_SystemID.self
+]
+
+/* ###################################################################################################################################### */
 // MARK: - CBPeripheral Wrapper Class -
 /* ###################################################################################################################################### */
 /**
@@ -288,15 +332,15 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
                 }
             #endif
             
-            stagedServices = inPeripheral.services?.map {
-                var serviceToAdd: CGA_Bluetooth_Service
-                switch $0.uuid.uuidString {
-                case CGA_Bluetooth_Service_Battery.cbUUIDString:
-                    serviceToAdd = CGA_Bluetooth_Service_Battery(parent: self, cbElementInstance: $0)
-                case CGA_Bluetooth_Service_CurrentTime.cbUUIDString:
-                    serviceToAdd = CGA_Bluetooth_Service_CurrentTime(parent: self, cbElementInstance: $0)
-                default:
-                    serviceToAdd = CGA_Bluetooth_Service(parent: self, cbElementInstance: $0)
+            stagedServices = inPeripheral.services?.compactMap { (service) in
+                var serviceToAdd: CGA_Bluetooth_Service!
+                for serviceInstance in _serviceFactory where nil == serviceToAdd && service.uuid.uuidString == serviceInstance.uuid {
+                    serviceToAdd = serviceInstance.createInstance(parent: self, cbElementInstance: service)
+                }
+                
+                // If none of the specialized ones worked out, we use the first one (which is always the generic one).
+                if nil == serviceToAdd {
+                    serviceToAdd = _serviceFactory[0].createInstance(parent: self, cbElementInstance: service)
                 }
             
                 return serviceToAdd
@@ -378,27 +422,20 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             #endif
             
             if  let service = (stagedServices[inCharacteristic] ?? sequence_contents[inCharacteristic]) {
-                var characteristic: CGA_Bluetooth_Characteristic = CGA_Bluetooth_Characteristic(parent: service, cbElementInstance: inCharacteristic)
-                switch inCharacteristic.uuid.uuidString {
-                case CGA_Bluetooth_Characteristic_BatteryLevel.cbUUIDString:
-                    characteristic = CGA_Bluetooth_Characteristic_BatteryLevel(parent: service, cbElementInstance: inCharacteristic)
-                case CGA_Bluetooth_Characteristic_CurrentTime.cbUUIDString:
-                    characteristic = CGA_Bluetooth_Characteristic_CurrentTime(parent: service, cbElementInstance: inCharacteristic)
-                case CGA_Bluetooth_Characteristic_LocalTimeInformation.cbUUIDString:
-                    characteristic = CGA_Bluetooth_Characteristic_LocalTimeInformation(parent: service, cbElementInstance: inCharacteristic)
-                default:
-                    characteristic = CGA_Bluetooth_Characteristic(parent: service, cbElementInstance: inCharacteristic)
+                var characteristicToAdd: CGA_Bluetooth_Characteristic!
+                for characteristicInstance in _characteristicFactory where nil == characteristicToAdd && inCharacteristic.uuid.uuidString == characteristicInstance.uuid {
+                    characteristicToAdd = characteristicInstance.createInstance(parent: service, cbElementInstance: inCharacteristic)
                 }
-                inCharacteristic.descriptors?.forEach {
-                    let descriptor = CGA_Bluetooth_Descriptor()
-                    descriptor.parent = characteristic
-                    descriptor.cbElementInstance = $0
-                    characteristic.addDescriptor(descriptor)
+                
+                // If none of the specialized ones worked out, we use the first one (which is always the generic one).
+                if nil == characteristicToAdd {
+                    characteristicToAdd = _characteristicFactory[0].createInstance(parent: service, cbElementInstance: inCharacteristic)
                 }
+
                 #if DEBUG
-                    print("All Descriptors fulfilled. Adding this Characteristic: \(characteristic.id) to this Service: \(service.id)")
+                    print("All Descriptors fulfilled. Adding this Characteristic: \(characteristicToAdd.id) to this Service: \(service.id)")
                 #endif
-                service.addCharacteristic(characteristic)
+                service.addCharacteristic(characteristicToAdd)
             } else {
                 #if DEBUG
                     print("ERROR! There is no Service for this Characteristic: \(inCharacteristic.uuid.uuidString)")

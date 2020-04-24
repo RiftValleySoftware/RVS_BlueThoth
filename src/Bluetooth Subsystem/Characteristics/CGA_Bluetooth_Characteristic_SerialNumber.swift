@@ -24,33 +24,15 @@ import UIKit
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
-// MARK: - Battery Level Characteristic Wrapper Class -
+// MARK: - Serial Number Characteristic Wrapper Class -
 /* ###################################################################################################################################### */
 /**
- This adds a specialized accessor to the Battery Level Characteristic.
+ This adds a specialized accessor to the Serial Number Characteristic.
  */
-class CGA_Bluetooth_Characteristic_BatteryLevel: CGA_Bluetooth_Characteristic {
-    /* ################################################################## */
-    /**
-     - returns: 0-100 (percentage of battery), or nil.
-     */
-    var batteryLevel: Int? {
-        guard let intValue = intValue else { return nil }
-        return Int(truncatingIfNeeded: intValue)
-    }
-    
-    /* ################################################################## */
-    /**
-     - returns: the battery level, as a String.
-     */
-    override var stringValue: String? {
-        guard let intValue = batteryLevel else { return nil }
-        return String(intValue)
-    }
-    
+class CGA_Bluetooth_Characteristic_SerialNumber: CGA_Bluetooth_Characteristic {
     /* ################################################################## */
     /**
      This returns a unique GATT UUID String for the Characteristic.
      */
-    class var cbUUIDString: String { "2A19" }
+    class override var uuid: String { "2A25" }
 }
