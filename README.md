@@ -18,25 +18,35 @@ THE DEVICE LIST SCREEN
 
 In the initial screen (Device List), there will only be unconnected devices that have been discovered through advertising.
 
-At the top of the screen, is a button. If the app is currntly scanning for advertised Peripherals, it will be green, and say "SCANNING". Tapping on it will change it red, saying "NOT SCANNING". If it is not scanning, then no updates will be made to the device list, and new Peripherals will not be discovered.
+At the top of the screen, is a button. If the app is currently scanning for advertised Peripherals, this button will be green, and say "SCANNING". Tapping on the button will cause it to change to red, with the text "NOT SCANNING" displayed.
 
-We can "left-swipe" devices, or touch the "EDIT" button (that appears if we stop scanning). In that case, we can choose devices to be "ignored." They will be left off the list, until we do a new "Pull to Refresh," or bring up the Settings Screen (Which will renew the scanning, if we were scanning when we called it).
+If the app is not scanning, then no updates will be made to the device list, and new Peripherals will not be discovered.
 
-If we are not scanning, the list will not be changed. Any of the devices can be connected, if they are allowed to connect.
+If the app is not scanning, we can "left-swipe" devices, or touch the "EDIT" button (that appears if we stop scanning). This is only possible if the top button is red, saying "NOT SCANNING."
 
-Devices that cannot connect will be displayed as "grayed out," and will not allow selection.
+If we are in "edit" state, we can choose devices to be "ignored." They will be removed from the list, but will return, if we do a new "Pull to Refresh," or bring up the Settings Screen (Calling the Settings Screen will renew the scanning, just like "Pull to Refresh," if we were scanning when we called it).
 
-THE DEVIICE INFO/SERVICE LIST SCREEN
+If we are not scanning, the list will not be changed. Any of the currently displayed devices can be connected (assuming that they are allowed to connect).
+
+Devices that can connect, will have their text displayed bright white. We can touch the table row, to connect the device, and bring in the Device Info/Service List Screen.
+
+Devices that cannot connect will have their text displayed as "grayed out," and will not allow selection.
+
+THE DEVICE INFO/SERVICE LIST SCREEN
 -
 
-Once you select a device, the app connects to the device, and displays a screen that has a list of the available Services, as well as the advertisement information. Once this screen appears, the app has established a connection with the Peripheral. Leaving this screen, and returning to the Device List, will terminate the connection.
+Once you select a device in the Device List Screen, the app connects to the device, and displays a screen that has a list of the available Services for that device, as well as the advertisement information. Once the Device Info/Service List Screen appears, the app has successfully established a connection with the Peripheral.
+
+Leaving the Device Info/Service List Screen, and returning to the Device List, will terminate the connection.
 
 THE CHARACTERISTIC LIST SCREEN
 -
 
-If we tap on a Service, another screen appears, with a list of all the Characteristics for that Service.
+If we tap on a Service in the Service List, another screen appears, with a list of all the Characteristics for that Service.
 
-If the connection has read access to a Characteristic, an initial read is done, and the value of that Characteristic is updated. No further reads are done, unless we tap on the "READ" button. There may also be a "NOTIFY" button. Tapping on that will start the Characteristic notifying.
+If the connection has read access to a Characteristic, an initial read is done, and the value of that Characteristic is updated.
+
+No further reads are done, unless we tap on the "READ" button. There may also be a "NOTIFY" button. Tapping on that will start the Characteristic notifying. If the Characteristic only has NOTIFY, but not READ, the initial value will be blank.
 
 THE DESCRIPTOR LIST SCREEN
 -
@@ -66,7 +76,7 @@ It will be one UUID per line.
 
 ***Specific Device Identifiers***
 
-If provided, these will limit discover to ONLY the devices with the IDs provided. All other devices will be ignored.
+If provided, these will limit discovery to ONLY the devices with the IDs provided. All other devices will be ignored.
 
 ***Advertised Services***
 
@@ -74,7 +84,7 @@ UUIDs here, will limit discovery to only devices that *advertise* the given Serv
 
 ***Characteristics***
 
-If provided, all Characteristic List Screens will be limited to only the ggiven Characteristic. This will apply to All Services, in all Peripherals.
+If provided, all Characteristic List Screens will be limited to only the given Characteristic. This will apply to All Services, in all Peripherals.
 
 **Minimum RSSI**
 
