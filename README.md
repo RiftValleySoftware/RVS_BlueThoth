@@ -67,7 +67,7 @@ At the top of the Device List Screen, are two icons. The left one (Info), is the
 
 The right one (the "gear") brings up the Settings Screen, where we can:
 
-**Continuously Update Scans**
+**Continuously Update**
 
 This is a switch that, if on (default is off), will continuously update the advertisement data for the devices in the list.
 
@@ -91,3 +91,8 @@ If provided, all Characteristic List Screens will be limited to only the given C
 **Minimum RSSI**
 
 This is a slider that sets a minimal RSSI (signal strength) setting. Devices with signal strength below this will be ignored.
+
+**Only Connectable**
+
+This is a switch, that, if on, will cause discovery to apply only to devices that advertise as connectable.
+

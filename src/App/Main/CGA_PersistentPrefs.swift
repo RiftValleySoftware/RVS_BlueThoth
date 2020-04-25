@@ -65,6 +65,12 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
          This will be a signed Integer, with the minimum RSSI.
          */
         case minimumRSSILevel = "kMinimumRSSILevel"
+        
+        /* ############################################################## */
+        /**
+         This will be a Bool, true, if we are filtering out non-connectable devices.
+         */
+        case discoverOnlyConnectableDevices = "kOnlyConnectables"
 
         /* ############################################################## */
         /**
@@ -81,7 +87,8 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
                                         serviceFilterIDArray.rawValue,
                                         characteristicFilterIDArray.rawValue,
                                         tableSelectionBackgroundColor.rawValue,
-                                        minimumRSSILevel.rawValue
+                                        minimumRSSILevel.rawValue,
+                                        discoverOnlyConnectableDevices.rawValue
                                         ] }
     }
     
@@ -103,10 +110,19 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
     
     /* ################################################################## */
     /**
+     This is a Boolean value. If true, then devices that are not advertising as connctable will be ignored.
+     */
+    var discoverOnlyConnectableDevices: Bool {
+        get { values[Keys.discoverOnlyConnectableDevices.rawValue] as? Bool ?? false }
+        set { values[Keys.discoverOnlyConnectableDevices.rawValue] = newValue }
+    }
+    
+    /* ################################################################## */
+    /**
      This is a Boolean value. If true, then the scan will not use duplicate filtering (meaning that it will be continuously updating).
      */
     var minimumRSSILevel: Int {
-        get { values[Keys.minimumRSSILevel.rawValue] as? Int ?? 0 }
+        get { values[Keys.minimumRSSILevel.rawValue] as? Int ?? -100 }
         set { values[Keys.minimumRSSILevel.rawValue] = newValue }
     }
 
@@ -142,7 +158,7 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
      This is a CGColor, indicating the color to use for the selected table cells.
      Instead of storing it, we simply return the same color.
      */
-    var tableSelectionBackgroundColor: CGColor { CGColor(srgbRed: 0.5, green: 0.35, blue: 0, alpha: 1) }
+    var tableSelectionBackgroundColor: CGColor { CGColor(srgbRed: 0.5, green: 0.5, blue: 0.5, alpha: 1) }
     
     /* ################################################################## */
     /**

@@ -39,7 +39,8 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 
 "SLUG-VERSION-FORMAT"               =   "VERSION: %@ (%@)";
 
-"SLUG-IGNORE-DUPES"                 =   "Continuously Update Scans:";
+"SLUG-IGNORE-DUPES"                 =   "Continuously Update:";
+"SLUG-CONNECTED-ONLY"               =   "Only Connectable:";
 "SLUG-FILTER-HEADER"                =   "Filter UUIDs";
 "SLUG-DEVICE-FILTERS"               =   "Specific Device Identifiers:";
 "SLUG-SERVICE-FILTERS"              =   "Advertised Services:";
