@@ -56,7 +56,7 @@ If the Characteristic has Descriptors, tapping on the Characteristic will bring 
 "PULL TO REFRESH"
 -
 
-On all the screens, the table has a "pull to refresh," so we can pull down on the table to "start over from scratch." Depending on which screen we are on, the operation may "clear the slate," and start over, or it may just trigger new reads for all the entities listed.
+On all the screens, the table has a "pull to refresh," so we can pull down on the table to "start over from scratch." Depending upon which screen we are on, the operation may "clear the slate," and start over, or it may just trigger new reads for all the entities listed.
 
 THE SETTINGS SCREEN
 -
