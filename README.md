@@ -11,7 +11,7 @@ Although this is an iOS app, it will be used to develop a cross-[Apple]-platform
 
 It is destined to become an Apple App-Store app, but that's still a ways off, and Apple needs to greenlight it _(They can sometimes be a bit "squeamish" with developer tools like this)_.
 
-This is a fairly straightforward "drill-down" interface. You start with a screen that contains discoved devices (Peripherals). You can modify which devices by setting up a minimum power (RSSI) threshold, and establishing "filter" UUIDs for advertised Services or individual devices.
+This is a fairly straightforward "drill-down" interface. You start with a screen that contains discovered devices (Peripherals). You can modify which devices by setting up a minimum power (RSSI) threshold, and establishing "filter" UUIDs for advertised Services or individual devices.
 
 THE DEVICE LIST SCREEN
 -
