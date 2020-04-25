@@ -13,6 +13,8 @@ It is destined to become an Apple App-Store app, but that's still a ways off, an
 
 This is a fairly straightforward "drill-down" interface. You start with a screen that contains discovered devices (Peripherals). You can modify which devices by setting up a minimum power (RSSI) threshold, and establishing "filter" UUIDs for advertised Services or individual devices.
 
+You can also choose to ignore discovered devices after the fact, by left-swiping them.
+
 THE DEVICE LIST SCREEN
 -
 
