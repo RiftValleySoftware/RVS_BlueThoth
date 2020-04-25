@@ -342,6 +342,7 @@ extension CGA_InitialViewController {
         let scanCriteria = CGA_AppDelegate.appDelegateObject.prefs.scanCriteria
         CGA_AppDelegate.centralManager?.scanCriteria = scanCriteria
         CGA_AppDelegate.centralManager?.minimumRSSILevelIndBm = CGA_AppDelegate.appDelegateObject.prefs.minimumRSSILevel
+        CGA_AppDelegate.centralManager?.discoverOnlyConnectablePeripherals = CGA_AppDelegate.appDelegateObject.prefs.discoverOnlyConnectableDevices
         CGA_AppDelegate.centralManager?.startScanning(duplicateFilteringIsOn: !CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals)
     }
     

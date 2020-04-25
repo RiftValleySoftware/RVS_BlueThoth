@@ -115,6 +115,20 @@ class CGA_SettingsViewController: UIViewController {
      The Slider for the Minimum RSSI threshold.
      */
     @IBOutlet weak var minimumRSSILevelSlider: UISlider!
+
+    /* ################################################################## */
+    /**
+     This switch will determine whether or not filtering is applied to the Peripheral scanning, ignoring devices that can't be connected.
+     If it is applied, then any device that does not advertise that it can be connected will be ignored.
+     False/Off means that all connectables and non-connectables are being discovered. True/On means that only connectable devices will be listed.
+     */
+    @IBOutlet weak var onlyConnectablesSwitch: UISwitch!
+    
+    /* ################################################################## */
+    /**
+     This button is the "label" for the switch. I always like my labels to actuate their targets. This toggles the value of the switch.
+     */
+    @IBOutlet weak var onlyConnectablesSwitchButton: UIButton!
 }
 
 /* ###################################################################################################################################### */
@@ -181,6 +195,30 @@ extension CGA_SettingsViewController {
         serviceFilterTextView?.resignFirstResponder()
         characteristicFilterTextView?.resignFirstResponder()
     }
+    
+    /* ################################################################## */
+    /**
+     Called when the "Only Connectable Devices" switch is hit.
+     This immediately updates our prefs.
+     
+     - parameter inSwitch: The switch object.
+     */
+    @IBAction func onlyConnectableSwitchHit(_ inSwitch: UISwitch) {
+        CGA_AppDelegate.appDelegateObject.prefs.discoverOnlyConnectableDevices = inSwitch.isOn
+        updateUI()
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the label for the switch is hit.
+     It toggles the value in the prefs, and forces a UI update, which will change the switch.
+     
+     - parameter: ignored.
+     */
+    @IBAction func onlyConnectableButtonHit(_: Any) {
+        CGA_AppDelegate.appDelegateObject.prefs.discoverOnlyConnectableDevices = !CGA_AppDelegate.appDelegateObject.prefs.discoverOnlyConnectableDevices
+        updateUI()
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -194,6 +232,7 @@ extension CGA_SettingsViewController {
     func updateUI() {
         dismissKeyboard()
         ignoreDuplicatesScanningSwitch?.setOn(CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals, animated: true)
+        onlyConnectablesSwitch?.setOn(CGA_AppDelegate.appDelegateObject.prefs.discoverOnlyConnectableDevices, animated: true)
         deviceFilterTextView?.text = CGA_AppDelegate.appDelegateObject.prefs.peripheralFilterIDArray.joined(separator: "\n")
         serviceFilterTextView?.text = CGA_AppDelegate.appDelegateObject.prefs.serviceFilterIDArray.joined(separator: "\n")
         characteristicFilterTextView?.text = CGA_AppDelegate.appDelegateObject.prefs.characteristicFilterIDArray.joined(separator: "\n")
@@ -243,6 +282,7 @@ extension CGA_SettingsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ignoreDuplicatesSwitchButton?.setTitle(ignoreDuplicatesSwitchButton?.title(for: .normal)?.localizedVariant, for: .normal)
+        onlyConnectablesSwitchButton?.setTitle(onlyConnectablesSwitchButton?.title(for: .normal)?.localizedVariant, for: .normal)
         filterHeaderLabel?.text = filterHeaderLabel?.text?.localizedVariant
         deviceFilterLabel?.text = deviceFilterLabel?.text?.localizedVariant
         serviceFilterLabel?.text = serviceFilterLabel?.text?.localizedVariant

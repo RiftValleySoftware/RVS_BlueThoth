@@ -20,26 +20,56 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT
 The Great Rift Valley Software Company: https://riftvalleysoftware.com
 */
 
-"SLUG-SECTION-HEADER-BLE"           =   "BLE";
-"SLUG-SECTION-HEADER-CLASSIC"       =   "BR/EDR";
+/// MARK: GENERAL USER INTERFACE
+
+// MARK: - Error Display
+// Error Alert
+"SLUG-ERROR"                        =   "ERROR";
+"SLUG-OK-BUTTON-TEXT"               =   "OK";
+// These are error reports.
+"CGA-ERROR-TIMEOUT"                 =   "There was a timeout, while attempting a connection to a Peripheral.";
+"CGA-ERROR-INTERNAL"                =   "Internal Error";
+
+// MARK: - Device List screen
 "SLUG-DEVICES"                      =   "Device List";
-"SLUG-MAIN-LIST-DATE-FORMAT"        =   "MM/dd/yyyy h:mm:ss.SSS a";
-"SLUG-CURRENT-TIME-DATE-FORMAT"     =   "MM/dd/yyyy h:mm:ss.SSS a";
-"SLUG-ANCS"                         =   "ANCS AUTH";
-"SLUG-ID"                           =   "ID";
-"SLUG-EDIT"                         =   "EDIT";
-"SLUG-DONE"                         =   "DONE";
+"SLUG-DISCOVERED-DEVICES"           =   "DISCOVERED DEVICES";
+// Scanning Button
 "SLUG-SCANNING"                     =   "SCANNING";
 "SLUG-NOT-SCANNING"                 =   "NOT SCANNING";
-"SLUG-OK-BUTTON-TEXT"               =   "OK";
-"SLUG-ERROR"                        =   "ERROR";
+// Edit Button
+"SLUG-EDIT"                         =   "EDIT";
+"SLUG-DONE"                         =   "DONE";
+// Advertisement Data Additions
+"SLUG-MAIN-LIST-DATE-FORMAT"        =   "MM/dd/yyyy h:mm:ss.SSS a";
+"SLUG-ANCS"                         =   "ANCS AUTH";
+"SLUG-ID"                           =   "ID";
+
+// MARK: - Services screen
 "SLUG-CONNECTING"                   =   "CONNECTING...";
-"SLUG-DISCOVERED-DEVICES"           =   "DISCOVERED DEVICES";
 "SLUG-SERVICES"                     =   "SERVICES";
 
+// MARK: - Characteristics Screen
+"SLUG-CURRENT-TIME-DATE-FORMAT"     =   "MM/dd/yyyy h:mm:ss.SSS a";
+// Buttons
+"SLUG-PROPERTIES-READ"              =   " READ ";
+"SLUG-PROPERTIES-NOTIFY-OFF"        =   " NOTIFY ";
+"SLUG-PROPERTIES-NOTIFY-ON"         =   " NOTIFYING ";
+// Simple Labels
+"SLUG-PROPERTIES-WRITE"             =   " WN ";
+"SLUG-PROPERTIES-WRITE-RESPONSE"    =   " WR ";
+"SLUG-PROPERTIES-INDICATE"          =   " IN ";
+"SLUG-PROPERTIES-BROADCAST"         =   " BR ";
+"SLUG-PROPERTIES-AUTH-SIGNED-WRITE" =   " AW ";
+"SLUG-PROPERTIES-NOTIFY-ENCRYPT"    =   " NE ";
+"SLUG-PROPERTIES-INDICATE-ENCRYPT"  =   " IE ";
+"SLUG-PROPERTIES-EXTENDED"          =   " EX ";
+
+// MARK: - Info screen
 "SLUG-VERSION-FORMAT"               =   "VERSION: %@ (%@)";
 
-"SLUG-IGNORE-DUPES"                 =   "Continuously Update Scans:";
+// MARK: - Settings screen
+"SLUG-IGNORE-DUPES"                 =   "Continuously Update:";
+"SLUG-CONNECTED-ONLY"               =   "Only Connectable:";
 "SLUG-FILTER-HEADER"                =   "Filter UUIDs";
 "SLUG-DEVICE-FILTERS"               =   "Specific Device Identifiers:";
 "SLUG-SERVICE-FILTERS"              =   "Advertised Services:";
@@ -49,24 +79,9 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-MINIMUM-RSSI-LEFT"            =   "-100";
 "SLUG-MINIMUM-RSSI-RIGHT"           =   "0";
 
-// These are error reports.
-"CGA-ERROR-TIMEOUT"                 =   "There was a timeout, while attempting a connection to a Peripheral.";
-"CGA-ERROR-INTERNAL"                =   "Internal Error";
+/// MARK: - DATA INTERPRETATION
 
-// These are for display in the Characteristics Table Cell.
-"SLUG-PROPERTIES-READ"              =   " READ ";
-"SLUG-PROPERTIES-WRITE"             =   " WN ";
-"SLUG-PROPERTIES-WRITE-RESPONSE"    =   " WR ";
-"SLUG-PROPERTIES-NOTIFY-ON"         =   " NOTIFYING ";
-"SLUG-PROPERTIES-NOTIFY-OFF"        =   " NOTIFY ";
-"SLUG-PROPERTIES-INDICATE"          =   " IN ";
-"SLUG-PROPERTIES-BROADCAST"         =   " BR ";
-"SLUG-PROPERTIES-AUTH-SIGNED-WRITE" =   " AW ";
-"SLUG-PROPERTIES-NOTIFY-ENCRYPT"    =   " NE ";
-"SLUG-PROPERTIES-INDICATE-ENCRYPT"  =   " IE ";
-"SLUG-PROPERTIES-EXTENDED"          =   " EX ";
-
-// These are Advertising Data Strings.
+// MARK: - Advertising Data Strings
 "kCBAdvDataLocalName"               =   "Name";
 "kCBAdvDataIsConnectable"           =   "Can Connect";
 "kCBAdvDataTxPowerLevel"            =   "Transmit Power Level";
@@ -75,7 +90,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "kCBAdvDataRxSecondaryPHY"          =   "Secondary Receive";
 "kCBAdvDataManufacturerData"        =   "Manufacturer Data";
 
-// These are GATT Service IDs.
+// MARK: - GATT Service IDs
 "1800"                              =    "Generic Access";
 "1811"                              =    "Alert Notification Service";
 "1815"                              =    "Automation IO";
@@ -119,7 +134,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "181C"                              =    "User Data";
 "181D"                              =    "Weight Scale";
 
-// These are GATT Characteristic IDs.
+// MARK: - GATT Characteristic IDs
 "2A7E"                              =    "Aerobic Heart Rate Lower Limit";
 "2A84"                              =    "Aerobic Heart Rate Upper Limit";
 "2A7F"                              =    "Aerobic Threshold";
@@ -355,7 +370,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "2A9E"                              =    "Weight Scale Feature";
 "2A79"                              =    "Wind Chill";
 
-// These are GATT Descriptors
+// MARK: - GATT Descriptors
 "2905"                              =    "Characteristic Aggregate Format";
 "2900"                              =    "Characteristic Extended Properties";
 "2904"                              =    "Characteristic Presentation Format";

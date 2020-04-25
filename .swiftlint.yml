@@ -17,8 +17,8 @@ opt_in_rules:
 - comma
 
 function_body_length:
-- 50 # warning
-- 51 #error
+- 60 # warning
+- 61 #error
 
 file_length:
 - 1500 # warning
