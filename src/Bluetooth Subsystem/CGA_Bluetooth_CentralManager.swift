@@ -412,6 +412,12 @@ class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
      This Bool will be true, if we only want to discover devices that can be connected. Default is false.
      */
     var discoverOnlyConnectablePeripherals: Bool = false
+    
+    /* ################################################################## */
+    /**
+     This Bool will be true, if we will allow devices that don't broadcast names to be discovered. Default is false.
+     */
+    var allowEmptyNames: Bool = false
 
     /* ################################################################## */
     /**
@@ -989,13 +995,19 @@ extension CGA_Bluetooth_CentralManager: CBCentralManagerDelegate {
         - rssi: The signal strength, in DB.
      */
     func centralManager(_ inCentralManager: CBCentralManager, didDiscover inPeripheral: CBPeripheral, advertisementData inAdvertisementData: [String: Any], rssi inRSSI: NSNumber) {
-        guard   let name = inPeripheral.name,
-                !name.isEmpty
-        else {
-            #if DEBUG
-                print("Discarding empty-name Peripheral: \(inPeripheral.identifier.uuidString).")
-            #endif
-            return
+        var name: String = "EMPTY"
+        
+        if !allowEmptyNames {
+            guard   let tempName = inPeripheral.name,
+                    !tempName.isEmpty
+            else {
+                #if DEBUG
+                    print("Discarding empty-name Peripheral: \(inPeripheral.identifier.uuidString).")
+                #endif
+                return
+            }
+            
+            name = tempName
         }
         
         guard minimumRSSILevelIndBm <= inRSSI.intValue else {

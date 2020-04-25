@@ -115,7 +115,7 @@ class CGA_SettingsViewController: UIViewController {
      The Slider for the Minimum RSSI threshold.
      */
     @IBOutlet weak var minimumRSSILevelSlider: UISlider!
-
+    
     /* ################################################################## */
     /**
      This switch will determine whether or not filtering is applied to the Peripheral scanning, ignoring devices that can't be connected.
@@ -129,6 +129,17 @@ class CGA_SettingsViewController: UIViewController {
      This button is the "label" for the switch. I always like my labels to actuate their targets. This toggles the value of the switch.
      */
     @IBOutlet weak var onlyConnectablesSwitchButton: UIButton!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var emptyNamesSwitch: UISwitch!
+    
+    /* ################################################################## */
+    /**
+     This button is the "label" for the switch. I always like my labels to actuate their targets. This toggles the value of the switch.
+     */
+    @IBOutlet weak var emptyNamesSwitchButton: UIButton!
 }
 
 /* ###################################################################################################################################### */
@@ -219,6 +230,30 @@ extension CGA_SettingsViewController {
         CGA_AppDelegate.appDelegateObject.prefs.discoverOnlyConnectableDevices = !CGA_AppDelegate.appDelegateObject.prefs.discoverOnlyConnectableDevices
         updateUI()
     }
+    
+    /* ################################################################## */
+    /**
+     Called when the "Allow Empty Names" switch is hit.
+     This immediately updates our prefs.
+     
+     - parameter inSwitch: The switch object.
+     */
+    @IBAction func emptyNamesSwitchHit(_ inSwitch: UISwitch) {
+        CGA_AppDelegate.appDelegateObject.prefs.allowEmptyNames = inSwitch.isOn
+        updateUI()
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the label for the switch is hit.
+     It toggles the value in the prefs, and forces a UI update, which will change the switch.
+     
+     - parameter: ignored.
+     */
+    @IBAction func emptyNamesButtonHit(_: Any) {
+        CGA_AppDelegate.appDelegateObject.prefs.allowEmptyNames = !CGA_AppDelegate.appDelegateObject.prefs.allowEmptyNames
+        updateUI()
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -233,6 +268,7 @@ extension CGA_SettingsViewController {
         dismissKeyboard()
         ignoreDuplicatesScanningSwitch?.setOn(CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals, animated: true)
         onlyConnectablesSwitch?.setOn(CGA_AppDelegate.appDelegateObject.prefs.discoverOnlyConnectableDevices, animated: true)
+        emptyNamesSwitch?.setOn(CGA_AppDelegate.appDelegateObject.prefs.allowEmptyNames, animated: true)
         deviceFilterTextView?.text = CGA_AppDelegate.appDelegateObject.prefs.peripheralFilterIDArray.joined(separator: "\n")
         serviceFilterTextView?.text = CGA_AppDelegate.appDelegateObject.prefs.serviceFilterIDArray.joined(separator: "\n")
         characteristicFilterTextView?.text = CGA_AppDelegate.appDelegateObject.prefs.characteristicFilterIDArray.joined(separator: "\n")
@@ -283,6 +319,7 @@ extension CGA_SettingsViewController {
         super.viewDidLoad()
         ignoreDuplicatesSwitchButton?.setTitle(ignoreDuplicatesSwitchButton?.title(for: .normal)?.localizedVariant, for: .normal)
         onlyConnectablesSwitchButton?.setTitle(onlyConnectablesSwitchButton?.title(for: .normal)?.localizedVariant, for: .normal)
+        emptyNamesSwitchButton?.setTitle(emptyNamesSwitchButton?.title(for: .normal)?.localizedVariant, for: .normal)
         filterHeaderLabel?.text = filterHeaderLabel?.text?.localizedVariant
         deviceFilterLabel?.text = deviceFilterLabel?.text?.localizedVariant
         serviceFilterLabel?.text = serviceFilterLabel?.text?.localizedVariant

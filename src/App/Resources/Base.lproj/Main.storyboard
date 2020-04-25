@@ -772,9 +772,30 @@
                                             <action selector="onlyConnectableButtonHit:" destination="cy1-Z9-e68" eventType="touchUpInside" id="9UP-lK-FtS"/>
                                         </connections>
                                     </button>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="SR1-Xp-tEd">
+                                        <rect key="frame" x="305" y="413" width="51" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="49" id="cqK-SH-S9O"/>
+                                            <constraint firstAttribute="height" constant="31" id="n4L-LG-Lmb"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="emptyNamesSwitchHit:" destination="cy1-Z9-e68" eventType="valueChanged" id="wRQ-Dw-DBk"/>
+                                        </connections>
+                                    </switch>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bjX-Ct-zDK">
+                                        <rect key="frame" x="8" y="410.5" width="293" height="36"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <state key="normal" title="SLUG-EMPTY-NAME">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="emptyNamesButtonHit:" destination="cy1-Z9-e68" eventType="touchUpInside" id="fBg-aQ-2o4"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="SR1-Xp-tEd" firstAttribute="centerY" secondItem="bjX-Ct-zDK" secondAttribute="centerY" id="0Ja-7q-L2M"/>
                                     <constraint firstAttribute="trailing" secondItem="1Cd-dt-Kj0" secondAttribute="trailing" constant="8" id="1Hf-nC-l8S"/>
                                     <constraint firstAttribute="trailing" secondItem="1Lq-NV-vVg" secondAttribute="trailing" constant="8" id="2x1-N5-XV5"/>
                                     <constraint firstItem="Tqv-3F-wD1" firstAttribute="top" secondItem="7Yf-Ec-rJE" secondAttribute="bottom" constant="8" id="3PI-4m-cyy"/>
@@ -782,9 +803,14 @@
                                     <constraint firstAttribute="trailing" secondItem="p79-1Z-nVG" secondAttribute="trailing" constant="8" id="8BG-PV-ecf"/>
                                     <constraint firstItem="JDo-ne-xIu" firstAttribute="top" secondItem="p79-1Z-nVG" secondAttribute="bottom" constant="8" id="8fc-F1-PRk"/>
                                     <constraint firstItem="7Yf-Ec-rJE" firstAttribute="leading" secondItem="seW-CP-P2g" secondAttribute="leading" constant="8" id="A5q-jd-1VR"/>
+                                    <constraint firstItem="bjX-Ct-zDK" firstAttribute="top" secondItem="b5Y-3b-Ma6" secondAttribute="bottom" id="Doa-2M-vTC"/>
+                                    <constraint firstItem="SR1-Xp-tEd" firstAttribute="centerY" secondItem="bjX-Ct-zDK" secondAttribute="centerY" id="F65-Lm-eYQ"/>
+                                    <constraint firstItem="SR1-Xp-tEd" firstAttribute="leading" secondItem="bjX-Ct-zDK" secondAttribute="trailing" constant="4" id="FWI-sr-8m4"/>
                                     <constraint firstItem="vo0-38-Oli" firstAttribute="leading" secondItem="seW-CP-P2g" secondAttribute="leading" constant="8" id="G41-ga-Dug"/>
                                     <constraint firstAttribute="trailing" secondItem="wPS-xN-Qvc" secondAttribute="trailing" constant="8" id="GJi-A8-Lxt"/>
+                                    <constraint firstItem="bjX-Ct-zDK" firstAttribute="leading" secondItem="seW-CP-P2g" secondAttribute="leading" constant="8" id="InR-dj-1zS"/>
                                     <constraint firstItem="b5Y-3b-Ma6" firstAttribute="leading" secondItem="seW-CP-P2g" secondAttribute="leading" constant="8" id="LEY-pt-SvI"/>
+                                    <constraint firstAttribute="trailing" secondItem="SR1-Xp-tEd" secondAttribute="trailing" constant="20" id="LiT-M7-4tR"/>
                                     <constraint firstAttribute="trailing" secondItem="vo0-38-Oli" secondAttribute="trailing" constant="8" id="MrK-1D-b1A"/>
                                     <constraint firstItem="O9S-IR-UTB" firstAttribute="leading" secondItem="b5Y-3b-Ma6" secondAttribute="trailing" constant="4" id="OFU-pO-FYB"/>
                                     <constraint firstItem="1Cd-dt-Kj0" firstAttribute="leading" secondItem="seW-CP-P2g" secondAttribute="leading" constant="8" id="OGx-8E-XCO"/>
@@ -846,6 +872,8 @@
                         <outlet property="characteristicFilterTextView" destination="7Yf-Ec-rJE" id="hQ3-bg-ARo"/>
                         <outlet property="deviceFilterLabel" destination="vo0-38-Oli" id="s68-pw-lTN"/>
                         <outlet property="deviceFilterTextView" destination="wPS-xN-Qvc" id="Mog-fI-fhq"/>
+                        <outlet property="emptyNamesSwitch" destination="SR1-Xp-tEd" id="fbb-zI-4FF"/>
+                        <outlet property="emptyNamesSwitchButton" destination="bjX-Ct-zDK" id="tlO-1c-gg4"/>
                         <outlet property="filterHeaderLabel" destination="1Cd-dt-Kj0" id="cPg-Cd-h4h"/>
                         <outlet property="ignoreDuplicatesScanningSwitch" destination="p9R-qa-1Sh" id="1MR-kd-0Ud"/>
                         <outlet property="ignoreDuplicatesSwitchButton" destination="TUN-w0-qF3" id="nKu-JI-coS"/>

@@ -69,6 +69,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 
 // MARK: - Settings screen
 "SLUG-IGNORE-DUPES"                 =   "Continuously Update:";
+"SLUG-EMPTY-NAME"                   =   "Allow Empty Names:";
 "SLUG-CONNECTED-ONLY"               =   "Only Connectable:";
 "SLUG-FILTER-HEADER"                =   "Filter UUIDs";
 "SLUG-DEVICE-FILTERS"               =   "Specific Device Identifiers:";

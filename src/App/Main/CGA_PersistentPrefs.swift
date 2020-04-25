@@ -71,6 +71,12 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
          This will be a Bool, true, if we are filtering out non-connectable devices.
          */
         case discoverOnlyConnectableDevices = "kOnlyConnectables"
+        
+        /* ############################################################## */
+        /**
+         This will be a Bool, true, if we are allowing devices that don't have names to be discovered.
+         */
+        case allowEmptyNames = "kAllowEmptyNames"
 
         /* ############################################################## */
         /**
@@ -88,7 +94,8 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
                                         characteristicFilterIDArray.rawValue,
                                         tableSelectionBackgroundColor.rawValue,
                                         minimumRSSILevel.rawValue,
-                                        discoverOnlyConnectableDevices.rawValue
+                                        discoverOnlyConnectableDevices.rawValue,
+                                        allowEmptyNames.rawValue
                                         ] }
     }
     
@@ -117,6 +124,15 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
         set { values[Keys.discoverOnlyConnectableDevices.rawValue] = newValue }
     }
     
+    /* ################################################################## */
+    /**
+     This is a Boolean value. If true, then devices that do not have names will be included. Default is false.
+     */
+    var allowEmptyNames: Bool {
+        get { values[Keys.allowEmptyNames.rawValue] as? Bool ?? false }
+        set { values[Keys.allowEmptyNames.rawValue] = newValue }
+    }
+
     /* ################################################################## */
     /**
      This is a Boolean value. If true, then the scan will not use duplicate filtering (meaning that it will be continuously updating).
