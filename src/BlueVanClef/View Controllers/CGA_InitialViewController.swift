@@ -161,6 +161,7 @@ class CGA_InitialViewController: UIViewController {
 
     /* ################################################################## */
     /**
+     This is the label above the table.
      */
     @IBOutlet weak var deviceLabel: UILabel!
     
@@ -191,6 +192,18 @@ class CGA_InitialViewController: UIViewController {
     /**
      */
     @IBOutlet weak var editButton: UIButton!
+    
+    /* ################################################################## */
+    /**
+     This is the about/info button.
+     */
+    @IBOutlet weak var infoButton: UIButton!
+    
+    /* ################################################################## */
+    /**
+     This is the settings button.
+     */
+    @IBOutlet weak var settingsButton: UIButton!
 }
 
 /* ###################################################################################################################################### */
@@ -355,6 +368,19 @@ extension CGA_InitialViewController {
     private func _stopScanning() {
         CGA_AppDelegate.centralManager?.stopScanning()
     }
+    
+    /* ################################################################## */
+    /**
+     This sets up the accessibility and voiceover strings for the screen.
+     */
+    private func _setUpAccessibility() {
+        scanningButton?.accessibilityLabel = ("SLUG-ACC-SCANNING-BUTTON-O" + (isScanning ? "N" : "FF")).localizedVariant
+        noBTImage?.accessibilityLabel = "SLUG-ACC-NO-BT-IMAGE".localizedVariant
+        editButton?.accessibilityLabel = ("SLUG-ACC-EDIT-BUTTON-" + ((deviceTableView?.isEditing ?? false) ? "DONE" : "EDIT")).localizedVariant
+        deviceTableView?.accessibilityLabel = "SLUG-ACC-DEVICELIST-TABLE".localizedVariant
+        settingsButton?.accessibilityLabel = "SLUG-ACC-SETTINGS-BUTTON".localizedVariant
+        infoButton?.accessibilityLabel = "SLUG-ACC-INFO-BUTTON".localizedVariant
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -408,6 +434,8 @@ extension CGA_InitialViewController: CGA_UpdatableScreenViewController {
         scanningButton?.setTitle(title, for: .normal)
         scanningButton?.titleLabel?.text = title    // We do this to prevent that "flash" of old text.
         scanningButton?.backgroundColor = color
+        
+        _setUpAccessibility()
     }
 }
 
@@ -672,9 +700,22 @@ extension CGA_InitialViewController: UITableViewDataSource {
                 // Tie the last one off to the bottom of the view.
                 topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 0).isActive = true
             }
+            
+            // Set up the accessibility stuff.
+            if !centralManager.stagedBLEPeripherals[inIndexPath.row].advertisementData.localName.isEmpty {
+                tableCell.nameLabel?.accessibilityLabel = String(format: "SLUG-ACC-DEVICELIST-TABLE-NAME-ADVERTISED-FORMAT".localizedVariant, centralManager.stagedBLEPeripherals[inIndexPath.row].advertisementData.localName)
+            } else if !centralManager.stagedBLEPeripherals[inIndexPath.row].name.isEmpty {
+                tableCell.nameLabel?.accessibilityLabel = String(format: "SLUG-ACC-DEVICELIST-TABLE-NAME-SIMPLE-FORMAT".localizedVariant, centralManager.stagedBLEPeripherals[inIndexPath.row].name)
+            } else {
+                tableCell.nameLabel?.accessibilityLabel = "SLUG-ACC-DEVICELIST-TABLE-NAME-NONE".localizedVariant
+            }
+            tableCell.advertisingDataView?.accessibilityLabel = "SLUG-ACC-DEVICELIST-TABLE-ADVERTISING-DATA".localizedVariant
+            tableCell.rssiLabel?.accessibilityLabel = String(format: "SLUG-ACC-DEVICELIST-TABLE-RSSI-FORMAT".localizedVariant, centralManager.stagedBLEPeripherals[inIndexPath.row].rssi)
+            // This sets the order of the elements in voiceover. We want the RSSI label to come before the advertising data.
+            tableCell.accessibilityElements = [tableCell.nameLabel!, tableCell.rssiLabel!, tableCell.advertisingDataView!]
         }
         
-        // This ensures that we maintain a consistent backround color upon selection.
+        // This ensures that we maintain a consistent background color upon selection.
         tableCell.selectedBackgroundView = UIView()
         tableCell.selectedBackgroundView?.backgroundColor = UIColor(cgColor: CGA_AppDelegate.appDelegateObject.prefs.tableSelectionBackgroundColor)
 

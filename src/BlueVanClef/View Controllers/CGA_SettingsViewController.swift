@@ -154,6 +154,24 @@ extension CGA_SettingsViewController {
      - returns: an Array of String, containing the UUIDs extracted from the text.
      */
     private class func _parseThisTextForUUIDs(_ inTextToParse: String!) -> [String] { (inTextToParse?.split(separator: "\n").compactMap { $0.uuidFormat } ?? []).map { CBUUID(string: $0).uuidString } }
+    
+    /* ################################################################## */
+    /**
+     This sets up the accessibility and voiceover strings for the screen.
+     */
+    private func _setUpAccessibility() {
+        ignoreDuplicatesSwitchButton?.accessibilityLabel = ("SLUG-ACC-CONTINUOUS-UPDATE-BUTTON-O" + (CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals ? "N" : "FF")).localizedVariant
+        ignoreDuplicatesScanningSwitch?.accessibilityLabel = ("SLUG-ACC-CONTINUOUS-UPDATE-SWITCH-O" + (CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals ? "N" : "FF")).localizedVariant
+        deviceFilterTextView?.accessibilityLabel = "SLUG-ACC-DEVICE-UUIDS".localizedVariant
+        serviceFilterTextView?.accessibilityLabel = "SLUG-ACC-SERVICE-UUIDS".localizedVariant
+        characteristicFilterTextView?.accessibilityLabel = "SLUG-ACC-CHARACTERISTIC-UUIDS".localizedVariant
+        onlyConnectablesSwitchButton?.accessibilityLabel = ("SLUG-ACC-CONNECTED-ONLY-BUTTON-O" + (CGA_AppDelegate.appDelegateObject.prefs.discoverOnlyConnectableDevices ? "N" : "FF")).localizedVariant
+        onlyConnectablesSwitch?.accessibilityLabel = ("SLUG-ACC-CONNECTED-ONLY-SWITCH-O" + (CGA_AppDelegate.appDelegateObject.prefs.discoverOnlyConnectableDevices ? "N" : "FF")).localizedVariant
+        emptyNamesSwitchButton?.accessibilityLabel = ("SLUG-ACC-EMPTY-NAMES-BUTTON-O" + (CGA_AppDelegate.appDelegateObject.prefs.allowEmptyNames ? "N" : "FF")).localizedVariant
+        emptyNamesSwitch?.accessibilityLabel = ("SLUG-ACC-EMPTY-NAMES-SWITCH-O" + (CGA_AppDelegate.appDelegateObject.prefs.allowEmptyNames ? "N" : "FF")).localizedVariant
+        minimumRSSILevelValueLabel?.accessibilityLabel = String(format: "SLUG-ACC-SLIDER-MIN-LABEL".localizedVariant, Int(minimumRSSILevelSlider?.minimumValue ?? -100))
+        minimumRSSILevelMaxValLabel?.accessibilityLabel = String(format: "SLUG-ACC-SLIDER-MAX-LABEL".localizedVariant, Int(minimumRSSILevelSlider?.maximumValue ?? 0))
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -272,6 +290,7 @@ extension CGA_SettingsViewController {
         deviceFilterTextView?.text = CGA_AppDelegate.appDelegateObject.prefs.peripheralFilterIDArray.joined(separator: "\n")
         serviceFilterTextView?.text = CGA_AppDelegate.appDelegateObject.prefs.serviceFilterIDArray.joined(separator: "\n")
         characteristicFilterTextView?.text = CGA_AppDelegate.appDelegateObject.prefs.characteristicFilterIDArray.joined(separator: "\n")
+        _setUpAccessibility()
         updateMInimumRSSIValue()
     }
     
@@ -279,7 +298,13 @@ extension CGA_SettingsViewController {
     /**
      */
     func updateMInimumRSSIValue() {
-        minimumRSSILevelValueLabel?.text = String(format: "SLUG-RSSI-LEVEL-FORMAT".localizedVariant, CGA_AppDelegate.appDelegateObject.prefs.minimumRSSILevel)
+        let minimumRSSILevel = CGA_AppDelegate.appDelegateObject.prefs.minimumRSSILevel
+        // Sets up our accessibility labels and values for the slider.
+        minimumRSSILevelValueLabel?.text = String(format: "SLUG-RSSI-LEVEL-FORMAT".localizedVariant, minimumRSSILevel)
+        minimumRSSILevelLabel?.accessibilityLabel = String(format: "SLUG-ACC-SLIDER-LABEL-FORMAT".localizedVariant, minimumRSSILevel)
+        minimumRSSILevelValueLabel?.accessibilityLabel = String(format: "SLUG-ACC-SLIDER-VALUE".localizedVariant, minimumRSSILevel)
+        minimumRSSILevelSlider?.accessibilityLabel = String(format: "SLUG-ACC-SLIDER-FORMAT".localizedVariant, minimumRSSILevel)
+        minimumRSSILevelSlider?.accessibilityValue = String(format: "SLUG-ACC-SLIDER-VALUE".localizedVariant, minimumRSSILevel)
     }
 
     /* ################################################################## */

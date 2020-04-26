@@ -79,6 +79,45 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-MINIMUM-RSSI-LEFT"            =   "-100";
 "SLUG-MINIMUM-RSSI-RIGHT"           =   "0";
 
+/// MARK: - ACCESSIBILITY STRINGS
+
+// MARK: - The Initial Device List Screen
+"SLUG-ACC-SCANNING-BUTTON-ON"       =   "This button is connected to the Bluetooth Central's scanning for advertising BLE devices. The Central is currently scanning for Peripherals.";
+"SLUG-ACC-SCANNING-BUTTON-OFF"      =   "This button is connected to the Bluetooth Central's scanning for advertising BLE devices. The Central device is NOT currently scanning for Peripherals.";
+"SLUG-ACC-NO-BT-IMAGE"              =   "The Bluetooth system is not available. The app will not operate.";
+"SLUG-ACC-EDIT-BUTTON-EDIT"         =   "The table of devices can be edited by touching this button. When you edit the table, you can choose certain devices to ignore.";
+"SLUG-ACC-EDIT-BUTTON-DONE"         =   "The table of devices is currently being edited, and you can end that by touching this button. When you edit the table, you can choose certain devices to ignore.";
+"SLUG-ACC-DEVICELIST-TABLE"         =   "This table displays the discovered Bluetooth LE devices. Each row represents one device. You can pull down on the table to reload all the devices. If you reload the table, the order of the devices in the table may change, and all ignored devices will no longer be ignored.";
+"SLUG-ACC-DEVICELIST-TABLE-RSSI-FORMAT"             =   "This is the signal strength for this device. It is currently %d decibels.";
+"SLUG-ACC-DEVICELIST-TABLE-NAME-ADVERTISED-FORMAT"  =   "This is the advertised name for this device. It is \"%@.\"";
+"SLUG-ACC-DEVICELIST-TABLE-NAME-SIMPLE-FORMAT"      =   "This is the name for this device. It is \"%@.\"";
+"SLUG-ACC-DEVICELIST-TABLE-NAME-NONE"               =   "This device does not have a name.";
+"SLUG-ACC-DEVICELIST-TABLE-ADVERTISING-DATA"        =   "This is the advertising Data for this device.";
+"SLUG-ACC-SETTINGS-BUTTON"          =   "App Settings. This will bring in a screen that will allow you to specify some settings for the app.";
+"SLUG-ACC-INFO-BUTTON"              =   "About this app. This will bring in a screen that will give basic information about this app.";
+
+// MARK: The App Settings Screen
+"SLUG-ACC-CONTINUOUS-UPDATE-BUTTON-ON"              =   "This button will toggle the value of the switch that controls whether or not the app is continuously updating the device list while scanning. The switch is currently on, which means that the names, advertising data and signal strength of the devices in the list are being continuously updated.";
+"SLUG-ACC-CONTINUOUS-UPDATE-BUTTON-OFF"             =   "This button will toggle the value of the switch that controls whether or not the app is continuously updating the device list while scanning. The switch is currently off, which means that the names, advertising data and signal strength of the devices will remain consistent with their state upon discovery.";
+"SLUG-ACC-CONTINUOUS-UPDATE-SWITCH-ON"              =   "This switch controls whether or not the app is continuously updating the device list while scanning. It is currently on, which means that the names, advertising data and signal strength of the devices in the list are being continuously updated.";
+"SLUG-ACC-CONTINUOUS-UPDATE-SWITCH-OFF"             =   "This switch controls whether or not the app is continuously updating the device list while scanning. It is currently off, which means that the names, advertising data and signal strength of the devices will remain consistent with their state upon discovery.";
+"SLUG-ACC-DEVICE-UUIDS"             =   "This text field allows you to enter unique identifiers for particular devices (one per line). These identifiers must be in the form of 48-hex-digit strings. They can be separated by dashes. If there are valid UUIDs in this text box, then scanning for devices will ignore all devices that do not have the unique UUIDs listed.";
+"SLUG-ACC-SERVICE-UUIDS"            =   "This text field allows you to enter unique identifiers for particular Services (one per line). These identifiers must be in the form of 48-hex-digit strings, or 4-character hex strings (for GATT standard UUIDs). They can be separated by dashes. These UUIDs are applied to advertised Services, so only devices that advertise these Services will be listed.";
+"SLUG-ACC-CHARACTERISTIC-UUIDS"     =   "This text field allows you to enter unique identifiers for particular Characteristics (one per line). These identifiers must be in the form of 48-hex-digit strings, or 4-character hex strings (for GATT standard UUIDs). They can be separated by dashes. These UUIDs are applied to Characteristics in connected devices. If there are any valid UUIDs in the text box, then only Characteristics that have the same UUIDs will be listed.";
+"SLUG-ACC-SLIDER-LABEL-FORMAT"      =   "The slider below this label will allow you to select a minimum signal strength for discovered devices. It is useful to keep distant devices out of the list. You can adjust it from -100 decibels, to 0 decibels. It is currently set to %d decibels.";
+"SLUG-ACC-SLIDER-FORMAT"            =   "This slider will allow you to select a minimum signal strength for discovered devices. It is useful to keep distant devices out of the list. You can adjust it from -100 decibels, to 0 decibels. It is currently set to %d decibels.";
+"SLUG-ACC-SLIDER-MIN-LABEL"         =   "This is the minimum allowable signal strength. It is %d decibels.";
+"SLUG-ACC-SLIDER-MAX-LABEL"         =   "This is the maximum allowable signal strength. It is %d decibels.";
+"SLUG-ACC-SLIDER-VALUE"             =   "%d decibels.";
+"SLUG-ACC-CONNECTED-ONLY-BUTTON-ON"                 =   "This button will toggle the value of the switch that controls whether or not the app will only display connectable devices. The switch is currently on, which means that only devices that advertise as being connectable are being displayed in the list.";
+"SLUG-ACC-CONNECTED-ONLY-BUTTON-OFF"                =   "This button will toggle the value of the switch that controls whether or not the app will only display connectable devices. The switch is currently off, which means that devices will be displayed, regardless of their connectability.";
+"SLUG-ACC-CONNECTED-ONLY-SWITCH-ON"                 =   "This switch controls whether or not the app will only display connectable devices. The switch is currently on, which means that only devices that advertise as being connectable are being displayed in the list.";
+"SLUG-ACC-CONNECTED-ONLY-SWITCH-OFF"                =   "This switch controls whether or not the app will only display connectable devices. The switch is currently off, which means that devices will be displayed, regardless of their connectability.";
+"SLUG-ACC-EMPTY-NAMES-BUTTON-ON"                    =   "This button will toggle the value of the switch that controls whether or not the app will only display devices that advertise or contain names. The switch is currently on, which means that only devices with names are being displayed in the list.";
+"SLUG-ACC-EMPTY-NAMES-BUTTON-OFF"                   =   "This button will toggle the value of the switch that controls whether or not the app will only display devices that advertise or contain names. The switch is currently off, which means that all devices are being displayed in the list.";
+"SLUG-ACC-EMPTY-NAMES-SWITCH-ON"                    =   "This switch controls whether or not the app will only display devices that advertise or contain names. The switch is currently on, which means that only devices with names are being displayed in the list.";
+"SLUG-ACC-EMPTY-NAMES-SWITCH-OFF"                   =   "This switch controls whether or not the app will only display devices that advertise or contain names. The switch is currently off, which means that all devices are being displayed in the list.";
+
 /// MARK: - DATA INTERPRETATION
 
 // MARK: - Advertising Data Strings

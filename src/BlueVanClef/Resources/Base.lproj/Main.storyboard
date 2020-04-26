@@ -232,8 +232,10 @@
                         <outlet property="deviceTableView" destination="v4D-h1-YBk" id="zV3-O9-vz0"/>
                         <outlet property="editButton" destination="eMn-kT-p1j" id="Ii9-zZ-GHD"/>
                         <outlet property="editButtonStackView" destination="kDs-Vk-wBZ" id="tPi-GI-2wH"/>
+                        <outlet property="infoButton" destination="tAq-gq-P11" id="8Bf-ug-0mE"/>
                         <outlet property="noBTImage" destination="OEU-02-sbP" id="6PG-n9-cYN"/>
                         <outlet property="scanningButton" destination="tXo-2J-9xn" id="m0i-aB-cyz"/>
+                        <outlet property="settingsButton" destination="0VC-rX-dr6" id="HRv-Xn-k4B"/>
                         <segue destination="lg0-Vd-GYl" kind="show" identifier="show-device-detail" id="aeU-Zr-NO8"/>
                     </connections>
                 </viewController>
