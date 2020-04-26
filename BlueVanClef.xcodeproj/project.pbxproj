@@ -43,8 +43,6 @@
 		D4A53AAC24312F2F009647C4 /* RVS_PersistentPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A53AAB24312F2F009647C4 /* RVS_PersistentPrefs.swift */; };
 		D4B1C69F2430F32900D3AC78 /* CGA_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D85182430F05500A925ED /* CGA_AppDelegate.swift */; };
 		D4B1C6A02430F32900D3AC78 /* CGA_InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D851C2430F05500A925ED /* CGA_InitialViewController.swift */; };
-		D4B49CA824550F1800932C3D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D4B49C8C24550F1800932C3D /* README.md */; };
-		D4B49CA924550F1800932C3D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D4B49C8C24550F1800932C3D /* README.md */; };
 		D4B49CAB24550F1800932C3D /* CGA_Bluetooth_Characteristic_CurrentTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B49C8E24550F1800932C3D /* CGA_Bluetooth_Characteristic_CurrentTime.swift */; };
 		D4B49CAD24550F1800932C3D /* CGA_Bluetooth_Characteristic_LocalTimeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B49C8F24550F1800932C3D /* CGA_Bluetooth_Characteristic_LocalTimeInformation.swift */; };
 		D4B49CAF24550F1800932C3D /* CGA_Bluetooth_Characteristic_SystemID.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B49C9024550F1800932C3D /* CGA_Bluetooth_Characteristic_SystemID.swift */; };
@@ -134,6 +132,7 @@
 		D4700E1D2455E3EB004E99D3 /* CGA_Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGA_Errors.swift; sourceTree = "<group>"; };
 		D4700E202455E463004E99D3 /* CGA_Array_Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGA_Array_Extensions.swift; sourceTree = "<group>"; };
 		D4700E232455E4BE004E99D3 /* CGA_Factory_Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGA_Factory_Protocols.swift; sourceTree = "<group>"; };
+		D4700E282455EA9B004E99D3 /* iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOS-Info.plist"; sourceTree = "<group>"; };
 		D47D71E12448DD70004D9923 /* CGA_Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Extensions.swift; sourceTree = "<group>"; };
 		D480CE2D243CEFE20074CFE4 /* CGA_CharacteristicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_CharacteristicViewController.swift; sourceTree = "<group>"; };
 		D48D85182430F05500A925ED /* CGA_AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGA_AppDelegate.swift; sourceTree = "<group>"; };
@@ -344,22 +343,22 @@
 		D4B49C8824550F1800932C3D /* RVS_BlueThoth */ = {
 			isa = PBXGroup;
 			children = (
-				D4B49CD324550F9000932C3D /* Carthage */,
 				D4B49C8C24550F1800932C3D /* README.md */,
 				D4B49CD224550F3100932C3D /* Meta */,
-				D4B49C8A24550F1800932C3D /* Bluetooth Subsystem */,
+				D4B49C8A24550F1800932C3D /* src */,
 			);
 			path = RVS_BlueThoth;
 			sourceTree = "<group>";
 		};
-		D4B49C8A24550F1800932C3D /* Bluetooth Subsystem */ = {
+		D4B49C8A24550F1800932C3D /* src */ = {
 			isa = PBXGroup;
 			children = (
 				D4B49C9924550F1800932C3D /* RVS_BlueThoth.swift */,
 				D4700E262455E88B004E99D3 /* Protocols */,
 				D4700E272455E899004E99D3 /* Implementation */,
+				D4B49CD324550F9000932C3D /* Carthage */,
 			);
-			path = "Bluetooth Subsystem";
+			path = src;
 			sourceTree = "<group>";
 		};
 		D4B49C8D24550F1800932C3D /* Characteristics */ = {
@@ -411,6 +410,7 @@
 		D4B49CD224550F3100932C3D /* Meta */ = {
 			isa = PBXGroup;
 			children = (
+				D4700E282455EA9B004E99D3 /* iOS-Info.plist */,
 				D4B49CD82455113F00932C3D /* MacOS-Info.plist */,
 			);
 			path = Meta;
@@ -423,6 +423,7 @@
 				D4B49CD424550FB000932C3D /* RVS_String_Extensions.swift */,
 			);
 			name = Carthage;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -547,7 +548,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4B49CA824550F1800932C3D /* README.md in Resources */,
 				D447B9F3243171AB00F00A7A /* InfoPlist.strings in Resources */,
 				D447B9F2243171AB00F00A7A /* Localizable.strings in Resources */,
 				D447B9F1243171AB00F00A7A /* Main.storyboard in Resources */,
@@ -567,7 +567,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4B49CA924550F1800932C3D /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
