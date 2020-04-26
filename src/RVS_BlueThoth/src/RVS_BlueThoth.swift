@@ -32,345 +32,9 @@ import CoreBluetooth
 /* ###################################################################################################################################### */
 /**
  This is the main class that is instantiated in order to implement the Bluetooth subsystem.
+ This acts as a Core Bluetooth Central, and aggregates Peripherals, which, in turn, aggregate Characteristics, which, in turn, may aggregate Descriptors.
  */
 public class RVS_BlueThoth: NSObject, RVS_SequenceProtocol {
-    /* ################################################################################################################################## */
-    /**
-     This is the struct that we use to narrow the search criteria for new instances of the <code>CGA_Bluetooth_CentralManager</code> class.
-          
-     If you will not be looking for particular Bluetooth instances, then leave the corresponding property nil, or empty.
-     
-     All members are String, but these will be converted internally into <code>CBUUID</code>s.
-     
-     These are applied across the board. For example, if you specify a Service, then ALL scans will filter for that Service,
-     and if you specify a Characteristic, then ALL Services, for ALL peripherals, will be scanned for that Characteristic.
-     */
-    public struct ScanCriteria {
-        /// This is a list of identifier UUIDs for specific Bluetooth devices.
-        public let peripherals: [String]!
-        /// This is a list of UUIDs for Services that will be scanned.
-        public let services: [String]!
-        /// This is a list of UUIDs for specific Characteristics to be discovered within Services.
-        public let characteristics: [String]!
-        
-        /* ############################################################## */
-        /**
-         This returns true, if all of the specifiers are nil or empty.
-         */
-        public var isEmpty: Bool { (peripherals?.isEmpty ?? false) && (services?.isEmpty ?? false) && (characteristics?.isEmpty ?? false) }
-        
-        /* ############################################################## */
-        /**
-         Standard initializer
-         
-         - parameters:
-            - peripherals: This is a list of identifier UUIDs for specific Bluetooth devices.
-            - services: This is a list of UUIDs for Advertised Services that will be scanned.
-            - characteristics: This is a list of UUIDs for specific Characteristics to be discovered within Services.
-         */
-        public  init(peripherals inPeripherals: [String]!, services inServices: [String]!, characteristics inCharacteristics: [String]!) {
-            peripherals = inPeripherals
-            services = inServices
-            characteristics = inCharacteristics
-        }
-    }
-    
-    /* ################################################################################################################################## */
-    /**
-     This struct allows us to apply some data interpretation to the advertisement data.
-     */
-    public struct AdvertisementData {
-        /* ################################################################## */
-        /**
-         This holds the raw advertisement data that came with the discovery.
-         */
-        public let advertisementData: [String: Any]
-        
-        /* ################################################################## */
-        /**
-         Returns the local name, if provided. If not provided, will return an empty String.
-         */
-        public var localName: String { advertisementData["kCBAdvDataLocalName"] as? String ?? "" }
-        
-        /* ################################################################## */
-        /**
-         Returns true or false. True, if the Peripheral is connectable.
-         */
-        public var isConnectable: Bool { advertisementData["kCBAdvDataIsConnectable"] as? Bool ?? false }
-        
-        /* ################################################################## */
-        /**
-         Returns the transmit power level. Nil, if not provided.
-         */
-        public var transmitPowerLevel: Int? { advertisementData["kCBAdvDataTxPowerLevel"] as? Int }
-        
-        /* ################################################################## */
-        /**
-         Returns the timestamp, as a date. Nil, if not provided.
-         */
-        public var timestamp: Date? {
-            guard let timeInterval = advertisementData["kCBAdvDataTimestamp"] as? Double else { return nil }
-            return Date(timeIntervalSinceReferenceDate: timeInterval)
-        }
-        
-        /* ################################################################## */
-        /**
-         Returns true, if the Peripheral has a primary PHY.
-         */
-        public var hasPrimaryPHY: Bool { advertisementData["kCBAdvDataRxPrimaryPHY"] as? Bool ?? false }
-        
-        /* ################################################################## */
-        /**
-         Returns true, if the Peripheral has a secondary PHY.
-         */
-        public var hasSecondaryPHY: Bool { advertisementData["kCBAdvDataRxSecondaryPHY"] as? Bool ?? false }
-        
-        /* ################################################################## */
-        /**
-         Returns any manufacturer-specific data. Nil, if not provided.
-         */
-        public var manufacturerData: Data? { advertisementData["kCBAdvDataRxSecondaryPHY"] as? Data }
-    }
-    
-    /* ################################################################################################################################## */
-    /**
-     This is a class, as opposed to a struct, because I want to make sure that it is referenced, and not copied.
-     */
-    public class DiscoveryData {
-        /* ################################################################## */
-        /**
-         This is a countdown timer, for use as a timeout trap during connection.
-         */
-        private var _timer: Timer?
-        
-        /* ############################################################## */
-        /**
-         This holds the advertisement data that came with the discovery.
-         */
-        public var advertisementData: AdvertisementData!
-        
-        /* ############################################################## */
-        /**
-         This is the signal strength, at the time of discovery, in dBm.
-         This is also updated, as we receive RSSI change notifications.
-         */
-        public var rssi: Int
-        
-        /* ############################################################## */
-        /**
-         This is the peripheral wrapper that is instantiated when the device is connected. It is nil, if the device is not connected. It is a strong reference.
-         */
-        public var peripheralInstance: CGA_Bluetooth_Peripheral? {
-            didSet {
-                clear()
-            }
-        }
-        
-        /* ############################################################## */
-        /**
-         The Peripheral is capable of sending writes back (without response).
-         */
-        public var canSendWriteWithoutResponse: Bool { cbPeripheral?.canSendWriteWithoutResponse ?? false }
-
-        /* ############################################################## */
-        /**
-         The assigned Peripheral Name
-         */
-        public var name: String { cbPeripheral?.name ?? "" }
-
-        /* ############################################################## */
-        /**
-         This is true, if the Peripheral advertisement data indicates the Peripheral can be connected.
-         */
-        public var canConnect: Bool { advertisementData.isConnectable }
-        
-        /* ############################################################## */
-        /**
-         This is the "Local Name," from the advertisement data.
-         */
-        public var localName: String { advertisementData.localName }
-        
-        /* ############################################################## */
-        /**
-         This is the local name, if available, or the Peripheral name, if the local name is not available.
-         */
-        public var preferredName: String { localName.isEmpty ? name : localName }
-        
-        /* ############################################################## */
-        /**
-         Returns the ID UUID as a String.
-         */
-        public var identifier: String { cbPeripheral?.identifier.uuidString ?? "" }
-        
-        /* ############################################################## */
-        /**
-         Returns true, if the peripheral is currently connected.
-         */
-        public var isConnected: Bool { .connected == cbPeripheral?.state }
-        
-        /* ############################################################## */
-        /**
-         This asks the Central Manager to ignore this device.
-         
-         - returns: True, if the ignore worked.
-         */
-        @discardableResult
-        public func ignore() -> Bool {
-            clear()
-            guard   !(central?.ignoredBLEPeripherals.contains(self) ?? false),
-                    (central?.stagedBLEPeripherals.contains(self) ?? false)
-            else { return false }
-            
-            central?.ignoredBLEPeripherals.append(self)
-            central?.stagedBLEPeripherals.removeThisDevice(self)
-            
-            return true
-        }
-        
-        /* ############################################################## */
-        /**
-         This asks the Central Manager to "unignore" this device.
-         
-         - returns: True, if the unignore worked.
-         */
-        @discardableResult
-        public func unignore() -> Bool {
-            clear()
-            guard   !(central?.stagedBLEPeripherals.contains(self) ?? false),
-                    (central?.ignoredBLEPeripherals.contains(self) ?? false)
-            else { return false }
-            
-            central?.stagedBLEPeripherals.append(self)
-            central?.ignoredBLEPeripherals.removeThisDevice(self)
-            
-            return true
-        }
-        
-        /* ############################################################## */
-        /**
-         This asks the Central Manager to connect this device.
-         
-         - returns: True, if the attempt worked (not a guarantee of success, though).
-         */
-        @discardableResult
-        public func connect() -> Bool {
-            clear()
-            guard   let central = central,
-                    !isConnected else { return false }
-            _startTimeout()
-            return central.connect(self)
-        }
-        
-        /* ############################################################## */
-        /**
-         This asks the Central Manager to disconnect this device.
-         
-         - returns: True, if the attempt worked (not a guarantee of success, though).
-         */
-        @discardableResult
-        public func disconnect() -> Bool {
-            clear()
-            guard   let central = central,
-                    isConnected else { return false }
-            return central.disconnect(self)
-        }
-
-        /* ############################################################## */
-        /**
-         Cancels the timeout.
-         */
-        public func clear() {
-            _cancelTimeout()
-        }
-
-        /* ############################################################## */
-        /**
-         The actual Peripheral instance. This is a strong reference.
-         This will retain the allocation for the Peripheral, so it is a strong reference.
-         */
-        internal var peripheral: Any
-        
-        /* ############################################################## */
-        /**
-         The Central manager that "owns" this discovered device. This is a weak reference.
-         */
-        internal weak var central: RVS_BlueThoth?
-
-        /* ############################################################## */
-        /**
-         The actual Peripheral instance, cast as CBPeripheral.
-         */
-        internal var cbPeripheral: CBPeripheral! { peripheral as? CBPeripheral }
-        
-        /* ################################################################## */
-        /**
-         This is the callback for the timeout Timer firing.
-         It is @objc, because it is a Timer callback.
-         
-         - parameter inTimer: The timer instance that fired.
-         */
-        @objc internal func timeout(_ inTimer: Timer) {
-            #if DEBUG
-                print("ERROR! Timeout.")
-            #endif
-            clear()
-            central?.reportError(CGA_Errors.timeoutError(self))
-        }
-
-        /* ############################################################## */
-        /**
-         Basic Init
-         
-         - parameters:
-            - central: The Central Manager instance that "owns" this instance.
-            - peripheral: The CBPeripheral instance associated with this. This will be a strong reference, and will be the "anchor" for this instance.
-            - advertisementData: The advertisement data of the discovered Peripheral.
-            - rssi: The signal strength, in dBm.
-         */
-        internal init(central inCentralManager: RVS_BlueThoth, peripheral inPeripheral: CBPeripheral, advertisementData inAdvertisementData: [String: Any], rssi inRSSI: Int) {
-            central = inCentralManager
-            peripheral = inPeripheral
-            advertisementData = AdvertisementData(advertisementData: inAdvertisementData)
-            rssi = inRSSI
-        }
-        
-        /* ############################################################## */
-        /**
-         Make sure that we don't leave any open timers.
-         */
-        deinit {
-            clear()
-        }
-        
-        /* ################################################################## */
-        /**
-         Calling this starts the timeout clock.
-         */
-        private func _startTimeout() {
-            #if DEBUG
-                print("Starting Timeout.")
-            #endif
-            clear() // Just to be sure...
-            _timer = Timer.scheduledTimer(withTimeInterval: _static_timeoutInSeconds, repeats: false, block: timeout(_:))
-        }
-        
-        /* ################################################################## */
-        /**
-         This stops the timeout clock, invalidates the timer, and clears the Timer instance.
-         */
-        private func _cancelTimeout() {
-            #if DEBUG
-                if let fireDate = _timer?.fireDate {
-                    print("Ending Timeout after \(_static_timeoutInSeconds - fireDate.timeIntervalSinceNow) Seconds.")
-                } else {
-                    print("No timer.")
-                }
-            #endif
-            _timer?.invalidate()
-            _timer = nil
-        }
-    }
-
     /* ################################################################## */
     /**
      The Central Manager Delegate object.
@@ -1150,4 +814,356 @@ extension RVS_BlueThoth: CBCentralManagerDelegate {
             central?.reportError(.internalError(error))
         }
     }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Embedded Classes and Structs -
+/* ###################################################################################################################################### */
+/**
+ These are embedded classes and structs that are used to define some data types.
+ */
+extension RVS_BlueThoth {
+    /* ################################################################################################################################## */
+    // MARK: ScanCriteria Struct
+    /* ################################################################################################################################## */
+    /**
+     This is the struct that we use to narrow the search criteria for new instances of the <code>CGA_Bluetooth_CentralManager</code> class.
+          
+     If you will not be looking for particular Bluetooth instances, then leave the corresponding property nil, or empty.
+     
+     All members are String, but these will be converted internally into <code>CBUUID</code>s.
+     
+     These are applied across the board. For example, if you specify a Service, then ALL scans will filter for that Service,
+     and if you specify a Characteristic, then ALL Services, for ALL peripherals, will be scanned for that Characteristic.
+     */
+    public struct ScanCriteria {
+        /// This is a list of identifier UUIDs for specific Bluetooth devices.
+        public let peripherals: [String]!
+        /// This is a list of UUIDs for Services that will be scanned.
+        public let services: [String]!
+        /// This is a list of UUIDs for specific Characteristics to be discovered within Services.
+        public let characteristics: [String]!
+        
+        /* ############################################################## */
+        /**
+         This returns true, if all of the specifiers are nil or empty.
+         */
+        public var isEmpty: Bool { (peripherals?.isEmpty ?? false) && (services?.isEmpty ?? false) && (characteristics?.isEmpty ?? false) }
+        
+        /* ############################################################## */
+        /**
+         Standard initializer
+         
+         - parameters:
+            - peripherals: This is a list of identifier UUIDs for specific Bluetooth devices.
+            - services: This is a list of UUIDs for Advertised Services that will be scanned.
+            - characteristics: This is a list of UUIDs for specific Characteristics to be discovered within Services.
+         */
+        public  init(peripherals inPeripherals: [String]!, services inServices: [String]!, characteristics inCharacteristics: [String]!) {
+            peripherals = inPeripherals
+            services = inServices
+            characteristics = inCharacteristics
+        }
+    }
+    
+    /* ################################################################################################################################## */
+    // MARK: AdvertisementData Struct
+    /* ################################################################################################################################## */
+    /**
+     This struct allows us to apply some data interpretation to the advertisement data.
+     */
+    public struct AdvertisementData {
+        /* ################################################################## */
+        /**
+         This holds the raw advertisement data that came with the discovery.
+         */
+        public let advertisementData: [String: Any]
+        
+        /* ################################################################## */
+        /**
+         Returns the local name, if provided. If not provided, will return an empty String.
+         */
+        public var localName: String { advertisementData["kCBAdvDataLocalName"] as? String ?? "" }
+        
+        /* ################################################################## */
+        /**
+         Returns true or false. True, if the Peripheral is connectable.
+         */
+        public var isConnectable: Bool { advertisementData["kCBAdvDataIsConnectable"] as? Bool ?? false }
+        
+        /* ################################################################## */
+        /**
+         Returns the transmit power level. Nil, if not provided.
+         */
+        public var transmitPowerLevel: Int? { advertisementData["kCBAdvDataTxPowerLevel"] as? Int }
+        
+        /* ################################################################## */
+        /**
+         Returns the timestamp, as a date. Nil, if not provided.
+         */
+        public var timestamp: Date? {
+            guard let timeInterval = advertisementData["kCBAdvDataTimestamp"] as? Double else { return nil }
+            return Date(timeIntervalSinceReferenceDate: timeInterval)
+        }
+        
+        /* ################################################################## */
+        /**
+         Returns true, if the Peripheral has a primary PHY.
+         */
+        public var hasPrimaryPHY: Bool { advertisementData["kCBAdvDataRxPrimaryPHY"] as? Bool ?? false }
+        
+        /* ################################################################## */
+        /**
+         Returns true, if the Peripheral has a secondary PHY.
+         */
+        public var hasSecondaryPHY: Bool { advertisementData["kCBAdvDataRxSecondaryPHY"] as? Bool ?? false }
+        
+        /* ################################################################## */
+        /**
+         Returns any manufacturer-specific data. Nil, if not provided.
+         */
+        public var manufacturerData: Data? { advertisementData["kCBAdvDataRxSecondaryPHY"] as? Data }
+    }
+    
+    /* ################################################################################################################################## */
+    // MARK: DiscoveryData Class
+    /* ################################################################################################################################## */
+    /**
+     This is a class, as opposed to a struct, because I want to make sure that it is referenced, and not copied.
+     */
+    public class DiscoveryData {
+        /* ################################################################## */
+        /**
+         This is a countdown timer, for use as a timeout trap during connection.
+         */
+        private var _timer: Timer?
+        
+        /* ############################################################## */
+        /**
+         This holds the advertisement data that came with the discovery.
+         */
+        public var advertisementData: AdvertisementData!
+        
+        /* ############################################################## */
+        /**
+         This is the signal strength, at the time of discovery, in dBm.
+         This is also updated, as we receive RSSI change notifications.
+         */
+        public var rssi: Int
+        
+        /* ############################################################## */
+        /**
+         This is the peripheral wrapper that is instantiated when the device is connected. It is nil, if the device is not connected. It is a strong reference.
+         */
+        public var peripheralInstance: CGA_Bluetooth_Peripheral? {
+            didSet {
+                clear()
+            }
+        }
+        
+        /* ############################################################## */
+        /**
+         The Peripheral is capable of sending writes back (without response).
+         */
+        public var canSendWriteWithoutResponse: Bool { cbPeripheral?.canSendWriteWithoutResponse ?? false }
+
+        /* ############################################################## */
+        /**
+         The assigned Peripheral Name
+         */
+        public var name: String { cbPeripheral?.name ?? "" }
+
+        /* ############################################################## */
+        /**
+         This is true, if the Peripheral advertisement data indicates the Peripheral can be connected.
+         */
+        public var canConnect: Bool { advertisementData.isConnectable }
+        
+        /* ############################################################## */
+        /**
+         This is the "Local Name," from the advertisement data.
+         */
+        public var localName: String { advertisementData.localName }
+        
+        /* ############################################################## */
+        /**
+         This is the local name, if available, or the Peripheral name, if the local name is not available.
+         */
+        public var preferredName: String { localName.isEmpty ? name : localName }
+        
+        /* ############################################################## */
+        /**
+         Returns the ID UUID as a String.
+         */
+        public var identifier: String { cbPeripheral?.identifier.uuidString ?? "" }
+        
+        /* ############################################################## */
+        /**
+         Returns true, if the peripheral is currently connected.
+         */
+        public var isConnected: Bool { .connected == cbPeripheral?.state }
+        
+        /* ############################################################## */
+        /**
+         This asks the Central Manager to ignore this device.
+         
+         - returns: True, if the ignore worked.
+         */
+        @discardableResult
+        public func ignore() -> Bool {
+            clear()
+            guard   !(central?.ignoredBLEPeripherals.contains(self) ?? false),
+                    (central?.stagedBLEPeripherals.contains(self) ?? false)
+            else { return false }
+            
+            central?.ignoredBLEPeripherals.append(self)
+            central?.stagedBLEPeripherals.removeThisDevice(self)
+            
+            return true
+        }
+        
+        /* ############################################################## */
+        /**
+         This asks the Central Manager to "unignore" this device.
+         
+         - returns: True, if the unignore worked.
+         */
+        @discardableResult
+        public func unignore() -> Bool {
+            clear()
+            guard   !(central?.stagedBLEPeripherals.contains(self) ?? false),
+                    (central?.ignoredBLEPeripherals.contains(self) ?? false)
+            else { return false }
+            
+            central?.stagedBLEPeripherals.append(self)
+            central?.ignoredBLEPeripherals.removeThisDevice(self)
+            
+            return true
+        }
+        
+        /* ############################################################## */
+        /**
+         This asks the Central Manager to connect this device.
+         
+         - returns: True, if the attempt worked (not a guarantee of success, though).
+         */
+        @discardableResult
+        public func connect() -> Bool {
+            clear()
+            guard   let central = central,
+                    !isConnected else { return false }
+            _startTimeout()
+            return central.connect(self)
+        }
+        
+        /* ############################################################## */
+        /**
+         This asks the Central Manager to disconnect this device.
+         
+         - returns: True, if the attempt worked (not a guarantee of success, though).
+         */
+        @discardableResult
+        public func disconnect() -> Bool {
+            clear()
+            guard   let central = central,
+                    isConnected else { return false }
+            return central.disconnect(self)
+        }
+
+        /* ############################################################## */
+        /**
+         Cancels the timeout.
+         */
+        public func clear() {
+            _cancelTimeout()
+        }
+
+        /* ############################################################## */
+        /**
+         The actual Peripheral instance. This is a strong reference.
+         This will retain the allocation for the Peripheral, so it is a strong reference.
+         */
+        internal var peripheral: Any
+        
+        /* ############################################################## */
+        /**
+         The Central manager that "owns" this discovered device. This is a weak reference.
+         */
+        internal weak var central: RVS_BlueThoth?
+
+        /* ############################################################## */
+        /**
+         The actual Peripheral instance, cast as CBPeripheral.
+         */
+        internal var cbPeripheral: CBPeripheral! { peripheral as? CBPeripheral }
+        
+        /* ################################################################## */
+        /**
+         This is the callback for the timeout Timer firing.
+         It is @objc, because it is a Timer callback.
+         
+         - parameter inTimer: The timer instance that fired.
+         */
+        @objc internal func timeout(_ inTimer: Timer) {
+            #if DEBUG
+                print("ERROR! Timeout.")
+            #endif
+            clear()
+            central?.reportError(CGA_Errors.timeoutError(self))
+        }
+
+        /* ############################################################## */
+        /**
+         Basic Init
+         
+         - parameters:
+            - central: The Central Manager instance that "owns" this instance.
+            - peripheral: The CBPeripheral instance associated with this. This will be a strong reference, and will be the "anchor" for this instance.
+            - advertisementData: The advertisement data of the discovered Peripheral.
+            - rssi: The signal strength, in dBm.
+         */
+        internal init(central inCentralManager: RVS_BlueThoth, peripheral inPeripheral: CBPeripheral, advertisementData inAdvertisementData: [String: Any], rssi inRSSI: Int) {
+            central = inCentralManager
+            peripheral = inPeripheral
+            advertisementData = AdvertisementData(advertisementData: inAdvertisementData)
+            rssi = inRSSI
+        }
+        
+        /* ############################################################## */
+        /**
+         Make sure that we don't leave any open timers.
+         */
+        deinit {
+            clear()
+        }
+        
+        /* ################################################################## */
+        /**
+         Calling this starts the timeout clock.
+         */
+        private func _startTimeout() {
+            #if DEBUG
+                print("Starting Timeout.")
+            #endif
+            clear() // Just to be sure...
+            _timer = Timer.scheduledTimer(withTimeInterval: _static_timeoutInSeconds, repeats: false, block: timeout(_:))
+        }
+        
+        /* ################################################################## */
+        /**
+         This stops the timeout clock, invalidates the timer, and clears the Timer instance.
+         */
+        private func _cancelTimeout() {
+            #if DEBUG
+                if let fireDate = _timer?.fireDate {
+                    print("Ending Timeout after \(_static_timeoutInSeconds - fireDate.timeIntervalSinceNow) Seconds.")
+                } else {
+                    print("No timer.")
+                }
+            #endif
+            _timer?.invalidate()
+            _timer = nil
+        }
+    }
+
 }
