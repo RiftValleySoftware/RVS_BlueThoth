@@ -84,7 +84,7 @@ class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
      - parameter id: The ID string.
      - returns: An Array of String, with the advertisement data in "key: value" form.
      */
-    class func createAdvertimentStringsFor(_ inAdData: CGA_Bluetooth_CentralManager.AdvertisementData?, id inID: String) -> [String] {
+    class func createAdvertimentStringsFor(_ inAdData: RVS_BlueThoth.AdvertisementData?, id inID: String) -> [String] {
         // This gives us a predictable order of things.
         guard let sortedAdDataKeys = inAdData?.advertisementData.keys.sorted() else { return [] }
         let sortedAdData: [(key: String, value: Any?)] = sortedAdDataKeys.compactMap { (key:$0, value: inAdData?.advertisementData[$0]) }
@@ -161,7 +161,7 @@ class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
     /**
      This is the Bluetooth Central Manager instance. Everything goes through this.
      */
-    static var centralManager: CGA_Bluetooth_CentralManager?
+    static var centralManager: RVS_BlueThoth?
 
     /* ################################################################## */
     /**

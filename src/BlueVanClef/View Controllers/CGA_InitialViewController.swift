@@ -246,7 +246,7 @@ extension CGA_InitialViewController {
         super.viewDidLoad()
         deviceTableView?.refreshControl = _refreshControl
         _refreshControl.addTarget(self, action: #selector(startOver(_:)), for: .valueChanged)
-        CGA_AppDelegate.centralManager = CGA_Bluetooth_CentralManager(delegate: self)
+        CGA_AppDelegate.centralManager = RVS_BlueThoth(delegate: self)
         navigationItem.backBarButtonItem?.title = navigationItem.backBarButtonItem?.title?.localizedVariant
         scanningButton.setTitle(scanningButton.title(for: .normal)?.localizedVariant, for: .normal)
         deviceLabel?.text = deviceLabel?.text?.localizedVariant ?? "ERROR"
@@ -300,7 +300,7 @@ extension CGA_InitialViewController {
     override func prepare(for inSegue: UIStoryboardSegue, sender inSender: Any?) {
         // We only go further if we are looking at device details.
         guard   let destination = inSegue.destination as? CGA_PeripheralViewController,
-                let senderData = inSender as? CGA_Bluetooth_CentralManager.DiscoveryData else {
+                let senderData = inSender as? RVS_BlueThoth.DiscoveryData else {
             wasScanning = isScanning
             CGA_AppDelegate.centralManager?.stopScanning()
             return
@@ -422,7 +422,7 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
      - parameter inError: The error being reported.
      - parameter from: The manager wrapper view that is calling this.
      */
-    func handleError(_ inError: CGA_Errors, from inCentralManager: CGA_Bluetooth_CentralManager) {
+    func handleError(_ inError: CGA_Errors, from inCentralManager: RVS_BlueThoth) {
         _resetToRoot()
         CGA_AppDelegate.displayAlert("SLUG-ERROR".localizedVariant, message: inError.localizedDescription.localizedVariant)
     }
@@ -433,7 +433,7 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
      
      - parameter inCentralManager: The central manager that is calling this.
      */
-    func centralManagerPoweredOn(_ inCentralManager: CGA_Bluetooth_CentralManager) {
+    func centralManagerPoweredOn(_ inCentralManager: RVS_BlueThoth) {
         _startScanning()
     }
 
@@ -443,7 +443,7 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
      
      - parameter inCentralManager: The manager wrapper view that is calling this.
      */
-    func updateFrom(_ inCentralManager: CGA_Bluetooth_CentralManager) {
+    func updateFrom(_ inCentralManager: RVS_BlueThoth) {
         updateUI()
         deviceTableView?.reloadData()
     }
@@ -454,7 +454,7 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
      - parameter inCentralManager: The central manager that is calling this.
      - parameter didConnectThisDevice: The device instance that was connected.
      */
-    func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, didConnectThisDevice inDevice: CGA_Bluetooth_Peripheral) {
+    func centralManager(_ inCentralManager: RVS_BlueThoth, didConnectThisDevice inDevice: CGA_Bluetooth_Peripheral) {
         _currentDeviceScreen?.updateUI()
     }
     
@@ -466,7 +466,7 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
      - parameter inCentralManager: The central manager that is calling this.
      - parameter willDisconnectThisDevice: The device instance that will be removed after this call.
      */
-    func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, willDisconnectThisDevice inDevice: CGA_Bluetooth_Peripheral) {
+    func centralManager(_ inCentralManager: RVS_BlueThoth, willDisconnectThisDevice inDevice: CGA_Bluetooth_Peripheral) {
         _resetToRoot()
     }
     
@@ -477,7 +477,7 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
      - parameter inCentralManager: The central manager that is calling this.
      - parameter deviceInfoChanged: The device instance that was connected.
      */
-    func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, deviceInfoChanged inDevice: CGA_Bluetooth_Peripheral) {
+    func centralManager(_ inCentralManager: RVS_BlueThoth, deviceInfoChanged inDevice: CGA_Bluetooth_Peripheral) {
         if let currentScreen = _currentDeviceScreen as? CGA_InitialViewController {
             currentScreen.deviceTableView.reloadData()
         }
@@ -491,7 +491,7 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
      - parameter device: The device instance that contained the changed Service.
      - parameter changedService: The Service instance that contained the changed Characteristic.
      */
-    func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, device inDevice: CGA_Bluetooth_Peripheral, changedService inService: CGA_Bluetooth_Service) {
+    func centralManager(_ inCentralManager: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, changedService inService: CGA_Bluetooth_Service) {
         if let currentScreen = _currentDeviceScreen as? CGA_ServiceViewController {
             currentScreen.updateUI()
         }
@@ -506,7 +506,7 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
      - parameter service: The Service instance that contained the changed Characteristic.
      - parameter changedCharacteristic: The Characteristic that was changed.
      */
-    func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, changedCharacteristic inCharacteristic: CGA_Bluetooth_Characteristic) {
+    func centralManager(_ inCentralManager: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, changedCharacteristic inCharacteristic: CGA_Bluetooth_Characteristic) {
         if let currentScreen = _currentDeviceScreen as? CGA_ServiceViewController {
             currentScreen.updateUI()
         } else if let currentScreen = _currentDeviceScreen as? CGA_CharacteristicViewController {
@@ -524,7 +524,7 @@ extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
      - parameter characteristic: The Characteristic that contains the Descriptor that was changed.
      - parameter changedDescriptor: The Descriptor that was changed.
      */
-    func centralManager(_ inCentralManager: CGA_Bluetooth_CentralManager, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, characteristic inCharacteristic: CGA_Bluetooth_Characteristic, changedDescriptor inDescriptor: CGA_Bluetooth_Descriptor) {
+    func centralManager(_ inCentralManager: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, characteristic inCharacteristic: CGA_Bluetooth_Characteristic, changedDescriptor inDescriptor: CGA_Bluetooth_Descriptor) {
         if let currentScreen = _currentDeviceScreen as? CGA_CharacteristicViewController {
             currentScreen.updateUI()
         }

@@ -66,7 +66,7 @@ class CGA_PeripheralViewController: UIViewController {
     /**
      This contains the device discovery data.
      */
-    public var deviceAdvInfo: CGA_Bluetooth_CentralManager.DiscoveryData!
+    public var deviceAdvInfo: RVS_BlueThoth.DiscoveryData!
     
     /* ################################################################## */
     /**

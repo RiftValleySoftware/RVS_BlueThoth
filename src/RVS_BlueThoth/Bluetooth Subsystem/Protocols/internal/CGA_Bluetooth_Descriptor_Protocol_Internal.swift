@@ -23,44 +23,39 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
-// MARK: - The Internal Face of Characteristics -
+// MARK: - The Main Wrapper Class for the Descriptors -
 /* ###################################################################################################################################### */
 /**
- This protocol publishes an internal interface for our Characteristic wrapper classes.
+ This class "wraps" instances of CBDescriptor, adding some functionality, and linking the hierarchy.
  */
-internal protocol CGA_Bluetooth_Characteristic_Protocol_Internal: CGA_Bluetooth_Characteristic_Protocol {
+internal protocol CGA_Bluetooth_Descriptor_Protocol_Internal: CGA_Bluetooth_Descriptor_Protocol {
     /* ################################################################## */
     /**
-     This is the UUID for the Characteristic type. It is not used for external purposes.
+     This is the UUID for the Descriptor type. It is not used for external purposes.
      */
     static var uuid: String { get }
+
+    /* ################################################################## */
+    /**
+     This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Characteristic
+     */
+    var parent: CGA_Class_Protocol? { get }
     
     /* ################################################################## */
     /**
-     This casts the parent as a Service Wrapper.
+     This casts the parent as a Characteristic Wrapper.
      */
-    var service: CGA_Bluetooth_Service! { get }
-        
+    var characteristic: CGA_Bluetooth_Characteristic! { get }
+    
     /* ################################################################## */
     /**
      This will contain any required scan criteria. It simply passes on the Central criteria.
      */
-    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! { get }
-
+    var scanCriteria: RVS_BlueThoth.ScanCriteria! { get }
+    
     /* ################################################################## */
     /**
-     This is a convenience init that should always be used.
-     
-     - parameter parent: The Service instance that "owns" this instance.
-     - parameter cbElementInstance: This is the actual CBharacteristic instance to be associated with this instance.
+     This returns the parent Central Manager
      */
-    init(parent: CGA_Bluetooth_Service, cbElementInstance: CBCharacteristic)
-
-    /* ################################################################## */
-    /**
-     Called to add a Descriptor to our main Array.
-     
-     - parameter inDescriptor: The Descriptor to add.
-     */
-    func addDescriptor(_ inDescriptor: CGA_Bluetooth_Descriptor)
+    var central: RVS_BlueThoth? { get }
 }

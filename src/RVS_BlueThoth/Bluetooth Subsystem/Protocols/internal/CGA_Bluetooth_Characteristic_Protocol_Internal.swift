@@ -20,73 +20,47 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT
 The Great Rift Valley Software Company: https://riftvalleysoftware.com
 */
 
+import CoreBluetooth
+
 /* ###################################################################################################################################### */
-// MARK: - *Enumerations* -
+// MARK: - The Internal Face of Characteristics -
 /* ###################################################################################################################################### */
-public enum CGA_Errors: Error {
+/**
+ This protocol publishes an internal interface for our Characteristic wrapper classes.
+ */
+internal protocol CGA_Bluetooth_Characteristic_Protocol_Internal: CGA_Bluetooth_Characteristic_Protocol {
     /* ################################################################## */
     /**
-     This indicates that a connection attempt timed out.
+     This is the UUID for the Characteristic type. It is not used for external purposes.
      */
-    case timeoutError(CGA_Bluetooth_CentralManager.DiscoveryData!)
+    static var uuid: String { get }
     
     /* ################################################################## */
     /**
-     A generic internal error.
+     This casts the parent as a Service Wrapper.
      */
-    case internalError(Error!)
+    var service: CGA_Bluetooth_Service! { get }
+        
+    /* ################################################################## */
+    /**
+     This will contain any required scan criteria. It simply passes on the Central criteria.
+     */
+    var scanCriteria: RVS_BlueThoth.ScanCriteria! { get }
 
     /* ################################################################## */
     /**
-     Returns a localizable slug for the error. This does not include associated data.
+     This is a convenience init that should always be used.
+     
+     - parameter parent: The Service instance that "owns" this instance.
+     - parameter cbElementInstance: This is the actual CBharacteristic instance to be associated with this instance.
      */
-    var localizedDescription: String {
-        var ret: String = ""
-        
-        switch self {
-        case .timeoutError:
-            ret = "CGA-ERROR-TIMEOUT"
-
-        case .internalError:
-            ret = "CGA-ERROR-INTERNAL"
-        }
-        
-        return ret
-    }
-    
-    /* ################################################################## */
-    /**
-     Returns an Array, with Strings for any nested errors.
-     */
-    var layeredDescription: [String] {
-        var ret: [String] = []
-        
-        switch self {
-        case .timeoutError:
-            ret = [localizedDescription]
-            
-        case .internalError:
-            ret = [localizedDescription]
-        }
-        
-        return ret
-    }
+    init(parent: CGA_Bluetooth_Service, cbElementInstance: CBCharacteristic)
 
     /* ################################################################## */
     /**
-     This returns any associated data with the current status.
+     Called to add a Descriptor to our main Array.
+     
+     - parameter inDescriptor: The Descriptor to add.
      */
-    var associatedData: Any? {
-        var ret: Any! = nil
-        
-        switch self {
-        case .timeoutError(let value):
-            ret = value
-            
-        case .internalError(let value):
-            ret = value
-        }
-        
-        return ret
-    }
+    func addDescriptor(_ inDescriptor: CGA_Bluetooth_Descriptor)
 }

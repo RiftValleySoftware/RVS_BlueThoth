@@ -34,13 +34,6 @@ import CoreBluetooth
  This is the main class that is instantiated in order to implement the Bluetooth subsystem.
  */
 public class RVS_BlueThoth: NSObject, RVS_SequenceProtocol {
-    /* ################################################################## */
-    /**
-     This is how many seconds we wait, before declaring a timeout.
-     Default is 5 seconds, but the value can be changed.
-     */
-    static var static_timeoutInSeconds: TimeInterval = 5.0
-
     /* ################################################################################################################################## */
     /**
      This is the struct that we use to narrow the search criteria for new instances of the <code>CGA_Bluetooth_CentralManager</code> class.
@@ -358,7 +351,7 @@ public class RVS_BlueThoth: NSObject, RVS_SequenceProtocol {
                 print("Starting Timeout.")
             #endif
             clear() // Just to be sure...
-            _timer = Timer.scheduledTimer(withTimeInterval: static_timeoutInSeconds, repeats: false, block: timeout(_:))
+            _timer = Timer.scheduledTimer(withTimeInterval: _static_timeoutInSeconds, repeats: false, block: timeout(_:))
         }
         
         /* ################################################################## */
@@ -368,7 +361,7 @@ public class RVS_BlueThoth: NSObject, RVS_SequenceProtocol {
         private func _cancelTimeout() {
             #if DEBUG
                 if let fireDate = _timer?.fireDate {
-                    print("Ending Timeout after \(static_timeoutInSeconds - fireDate.timeIntervalSinceNow) Seconds.")
+                    print("Ending Timeout after \(_static_timeoutInSeconds - fireDate.timeIntervalSinceNow) Seconds.")
                 } else {
                     print("No timer.")
                 }
@@ -398,12 +391,6 @@ public class RVS_BlueThoth: NSObject, RVS_SequenceProtocol {
 
     /* ################################################################## */
     /**
-     This holds any Services (as Strings) that were specified when scanning started.
-     */
-    var scanningServices: [String] = []
-    
-    /* ################################################################## */
-    /**
      If tue (default), then scanning is done with duplicate filtering on, which reduces the number of times the discovery callback is made.
      */
     public var duplicateFilteringIsOn: Bool = true
@@ -413,12 +400,6 @@ public class RVS_BlueThoth: NSObject, RVS_SequenceProtocol {
      This Bool will be true, if we only want to discover devices that can be connected. Default is false.
      */
     public var discoverOnlyConnectablePeripherals: Bool = false
-    
-    /* ################################################################## */
-    /**
-     This holds the instance of CBCentralManager that is used by this instance.
-     */
-    var cbElementInstance: CBCentralManager!
     
     /* ################################################################## */
     /**
@@ -490,6 +471,25 @@ public class RVS_BlueThoth: NSObject, RVS_SequenceProtocol {
         sequence_contents = inSequenceContents
         super.init()    // Since we derive from NSObject, we must call the super init()
     }
+    
+    /* ################################################################## */
+    /**
+     This holds any Services (as Strings) that were specified when scanning started.
+     */
+    internal var scanningServices: [String] = []
+    
+    /* ################################################################## */
+    /**
+     This holds the instance of CBCentralManager that is used by this instance.
+     */
+    internal var cbElementInstance: CBCentralManager!
+    
+    /* ################################################################## */
+    /**
+     This is how many seconds we wait, before declaring a timeout.
+     Default is 5 seconds, but the value can be changed.
+     */
+    private static var _static_timeoutInSeconds: TimeInterval = 5.0
 }
 
 /* ###################################################################################################################################### */
@@ -614,7 +614,7 @@ extension RVS_BlueThoth {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - Internal Instance Methods -
+// MARK: - Public Instance Methods -
 /* ###################################################################################################################################### */
 extension RVS_BlueThoth {
     /* ################################################################## */
@@ -754,12 +754,6 @@ extension RVS_BlueThoth {
     
     /* ################################################################## */
     /**
-     - returns true, if the given CBPeripheral is in either of our staging lists.
-     */
-    func iGotThis(_ inPeripheral: CBPeripheral) -> Bool { stagedBLEPeripherals.contains(inPeripheral) || ignoredBLEPeripherals.contains(inPeripheral) }
-
-    /* ################################################################## */
-    /**
      Called to initiate a connection (and discovery process) with the peripheral.
      
      - parameter inPeripheral: The Peripheral (CB) to connect, as the opaque DiscoveryData type.
@@ -805,14 +799,19 @@ extension RVS_BlueThoth {
         
         return true
     }
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Internal Instance Methods -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth {
     /* ################################################################## */
     /**
      Called to add a Peripheral to our "keeper" Array.
      
      - parameter inPeripheral: The Peripheral to add.
      */
-    func addPeripheral(_ inPeripheral: CGA_Bluetooth_Peripheral) {
+    internal func addPeripheral(_ inPeripheral: CGA_Bluetooth_Peripheral) {
         #if DEBUG
             print("Adding \(inPeripheral.discoveryData.preferredName).")
         #endif
@@ -827,7 +826,7 @@ extension RVS_BlueThoth {
      
      - parameter inPeripheral: The Peripheral to remove.
      */
-    func removePeripheral(_ inPeripheral: CGA_Bluetooth_Peripheral) {
+    internal func removePeripheral(_ inPeripheral: CGA_Bluetooth_Peripheral) {
         #if DEBUG
             print("Removing \(inPeripheral.discoveryData.preferredName).")
         #endif
@@ -1151,8 +1150,4 @@ extension RVS_BlueThoth: CBCentralManagerDelegate {
             central?.reportError(.internalError(error))
         }
     }
-}
-
-extension CBPeripheral {
-    var uuid: CBUUID { CBUUID(nsuuid: identifier) }
 }

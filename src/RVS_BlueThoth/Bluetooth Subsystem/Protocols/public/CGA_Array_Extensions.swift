@@ -28,7 +28,7 @@ import CoreBluetooth
 /**
  This allows us to fetch Peripherals in our staged Arrays, looking for an exact instance.
  */
-extension Array where Element == CGA_Bluetooth_CentralManager.DiscoveryData {
+extension Array where Element == RVS_BlueThoth.DiscoveryData {
     /* ################################################################## */
     /**
      Special subscript that allows us to retrieve an Element by its contained Peripheral (as the opaque type).

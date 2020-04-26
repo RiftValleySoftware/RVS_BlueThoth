@@ -51,7 +51,7 @@ internal protocol CGA_Bluetooth_Service_Protoco_Internal: CGA_Bluetooth_Service_
     /**
      This will contain any required scan criteria. It simply passes on the Central criteria.
      */
-    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! { get }
+    var scanCriteria: RVS_BlueThoth.ScanCriteria! { get }
     
     /* ################################################################## */
     /**

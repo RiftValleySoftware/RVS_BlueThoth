@@ -20,40 +20,73 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT
 The Great Rift Valley Software Company: https://riftvalleysoftware.com
 */
 
-import CoreBluetooth
-
 /* ###################################################################################################################################### */
-// MARK: - The Public Face of Services -
+// MARK: - *Enumerations* -
 /* ###################################################################################################################################### */
-/**
- This protocol publishes a public interface for our Service wrapper classes.
- */
-public protocol CGA_Bluetooth_Service_Protocol: class, RVS_SequenceProtocol {
+public enum CGA_Errors: Error {
     /* ################################################################## */
     /**
-     This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Peripheral
+     This indicates that a connection attempt timed out.
      */
-    var parent: CGA_Class_Protocol? { get }
+    case timeoutError(RVS_BlueThoth.DiscoveryData!)
     
     /* ################################################################## */
     /**
-     This returns a unique UUID String for the instance.
+     A generic internal error.
      */
-    var id: String { get }
-    
-    /* ################################################################## */
-    /**
-     This returns the parent Central Manager
-     */
-    var central: CGA_Bluetooth_CentralManager? { get }
+    case internalError(Error!)
 
-    // MARK: Public Methods
+    /* ################################################################## */
+    /**
+     Returns a localizable slug for the error. This does not include associated data.
+     */
+    var localizedDescription: String {
+        var ret: String = ""
+        
+        switch self {
+        case .timeoutError:
+            ret = "CGA-ERROR-TIMEOUT"
+
+        case .internalError:
+            ret = "CGA-ERROR-INTERNAL"
+        }
+        
+        return ret
+    }
     
     /* ################################################################## */
     /**
-     The required init, with a "primed" sequence.
-     
-     - parameter sequence_contents: The initial value of the Array cache.
+     Returns an Array, with Strings for any nested errors.
      */
-    init(sequence_contents: [Element])
+    var layeredDescription: [String] {
+        var ret: [String] = []
+        
+        switch self {
+        case .timeoutError:
+            ret = [localizedDescription]
+            
+        case .internalError:
+            ret = [localizedDescription]
+        }
+        
+        return ret
+    }
+
+    /* ################################################################## */
+    /**
+     This returns any associated data with the current status.
+     */
+    var associatedData: Any? {
+        var ret: Any! = nil
+        
+        switch self {
+        case .timeoutError(let value):
+            ret = value
+            
+        case .internalError(let value):
+            ret = value
+        }
+        
+        return ret
+    }
 }

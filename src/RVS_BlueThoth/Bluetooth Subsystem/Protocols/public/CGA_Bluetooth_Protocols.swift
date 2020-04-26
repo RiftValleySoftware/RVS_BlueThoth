@@ -43,7 +43,7 @@ public protocol CGA_Class_Protocol: class {
     /**
      REQUIRED: This is used to reference an "owning instance" of this instance.
      */
-    var central: CGA_Bluetooth_CentralManager? { get }
+    var central: RVS_BlueThoth? { get }
     
     /* ################################################################## */
     /**
@@ -194,7 +194,7 @@ public protocol CGA_Bluetooth_CentralManagerDelegate: class {
      
      - parameter error: The error to be handled.
      */
-    func handleError(_ error: CGA_Errors, from: CGA_Bluetooth_CentralManager)
+    func handleError(_ error: CGA_Errors, from: RVS_BlueThoth)
     
     /* ################################################################## */
     /**
@@ -203,7 +203,7 @@ public protocol CGA_Bluetooth_CentralManagerDelegate: class {
      
      - parameter centralManager: The central manager that is calling this.
      */
-    func updateFrom(_ centralManager: CGA_Bluetooth_CentralManager)
+    func updateFrom(_ centralManager: RVS_BlueThoth)
     
     /* ################################################################## */
     /**
@@ -211,7 +211,7 @@ public protocol CGA_Bluetooth_CentralManagerDelegate: class {
      
      - parameter centralManager: The central manager that is calling this.
      */
-    func centralManagerPoweredOn(_ centralManager: CGA_Bluetooth_CentralManager)
+    func centralManagerPoweredOn(_ centralManager: RVS_BlueThoth)
 
     /* ################################################################## */
     /**
@@ -220,7 +220,7 @@ public protocol CGA_Bluetooth_CentralManagerDelegate: class {
      - parameter centralManager: The central manager that is calling this.
      - parameter didConnectThisDevice: The device instance that was connected.
      */
-    func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, didConnectThisDevice: CGA_Bluetooth_Peripheral)
+    func centralManager(_ centralManager: RVS_BlueThoth, didConnectThisDevice: CGA_Bluetooth_Peripheral)
     
     /* ################################################################## */
     /**
@@ -229,7 +229,7 @@ public protocol CGA_Bluetooth_CentralManagerDelegate: class {
      - parameter centralManager: The central manager that is calling this.
      - parameter willDisconnectThisDevice: The device instance that will be removed after this call.
      */
-    func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, willDisconnectThisDevice: CGA_Bluetooth_Peripheral)
+    func centralManager(_ centralManager: RVS_BlueThoth, willDisconnectThisDevice: CGA_Bluetooth_Peripheral)
     
     /* ################################################################## */
     /**
@@ -238,7 +238,7 @@ public protocol CGA_Bluetooth_CentralManagerDelegate: class {
      - parameter centralManager: The central manager that is calling this.
      - parameter deviceInfoChanged: The device instance that was connected.
      */
-    func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, deviceInfoChanged: CGA_Bluetooth_Peripheral)
+    func centralManager(_ centralManager: RVS_BlueThoth, deviceInfoChanged: CGA_Bluetooth_Peripheral)
 
     /* ################################################################## */
     /**
@@ -248,7 +248,7 @@ public protocol CGA_Bluetooth_CentralManagerDelegate: class {
      - parameter device: The device instance that contained the changed Service.
      - parameter changedService: The Service instance that was changed.
      */
-    func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, device: CGA_Bluetooth_Peripheral, changedService: CGA_Bluetooth_Service)
+    func centralManager(_ centralManager: RVS_BlueThoth, device: CGA_Bluetooth_Peripheral, changedService: CGA_Bluetooth_Service)
     
     /* ################################################################## */
     /**
@@ -259,7 +259,7 @@ public protocol CGA_Bluetooth_CentralManagerDelegate: class {
      - parameter service: The Service instance that contained the changed Characteristic.
      - parameter changedCharacteristic: The Characteristic that was changed.
      */
-    func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, device: CGA_Bluetooth_Peripheral, service: CGA_Bluetooth_Service, changedCharacteristic: CGA_Bluetooth_Characteristic)
+    func centralManager(_ centralManager: RVS_BlueThoth, device: CGA_Bluetooth_Peripheral, service: CGA_Bluetooth_Service, changedCharacteristic: CGA_Bluetooth_Characteristic)
 
     /* ################################################################## */
     /**
@@ -271,7 +271,7 @@ public protocol CGA_Bluetooth_CentralManagerDelegate: class {
      - parameter characteristic: The Characteristic that contains the Descriptor that was changed.
      - parameter changedDescriptor: The Descriptor that was changed.
      */
-    func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, device: CGA_Bluetooth_Peripheral, service: CGA_Bluetooth_Service, characteristic: CGA_Bluetooth_Characteristic, changedDescriptor: CGA_Bluetooth_Descriptor)
+    func centralManager(_ centralManager: RVS_BlueThoth, device: CGA_Bluetooth_Peripheral, service: CGA_Bluetooth_Service, characteristic: CGA_Bluetooth_Characteristic, changedDescriptor: CGA_Bluetooth_Descriptor)
 }
 
 /* ###################################################################################################################################### */
@@ -282,53 +282,53 @@ extension CGA_Bluetooth_CentralManagerDelegate {
     /**
      The default does nothing.
      */
-    public func handleError(_: Error, from: CGA_Bluetooth_CentralManager) { }
+    public func handleError(_: Error, from: RVS_BlueThoth) { }
     
     /* ################################################################## */
     /**
      The default does nothing.
      */
-    public func updateFrom(_: CGA_Bluetooth_CentralManager) { }
+    public func updateFrom(_: RVS_BlueThoth) { }
     
     /* ################################################################## */
     /**
      The default does nothing.
      */
-    public func centralManagerPoweredOn(_: CGA_Bluetooth_CentralManager) { }
+    public func centralManagerPoweredOn(_: RVS_BlueThoth) { }
 
     /* ################################################################## */
     /**
      The default does nothing.
      */
-    public func centralManager(_: CGA_Bluetooth_CentralManager, didConnectThisDevice: CGA_Bluetooth_Peripheral) { }
+    public func centralManager(_: RVS_BlueThoth, didConnectThisDevice: CGA_Bluetooth_Peripheral) { }
     
     /* ################################################################## */
     /**
      The default does nothing.
      */
-    public func centralManager(_: CGA_Bluetooth_CentralManager, willDisconnectThisDevice: CGA_Bluetooth_Peripheral) { }
+    public func centralManager(_: RVS_BlueThoth, willDisconnectThisDevice: CGA_Bluetooth_Peripheral) { }
     
     /* ################################################################## */
     /**
      The default does nothing.
      */
-    public func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, deviceInfoChanged: CGA_Bluetooth_Peripheral) { }
+    public func centralManager(_ centralManager: RVS_BlueThoth, deviceInfoChanged: CGA_Bluetooth_Peripheral) { }
 
     /* ################################################################## */
     /**
      The default does nothing.
      */
-    public func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, device: CGA_Bluetooth_Peripheral, changedService: CGA_Bluetooth_Service) { }
+    public func centralManager(_ centralManager: RVS_BlueThoth, device: CGA_Bluetooth_Peripheral, changedService: CGA_Bluetooth_Service) { }
     
     /* ################################################################## */
     /**
      The default does nothing.
      */
-    public func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, device: CGA_Bluetooth_Peripheral, service: CGA_Bluetooth_Service, changedCharacteristic: CGA_Bluetooth_Characteristic) { }
+    public func centralManager(_ centralManager: RVS_BlueThoth, device: CGA_Bluetooth_Peripheral, service: CGA_Bluetooth_Service, changedCharacteristic: CGA_Bluetooth_Characteristic) { }
 
     /* ################################################################## */
     /**
      The default does nothing.
      */
-    public func centralManager(_ centralManager: CGA_Bluetooth_CentralManager, device: CGA_Bluetooth_Peripheral, service: CGA_Bluetooth_Service, characteristic: CGA_Bluetooth_Characteristic, changedDescriptor: CGA_Bluetooth_Descriptor) { }
+    public func centralManager(_ centralManager: RVS_BlueThoth, device: CGA_Bluetooth_Peripheral, service: CGA_Bluetooth_Service, characteristic: CGA_Bluetooth_Characteristic, changedDescriptor: CGA_Bluetooth_Descriptor) { }
 }

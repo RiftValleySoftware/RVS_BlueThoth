@@ -59,7 +59,7 @@ public class CGA_Bluetooth_Service: CGA_Bluetooth_Service_Protoco_Internal {
     /**
      This returns the parent Central Manager
      */
-    public var central: CGA_Bluetooth_CentralManager? { parent?.central }
+    public var central: RVS_BlueThoth? { parent?.central }
 
     // MARK: Public Methods
     
@@ -97,7 +97,7 @@ public class CGA_Bluetooth_Service: CGA_Bluetooth_Service_Protoco_Internal {
     /**
      This will contain any required scan criteria. It simply passes on the Central criteria.
      */
-    internal var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! { peripheral?.scanCriteria }
+    internal var scanCriteria: RVS_BlueThoth.ScanCriteria! { peripheral?.scanCriteria }
     
     /* ################################################################## */
     /**

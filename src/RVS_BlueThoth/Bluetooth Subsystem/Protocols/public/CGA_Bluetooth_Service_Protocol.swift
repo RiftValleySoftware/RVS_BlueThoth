@@ -23,39 +23,37 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
-// MARK: - The Main Wrapper Class for the Descriptors -
+// MARK: - The Public Face of Services -
 /* ###################################################################################################################################### */
 /**
- This class "wraps" instances of CBDescriptor, adding some functionality, and linking the hierarchy.
+ This protocol publishes a public interface for our Service wrapper classes.
  */
-internal protocol CGA_Bluetooth_Descriptor_Protocol_Internal: CGA_Bluetooth_Descriptor_Protocol {
+public protocol CGA_Bluetooth_Service_Protocol: class, RVS_SequenceProtocol {
     /* ################################################################## */
     /**
-     This is the UUID for the Descriptor type. It is not used for external purposes.
-     */
-    static var uuid: String { get }
-
-    /* ################################################################## */
-    /**
-     This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Characteristic
+     This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Peripheral
      */
     var parent: CGA_Class_Protocol? { get }
     
     /* ################################################################## */
     /**
-     This casts the parent as a Characteristic Wrapper.
+     This returns a unique UUID String for the instance.
      */
-    var characteristic: CGA_Bluetooth_Characteristic! { get }
-    
-    /* ################################################################## */
-    /**
-     This will contain any required scan criteria. It simply passes on the Central criteria.
-     */
-    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! { get }
+    var id: String { get }
     
     /* ################################################################## */
     /**
      This returns the parent Central Manager
      */
-    var central: CGA_Bluetooth_CentralManager? { get }
+    var central: RVS_BlueThoth? { get }
+
+    // MARK: Public Methods
+    
+    /* ################################################################## */
+    /**
+     The required init, with a "primed" sequence.
+     
+     - parameter sequence_contents: The initial value of the Array cache.
+     */
+    init(sequence_contents: [Element])
 }

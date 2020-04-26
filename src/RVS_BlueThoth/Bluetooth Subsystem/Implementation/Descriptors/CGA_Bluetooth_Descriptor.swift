@@ -108,13 +108,13 @@ public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Interna
     /**
      This will contain any required scan criteria. It simply passes on the Central criteria.
      */
-    internal var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! { characteristic?.scanCriteria }
+    internal var scanCriteria: RVS_BlueThoth.ScanCriteria! { characteristic?.scanCriteria }
     
     /* ################################################################## */
     /**
      This returns the parent Central Manager
      */
-    internal var central: CGA_Bluetooth_CentralManager? { parent?.central }
+    internal var central: RVS_BlueThoth? { parent?.central }
     
     /* ################################################################## */
     /**

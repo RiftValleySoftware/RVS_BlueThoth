@@ -182,5 +182,5 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
      This is the scan criteria object to be used for filtering scans.
      It is provided in the struct required by the Bluetooth subsystem.
      */
-    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! { CGA_Bluetooth_CentralManager.ScanCriteria(peripherals: peripheralFilterIDArray, services: serviceFilterIDArray, characteristics: characteristicFilterIDArray) }
+    var scanCriteria: RVS_BlueThoth.ScanCriteria! { RVS_BlueThoth.ScanCriteria(peripherals: peripheralFilterIDArray, services: serviceFilterIDArray, characteristics: characteristicFilterIDArray) }
 }

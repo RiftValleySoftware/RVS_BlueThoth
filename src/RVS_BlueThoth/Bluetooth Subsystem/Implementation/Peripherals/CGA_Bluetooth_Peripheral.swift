@@ -139,13 +139,13 @@ public class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
     /**
      This holds the discovery data that applies to this instance.
      */
-    public var discoveryData: CGA_Bluetooth_CentralManager.DiscoveryData!
+    public var discoveryData: RVS_BlueThoth.DiscoveryData!
 
     /* ################################################################## */
     /**
      This returns the parent Central Manager
      */
-    public var central: CGA_Bluetooth_CentralManager? { parent?.central }
+    public var central: RVS_BlueThoth? { parent?.central }
 
     /* ############################################################## */
     /**
@@ -164,7 +164,7 @@ public class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
     /**
      This will contain any required scan criteria. It simply passes on the Central criteria.
      */
-    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! { central?.scanCriteria }
+    var scanCriteria: RVS_BlueThoth.ScanCriteria! { central?.scanCriteria }
     
     /* ################################################################## */
     /**
@@ -196,7 +196,7 @@ extension CGA_Bluetooth_Peripheral {
      - parameter services: An optional parameter that is an Array, holding the String UUIDs of Services we are filtering for.
                            If left out, all available Services are found. If specified, this overrides the scanCriteria.
      */
-    convenience init(discoveryData inCBPeriperalDiscoveryData: CGA_Bluetooth_CentralManager.DiscoveryData, services inServices: [String] = []) {
+    convenience init(discoveryData inCBPeriperalDiscoveryData: RVS_BlueThoth.DiscoveryData, services inServices: [String] = []) {
         self.init(sequence_contents: [])
         discoveryData = inCBPeriperalDiscoveryData
         parent = discoveryData?.central
