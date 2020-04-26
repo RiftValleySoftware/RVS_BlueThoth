@@ -23,33 +23,37 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
-// MARK: - The Wrapper Class for the Client Characteristic Configuration Descriptor -
+// MARK: - The Public Face of Services -
 /* ###################################################################################################################################### */
 /**
- This class "wraps" instances of The Client Characteristic Configuration CBDescriptor, adding some functionality, and linking the hierarchy.
+ This protocol publishes a public interface for our Service wrapper classes.
  */
-public class CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration: CGA_Bluetooth_Descriptor {
+public protocol CGA_Bluetooth_Service_Protocol: class, RVS_SequenceProtocol {
     /* ################################################################## */
     /**
-     - returns: True, if the Characteristic is currently notifying.
+     This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Peripheral
      */
-    public var isNotifying: Bool {
-        guard let value = cbElementInstance.value as? Int8 else { return false }
-        return 1 == value & 0x01
-    }
+    var parent: CGA_Class_Protocol? { get }
     
     /* ################################################################## */
     /**
-     - returns: True, if the Characteristic is currently indicating.
+     This returns a unique UUID String for the instance.
      */
-    public var isIndicating: Bool {
-        guard let value = cbElementInstance.value as? Int8 else { return false }
-        return 2 == value & 0x02
-    }
+    var id: String { get }
     
     /* ################################################################## */
     /**
-     This is the UUID for the Client Characteristic Configuration Descriptor.
+     This returns the parent Central Manager
      */
-    internal class override var uuid: String { "2902" }
+    var central: CGA_Bluetooth_CentralManager? { get }
+
+    // MARK: Public Methods
+    
+    /* ################################################################## */
+    /**
+     The required init, with a "primed" sequence.
+     
+     - parameter sequence_contents: The initial value of the Array cache.
+     */
+    init(sequence_contents: [Element])
 }

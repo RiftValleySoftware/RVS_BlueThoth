@@ -33,5 +33,5 @@ public class CGA_Bluetooth_Characteristic_HardwareRevision: CGA_Bluetooth_Charac
     /**
      This returns a unique GATT UUID String for the Characteristic.
      */
-    public class override var uuid: String { "2A27" }
+    internal class override var uuid: String { "2A27" }
 }

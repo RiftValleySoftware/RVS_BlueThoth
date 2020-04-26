@@ -45,5 +45,5 @@ public class CGA_Bluetooth_Service_DeviceInfo: CGA_Bluetooth_Service {
     /**
      This returns a unique GATT UUID String for the Service.
      */
-    class var cbUUIDString: String { "180A" }
+    internal class override var uuid: String { "180A" }
 }

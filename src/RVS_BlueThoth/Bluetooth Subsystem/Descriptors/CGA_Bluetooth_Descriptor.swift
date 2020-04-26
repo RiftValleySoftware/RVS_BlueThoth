@@ -28,36 +28,14 @@ import CoreBluetooth
 /**
  This class "wraps" instances of CBDescriptor, adding some functionality, and linking the hierarchy.
  */
-public class CGA_Bluetooth_Descriptor {
-    /* ################################################################## */
-    /**
-     Root class does nothing.
-     */
-    public class var uuid: String { "" }
-
-    /* ################################################################## */
-    /**
-     This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Characteristic
-     */
-    weak var parent: CGA_Class_Protocol?
+public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Internal {
+    // MARK: Public Properties
     
     /* ################################################################## */
     /**
-     This holds the instance of CBDescriptor that is used by this instance.
+     If the Descriptor has a value, it is returned here. It is completely untyped, as each descriptor has its own types.
      */
-    weak var cbElementInstance: CBDescriptor!
-    
-    /* ################################################################## */
-    /**
-     This casts the parent as a Characteristic Wrapper.
-     */
-    var characteristic: CGA_Bluetooth_Characteristic! { parent as? CGA_Bluetooth_Characteristic }
-    
-    /* ################################################################## */
-    /**
-     This will contain any required scan criteria. It simply passes on the Central criteria.
-     */
-    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! { characteristic?.scanCriteria }
+    public var value: Any? { cbElementInstance?.value }
     
     /* ################################################################## */
     /**
@@ -67,27 +45,12 @@ public class CGA_Bluetooth_Descriptor {
     
     /* ################################################################## */
     /**
-     This returns the parent Central Manager
+     This holds the instance of CBDescriptor that is used by this instance.
      */
-    var central: CGA_Bluetooth_CentralManager? { parent?.central }
+    public weak var cbElementInstance: CBDescriptor!
     
-    /* ################################################################## */
-    /**
-     If the Descriptor has a value, it is returned here. It is completely untyped, as each descriptor has its own types.
-     */
-    var value: Any? { cbElementInstance?.value }
+    // MARK: Public Methods
     
-    /* ################################################################## */
-    /**
-     Required init. Doesn't do anything, but we have to have it for the factory.
-     */
-    required init() { }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - Instance Methods -
-/* ###################################################################################################################################### */
-extension CGA_Bluetooth_Descriptor {
     /* ################################################################## */
     /**
      The Peripheral is asked to read our value.
@@ -120,6 +83,44 @@ extension CGA_Bluetooth_Descriptor {
 //            peripheral.writeValue(inData, for: cbElementInstance)
 //        }
 //    }
+
+    // MARK: Internal Properties
+    
+    /* ################################################################## */
+    /**
+     Root class does nothing.
+     */
+    internal class var uuid: String { "" }
+
+    /* ################################################################## */
+    /**
+     This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Characteristic
+     */
+    internal weak var parent: CGA_Class_Protocol?
+    
+    /* ################################################################## */
+    /**
+     This casts the parent as a Characteristic Wrapper.
+     */
+    internal var characteristic: CGA_Bluetooth_Characteristic! { parent as? CGA_Bluetooth_Characteristic }
+    
+    /* ################################################################## */
+    /**
+     This will contain any required scan criteria. It simply passes on the Central criteria.
+     */
+    internal var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! { characteristic?.scanCriteria }
+    
+    /* ################################################################## */
+    /**
+     This returns the parent Central Manager
+     */
+    internal var central: CGA_Bluetooth_CentralManager? { parent?.central }
+    
+    /* ################################################################## */
+    /**
+     Required init. Doesn't do anything, but we have to have it for the factory.
+     */
+    internal required init() { }
 }
 
 /* ###################################################################################################################################### */
@@ -134,7 +135,7 @@ extension CGA_Bluetooth_Descriptor: CGA_DescriptorFactory {
      - parameter cbElementInstance: The CB element for this Service.
      - returns: A new instance of CGA_Bluetooth_Descriptor, or a subclass, thereof. Nil, if it fails.
      */
-    class func createInstance(parent inParent: CGA_Bluetooth_Characteristic, cbElementInstance inCBDescriptor: CBDescriptor) -> CGA_Bluetooth_Descriptor? {
+    internal class func createInstance(parent inParent: CGA_Bluetooth_Characteristic, cbElementInstance inCBDescriptor: CBDescriptor) -> CGA_Bluetooth_Descriptor? {
         let ret = Self()
         ret.parent = inParent
         ret.cbElementInstance = inCBDescriptor

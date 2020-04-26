@@ -564,7 +564,7 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             #endif
             central?.reportError(.internalError(error))
         } else if   let characteristic = sequence_contents.characteristic(inDescriptor.characteristic),
-                    let descriptor = characteristic.sequence_contents[inDescriptor] {
+                    let descriptor = characteristic.sequence_contents[inDescriptor] as? CGA_Bluetooth_Descriptor {
             central?.updateThisDescriptor(descriptor)
         } else {
             #if DEBUG

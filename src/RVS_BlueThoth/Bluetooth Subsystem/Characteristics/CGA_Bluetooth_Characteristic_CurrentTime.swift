@@ -33,7 +33,7 @@ public class CGA_Bluetooth_Characteristic_CurrentTime: CGA_Bluetooth_Characteris
     /**
      - returns: the current time, as a Date instance, or nil.
      */
-    var currentTime: Date? {
+    public var currentTime: Date? {
         var year: UInt16 = 0
         var month: UInt8 = 0
         var day: UInt8 = 0
@@ -61,7 +61,7 @@ public class CGA_Bluetooth_Characteristic_CurrentTime: CGA_Bluetooth_Characteris
     /**
      - returns: the date, as a standard UNIX epoch offset in seconds, or nil
      */
-    var timeSinceUNIXEpochInSeconds: TimeInterval? { currentTime?.timeIntervalSinceReferenceDate }
+    public var timeSinceUNIXEpochInSeconds: TimeInterval? { currentTime?.timeIntervalSinceReferenceDate }
     
     /* ################################################################## */
     /**

@@ -50,5 +50,5 @@ public class CGA_Bluetooth_Service_CurrentTime: CGA_Bluetooth_Service {
     /**
      This returns a unique GATT UUID String for the Service.
      */
-    class var cbUUIDString: String { "1805" }
+    internal class override var uuid: String { "1805" }
 }

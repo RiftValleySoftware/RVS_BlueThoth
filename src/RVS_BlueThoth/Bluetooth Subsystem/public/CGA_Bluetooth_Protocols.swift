@@ -206,6 +206,12 @@ extension CGA_Class_Protocol_UpdateService {
 public protocol CGA_Class_Protocol_UpdateCharacteristic: CGA_Class_Protocol {
     /* ################################################################## */
     /**
+     This eliminates all of the stored data.
+     */
+    func clear()
+    
+    /* ################################################################## */
+    /**
      This is called to inform an instance that a Characteristic downstream changed.
      
      - parameter characteristic: The Characteristic wrapper instance that changed.
@@ -778,7 +784,7 @@ extension Array where Element == CGA_Bluetooth_Characteristic {
 /**
  This allows us to fetch Descriptors, looking for an exact instance.
  */
-extension Array where Element == CGA_Bluetooth_Descriptor {
+extension Array where Element == CGA_Bluetooth_Descriptor_Protocol {
     /* ################################################################## */
     /**
      Special subscript that allows us to retrieve an Element by its UUID
@@ -848,4 +854,100 @@ public extension Data {
         
         return len
     }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Special Comparator for the Services Array -
+/* ###################################################################################################################################### */
+/**
+ This allows us to fetch Services, looking for an exact instance.
+ */
+extension Array where Element == CGA_Bluetooth_Service {
+    /* ################################################################## */
+    /**
+     Special subscript that allows us to retrieve an Element by its contained Service
+     
+     - parameter inItem: The CBService we're looking to match.
+     - returns: The found Element, or nil, if not found.
+     */
+    subscript(_ inItem: CBService) -> Element! {
+        return reduce(nil) { (current, nextItem) in
+            if  nil == current {
+                if nextItem === inItem {
+                    return nextItem
+                } else if nextItem.cbElementInstance.uuid == inItem.uuid {
+                    return nextItem
+                }
+                    
+                return nil
+            }
+            
+            return current
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This subscript goes through our Services, looking for the one that "owns" the proferred Characteristic.
+     
+     - parameter inItem: The CBCharacteristic that the Service will aggregate.
+     - returns: The found Element, or nil, if not found.
+     */
+    subscript(_ inItem: CBCharacteristic) -> Element! {
+        return reduce(nil) { (current, nextItem) in
+            if  nil == current {
+                return (nil != nextItem.cbElementInstance?.characteristics?[inItem]) ? nextItem : nil
+            }
+            
+            return current
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This method goes through the Services, looking for the one that "owns" the proferred Characteristic, and then returning the "wrapper" for the Characteristic.
+     
+     - parameter inItem: The CBCharacteristic that the Service will aggregate.
+     - returns: The found Element, or nil, if not found.
+     */
+    func characteristic(_ inItem: CBCharacteristic) -> CGA_Bluetooth_Characteristic! {
+        guard let service: CGA_Bluetooth_Service = self[inItem] else { return nil }
+        
+        return service.sequence_contents[inItem]
+    }
+
+    /* ################################################################## */
+    /**
+     Removes the element (as a CBService).
+     
+     - parameter inItem: The CB element we're looking to remove.
+     - returns: True, if the item was found and removed. Can be ignored.
+     */
+    @discardableResult
+    mutating func removeThisService(_ inItem: CBService) -> Bool {
+        var success = false
+        removeAll { (test) -> Bool in
+            guard let testService = test.cbElementInstance else { return false }
+            if testService === inItem {
+                success = true
+                return true
+            } else if testService.uuid.uuidString == inItem.uuid.uuidString {
+                success = true
+                return true
+            }
+            
+            return false
+        }
+        
+        return success
+    }
+
+    /* ################################################################## */
+    /**
+     Checks to see if the Array contains an instance that wraps the given CB element.
+     
+     - parameter inItem: The CB element we're looking to match.
+     - returns: True, if the Array contains a wrapper for the given element.
+     */
+    func contains(_ inItem: CBService) -> Bool { nil != self[inItem] }
 }

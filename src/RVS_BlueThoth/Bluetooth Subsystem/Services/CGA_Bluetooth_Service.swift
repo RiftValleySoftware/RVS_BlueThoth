@@ -28,30 +28,14 @@ import CoreBluetooth
 /**
  This class "wraps" instances of CBService, adding some functionality, and linking the hierarchy.
  */
-public class CGA_Bluetooth_Service: RVS_SequenceProtocol {
+public class CGA_Bluetooth_Service: CGA_Bluetooth_Service_Protoco_Internal {
+    // MARK: Public Properties
+    
     /* ################################################################## */
     /**
      This is the type we're aggregating.
      */
     public typealias Element = CGA_Bluetooth_Characteristic
-    
-    /* ################################################################## */
-    /**
-     Root class does nothing.
-     */
-    public class var uuid: String { "" }
-
-    /* ################################################################## */
-    /**
-     This holds a list of UUIDs, holding the IDs of Characteristics we are looking for. It is initialized when the class is instantiated.
-     */
-    private var _discoveryFilter: [CBUUID] = []
-
-    /* ################################################################## */
-    /**
-     This is a "preview cache." It will aggregate instances of Characteristic wrappers that are still in discovery.
-     */
-    var stagedCharacteristics: Array<Element> = []
     
     /* ################################################################## */
     /**
@@ -64,24 +48,6 @@ public class CGA_Bluetooth_Service: RVS_SequenceProtocol {
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Peripheral
      */
     public weak var parent: CGA_Class_Protocol?
-
-    /* ################################################################## */
-    /**
-     This holds the instance of CBService that is used by this instance.
-     */
-    weak var cbElementInstance: CBService!
-    
-    /* ################################################################## */
-    /**
-     This casts the parent as a Peripheral Wrapper.
-     */
-    var peripheral: CGA_Bluetooth_Peripheral! { parent as? CGA_Bluetooth_Peripheral }
-    
-    /* ################################################################## */
-    /**
-     This will contain any required scan criteria. It simply passes on the Central criteria.
-     */
-    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! { peripheral?.scanCriteria }
     
     /* ################################################################## */
     /**
@@ -95,6 +61,8 @@ public class CGA_Bluetooth_Service: RVS_SequenceProtocol {
      */
     public var central: CGA_Bluetooth_CentralManager? { parent?.central }
 
+    // MARK: Public Methods
+    
     /* ################################################################## */
     /**
      The required init, with a "primed" sequence.
@@ -104,6 +72,59 @@ public class CGA_Bluetooth_Service: RVS_SequenceProtocol {
     public required init(sequence_contents inSequence_Contents: [Element]) {
         sequence_contents = inSequence_Contents
     }
+    
+    // MARK: Internal Properties
+    
+    /* ################################################################## */
+    /**
+     Root class does nothing.
+     */
+    internal class var uuid: String { "" }
+
+    /* ################################################################## */
+    /**
+     This holds the instance of CBService that is used by this instance.
+     */
+    internal weak var cbElementInstance: CBService!
+    
+    /* ################################################################## */
+    /**
+     This casts the parent as a Peripheral Wrapper.
+     */
+    internal var peripheral: CGA_Bluetooth_Peripheral! { parent as? CGA_Bluetooth_Peripheral }
+    
+    /* ################################################################## */
+    /**
+     This will contain any required scan criteria. It simply passes on the Central criteria.
+     */
+    internal var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! { peripheral?.scanCriteria }
+    
+    /* ################################################################## */
+    /**
+     This is a "preview cache." It will aggregate instances of Characteristic wrappers that are still in discovery.
+     */
+    internal var stagedCharacteristics: Array<Element> = []
+
+    /* ################################################################## */
+    /**
+     This is the init that should always be used.
+     
+     - parameter parent: The Service instance that "owns" this instance.
+     - parameter cbElementInstance: This is the actual CBService instance to be associated with this instance.
+     */
+    internal required convenience init(parent inParent: CGA_Bluetooth_Peripheral, cbElementInstance inCBService: CBService) {
+        self.init(sequence_contents: [])
+        parent = inParent
+        cbElementInstance = inCBService
+    }
+    
+    // MARK: Private Properties
+    
+    /* ################################################################## */
+    /**
+     This holds a list of UUIDs, holding the IDs of Characteristics we are looking for. It is initialized when the class is instantiated.
+     */
+    private var _discoveryFilter: [CBUUID] = []
 }
 
 /* ###################################################################################################################################### */
@@ -112,25 +133,12 @@ public class CGA_Bluetooth_Service: RVS_SequenceProtocol {
 extension CGA_Bluetooth_Service {
     /* ################################################################## */
     /**
-     This is the init that should always be used.
-     
-     - parameter parent: The Service instance that "owns" this instance.
-     - parameter cbElementInstance: This is the actual CBService instance to be associated with this instance.
-     */
-    convenience init(parent inParent: CGA_Bluetooth_Peripheral, cbElementInstance inCBService: CBService) {
-        self.init(sequence_contents: [])
-        parent = inParent
-        cbElementInstance = inCBService
-    }
-    
-    /* ################################################################## */
-    /**
      Called to tell the instance to discover its characteristics.
      
      - parameter characteristics: An optional parameter that is an Array, holding the String UUIDs of Characteristics we are filtering for.
                                   If left out, all available Characteristics are found. If specified, this overrides the scanCriteria.
      */
-    func discoverCharacteristics(characteristics inCharacteristics: [String] = []) {
+    internal func discoverCharacteristics(characteristics inCharacteristics: [String] = []) {
         _discoveryFilter = inCharacteristics.compactMap { CBUUID(string: $0) }
 
         if _discoveryFilter.isEmpty {
@@ -147,7 +155,7 @@ extension CGA_Bluetooth_Service {
      
      - parameter inCharacteristics: The discovered Core Bluetooth Characteristics.
      */
-    func discoveredCharacteristics(_ inCharacteristics: [CBCharacteristic]) {
+    internal func discoveredCharacteristics(_ inCharacteristics: [CBCharacteristic]) {
         #if DEBUG
             print("Staging These Characteristics: \(inCharacteristics.map { $0.uuid.uuidString }.joined(separator: ", ")) for the \(self) Service.")
         #endif
@@ -173,7 +181,7 @@ extension CGA_Bluetooth_Service {
      
      - parameter inCharacteristic: The Characteristic to add.
      */
-    func addCharacteristic(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
+    internal func addCharacteristic(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
         if let characteristic = inCharacteristic.cbElementInstance {
             if stagedCharacteristics.contains(characteristic) {
                 #if DEBUG
@@ -202,7 +210,12 @@ extension CGA_Bluetooth_Service {
             central?.reportError(.internalError(nil))
         }
     }
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: - CGA_Class_UpdateDescriptor Conformance -
+/* ###################################################################################################################################### */
+extension CGA_Bluetooth_Service: CGA_Class_Protocol_UpdateDescriptor {
     /* ################################################################## */
     /**
      This eliminates all of the stored and staged results.
@@ -215,12 +228,7 @@ extension CGA_Bluetooth_Service {
         stagedCharacteristics = []
         sequence_contents = []
     }
-}
 
-/* ###################################################################################################################################### */
-// MARK: - CGA_Class_UpdateDescriptor Conformance -
-/* ###################################################################################################################################### */
-extension CGA_Bluetooth_Service: CGA_Class_Protocol_UpdateDescriptor {
     /* ################################################################## */
     /**
      This eliminates all of the stored results, and asks the Bluetooth subsystem to start over from scratch.
@@ -262,107 +270,11 @@ extension CGA_Bluetooth_Service: CGA_ServiceFactory {
      - parameter cbElementInstance: The CB element for this Service.
      - returns: A new instance of CGA_Bluetooth_Service, or a subclass, thereof. Nil, if it fails.
      */
-    class func createInstance(parent inParent: CGA_Bluetooth_Peripheral, cbElementInstance inCBService: CBService) -> CGA_Bluetooth_Service? {
+    internal class func createInstance(parent inParent: CGA_Bluetooth_Peripheral, cbElementInstance inCBService: CBService) -> CGA_Bluetooth_Service? {
         let ret = Self.init(sequence_contents: [])
         ret.parent = inParent
         ret.cbElementInstance = inCBService
         
         return ret
     }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - Special Comparator for the Services Array -
-/* ###################################################################################################################################### */
-/**
- This allows us to fetch Services, looking for an exact instance.
- */
-extension Array where Element == CGA_Bluetooth_Service {
-    /* ################################################################## */
-    /**
-     Special subscript that allows us to retrieve an Element by its contained Service
-     
-     - parameter inItem: The CBService we're looking to match.
-     - returns: The found Element, or nil, if not found.
-     */
-    subscript(_ inItem: CBService) -> Element! {
-        return reduce(nil) { (current, nextItem) in
-            if  nil == current {
-                if nextItem === inItem {
-                    return nextItem
-                } else if nextItem.cbElementInstance.uuid == inItem.uuid {
-                    return nextItem
-                }
-                    
-                return nil
-            }
-            
-            return current
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     This subscript goes through our Services, looking for the one that "owns" the proferred Characteristic.
-     
-     - parameter inItem: The CBCharacteristic that the Service will aggregate.
-     - returns: The found Element, or nil, if not found.
-     */
-    subscript(_ inItem: CBCharacteristic) -> Element! {
-        return reduce(nil) { (current, nextItem) in
-            if  nil == current {
-                return (nil != nextItem.cbElementInstance?.characteristics?[inItem]) ? nextItem : nil
-            }
-            
-            return current
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     This method goes through the Services, looking for the one that "owns" the proferred Characteristic, and then returning the "wrapper" for the Characteristic.
-     
-     - parameter inItem: The CBCharacteristic that the Service will aggregate.
-     - returns: The found Element, or nil, if not found.
-     */
-    func characteristic(_ inItem: CBCharacteristic) -> CGA_Bluetooth_Characteristic! {
-        guard let service: CGA_Bluetooth_Service = self[inItem] else { return nil }
-        
-        return service.sequence_contents[inItem]
-    }
-
-    /* ################################################################## */
-    /**
-     Removes the element (as a CBService).
-     
-     - parameter inItem: The CB element we're looking to remove.
-     - returns: True, if the item was found and removed. Can be ignored.
-     */
-    @discardableResult
-    mutating func removeThisService(_ inItem: CBService) -> Bool {
-        var success = false
-        removeAll { (test) -> Bool in
-            guard let testService = test.cbElementInstance else { return false }
-            if testService === inItem {
-                success = true
-                return true
-            } else if testService.uuid.uuidString == inItem.uuid.uuidString {
-                success = true
-                return true
-            }
-            
-            return false
-        }
-        
-        return success
-    }
-
-    /* ################################################################## */
-    /**
-     Checks to see if the Array contains an instance that wraps the given CB element.
-     
-     - parameter inItem: The CB element we're looking to match.
-     - returns: True, if the Array contains a wrapper for the given element.
-     */
-    func contains(_ inItem: CBService) -> Bool { nil != self[inItem] }
 }

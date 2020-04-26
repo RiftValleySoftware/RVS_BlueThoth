@@ -23,33 +23,33 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
-// MARK: - The Wrapper Class for the Client Characteristic Configuration Descriptor -
+// MARK: - The Public Face of Descriptors -
 /* ###################################################################################################################################### */
 /**
- This class "wraps" instances of The Client Characteristic Configuration CBDescriptor, adding some functionality, and linking the hierarchy.
+ This protocol publishes a public interface for our Descriptor wrapper classes.
  */
-public class CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration: CGA_Bluetooth_Descriptor {
+public protocol CGA_Bluetooth_Descriptor_Protocol: class {
     /* ################################################################## */
     /**
-     - returns: True, if the Characteristic is currently notifying.
+     This returns a unique UUID String for the instance.
      */
-    public var isNotifying: Bool {
-        guard let value = cbElementInstance.value as? Int8 else { return false }
-        return 1 == value & 0x01
-    }
+    var id: String { get }
     
     /* ################################################################## */
     /**
-     - returns: True, if the Characteristic is currently indicating.
+     If the Descriptor has a value, it is returned here. It is completely untyped, as each descriptor has its own types.
      */
-    public var isIndicating: Bool {
-        guard let value = cbElementInstance.value as? Int8 else { return false }
-        return 2 == value & 0x02
-    }
+    var value: Any? { get }
     
     /* ################################################################## */
     /**
-     This is the UUID for the Client Characteristic Configuration Descriptor.
+     This holds the instance of CBDescriptor that is used by this instance.
      */
-    internal class override var uuid: String { "2902" }
+    var cbElementInstance: CBDescriptor! { get }
+
+    /* ################################################################## */
+    /**
+     The Peripheral is asked to read our value.
+     */
+    func readValue()
 }

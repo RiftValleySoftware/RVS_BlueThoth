@@ -23,33 +23,39 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
-// MARK: - The Wrapper Class for the Client Characteristic Configuration Descriptor -
+// MARK: - The Main Wrapper Class for the Descriptors -
 /* ###################################################################################################################################### */
 /**
- This class "wraps" instances of The Client Characteristic Configuration CBDescriptor, adding some functionality, and linking the hierarchy.
+ This class "wraps" instances of CBDescriptor, adding some functionality, and linking the hierarchy.
  */
-public class CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration: CGA_Bluetooth_Descriptor {
+internal protocol CGA_Bluetooth_Descriptor_Protocol_Internal: CGA_Bluetooth_Descriptor_Protocol {
     /* ################################################################## */
     /**
-     - returns: True, if the Characteristic is currently notifying.
+     This is the UUID for the Descriptor type. It is not used for external purposes.
      */
-    public var isNotifying: Bool {
-        guard let value = cbElementInstance.value as? Int8 else { return false }
-        return 1 == value & 0x01
-    }
+    static var uuid: String { get }
+
+    /* ################################################################## */
+    /**
+     This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Characteristic
+     */
+    var parent: CGA_Class_Protocol? { get }
     
     /* ################################################################## */
     /**
-     - returns: True, if the Characteristic is currently indicating.
+     This casts the parent as a Characteristic Wrapper.
      */
-    public var isIndicating: Bool {
-        guard let value = cbElementInstance.value as? Int8 else { return false }
-        return 2 == value & 0x02
-    }
+    var characteristic: CGA_Bluetooth_Characteristic! { get }
     
     /* ################################################################## */
     /**
-     This is the UUID for the Client Characteristic Configuration Descriptor.
+     This will contain any required scan criteria. It simply passes on the Central criteria.
      */
-    internal class override var uuid: String { "2902" }
+    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! { get }
+    
+    /* ################################################################## */
+    /**
+     This returns the parent Central Manager
+     */
+    var central: CGA_Bluetooth_CentralManager? { get }
 }

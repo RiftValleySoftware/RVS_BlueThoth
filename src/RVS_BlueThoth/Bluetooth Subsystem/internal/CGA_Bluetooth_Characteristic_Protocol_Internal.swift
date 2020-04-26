@@ -23,33 +23,44 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 import CoreBluetooth
 
 /* ###################################################################################################################################### */
-// MARK: - The Wrapper Class for the Client Characteristic Configuration Descriptor -
+// MARK: - The Internal Face of Characteristics -
 /* ###################################################################################################################################### */
 /**
- This class "wraps" instances of The Client Characteristic Configuration CBDescriptor, adding some functionality, and linking the hierarchy.
+ This protocol publishes an internal interface for our Characteristic wrapper classes.
  */
-public class CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration: CGA_Bluetooth_Descriptor {
+internal protocol CGA_Bluetooth_Characteristic_Protocol_Internal: CGA_Bluetooth_Characteristic_Protocol {
     /* ################################################################## */
     /**
-     - returns: True, if the Characteristic is currently notifying.
+     This is the UUID for the Characteristic type. It is not used for external purposes.
      */
-    public var isNotifying: Bool {
-        guard let value = cbElementInstance.value as? Int8 else { return false }
-        return 1 == value & 0x01
-    }
+    static var uuid: String { get }
     
     /* ################################################################## */
     /**
-     - returns: True, if the Characteristic is currently indicating.
+     This casts the parent as a Service Wrapper.
      */
-    public var isIndicating: Bool {
-        guard let value = cbElementInstance.value as? Int8 else { return false }
-        return 2 == value & 0x02
-    }
-    
+    var service: CGA_Bluetooth_Service! { get }
+        
     /* ################################################################## */
     /**
-     This is the UUID for the Client Characteristic Configuration Descriptor.
+     This will contain any required scan criteria. It simply passes on the Central criteria.
      */
-    internal class override var uuid: String { "2902" }
+    var scanCriteria: CGA_Bluetooth_CentralManager.ScanCriteria! { get }
+
+    /* ################################################################## */
+    /**
+     This is a convenience init that should always be used.
+     
+     - parameter parent: The Service instance that "owns" this instance.
+     - parameter cbElementInstance: This is the actual CBharacteristic instance to be associated with this instance.
+     */
+    init(parent: CGA_Bluetooth_Service, cbElementInstance: CBCharacteristic)
+
+    /* ################################################################## */
+    /**
+     Called to add a Descriptor to our main Array.
+     
+     - parameter inDescriptor: The Descriptor to add.
+     */
+    func addDescriptor(_ inDescriptor: CGA_Bluetooth_Descriptor)
 }

@@ -33,7 +33,7 @@ public class CGA_Bluetooth_Characteristic_SystemID: CGA_Bluetooth_Characteristic
     /**
      - returns: The 40-bit Manufacturer ID
      */
-    var manufacturerID: UInt64? {
+    public var manufacturerID: UInt64? {
         var id = UInt64(0)
         guard var data = value else { return nil }
         data.castInto(&id)
@@ -47,7 +47,7 @@ public class CGA_Bluetooth_Characteristic_SystemID: CGA_Bluetooth_Characteristic
     /**
      - returns: The 24-bit Organizationally Unique ID
      */
-    var ouID: UInt32? {
+    public var ouID: UInt32? {
         var id = UInt64(0)
         guard var data = value else { return nil }
         data.castInto(&id)
