@@ -165,19 +165,6 @@ public class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
         
         /* ############################################################## */
         /**
-         The actual Peripheral instance. This is a strong reference.
-         This will retain the allocation for the Peripheral, so it is a strong reference.
-         */
-        var peripheral: Any
-        
-        /* ############################################################## */
-        /**
-         The Central manager that "owns" this discovered device. This is a weak reference.
-         */
-        weak var central: CGA_Bluetooth_CentralManager?
-        
-        /* ############################################################## */
-        /**
          This is the peripheral wrapper that is instantiated when the device is connected. It is nil, if the device is not connected. It is a strong reference.
          */
         public var peripheralInstance: CGA_Bluetooth_Peripheral? {
@@ -218,12 +205,6 @@ public class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
         
         /* ############################################################## */
         /**
-         The actual Peripheral instance, cast as CBPeripheral.
-         */
-        var cbPeripheral: CBPeripheral! { peripheral as? CBPeripheral }
-        
-        /* ############################################################## */
-        /**
          Returns the ID UUID as a String.
          */
         public var identifier: String { cbPeripheral?.identifier.uuidString ?? "" }
@@ -234,34 +215,6 @@ public class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
          */
         public var isConnected: Bool { .connected == cbPeripheral?.state }
         
-        /* ################################################################## */
-        /**
-         Calling this starts the timeout clock.
-         */
-        private func _startTimeout() {
-            #if DEBUG
-                print("Starting Timeout.")
-            #endif
-            clear() // Just to be sure...
-            _timer = Timer.scheduledTimer(withTimeInterval: static_timeoutInSeconds, repeats: false, block: timeout(_:))
-        }
-        
-        /* ################################################################## */
-        /**
-         This stops the timeout clock, invalidates the timer, and clears the Timer instance.
-         */
-        private func _cancelTimeout() {
-            #if DEBUG
-                if let fireDate = _timer?.fireDate {
-                    print("Ending Timeout after \(static_timeoutInSeconds - fireDate.timeIntervalSinceNow) Seconds.")
-                } else {
-                    print("No timer.")
-                }
-            #endif
-            _timer?.invalidate()
-            _timer = nil
-        }
-
         /* ############################################################## */
         /**
          This asks the Central Manager to ignore this device.
@@ -336,6 +289,25 @@ public class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
         public func clear() {
             _cancelTimeout()
         }
+
+        /* ############################################################## */
+        /**
+         The actual Peripheral instance. This is a strong reference.
+         This will retain the allocation for the Peripheral, so it is a strong reference.
+         */
+        internal var peripheral: Any
+        
+        /* ############################################################## */
+        /**
+         The Central manager that "owns" this discovered device. This is a weak reference.
+         */
+        internal weak var central: CGA_Bluetooth_CentralManager?
+
+        /* ############################################################## */
+        /**
+         The actual Peripheral instance, cast as CBPeripheral.
+         */
+        internal var cbPeripheral: CBPeripheral! { peripheral as? CBPeripheral }
         
         /* ################################################################## */
         /**
@@ -344,7 +316,7 @@ public class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
          
          - parameter inTimer: The timer instance that fired.
          */
-        @objc func timeout(_ inTimer: Timer) {
+        @objc internal func timeout(_ inTimer: Timer) {
             #if DEBUG
                 print("ERROR! Timeout.")
             #endif
@@ -362,7 +334,7 @@ public class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
             - advertisementData: The advertisement data of the discovered Peripheral.
             - rssi: The signal strength, in dBm.
          */
-        init(central inCentralManager: CGA_Bluetooth_CentralManager, peripheral inPeripheral: CBPeripheral, advertisementData inAdvertisementData: [String: Any], rssi inRSSI: Int) {
+        internal init(central inCentralManager: CGA_Bluetooth_CentralManager, peripheral inPeripheral: CBPeripheral, advertisementData inAdvertisementData: [String: Any], rssi inRSSI: Int) {
             central = inCentralManager
             peripheral = inPeripheral
             advertisementData = AdvertisementData(advertisementData: inAdvertisementData)
@@ -375,6 +347,34 @@ public class CGA_Bluetooth_CentralManager: NSObject, RVS_SequenceProtocol {
          */
         deinit {
             clear()
+        }
+        
+        /* ################################################################## */
+        /**
+         Calling this starts the timeout clock.
+         */
+        private func _startTimeout() {
+            #if DEBUG
+                print("Starting Timeout.")
+            #endif
+            clear() // Just to be sure...
+            _timer = Timer.scheduledTimer(withTimeInterval: static_timeoutInSeconds, repeats: false, block: timeout(_:))
+        }
+        
+        /* ################################################################## */
+        /**
+         This stops the timeout clock, invalidates the timer, and clears the Timer instance.
+         */
+        private func _cancelTimeout() {
+            #if DEBUG
+                if let fireDate = _timer?.fireDate {
+                    print("Ending Timeout after \(static_timeoutInSeconds - fireDate.timeIntervalSinceNow) Seconds.")
+                } else {
+                    print("No timer.")
+                }
+            #endif
+            _timer?.invalidate()
+            _timer = nil
         }
     }
 
