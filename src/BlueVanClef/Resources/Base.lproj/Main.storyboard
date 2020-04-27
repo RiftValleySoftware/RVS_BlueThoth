@@ -456,6 +456,10 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" summaryElement="YES"/>
+                                            <bool key="isElement" value="YES"/>
+                                        </accessibility>
                                         <connections>
                                             <outlet property="characteristicIDLabel" destination="hzW-eI-epk" id="0Jn-zX-pkJ"/>
                                             <outlet property="propertiesStackView" destination="Uaa-w7-TfP" id="bU8-GI-uDG"/>

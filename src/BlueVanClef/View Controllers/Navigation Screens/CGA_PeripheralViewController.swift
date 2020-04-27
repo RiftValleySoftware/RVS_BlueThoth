@@ -66,13 +66,13 @@ class CGA_PeripheralViewController: UIViewController {
     /**
      This contains the device discovery data.
      */
-    public var deviceAdvInfo: RVS_BlueThoth.DiscoveryData!
+    var deviceAdvInfo: RVS_BlueThoth.DiscoveryData!
     
     /* ################################################################## */
     /**
      This contains the device instance, once the connection is successful. It is a weak reference.
      */
-    public weak var deviceInstance: CGA_Bluetooth_Peripheral? { deviceAdvInfo?.peripheralInstance }
+    weak var deviceInstance: CGA_Bluetooth_Peripheral? { deviceAdvInfo?.peripheralInstance }
     
     /* ################################################################## */
     /**
@@ -103,6 +103,25 @@ class CGA_PeripheralViewController: UIViewController {
      The label for the Services table.
      */
     @IBOutlet weak var servicesLabel: UILabel!
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Private Methods -
+/* ###################################################################################################################################### */
+extension CGA_PeripheralViewController {
+    /* ################################################################## */
+    /**
+     This sets up the accessibility and voiceover strings for the screen.
+     */
+    private func _setUpAccessibility() {
+        navigationItem.accessibilityLabel = String(format: "SLUG-ACC-DEVICE-NAME-FORMAT".localizedVariant, deviceAdvInfo?.preferredName ?? "ERROR")
+        connectingLabel?.accessibilityLabel = "SLUG-ACC-CONNECTING-LABEL".localizedVariant
+        busyAnimationActivityIndicatorView?.accessibilityLabel = "SLUG-ACC-CONNECTING-LABEL".localizedVariant
+        deviceInfoTextView?.accessibilityLabel = "SLUG-ACC-DEVICE-INFO-TEXT-DISPLAY".localizedVariant
+        serviceTableView?.accessibilityLabel = "SLUG-ACC-SERVICES-TABLE".localizedVariant
+        // This sets the order of the elements in voiceover.
+        view.accessibilityElements = (nil == deviceInstance) ? [navigationItem, connectingLabel!] : [navigationItem, deviceInfoTextView!, serviceTableView!]
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -156,6 +175,8 @@ extension CGA_PeripheralViewController: CGA_UpdatableScreenViewController {
             serviceTableView?.isHidden = true
             servicesLabel?.isHidden = true
         }
+        
+        _setUpAccessibility()
     }
 }
 
@@ -193,6 +214,16 @@ extension CGA_PeripheralViewController {
     
     /* ################################################################## */
     /**
+     Called just before the view is to appear.
+     
+     - parameter inAnimated: This is true, if the disappearance is to be animated.
+     */
+    override func viewWillAppear(_ inAnimated: Bool) {
+        updateUI()
+    }
+    
+    /* ################################################################## */
+    /**
      This is called just before we bring in the Service screen.
      
      - parameter for: The segue being executed.
@@ -203,6 +234,7 @@ extension CGA_PeripheralViewController {
         guard   let destination = inSegue.destination as? CGA_ServiceViewController,
                 let senderData = inSender as? CGA_Bluetooth_Service else { return }
         
+        navigationItem.accessibilityLabel = "SLUG-ACC-BACK-BUTTON".localizedVariant
         destination.serviceInstance = senderData
     }
 }
@@ -237,6 +269,7 @@ extension CGA_PeripheralViewController: UITableViewDataSource {
         tableCell.selectedBackgroundView = UIView()
         tableCell.selectedBackgroundView?.backgroundColor = UIColor(cgColor: CGA_AppDelegate.appDelegateObject.prefs.tableSelectionBackgroundColor)
 
+        tableCell.accessibilityLabel = String(format: "SLUG-ACC-SERVICES-TABLE-ROW".localizedVariant, deviceInstance?[inIndexPath.row].id.localizedVariant ?? "ERROR")
         return tableCell
     }
 }

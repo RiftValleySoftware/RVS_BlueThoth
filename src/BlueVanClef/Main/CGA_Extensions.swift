@@ -56,6 +56,8 @@ extension UITableView {
  This extension adds a few simple accessors for some of the more common bundle items.
  */
 extension Bundle {
+    // MARK: General Stuff for common Apple-Supplied Items
+    
     /* ################################################################## */
     /**
      The app name, as a string. It is required, and "ERROR" is returned if it is not present.
@@ -79,4 +81,18 @@ extension Bundle {
      If there is a copyright string, it is returned here. It may be nil.
      */
     var copyrightString: String? { object(forInfoDictionaryKey: "NSHumanReadableCopyright") as? String }
+
+    // MARK: Specific to this app.
+
+    /* ################################################################## */
+    /**
+     If there is a copyright site URI, it is returned here as a String. It may be nil.
+     */
+    var siteURIAsString: String? { object(forInfoDictionaryKey: "InfoScreenCopyrightSiteURL") as? String }
+    
+    /* ################################################################## */
+    /**
+     If there is a copyright site URI, it is returned here as a URL. It may be nil.
+     */
+    var siteURI: URL? { URL(string: siteURIAsString ?? "") }
 }
