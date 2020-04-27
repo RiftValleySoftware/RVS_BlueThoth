@@ -432,7 +432,7 @@ extension RVS_BlueThoth {
             #if DEBUG
                 print("ERROR! \(String(describing: inPeripheral?.name)) cannot be connected, because of an internal error.")
             #endif
-            reportError(CGA_Errors.internalError(nil))
+            reportError(CGA_Errors.internalError(error: nil, id: nil))
             return false
         }
         #if DEBUG
@@ -454,11 +454,12 @@ extension RVS_BlueThoth {
     public func disconnect(_ inPeripheral: DiscoveryData) -> Bool {
         guard   let cbCentral = cbElementInstance,
                 let cbPeripheral = inPeripheral.cbPeripheral,
-                sequence_contents.contains(cbPeripheral)
+                let wrapperObject = sequence_contents[cbPeripheral]
         else { return false }
         #if DEBUG
             print("Disconnecting \(inPeripheral.preferredName).")
         #endif
+        wrapperObject.disconnectionRequested = true // This is a [yuck] semaphore, letting us know that this s an expected disconnection.
         cbCentral.cancelPeripheralConnection(cbPeripheral)
         
         return true
@@ -632,7 +633,7 @@ extension RVS_BlueThoth: CBCentralManagerDelegate {
                 print("ERROR! Central Manager Changed to an Unknown State!")
             #endif
             stopScanning()
-            central?.reportError(.internalError(nil))
+            central?.reportError(.internalError(error: nil, id: nil))
         }
         
         _updateDelegate()
@@ -766,7 +767,7 @@ extension RVS_BlueThoth: CBCentralManagerDelegate {
             #if DEBUG
                 print("ERROR!: \(error.localizedDescription)")
             #endif
-            reportError(.internalError(error))
+            reportError(.internalError(error: error, id: inPeripheral.identifier.uuidString))
         } else {
             guard let peripheralInstance = sequence_contents[inPeripheral] else {
                 #if DEBUG
@@ -788,9 +789,16 @@ extension RVS_BlueThoth: CBCentralManagerDelegate {
                 print("Disconnected \(peripheralInstance.discoveryData?.preferredName ?? "ERROR").")
             #endif
             
+            let id = peripheralInstance.id
+            let wasExpected = peripheralInstance.disconnectionRequested
+            
             peripheralObject.clear()
             peripheralInstance.discoveryData?.peripheralInstance = nil
             removePeripheral(peripheralObject)
+            
+            if !wasExpected {
+                central?.reportError(.unexpectedDisconnection(id))
+            }
         }
     }
     
@@ -811,7 +819,7 @@ extension RVS_BlueThoth: CBCentralManagerDelegate {
             }
         #endif
         if let error = inError {
-            central?.reportError(.internalError(error))
+            central?.reportError(.internalError(error: error, id: inPeripheral.identifier.uuidString))
         }
     }
 }

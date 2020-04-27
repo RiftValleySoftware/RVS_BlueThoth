@@ -333,7 +333,7 @@ extension CGA_Bluetooth_Characteristic: CGA_Class_Protocol_UpdateDescriptor {
                 print("ERROR! Can't get characteristic, service and/or peripheral!")
             #endif
             
-            central?.reportError(.internalError(nil))
+            central?.reportError(.internalError(error: nil, id: id))
         }
     }
 }
@@ -376,6 +376,14 @@ extension CGA_Bluetooth_Characteristic {
  This allows us to create Characteristics.
  */
 extension CGA_Bluetooth_Characteristic: CGA_CharacteristicFactory {
+    /* ################################################################## */
+    /**
+     This instantiates an instance of this class.
+     
+     - parameter parent: The Service instance that "owns" this Characteristic.
+     - parameter cbElementInstance: The CBCharacteristic instance that will be applied to the factory.
+     - returns: A new instance of CGA_Bluetooth_Characteristic, or a subclass, thereof. Nil, if it fails.
+*/
     internal class func createInstance(parent inParent: CGA_Bluetooth_Service, cbElementInstance inCBCharacteristic: CBCharacteristic) -> CGA_Bluetooth_Characteristic? {
         let ret = Self.init(sequence_contents: [])
         ret.parent = inParent
