@@ -95,6 +95,18 @@ extension CGA_CharacteristicViewController {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - Private Methods -
+/* ###################################################################################################################################### */
+extension CGA_CharacteristicViewController {
+    /* ################################################################## */
+    /**
+     This sets up the accessibility and voiceover strings for the screen.
+     */
+    private func _setUpAccessibility() {
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Instance Methods -
 /* ###################################################################################################################################### */
 extension CGA_CharacteristicViewController {
@@ -117,6 +129,7 @@ extension CGA_CharacteristicViewController: CGA_UpdatableScreenViewController {
      */
     func updateUI() {
         descriptorsTableView?.reloadData()
+        _setUpAccessibility()
     }
 }
 

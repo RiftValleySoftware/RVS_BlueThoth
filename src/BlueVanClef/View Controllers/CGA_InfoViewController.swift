@@ -49,6 +49,18 @@ class CGA_InfoViewController: UIViewController {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - Private Methods -
+/* ###################################################################################################################################### */
+extension CGA_InfoViewController {
+    /* ################################################################## */
+    /**
+     This sets up the accessibility and voiceover strings for the screen.
+     */
+    private func _setUpAccessibility() {
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Callback/Observer Methods -
 /* ###################################################################################################################################### */
 extension CGA_InfoViewController {
@@ -78,6 +90,7 @@ extension CGA_InfoViewController {
         appNameLabel?.text = Bundle.main.appDisplayName
         appVersionLabel?.text = String(format: "SLUG-VERSION-FORMAT".localizedVariant, Bundle.main.appVersionString, Bundle.main.appVersionBuildString)
         copyrightButton.setTitle(Bundle.main.copyrightString, for: .normal)
+        _setUpAccessibility()
     }
     
     /* ################################################################## */
@@ -92,24 +105,4 @@ extension CGA_InfoViewController {
             presenter.restartScanningIfNecessary()
         }
     }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - Bundle Extension -
-/* ###################################################################################################################################### */
-/**
- This extension adds a couple of accessors for a URI that is unique to this app.
- */
-extension Bundle {
-    /* ################################################################## */
-    /**
-     If there is a copyright site URI, it is returned here as a String. It may be nil.
-     */
-    var siteURIAsString: String? { object(forInfoDictionaryKey: "InfoScreenCopyrightSiteURL") as? String }
-    
-    /* ################################################################## */
-    /**
-     If there is a copyright site URI, it is returned here as a URL. It may be nil.
-     */
-    var siteURI: URL? { URL(string: siteURIAsString ?? "") }
 }

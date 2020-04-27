@@ -106,6 +106,18 @@ class CGA_PeripheralViewController: UIViewController {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - Private Methods -
+/* ###################################################################################################################################### */
+extension CGA_PeripheralViewController {
+    /* ################################################################## */
+    /**
+     This sets up the accessibility and voiceover strings for the screen.
+     */
+    private func _setUpAccessibility() {
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Callback/Observer Methods -
 /* ###################################################################################################################################### */
 extension CGA_PeripheralViewController {
@@ -156,6 +168,8 @@ extension CGA_PeripheralViewController: CGA_UpdatableScreenViewController {
             serviceTableView?.isHidden = true
             servicesLabel?.isHidden = true
         }
+        
+        _setUpAccessibility()
     }
 }
 

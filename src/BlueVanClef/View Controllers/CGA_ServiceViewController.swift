@@ -126,6 +126,18 @@ class CGA_ServiceViewController: UIViewController {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - Private Methods -
+/* ###################################################################################################################################### */
+extension CGA_ServiceViewController {
+    /* ################################################################## */
+    /**
+     This sets up the accessibility and voiceover strings for the screen.
+     */
+    private func _setUpAccessibility() {
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Callback/Observer Methods -
 /* ###################################################################################################################################### */
 extension CGA_ServiceViewController {
@@ -199,6 +211,7 @@ extension CGA_ServiceViewController: CGA_UpdatableScreenViewController {
      */
     func updateUI() {
         characteristicsTableView?.reloadData()
+        _setUpAccessibility()
     }
 }
 
