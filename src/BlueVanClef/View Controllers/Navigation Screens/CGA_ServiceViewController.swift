@@ -35,11 +35,13 @@ class CGA_ServiceViewController_TableRow: UITableViewCell {
      The label at the top, containing the Characteristic ID
      */
     @IBOutlet weak var characteristicIDLabel: UILabel!
+    
     /* ################################################################## */
     /**
      The horizontal stack view in the middle, showing our various flags (and maybe the NOTIFY button).
      */
     @IBOutlet weak var propertiesStackView: UIStackView!
+    
     /* ################################################################## */
     /**
      The label at the bottom, containing the Characteristic value, if it can be expressed as a String.
@@ -134,6 +136,7 @@ extension CGA_ServiceViewController {
      This sets up the accessibility and voiceover strings for the screen.
      */
     private func _setUpAccessibility() {
+        characteristicsTableView?.accessibilityLabel = "SLUG-ACC-CHARACTERISTIC-TABLE".localizedVariant
     }
 }
 
@@ -177,6 +180,8 @@ extension CGA_ServiceViewController {
      */
     @objc func notifyTapped(_ inButton: CG_TappableButton) {
         if  let characteristicInstance = serviceInstance?[inButton.rowIndex] {
+            let title = "SLUG-PROPERTIES-NOTIFY-\(characteristicInstance.isNotifying ? "OFF" : "ON")"
+            inButton.accessibilityLabel = "SLUG-ACC-CHARACTERISTIC-ROW-\(title)".localizedVariant
             if characteristicInstance.isNotifying {
                 characteristicInstance.stopNotifying()
             } else {
@@ -289,10 +294,12 @@ extension CGA_ServiceViewController: UITableViewDataSource {
          */
         private func _makeReadButton() -> UIButton {
             let ret = CG_TappableButton()
-            ret.setTitle("SLUG-PROPERTIES-READ".localizedVariant, for: .normal)
+            let title = "SLUG-PROPERTIES-READ"
+            ret.setTitle(title.localizedVariant, for: .normal)
             ret.setTitleColor(_labelTextColor, for: .normal)
             ret.backgroundColor = _labelBackgroundColor
             ret.addTarget(ownerViewController, action: #selector(readTapped(_:)), for: .touchUpInside)
+            ret.accessibilityLabel = "SLUG-ACC-CHARACTERISTIC-ROW-\(title)".localizedVariant
             return ret
         }
         
@@ -302,10 +309,12 @@ extension CGA_ServiceViewController: UITableViewDataSource {
          */
         private func _makeNotifyButton() -> UIButton {
             let ret = CG_TappableButton()
-            ret.setTitle("SLUG-PROPERTIES-NOTIFY-\(characteristic.isNotifying ? "ON" : "OFF")".localizedVariant, for: .normal)
+            let title = "SLUG-PROPERTIES-NOTIFY-\(characteristic.isNotifying ? "ON" : "OFF")"
+            ret.setTitle(title.localizedVariant, for: .normal)
             ret.setTitleColor(characteristic.isNotifying ? _labelTextColor : .white, for: .normal)
             ret.backgroundColor = characteristic.isNotifying ? .green : .red
             ret.addTarget(ownerViewController, action: #selector(notifyTapped(_:)), for: .touchUpInside)
+            ret.accessibilityLabel = "SLUG-ACC-CHARACTERISTIC-ROW-\(title)".localizedVariant
             return ret
         }
 
@@ -318,10 +327,11 @@ extension CGA_ServiceViewController: UITableViewDataSource {
             ret.textColor = _labelTextColor
             ret.backgroundColor = _labelBackgroundColor
             ret.font = .boldSystemFont(ofSize: _labelFontSize)
-            ret.text = inText
+            ret.text = inText.localizedVariant
             ret.minimumScaleFactor = 0.75
             ret.adjustsFontSizeToFitWidth = true
-            
+            ret.accessibilityLabel = "SLUG-ACC-CHARACTERISTIC-ROW-\(inText)".localizedVariant
+
             return ret
         }
 
@@ -331,9 +341,9 @@ extension CGA_ServiceViewController: UITableViewDataSource {
          */
         private var _writeLabel: UIView! {
             if characteristic.canWriteWithResponse {
-                return _makeLabel("SLUG-PROPERTIES-WRITE-RESPONSE".localizedVariant)
+                return _makeLabel("SLUG-PROPERTIES-WRITE-RESPONSE")
             } else if characteristic.canWriteWithoutResponse {
-                return _makeLabel("SLUG-PROPERTIES-WRITE".localizedVariant)
+                return _makeLabel("SLUG-PROPERTIES-WRITE")
             }
             return nil
         }
@@ -358,12 +368,12 @@ extension CGA_ServiceViewController: UITableViewDataSource {
             [
                 characteristic.canRead ? _makeReadButton() : nil,
                 _writeLabel,
-                characteristic.canIndicate ? _makeLabel("SLUG-PROPERTIES-INDICATE".localizedVariant) : nil,
-                characteristic.canBroadcast ? _makeLabel("SLUG-PROPERTIES-BROADCAST".localizedVariant) : nil,
-                characteristic.requiresAuthenticatedSignedWrites ? _makeLabel("SLUG-PROPERTIES-AUTH-SIGNED-WRITE".localizedVariant) : nil,
-                characteristic.requiresNotifyEncryption ? _makeLabel("SLUG-PROPERTIES-NOTIFY-ENCRYPT".localizedVariant) : nil,
-                characteristic.requiresNotifyEncryption ? _makeLabel("SLUG-PROPERTIES-INDICATE-ENCRYPT".localizedVariant) : nil,
-                characteristic.hasExtendedProperties ? _makeLabel("SLUG-PROPERTIES-EXTENDED".localizedVariant) : nil,
+                characteristic.canIndicate ? _makeLabel("SLUG-PROPERTIES-INDICATE") : nil,
+                characteristic.canBroadcast ? _makeLabel("SLUG-PROPERTIES-BROADCAST") : nil,
+                characteristic.requiresAuthenticatedSignedWrites ? _makeLabel("SLUG-PROPERTIES-AUTH-SIGNED-WRITE") : nil,
+                characteristic.requiresNotifyEncryption ? _makeLabel("SLUG-PROPERTIES-NOTIFY-ENCRYPT") : nil,
+                characteristic.requiresNotifyEncryption ? _makeLabel("SLUG-PROPERTIES-INDICATE-ENCRYPT") : nil,
+                characteristic.hasExtendedProperties ? _makeLabel("SLUG-PROPERTIES-EXTENDED") : nil,
                 characteristic.canNotify ? _makeNotifyButton() : nil  // Notify goes on the end, because it's a big-ass button, and will move things around.
             ]
         }
@@ -401,30 +411,40 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         // We set the ID label.
         tableCell.characteristicIDLabel?.textColor = UIColor(white: 0 < characteristic.count ? 1.0 : 0.75, alpha: 1.0)
         tableCell.characteristicIDLabel?.text = characteristic.id.localizedVariant
-        
+        tableCell.characteristicIDLabel?.accessibilityLabel = String(format: "SLUG-ACC-CHARACTERISTIC-ROW-ID-NO-DESCRIPTORS-FORMAT".localizedVariant, characteristic.id.localizedVariant)
+        tableCell.valueLabel?.accessibilityLabel = String(format: "SLUG-ACC-CHARACTERISTIC-ROW-VALUE-NO-DESCRIPTORS-FORMAT".localizedVariant, characteristic.stringValue ?? (nil != characteristic.value ? String(describing: characteristic.value) : ""))
+
         // Populate the Properties view.
         _PropertyLabelGenerator(characteristic: characteristic, ownerViewController: self).labels.forEach {
             if let view = $0 {
-                tableCell.propertiesStackView.addArrangedSubview(view)
+                tableCell.propertiesStackView?.addArrangedSubview(view)
                 view.translatesAutoresizingMaskIntoConstraints = false
-                view.heightAnchor.constraint(equalTo: tableCell.propertiesStackView.heightAnchor).isActive = true
+                view.heightAnchor.constraint(equalTo: tableCell.propertiesStackView!.heightAnchor).isActive = true
                 // The notify button gets a row index attached.
                 if let button = view as? CG_TappableButton {
                     button.rowIndex = inIndexPath.row
                 }
+                var accessibilityElements = tableCell.propertiesStackView?.accessibilityElements ?? []
+                accessibilityElements.append(view)
+                tableCell.propertiesStackView?.accessibilityElements = accessibilityElements
             }
         }
-        
+
         // This is a single-tap gesture recognizer for bringing in the Descriptors. It is attached to the table cell, in general.
         if 0 < characteristic.count {   // Only if we have Descriptors.
             let tapGestureRecognizer = CG_TapGestureRecognizer(target: self, action: #selector(descriptorTapped(_:)))
             tapGestureRecognizer.rowIndex = inIndexPath.row
             tapGestureRecognizer.backgroundView = tableCell
+            tableCell.characteristicIDLabel?.accessibilityLabel = String(format: "SLUG-ACC-CHARACTERISTIC-ROW-ID-FORMAT".localizedVariant, characteristic.id.localizedVariant)
+            tableCell.valueLabel?.accessibilityLabel = String(format: "SLUG-ACC-CHARACTERISTIC-ROW-VALUE-FORMAT".localizedVariant, characteristic.stringValue ?? (nil != characteristic.value ? String(describing: characteristic.value) : ""))
+            tapGestureRecognizer.accessibilityLabel = "SLUG-ACC-CHARACTERISTIC-ROW".localizedVariant
             tableCell.addGestureRecognizer(tapGestureRecognizer)
         }
         
         // If there is a String-convertible value, we display it. Otherwise, we either display a described Data item, or blank.
-        tableCell.valueLabel.text = characteristic.stringValue ?? (nil != characteristic.value ? String(describing: characteristic.value) : "")
+        tableCell.valueLabel?.text = characteristic.stringValue ?? (nil != characteristic.value ? String(describing: characteristic.value) : "")
+        
+        tableCell.accessibilityElements = [tableCell.characteristicIDLabel!, tableCell.propertiesStackView!, tableCell.valueLabel!]
 
         return tableCell
     }

@@ -104,6 +104,28 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-ACC-SERVICES-TABLE"           =   "This table displays a list of available Services for this Peripheral. If you select a row, another screen will appear, containing the details of that Service.";
 "SLUG-ACC-SERVICES-TABLE-ROW"       =   "This row represents the %@ Service. If you select this row, another screen will appear, with details about this Service.";
 
+// MARK: The Service Information Screen
+"SLUG-ACC-CHARACTERISTIC-TABLE"                                 =   "This table displays a list of Characteristics that this Service manages. Each Characteristic has a row of flags, denoting whether or not it has read, write, write without response, indicate or notify capabilities. Read and Notify are presented as buttons. If you touch the Read button, the Characteristic will update its value immediately. If you tap the Notify button, the Characteristc's notify state will toggle.";
+"SLUG-ACC-CHARACTERISTIC-ROW"                                   =   "If you select this row, a screen will appear, displaying the Descriptors for this Characteristic.";
+"SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-READ"              =   "This Characteristic allows read. Touching this button will trigger a single read, and the value below will be updated.";
+"SLUG-ACC-CHARACTERISTIC-ROW-ID-NO-DESCRIPTORS-FORMAT"          =   "This is the ID for the Characteristic. It is \"\(%@).\"";
+"SLUG-ACC-CHARACTERISTIC-ROW-ID-FORMAT"                         =   "This is the ID for the Characteristic. It is \"\(%@).\" If you touch this, a screen will appear, displaying the Descriptors for this Characteristic.";
+"SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-WRITE"             =   "This Characteristic allows write without response.";
+"SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-WRITE-RESPONSE"    =   "This Characteristic allows write with response.";
+"SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-INDICATE"          =   "This Characteristic supports indicate.";
+"SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-BROADCAST"         =   "This Characteristic supports broadcast.";
+"SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-AUTH-SIGNED-WRITE" =   "This Characteristic requires that writes be signed and authorized.";
+"SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-NOTIFY-ENCRYPT"    =   "This Characteristic requires that notifications be encrypted.";
+"SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-INDICATE-ENCRYPT"  =   "This Characteristic requires that indications be encrypted.";
+"SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-EXTENDED"          =   "This Characteristic has extended properties.";
+"SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-NOTIFY-ON"         =   "This Characteristic supports notify, and is currently notifying. Touching this button will stop the Characteristic from notifying.";
+"SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-NOTIFY-OFF"        =   "This Characteristic supports notify, but is not currently notifying. Touching this button will start the Characteristic notifying.";
+"SLUG-ACC-CHARACTERISTIC-ROW-VALUE-NO-DESCRIPTORS-FORMAT"       =   "This is the value for the Characteristic. It is \"\(%@).\"";
+"SLUG-ACC-CHARACTERISTIC-ROW-VALUE-FORMAT"                      =   "This is the value for the Characteristic. It is \"\(%@).\" If you touch this, a screen will appear, displaying the Descriptors for this Characteristic.";
+
+// MARK: The Descriptor List Screen
+"SLUG-ACC-DESCRIPTOR-TABLE"         =   "This is a list of the descriptors for this Characteristic. Selecting a row will cause that descriptor to refresh its value.";
+
 // MARK: The App Settings Screen
 "SLUG-ACC-CONTINUOUS-UPDATE-BUTTON-ON"              =   "This button will toggle the value of the switch that controls whether or not the app is continuously updating the device list while scanning. The switch is currently on, which means that the names, advertising data and signal strength of the devices in the list are being continuously updated.";
 "SLUG-ACC-CONTINUOUS-UPDATE-BUTTON-OFF"             =   "This button will toggle the value of the switch that controls whether or not the app is continuously updating the device list while scanning. The switch is currently off, which means that the names, advertising data and signal strength of the devices will remain consistent with their state upon discovery.";
