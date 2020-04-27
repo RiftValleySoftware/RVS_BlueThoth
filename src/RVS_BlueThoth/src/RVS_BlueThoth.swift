@@ -39,7 +39,7 @@ public class RVS_BlueThoth: NSObject, RVS_SequenceProtocol {
     /**
      The Central Manager Delegate object.
      */
-    public weak var delegate: CGA_Bluetooth_CentralManagerDelegate?
+    public weak var delegate: CGA_BlueThoth_Delegate?
 
     /* ################################################################## */
     /**
@@ -307,7 +307,7 @@ extension RVS_BlueThoth {
      - parameter scanCriteria: If there are particular scan criteria to be applied to the discovery process, they are supplied here. If left alone, it will be nil, and all entities will be searched.
      - parameter queue: The queue to be used for this instance. If not specified, the main thread is used.
      */
-    public convenience init(delegate inDelegate: CGA_Bluetooth_CentralManagerDelegate! = nil, scanCriteria inScanCriteria: ScanCriteria! = nil, queue inQueue: DispatchQueue? = nil) {
+    public convenience init(delegate inDelegate: CGA_BlueThoth_Delegate! = nil, scanCriteria inScanCriteria: ScanCriteria! = nil, queue inQueue: DispatchQueue? = nil) {
         self.init(sequence_contents: [])
         delegate = inDelegate
         scanCriteria = inScanCriteria

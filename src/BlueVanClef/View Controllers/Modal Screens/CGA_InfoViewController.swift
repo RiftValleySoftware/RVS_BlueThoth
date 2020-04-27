@@ -57,6 +57,9 @@ extension CGA_InfoViewController {
      This sets up the accessibility and voiceover strings for the screen.
      */
     private func _setUpAccessibility() {
+        appNameLabel?.accessibilityLabel = String(format: "SLUG-ACC-APP-NAME-LABEL-FORMAT".localizedVariant, Bundle.main.appDisplayName)
+        appVersionLabel?.accessibilityLabel = String(format: "SLUG-ACC-APP-VERSION-LABEL-FORMAT".localizedVariant, Bundle.main.appVersionString, Bundle.main.appVersionBuildString)
+        copyrightButton?.accessibilityLabel = "SLUG-ACC-COPYRIGHT-BUTTON".localizedVariant
     }
 }
 

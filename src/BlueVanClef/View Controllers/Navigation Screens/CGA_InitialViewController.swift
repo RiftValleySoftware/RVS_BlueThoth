@@ -440,9 +440,9 @@ extension CGA_InitialViewController: CGA_UpdatableScreenViewController {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - CGA_Bluetooth_CentralManagerDelegate Conformance -
+// MARK: - CGA_BlueThoth_Delegate Conformance -
 /* ###################################################################################################################################### */
-extension CGA_InitialViewController: CGA_Bluetooth_CentralManagerDelegate {
+extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
     /* ################################################################## */
     /**
      Called to report an error.

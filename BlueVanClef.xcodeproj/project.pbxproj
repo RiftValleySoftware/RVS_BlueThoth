@@ -292,12 +292,8 @@
 		D47A34D024316F38000483DF /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D48D851C2430F05500A925ED /* CGA_InitialViewController.swift */,
-				D4CAA4262434E877007C72AA /* CGA_PeripheralViewController.swift */,
-				D436B44C243CC1C6003619D9 /* CGA_ServiceViewController.swift */,
-				D480CE2D243CEFE20074CFE4 /* CGA_CharacteristicViewController.swift */,
-				D4F666C62434F06200CD4548 /* CGA_InfoViewController.swift */,
-				D43F05E42436C07B0009EA1B /* CGA_SettingsViewController.swift */,
+				D4F82EC62456EB6D00BAD448 /* Navigation Screens */,
+				D4F82EC52456EB5300BAD448 /* Modal Screens */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -424,6 +420,26 @@
 			);
 			name = Carthage;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		D4F82EC52456EB5300BAD448 /* Modal Screens */ = {
+			isa = PBXGroup;
+			children = (
+				D4F666C62434F06200CD4548 /* CGA_InfoViewController.swift */,
+				D43F05E42436C07B0009EA1B /* CGA_SettingsViewController.swift */,
+			);
+			path = "Modal Screens";
+			sourceTree = "<group>";
+		};
+		D4F82EC62456EB6D00BAD448 /* Navigation Screens */ = {
+			isa = PBXGroup;
+			children = (
+				D48D851C2430F05500A925ED /* CGA_InitialViewController.swift */,
+				D4CAA4262434E877007C72AA /* CGA_PeripheralViewController.swift */,
+				D436B44C243CC1C6003619D9 /* CGA_ServiceViewController.swift */,
+				D480CE2D243CEFE20074CFE4 /* CGA_CharacteristicViewController.swift */,
+			);
+			path = "Navigation Screens";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

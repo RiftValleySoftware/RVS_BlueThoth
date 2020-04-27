@@ -186,8 +186,9 @@ extension CGA_Class_Protocol_UpdateDescriptor {
 /* ###################################################################################################################################### */
 /**
  All delegate callbacks are made in the main thread.
+ This is the only delegate for the BlueThoth framework. All events in the system come to this one place.
  */
-public protocol CGA_Bluetooth_CentralManagerDelegate: class {
+public protocol CGA_BlueThoth_Delegate: class {
     /* ################################################################## */
     /**
      OPTIONAL: This is called to tell the instance to do whatever it needs to do to handle an error.
@@ -277,7 +278,7 @@ public protocol CGA_Bluetooth_CentralManagerDelegate: class {
 /* ###################################################################################################################################### */
 // MARK: - The Central Manager Delegate Defaults -
 /* ###################################################################################################################################### */
-extension CGA_Bluetooth_CentralManagerDelegate {
+extension CGA_BlueThoth_Delegate {
     /* ################################################################## */
     /**
      The default does nothing.
