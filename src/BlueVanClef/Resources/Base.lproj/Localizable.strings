@@ -28,6 +28,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-OK-BUTTON-TEXT"               =   "OK";
 // These are error reports.
 "CGA-ERROR-TIMEOUT"                 =   "There was a timeout, while attempting a connection to a Peripheral.";
+"CGA-ERROR-DISCONNECT"              =   "A Peripheral was unexpectedly disconnected.";
 "CGA-ERROR-INTERNAL"                =   "Internal Error";
 
 // MARK: - Device List screen
@@ -96,7 +97,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-ACC-SETTINGS-BUTTON"          =   "App Settings. This will bring in a screen that will allow you to specify some settings for the app.";
 "SLUG-ACC-INFO-BUTTON"              =   "About this app. This will bring in a screen that will give basic information about this app.";
 
-// MARK: The Peripheral Information Screen
+// MARK: - The Peripheral Information Screen
 "SLUG-ACC-BACK-BUTTON"              =   "Return to the screen with the details for this Peripheral";
 "SLUG-ACC-DEVICE-NAME-FORMAT"       =   "This screen represents the details for the Peripheral named \"%@.\"";
 "SLUG-ACC-DEVICE-INFO-TEXT-DISPLAY" =   "This displays the advertising information for this peripheral.";
@@ -104,7 +105,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-ACC-SERVICES-TABLE"           =   "This table displays a list of available Services for this Peripheral. If you select a row, another screen will appear, containing the details of that Service.";
 "SLUG-ACC-SERVICES-TABLE-ROW"       =   "This row represents the %@ Service. If you select this row, another screen will appear, with details about this Service.";
 
-// MARK: The Service Information Screen
+// MARK: - The Service Information Screen
 "SLUG-ACC-CHARACTERISTIC-TABLE"                                 =   "This table displays a list of Characteristics that this Service manages. Each Characteristic has a row of flags, denoting whether or not it has read, write, write without response, indicate or notify capabilities. Read and Notify are presented as buttons. If you touch the Read button, the Characteristic will update its value immediately. If you tap the Notify button, the Characteristc's notify state will toggle.";
 "SLUG-ACC-CHARACTERISTIC-ROW"                                   =   "If you select this row, a screen will appear, displaying the Descriptors for this Characteristic.";
 "SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-READ"              =   "This Characteristic allows read. Touching this button will trigger a single read, and the value below will be updated.";
@@ -123,10 +124,10 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-ACC-CHARACTERISTIC-ROW-VALUE-NO-DESCRIPTORS-FORMAT"       =   "This is the value for the Characteristic. It is \"\(%@).\"";
 "SLUG-ACC-CHARACTERISTIC-ROW-VALUE-FORMAT"                      =   "This is the value for the Characteristic. It is \"\(%@).\" If you touch this, a screen will appear, displaying the Descriptors for this Characteristic.";
 
-// MARK: The Descriptor List Screen
+// MARK: - The Descriptor List Screen
 "SLUG-ACC-DESCRIPTOR-TABLE"         =   "This is a list of the descriptors for this Characteristic. Selecting a row will cause that descriptor to refresh its value.";
 
-// MARK: The App Settings Screen
+// MARK: - The App Settings Screen
 "SLUG-ACC-CONTINUOUS-UPDATE-BUTTON-ON"              =   "This button will toggle the value of the switch that controls whether or not the app is continuously updating the device list while scanning. The switch is currently on, which means that the names, advertising data and signal strength of the devices in the list are being continuously updated.";
 "SLUG-ACC-CONTINUOUS-UPDATE-BUTTON-OFF"             =   "This button will toggle the value of the switch that controls whether or not the app is continuously updating the device list while scanning. The switch is currently off, which means that the names, advertising data and signal strength of the devices will remain consistent with their state upon discovery.";
 "SLUG-ACC-CONTINUOUS-UPDATE-SWITCH-ON"              =   "This switch controls whether or not the app is continuously updating the device list while scanning. It is currently on, which means that the names, advertising data and signal strength of the devices in the list are being continuously updated.";
@@ -148,7 +149,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-ACC-EMPTY-NAMES-SWITCH-ON"                    =   "This switch controls whether or not the app will only display devices that advertise or contain names. The switch is currently on, which means that only devices with names are being displayed in the list.";
 "SLUG-ACC-EMPTY-NAMES-SWITCH-OFF"                   =   "This switch controls whether or not the app will only display devices that advertise or contain names. The switch is currently off, which means that all devices are being displayed in the list.";
 
-// MARK: The About Screen
+// MARK: - The About Screen
 "SLUG-ACC-APP-NAME-LABEL-FORMAT"    =   "This is the name of the app. It is \"%@.\"";
 "SLUG-ACC-APP-VERSION-LABEL-FORMAT" =   "This is the current version of the app. It is \"%@.%@.\"";
 "SLUG-ACC-COPYRIGHT-BUTTON"         =   "This button displays the copyright information for the app. If you touch it, it will take you to the Great Rift Valley Software Company Web page in the browser.";

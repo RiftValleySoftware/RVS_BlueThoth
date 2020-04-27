@@ -207,7 +207,7 @@ extension CGA_Bluetooth_Service {
                 print("ERROR! \(String(describing: inCharacteristic)) does not have a CBCharacteristic instance.")
             #endif
             
-            central?.reportError(.internalError(nil))
+            central?.reportError(.internalError(error: nil, id: inCharacteristic.id))
         }
     }
 }
@@ -239,7 +239,7 @@ extension CGA_Bluetooth_Service: CGA_Class_Protocol_UpdateDescriptor {
                 print("ERROR! No CBService!")
             #endif
             
-            central?.reportError(.internalError(nil))
+            central?.reportError(.internalError(error: nil, id: id))
 
             return
         }

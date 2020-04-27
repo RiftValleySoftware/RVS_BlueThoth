@@ -99,23 +99,13 @@ private var _descriptorFactory: [CGA_DescriptorFactory.Type] = [
  This class is instantiated when a Peripheral is connected, and will handle discovery of Services, Characteristics and Descriptors.
  */
 public class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
+    // MARK: - Public types, properties and methods.
+    
     /* ################################################################## */
     /**
      This is the type we're aggregating.
      */
     public typealias Element = CGA_Bluetooth_Service
-    
-    /* ################################################################## */
-    /**
-     This holds a list of UUIDs, holding the IDs of Services we are looking for. It is initialized when the class is instantiated.
-     */
-    private var _discoveryFilter: [CBUUID] = []
-
-    /* ################################################################## */
-    /**
-     This holds our Service wrapper instances until we have received all the Characteristics for them.
-     */
-    var stagedServices: Array<Element> = []
     
     /* ################################################################## */
     /**
@@ -128,12 +118,6 @@ public class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Parent instance.
      */
     public weak var parent: CGA_Class_Protocol?
-
-    /* ################################################################## */
-    /**
-     This returns the instance of CBPeripheral that is used by this instance.
-     */
-    var cbElementInstance: CBPeripheral! { discoveryData?.cbPeripheral }
     
     /* ################################################################## */
     /**
@@ -151,20 +135,20 @@ public class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
     /**
      The Peripheral is capable of sending writes back (without response).
      */
-    var canSendWriteWithoutResponse: Bool { discoveryData.canSendWriteWithoutResponse }
+    public var canSendWriteWithoutResponse: Bool { discoveryData.canSendWriteWithoutResponse }
     
     /* ############################################################## */
     /**
      This is the signal strength, at the time of discovery, in dBm.
      This is also updated, as we receive RSSI change notifications.
      */
-    var rssi: Int { discoveryData.rssi }
+    public var rssi: Int { discoveryData.rssi }
     
     /* ################################################################## */
     /**
      This will contain any required scan criteria. It simply passes on the Central criteria.
      */
-    var scanCriteria: RVS_BlueThoth.ScanCriteria! { central?.scanCriteria }
+    public var scanCriteria: RVS_BlueThoth.ScanCriteria! { central?.scanCriteria }
     
     /* ################################################################## */
     /**
@@ -182,6 +166,34 @@ public class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
         sequence_contents = inSequence_Contents
         super.init()    // Since we derive from NSObject, we must call the super init()
     }
+    
+    // MARK: - Internal types, properties and methods.
+
+    /* ################################################################## */
+    /**
+     This holds our Service wrapper instances until we have received all the Characteristics for them.
+     */
+    internal var stagedServices: Array<Element> = []
+    
+    /* ################################################################## */
+    /**
+     This returns the instance of CBPeripheral that is used by this instance.
+     */
+    internal var cbElementInstance: CBPeripheral! { discoveryData?.cbPeripheral }
+    
+    /* ################################################################## */
+    /**
+     This is set to true, if the Central is requesting a disconnection (so we know it's expected).
+     */
+    internal var disconnectionRequested: Bool = false
+
+    // MARK: - Private types, properties and methods.
+    
+    /* ################################################################## */
+    /**
+     This holds a list of UUIDs, holding the IDs of Services we are looking for. It is initialized when the class is instantiated.
+     */
+    private var _discoveryFilter: [CBUUID] = []
 }
 
 /* ###################################################################################################################################### */
@@ -190,13 +202,26 @@ public class CGA_Bluetooth_Peripheral: NSObject, RVS_SequenceProtocol {
 extension CGA_Bluetooth_Peripheral {
     /* ################################################################## */
     /**
+     This eliminates all of the stored results, and asks the Bluetooth subsystem to start over from scratch.
+     */
+    public func startOver() {
+        #if DEBUG
+            print("Starting The Service Discovery Over From Scratch for \(discoveryData.preferredName).")
+        #endif
+        clear()
+        let services: [CBUUID]! = _discoveryFilter.isEmpty ? nil : _discoveryFilter
+        cbElementInstance?.discoverServices(services)
+    }
+    
+    /* ################################################################## */
+    /**
      This is the init that should always be used.
      
      - parameter discoveryData: The discovery data of the Peripheral.
      - parameter services: An optional parameter that is an Array, holding the String UUIDs of Services we are filtering for.
                            If left out, all available Services are found. If specified, this overrides the scanCriteria.
      */
-    convenience init(discoveryData inCBPeriperalDiscoveryData: RVS_BlueThoth.DiscoveryData, services inServices: [String] = []) {
+    internal convenience init(discoveryData inCBPeriperalDiscoveryData: RVS_BlueThoth.DiscoveryData, services inServices: [String] = []) {
         self.init(sequence_contents: [])
         discoveryData = inCBPeriperalDiscoveryData
         parent = discoveryData?.central
@@ -217,7 +242,7 @@ extension CGA_Bluetooth_Peripheral {
      
      - parameter inService: The Service to add.
      */
-    func addService(_ inService: CGA_Bluetooth_Service) {
+    internal func addService(_ inService: CGA_Bluetooth_Service) {
         if let service = inService.cbElementInstance {
             if stagedServices.contains(service) {
                 #if DEBUG
@@ -243,28 +268,15 @@ extension CGA_Bluetooth_Peripheral {
                 print("ERROR! \(String(describing: inService)) does not have a CBService instance.")
             #endif
             
-            central?.reportError(.internalError(nil))
+            central?.reportError(.internalError(error: nil, id: inService.id))
         }
-    }
-    
-    /* ################################################################## */
-    /**
-     This eliminates all of the stored results, and asks the Bluetooth subsystem to start over from scratch.
-     */
-    public func startOver() {
-        #if DEBUG
-            print("Starting The Service Discovery Over From Scratch for \(discoveryData.preferredName).")
-        #endif
-        clear()
-        let services: [CBUUID]! = _discoveryFilter.isEmpty ? nil : _discoveryFilter
-        cbElementInstance?.discoverServices(services)
     }
     
     /* ################################################################## */
     /**
      Request that the RSSI be updated.
      */
-    func updateRSSI() {
+    internal func updateRSSI() {
         cbElementInstance?.readRSSI()
     }
 }
@@ -306,6 +318,7 @@ extension CGA_Bluetooth_Peripheral: CGA_Class_Protocol_UpdateDescriptor {
 extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     /* ################################################################## */
     /**
+     :nodoc:
      Called when the RSSI changes.
      
      - parameter inPeripheral: The CBPeripheral that has discovered Services.
@@ -317,7 +330,7 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             #if DEBUG
                 print("ERROR!: \(error.localizedDescription)")
             #endif
-            central?.reportError(.internalError(error))
+            central?.reportError(.internalError(error: error, id: inPeripheral.identifier.uuidString))
         } else {
             #if DEBUG
                 print("RSSI: \(inRSSI) updated for the Peripheral: \(id)")
@@ -329,6 +342,7 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     
     /* ################################################################## */
     /**
+     :nodoc:
      Called when the Peripheral has discovered its Services.
      We treat discovery as "atomic." We ask for all the Services at once, so this callback is complete for this Peripheral.
      
@@ -340,14 +354,14 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             #if DEBUG
                 print("ERROR!: \(error.localizedDescription)")
             #endif
-            central?.reportError(.internalError(error))
+            central?.reportError(.internalError(error: error, id: inPeripheral.identifier.uuidString))
         } else {
             #if DEBUG
                 if let services = inPeripheral.services {
                     print("Services Discovered: \(services.map({ $0.uuid.uuidString }).joined(separator: ", "))")
                 } else {
                     print("ERROR!")
-                    central?.reportError(.internalError(nil))
+                    central?.reportError(.internalError(error: nil, id: inPeripheral.identifier.uuidString))
                 }
             #endif
             
@@ -371,6 +385,7 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     
     /* ################################################################## */
     /**
+     :nodoc:
      Called when a Service discovers Characteristics.
      We treat discovery as "atomic." We ask for all the Characteristics at once, so this callback is complete for this Service.
      
@@ -383,13 +398,13 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             #if DEBUG
                 print("ERROR!: \(error.localizedDescription)")
             #endif
-            central?.reportError(.internalError(error))
+            central?.reportError(.internalError(error: error, id: inService.uuid.uuidString))
         } else {
             guard let characteristics = inService.characteristics else {
                 #if DEBUG
                     print("ERROR! The characteristics Array is nil!")
                 #endif
-                central?.reportError(.internalError(nil))
+                central?.reportError(.internalError(error: nil, id: nil))
                 return
             }
             
@@ -403,13 +418,14 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
                 #if DEBUG
                     print("ERROR! Service not found!")
                 #endif
-                central?.reportError(.internalError(nil))
+                central?.reportError(.internalError(error: nil, id: inService.uuid.uuidString))
             }
         }
     }
     
     /* ################################################################## */
     /**
+     :nodoc:
      Called when a Characteristic discovers all of its Descriptors.
      We treat discovery as "atomic." We ask for all the Descriptors at once, so this callback is complete for this Characteristic.
 
@@ -422,13 +438,13 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             #if DEBUG
                 print("ERROR!: \(error.localizedDescription)")
             #endif
-            central?.reportError(.internalError(error))
+            central?.reportError(.internalError(error: error, id: inCharacteristic.uuid.uuidString))
         } else {
             guard let descriptors = inCharacteristic.descriptors else {
                 #if DEBUG
                     print("ERROR! The descriptors Array is nil!")
                 #endif
-                central?.reportError(.internalError(nil))
+                central?.reportError(.internalError(error: nil, id: nil))
                 return
             }
             
@@ -477,13 +493,14 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
                 #if DEBUG
                     print("ERROR! There is no Service for this Characteristic: \(inCharacteristic.uuid.uuidString)")
                 #endif
-                central?.reportError(.internalError(nil))
+                central?.reportError(.internalError(error: nil, id: inCharacteristic.uuid.uuidString))
             }
         }
     }
     
     /* ################################################################## */
     /**
+     :nodoc:
      Called when any Services have been modified.
      
      - parameter inPeripheral: The CBPeripheral that has modified Services.
@@ -507,6 +524,7 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     
     /* ################################################################## */
     /**
+     :nodoc:
      Called when the notification state for a Characteristic changes.
      
      - parameter inPeripheral: The CBPeripheral that has the modified Characteristic.
@@ -516,9 +534,9 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     public func peripheral(_ inPeripheral: CBPeripheral, didUpdateNotificationStateFor inCharacteristic: CBCharacteristic, error inError: Error?) {
         if let error = inError {
             #if DEBUG
-                print("ERROR!: \(error.localizedDescription)")
+                print("ERROR!: \(error.localizedDescription) for Characteristic \(inCharacteristic.uuid.uuidString)")
             #endif
-            central?.reportError(.internalError(error))
+            central?.reportError(.internalError(error: error, id: inCharacteristic.uuid.uuidString))
         } else if let characteristic = sequence_contents.characteristic(inCharacteristic) {
             central?.updateThisCharacteristic(characteristic)
         }
@@ -526,6 +544,7 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
 
     /* ################################################################## */
     /**
+     :nodoc:
      Called to update a Characteristic value (either in response to a read request, or a notify).
      
      - parameter inPeripheral: The CBPeripheral that has the updated Characteristic.
@@ -538,9 +557,9 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
         #endif
         if let error = inError {
             #if DEBUG
-                print("ERROR!: \(String(describing: error))")
+                print("ERROR!: \(String(describing: error)) for Characteristic \(inCharacteristic.uuid.uuidString)")
             #endif
-            central?.reportError(.internalError(error))
+            central?.reportError(.internalError(error: error, id: inCharacteristic.uuid.uuidString))
         } else if let characteristic = sequence_contents.characteristic(inCharacteristic) {
             central?.updateThisCharacteristic(characteristic)
         }
@@ -548,6 +567,7 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
 
     /* ################################################################## */
     /**
+     :nodoc:
      Called to update a descriptor.
      
      - parameter inPeripheral: The CBPeripheral that has the updated Descriptor.
@@ -560,9 +580,9 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
         #endif
         if let error = inError {
             #if DEBUG
-                print("ERROR!: \(error.localizedDescription)")
+                print("ERROR!: \(error.localizedDescription) for Descriptor \(inDescriptor.uuid.uuidString)")
             #endif
-            central?.reportError(.internalError(error))
+            central?.reportError(.internalError(error: error, id: inDescriptor.uuid.uuidString))
         } else if   let characteristic = sequence_contents.characteristic(inDescriptor.characteristic),
                     let descriptor = characteristic.sequence_contents[inDescriptor] as? CGA_Bluetooth_Descriptor {
             central?.updateThisDescriptor(descriptor)
@@ -570,12 +590,13 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             #if DEBUG
                 print("ERROR! Can't find Descriptor!")
             #endif
-            central?.reportError(.internalError(nil))
+            central?.reportError(.internalError(error: nil, id: inDescriptor.uuid.uuidString))
         }
     }
     
     /* ################################################################## */
     /**
+     :nodoc:
      Called to indicate that a write to the a Characteristic was successful.
      **MAJOR CAVEAT**: The <code>value</code> property of the Characteristic will not necessarily have the newly-written value.
      This method is only called to act as a semaphore to let us know that the last write attempt succeeded.
@@ -584,8 +605,8 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
      - parameter didWriteValueFor: The Characteristic instance to which the write applies.
      - parameter error: Any error that may have occured. Hopefully, it is nil.
      */
-    public func peripheral(_ inPeripheral: CBPeripheral, didWriteValueFor inCharacteristic: CBCharacteristic, error inError: Error?) {
 // TODO: Implement this when we can test it.
+//    public func peripheral(_ inPeripheral: CBPeripheral, didWriteValueFor inCharacteristic: CBCharacteristic, error inError: Error?) {
 //        #if DEBUG
 //            print("Received a Characteristic Write delegate callback.")
 //        #endif
@@ -596,10 +617,11 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
 //            central?.reportError(.internalError(error))
 //        } else {
 //        }
-    }
+//    }
 
     /* ################################################################## */
     /**
+     :nodoc:
      Called to indicate that a write to the a Descriptor was successful.
      **MAJOR CAVEAT**: The <code>value</code> property of the Descriptor will not necessarily have the newly-written value.
      This method is only called to act as a semaphore to let us know that the last write attempt succeeded.
@@ -608,8 +630,8 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
      - parameter didWriteValueFor: The Descriptor instance to which the write applies.
      - parameter error: Any error that may have occured. Hopefully, it is nil.
      */
-    public func peripheral(_ inPeripheral: CBPeripheral, didWriteValueFor inDescriptor: CBDescriptor, error inError: Error?) {
 // TODO: Implement this when we can test it.
+//    public func peripheral(_ inPeripheral: CBPeripheral, didWriteValueFor inDescriptor: CBDescriptor, error inError: Error?) {
 //        #if DEBUG
 //            print("Received a Descriptor Write delegate callback.")
 //        #endif
@@ -627,19 +649,20 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
 //            #endif
 //            central?.reportError(.internalError(nil))
 //        }
-    }
+//    }
     
     /* ################################################################## */
     /**
+     :nodoc:
      Called when the Peripheral is ready to listen to our advice.
      This can come some time after a failed write attempt.
      
      - parameter toSendWriteWithoutResponse: The CBPeripheral that is now ready.
      */
-    public func peripheralIsReady(toSendWriteWithoutResponse inPeripheral: CBPeripheral) {
 // TODO: Implement this when we can test it.
+//    public func peripheralIsReady(toSendWriteWithoutResponse inPeripheral: CBPeripheral) {
 //        #if DEBUG
 //            print("Received a Ready to Write Message From the Peripheral \(inPeripheral.identifier.uuidString).")
 //        #endif
-    }
+//    }
 }

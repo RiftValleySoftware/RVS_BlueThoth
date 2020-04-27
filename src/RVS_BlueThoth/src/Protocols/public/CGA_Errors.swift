@@ -32,20 +32,29 @@ public enum CGA_Errors: Error {
     
     /* ################################################################## */
     /**
+     This means that a Peripheral was unexpectedly disconnected.
+     */
+    case unexpectedDisconnection(String!)
+    
+    /* ################################################################## */
+    /**
      A generic internal error.
      */
-    case internalError(Error!)
+    case internalError(error: Error!, id: String!)
 
     /* ################################################################## */
     /**
      Returns a localizable slug for the error. This does not include associated data.
      */
-    var localizedDescription: String {
+    public var localizedDescription: String {
         var ret: String = ""
         
         switch self {
         case .timeoutError:
             ret = "CGA-ERROR-TIMEOUT"
+
+        case .unexpectedDisconnection:
+            ret = "CGA-ERROR-DISCONNECT"
 
         case .internalError:
             ret = "CGA-ERROR-INTERNAL"
@@ -58,15 +67,30 @@ public enum CGA_Errors: Error {
     /**
      Returns an Array, with Strings for any nested errors.
      */
-    var layeredDescription: [String] {
+    public var layeredDescription: [String] {
         var ret: [String] = []
         
         switch self {
-        case .timeoutError:
+        case .timeoutError(let value):
             ret = [localizedDescription]
+            if let value = value?.preferredName {
+                ret.append(value)
+            }
+
+        case .unexpectedDisconnection(let value):
+            ret = [localizedDescription]
+            if let value = value {
+                ret.append(value)
+            }
             
-        case .internalError:
+        case .internalError(let error, let id):
             ret = [localizedDescription]
+            if let error = error?.localizedDescription {
+                ret.append(error)
+            }
+            if let id = id {
+                ret.append(id)
+            }
         }
         
         return ret
@@ -76,15 +100,18 @@ public enum CGA_Errors: Error {
     /**
      This returns any associated data with the current status.
      */
-    var associatedData: Any? {
+    public var associatedData: Any? {
         var ret: Any! = nil
         
         switch self {
         case .timeoutError(let value):
             ret = value
             
-        case .internalError(let value):
+        case .unexpectedDisconnection(let value):
             ret = value
+            
+        case let .internalError(error, id):
+            ret = (error: error, id: id)
         }
         
         return ret
