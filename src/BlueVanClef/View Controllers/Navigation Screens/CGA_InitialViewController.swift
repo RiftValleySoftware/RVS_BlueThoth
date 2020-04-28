@@ -452,7 +452,14 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
      */
     func handleError(_ inError: CGA_Errors, from inCentralManager: RVS_BlueThoth) {
         _resetToRoot()
-        CGA_AppDelegate.displayAlert("SLUG-ERROR".localizedVariant, message: inError.layeredDescription.map { $0.localizedVariant }.joined(separator: "\n"))
+        var mappableLayers = inError.layeredDescription
+        
+        if  1 < mappableLayers.count,
+            let lastError = mappableLayers.popLast() {
+            mappableLayers.insert(lastError, at: 1)
+        }
+        
+        CGA_AppDelegate.displayAlert("SLUG-ERROR".localizedVariant, message: mappableLayers.map { $0.localizedVariant }.joined(separator: "\n"))
     }
     
     /* ################################################################## */

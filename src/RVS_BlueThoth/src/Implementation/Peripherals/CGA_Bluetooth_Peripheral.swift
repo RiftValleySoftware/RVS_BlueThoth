@@ -559,7 +559,7 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             #if DEBUG
                 print("ERROR!: \(String(describing: error)) for Characteristic \(inCharacteristic.uuid.uuidString)")
             #endif
-            central?.reportError(.internalError(error: error, id: inCharacteristic.uuid.uuidString))
+            central?.reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(error, characteristic: inCharacteristic))
         } else if let characteristic = sequence_contents.characteristic(inCharacteristic) {
             central?.updateThisCharacteristic(characteristic)
         }
@@ -582,7 +582,7 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             #if DEBUG
                 print("ERROR!: \(error.localizedDescription) for Descriptor \(inDescriptor.uuid.uuidString)")
             #endif
-            central?.reportError(.internalError(error: error, id: inDescriptor.uuid.uuidString))
+            central?.reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(error, descriptor: inDescriptor))
         } else if   let characteristic = sequence_contents.characteristic(inDescriptor.characteristic),
                     let descriptor = characteristic.sequence_contents[inDescriptor] as? CGA_Bluetooth_Descriptor {
             central?.updateThisDescriptor(descriptor)
@@ -590,7 +590,7 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             #if DEBUG
                 print("ERROR! Can't find Descriptor!")
             #endif
-            central?.reportError(.internalError(error: nil, id: inDescriptor.uuid.uuidString))
+            central?.reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(nil, descriptor: inDescriptor))
         }
     }
     

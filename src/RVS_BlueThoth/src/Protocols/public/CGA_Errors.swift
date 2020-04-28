@@ -20,6 +20,8 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT
 The Great Rift Valley Software Company: https://riftvalleysoftware.com
 */
 
+import CoreBluetooth
+
 /* ###################################################################################################################################### */
 // MARK: - *Enumerations* -
 /* ###################################################################################################################################### */
@@ -82,14 +84,17 @@ public enum CGA_Errors: Error {
             if let value = value {
                 ret.append(value)
             }
-            
+        
+        // This allows us to have nested errors.
         case .internalError(let error, let id):
             ret = [localizedDescription]
-            if let error = error?.localizedDescription {
-                ret.append(error)
-            }
             if let id = id {
                 ret.append(id)
+            }
+            if let error = error as? CGA_Errors {
+                ret += error.layeredDescription
+            } else if let error = error?.localizedDescription {
+                ret.append(error)
             }
         }
         
@@ -116,4 +121,48 @@ public enum CGA_Errors: Error {
         
         return ret
     }
+    
+    /* ################################################################## */
+    /**
+     This returns an internal error, with the Peripheral that reported the error's ID.
+     
+     - parameters:
+        - inError: The error (which may actually be a nested CGA_Errors.internalError).
+        - peripheral: The CBPeripheral object that is reporting the error.
+     - returns: A CGA_Errors.internalError instance, with any nesting added.
+     */
+    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, peripheral inPeripheral: CBPeripheral) -> CGA_Errors { self.internalError(error: inError, id: inPeripheral.identifier.uuidString) }
+    
+    /* ################################################################## */
+    /**
+     This returns an internal error, with a nesting of the Bluetooth hierarchy that got us in this mess, and the Service's ID.
+     
+     - parameters:
+        - inError: The error (which may actually be a nested CGA_Errors.internalError).
+        - service: The CBService object that is reporting the error.
+     - returns: A CGA_Errors.internalError instance, with any nesting added.
+     */
+    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, service inService: CBService) -> CGA_Errors { self.internalError(error: self.returnNestedInternalErrorBasedOnThis(inError, peripheral: inService.peripheral), id: inService.uuid.uuidString) }
+    
+    /* ################################################################## */
+    /**
+     This returns an internal error, with a nesting of the Bluetooth hierarchy that got us in this mess, and the Characteristic's ID.
+     
+     - parameters:
+        - inError: The error (which may actually be a nested CGA_Errors.internalError).
+        - characteristic: The CBCharacteristic object that is reporting the error.
+     - returns: A CGA_Errors.internalError instance, with any nesting added.
+     */
+    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, characteristic inCharacteristic: CBCharacteristic) -> CGA_Errors { self.internalError(error: self.returnNestedInternalErrorBasedOnThis(inError, service: inCharacteristic.service), id: inCharacteristic.uuid.uuidString) }
+    
+    /* ################################################################## */
+    /**
+     This returns an internal error, with a nesting of the Bluetooth hierarchy that got us in this mess, and the Descriptor's ID.
+     
+     - parameters:
+        - inError: The error (which may actually be a nested CGA_Errors.internalError).
+        - descriptor: The CBDescriptor object that is reporting the error.
+     - returns: A CGA_Errors.internalError instance, with any nesting added.
+     */
+    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, descriptor inDescriptor: CBDescriptor) -> CGA_Errors { self.internalError(error: self.returnNestedInternalErrorBasedOnThis(inError, characteristic: inDescriptor.characteristic), id: inDescriptor.uuid.uuidString) }
 }

@@ -432,7 +432,8 @@ extension RVS_BlueThoth {
             #if DEBUG
                 print("ERROR! \(String(describing: inPeripheral?.name)) cannot be connected, because of an internal error.")
             #endif
-            reportError(CGA_Errors.internalError(error: nil, id: nil))
+            let id = inPeripheral?.identifier ?? inPeripheral?.cbPeripheral.identifier.uuidString ?? ""
+            reportError(CGA_Errors.internalError(error: nil, id: id))
             return false
         }
         #if DEBUG
@@ -819,7 +820,8 @@ extension RVS_BlueThoth: CBCentralManagerDelegate {
             }
         #endif
         if let error = inError {
-            central?.reportError(.internalError(error: error, id: inPeripheral.identifier.uuidString))
+            let errorReport = CGA_Errors.returnNestedInternalErrorBasedOnThis(error, peripheral: inPeripheral)
+            central?.reportError(errorReport)
         }
     }
 }
