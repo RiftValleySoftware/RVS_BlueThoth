@@ -191,9 +191,11 @@ class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
     /**
      Called upon application initialization and setup.
      
+     - parameter: Ignored
+     - parameter didFinishLaunchingWithOptions: Ignored
      - returns: True (always)
      */
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool { true }
+    func application(_: UIApplication, didFinishLaunchingWithOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool { true }
     
     /* ################################################################## */
     /**
@@ -203,4 +205,14 @@ class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
      - parameter supportedInterfaceOrientationsFor: ignored
      */
     func application(_: UIApplication, supportedInterfaceOrientationsFor: UIWindow?) -> UIInterfaceOrientationMask { orientationLock }
+    
+    /* ################################################################## */
+    /**
+     Called when the application is about to enter the background.
+     
+     - parameter: Ignored
+     */
+    func applicationDidEnterBackground(_: UIApplication) {
+        Self.centralManager?.disconnectAllPeripherals()
+    }
 }

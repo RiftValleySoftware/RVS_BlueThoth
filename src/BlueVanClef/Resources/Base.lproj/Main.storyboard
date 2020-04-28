@@ -228,11 +228,13 @@
                     </navigationItem>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="backgroundGradientImage" destination="F5h-yB-Ah8" id="A9c-L2-BfZ"/>
                         <outlet property="deviceLabel" destination="b3U-eT-pef" id="9wD-gS-h26"/>
                         <outlet property="deviceTableView" destination="v4D-h1-YBk" id="zV3-O9-vz0"/>
                         <outlet property="editButton" destination="eMn-kT-p1j" id="Ii9-zZ-GHD"/>
                         <outlet property="editButtonStackView" destination="kDs-Vk-wBZ" id="tPi-GI-2wH"/>
                         <outlet property="infoButton" destination="tAq-gq-P11" id="8Bf-ug-0mE"/>
+                        <outlet property="logoImage" destination="Z4E-sI-brG" id="Ck6-qe-3da"/>
                         <outlet property="noBTImage" destination="OEU-02-sbP" id="6PG-n9-cYN"/>
                         <outlet property="scanningButton" destination="tXo-2J-9xn" id="m0i-aB-cyz"/>
                         <outlet property="settingsButton" destination="0VC-rX-dr6" id="HRv-Xn-k4B"/>
@@ -374,9 +376,11 @@
                     <navigationItem key="navigationItem" id="4I3-cQ-H11"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="backgroundGradientImage" destination="rqO-af-VPP" id="nUR-tW-fGT"/>
                         <outlet property="busyAnimationActivityIndicatorView" destination="12E-de-QKI" id="d2d-Nj-uPD"/>
                         <outlet property="connectingLabel" destination="hGu-Ba-ucB" id="uaG-Ac-3Cc"/>
                         <outlet property="deviceInfoTextView" destination="NNl-l6-qwo" id="81x-2l-LXL"/>
+                        <outlet property="logoImage" destination="agf-m6-GLf" id="vBK-U9-RtJ"/>
                         <outlet property="serviceTableView" destination="WIG-l9-WWh" id="5e6-lD-ph3"/>
                         <outlet property="servicesLabel" destination="sDV-qz-eT1" id="ch1-cW-PLL"/>
                         <segue destination="Cui-B7-Qed" kind="show" identifier="show-service-detail" id="kFA-bl-IK5"/>
@@ -493,7 +497,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="WdR-Ov-aPT"/>
                     <connections>
+                        <outlet property="backgroundGradientImage" destination="fU2-Ky-FVi" id="Q3N-Mo-2c4"/>
                         <outlet property="characteristicsTableView" destination="Ki0-qi-Nrq" id="QMw-zT-Jak"/>
+                        <outlet property="logoImage" destination="kfD-wQ-o82" id="NLE-H5-OCn"/>
                         <segue destination="3LZ-gm-Auk" kind="show" identifier="show-characteristic-detail" id="XO8-vv-MSO"/>
                     </connections>
                 </viewController>
@@ -573,7 +579,9 @@
                     <connections>
                         <outlet property="appNameLabel" destination="WSN-0z-Uau" id="SOH-ca-Vf6"/>
                         <outlet property="appVersionLabel" destination="OqY-cl-yOO" id="CMo-8P-dXs"/>
+                        <outlet property="backgroundGradientImage" destination="nIb-SW-Wm9" id="e8F-NR-Tm9"/>
                         <outlet property="copyrightButton" destination="Z8f-zS-wq6" id="ThF-Vh-R1Q"/>
+                        <outlet property="logoImage" destination="0tU-cW-FnB" id="vIg-fn-Jnx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZDZ-HF-NDb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -759,7 +767,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="O9S-IR-UTB">
-                                        <rect key="frame" x="305" y="377" width="51" height="31"/>
+                                        <rect key="frame" x="305" y="385" width="51" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="31" id="49i-kM-hmN"/>
                                             <constraint firstAttribute="width" constant="49" id="h1y-QJ-esg"/>
@@ -769,7 +777,7 @@
                                         </connections>
                                     </switch>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b5Y-3b-Ma6">
-                                        <rect key="frame" x="8" y="374.5" width="293" height="36"/>
+                                        <rect key="frame" x="8" y="382.5" width="293" height="36"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <state key="normal" title="SLUG-CONNECTED-ONLY">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -779,7 +787,7 @@
                                         </connections>
                                     </button>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="SR1-Xp-tEd">
-                                        <rect key="frame" x="305" y="413" width="51" height="31"/>
+                                        <rect key="frame" x="305" y="429" width="51" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="49" id="cqK-SH-S9O"/>
                                             <constraint firstAttribute="height" constant="31" id="n4L-LG-Lmb"/>
@@ -789,7 +797,7 @@
                                         </connections>
                                     </switch>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bjX-Ct-zDK">
-                                        <rect key="frame" x="8" y="410.5" width="293" height="36"/>
+                                        <rect key="frame" x="8" y="426.5" width="293" height="36"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <state key="normal" title="SLUG-EMPTY-NAME">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -809,7 +817,7 @@
                                     <constraint firstAttribute="trailing" secondItem="p79-1Z-nVG" secondAttribute="trailing" constant="8" id="8BG-PV-ecf"/>
                                     <constraint firstItem="JDo-ne-xIu" firstAttribute="top" secondItem="p79-1Z-nVG" secondAttribute="bottom" constant="8" id="8fc-F1-PRk"/>
                                     <constraint firstItem="7Yf-Ec-rJE" firstAttribute="leading" secondItem="seW-CP-P2g" secondAttribute="leading" constant="8" id="A5q-jd-1VR"/>
-                                    <constraint firstItem="bjX-Ct-zDK" firstAttribute="top" secondItem="b5Y-3b-Ma6" secondAttribute="bottom" id="Doa-2M-vTC"/>
+                                    <constraint firstItem="bjX-Ct-zDK" firstAttribute="top" secondItem="b5Y-3b-Ma6" secondAttribute="bottom" constant="8" id="Doa-2M-vTC"/>
                                     <constraint firstItem="SR1-Xp-tEd" firstAttribute="centerY" secondItem="bjX-Ct-zDK" secondAttribute="centerY" id="F65-Lm-eYQ"/>
                                     <constraint firstItem="SR1-Xp-tEd" firstAttribute="leading" secondItem="bjX-Ct-zDK" secondAttribute="trailing" constant="4" id="FWI-sr-8m4"/>
                                     <constraint firstItem="vo0-38-Oli" firstAttribute="leading" secondItem="seW-CP-P2g" secondAttribute="leading" constant="8" id="G41-ga-Dug"/>
@@ -843,7 +851,7 @@
                                     <constraint firstItem="34Z-uF-wxS" firstAttribute="leading" secondItem="seW-CP-P2g" secondAttribute="leading" constant="8" id="tCC-G0-CtB"/>
                                     <constraint firstAttribute="trailing" secondItem="JDo-ne-xIu" secondAttribute="trailing" constant="8" id="tSd-lJ-IsI"/>
                                     <constraint firstItem="34Z-uF-wxS" firstAttribute="top" secondItem="JDo-ne-xIu" secondAttribute="bottom" constant="8" id="vaC-bh-wh7"/>
-                                    <constraint firstItem="b5Y-3b-Ma6" firstAttribute="top" secondItem="C9m-8k-slg" secondAttribute="bottom" id="we3-sm-E9w"/>
+                                    <constraint firstItem="b5Y-3b-Ma6" firstAttribute="top" secondItem="C9m-8k-slg" secondAttribute="bottom" constant="8" id="we3-sm-E9w"/>
                                     <constraint firstAttribute="trailing" secondItem="7Yf-Ec-rJE" secondAttribute="trailing" constant="8" id="yGi-c0-WlS"/>
                                     <constraint firstItem="7Yf-Ec-rJE" firstAttribute="top" secondItem="34Z-uF-wxS" secondAttribute="bottom" constant="8" id="ygx-Hh-GfY"/>
                                 </constraints>
@@ -874,6 +882,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="aKk-Qj-mHb"/>
                     <connections>
+                        <outlet property="backgroundGradientImage" destination="YHu-7n-kRe" id="8pW-55-b6R"/>
                         <outlet property="characteristicFilterLabel" destination="34Z-uF-wxS" id="LNl-jR-LkN"/>
                         <outlet property="characteristicFilterTextView" destination="7Yf-Ec-rJE" id="hQ3-bg-ARo"/>
                         <outlet property="deviceFilterLabel" destination="vo0-38-Oli" id="s68-pw-lTN"/>
@@ -883,6 +892,7 @@
                         <outlet property="filterHeaderLabel" destination="1Cd-dt-Kj0" id="cPg-Cd-h4h"/>
                         <outlet property="ignoreDuplicatesScanningSwitch" destination="p9R-qa-1Sh" id="1MR-kd-0Ud"/>
                         <outlet property="ignoreDuplicatesSwitchButton" destination="TUN-w0-qF3" id="nKu-JI-coS"/>
+                        <outlet property="logoImage" destination="mbN-yC-cXl" id="Xf5-c7-6hP"/>
                         <outlet property="minimumRSSILevelLabel" destination="Tqv-3F-wD1" id="mni-ng-9mi"/>
                         <outlet property="minimumRSSILevelMaxValLabel" destination="1Lq-NV-vVg" id="dBL-kl-HqP"/>
                         <outlet property="minimumRSSILevelMinValLabel" destination="DTF-x8-2dm" id="dFD-Oq-NCV"/>
@@ -993,7 +1003,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="guu-UA-Ipy"/>
                     <connections>
+                        <outlet property="backgroundGradientImage" destination="6er-Cj-vPg" id="Nha-em-huR"/>
                         <outlet property="descriptorsTableView" destination="zmr-rp-Zgo" id="GDp-Lr-z3v"/>
+                        <outlet property="logoImage" destination="swl-UQ-FSe" id="t7x-mB-b2k"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jcd-Il-kTt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -43,7 +43,7 @@ class CGA_PeripheralViewController_TableRow: UITableViewCell {
 /**
  This controls the Peripheral Information View.
  */
-class CGA_PeripheralViewController: UIViewController {
+class CGA_PeripheralViewController: CGA_BaseViewController {
     /* ################################################################## */
     /**
      The reuse ID that we use for creating new table cells.
@@ -267,7 +267,7 @@ extension CGA_PeripheralViewController: UITableViewDataSource {
         
         // This ensures that we maintain a consistent backround color upon selection.
         tableCell.selectedBackgroundView = UIView()
-        tableCell.selectedBackgroundView?.backgroundColor = UIColor(cgColor: CGA_AppDelegate.appDelegateObject.prefs.tableSelectionBackgroundColor)
+        tableCell.selectedBackgroundView?.backgroundColor = UIColor(cgColor: prefs.tableSelectionBackgroundColor)
 
         tableCell.accessibilityLabel = String(format: "SLUG-ACC-SERVICES-TABLE-ROW".localizedVariant, deviceInstance?[inIndexPath.row].id.localizedVariant ?? "ERROR")
         return tableCell

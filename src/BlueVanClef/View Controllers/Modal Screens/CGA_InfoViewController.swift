@@ -28,7 +28,7 @@ import UIKit
 /**
  This controls the about this app view.
  */
-class CGA_InfoViewController: UIViewController {
+class CGA_InfoViewController: CGA_BaseViewController {
     /* ################################################################## */
     /**
      The label that displays the app name.

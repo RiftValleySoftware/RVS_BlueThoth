@@ -20,6 +20,8 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT
 The Great Rift Valley Software Company: https://riftvalleysoftware.com
 */
 
+import CoreBluetooth
+
 /* ###################################################################################################################################### */
 // MARK: - *Enumerations* -
 /* ###################################################################################################################################### */
@@ -40,6 +42,30 @@ public enum CGA_Errors: Error {
     /**
      A generic internal error.
      */
+    case peripheralError(error: Error!, id: String!)
+    
+    /* ################################################################## */
+    /**
+     A generic internal error.
+     */
+    case serviceError(error: Error!, id: String!)
+    
+    /* ################################################################## */
+    /**
+     A generic internal error.
+     */
+    case characteristicError(error: Error!, id: String!)
+    
+    /* ################################################################## */
+    /**
+     A generic internal error.
+     */
+    case descriptorError(error: Error!, id: String!)
+
+    /* ################################################################## */
+    /**
+     A generic internal error.
+     */
     case internalError(error: Error!, id: String!)
 
     /* ################################################################## */
@@ -55,6 +81,18 @@ public enum CGA_Errors: Error {
 
         case .unexpectedDisconnection:
             ret = "CGA-ERROR-DISCONNECT"
+
+        case .peripheralError:
+            ret = "CGA-ERROR-PERIPHERAL"
+
+        case .serviceError:
+            ret = "CGA-ERROR-SERVICE"
+
+        case .characteristicError:
+            ret = "CGA-ERROR-CHARACTERISTIC"
+
+        case .descriptorError:
+            ret = "CGA-ERROR-DESCRIPTOR"
 
         case .internalError:
             ret = "CGA-ERROR-INTERNAL"
@@ -82,17 +120,24 @@ public enum CGA_Errors: Error {
             if let value = value {
                 ret.append(value)
             }
-            
-        case .internalError(let error, let id):
+        
+        // This allows us to have nested errors.
+        case .peripheralError(let error, let id),
+             .serviceError(let error, let id),
+             .characteristicError(let error, let id),
+             .descriptorError(let error, let id),
+             .internalError(let error, let id):
             ret = [localizedDescription]
-            if let error = error?.localizedDescription {
-                ret.append(error)
-            }
             if let id = id {
                 ret.append(id)
             }
+            if let error = error as? CGA_Errors {
+                ret += error.layeredDescription
+            } else if let error = error?.localizedDescription {
+                ret.append(error)
+            }
         }
-        
+
         return ret
     }
 
@@ -110,10 +155,58 @@ public enum CGA_Errors: Error {
         case .unexpectedDisconnection(let value):
             ret = value
             
-        case let .internalError(error, id):
+        case .peripheralError(let error, let id),
+             .serviceError(let error, let id),
+             .characteristicError(let error, let id),
+             .descriptorError(let error, let id),
+             .internalError(let error, let id):
             ret = (error: error, id: id)
         }
         
         return ret
     }
+    
+    /* ################################################################## */
+    /**
+     This returns an internal error, with the Peripheral that reported the error's ID.
+     
+     - parameters:
+        - inError: The error (which may actually be a nested CGA_Errors.internalError).
+        - peripheral: The CBPeripheral object that is reporting the error.
+     - returns: A CGA_Errors.internalError instance, with any nesting added.
+     */
+    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, peripheral inPeripheral: CBPeripheral) -> CGA_Errors { self.peripheralError(error: inError, id: inPeripheral.identifier.uuidString) }
+    
+    /* ################################################################## */
+    /**
+     This returns an internal error, with a nesting of the Bluetooth hierarchy that got us in this mess, and the Service's ID.
+     
+     - parameters:
+        - inError: The error (which may actually be a nested CGA_Errors.internalError).
+        - service: The CBService object that is reporting the error.
+     - returns: A CGA_Errors.internalError instance, with any nesting added.
+     */
+    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, service inService: CBService) -> CGA_Errors { self.serviceError(error: self.returnNestedInternalErrorBasedOnThis(inError, peripheral: inService.peripheral), id: inService.uuid.uuidString) }
+    
+    /* ################################################################## */
+    /**
+     This returns an internal error, with a nesting of the Bluetooth hierarchy that got us in this mess, and the Characteristic's ID.
+     
+     - parameters:
+        - inError: The error (which may actually be a nested CGA_Errors.internalError).
+        - characteristic: The CBCharacteristic object that is reporting the error.
+     - returns: A CGA_Errors.internalError instance, with any nesting added.
+     */
+    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, characteristic inCharacteristic: CBCharacteristic) -> CGA_Errors { self.characteristicError(error: self.returnNestedInternalErrorBasedOnThis(inError, service: inCharacteristic.service), id: inCharacteristic.uuid.uuidString) }
+    
+    /* ################################################################## */
+    /**
+     This returns an internal error, with a nesting of the Bluetooth hierarchy that got us in this mess, and the Descriptor's ID.
+     
+     - parameters:
+        - inError: The error (which may actually be a nested CGA_Errors.internalError).
+        - descriptor: The CBDescriptor object that is reporting the error.
+     - returns: A CGA_Errors.internalError instance, with any nesting added.
+     */
+    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, descriptor inDescriptor: CBDescriptor) -> CGA_Errors { self.descriptorError(error: self.returnNestedInternalErrorBasedOnThis(inError, characteristic: inDescriptor.characteristic), id: inDescriptor.uuid.uuidString) }
 }

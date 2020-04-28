@@ -29,7 +29,7 @@ import CoreBluetooth
 /**
  This controls the settings view.
  */
-class CGA_SettingsViewController: UIViewController {
+class CGA_SettingsViewController: CGA_BaseViewController {
     /* ################################################################## */
     /**
      This switch will determine whether or not duplicate filtering is applied to the Peripheral scanning.
@@ -160,15 +160,15 @@ extension CGA_SettingsViewController {
      This sets up the accessibility and voiceover strings for the screen.
      */
     private func _setUpAccessibility() {
-        ignoreDuplicatesSwitchButton?.accessibilityLabel = ("SLUG-ACC-CONTINUOUS-UPDATE-BUTTON-O" + (CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals ? "N" : "FF")).localizedVariant
-        ignoreDuplicatesScanningSwitch?.accessibilityLabel = ("SLUG-ACC-CONTINUOUS-UPDATE-SWITCH-O" + (CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals ? "N" : "FF")).localizedVariant
+        ignoreDuplicatesSwitchButton?.accessibilityLabel = ("SLUG-ACC-CONTINUOUS-UPDATE-BUTTON-O" + (prefs.continuouslyUpdatePeripherals ? "N" : "FF")).localizedVariant
+        ignoreDuplicatesScanningSwitch?.accessibilityLabel = ("SLUG-ACC-CONTINUOUS-UPDATE-SWITCH-O" + (prefs.continuouslyUpdatePeripherals ? "N" : "FF")).localizedVariant
         deviceFilterTextView?.accessibilityLabel = "SLUG-ACC-DEVICE-UUIDS".localizedVariant
         serviceFilterTextView?.accessibilityLabel = "SLUG-ACC-SERVICE-UUIDS".localizedVariant
         characteristicFilterTextView?.accessibilityLabel = "SLUG-ACC-CHARACTERISTIC-UUIDS".localizedVariant
-        onlyConnectablesSwitchButton?.accessibilityLabel = ("SLUG-ACC-CONNECTED-ONLY-BUTTON-O" + (CGA_AppDelegate.appDelegateObject.prefs.discoverOnlyConnectableDevices ? "N" : "FF")).localizedVariant
-        onlyConnectablesSwitch?.accessibilityLabel = ("SLUG-ACC-CONNECTED-ONLY-SWITCH-O" + (CGA_AppDelegate.appDelegateObject.prefs.discoverOnlyConnectableDevices ? "N" : "FF")).localizedVariant
-        emptyNamesSwitchButton?.accessibilityLabel = ("SLUG-ACC-EMPTY-NAMES-BUTTON-O" + (CGA_AppDelegate.appDelegateObject.prefs.allowEmptyNames ? "N" : "FF")).localizedVariant
-        emptyNamesSwitch?.accessibilityLabel = ("SLUG-ACC-EMPTY-NAMES-SWITCH-O" + (CGA_AppDelegate.appDelegateObject.prefs.allowEmptyNames ? "N" : "FF")).localizedVariant
+        onlyConnectablesSwitchButton?.accessibilityLabel = ("SLUG-ACC-CONNECTED-ONLY-BUTTON-O" + (prefs.discoverOnlyConnectableDevices ? "N" : "FF")).localizedVariant
+        onlyConnectablesSwitch?.accessibilityLabel = ("SLUG-ACC-CONNECTED-ONLY-SWITCH-O" + (prefs.discoverOnlyConnectableDevices ? "N" : "FF")).localizedVariant
+        emptyNamesSwitchButton?.accessibilityLabel = ("SLUG-ACC-EMPTY-NAMES-BUTTON-O" + (prefs.allowEmptyNames ? "N" : "FF")).localizedVariant
+        emptyNamesSwitch?.accessibilityLabel = ("SLUG-ACC-EMPTY-NAMES-SWITCH-O" + (prefs.allowEmptyNames ? "N" : "FF")).localizedVariant
         minimumRSSILevelValueLabel?.accessibilityLabel = String(format: "SLUG-ACC-SLIDER-MIN-LABEL".localizedVariant, Int(minimumRSSILevelSlider?.minimumValue ?? -100))
         minimumRSSILevelMaxValLabel?.accessibilityLabel = String(format: "SLUG-ACC-SLIDER-MAX-LABEL".localizedVariant, Int(minimumRSSILevelSlider?.maximumValue ?? 0))
     }
@@ -186,7 +186,7 @@ extension CGA_SettingsViewController {
      - parameter inSwitch: The switch object.
      */
     @IBAction func ignoreDuplicatesSwitchHit(_ inSwitch: UISwitch) {
-        CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals = inSwitch.isOn
+        prefs.continuouslyUpdatePeripherals = inSwitch.isOn
         updateUI()
     }
     
@@ -198,7 +198,7 @@ extension CGA_SettingsViewController {
      - parameter: ignored.
      */
     @IBAction func ignoreDuplicatesButtonHit(_: Any) {
-        CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals = !CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals
+        prefs.continuouslyUpdatePeripherals = !prefs.continuouslyUpdatePeripherals
         updateUI()
     }
     
@@ -209,7 +209,7 @@ extension CGA_SettingsViewController {
     @IBAction func minimumRSSISliderChanged(_ inSlider: UISlider) {
         let valueAsInt = ceil(inSlider.value)
         inSlider.value = valueAsInt
-        CGA_AppDelegate.appDelegateObject.prefs.minimumRSSILevel = Int(valueAsInt)
+        prefs.minimumRSSILevel = Int(valueAsInt)
         updateMInimumRSSIValue()
     }
     
@@ -220,9 +220,7 @@ extension CGA_SettingsViewController {
      - parameter: ignored (and optional).
      */
     @IBAction func dismissKeyboard(_: Any! = nil) {
-        deviceFilterTextView?.resignFirstResponder()
-        serviceFilterTextView?.resignFirstResponder()
-        characteristicFilterTextView?.resignFirstResponder()
+        view.resignAllFirstResponders()
     }
     
     /* ################################################################## */
@@ -233,7 +231,7 @@ extension CGA_SettingsViewController {
      - parameter inSwitch: The switch object.
      */
     @IBAction func onlyConnectableSwitchHit(_ inSwitch: UISwitch) {
-        CGA_AppDelegate.appDelegateObject.prefs.discoverOnlyConnectableDevices = inSwitch.isOn
+        prefs.discoverOnlyConnectableDevices = inSwitch.isOn
         updateUI()
     }
     
@@ -245,7 +243,7 @@ extension CGA_SettingsViewController {
      - parameter: ignored.
      */
     @IBAction func onlyConnectableButtonHit(_: Any) {
-        CGA_AppDelegate.appDelegateObject.prefs.discoverOnlyConnectableDevices = !CGA_AppDelegate.appDelegateObject.prefs.discoverOnlyConnectableDevices
+        prefs.discoverOnlyConnectableDevices = !prefs.discoverOnlyConnectableDevices
         updateUI()
     }
     
@@ -257,7 +255,7 @@ extension CGA_SettingsViewController {
      - parameter inSwitch: The switch object.
      */
     @IBAction func emptyNamesSwitchHit(_ inSwitch: UISwitch) {
-        CGA_AppDelegate.appDelegateObject.prefs.allowEmptyNames = inSwitch.isOn
+        prefs.allowEmptyNames = inSwitch.isOn
         updateUI()
     }
     
@@ -269,7 +267,7 @@ extension CGA_SettingsViewController {
      - parameter: ignored.
      */
     @IBAction func emptyNamesButtonHit(_: Any) {
-        CGA_AppDelegate.appDelegateObject.prefs.allowEmptyNames = !CGA_AppDelegate.appDelegateObject.prefs.allowEmptyNames
+        prefs.allowEmptyNames = !prefs.allowEmptyNames
         updateUI()
     }
 }
@@ -284,12 +282,12 @@ extension CGA_SettingsViewController {
      */
     func updateUI() {
         dismissKeyboard()
-        ignoreDuplicatesScanningSwitch?.setOn(CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals, animated: true)
-        onlyConnectablesSwitch?.setOn(CGA_AppDelegate.appDelegateObject.prefs.discoverOnlyConnectableDevices, animated: true)
-        emptyNamesSwitch?.setOn(CGA_AppDelegate.appDelegateObject.prefs.allowEmptyNames, animated: true)
-        deviceFilterTextView?.text = CGA_AppDelegate.appDelegateObject.prefs.peripheralFilterIDArray.joined(separator: "\n")
-        serviceFilterTextView?.text = CGA_AppDelegate.appDelegateObject.prefs.serviceFilterIDArray.joined(separator: "\n")
-        characteristicFilterTextView?.text = CGA_AppDelegate.appDelegateObject.prefs.characteristicFilterIDArray.joined(separator: "\n")
+        ignoreDuplicatesScanningSwitch?.setOn(prefs.continuouslyUpdatePeripherals, animated: true)
+        onlyConnectablesSwitch?.setOn(prefs.discoverOnlyConnectableDevices, animated: true)
+        emptyNamesSwitch?.setOn(prefs.allowEmptyNames, animated: true)
+        deviceFilterTextView?.text = prefs.peripheralFilterIDArray.joined(separator: "\n")
+        serviceFilterTextView?.text = prefs.serviceFilterIDArray.joined(separator: "\n")
+        characteristicFilterTextView?.text = prefs.characteristicFilterIDArray.joined(separator: "\n")
         _setUpAccessibility()
         updateMInimumRSSIValue()
     }
@@ -298,7 +296,7 @@ extension CGA_SettingsViewController {
     /**
      */
     func updateMInimumRSSIValue() {
-        let minimumRSSILevel = CGA_AppDelegate.appDelegateObject.prefs.minimumRSSILevel
+        let minimumRSSILevel = prefs.minimumRSSILevel
         // Sets up our accessibility labels and values for the slider.
         minimumRSSILevelValueLabel?.text = String(format: "SLUG-RSSI-LEVEL-FORMAT".localizedVariant, minimumRSSILevel)
         minimumRSSILevelLabel?.accessibilityLabel = String(format: "SLUG-ACC-SLIDER-LABEL-FORMAT".localizedVariant, minimumRSSILevel)
@@ -312,7 +310,7 @@ extension CGA_SettingsViewController {
      Forces a prefs update on the contents of the Peripheral filter TextView.
      */
     func parseDeviceTextView() {
-        CGA_AppDelegate.appDelegateObject.prefs.peripheralFilterIDArray = Self._parseThisTextForUUIDs(deviceFilterTextView?.text)
+        prefs.peripheralFilterIDArray = Self._parseThisTextForUUIDs(deviceFilterTextView?.text)
     }
     
     /* ################################################################## */
@@ -320,7 +318,7 @@ extension CGA_SettingsViewController {
      Forces a prefs update on the contents of the Service filter TextView.
      */
     func parseServiceTextView() {
-        CGA_AppDelegate.appDelegateObject.prefs.serviceFilterIDArray = Self._parseThisTextForUUIDs(serviceFilterTextView?.text)
+        prefs.serviceFilterIDArray = Self._parseThisTextForUUIDs(serviceFilterTextView?.text)
     }
     
     /* ################################################################## */
@@ -328,7 +326,7 @@ extension CGA_SettingsViewController {
      Forces a prefs update on the contents of the Characteristic filter TextView.
      */
     func parseCharacteristicTextView() {
-        CGA_AppDelegate.appDelegateObject.prefs.characteristicFilterIDArray = Self._parseThisTextForUUIDs(characteristicFilterTextView?.text)
+        prefs.characteristicFilterIDArray = Self._parseThisTextForUUIDs(characteristicFilterTextView?.text)
     }
 }
 
@@ -352,7 +350,7 @@ extension CGA_SettingsViewController {
         minimumRSSILevelLabel?.text = minimumRSSILevelLabel?.text?.localizedVariant
         minimumRSSILevelMinValLabel?.text = minimumRSSILevelMinValLabel?.text?.localizedVariant
         minimumRSSILevelMaxValLabel?.text = minimumRSSILevelMaxValLabel?.text?.localizedVariant
-        minimumRSSILevelSlider?.value = Float(CGA_AppDelegate.appDelegateObject.prefs.minimumRSSILevel)
+        minimumRSSILevelSlider?.value = Float(prefs.minimumRSSILevel)
         updateUI()
     }
     
