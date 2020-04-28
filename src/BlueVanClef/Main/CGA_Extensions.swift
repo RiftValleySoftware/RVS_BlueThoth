@@ -23,6 +23,48 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 import UIKit
 
 /* ###################################################################################################################################### */
+// MARK: - UIView Extension -
+/* ###################################################################################################################################### */
+/**
+ We add a couple of ways to deal with first responders.
+ */
+extension UIView {
+    /* ################################################################## */
+    /**
+     This returns the first responder, wherever it is in our hierarchy.
+     */
+    var currentFirstResponder: UIResponder? {
+        if self.isFirstResponder {
+            return self
+        } else {
+            var ret: UIResponder?
+            
+            subviews.forEach {
+                if let responder = $0.currentFirstResponder {
+                    ret = responder
+                }
+            }
+            
+            return ret
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     This puts away any open keyboards.
+     */
+    func resignAllFirstResponders() {
+        if let firstResponder = self.currentFirstResponder {
+            firstResponder.resignFirstResponder()
+        } else {
+            subviews.forEach {
+                $0.resignAllFirstResponders()
+            }
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - UITableView Extension -
 /* ###################################################################################################################################### */
 /**

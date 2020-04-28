@@ -416,6 +416,14 @@ extension RVS_BlueThoth {
         }
     }
     
+    /* ############################################################## */
+    /**
+     This forces disconnects for all Peripherals.
+     */
+    public func disconnectAllPeripherals() {
+        stagedBLEPeripherals.forEach { $0.disconnect() }
+    }
+
     /* ################################################################## */
     /**
      Called to initiate a connection (and discovery process) with the peripheral.
@@ -1082,7 +1090,7 @@ extension RVS_BlueThoth {
                     isConnected else { return false }
             return central.disconnect(self)
         }
-
+        
         /* ############################################################## */
         /**
          Cancels the timeout.

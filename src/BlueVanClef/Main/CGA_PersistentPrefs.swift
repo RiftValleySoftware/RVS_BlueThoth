@@ -78,12 +78,18 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
          This will be a Bool, true, if we are allowing devices that don't have names to be discovered.
          */
         case allowEmptyNames = "kAllowEmptyNames"
-
+        
         /* ############################################################## */
         /**
          This will be a CGColor, indicating the color to use for the selected table cells.
          */
         case tableSelectionBackgroundColor = "kBackgroundColorForTableSelection"
+
+        /* ############################################################## */
+        /**
+         This will be a CGColor, indicating the color to use for the selected table cells.
+         */
+        case textColorForUnselectableCells = "kTextColorForUnselectableCells"
 
         /* ############################################################## */
         /**
@@ -94,6 +100,7 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
                                         serviceFilterIDArray.rawValue,
                                         characteristicFilterIDArray.rawValue,
                                         tableSelectionBackgroundColor.rawValue,
+                                        textColorForUnselectableCells.rawValue,
                                         minimumRSSILevel.rawValue,
                                         discoverOnlyConnectableDevices.rawValue,
                                         allowEmptyNames.rawValue
@@ -177,6 +184,13 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
      */
     var tableSelectionBackgroundColor: CGColor { CGColor(srgbRed: 0.5, green: 0.5, blue: 0.5, alpha: 1) }
     
+    /* ################################################################## */
+    /**
+     This is a CGColor, indicating the color to use for the table cells that can't be clicked.
+     Instead of storing it, we simply return the same color.
+     */
+    var textColorForUnselectableCells: CGFloat { 0.5 }
+
     /* ################################################################## */
     /**
      This is the scan criteria object to be used for filtering scans.

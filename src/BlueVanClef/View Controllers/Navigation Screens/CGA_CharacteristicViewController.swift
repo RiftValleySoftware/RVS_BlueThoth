@@ -49,7 +49,7 @@ class CGA_CharacteristicViewController_TableRow: UITableViewCell {
 /**
  This controls the Characteristic Information View.
  */
-class CGA_CharacteristicViewController: UIViewController {
+class CGA_CharacteristicViewController: CGA_BaseViewController {
     /* ################################################################## */
     /**
      The reuse ID that we use for creating new table cells.
@@ -186,7 +186,7 @@ extension CGA_CharacteristicViewController: UITableViewDataSource {
         
         // This ensures that we maintain a consistent backround color upon selection.
         tableCell.selectedBackgroundView = UIView()
-        tableCell.selectedBackgroundView?.backgroundColor = UIColor(cgColor: CGA_AppDelegate.appDelegateObject.prefs.tableSelectionBackgroundColor)
+        tableCell.selectedBackgroundView?.backgroundColor = UIColor(cgColor: prefs.tableSelectionBackgroundColor)
 
         return tableCell
     }

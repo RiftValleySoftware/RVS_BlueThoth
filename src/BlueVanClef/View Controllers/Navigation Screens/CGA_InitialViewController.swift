@@ -92,7 +92,7 @@ class CGA_InitialViewController_TableRow: UITableViewCell {
  
  There are two sections: BLE, and BR/EDR (Classic). Each section has rows of devices that fit in that Bluetooth mode.
  */
-class CGA_InitialViewController: UIViewController {
+class CGA_InitialViewController: CGA_BaseViewController {
     /* ################################################################## */
     /**
      These are the indexes for our sections.
@@ -275,12 +275,7 @@ extension CGA_InitialViewController {
         super.viewWillAppear(inAnimated)
         deviceTableView?.deselectAll(animated: true)
         // We always make sure that nothing is connected.
-        if  let count = CGA_AppDelegate.centralManager?.count,
-            0 < count {
-            CGA_AppDelegate.centralManager?.forEach {
-                $0.discoveryData?.disconnect()
-            }
-        }
+        CGA_AppDelegate.centralManager?.forEach { $0.discoveryData?.disconnect() }
         
         navigationController?.navigationBar.isHidden = true
         if wasScanning {
@@ -353,13 +348,13 @@ extension CGA_InitialViewController {
      Starts scanning for Peripherals. If already scanning, nothing happens.
      */
     private func _startScanning() {
-        let scanCriteria = CGA_AppDelegate.appDelegateObject.prefs.scanCriteria
+        let scanCriteria = prefs.scanCriteria
         deviceTableView.isEditing = false
         CGA_AppDelegate.centralManager?.scanCriteria = scanCriteria
-        CGA_AppDelegate.centralManager?.minimumRSSILevelIndBm = CGA_AppDelegate.appDelegateObject.prefs.minimumRSSILevel
-        CGA_AppDelegate.centralManager?.discoverOnlyConnectablePeripherals = CGA_AppDelegate.appDelegateObject.prefs.discoverOnlyConnectableDevices
-        CGA_AppDelegate.centralManager?.allowEmptyNames = CGA_AppDelegate.appDelegateObject.prefs.allowEmptyNames
-        CGA_AppDelegate.centralManager?.startScanning(duplicateFilteringIsOn: !CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals)
+        CGA_AppDelegate.centralManager?.minimumRSSILevelIndBm = prefs.minimumRSSILevel
+        CGA_AppDelegate.centralManager?.discoverOnlyConnectablePeripherals = prefs.discoverOnlyConnectableDevices
+        CGA_AppDelegate.centralManager?.allowEmptyNames = prefs.allowEmptyNames
+        CGA_AppDelegate.centralManager?.startScanning(duplicateFilteringIsOn: !prefs.continuouslyUpdatePeripherals)
         deviceTableView.reloadData()
     }
     
@@ -690,7 +685,7 @@ extension CGA_InitialViewController: UITableViewDataSource {
         if  let tableCell = tableCell as? CGA_InitialViewController_TableRow,
             let centralManager = CGA_AppDelegate.centralManager,
             (0..<centralManager.stagedBLEPeripherals.count).contains(inIndexPath.row) {
-            let fontColor = UIColor(white: centralManager.stagedBLEPeripherals[inIndexPath.row].canConnect ? 1.0 : 0.75, alpha: 1.0)
+            let fontColor = UIColor(white: 1.0, alpha: centralManager.stagedBLEPeripherals[inIndexPath.row].canConnect ? 1.0 : prefs.textColorForUnselectableCells)
             tableCell.nameLabel?.textColor = fontColor
             tableCell.rssiLabel?.textColor = fontColor
             tableCell.nameLabel?.text = centralManager.stagedBLEPeripherals[inIndexPath.row].name
@@ -734,7 +729,7 @@ extension CGA_InitialViewController: UITableViewDataSource {
         
         // This ensures that we maintain a consistent background color upon selection.
         tableCell.selectedBackgroundView = UIView()
-        tableCell.selectedBackgroundView?.backgroundColor = UIColor(cgColor: CGA_AppDelegate.appDelegateObject.prefs.tableSelectionBackgroundColor)
+        tableCell.selectedBackgroundView?.backgroundColor = UIColor(cgColor: prefs.tableSelectionBackgroundColor)
 
         return tableCell
     }

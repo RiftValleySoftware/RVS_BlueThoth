@@ -89,7 +89,7 @@ class CG_TappableButton: UIButton {
 /**
  This controls the Service Information View.
  */
-class CGA_ServiceViewController: UIViewController {
+class CGA_ServiceViewController: CGA_BaseViewController {
     /* ################################################################## */
     /**
      The reuse ID that we use for creating new table cells.
@@ -200,7 +200,7 @@ extension CGA_ServiceViewController {
     @objc func descriptorTapped(_ inGestureRecognizer: CG_TapGestureRecognizer) {
         if  let characteristic = serviceInstance?[inGestureRecognizer.rowIndex],
             0 < characteristic.count {
-            inGestureRecognizer.backgroundView.backgroundColor = UIColor(cgColor: CGA_AppDelegate.appDelegateObject.prefs.tableSelectionBackgroundColor)
+            inGestureRecognizer.backgroundView.backgroundColor = UIColor(cgColor: prefs.tableSelectionBackgroundColor)
             performSegue(withIdentifier: Self._characteristicDetailSegueID, sender: characteristic)
         }
     }
@@ -279,13 +279,13 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         /**
          The color of the label text.
          */
-        private let _labelTextColor = UIColor.blue
+        let labelTextColor: UIColor
         
         /* ############################################################## */
         /**
          The color of the label text.
          */
-        private let _labelBackgroundColor = UIColor(white: 0.75, alpha: 1.0)
+        private let _labelBackgroundColor = UIColor(white: 1.0, alpha: CGA_AppDelegate.appDelegateObject?.prefs.textColorForUnselectableCells ?? 0)
 
         /* ############################################################## */
         /**
@@ -295,7 +295,7 @@ extension CGA_ServiceViewController: UITableViewDataSource {
             let ret = CG_TappableButton()
             let title = "SLUG-PROPERTIES-READ"
             ret.setTitle(title.localizedVariant, for: .normal)
-            ret.setTitleColor(_labelTextColor, for: .normal)
+            ret.setTitleColor(labelTextColor, for: .normal)
             ret.backgroundColor = .white
             ret.addTarget(ownerViewController, action: #selector(readTapped(_:)), for: .touchUpInside)
             ret.accessibilityLabel = "SLUG-ACC-CHARACTERISTIC-ROW-\(title)".localizedVariant
@@ -310,7 +310,7 @@ extension CGA_ServiceViewController: UITableViewDataSource {
             let ret = CG_TappableButton()
             let title = "SLUG-PROPERTIES-NOTIFY-\(characteristic.isNotifying ? "ON" : "OFF")"
             ret.setTitle(title.localizedVariant, for: .normal)
-            ret.setTitleColor(characteristic.isNotifying ? _labelTextColor : .white, for: .normal)
+            ret.setTitleColor(characteristic.isNotifying ? labelTextColor : .white, for: .normal)
             ret.backgroundColor = characteristic.isNotifying ? .green : .red
             ret.addTarget(ownerViewController, action: #selector(notifyTapped(_:)), for: .touchUpInside)
             ret.accessibilityLabel = "SLUG-ACC-CHARACTERISTIC-ROW-\(title)".localizedVariant
@@ -323,9 +323,9 @@ extension CGA_ServiceViewController: UITableViewDataSource {
          */
         private func _makeLabel(_ inText: String) -> UILabel {
             let ret = UILabel()
-            ret.textColor = _labelTextColor
+            ret.textColor = labelTextColor
             ret.backgroundColor = _labelBackgroundColor
-            ret.font = .boldSystemFont(ofSize: _labelFontSize)
+            ret.font = .boldSystemFont(ofSize: UIAccessibility.isDarkerSystemColorsEnabled ? _labelFontSize * 1.5 : _labelFontSize)
             ret.text = inText.localizedVariant
             ret.minimumScaleFactor = 0.75
             ret.adjustsFontSizeToFitWidth = true
@@ -333,7 +333,7 @@ extension CGA_ServiceViewController: UITableViewDataSource {
 
             return ret
         }
-
+        
         /* ############################################################## */
         /**
          Returns a label, with The "WR" or "WN" filler, if supported. Otherwise, nil.
@@ -408,13 +408,13 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         tableCell.backgroundColor = .clear
         
         // We set the ID label.
-        tableCell.characteristicIDLabel?.textColor = UIColor(white: 0 < characteristic.count ? 1.0 : 0.75, alpha: 1.0)
+        tableCell.characteristicIDLabel?.textColor = UIColor(white: 1.0, alpha: 0 < characteristic.count ? 1.0 : prefs.textColorForUnselectableCells)
         tableCell.characteristicIDLabel?.text = characteristic.id.localizedVariant
         tableCell.characteristicIDLabel?.accessibilityLabel = String(format: "SLUG-ACC-CHARACTERISTIC-ROW-ID-NO-DESCRIPTORS-FORMAT".localizedVariant, characteristic.id.localizedVariant)
         tableCell.valueLabel?.accessibilityLabel = String(format: "SLUG-ACC-CHARACTERISTIC-ROW-VALUE-NO-DESCRIPTORS-FORMAT".localizedVariant, characteristic.stringValue ?? (nil != characteristic.value ? String(describing: characteristic.value) : ""))
 
         // Populate the Properties view.
-        _PropertyLabelGenerator(characteristic: characteristic, ownerViewController: self).labels.forEach {
+        _PropertyLabelGenerator(labelTextColor: isDarkMode ? .black : .blue, characteristic: characteristic, ownerViewController: self).labels.forEach {
             if let view = $0 {
                 tableCell.propertiesStackView?.addArrangedSubview(view)
                 view.translatesAutoresizingMaskIntoConstraints = false
