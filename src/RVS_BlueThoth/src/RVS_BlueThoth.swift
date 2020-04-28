@@ -433,7 +433,11 @@ extension RVS_BlueThoth {
                 print("ERROR! \(String(describing: inPeripheral?.name)) cannot be connected, because of an internal error.")
             #endif
             let id = inPeripheral?.identifier ?? inPeripheral?.cbPeripheral.identifier.uuidString ?? ""
-            reportError(CGA_Errors.internalError(error: nil, id: id))
+            if let peripheral = inPeripheral?.cbPeripheral {
+                reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(nil, peripheral: peripheral))
+            } else {
+                reportError(CGA_Errors.internalError(error: nil, id: id))
+            }
             return false
         }
         #if DEBUG
@@ -634,7 +638,7 @@ extension RVS_BlueThoth: CBCentralManagerDelegate {
                 print("ERROR! Central Manager Changed to an Unknown State!")
             #endif
             stopScanning()
-            central?.reportError(.internalError(error: nil, id: nil))
+            reportError(.internalError(error: nil, id: nil))
         }
         
         _updateDelegate()
@@ -768,7 +772,7 @@ extension RVS_BlueThoth: CBCentralManagerDelegate {
             #if DEBUG
                 print("ERROR!: \(error.localizedDescription)")
             #endif
-            reportError(.internalError(error: error, id: inPeripheral.identifier.uuidString))
+            reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(error, peripheral: inPeripheral))
         } else {
             guard let peripheralInstance = sequence_contents[inPeripheral] else {
                 #if DEBUG
@@ -798,7 +802,7 @@ extension RVS_BlueThoth: CBCentralManagerDelegate {
             removePeripheral(peripheralObject)
             
             if !wasExpected {
-                central?.reportError(.unexpectedDisconnection(id))
+                reportError(.unexpectedDisconnection(id))
             }
         }
     }
@@ -820,8 +824,7 @@ extension RVS_BlueThoth: CBCentralManagerDelegate {
             }
         #endif
         if let error = inError {
-            let errorReport = CGA_Errors.returnNestedInternalErrorBasedOnThis(error, peripheral: inPeripheral)
-            central?.reportError(errorReport)
+            reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(error, peripheral: inPeripheral))
         }
     }
 }

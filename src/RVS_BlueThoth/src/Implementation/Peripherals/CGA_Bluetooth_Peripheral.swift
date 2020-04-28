@@ -268,7 +268,7 @@ extension CGA_Bluetooth_Peripheral {
                 print("ERROR! \(String(describing: inService)) does not have a CBService instance.")
             #endif
             
-            central?.reportError(.internalError(error: nil, id: inService.id))
+            central?.reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(nil, service: inService.cbElementInstance))
         }
     }
     
@@ -318,7 +318,6 @@ extension CGA_Bluetooth_Peripheral: CGA_Class_Protocol_UpdateDescriptor {
 extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     /* ################################################################## */
     /**
-     :nodoc:
      Called when the RSSI changes.
      
      - parameter inPeripheral: The CBPeripheral that has discovered Services.
@@ -330,7 +329,7 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             #if DEBUG
                 print("ERROR!: \(error.localizedDescription)")
             #endif
-            central?.reportError(.internalError(error: error, id: inPeripheral.identifier.uuidString))
+            central?.reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(error, peripheral: inPeripheral))
         } else {
             #if DEBUG
                 print("RSSI: \(inRSSI) updated for the Peripheral: \(id)")
@@ -342,7 +341,6 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     
     /* ################################################################## */
     /**
-     :nodoc:
      Called when the Peripheral has discovered its Services.
      We treat discovery as "atomic." We ask for all the Services at once, so this callback is complete for this Peripheral.
      
@@ -354,14 +352,14 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             #if DEBUG
                 print("ERROR!: \(error.localizedDescription)")
             #endif
-            central?.reportError(.internalError(error: error, id: inPeripheral.identifier.uuidString))
+            central?.reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(error, peripheral: inPeripheral))
         } else {
             #if DEBUG
                 if let services = inPeripheral.services {
                     print("Services Discovered: \(services.map({ $0.uuid.uuidString }).joined(separator: ", "))")
                 } else {
                     print("ERROR!")
-                    central?.reportError(.internalError(error: nil, id: inPeripheral.identifier.uuidString))
+                    central?.reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(nil, peripheral: inPeripheral))
                 }
             #endif
             
@@ -385,7 +383,6 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     
     /* ################################################################## */
     /**
-     :nodoc:
      Called when a Service discovers Characteristics.
      We treat discovery as "atomic." We ask for all the Characteristics at once, so this callback is complete for this Service.
      
@@ -398,13 +395,13 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             #if DEBUG
                 print("ERROR!: \(error.localizedDescription)")
             #endif
-            central?.reportError(.internalError(error: error, id: inService.uuid.uuidString))
+            central?.reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(error, service: inService))
         } else {
             guard let characteristics = inService.characteristics else {
                 #if DEBUG
                     print("ERROR! The characteristics Array is nil!")
                 #endif
-                central?.reportError(.internalError(error: nil, id: nil))
+                central?.reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(nil, service: inService))
                 return
             }
             
@@ -418,14 +415,13 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
                 #if DEBUG
                     print("ERROR! Service not found!")
                 #endif
-                central?.reportError(.internalError(error: nil, id: inService.uuid.uuidString))
+                central?.reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(nil, service: inService))
             }
         }
     }
     
     /* ################################################################## */
     /**
-     :nodoc:
      Called when a Characteristic discovers all of its Descriptors.
      We treat discovery as "atomic." We ask for all the Descriptors at once, so this callback is complete for this Characteristic.
 
@@ -438,13 +434,13 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             #if DEBUG
                 print("ERROR!: \(error.localizedDescription)")
             #endif
-            central?.reportError(.internalError(error: error, id: inCharacteristic.uuid.uuidString))
+            central?.reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(error, characteristic: inCharacteristic))
         } else {
             guard let descriptors = inCharacteristic.descriptors else {
                 #if DEBUG
                     print("ERROR! The descriptors Array is nil!")
                 #endif
-                central?.reportError(.internalError(error: nil, id: nil))
+                central?.reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(nil, characteristic: inCharacteristic))
                 return
             }
             
@@ -493,14 +489,13 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
                 #if DEBUG
                     print("ERROR! There is no Service for this Characteristic: \(inCharacteristic.uuid.uuidString)")
                 #endif
-                central?.reportError(.internalError(error: nil, id: inCharacteristic.uuid.uuidString))
+                central?.reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(nil, characteristic: inCharacteristic))
             }
         }
     }
     
     /* ################################################################## */
     /**
-     :nodoc:
      Called when any Services have been modified.
      
      - parameter inPeripheral: The CBPeripheral that has modified Services.
@@ -524,7 +519,6 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     
     /* ################################################################## */
     /**
-     :nodoc:
      Called when the notification state for a Characteristic changes.
      
      - parameter inPeripheral: The CBPeripheral that has the modified Characteristic.
@@ -536,7 +530,7 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             #if DEBUG
                 print("ERROR!: \(error.localizedDescription) for Characteristic \(inCharacteristic.uuid.uuidString)")
             #endif
-            central?.reportError(.internalError(error: error, id: inCharacteristic.uuid.uuidString))
+            central?.reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(error, characteristic: inCharacteristic))
         } else if let characteristic = sequence_contents.characteristic(inCharacteristic) {
             central?.updateThisCharacteristic(characteristic)
         }
@@ -544,7 +538,6 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
 
     /* ################################################################## */
     /**
-     :nodoc:
      Called to update a Characteristic value (either in response to a read request, or a notify).
      
      - parameter inPeripheral: The CBPeripheral that has the updated Characteristic.
@@ -567,7 +560,6 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
 
     /* ################################################################## */
     /**
-     :nodoc:
      Called to update a descriptor.
      
      - parameter inPeripheral: The CBPeripheral that has the updated Descriptor.
@@ -596,7 +588,6 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     
     /* ################################################################## */
     /**
-     :nodoc:
      Called to indicate that a write to the a Characteristic was successful.
      **MAJOR CAVEAT**: The <code>value</code> property of the Characteristic will not necessarily have the newly-written value.
      This method is only called to act as a semaphore to let us know that the last write attempt succeeded.
@@ -621,7 +612,6 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
 
     /* ################################################################## */
     /**
-     :nodoc:
      Called to indicate that a write to the a Descriptor was successful.
      **MAJOR CAVEAT**: The <code>value</code> property of the Descriptor will not necessarily have the newly-written value.
      This method is only called to act as a semaphore to let us know that the last write attempt succeeded.
@@ -653,7 +643,6 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
     
     /* ################################################################## */
     /**
-     :nodoc:
      Called when the Peripheral is ready to listen to our advice.
      This can come some time after a failed write attempt.
      

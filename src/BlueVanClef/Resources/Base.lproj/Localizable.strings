@@ -29,6 +29,10 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 // These are error reports.
 "CGA-ERROR-TIMEOUT"                 =   "There was a timeout, while attempting a connection to a Peripheral.";
 "CGA-ERROR-DISCONNECT"              =   "A Peripheral was unexpectedly disconnected.";
+"CGA-ERROR-PERIPHERAL"              =   "Peripheral Error";
+"CGA-ERROR-SERVICE"                 =   "Service Error";
+"CGA-ERROR-CHARACTERISTIC"          =   "Characteristic Error";
+"CGA-ERROR-DESCRIPTOR"              =   "Descriptor Error";
 "CGA-ERROR-INTERNAL"                =   "Internal Error";
 
 // MARK: - Device List screen

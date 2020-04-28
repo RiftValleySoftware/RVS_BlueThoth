@@ -42,6 +42,30 @@ public enum CGA_Errors: Error {
     /**
      A generic internal error.
      */
+    case peripheralError(error: Error!, id: String!)
+    
+    /* ################################################################## */
+    /**
+     A generic internal error.
+     */
+    case serviceError(error: Error!, id: String!)
+    
+    /* ################################################################## */
+    /**
+     A generic internal error.
+     */
+    case characteristicError(error: Error!, id: String!)
+    
+    /* ################################################################## */
+    /**
+     A generic internal error.
+     */
+    case descriptorError(error: Error!, id: String!)
+
+    /* ################################################################## */
+    /**
+     A generic internal error.
+     */
     case internalError(error: Error!, id: String!)
 
     /* ################################################################## */
@@ -57,6 +81,18 @@ public enum CGA_Errors: Error {
 
         case .unexpectedDisconnection:
             ret = "CGA-ERROR-DISCONNECT"
+
+        case .peripheralError:
+            ret = "CGA-ERROR-PERIPHERAL"
+
+        case .serviceError:
+            ret = "CGA-ERROR-SERVICE"
+
+        case .characteristicError:
+            ret = "CGA-ERROR-CHARACTERISTIC"
+
+        case .descriptorError:
+            ret = "CGA-ERROR-DESCRIPTOR"
 
         case .internalError:
             ret = "CGA-ERROR-INTERNAL"
@@ -86,7 +122,11 @@ public enum CGA_Errors: Error {
             }
         
         // This allows us to have nested errors.
-        case .internalError(let error, let id):
+        case .peripheralError(let error, let id),
+             .serviceError(let error, let id),
+             .characteristicError(let error, let id),
+             .descriptorError(let error, let id),
+             .internalError(let error, let id):
             ret = [localizedDescription]
             if let id = id {
                 ret.append(id)
@@ -97,7 +137,7 @@ public enum CGA_Errors: Error {
                 ret.append(error)
             }
         }
-        
+
         return ret
     }
 
@@ -115,7 +155,11 @@ public enum CGA_Errors: Error {
         case .unexpectedDisconnection(let value):
             ret = value
             
-        case let .internalError(error, id):
+        case .peripheralError(let error, let id),
+             .serviceError(let error, let id),
+             .characteristicError(let error, let id),
+             .descriptorError(let error, let id),
+             .internalError(let error, let id):
             ret = (error: error, id: id)
         }
         
@@ -131,7 +175,7 @@ public enum CGA_Errors: Error {
         - peripheral: The CBPeripheral object that is reporting the error.
      - returns: A CGA_Errors.internalError instance, with any nesting added.
      */
-    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, peripheral inPeripheral: CBPeripheral) -> CGA_Errors { self.internalError(error: inError, id: inPeripheral.identifier.uuidString) }
+    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, peripheral inPeripheral: CBPeripheral) -> CGA_Errors { self.peripheralError(error: inError, id: inPeripheral.identifier.uuidString) }
     
     /* ################################################################## */
     /**
@@ -142,7 +186,7 @@ public enum CGA_Errors: Error {
         - service: The CBService object that is reporting the error.
      - returns: A CGA_Errors.internalError instance, with any nesting added.
      */
-    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, service inService: CBService) -> CGA_Errors { self.internalError(error: self.returnNestedInternalErrorBasedOnThis(inError, peripheral: inService.peripheral), id: inService.uuid.uuidString) }
+    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, service inService: CBService) -> CGA_Errors { self.serviceError(error: self.returnNestedInternalErrorBasedOnThis(inError, peripheral: inService.peripheral), id: inService.uuid.uuidString) }
     
     /* ################################################################## */
     /**
@@ -153,7 +197,7 @@ public enum CGA_Errors: Error {
         - characteristic: The CBCharacteristic object that is reporting the error.
      - returns: A CGA_Errors.internalError instance, with any nesting added.
      */
-    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, characteristic inCharacteristic: CBCharacteristic) -> CGA_Errors { self.internalError(error: self.returnNestedInternalErrorBasedOnThis(inError, service: inCharacteristic.service), id: inCharacteristic.uuid.uuidString) }
+    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, characteristic inCharacteristic: CBCharacteristic) -> CGA_Errors { self.characteristicError(error: self.returnNestedInternalErrorBasedOnThis(inError, service: inCharacteristic.service), id: inCharacteristic.uuid.uuidString) }
     
     /* ################################################################## */
     /**
@@ -164,5 +208,5 @@ public enum CGA_Errors: Error {
         - descriptor: The CBDescriptor object that is reporting the error.
      - returns: A CGA_Errors.internalError instance, with any nesting added.
      */
-    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, descriptor inDescriptor: CBDescriptor) -> CGA_Errors { self.internalError(error: self.returnNestedInternalErrorBasedOnThis(inError, characteristic: inDescriptor.characteristic), id: inDescriptor.uuid.uuidString) }
+    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, descriptor inDescriptor: CBDescriptor) -> CGA_Errors { self.descriptorError(error: self.returnNestedInternalErrorBasedOnThis(inError, characteristic: inDescriptor.characteristic), id: inDescriptor.uuid.uuidString) }
 }
