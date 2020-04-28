@@ -82,7 +82,7 @@ public class CGA_Bluetooth_Characteristic: CGA_Bluetooth_Characteristic_Protocol
      Returns true, if the Characteristic can be read.
      */
     public var canRead: Bool { cbElementInstance?.properties.contains(.read) ?? false }
-    
+
     /* ################################################################## */
     /**
      Returns true, if the Characteristic can notify.
@@ -365,7 +365,6 @@ extension CGA_Bluetooth_Characteristic {
             print("Adding the \(inDescriptor.id) Descriptor to the \(id) Characteristic.")
         #endif
         sequence_contents.append(inDescriptor)
-        inDescriptor.readValue()
     }
 }
 
@@ -383,7 +382,7 @@ extension CGA_Bluetooth_Characteristic: CGA_CharacteristicFactory {
      - parameter parent: The Service instance that "owns" this Characteristic.
      - parameter cbElementInstance: The CBCharacteristic instance that will be applied to the factory.
      - returns: A new instance of CGA_Bluetooth_Characteristic, or a subclass, thereof. Nil, if it fails.
-*/
+     */
     internal class func createInstance(parent inParent: CGA_Bluetooth_Service, cbElementInstance inCBCharacteristic: CBCharacteristic) -> CGA_Bluetooth_Characteristic? {
         let ret = Self.init(sequence_contents: [])
         ret.parent = inParent

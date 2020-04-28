@@ -354,11 +354,21 @@ extension CGA_InitialViewController {
      */
     private func _startScanning() {
         let scanCriteria = CGA_AppDelegate.appDelegateObject.prefs.scanCriteria
+        deviceTableView.isEditing = false
         CGA_AppDelegate.centralManager?.scanCriteria = scanCriteria
         CGA_AppDelegate.centralManager?.minimumRSSILevelIndBm = CGA_AppDelegate.appDelegateObject.prefs.minimumRSSILevel
         CGA_AppDelegate.centralManager?.discoverOnlyConnectablePeripherals = CGA_AppDelegate.appDelegateObject.prefs.discoverOnlyConnectableDevices
         CGA_AppDelegate.centralManager?.allowEmptyNames = CGA_AppDelegate.appDelegateObject.prefs.allowEmptyNames
         CGA_AppDelegate.centralManager?.startScanning(duplicateFilteringIsOn: !CGA_AppDelegate.appDelegateObject.prefs.continuouslyUpdatePeripherals)
+        deviceTableView.reloadData()
+    }
+    
+    /* ################################################################## */
+    /**
+     Makes sure that we have all devices disconnected.
+     */
+    private func _clearAllConnections() {
+        CGA_AppDelegate.centralManager?.forEach { $0.disconnect() }
     }
     
     /* ################################################################## */

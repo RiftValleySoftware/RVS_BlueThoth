@@ -233,7 +233,6 @@ extension CGA_ServiceViewController {
         navigationItem.title = serviceInstance?.id.localizedVariant
         characteristicsTableView?.refreshControl = _refreshControl
         _refreshControl.addTarget(self, action: #selector(startOver(_:)), for: .valueChanged)
-        serviceInstance?.forEach { $0.readValue() }
     }
     
     /* ################################################################## */
@@ -286,8 +285,8 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         /**
          The color of the label text.
          */
-        private let _labelBackgroundColor = UIColor.white
-        
+        private let _labelBackgroundColor = UIColor(white: 0.75, alpha: 1.0)
+
         /* ############################################################## */
         /**
          A simple "factory" for the Read button.
@@ -297,7 +296,7 @@ extension CGA_ServiceViewController: UITableViewDataSource {
             let title = "SLUG-PROPERTIES-READ"
             ret.setTitle(title.localizedVariant, for: .normal)
             ret.setTitleColor(_labelTextColor, for: .normal)
-            ret.backgroundColor = _labelBackgroundColor
+            ret.backgroundColor = .white
             ret.addTarget(ownerViewController, action: #selector(readTapped(_:)), for: .touchUpInside)
             ret.accessibilityLabel = "SLUG-ACC-CHARACTERISTIC-ROW-\(title)".localizedVariant
             return ret
