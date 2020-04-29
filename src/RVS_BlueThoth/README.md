@@ -1,6 +1,6 @@
-![Icon](https://github.com/RiftValleySoftware/BlueVanClef/raw/master/icon.png)
+![Icon](img/FrameworkIcon.png)
 
-RVSBlueThoth
+RVS_BlueThoth (Internal SDK Documentation)
 =
 
 This is a Bluetooth SDK.

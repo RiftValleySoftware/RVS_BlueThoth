@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>DiscoveryData Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../../js/jquery.min.js" defer></script>
+    <script src="../../js/jazzy.js" defer></script>
+    
+    <script src="../../js/lunr.min.js" defer></script>
+    <script src="../../js/typeahead.jquery.js" defer></script>
+    <script src="../../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Class/DiscoveryData" class="dashAnchor"></a>
+
+    <a title="DiscoveryData Class Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../../index.html">
+          RVS_BlueThoth Doumentation
+        </a>
+         (100% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/RiftValleySoftware/BlueVanClef">
+            <img class="header-icon" src="../../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../../index.html"> Reference</a>
+      <img class="carat" src="../../img/carat.png" />
+      DiscoveryData Class Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/CGA_Bluetooth_Characteristic.html">CGA_Bluetooth_Characteristic</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/CGA_Bluetooth_Characteristic_BatteryLevel.html">CGA_Bluetooth_Characteristic_BatteryLevel</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/CGA_Bluetooth_Characteristic_CurrentTime.html">CGA_Bluetooth_Characteristic_CurrentTime</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/CGA_Bluetooth_Characteristic_FirmwareRevision.html">CGA_Bluetooth_Characteristic_FirmwareRevision</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/CGA_Bluetooth_Characteristic_HardwareRevision.html">CGA_Bluetooth_Characteristic_HardwareRevision</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/CGA_Bluetooth_Characteristic_LocalTimeInformation.html">CGA_Bluetooth_Characteristic_LocalTimeInformation</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/CGA_Bluetooth_Characteristic_ManufacturerName.html">CGA_Bluetooth_Characteristic_ManufacturerName</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/CGA_Bluetooth_Characteristic_ModelNumber.html">CGA_Bluetooth_Characteristic_ModelNumber</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/CGA_Bluetooth_Characteristic_SerialNumber.html">CGA_Bluetooth_Characteristic_SerialNumber</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/CGA_Bluetooth_Characteristic_SoftwareRevision.html">CGA_Bluetooth_Characteristic_SoftwareRevision</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/CGA_Bluetooth_Characteristic_SystemID.html">CGA_Bluetooth_Characteristic_SystemID</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/CGA_Bluetooth_Descriptor.html">CGA_Bluetooth_Descriptor</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration.html">CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/CGA_Bluetooth_Peripheral.html">CGA_Bluetooth_Peripheral</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/CGA_Bluetooth_Service.html">CGA_Bluetooth_Service</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/CGA_Bluetooth_Service_Battery.html">CGA_Bluetooth_Service_Battery</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/CGA_Bluetooth_Service_CurrentTime.html">CGA_Bluetooth_Service_CurrentTime</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/CGA_Bluetooth_Service_DeviceInfo.html">CGA_Bluetooth_Service_DeviceInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/RVS_BlueThoth.html">RVS_BlueThoth</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/RVS_BlueThoth/ScanCriteria.html">– ScanCriteria</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/RVS_BlueThoth/AdvertisementData.html">– AdvertisementData</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/RVS_BlueThoth/DiscoveryData.html">– DiscoveryData</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../../Global%20Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Global%20Variables.html#/s:17RVS_BlueThoth_iOS22_characteristicFactory33_DB4F2E8E936A0F8CC22DFE56BF4BD274LLSayAA018CGA_CharacteristicF0_pXpGvp">_characteristicFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Global%20Variables.html#/s:17RVS_BlueThoth_iOS18_descriptorFactory33_DB4F2E8E936A0F8CC22DFE56BF4BD274LLSayAA014CGA_DescriptorF0_pXpGvp">_descriptorFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Global%20Variables.html#/s:17RVS_BlueThoth_iOS15_serviceFactory33_DB4F2E8E936A0F8CC22DFE56BF4BD274LLSayAA011CGA_ServiceF0_pXpGvp">_serviceFactory</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Enums/CGA_Errors.html">CGA_Errors</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Extensions/StringProtocol.html">StringProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/CGA_BlueThoth_Delegate.html">CGA_BlueThoth_Delegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/CGA_Bluetooth_Characteristic_Protocol.html">CGA_Bluetooth_Characteristic_Protocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/CGA_Bluetooth_Characteristic_Protocol_Internal.html">CGA_Bluetooth_Characteristic_Protocol_Internal</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/CGA_Bluetooth_Descriptor_Protocol.html">CGA_Bluetooth_Descriptor_Protocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/CGA_Bluetooth_Descriptor_Protocol_Internal.html">CGA_Bluetooth_Descriptor_Protocol_Internal</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/CGA_Bluetooth_Service_Protoco_Internal.html">CGA_Bluetooth_Service_Protoco_Internal</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/CGA_Bluetooth_Service_Protocol.html">CGA_Bluetooth_Service_Protocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/CGA_CharacteristicFactory.html">CGA_CharacteristicFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/CGA_Class_Protocol.html">CGA_Class_Protocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/CGA_Class_Protocol_UpdateCharacteristic.html">CGA_Class_Protocol_UpdateCharacteristic</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/CGA_Class_Protocol_UpdateDescriptor.html">CGA_Class_Protocol_UpdateDescriptor</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/CGA_Class_Protocol_UpdateService.html">CGA_Class_Protocol_UpdateService</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/CGA_DescriptorFactory.html">CGA_DescriptorFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/CGA_ServiceFactory.html">CGA_ServiceFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/RVS_SequenceProtocol.html">RVS_SequenceProtocol</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>DiscoveryData</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DiscoveryData</span></code></pre>
+
+                </div>
+              </div>
+            <p>This is a class, as opposed to a struct, because I want to make sure that it is referenced, and not copied.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC6_timer33_63B094CF6444969EFC1F35B165946F98LLSo7NSTimerCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/_timer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC6_timer33_63B094CF6444969EFC1F35B165946F98LLSo7NSTimerCSgvp">_timer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is a countdown timer, for use as a timeout trap during connection.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">_timer</span><span class="p">:</span> <span class="kt">Timer</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC013advertisementF0AC013AdvertisementF0VSgvp"></a>
+                    <a name="//apple_ref/swift/Property/advertisementData" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC013advertisementF0AC013AdvertisementF0VSgvp">advertisementData</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This holds the advertisement data that came with the discovery.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">advertisementData</span><span class="p">:</span> <span class="kt"><a href="../../Classes/RVS_BlueThoth/AdvertisementData.html">AdvertisementData</a></span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC4rssiSivp"></a>
+                    <a name="//apple_ref/swift/Property/rssi" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC4rssiSivp">rssi</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the signal strength, at the time of discovery, in dBm.
+This is also updated, as we receive RSSI change notifications.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">rssi</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC18peripheralInstanceAA24CGA_Bluetooth_PeripheralCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/peripheralInstance" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC18peripheralInstanceAA24CGA_Bluetooth_PeripheralCSgvp">peripheralInstance</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the peripheral wrapper that is instantiated when the device is connected. It is nil, if the device is not connected. It is a strong reference.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">peripheralInstance</span><span class="p">:</span> <span class="kt"><a href="../../Classes/CGA_Bluetooth_Peripheral.html">CGA_Bluetooth_Peripheral</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC27canSendWriteWithoutResponseSbvp"></a>
+                    <a name="//apple_ref/swift/Property/canSendWriteWithoutResponse" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC27canSendWriteWithoutResponseSbvp">canSendWriteWithoutResponse</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Peripheral is capable of sending writes back (without response).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">canSendWriteWithoutResponse</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC4nameSSvp"></a>
+                    <a name="//apple_ref/swift/Property/name" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC4nameSSvp">name</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The assigned Peripheral Name</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC10canConnectSbvp"></a>
+                    <a name="//apple_ref/swift/Property/canConnect" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC10canConnectSbvp">canConnect</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is true, if the Peripheral advertisement data indicates the Peripheral can be connected.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">canConnect</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC9localNameSSvp"></a>
+                    <a name="//apple_ref/swift/Property/localName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC9localNameSSvp">localName</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the &ldquo;Local Name,&rdquo; from the advertisement data.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">localName</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC13preferredNameSSvp"></a>
+                    <a name="//apple_ref/swift/Property/preferredName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC13preferredNameSSvp">preferredName</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the local name, if available, or the Peripheral name, if the local name is not available.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">preferredName</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC10identifierSSvp"></a>
+                    <a name="//apple_ref/swift/Property/identifier" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC10identifierSSvp">identifier</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the ID UUID as a String.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">identifier</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC11isConnectedSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isConnected" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC11isConnectedSbvp">isConnected</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns true, if the peripheral is currently connected.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isConnected</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC6ignoreSbyF"></a>
+                    <a name="//apple_ref/swift/Method/ignore()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC6ignoreSbyF">ignore()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This asks the Central Manager to ignore this device.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">ignore</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if the ignore worked.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC8unignoreSbyF"></a>
+                    <a name="//apple_ref/swift/Method/unignore()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC8unignoreSbyF">unignore()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This asks the Central Manager to &ldquo;unignore&rdquo; this device.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">unignore</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if the unignore worked.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC7connectSbyF"></a>
+                    <a name="//apple_ref/swift/Method/connect()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC7connectSbyF">connect()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This asks the Central Manager to connect this device.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">connect</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if the attempt worked (not a guarantee of success, though).</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC10disconnectSbyF"></a>
+                    <a name="//apple_ref/swift/Method/disconnect()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC10disconnectSbyF">disconnect()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This asks the Central Manager to disconnect this device.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">disconnect</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if the attempt worked (not a guarantee of success, though).</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC5clearyyF"></a>
+                    <a name="//apple_ref/swift/Method/clear()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC5clearyyF">clear()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Cancels the timeout.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">clear</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC10peripheralypvp"></a>
+                    <a name="//apple_ref/swift/Property/peripheral" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC10peripheralypvp">peripheral</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The actual Peripheral instance. This is a strong reference.
+This will retain the allocation for the Peripheral, so it is a strong reference.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">internal</span> <span class="k">var</span> <span class="nv">peripheral</span><span class="p">:</span> <span class="kt">Any</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC7centralACSgvp"></a>
+                    <a name="//apple_ref/swift/Property/central" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC7centralACSgvp">central</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Central manager that &ldquo;owns&rdquo; this discovered device. This is a weak reference.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">internal</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">central</span><span class="p">:</span> <span class="kt"><a href="../../Classes/RVS_BlueThoth.html">RVS_BlueThoth</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC12cbPeripheralSo12CBPeripheralCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/cbPeripheral" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC12cbPeripheralSo12CBPeripheralCSgvp">cbPeripheral</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The actual Peripheral instance, cast as CBPeripheral.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">internal</span> <span class="k">var</span> <span class="nv">cbPeripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC7timeoutyySo7NSTimerCF"></a>
+                    <a name="//apple_ref/swift/Method/timeout(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC7timeoutyySo7NSTimerCF">timeout(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the callback for the timeout Timer firing.
+It is @objc, because it is a Timer callback.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">internal</span> <span class="kd">func</span> <span class="nf">timeout</span><span class="p">(</span><span class="n">_</span> <span class="nv">inTimer</span><span class="p">:</span> <span class="kt">Timer</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inTimer</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The timer instance that fired.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC7central10peripheral013advertisementF04rssiAeC_So12CBPeripheralCSDySSypGSitcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(central:peripheral:advertisementData:rssi:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC7central10peripheral013advertisementF04rssiAeC_So12CBPeripheralCSDySSypGSitcfc">init(central:peripheral:advertisementData:rssi:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Basic Init</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">internal</span> <span class="nf">init</span><span class="p">(</span><span class="n"><a href="../../Classes/RVS_BlueThoth/DiscoveryData.html#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC7centralACSgvp">central</a></span> <span class="nv">inCentralManager</span><span class="p">:</span> <span class="kt"><a href="../../Classes/RVS_BlueThoth.html">RVS_BlueThoth</a></span><span class="p">,</span> <span class="n"><a href="../../Classes/RVS_BlueThoth/DiscoveryData.html#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC10peripheralypvp">peripheral</a></span> <span class="nv">inPeripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">,</span> <span class="n"><a href="../../Classes/RVS_BlueThoth/DiscoveryData.html#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC013advertisementF0AC013AdvertisementF0VSgvp">advertisementData</a></span> <span class="nv">inAdvertisementData</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">],</span> <span class="n"><a href="../../Classes/RVS_BlueThoth/DiscoveryData.html#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC4rssiSivp">rssi</a></span> <span class="nv">inRSSI</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>central</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Central Manager instance that &ldquo;owns&rdquo; this instance.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>peripheral</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The CBPeripheral instance associated with this. This will be a strong reference, and will be the &ldquo;anchor&rdquo; for this instance.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>advertisementData</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The advertisement data of the discovered Peripheral.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>rssi</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The signal strength, in dBm.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataCfd"></a>
+                    <a name="//apple_ref/swift/Method/deinit" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataCfd">deinit</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Make sure that we don&rsquo;t leave any open timers.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">deinit</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC13_startTimeout33_63B094CF6444969EFC1F35B165946F98LLyyF"></a>
+                    <a name="//apple_ref/swift/Method/_startTimeout()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC13_startTimeout33_63B094CF6444969EFC1F35B165946F98LLyyF">_startTimeout()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Calling this starts the timeout clock.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">_startTimeout</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC14_cancelTimeout33_63B094CF6444969EFC1F35B165946F98LLyyF"></a>
+                    <a name="//apple_ref/swift/Method/_cancelTimeout()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C13DiscoveryDataC14_cancelTimeout33_63B094CF6444969EFC1F35B165946F98LLyyF">_cancelTimeout()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This stops the timeout clock, invalidates the timer, and clears the Timer instance.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">_cancelTimeout</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-04-29)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>
