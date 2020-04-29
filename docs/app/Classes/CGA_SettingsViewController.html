@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CGA_SettingsViewController Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Class/CGA_SettingsViewController" class="dashAnchor"></a>
+
+    <a title="CGA_SettingsViewController Class Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          BlueVanClef Doumentation
+        </a>
+         (100% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/RiftValleySoftware/BlueVanClef">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html"> Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      CGA_SettingsViewController Class Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_AppDelegate.html">CGA_AppDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_BaseViewController.html">CGA_BaseViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_CharacteristicViewController.html">CGA_CharacteristicViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_CharacteristicViewController_TableRow.html">CGA_CharacteristicViewController_TableRow</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_InfoViewController.html">CGA_InfoViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_InitialViewController.html">CGA_InitialViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_InitialViewController/_SectionIndexes.html">– _SectionIndexes</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_InitialViewController_TableRow.html">CGA_InitialViewController_TableRow</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_PeripheralViewController.html">CGA_PeripheralViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_PeripheralViewController_TableRow.html">CGA_PeripheralViewController_TableRow</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_PersistentPrefs.html">CGA_PersistentPrefs</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_PersistentPrefs/Keys.html">– Keys</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_ServiceViewController.html">CGA_ServiceViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_ServiceViewController/_PropertyLabelGenerator.html">– _PropertyLabelGenerator</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_ServiceViewController_TableRow.html">CGA_ServiceViewController_TableRow</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_SettingsViewController.html">CGA_SettingsViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CG_TapGestureRecognizer.html">CG_TapGestureRecognizer</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CG_TappableButton.html">CG_TappableButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RVS_PersistentPrefs.html">RVS_PersistentPrefs</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RVS_PersistentPrefs/PrefsError.html">– PrefsError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Bundle.html">Bundle</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/StringProtocol.html">StringProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UITableView.html">UITableView</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIView.html">UIView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CGA_ScannerViewController.html">CGA_ScannerViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CGA_UpdatableScreenViewController.html">CGA_UpdatableScreenViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/RVS_SequenceProtocol.html">RVS_SequenceProtocol</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>CGA_SettingsViewController</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">CGA_SettingsViewController</span> <span class="p">:</span> <span class="kt"><a href="../Classes/CGA_BaseViewController.html">CGA_BaseViewController</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">CGA_SettingsViewController</span><span class="p">:</span> <span class="kt">UITextViewDelegate</span></code></pre>
+
+                </div>
+              </div>
+            <p>This controls the settings view.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)ignoreDuplicatesScanningSwitch"></a>
+                    <a name="//apple_ref/swift/Property/ignoreDuplicatesScanningSwitch" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)ignoreDuplicatesScanningSwitch">ignoreDuplicatesScanningSwitch</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This switch will determine whether or not duplicate filtering is applied to the Peripheral scanning.
+If it is applied, then duplicates will be ignored during the discovery process (meaning that the devices are not continuously updated).
+False/Off means that duplicates ARE being filtered.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">ignoreDuplicatesScanningSwitch</span><span class="p">:</span> <span class="kt">UISwitch</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)ignoreDuplicatesSwitchButton"></a>
+                    <a name="//apple_ref/swift/Property/ignoreDuplicatesSwitchButton" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)ignoreDuplicatesSwitchButton">ignoreDuplicatesSwitchButton</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This button is the &ldquo;label&rdquo; for the switch. I always like my labels to actuate their targets. This toggles the value of the switch.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">ignoreDuplicatesSwitchButton</span><span class="p">:</span> <span class="kt">UIButton</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)filterHeaderLabel"></a>
+                    <a name="//apple_ref/swift/Property/filterHeaderLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)filterHeaderLabel">filterHeaderLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The label for the header over the three TextFields.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">filterHeaderLabel</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)deviceFilterLabel"></a>
+                    <a name="//apple_ref/swift/Property/deviceFilterLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)deviceFilterLabel">deviceFilterLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Label for the device/Peripheral filter TextField.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">deviceFilterLabel</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)deviceFilterTextView"></a>
+                    <a name="//apple_ref/swift/Property/deviceFilterTextView" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)deviceFilterTextView">deviceFilterTextView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The TextField for entry of the device/Peripheral filters.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">deviceFilterTextView</span><span class="p">:</span> <span class="kt">UITextView</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)serviceFilterLabel"></a>
+                    <a name="//apple_ref/swift/Property/serviceFilterLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)serviceFilterLabel">serviceFilterLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Label for the Service filter TextField.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">serviceFilterLabel</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)serviceFilterTextView"></a>
+                    <a name="//apple_ref/swift/Property/serviceFilterTextView" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)serviceFilterTextView">serviceFilterTextView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The TextField for entry of the Service filters.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">serviceFilterTextView</span><span class="p">:</span> <span class="kt">UITextView</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)characteristicFilterLabel"></a>
+                    <a name="//apple_ref/swift/Property/characteristicFilterLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)characteristicFilterLabel">characteristicFilterLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Label for the Characteristic filter TextField.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">characteristicFilterLabel</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)characteristicFilterTextView"></a>
+                    <a name="//apple_ref/swift/Property/characteristicFilterTextView" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)characteristicFilterTextView">characteristicFilterTextView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The TextField for entry of the Characteristic filters.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">characteristicFilterTextView</span><span class="p">:</span> <span class="kt">UITextView</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)minimumRSSILevelLabel"></a>
+                    <a name="//apple_ref/swift/Property/minimumRSSILevelLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)minimumRSSILevelLabel">minimumRSSILevelLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Label for the Minimum RSSI threshold.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">minimumRSSILevelLabel</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)minimumRSSILevelMinValLabel"></a>
+                    <a name="//apple_ref/swift/Property/minimumRSSILevelMinValLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)minimumRSSILevelMinValLabel">minimumRSSILevelMinValLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Label for the Left (minimum) RSSI threshold.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">minimumRSSILevelMinValLabel</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)minimumRSSILevelMaxValLabel"></a>
+                    <a name="//apple_ref/swift/Property/minimumRSSILevelMaxValLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)minimumRSSILevelMaxValLabel">minimumRSSILevelMaxValLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Label for the Right (maximum) RSSI threshold.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">minimumRSSILevelMaxValLabel</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)minimumRSSILevelValueLabel"></a>
+                    <a name="//apple_ref/swift/Property/minimumRSSILevelValueLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)minimumRSSILevelValueLabel">minimumRSSILevelValueLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Label for the Current Value of the Minimum RSSI threshold.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">minimumRSSILevelValueLabel</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)minimumRSSILevelSlider"></a>
+                    <a name="//apple_ref/swift/Property/minimumRSSILevelSlider" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)minimumRSSILevelSlider">minimumRSSILevelSlider</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Slider for the Minimum RSSI threshold.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">minimumRSSILevelSlider</span><span class="p">:</span> <span class="kt">UISlider</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)onlyConnectablesSwitch"></a>
+                    <a name="//apple_ref/swift/Property/onlyConnectablesSwitch" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)onlyConnectablesSwitch">onlyConnectablesSwitch</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This switch will determine whether or not filtering is applied to the Peripheral scanning, ignoring devices that can&rsquo;t be connected.
+If it is applied, then any device that does not advertise that it can be connected will be ignored.
+False/Off means that all connectables and non-connectables are being discovered. True/On means that only connectable devices will be listed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">onlyConnectablesSwitch</span><span class="p">:</span> <span class="kt">UISwitch</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)onlyConnectablesSwitchButton"></a>
+                    <a name="//apple_ref/swift/Property/onlyConnectablesSwitchButton" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)onlyConnectablesSwitchButton">onlyConnectablesSwitchButton</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This button is the &ldquo;label&rdquo; for the switch. I always like my labels to actuate their targets. This toggles the value of the switch.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">onlyConnectablesSwitchButton</span><span class="p">:</span> <span class="kt">UIButton</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)emptyNamesSwitch"></a>
+                    <a name="//apple_ref/swift/Property/emptyNamesSwitch" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)emptyNamesSwitch">emptyNamesSwitch</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">emptyNamesSwitch</span><span class="p">:</span> <span class="kt">UISwitch</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)emptyNamesSwitchButton"></a>
+                    <a name="//apple_ref/swift/Property/emptyNamesSwitchButton" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(py)emptyNamesSwitchButton">emptyNamesSwitchButton</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This button is the &ldquo;label&rdquo; for the switch. I always like my labels to actuate their targets. This toggles the value of the switch.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
+<span class="k">weak</span> <span class="k">var</span> <span class="nv">emptyNamesSwitchButton</span><span class="p">:</span> <span class="kt">UIButton</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Private%20Methods"></a>
+                <a name="//apple_ref/swift/Section/Private Methods" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Private%20Methods"></a>
+                  <h3 class="section-name"><p>Private Methods</p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13Blue_Van_Clef26CGA_SettingsViewControllerC22_parseThisTextForUUIDs33_A0263709EB91C40C91F39F758FE672FDLLySaySSGSSSgFZ"></a>
+                    <a name="//apple_ref/swift/Method/_parseThisTextForUUIDs(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13Blue_Van_Clef26CGA_SettingsViewControllerC22_parseThisTextForUUIDs33_A0263709EB91C40C91F39F758FE672FDLLySaySSGSSSgFZ">_parseThisTextForUUIDs(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is a utility method that &ldquo;scrubs&rdquo; the contents of the passed-in text, so it is an Array of String, containing valid UUID values.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">_parseThisTextForUUIDs</span><span class="p">(</span><span class="n">_</span> <span class="nv">inTextToParse</span><span class="p">:</span> <span class="kt">String</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inTextToParse</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The String to be parsed. The Array will be formed from split by linefeed (&ldquo;\n&rdquo;).</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>an Array of String, containing the UUIDs extracted from the text.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13Blue_Van_Clef26CGA_SettingsViewControllerC19_setUpAccessibility33_A0263709EB91C40C91F39F758FE672FDLLyyF"></a>
+                    <a name="//apple_ref/swift/Method/_setUpAccessibility()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13Blue_Van_Clef26CGA_SettingsViewControllerC19_setUpAccessibility33_A0263709EB91C40C91F39F758FE672FDLLyyF">_setUpAccessibility()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This sets up the accessibility and voiceover strings for the screen.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">_setUpAccessibility</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Callback/Observer%20Methods"></a>
+                <a name="//apple_ref/swift/Section/Callback/Observer Methods" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Callback/Observer%20Methods"></a>
+                  <h3 class="section-name"><p>Callback/Observer Methods</p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)ignoreDuplicatesSwitchHit:"></a>
+                    <a name="//apple_ref/swift/Method/ignoreDuplicatesSwitchHit(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)ignoreDuplicatesSwitchHit:">ignoreDuplicatesSwitchHit(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the &ldquo;Continuous Scan&rdquo; switch is hit.
+This immediately updates our prefs.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBAction</span>
+<span class="kd">func</span> <span class="nf">ignoreDuplicatesSwitchHit</span><span class="p">(</span><span class="n">_</span> <span class="nv">inSwitch</span><span class="p">:</span> <span class="kt">UISwitch</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inSwitch</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The switch object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)ignoreDuplicatesButtonHit:"></a>
+                    <a name="//apple_ref/swift/Method/ignoreDuplicatesButtonHit(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)ignoreDuplicatesButtonHit:">ignoreDuplicatesButtonHit(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the label for the switch is hit.
+It toggles the value in the prefs, and forces a UI update, which will change the switch.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBAction</span>
+<span class="kd">func</span> <span class="nf">ignoreDuplicatesButtonHit</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)minimumRSSISliderChanged:"></a>
+                    <a name="//apple_ref/swift/Method/minimumRSSISliderChanged(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)minimumRSSISliderChanged:">minimumRSSISliderChanged(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBAction</span>
+<span class="kd">func</span> <span class="nf">minimumRSSISliderChanged</span><span class="p">(</span><span class="n">_</span> <span class="nv">inSlider</span><span class="p">:</span> <span class="kt">UISlider</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inSlider</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The slider instance.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)dismissKeyboard:"></a>
+                    <a name="//apple_ref/swift/Method/dismissKeyboard(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)dismissKeyboard:">dismissKeyboard(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This dismisses any open keyboard.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBAction</span>
+<span class="kd">func</span> <span class="nf">dismissKeyboard</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)onlyConnectableSwitchHit:"></a>
+                    <a name="//apple_ref/swift/Method/onlyConnectableSwitchHit(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)onlyConnectableSwitchHit:">onlyConnectableSwitchHit(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the &ldquo;Only Connectable Devices&rdquo; switch is hit.
+This immediately updates our prefs.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBAction</span>
+<span class="kd">func</span> <span class="nf">onlyConnectableSwitchHit</span><span class="p">(</span><span class="n">_</span> <span class="nv">inSwitch</span><span class="p">:</span> <span class="kt">UISwitch</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inSwitch</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The switch object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)onlyConnectableButtonHit:"></a>
+                    <a name="//apple_ref/swift/Method/onlyConnectableButtonHit(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)onlyConnectableButtonHit:">onlyConnectableButtonHit(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the label for the switch is hit.
+It toggles the value in the prefs, and forces a UI update, which will change the switch.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBAction</span>
+<span class="kd">func</span> <span class="nf">onlyConnectableButtonHit</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)emptyNamesSwitchHit:"></a>
+                    <a name="//apple_ref/swift/Method/emptyNamesSwitchHit(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)emptyNamesSwitchHit:">emptyNamesSwitchHit(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the &ldquo;Allow Empty Names&rdquo; switch is hit.
+This immediately updates our prefs.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBAction</span>
+<span class="kd">func</span> <span class="nf">emptyNamesSwitchHit</span><span class="p">(</span><span class="n">_</span> <span class="nv">inSwitch</span><span class="p">:</span> <span class="kt">UISwitch</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inSwitch</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The switch object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)emptyNamesButtonHit:"></a>
+                    <a name="//apple_ref/swift/Method/emptyNamesButtonHit(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)emptyNamesButtonHit:">emptyNamesButtonHit(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the label for the switch is hit.
+It toggles the value in the prefs, and forces a UI update, which will change the switch.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBAction</span>
+<span class="kd">func</span> <span class="nf">emptyNamesButtonHit</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Instance%20Methods"></a>
+                <a name="//apple_ref/swift/Section/Instance Methods" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Methods"></a>
+                  <h3 class="section-name"><p>Instance Methods</p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13Blue_Van_Clef26CGA_SettingsViewControllerC8updateUIyyF"></a>
+                    <a name="//apple_ref/swift/Method/updateUI()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13Blue_Van_Clef26CGA_SettingsViewControllerC8updateUIyyF">updateUI()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Updates all the values to match the prefs.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">updateUI</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13Blue_Van_Clef26CGA_SettingsViewControllerC22updateMInimumRSSIValueyyF"></a>
+                    <a name="//apple_ref/swift/Method/updateMInimumRSSIValue()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13Blue_Van_Clef26CGA_SettingsViewControllerC22updateMInimumRSSIValueyyF">updateMInimumRSSIValue()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">updateMInimumRSSIValue</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13Blue_Van_Clef26CGA_SettingsViewControllerC015parseDeviceTextF0yyF"></a>
+                    <a name="//apple_ref/swift/Method/parseDeviceTextView()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13Blue_Van_Clef26CGA_SettingsViewControllerC015parseDeviceTextF0yyF">parseDeviceTextView()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Forces a prefs update on the contents of the Peripheral filter TextView.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">parseDeviceTextView</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13Blue_Van_Clef26CGA_SettingsViewControllerC016parseServiceTextF0yyF"></a>
+                    <a name="//apple_ref/swift/Method/parseServiceTextView()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13Blue_Van_Clef26CGA_SettingsViewControllerC016parseServiceTextF0yyF">parseServiceTextView()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Forces a prefs update on the contents of the Service filter TextView.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">parseServiceTextView</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13Blue_Van_Clef26CGA_SettingsViewControllerC023parseCharacteristicTextF0yyF"></a>
+                    <a name="//apple_ref/swift/Method/parseCharacteristicTextView()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13Blue_Van_Clef26CGA_SettingsViewControllerC023parseCharacteristicTextF0yyF">parseCharacteristicTextView()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Forces a prefs update on the contents of the Characteristic filter TextView.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">parseCharacteristicTextView</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Base%20Class%20Override%20Methods"></a>
+                <a name="//apple_ref/swift/Section/Base Class Override Methods" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Base%20Class%20Override%20Methods"></a>
+                  <h3 class="section-name"><p>Base Class Override Methods</p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)viewDidLoad"></a>
+                    <a name="//apple_ref/swift/Method/viewDidLoad()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)viewDidLoad">viewDidLoad()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called after the view data has been loaded.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)viewWillAppear:"></a>
+                    <a name="//apple_ref/swift/Method/viewWillAppear(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)viewWillAppear:">viewWillAppear(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called before the view is displayed.
+We use this to ensure that the orientation is portrait.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">viewWillAppear</span><span class="p">(</span><span class="n">_</span> <span class="nv">inAnimated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inAnimated</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>ignored.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)viewWillDisappear:"></a>
+                    <a name="//apple_ref/swift/Method/viewWillDisappear(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)viewWillDisappear:">viewWillDisappear(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This allows us to restart scanning in the main screen, if it was running before we were called.
+It also allows us to restore the orientation.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">viewWillDisappear</span><span class="p">(</span><span class="n">_</span> <span class="nv">inAnimated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inAnimated</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>ignored.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/UITextViewDelegate%20Conformance"></a>
+                <a name="//apple_ref/swift/Section/UITextViewDelegate Conformance" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/UITextViewDelegate%20Conformance"></a>
+                  <h3 class="section-name"><p>UITextViewDelegate Conformance</p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)textViewDidChange:"></a>
+                    <a name="//apple_ref/swift/Method/textViewDidChange(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@Blue_Van_Clef@objc(cs)CGA_SettingsViewController(im)textViewDidChange:">textViewDidChange(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when any of the TextFields change.
+We use this to parse the values.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">textViewDidChange</span><span class="p">(</span><span class="n">_</span> <span class="nv">inTextView</span><span class="p">:</span> <span class="kt">UITextView</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inTextView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The TextView that is being changed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-04-28)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>
