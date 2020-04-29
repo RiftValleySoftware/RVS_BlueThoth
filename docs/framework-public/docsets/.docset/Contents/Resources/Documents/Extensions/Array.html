@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Array Extension Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Extension/Array" class="dashAnchor"></a>
+
+    <a title="Array Extension Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          RVS_BlueThoth Doumentation
+        </a>
+         (100% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/RiftValleySoftware/BlueVanClef">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html"> Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      Array Extension Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_Bluetooth_Characteristic.html">CGA_Bluetooth_Characteristic</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_Bluetooth_Characteristic_BatteryLevel.html">CGA_Bluetooth_Characteristic_BatteryLevel</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_Bluetooth_Characteristic_CurrentTime.html">CGA_Bluetooth_Characteristic_CurrentTime</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_Bluetooth_Characteristic_FirmwareRevision.html">CGA_Bluetooth_Characteristic_FirmwareRevision</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes.html#/s:17RVS_BlueThoth_iOS45CGA_Bluetooth_Characteristic_HardwareRevisionC">CGA_Bluetooth_Characteristic_HardwareRevision</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_Bluetooth_Characteristic_LocalTimeInformation.html">CGA_Bluetooth_Characteristic_LocalTimeInformation</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_Bluetooth_Characteristic_ManufacturerName.html">CGA_Bluetooth_Characteristic_ManufacturerName</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_Bluetooth_Characteristic_ModelNumber.html">CGA_Bluetooth_Characteristic_ModelNumber</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_Bluetooth_Characteristic_SerialNumber.html">CGA_Bluetooth_Characteristic_SerialNumber</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_Bluetooth_Characteristic_SoftwareRevision.html">CGA_Bluetooth_Characteristic_SoftwareRevision</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_Bluetooth_Characteristic_SystemID.html">CGA_Bluetooth_Characteristic_SystemID</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_Bluetooth_Descriptor.html">CGA_Bluetooth_Descriptor</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration.html">CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_Bluetooth_Peripheral.html">CGA_Bluetooth_Peripheral</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_Bluetooth_Service.html">CGA_Bluetooth_Service</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_Bluetooth_Service_Battery.html">CGA_Bluetooth_Service_Battery</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_Bluetooth_Service_CurrentTime.html">CGA_Bluetooth_Service_CurrentTime</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_Bluetooth_Service_DeviceInfo.html">CGA_Bluetooth_Service_DeviceInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RVS_BlueThoth.html">RVS_BlueThoth</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RVS_BlueThoth/ScanCriteria.html">– ScanCriteria</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RVS_BlueThoth/AdvertisementData.html">– AdvertisementData</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RVS_BlueThoth/DiscoveryData.html">– DiscoveryData</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/CGA_Errors.html">CGA_Errors</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/StringProtocol.html">StringProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CGA_BlueThoth_Delegate.html">CGA_BlueThoth_Delegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CGA_Bluetooth_Characteristic_Protocol.html">CGA_Bluetooth_Characteristic_Protocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CGA_Bluetooth_Descriptor_Protocol.html">CGA_Bluetooth_Descriptor_Protocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CGA_Bluetooth_Service_Protocol.html">CGA_Bluetooth_Service_Protocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CGA_Class_Protocol.html">CGA_Class_Protocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CGA_Class_Protocol_UpdateCharacteristic.html">CGA_Class_Protocol_UpdateCharacteristic</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CGA_Class_Protocol_UpdateDescriptor.html">CGA_Class_Protocol_UpdateDescriptor</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CGA_Class_Protocol_UpdateService.html">CGA_Class_Protocol_UpdateService</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/RVS_SequenceProtocol.html">RVS_SequenceProtocol</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>Array</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Array</span> <span class="k">where</span> <span class="kt">Element</span> <span class="o">==</span> <span class="kt"><a href="../Classes/RVS_BlueThoth.html">RVS_BlueThoth</a></span><span class="o">.</span><span class="kt">DiscoveryData</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Array</span> <span class="k">where</span> <span class="kt">Element</span> <span class="o">==</span> <span class="kt"><a href="../Classes/CGA_Bluetooth_Peripheral.html">CGA_Bluetooth_Peripheral</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Array</span> <span class="k">where</span> <span class="kt">Element</span> <span class="o">==</span> <span class="kt">CBCharacteristic</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Array</span> <span class="k">where</span> <span class="kt">Element</span> <span class="o">==</span> <span class="kt"><a href="../Classes/CGA_Bluetooth_Characteristic.html">CGA_Bluetooth_Characteristic</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Array</span> <span class="k">where</span> <span class="kt">Element</span> <span class="o">==</span> <span class="kt"><a href="../Protocols/CGA_Bluetooth_Descriptor_Protocol.html">CGA_Bluetooth_Descriptor_Protocol</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Array</span> <span class="k">where</span> <span class="kt">Element</span> <span class="o">==</span> <span class="kt"><a href="../Classes/CGA_Bluetooth_Service.html">CGA_Bluetooth_Service</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>This allows us to fetch Peripherals in our staged Arrays, looking for an exact instance.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Element%60%20==%20%60RVS_BlueThoth.DiscoveryData%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Element` == `RVS_BlueThoth.DiscoveryData`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Element%60%20==%20%60RVS_BlueThoth.DiscoveryData%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Element</code> == <code><a href="../Classes/RVS_BlueThoth/DiscoveryData.html">RVS_BlueThoth.DiscoveryData</a></code></p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA0a1_bC0C13DiscoveryDataCRszlEyAESgAEcip"></a>
+                    <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA0a1_bC0C13DiscoveryDataCRszlEyAESgAEcip">subscript(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Special subscript that allows us to retrieve an Element by its contained Peripheral (as the opaque type).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">subscript</span><span class="p">(</span><span class="nv">inItem</span><span class="p">:</span> <span class="kt">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Peripheral we&rsquo;re looking to match.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The found Element, or nil, if not found.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA0a1_bC0C13DiscoveryDataCRszlEyAESgSo12CBPeripheralCcip"></a>
+                    <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA0a1_bC0C13DiscoveryDataCRszlEyAESgSo12CBPeripheralCcip">subscript(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Special subscript that allows us to retrieve an Element by its contained Peripheral</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">subscript</span><span class="p">(</span><span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Peripheral we&rsquo;re looking to match.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The found Element, or nil, if not found.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA0a1_bC0C13DiscoveryDataCRszlE16removeThisDeviceySbAEF"></a>
+                    <a name="//apple_ref/swift/Method/removeThisDevice(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA0a1_bC0C13DiscoveryDataCRszlE16removeThisDeviceySbAEF">removeThisDevice(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes the element (as the opaque type).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="k">mutating</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">removeThisDevice</span><span class="p">(</span><span class="n">_</span> <span class="nv">inItem</span><span class="p">:</span> <span class="kt">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The CB element we&rsquo;re looking to remove, as the opaque type.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if the item was found and removed. Can be ignored.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA0a1_bC0C13DiscoveryDataCRszlE8containsySbAEF"></a>
+                    <a name="//apple_ref/swift/Method/contains(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA0a1_bC0C13DiscoveryDataCRszlE8containsySbAEF">contains(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Checks to see if the Array contains an instance that wraps the given CB element (as the opaque type).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="n">_</span> <span class="nv">inItem</span><span class="p">:</span> <span class="kt">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The CB element we&rsquo;re looking to match.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if the Array contains a wrapper for the given element.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA0a1_bC0C13DiscoveryDataCRszlE8containsySbSo12CBPeripheralCF"></a>
+                    <a name="//apple_ref/swift/Method/contains(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA0a1_bC0C13DiscoveryDataCRszlE8containsySbSo12CBPeripheralCF">contains(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Checks to see if the Array contains an instance that wraps the given CB element.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="n">_</span> <span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The CB element we&rsquo;re looking to match.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if the Array contains a wrapper for the given element.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Element%60%20==%20%60CGA_Bluetooth_Peripheral%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Element` == `CGA_Bluetooth_Peripheral`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Element%60%20==%20%60CGA_Bluetooth_Peripheral%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Element</code> == <code><a href="../Classes/CGA_Bluetooth_Peripheral.html">CGA_Bluetooth_Peripheral</a></code></p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA24CGA_Bluetooth_PeripheralCRszlEyACSgSo6CBUUIDCcip"></a>
+                    <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA24CGA_Bluetooth_PeripheralCRszlEyACSgSo6CBUUIDCcip">subscript(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Special subscript that allows us to retrieve an Element by its UUID</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">subscript</span><span class="p">(</span><span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBUUID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The UUID of the item we want</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The found Element, or nil, if not found.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA24CGA_Bluetooth_PeripheralCRszlEyACSgSo12CBPeripheralCcip"></a>
+                    <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA24CGA_Bluetooth_PeripheralCRszlEyACSgSo12CBPeripheralCcip">subscript(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Special subscript that allows us to retrieve an Element by its contained Peripheral</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">subscript</span><span class="p">(</span><span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Peripheral we&rsquo;re looking to match.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The found Element, or nil, if not found.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA24CGA_Bluetooth_PeripheralCRszlE14characteristicyAA0e1_F15_CharacteristicCSgSo16CBCharacteristicCF"></a>
+                    <a name="//apple_ref/swift/Method/characteristic(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA24CGA_Bluetooth_PeripheralCRszlE14characteristicyAA0e1_F15_CharacteristicCSgSo16CBCharacteristicCF">characteristic(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Method that allows us to retrieve an Element by its contained Characteristic</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">characteristic</span><span class="p">(</span><span class="n">_</span> <span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBCharacteristic</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/CGA_Bluetooth_Characteristic.html">CGA_Bluetooth_Characteristic</a></span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Characteristic that belongs to the element that we&rsquo;re looking to match.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The found Element, or nil, if not found.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA24CGA_Bluetooth_PeripheralCRszlE8containsySbSo12CBPeripheralCF"></a>
+                    <a name="//apple_ref/swift/Method/contains(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA24CGA_Bluetooth_PeripheralCRszlE8containsySbSo12CBPeripheralCF">contains(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Checks to see if the Array contains an instance that wraps the given CB element.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="n">_</span> <span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The CB element we&rsquo;re looking to match.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if the Array contains a wrapper for the given element.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA24CGA_Bluetooth_PeripheralCRszlE16removeThisDeviceySbSo12CBPeripheralCF"></a>
+                    <a name="//apple_ref/swift/Method/removeThisDevice(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA24CGA_Bluetooth_PeripheralCRszlE16removeThisDeviceySbSo12CBPeripheralCF">removeThisDevice(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes the element (as a CBPeripheral).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="k">mutating</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">removeThisDevice</span><span class="p">(</span><span class="n">_</span> <span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The CB element we&rsquo;re looking to remove, as the opaque type.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if the item was found and removed. Can be ignored.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA24CGA_Bluetooth_PeripheralCRszlE7indexOfySiACF"></a>
+                    <a name="//apple_ref/swift/Method/indexOf(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA24CGA_Bluetooth_PeripheralCRszlE7indexOfySiACF">indexOf(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the first index of the submitted Peripheral warapper.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">indexOf</span><span class="p">(</span><span class="n">_</span> <span class="nv">inPeripheral</span><span class="p">:</span> <span class="kt"><a href="../Classes/CGA_Bluetooth_Peripheral.html">CGA_Bluetooth_Peripheral</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inPeripheral</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Peripheral to find.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Element%60%20==%20%60CBCharacteristic%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Element` == `CBCharacteristic`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Element%60%20==%20%60CBCharacteristic%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Element</code> == <code>CBCharacteristic</code></p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSSo16CBCharacteristicCRszlEyACSgSo6CBUUIDCcip"></a>
+                    <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSSo16CBCharacteristicCRszlEyACSgSo6CBUUIDCcip">subscript(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Special subscript that allows us to retrieve an Element by its UUID</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">subscript</span><span class="p">(</span><span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBUUID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The UUID of the item we want</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The found Element, or nil, if not found.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSSo16CBCharacteristicCRszlEyACSgACcip"></a>
+                    <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSSo16CBCharacteristicCRszlEyACSgACcip">subscript(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Special subscript that allows us to retrieve an Element by its contained Characteristic.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">subscript</span><span class="p">(</span><span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBCharacteristic</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The CBCharacteristic we&rsquo;re looking to match.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The found Element, or nil, if not found.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Element%60%20==%20%60CGA_Bluetooth_Characteristic%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Element` == `CGA_Bluetooth_Characteristic`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Element%60%20==%20%60CGA_Bluetooth_Characteristic%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Element</code> == <code><a href="../Classes/CGA_Bluetooth_Characteristic.html">CGA_Bluetooth_Characteristic</a></code></p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA28CGA_Bluetooth_CharacteristicCRszlEyACSgSo6CBUUIDCcip"></a>
+                    <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA28CGA_Bluetooth_CharacteristicCRszlEyACSgSo6CBUUIDCcip">subscript(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Special subscript that allows us to retrieve an Element by its UUID</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">subscript</span><span class="p">(</span><span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBUUID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The UUID of the item we want</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The found Element, or nil, if not found.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA28CGA_Bluetooth_CharacteristicCRszlEyACSgSo16CBCharacteristicCcip"></a>
+                    <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA28CGA_Bluetooth_CharacteristicCRszlEyACSgSo16CBCharacteristicCcip">subscript(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Special subscript that allows us to retrieve an Element by its contained Characteristic.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">subscript</span><span class="p">(</span><span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBCharacteristic</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The CBCharacteristic we&rsquo;re looking to match.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The found Element, or nil, if not found.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA28CGA_Bluetooth_CharacteristicCRszlE010removeThisG0ySbSo16CBCharacteristicCF"></a>
+                    <a name="//apple_ref/swift/Method/removeThisCharacteristic(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA28CGA_Bluetooth_CharacteristicCRszlE010removeThisG0ySbSo16CBCharacteristicCF">removeThisCharacteristic(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes the element (as a CBCharacteristic).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="k">mutating</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">removeThisCharacteristic</span><span class="p">(</span><span class="n">_</span> <span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBCharacteristic</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The CB element we&rsquo;re looking to remove.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if the item was found and removed. Can be ignored.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA28CGA_Bluetooth_CharacteristicCRszlE8containsySbSo16CBCharacteristicCF"></a>
+                    <a name="//apple_ref/swift/Method/contains(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA28CGA_Bluetooth_CharacteristicCRszlE8containsySbSo16CBCharacteristicCF">contains(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Checks to see if the Array contains an instance that wraps the given CB element.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="n">_</span> <span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBCharacteristic</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The CB element we&rsquo;re looking to match.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if the Array contains a wrapper for the given element.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Element%60%20==%20%60CGA_Bluetooth_Descriptor_Protocol%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Element` == `CGA_Bluetooth_Descriptor_Protocol`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Element%60%20==%20%60CGA_Bluetooth_Descriptor_Protocol%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Element</code> == <code><a href="../Protocols/CGA_Bluetooth_Descriptor_Protocol.html">CGA_Bluetooth_Descriptor_Protocol</a></code></p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA33CGA_Bluetooth_Descriptor_Protocol_pRszlEyAaB_pSgSo6CBUUIDCcip"></a>
+                    <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA33CGA_Bluetooth_Descriptor_Protocol_pRszlEyAaB_pSgSo6CBUUIDCcip">subscript(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Special subscript that allows us to retrieve an Element by its UUID</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">subscript</span><span class="p">(</span><span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBUUID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The UUID of the item we want</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The found Element, or nil, if not found.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA33CGA_Bluetooth_Descriptor_Protocol_pRszlEyAaB_pSgSo12CBDescriptorCcip"></a>
+                    <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA33CGA_Bluetooth_Descriptor_Protocol_pRszlEyAaB_pSgSo12CBDescriptorCcip">subscript(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Special subscript that allows us to retrieve an Element by its contained Descriptor.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">subscript</span><span class="p">(</span><span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBDescriptor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The CBDescriptor we&rsquo;re looking to match.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The found Element, or nil, if not found.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA33CGA_Bluetooth_Descriptor_Protocol_pRszlE8containsySbSo12CBDescriptorCF"></a>
+                    <a name="//apple_ref/swift/Method/contains(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA33CGA_Bluetooth_Descriptor_Protocol_pRszlE8containsySbSo12CBDescriptorCF">contains(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Checks to see if the Array contains an instance that wraps the given CB element.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="n">_</span> <span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBDescriptor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The CB element we&rsquo;re looking to match.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if the Array contains a wrapper for the given element.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Element%60%20==%20%60CGA_Bluetooth_Service%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Element` == `CGA_Bluetooth_Service`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Element%60%20==%20%60CGA_Bluetooth_Service%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Element</code> == <code><a href="../Classes/CGA_Bluetooth_Service.html">CGA_Bluetooth_Service</a></code></p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA21CGA_Bluetooth_ServiceCRszlEyACSgSo9CBServiceCcip"></a>
+                    <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA21CGA_Bluetooth_ServiceCRszlEyACSgSo9CBServiceCcip">subscript(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Special subscript that allows us to retrieve an Element by its contained Service</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">subscript</span><span class="p">(</span><span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBService</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The CBService we&rsquo;re looking to match.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The found Element, or nil, if not found.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA21CGA_Bluetooth_ServiceCRszlEyACSgSo16CBCharacteristicCcip"></a>
+                    <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA21CGA_Bluetooth_ServiceCRszlEyACSgSo16CBCharacteristicCcip">subscript(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This subscript goes through our Services, looking for the one that &ldquo;owns&rdquo; the proferred Characteristic.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">subscript</span><span class="p">(</span><span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBCharacteristic</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The CBCharacteristic that the Service will aggregate.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The found Element, or nil, if not found.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA21CGA_Bluetooth_ServiceCRszlE14characteristicyAA0e1_F15_CharacteristicCSgSo16CBCharacteristicCF"></a>
+                    <a name="//apple_ref/swift/Method/characteristic(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA21CGA_Bluetooth_ServiceCRszlE14characteristicyAA0e1_F15_CharacteristicCSgSo16CBCharacteristicCF">characteristic(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This method goes through the Services, looking for the one that &ldquo;owns&rdquo; the proferred Characteristic, and then returning the &ldquo;wrapper&rdquo; for the Characteristic.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">characteristic</span><span class="p">(</span><span class="n">_</span> <span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBCharacteristic</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/CGA_Bluetooth_Characteristic.html">CGA_Bluetooth_Characteristic</a></span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The CBCharacteristic that the Service will aggregate.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The found Element, or nil, if not found.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA21CGA_Bluetooth_ServiceCRszlE010removeThisG0ySbSo9CBServiceCF"></a>
+                    <a name="//apple_ref/swift/Method/removeThisService(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA21CGA_Bluetooth_ServiceCRszlE010removeThisG0ySbSo9CBServiceCF">removeThisService(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes the element (as a CBService).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="k">mutating</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">removeThisService</span><span class="p">(</span><span class="n">_</span> <span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBService</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The CB element we&rsquo;re looking to remove.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if the item was found and removed. Can be ignored.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA21CGA_Bluetooth_ServiceCRszlE8containsySbSo9CBServiceCF"></a>
+                    <a name="//apple_ref/swift/Method/contains(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA21CGA_Bluetooth_ServiceCRszlE8containsySbSo9CBServiceCF">contains(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Checks to see if the Array contains an instance that wraps the given CB element.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="n">_</span> <span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBService</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inItem</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The CB element we&rsquo;re looking to match.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if the Array contains a wrapper for the given element.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-04-29)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

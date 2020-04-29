@@ -226,11 +226,7 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             }
             
             #if DEBUG
-                if 1 > descriptors.count {
-                    print("Characteristic: \(inCharacteristic.uuid.uuidString) has no descriptors.")
-                } else {
-                    print("Characteristic: \(inCharacteristic.uuid.uuidString) discovered these Descriptors: \(descriptors.map { $0.uuid.uuidString }.joined(separator: ", "))")
-                }
+                print("Characteristic: \(inCharacteristic.uuid.uuidString) discovered these Descriptors: \(descriptors.map { $0.uuid.uuidString }.joined(separator: ", "))")
             #endif
             
             if  let service = (stagedServices[inCharacteristic] ?? sequence_contents[inCharacteristic]) {
