@@ -10,3 +10,5 @@ This is a "Bluetooth Explorer" app that was written in order to develop a genera
 Although this is an iOS app, it will be used to develop a cross-[Apple]-platform SDK.
 
 It is destined to become an Apple App-Store app, but that's still a ways off, and Apple needs to greenlight it _(They can sometimes be a bit "squeamish" with developer tools like this)_.
+
+[This is the online documentation for this project](https://riftvalleysoftware.github.io/BlueVanClef)
