@@ -411,7 +411,8 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         tableCell.characteristicIDLabel?.textColor = UIColor(white: 1.0, alpha: 0 < characteristic.count ? 1.0 : prefs.textColorForUnselectableCells)
         tableCell.characteristicIDLabel?.text = characteristic.id.localizedVariant
         tableCell.characteristicIDLabel?.accessibilityLabel = String(format: "SLUG-ACC-CHARACTERISTIC-ROW-ID-NO-DESCRIPTORS-FORMAT".localizedVariant, characteristic.id.localizedVariant)
-        tableCell.valueLabel?.accessibilityLabel = String(format: "SLUG-ACC-CHARACTERISTIC-ROW-VALUE-NO-DESCRIPTORS-FORMAT".localizedVariant, characteristic.stringValue ?? (nil != characteristic.value ? String(describing: characteristic.value) : ""))
+        tableCell.valueLabel?.accessibilityLabel = String(format: "SLUG-ACC-CHARACTERISTIC-ROW-VALUE-NO-DESCRIPTORS-FORMAT".localizedVariant, characteristic.stringValue ??
+                                                            (nil != characteristic.value ? String(describing: characteristic.value) : ""))
 
         // Populate the Properties view.
         _PropertyLabelGenerator(labelTextColor: isDarkMode ? .black : .blue, characteristic: characteristic, ownerViewController: self).labels.forEach {
@@ -435,7 +436,8 @@ extension CGA_ServiceViewController: UITableViewDataSource {
             tapGestureRecognizer.rowIndex = inIndexPath.row
             tapGestureRecognizer.backgroundView = tableCell
             tableCell.characteristicIDLabel?.accessibilityLabel = String(format: "SLUG-ACC-CHARACTERISTIC-ROW-ID-FORMAT".localizedVariant, characteristic.id.localizedVariant)
-            tableCell.valueLabel?.accessibilityLabel = String(format: "SLUG-ACC-CHARACTERISTIC-ROW-VALUE-FORMAT".localizedVariant, characteristic.stringValue ?? (nil != characteristic.value ? String(describing: characteristic.value) : ""))
+            tableCell.valueLabel?.accessibilityLabel = String(format: "SLUG-ACC-CHARACTERISTIC-ROW-VALUE-FORMAT".localizedVariant, characteristic.stringValue ??
+                                                                (nil != characteristic.value ? String(describing: characteristic.value) : ""))
             tapGestureRecognizer.accessibilityLabel = "SLUG-ACC-CHARACTERISTIC-ROW".localizedVariant
             tableCell.addGestureRecognizer(tapGestureRecognizer)
         }

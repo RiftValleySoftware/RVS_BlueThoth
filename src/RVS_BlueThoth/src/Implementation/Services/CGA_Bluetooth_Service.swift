@@ -28,7 +28,7 @@ import CoreBluetooth
 /**
  This class "wraps" instances of CBService, adding some functionality, and linking the hierarchy.
  */
-public class CGA_Bluetooth_Service: CGA_Bluetooth_Service_Protoco_Internal {
+public class CGA_Bluetooth_Service: CGA_Bluetooth_Service_Protocol_Internal {
     // MARK: Public Properties
     
     /* ################################################################## */

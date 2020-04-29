@@ -28,7 +28,7 @@ import CoreBluetooth
 /**
  This protocol publishes an internal interface for our Service wrapper classes.
  */
-internal protocol CGA_Bluetooth_Service_Protoco_Internal: CGA_Bluetooth_Service_Protocol {
+internal protocol CGA_Bluetooth_Service_Protocol_Internal: CGA_Bluetooth_Service_Protocol {
     /* ################################################################## */
     /**
      Root class does nothing.

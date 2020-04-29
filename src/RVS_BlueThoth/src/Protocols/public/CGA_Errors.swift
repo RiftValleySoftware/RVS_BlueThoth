@@ -179,7 +179,9 @@ public enum CGA_Errors: Error {
         - peripheral: The CBPeripheral object that is reporting the error.
      - returns: A CGA_Errors.internalError instance, with any nesting added.
      */
-    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, peripheral inPeripheral: CBPeripheral) -> CGA_Errors { self.peripheralError(error: inError, id: inPeripheral.identifier.uuidString) }
+    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, peripheral inPeripheral: CBPeripheral) -> CGA_Errors {
+        self.peripheralError(error: inError, id: inPeripheral.identifier.uuidString)
+    }
     
     /* ################################################################## */
     /**
@@ -190,7 +192,9 @@ public enum CGA_Errors: Error {
         - service: The CBService object that is reporting the error.
      - returns: A CGA_Errors.internalError instance, with any nesting added.
      */
-    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, service inService: CBService) -> CGA_Errors { self.serviceError(error: self.returnNestedInternalErrorBasedOnThis(inError, peripheral: inService.peripheral), id: inService.uuid.uuidString) }
+    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, service inService: CBService) -> CGA_Errors {
+        self.serviceError(error: self.returnNestedInternalErrorBasedOnThis(inError, peripheral: inService.peripheral), id: inService.uuid.uuidString)
+    }
     
     /* ################################################################## */
     /**
@@ -201,7 +205,9 @@ public enum CGA_Errors: Error {
         - characteristic: The CBCharacteristic object that is reporting the error.
      - returns: A CGA_Errors.internalError instance, with any nesting added.
      */
-    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, characteristic inCharacteristic: CBCharacteristic) -> CGA_Errors { self.characteristicError(error: self.returnNestedInternalErrorBasedOnThis(inError, service: inCharacteristic.service), id: inCharacteristic.uuid.uuidString) }
+    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, characteristic inCharacteristic: CBCharacteristic) -> CGA_Errors {
+        self.characteristicError(error: self.returnNestedInternalErrorBasedOnThis(inError, service: inCharacteristic.service), id: inCharacteristic.uuid.uuidString)
+    }
     
     /* ################################################################## */
     /**
@@ -212,5 +218,7 @@ public enum CGA_Errors: Error {
         - descriptor: The CBDescriptor object that is reporting the error.
      - returns: A CGA_Errors.internalError instance, with any nesting added.
      */
-    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, descriptor inDescriptor: CBDescriptor) -> CGA_Errors { self.descriptorError(error: self.returnNestedInternalErrorBasedOnThis(inError, characteristic: inDescriptor.characteristic), id: inDescriptor.uuid.uuidString) }
+    public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, descriptor inDescriptor: CBDescriptor) -> CGA_Errors {
+        self.descriptorError(error: self.returnNestedInternalErrorBasedOnThis(inError, characteristic: inDescriptor.characteristic), id: inDescriptor.uuid.uuidString)
+    }
 }

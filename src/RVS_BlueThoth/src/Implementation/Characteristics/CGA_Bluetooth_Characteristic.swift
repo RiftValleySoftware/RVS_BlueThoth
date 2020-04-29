@@ -249,6 +249,16 @@ public class CGA_Bluetooth_Characteristic: CGA_Bluetooth_Characteristic_Protocol
         peripheral.setNotifyValue(false, for: characteristic)
         return true
     }
+
+    /* ################################################################## */
+    /**
+     The required init, with a "primed" sequence.
+
+     - parameter sequence_contents: The initial value of the Array cache.
+     */
+    public required init(sequence_contents inSequence_Contents: [CGA_Bluetooth_Descriptor_Protocol]) {
+        sequence_contents = inSequence_Contents
+    }
         
     /* ################################################################## */
     /**
@@ -267,16 +277,6 @@ public class CGA_Bluetooth_Characteristic: CGA_Bluetooth_Characteristic_Protocol
 //            peripheral.writeValue(inData, for: cbElementInstance, type: canWriteWithoutResponse ? .withoutResponse : .withResponse)
 //        }
 //    }
-
-    /* ################################################################## */
-    /**
-     The required init, with a "primed" sequence.
-
-     - parameter sequence_contents: The initial value of the Array cache.
-     */
-    public required init(sequence_contents inSequence_Contents: [CGA_Bluetooth_Descriptor_Protocol]) {
-        sequence_contents = inSequence_Contents
-    }
     
     // MARK: Internal Properties (Declared here, so it can be overridden).
     

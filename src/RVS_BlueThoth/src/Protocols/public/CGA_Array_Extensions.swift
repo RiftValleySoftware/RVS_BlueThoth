@@ -28,7 +28,7 @@ import CoreBluetooth
 /**
  This allows us to fetch Peripherals in our staged Arrays, looking for an exact instance.
  */
-extension Array where Element == RVS_BlueThoth.DiscoveryData {
+public extension Array where Element == RVS_BlueThoth.DiscoveryData {
     /* ################################################################## */
     /**
      Special subscript that allows us to retrieve an Element by its contained Peripheral (as the opaque type).
@@ -117,7 +117,7 @@ extension Array where Element == RVS_BlueThoth.DiscoveryData {
 /**
  This allows us to fetch Peripherals, looking for an exact instance.
  */
-extension Array where Element == CGA_Bluetooth_Peripheral {
+public extension Array where Element == CGA_Bluetooth_Peripheral {
     /* ################################################################## */
     /**
      Special subscript that allows us to retrieve an Element by its UUID
@@ -209,7 +209,7 @@ extension Array where Element == CGA_Bluetooth_Peripheral {
  
  This is applied to the sequence_contentnts Array. It allows us to search by UUID, as well as by identity.
  */
-extension Array where Element == CBCharacteristic {
+public extension Array where Element == CBCharacteristic {
     /* ################################################################## */
     /**
      Special subscript that allows us to retrieve an Element by its UUID
@@ -241,7 +241,7 @@ extension Array where Element == CBCharacteristic {
 /**
  This allows us to fetch Characteristics, looking for an exact instance.
  */
-extension Array where Element == CGA_Bluetooth_Characteristic {
+public extension Array where Element == CGA_Bluetooth_Characteristic {
     /* ################################################################## */
     /**
      Special subscript that allows us to retrieve an Element by its UUID
@@ -314,7 +314,7 @@ extension Array where Element == CGA_Bluetooth_Characteristic {
 /**
  This allows us to fetch Descriptors, looking for an exact instance.
  */
-extension Array where Element == CGA_Bluetooth_Descriptor_Protocol {
+public extension Array where Element == CGA_Bluetooth_Descriptor_Protocol {
     /* ################################################################## */
     /**
      Special subscript that allows us to retrieve an Element by its UUID
@@ -392,7 +392,7 @@ public extension Data {
 /**
  This allows us to fetch Services, looking for an exact instance.
  */
-extension Array where Element == CGA_Bluetooth_Service {
+public extension Array where Element == CGA_Bluetooth_Service {
     /* ################################################################## */
     /**
      Special subscript that allows us to retrieve an Element by its contained Service
@@ -471,7 +471,7 @@ extension Array where Element == CGA_Bluetooth_Service {
         
         return success
     }
-
+    
     /* ################################################################## */
     /**
      Checks to see if the Array contains an instance that wraps the given CB element.

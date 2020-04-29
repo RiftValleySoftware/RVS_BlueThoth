@@ -38,6 +38,78 @@ import CoreBluetooth
  So we have one or two extra lines, and a few milliseconds upon initial connection, when we use this. Big deal. It's all internal to this file. If it really bothers you, look away.
  */
 
+/* ###################################################################################################################################### */
+// MARK: - Factory Protocol for Service Instances -
+/* ###################################################################################################################################### */
+/**
+ This allows a generic factory method for Service Wrappers.
+ */
+internal protocol CGA_ServiceFactory {
+    /* ################################################################## */
+    /**
+     - returns: A String, with the UUID for this class' element type.
+     */
+    static var uuid: String { get }
+
+    /* ################################################################## */
+    /**
+     REQUIRED: This creates an instance of the class, using the subclass-defined factory method.
+     
+     - parameter parent: The Peripheral that "owns" this Service
+     - parameter cbElementInstance: The CB element for this Service.
+     - returns: A new instance of CGA_Bluetooth_Service, or a subclass, thereof. Nil, if it fails.
+     */
+    static func createInstance(parent: CGA_Bluetooth_Peripheral, cbElementInstance: CBService) -> CGA_Bluetooth_Service?
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Factory Protocol for Characteristic Instances -
+/* ###################################################################################################################################### */
+/**
+ This allows a generic factory method for Characteristic Wrappers.
+ */
+internal protocol CGA_CharacteristicFactory {
+    /* ################################################################## */
+    /**
+     - returns: A String, with the UUID for this class' element type.
+     */
+    static var uuid: String { get }
+
+    /* ################################################################## */
+    /**
+     REQUIRED: This creates an instance of the class, using the subclass-defined factory method.
+     
+     - parameter parent: The Service that "owns" this Characteristic
+     - parameter cbElementInstance: The CB element for this Characteristic.
+     - returns: A new instance of CGA_Bluetooth_Characteristic, or a subclass, thereof. Nil, if it fails.
+     */
+    static func createInstance(parent: CGA_Bluetooth_Service, cbElementInstance: CBCharacteristic) -> CGA_Bluetooth_Characteristic?
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Factory Protocol for Descriptor Instances -
+/* ###################################################################################################################################### */
+/**
+ This allows a generic factory method for Descriptor Wrappers.
+ */
+internal protocol CGA_DescriptorFactory {
+    /* ################################################################## */
+    /**
+     - returns: A String, with the UUID for this class' element type.
+     */
+    static var uuid: String { get }
+
+    /* ################################################################## */
+    /**
+     REQUIRED: This creates an instance of the class, using the subclass-defined factory method.
+     
+     - parameter parent: The Characteristic that "owns" this Descriptor
+     - parameter cbElementInstance: The CB element for this Descriptor.
+     - returns: A new instance of CGA_Bluetooth_Descriptor, or a subclass, thereof. Nil, if it fails.
+     */
+    static func createInstance(parent: CGA_Bluetooth_Characteristic, cbElementInstance: CBDescriptor) -> CGA_Bluetooth_Descriptor?
+}
+
 /* ###################################################################### */
 /**
  This holds references to the various subclasses for Services.

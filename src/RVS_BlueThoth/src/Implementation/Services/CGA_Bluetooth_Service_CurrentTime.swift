@@ -48,6 +48,32 @@ public class CGA_Bluetooth_Service_CurrentTime: CGA_Bluetooth_Service {
     
     /* ################################################################## */
     /**
+     - returns: The number of seconds from the UNIX Epoch that the local time is at.
+     */
+    public var timeSinceUNIXEpochInSeconds: TimeInterval? {
+        (sequence_contents[CBUUID(string: CGA_Bluetooth_Characteristic_CurrentTime.cbUUIDString)] as? CGA_Bluetooth_Characteristic_CurrentTime)?.timeSinceUNIXEpochInSeconds
+    }
+    
+    /* ################################################################## */
+    /**
+     - returns: The number of seconds from UTC that the current local time is at.
+     */
+    public var offsetFromUTCInSeconds: TimeInterval? {
+        (sequence_contents[CBUUID(string: CGA_Bluetooth_Characteristic_LocalTimeInformation.cbUUIDString)] as? CGA_Bluetooth_Characteristic_LocalTimeInformation)?.offsetFromUTCInSeconds
+    }
+    
+    /* ################################################################## */
+    /**
+     - returns: The number of seconds from the UNIX Epoch that the UTC time is at.
+     */
+    public var utcTimeSinceUNIXEpochInSeconds: TimeInterval? {
+        guard   let timeSinceUNIXEpochInSeconds = timeSinceUNIXEpochInSeconds,
+                let offsetFromUTCInSeconds = offsetFromUTCInSeconds else { return nil }
+        return timeSinceUNIXEpochInSeconds + offsetFromUTCInSeconds
+    }
+
+    /* ################################################################## */
+    /**
      This returns a unique GATT UUID String for the Service.
      */
     internal class override var uuid: String { "1805" }

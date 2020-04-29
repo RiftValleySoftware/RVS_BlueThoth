@@ -29,8 +29,8 @@ type_body_length:
 - 501 # error
 
 line_length:
-- 350 # warning
-- 351 # error
+- 269 # warning
+- 270 # error
 
 cyclomatic_complexity:
 - 9 # warning

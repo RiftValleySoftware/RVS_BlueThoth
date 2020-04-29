@@ -173,7 +173,8 @@ extension CGA_CharacteristicViewController: UITableViewDataSource {
      - parameter cellForRowAt: The index path (section, row) for the cell.
      */
     func tableView(_ inTableView: UITableView, cellForRowAt inIndexPath: IndexPath) -> UITableViewCell {
-        guard let tableCell = inTableView.dequeueReusableCell(withIdentifier: Self._descriptorRowReuseID, for: inIndexPath) as? CGA_CharacteristicViewController_TableRow else { return UITableViewCell() }
+        guard let tableCell = inTableView.dequeueReusableCell(withIdentifier: Self._descriptorRowReuseID, for: inIndexPath) as? CGA_CharacteristicViewController_TableRow
+            else { return UITableViewCell() }
         tableCell.descriptorIDLabel?.text = characteristicInstance?[inIndexPath.row].id.localizedVariant ?? "ERROR"
         
         var labelText = ""
