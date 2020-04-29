@@ -155,9 +155,7 @@ extension Array where Element == CGA_Bluetooth_Peripheral {
      - parameter inItem: The Characteristic that belongs to the element that we're looking to match.
      - returns: The found Element, or nil, if not found.
      */
-    func characteristic(_ inItem: CBCharacteristic) -> CGA_Bluetooth_Characteristic! {
-        reduce(nil) { (current, next) in nil == current ? next.sequence_contents.characteristic(inItem) : current }
-    }
+    func characteristic(_ inItem: CBCharacteristic) -> CGA_Bluetooth_Characteristic! { reduce(nil) { (current, next) in nil == current ? next.sequence_contents.characteristic(inItem) : current } }
 
     /* ################################################################## */
     /**
@@ -200,11 +198,7 @@ extension Array where Element == CGA_Bluetooth_Peripheral {
      
      - parameter inPeripheral: The Peripheral to find.
      */
-    func indexOf(_ inPeripheral: CGA_Bluetooth_Peripheral) -> Int { firstIndex {
-            let sameID = $0.cbElementInstance.identifier.uuidString == inPeripheral.id
-            return sameID
-        } ?? -1
-    }
+    func indexOf(_ inPeripheral: CGA_Bluetooth_Peripheral) -> Int { firstIndex { return $0.cbElementInstance.identifier.uuidString == inPeripheral.id } ?? -1 }
 }
 
 /* ###################################################################################################################################### */
@@ -238,9 +232,7 @@ extension Array where Element == CBCharacteristic {
      - parameter inItem: The CBCharacteristic we're looking to match.
      - returns: The found Element, or nil, if not found.
      */
-    subscript(_ inItem: CBCharacteristic) -> Element! {
-        reduce(nil) { (current, nextItem) in nil != current ? current : ((nextItem === inItem || nextItem.uuid == inItem.uuid) ? nextItem : nil) }
-    }
+    subscript(_ inItem: CBCharacteristic) -> Element! { reduce(nil) { (current, nextItem) in nil != current ? current : ((nextItem === inItem || nextItem.uuid == inItem.uuid) ? nextItem : nil) } }
 }
 
 /* ###################################################################################################################################### */

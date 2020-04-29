@@ -244,12 +244,12 @@
 			isa = PBXGroup;
 			children = (
 				D4B49C8B24550F1800932C3D /* CGA_Bluetooth_Protocols.swift */,
-				D4700E202455E463004E99D3 /* CGA_Array_Extensions.swift */,
-				D4700E1D2455E3EB004E99D3 /* CGA_Errors.swift */,
 				D4700E232455E4BE004E99D3 /* CGA_Factory_Protocols.swift */,
 				D4700E052455DFBA004E99D3 /* CGA_Bluetooth_Service_Protocol.swift */,
 				D4700DFF2455CB2C004E99D3 /* CGA_Bluetooth_Characteristic_Protocol.swift */,
 				D4700DFB2455C75B004E99D3 /* CGA_Bluetooth_Descriptor_Protocol.swift */,
+				D4700E1D2455E3EB004E99D3 /* CGA_Errors.swift */,
+				D4700E202455E463004E99D3 /* CGA_Array_Extensions.swift */,
 			);
 			path = public;
 			sourceTree = "<group>";
