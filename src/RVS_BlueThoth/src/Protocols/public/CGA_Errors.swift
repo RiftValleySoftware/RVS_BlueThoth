@@ -25,6 +25,9 @@ import CoreBluetooth
 /* ###################################################################################################################################### */
 // MARK: - *Enumerations* -
 /* ###################################################################################################################################### */
+/**
+ This enumeration defines a powerful error reporting system for the Bluetooth framework. It conforms to the standard <code>Error</code> protocol.
+ */
 public enum CGA_Errors: Error {
     /* ################################################################## */
     /**
@@ -104,6 +107,7 @@ public enum CGA_Errors: Error {
     /* ################################################################## */
     /**
      Returns an Array, with Strings for any nested errors.
+     The last String (position count-1) is the actual Error String, and it applies to the first element (position 1).
      */
     public var layeredDescription: [String] {
         var ret: [String] = []

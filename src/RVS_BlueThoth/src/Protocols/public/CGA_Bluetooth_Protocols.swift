@@ -100,6 +100,9 @@ extension CGA_Class_Protocol {
 /* ###################################################################################################################################### */
 // MARK: - CGA_Class_Protocol_UpdateService Protocol -
 /* ###################################################################################################################################### */
+/**
+ This protocol defines an interface for a message that indicates that a Service object needs to be refreshed.
+ */
 public protocol CGA_Class_Protocol_UpdateService: CGA_Class_Protocol {
     /* ################################################################## */
     /**
@@ -126,6 +129,10 @@ extension CGA_Class_Protocol_UpdateService {
 /* ###################################################################################################################################### */
 // MARK: - CGA_Class_Protocol_UpdateCharacteristic Protocol -
 /* ###################################################################################################################################### */
+/**
+ This protocol defines an interface for a message that indicates that a Characteristic object needs to be refreshed.
+ It also specifies a method to "clear" the stored Descriptors
+*/
 public protocol CGA_Class_Protocol_UpdateCharacteristic: CGA_Class_Protocol {
     /* ################################################################## */
     /**
@@ -158,6 +165,9 @@ extension CGA_Class_Protocol_UpdateCharacteristic {
 /* ###################################################################################################################################### */
 // MARK: - The CGA_Class_Protocol_UpdateDescriptor Protocol -
 /* ###################################################################################################################################### */
+/**
+This protocol defines an interface for a message that indicates that a Descriptor object needs to be refreshed.
+*/
 public protocol CGA_Class_Protocol_UpdateDescriptor: CGA_Class_Protocol_UpdateCharacteristic {
     /* ################################################################## */
     /**

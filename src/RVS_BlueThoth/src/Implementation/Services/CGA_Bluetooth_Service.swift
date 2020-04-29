@@ -170,9 +170,7 @@ extension CGA_Bluetooth_Service {
         
         // The reason that we do this separately, is that I want to make sure that we have completely loaded up the staging Array before starting the discovery process.
         // Otherwise, it could short-circuit the load.
-        stagedCharacteristics.forEach {
-            $0.startOver()
-        }
+        stagedCharacteristics.forEach { $0.startOver() }
     }
     
     /* ################################################################## */

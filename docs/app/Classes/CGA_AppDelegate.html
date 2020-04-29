@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CGA_AppDelegate Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Class/CGA_AppDelegate" class="dashAnchor"></a>
+
+    <a title="CGA_AppDelegate Class Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          BlueVanClef Doumentation
+        </a>
+         (100% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/RiftValleySoftware/BlueVanClef">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html"> Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      CGA_AppDelegate Class Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_AppDelegate.html">CGA_AppDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_BaseViewController.html">CGA_BaseViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_CharacteristicViewController.html">CGA_CharacteristicViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_CharacteristicViewController_TableRow.html">CGA_CharacteristicViewController_TableRow</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_InfoViewController.html">CGA_InfoViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_InitialViewController.html">CGA_InitialViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_InitialViewController/_SectionIndexes.html">– _SectionIndexes</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_InitialViewController_TableRow.html">CGA_InitialViewController_TableRow</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_PeripheralViewController.html">CGA_PeripheralViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_PeripheralViewController_TableRow.html">CGA_PeripheralViewController_TableRow</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_PersistentPrefs.html">CGA_PersistentPrefs</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_PersistentPrefs/Keys.html">– Keys</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_ServiceViewController.html">CGA_ServiceViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_ServiceViewController/_PropertyLabelGenerator.html">– _PropertyLabelGenerator</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_ServiceViewController_TableRow.html">CGA_ServiceViewController_TableRow</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_SettingsViewController.html">CGA_SettingsViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CG_TapGestureRecognizer.html">CG_TapGestureRecognizer</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CG_TappableButton.html">CG_TappableButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RVS_PersistentPrefs.html">RVS_PersistentPrefs</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RVS_PersistentPrefs/PrefsError.html">– PrefsError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Bundle.html">Bundle</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/StringProtocol.html">StringProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UITableView.html">UITableView</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIView.html">UIView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CGA_ScannerViewController.html">CGA_ScannerViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CGA_UpdatableScreenViewController.html">CGA_UpdatableScreenViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/RVS_SequenceProtocol.html">RVS_SequenceProtocol</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>CGA_AppDelegate</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">@UIApplicationMain</span>
+<span class="kd">class</span> <span class="kt">CGA_AppDelegate</span> <span class="p">:</span> <span class="kt">UIResponder</span><span class="p">,</span> <span class="kt">UIApplicationDelegate</span></code></pre>
+
+                </div>
+              </div>
+            <p>The primary application delegate for the app.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13Blue_Van_Clef15CGA_AppDelegateC12displayAlert_7messageySS_SStFZ"></a>
+                    <a name="//apple_ref/swift/Method/displayAlert(_:message:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13Blue_Van_Clef15CGA_AppDelegateC12displayAlert_7messageySS_SStFZ">displayAlert(_:message:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Displays the given message and title in an alert with an &ldquo;OK&rdquo; button.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">displayAlert</span><span class="p">(</span><span class="n">_</span> <span class="nv">inTitle</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">message</span> <span class="nv">inMessage</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inTitle</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a string to be displayed as the title of the alert. It is localized by this method.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>message</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a string to be displayed as the message of the alert. It is localized by this method.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>presentedBy</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An optional UIViewController object that is acting as the presenter context for the alert. If nil, we use the top controller of the Navigation stack.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13Blue_Van_Clef15CGA_AppDelegateC27createAdvertimentStringsForySaySSGSiFZ"></a>
+                    <a name="//apple_ref/swift/Method/createAdvertimentStringsFor(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13Blue_Van_Clef15CGA_AppDelegateC27createAdvertimentStringsForySaySSGSiFZ">createAdvertimentStringsFor(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This creates an Array of String, containing the advertisement data from the indexed device.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">createAdvertimentStringsFor</span><span class="p">(</span><span class="n">_</span> <span class="nv">inIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inIndex</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The 0-based index of the device to fetch.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An Array of String, with the advertisement data in &ldquo;key: value&rdquo; form.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13Blue_Van_Clef15CGA_AppDelegateC27createAdvertimentStringsFor_2idSaySSG04RVS_A9Thoth_iOS0l1_aM0C17AdvertisementDataVSg_SStFZ"></a>
+                    <a name="//apple_ref/swift/Method/createAdvertimentStringsFor(_:id:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13Blue_Van_Clef15CGA_AppDelegateC27createAdvertimentStringsFor_2idSaySSG04RVS_A9Thoth_iOS0l1_aM0C17AdvertisementDataVSg_SStFZ">createAdvertimentStringsFor(_:id:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This creates an Array of String, containing the advertisement data from the indexed device.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">createAdvertimentStringsFor</span><span class="p">(</span><span class="n">_</span> <span class="nv">inAdData</span><span class="p">:</span> <span class="kt">RVS_BlueThoth</span><span class="o">.</span><span class="kt">AdvertisementData</span><span class="p">?,</span> <span class="n">id</span> <span class="nv">inID</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inAdData</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The advertisement data.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID string.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An Array of String, with the advertisement data in &ldquo;key: value&rdquo; form.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13Blue_Van_Clef15CGA_AppDelegateC15lockOrientationyySo011UIInterfaceH4MaskVFZ"></a>
+                    <a name="//apple_ref/swift/Method/lockOrientation(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13Blue_Van_Clef15CGA_AppDelegateC15lockOrientationyySo011UIInterfaceH4MaskVFZ">lockOrientation(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This will change the app orientation mask to what is provided.
+It can be used to force orientation of the interface.
+It records the interface orientation prior to the change, so that can be restored later.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">lockOrientation</span><span class="p">(</span><span class="n">_</span> <span class="nv">inOrientation</span><span class="p">:</span> <span class="kt">UIInterfaceOrientationMask</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inOrientation</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The orientation that should be locked.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13Blue_Van_Clef15CGA_AppDelegateC15lockOrientation_11andRotateToySo011UIInterfaceH4MaskV_So0lH0VtFZ"></a>
+                    <a name="//apple_ref/swift/Method/lockOrientation(_:andRotateTo:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13Blue_Van_Clef15CGA_AppDelegateC15lockOrientation_11andRotateToySo011UIInterfaceH4MaskV_So0lH0VtFZ">lockOrientation(_:andRotateTo:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This will force the screen to ignore the accelerometer setting and force the screen into that orientation.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">lockOrientation</span><span class="p">(</span><span class="n">_</span> <span class="nv">inOrientation</span><span class="p">:</span> <span class="kt">UIInterfaceOrientationMask</span><span class="p">,</span> <span class="n">andRotateTo</span> <span class="nv">inRotateOrientation</span><span class="p">:</span> <span class="kt">UIInterfaceOrientation</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inOrientation</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The orientation that should be locked.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>andRotateTo</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The orientation that should be forced.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13Blue_Van_Clef15CGA_AppDelegateC17unlockOrientationyyFZ"></a>
+                    <a name="//apple_ref/swift/Method/unlockOrientation()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13Blue_Van_Clef15CGA_AppDelegateC17unlockOrientationyyFZ">unlockOrientation()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This will return the app orientation to the state it was before the orientation was locked.
+This is not 100% perfect. If, for example, the device was landscape, then the user physically rotated it to portrait after this call, the rotation will return to landscape, even if the device is still portrait.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">unlockOrientation</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13Blue_Van_Clef15CGA_AppDelegateC14centralManager04RVS_A9Thoth_iOS0i1_aJ0CSgvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/centralManager" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13Blue_Van_Clef15CGA_AppDelegateC14centralManager04RVS_A9Thoth_iOS0i1_aJ0CSgvpZ">centralManager</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the Bluetooth Central Manager instance. Everything goes through this.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">var</span> <span class="nv">centralManager</span><span class="p">:</span> <span class="kt">RVS_BlueThoth</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13Blue_Van_Clef15CGA_AppDelegateC15orientationLockSo26UIInterfaceOrientationMaskVvp"></a>
+                    <a name="//apple_ref/swift/Property/orientationLock" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13Blue_Van_Clef15CGA_AppDelegateC15orientationLockSo26UIInterfaceOrientationMaskVvp">orientationLock</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Used to force orientation for the Settings screen.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">orientationLock</span><span class="p">:</span> <span class="kt">UIInterfaceOrientationMask</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Blue_Van_Clef@objc(cs)CGA_AppDelegate(py)window"></a>
+                    <a name="//apple_ref/swift/Property/window" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Blue_Van_Clef@objc(cs)CGA_AppDelegate(py)window">window</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The required window property.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">window</span><span class="p">:</span> <span class="kt">UIWindow</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13Blue_Van_Clef15CGA_AppDelegateC03appF6ObjectACSgvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/appDelegateObject" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13Blue_Van_Clef15CGA_AppDelegateC03appF6ObjectACSgvpZ">appDelegateObject</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Quick access to the app delegate object.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="k">var</span> <span class="nv">appDelegateObject</span><span class="p">:</span> <span class="kt">CGA_AppDelegate</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13Blue_Van_Clef15CGA_AppDelegateC5prefsAA0D16_PersistentPrefsCvp"></a>
+                    <a name="//apple_ref/swift/Property/prefs" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13Blue_Van_Clef15CGA_AppDelegateC5prefsAA0D16_PersistentPrefsCvp">prefs</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This will contain our persistent prefs</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">prefs</span><span class="p">:</span> <span class="kt"><a href="../Classes/CGA_PersistentPrefs.html">CGA_PersistentPrefs</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Blue_Van_Clef@objc(cs)CGA_AppDelegate(im)application:didFinishLaunchingWithOptions:"></a>
+                    <a name="//apple_ref/swift/Method/application(_:didFinishLaunchingWithOptions:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Blue_Van_Clef@objc(cs)CGA_AppDelegate(im)application:didFinishLaunchingWithOptions:">application(_:didFinishLaunchingWithOptions:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called upon application initialization and setup.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">UIApplication</span><span class="p">,</span> <span class="nv">didFinishLaunchingWithOptions</span><span class="p">:</span> <span class="p">[</span><span class="kt">UIApplication</span><span class="o">.</span><span class="kt">LaunchOptionsKey</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>didFinishLaunchingWithOptions</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Ignored</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True (always)</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Blue_Van_Clef@objc(cs)CGA_AppDelegate(im)application:supportedInterfaceOrientationsForWindow:"></a>
+                    <a name="//apple_ref/swift/Method/application(_:supportedInterfaceOrientationsFor:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Blue_Van_Clef@objc(cs)CGA_AppDelegate(im)application:supportedInterfaceOrientationsForWindow:">application(_:supportedInterfaceOrientationsFor:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is used to lock the orientation while the timer editor is up.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">UIApplication</span><span class="p">,</span> <span class="nv">supportedInterfaceOrientationsFor</span><span class="p">:</span> <span class="kt">UIWindow</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">UIInterfaceOrientationMask</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>supportedInterfaceOrientationsFor</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>ignored</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Blue_Van_Clef@objc(cs)CGA_AppDelegate(im)applicationDidEnterBackground:"></a>
+                    <a name="//apple_ref/swift/Method/applicationDidEnterBackground(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Blue_Van_Clef@objc(cs)CGA_AppDelegate(im)applicationDidEnterBackground:">applicationDidEnterBackground(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the application is about to enter the background.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">applicationDidEnterBackground</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">UIApplication</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-04-28)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

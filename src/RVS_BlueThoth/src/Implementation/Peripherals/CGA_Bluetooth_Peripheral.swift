@@ -224,9 +224,7 @@ extension CGA_Bluetooth_Peripheral {
     /**
      Request that the RSSI be updated.
      */
-    internal func updateRSSI() {
-        cbElementInstance?.readRSSI()
-    }
+    internal func updateRSSI() { cbElementInstance?.readRSSI() }
 }
 
 /* ###################################################################################################################################### */
@@ -237,9 +235,7 @@ extension CGA_Bluetooth_Peripheral {
     /**
      This registers us with the Central wrapper.
      */
-    private func _registerWithCentral() {
-        central?.addPeripheral(self)
-    }
+    private func _registerWithCentral() { central?.addPeripheral(self) }
 }
 
 /* ###################################################################################################################################### */

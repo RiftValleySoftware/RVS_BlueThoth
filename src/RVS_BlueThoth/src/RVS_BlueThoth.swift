@@ -420,9 +420,7 @@ extension RVS_BlueThoth {
     /**
      This forces disconnects for all Peripherals.
      */
-    public func disconnectAllPeripherals() {
-        stagedBLEPeripherals.forEach { $0.disconnect() }
-    }
+    public func disconnectAllPeripherals() { stagedBLEPeripherals.forEach { $0.disconnect() } }
 
     /* ################################################################## */
     /**
@@ -527,9 +525,7 @@ extension RVS_BlueThoth: CGA_Class_Protocol_UpdateDescriptor {
     /**
      This class is the "endpoint" of all errors, so it passes the error back to the delegate.
      */
-    public func handleError(_ inError: CGA_Errors) {
-        reportError(inError)
-    }
+    public func handleError(_ inError: CGA_Errors) { reportError(inError) }
     
     /* ################################################################## */
     /**
@@ -543,9 +539,7 @@ extension RVS_BlueThoth: CGA_Class_Protocol_UpdateDescriptor {
      
      - parameter inDevice: The Peripheral wrapper instance that changed.
      */
-    public func updateThisDevice(_ inDevice: CGA_Bluetooth_Peripheral) {
-        _sendDeviceUpdate(inDevice)
-    }
+    public func updateThisDevice(_ inDevice: CGA_Bluetooth_Peripheral) { _sendDeviceUpdate(inDevice) }
     
     /* ################################################################## */
     /**
@@ -553,9 +547,7 @@ extension RVS_BlueThoth: CGA_Class_Protocol_UpdateDescriptor {
      
      - parameter inService: The Service wrapper instance that changed.
      */
-    public func updateThisService(_ inService: CGA_Bluetooth_Service) {
-        _sendServiceUpdate(inService)
-    }
+    public func updateThisService(_ inService: CGA_Bluetooth_Service) { _sendServiceUpdate(inService) }
 
     /* ################################################################## */
     /**
@@ -563,9 +555,7 @@ extension RVS_BlueThoth: CGA_Class_Protocol_UpdateDescriptor {
      
      - parameter inCharacteristic: The Characteristic wrapper instance that changed.
      */
-    public func updateThisCharacteristic(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
-        _sendCharacteristicUpdate(inCharacteristic)
-    }
+    public func updateThisCharacteristic(_ inCharacteristic: CGA_Bluetooth_Characteristic) { _sendCharacteristicUpdate(inCharacteristic) }
 
     /* ################################################################## */
     /**
@@ -573,9 +563,7 @@ extension RVS_BlueThoth: CGA_Class_Protocol_UpdateDescriptor {
      
      - parameter inDescriptor: The Descriptor wrapper instance that changed.
      */
-    public func updateThisDescriptor(_ inDescriptor: CGA_Bluetooth_Descriptor) {
-        _sendDescriptorUpdate(inDescriptor)
-    }
+    public func updateThisDescriptor(_ inDescriptor: CGA_Bluetooth_Descriptor) { _sendDescriptorUpdate(inDescriptor) }
     
     /* ################################################################## */
     /**
@@ -976,11 +964,7 @@ extension RVS_BlueThoth {
         /**
          This is the peripheral wrapper that is instantiated when the device is connected. It is nil, if the device is not connected. It is a strong reference.
          */
-        public var peripheralInstance: CGA_Bluetooth_Peripheral? {
-            didSet {
-                clear()
-            }
-        }
+        public var peripheralInstance: CGA_Bluetooth_Peripheral? { didSet { clear() } }
         
         /* ############################################################## */
         /**
@@ -1095,9 +1079,7 @@ extension RVS_BlueThoth {
         /**
          Cancels the timeout.
          */
-        public func clear() {
-            _cancelTimeout()
-        }
+        public func clear() { _cancelTimeout() }
 
         /* ############################################################## */
         /**
@@ -1154,9 +1136,7 @@ extension RVS_BlueThoth {
         /**
          Make sure that we don't leave any open timers.
          */
-        deinit {
-            clear()
-        }
+        deinit { clear() }
         
         /* ################################################################## */
         /**
