@@ -1,4 +1,4 @@
-# BMLTiOSLib Change Log
+# RVS_BlueThoth Change Log
 
 ## 1.0.2.0000
 
