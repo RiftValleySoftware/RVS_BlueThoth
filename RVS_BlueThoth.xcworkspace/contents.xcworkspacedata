@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "container:"
+      name = "Project-Meta">
+      <FileRef
+         location = "group:README.md">
+      </FileRef>
+      <FileRef
+         location = "group:Cartfile">
+      </FileRef>
+      <FileRef
+         location = "group:jazzy.sh">
+      </FileRef>
+      <FileRef
+         location = "group:LICENSE">
+      </FileRef>
+      <FileRef
+         location = "group:.swiftlint.yml">
+      </FileRef>
+   </Group>
+   <FileRef
+      location = "group:/Volumes/Development/RiftValley/RVS_BlueThoth/RVS_BlueThoth.xcodeproj">
+   </FileRef>
+</Workspace>

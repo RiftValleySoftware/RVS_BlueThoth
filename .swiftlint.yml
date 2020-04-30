@@ -1,12 +1,7 @@
 disabled_rules:
 - identifier_name
-- nesting
-- function_parameter_count
 - trailing_whitespace
 - type_name
-- todo
-- inert_defer
-- reduce_boolean
 - syntactic_sugar
 
 opt_in_rules:
@@ -17,25 +12,24 @@ opt_in_rules:
 - comma
 
 function_body_length:
-- 60 # warning
-- 61 #error
+- 55 # warning
+- 60 #error
 
 file_length:
-- 1500 # warning
-- 1501 # error
+- 930 # warning
+- 1000 # error
 
 type_body_length:
-- 500 # warning
-- 501 # error
+- 300 # warning
+- 400 # error
 
 line_length:
-- 269 # warning
-- 270 # error
+- 230 # warning
+- 250 # error
 
 cyclomatic_complexity:
 - 9 # warning
-- 10 # error
+- 12 # error
 
 excluded:
-- Pods
 - Carthage
