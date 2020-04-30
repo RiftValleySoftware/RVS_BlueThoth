@@ -269,6 +269,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4B49CE9245511B700932C3D /* Build configuration list for PBXNativeTarget "RVS_BlueThoth_iOS" */;
 			buildPhases = (
+				D4CFF905245AF1C4005A9656 /* Carthage */,
 				D4FEB94D245AD8A1006EA5F9 /* SwiftLint */,
 				D4B49CDC245511B700932C3D /* Sources */,
 			);
@@ -335,6 +336,24 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		D4CFF905245AF1C4005A9656 /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Carthage;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "carthage update\n";
+		};
 		D4FEB94D245AD8A1006EA5F9 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
