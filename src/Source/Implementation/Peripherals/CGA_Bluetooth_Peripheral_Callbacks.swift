@@ -162,7 +162,10 @@ private var _descriptorFactory: [CGA_DescriptorFactory.Type] = [
     CGA_Bluetooth_Descriptor.self,
     
     /// The Client Characteristic Configuration Descriptor
-    CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration.self
+    CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration.self,
+    
+    /// The Characteristic Extended Properties Descriptor
+    CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.self
 ]
 
 /* ###################################################################################################################################### */
