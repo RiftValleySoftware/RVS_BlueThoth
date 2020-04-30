@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D4C2D38A24550ABC00197A0A"
-               BuildableName = "RVS_BlueThoth_MacOS.framework"
-               BlueprintName = "RVS_BlueThoth_MacOS"
+               BlueprintIdentifier = "D4B49CDF245511B700932C3D"
+               BuildableName = "RVS_BlueThoth_iOS.framework"
+               BlueprintName = "RVS_BlueThoth_iOS"
                ReferencedContainer = "container:RVS_BlueThoth.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -50,9 +50,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D4C2D38A24550ABC00197A0A"
-            BuildableName = "RVS_BlueThoth_MacOS.framework"
-            BlueprintName = "RVS_BlueThoth_MacOS"
+            BlueprintIdentifier = "D4B49CDF245511B700932C3D"
+            BuildableName = "RVS_BlueThoth_iOS.framework"
+            BlueprintName = "RVS_BlueThoth_iOS"
             ReferencedContainer = "container:RVS_BlueThoth.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
