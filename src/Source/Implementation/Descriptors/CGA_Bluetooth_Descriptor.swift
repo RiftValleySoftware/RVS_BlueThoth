@@ -39,10 +39,19 @@ public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Interna
     
     /* ################################################################## */
     /**
+     This returns the value as a String, if possible (may be nil).
+     */
+    public var stringValue: String? {
+        guard let utf8Val = value as? UnsafePointer<CChar> else { return nil }
+        return String(utf8String: utf8Val)
+    }
+    
+    /* ################################################################## */
+    /**
      This returns a unique UUID String for the instance.
      */
     public var id: String { cbElementInstance?.uuid.uuidString ?? "ERROR" }
-    
+
     /* ################################################################## */
     /**
      This holds the instance of CBDescriptor that is used by this instance.
