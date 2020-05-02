@@ -1,5 +1,11 @@
 # RVS_BlueThoth Change Log
 
+## 1.0.4.0000
+
+- **May 2, 2020**
+
+- Added support for the Characteristic Presentation Format Descriptor.
+
 ## 1.0.3.0000
 
 - **May 1, 2020**
