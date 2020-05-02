@@ -66,6 +66,54 @@ public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Interna
     
     /* ################################################################## */
     /**
+     Returns the number (if possible) as a UInt8.
+     This computed property is defined here, so it can be overridden by subclasses.
+     */
+    public var uInt8Value: UInt8? {
+        guard var data = dataValue else { return nil }
+        var number = UInt8(0)
+        data.castInto(&number)
+        return number
+    }
+    
+    /* ################################################################## */
+    /**
+     Returns the number (if possible) as a UInt16.
+     This computed property is defined here, so it can be overridden by subclasses.
+     */
+    public var uInt16Value: UInt16? {
+        guard var data = dataValue else { return nil }
+        var number = UInt16(0)
+        data.castInto(&number)
+        return number
+    }
+    
+    /* ################################################################## */
+    /**
+     Returns the number (if possible) as a UInt32.
+     This computed property is defined here, so it can be overridden by subclasses.
+     */
+    public var uInt32Value: UInt32? {
+        guard var data = dataValue else { return nil }
+        var number = UInt32(0)
+        data.castInto(&number)
+        return number
+    }
+    
+    /* ################################################################## */
+    /**
+     Returns the number (if possible) as a UInt64.
+     This computed property is defined here, so it can be overridden by subclasses.
+     */
+    public var uInt64Value: UInt64? {
+        guard var data = dataValue else { return nil }
+        var number = UInt64(0)
+        data.castInto(&number)
+        return number
+    }
+
+    /* ################################################################## */
+    /**
      Returns the value as a Boolean. It should be noted that ANY non-zero number will return true.
      This computed property is defined here, so it can be overridden by subclasses.
      */
