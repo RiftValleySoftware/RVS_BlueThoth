@@ -33,5 +33,5 @@ public class CGA_Bluetooth_Descriptor_UserDescription: CGA_Bluetooth_Descriptor 
     /**
      This is the UUID for the User Description Descriptor.
      */
-    internal class override var uuid: String { "2901" }
+    internal class override var uuid: String { CBUUIDCharacteristicUserDescriptionString }
 }

@@ -39,13 +39,55 @@ public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Interna
     
     /* ################################################################## */
     /**
-     This returns the value as a String, if possible (may be nil).
+     This attempts to cast the value of the Descriptor into a Data object.
      */
-    public var stringValue: String? {
-        guard let utf8Val = value as? UnsafePointer<CChar> else { return nil }
-        return String(utf8String: utf8Val)
+    public var dataValue: Data? {
+        guard let value = value as? Data else { return nil }
+        return value
     }
     
+    /* ################################################################## */
+    /**
+     If the Descriptor has a value, and that value can be expressed as a String, it is returned here.
+     */
+    public var stringValue: String? { nil != dataValue ? String(data: dataValue!, encoding: .utf8) : nil }
+    
+    /* ################################################################## */
+    /**
+     Returns the number (if possible) as an Int64. This assumes littlendian.
+     This computed property is defined here, so it can be overridden by subclasses.
+     */
+    public var intValue: Int64? {
+        guard var data = dataValue else { return nil }
+        var number = Int64(0)
+        data.castInto(&number)
+        return number
+    }
+    
+    /* ################################################################## */
+    /**
+     Returns the value as a Boolean. It should be noted that ANY non-zero number will return true.
+     This computed property is defined here, so it can be overridden by subclasses.
+     */
+    public var boolValue: Bool? {
+        guard var data = dataValue else { return nil }
+        var ret = Bool(false)
+        data.castInto(&ret)
+        return ret
+    }
+    
+    /* ################################################################## */
+    /**
+     Returns the value as a Double.
+     This computed property is defined here, so it can be overridden by subclasses.
+     */
+    public var doubleValue: Double? {
+        guard var data = dataValue else { return nil }
+        var ret = Double(0.0)
+        data.castInto(&ret)
+        return ret
+    }
+
     /* ################################################################## */
     /**
      This returns a unique UUID String for the instance.

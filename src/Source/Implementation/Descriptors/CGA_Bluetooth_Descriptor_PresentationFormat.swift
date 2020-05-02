@@ -31,19 +31,16 @@ import CoreBluetooth
 public class CGA_Bluetooth_Descriptor_PresentationFormat: CGA_Bluetooth_Descriptor {
     /* ################################################################## */
     /**
-     - returns: The Characteristic Presentation Format, as a positive integer.
-     */
-    public var presentationFormatEnum: UInt8? { cbElementInstance.value as? UInt8 }
-    
-    /* ################################################################## */
-    /**
      - returns: The Characteristic Presentation Format, as a positive integer String. If not available, is nil.
      */
-    public override var stringValue: String? { nil != presentationFormatEnum ? String(format: "%d", presentationFormatEnum!) : nil }
+    public override var stringValue: String? {
+        guard let intValue = intValue else { return nil }
+        return String(format: "%d", UInt8(intValue))
+    }
     
     /* ################################################################## */
     /**
      This is the UUID for the User Description Descriptor.
      */
-    internal class override var uuid: String { "2904" }
+    internal class override var uuid: String { CBUUIDCharacteristicFormatString }
 }

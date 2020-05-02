@@ -51,5 +51,5 @@ public class CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties: CGA_Bl
     /**
      This is the UUID for the Client Characteristic Configuration Descriptor.
      */
-    internal class override var uuid: String { "2900" }
+    internal class override var uuid: String { CBUUIDCharacteristicExtendedPropertiesString }
 }
