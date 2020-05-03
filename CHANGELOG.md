@@ -1,5 +1,11 @@
 # RVS_BlueThoth Change Log
 
+## 1.0.6.0000
+
+- **May 3, 2020**
+
+- Added targets for WatchOS and TVOS.
+
 ## 1.0.5.0000
 
 - **May 2, 2020**
