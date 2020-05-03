@@ -867,8 +867,10 @@ extension RVS_BlueThoth {
             #if DEBUG
                 print("ERROR! Timeout.")
             #endif
-            clear()
-            central?.reportError(CGA_Errors.timeoutError(self))
+            if inTimer == _timer {  // Just to make absolutely sure that we are expected.
+                clear()
+                central?.reportError(CGA_Errors.timeoutError(self))
+            }
         }
 
         /* ############################################################## */

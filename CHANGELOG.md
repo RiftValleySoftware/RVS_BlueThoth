@@ -1,5 +1,11 @@
 # RVS_BlueThoth Change Log
 
+## 1.0.5.0000
+
+- **May 2, 2020**
+
+- Likely no operational change. Added a "Belt and Suspenders" check in the timeout, in case we ever get called after the timer was cleared (Hey, you never know).
+
 ## 1.0.4.0000
 
 - **May 2, 2020**
