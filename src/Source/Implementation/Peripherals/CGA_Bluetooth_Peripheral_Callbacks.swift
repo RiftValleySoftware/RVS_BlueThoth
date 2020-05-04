@@ -168,7 +168,16 @@ private var _descriptorFactory: [CGA_DescriptorFactory.Type] = [
     CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.self,
     
     /// The Characteristic Presentation Format Descriptor
-    CGA_Bluetooth_Descriptor_PresentationFormat.self
+    CGA_Bluetooth_Descriptor_PresentationFormat.self,
+    
+    /// The Aggregate Format Descriptor
+    CGA_Bluetooth_Descriptor_AggregateFormat.self,
+    
+    /// The Server Characteristic Configuration Descriptor
+    CGA_Bluetooth_Descriptor_ServerCharacteristicConfiguration.self,
+    
+    /// The L2CAP Channel PSM Descriptor.
+    CGA_Bluetooth_Descriptor_CBUUIDL2CAPPSMCharacteristic.self
 ]
 
 /* ###################################################################################################################################### */

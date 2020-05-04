@@ -1,5 +1,11 @@
 # RVS_BlueThoth Change Log
 
+## 1.0.7.0000
+
+- **May 4, 2020**
+
+- Added placeholder source files for all the standard Apple Descriptors. They don't do anything -yet.
+
 ## 1.0.6.0000
 
 - **May 3, 2020**
