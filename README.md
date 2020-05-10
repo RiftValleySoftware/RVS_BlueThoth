@@ -32,6 +32,7 @@ Then, once that's done, use [Terminal](https://support.apple.com/guide/terminal/
 This will create a directory called "`Carthage`", which will contain the library in a subdirectory, called "`Checkouts`," inside of which, you will find another subdirectory called "`RVS_BlueThoth`."
 
 ![Checkouts Directory](img/CheckoutsDir.png)
+
 _Fig. 1: The BlueThoth Directory in the Carthage Directory_
 
 **IMPORTANT NOTE**
@@ -41,22 +42,26 @@ Because of the complexity of code-signing, and also in order to improve the robu
 Instead, you should import the "`RVS_BlueThoth.xcodeproj`" project file into your project or workspace, and declare the appropriate frameworkto be an embedded framework (there are framework targets for all 4 major Apple operating system targets). Your project will make it a dependency.
 
 ![Including the Project File](img/IncludeProjectFile.png)
+
 _Fig. 2: Including the BlueThoth Project File Into Your Own Project_
 
 ![Selecting the Appropriate Target As A Dependency](img/SelectTarget.png)
+
 _Fig. 3: Selecting the Target Framework_
 
 ![The Target As A Dependency](img/AddFramework.png)
+
 _Fig. 4: The Target Framework As An Embedded Framework_
 
 ![The Framework in the Project Navigator Frameworks Group](img/InFrameworksDir.png)
+
 _Fig. 5: The Framework Will Now Appear in the Project Navigator Frameworks Group_
 
 In order to use the framework, you will now need to include it:
 
     import RVS_BlueThoth_iOS
     
-(iOS version shown in all the above examples)
+***NOTE:** The iOS version is shown in all the above examples. The same workflow applies across all platforms.*
 
 **IMPORTANT NOTE**
 
