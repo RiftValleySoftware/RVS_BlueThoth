@@ -35,11 +35,11 @@ This will create a directory called "`Carthage`", which will contain the library
 
 _Fig. 1: The BlueThoth Directory in the Carthage Directory_
 
-***IMPORTANT NOTE**
+***IMPORTANT NOTE***
 
-Because of the complexity of code-signing, and also in order to improve the robustness of the project (by making it simple to use dependencies), I don't have Carhage build the framework.
+_Because of the complexity of code-signing, and also in order to improve the robustness of the project (by making it simple to use dependencies), I don't have Carhage build the framework._
 
-Instead, you should import the "`RVS_BlueThoth.xcodeproj`" project file into your project or workspace, and declare the appropriate frameworkto be an embedded framework (there are framework targets for all 4 major Apple operating system targets). Your project will make it a dependency.*
+_Instead, you should import the "`RVS_BlueThoth.xcodeproj`" project file into your project or workspace, and declare the appropriate frameworkto be an embedded framework (there are framework targets for all 4 major Apple operating system targets). Your project will make it a dependency._
 
 Including the Project into Your project
 -
