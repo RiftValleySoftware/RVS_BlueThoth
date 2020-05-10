@@ -1,0 +1,29 @@
+{
+  "layers" : [
+    {
+      "filename" : "16To9AppIcon.imagestacklayer"
+    },
+    {
+      "filename" : "3To1AppIcon copy.imagestacklayer"
+    },
+    {
+      "filename" : "3To1AppIcon.imagestacklayer"
+    },
+    {
+      "filename" : "SquareAppIcon.imagestacklayer"
+    },
+    {
+      "filename" : "6To19AppIcon.imagestacklayer"
+    }
+  ],
+  "properties" : {
+    "canvasSize" : {
+      "height" : 768,
+      "width" : 1280
+    }
+  },
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

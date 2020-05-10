@@ -1,0 +1,10 @@
+author: The Great Rift Valley Software Company
+author_url: https://riftvalleysoftware.com
+hide_documentation_coverage: true
+sdk: macosx
+github_url: https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox
+title: Rift Valley Software Generic Swift Toolbox
+module: RVS_Generic_Swift_Toolbox
+copyright: '© 2019-2020 [The Great Rift Valley Software Company](https://riftvalleysoftware.com) under [open source license](https://github.com/RiftValleySoftware/RVS_GTDriver/blob/master/LICENSE).'
+
+theme: fullwidth

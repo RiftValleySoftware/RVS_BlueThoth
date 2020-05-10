@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>RVS_Generic_Swift_Toolbox  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+
+    <a title="RVS_Generic_Swift_Toolbox  Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="index.html">
+          Rift Valley Software Generic Swift Toolbox
+        </a>
+        
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox">
+            <img class="header-icon" src="img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="index.html">RVS_Generic_Swift_Toolbox Reference</a>
+      <img class="carat" src="img/carat.png" />
+      RVS_Generic_Swift_Toolbox  Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/RVS_DebugTools.html">RVS_DebugTools</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/Int.html">Int</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/StringProtocol.html">StringProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/UInt.html">UInt</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/UInt64.html">UInt64</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/OLEB_Queue.html">OLEB_Queue</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/RVS_SequenceProtocol.html">RVS_SequenceProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/RVS_FIFOQueue.html">RVS_FIFOQueue</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            
+            <p><img src="https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox/raw/master/icon.png" alt="Icon"></p>
+<h1 id='rvs_generic_swift_toolbox' class='heading'>RVS_Generic_Swift_Toolbox</h1>
+
+<p><strong><em>Version:</em></strong> <em>1.0.5 (April 21, 2020)</em></p>
+
+<p><a href="https://riftvalleysoftware.github.io/RVS_Generic_Swift_Toolbox/">This is the technical documentation for this repository</a></p>
+<h2 id='description' class='heading'>DESCRIPTION</h2>
+
+<p>This repository is an Xcode project with a set of ambidextrous (That&rsquo;s what I really mean by &ldquo;generic&rdquo;; not just using generics) tools that can be applied to Swift projects deployed for <a href="https://apple.com/ios">iOS</a>, <a href="https://apple.com/ipados">iPadOS</a>, <a href="https://apple.com/macos">MacOS</a>, <a href="https://apple.com/watchos">WatchOS</a> and <a href="https://apple.com/tvos">TVOS</a>.</p>
+
+<p>These tools will work for all of these platforms, and will, at most, rely only on <a href="https://developer.apple.com/documentation/foundation">the Foundation library</a>.</p>
+
+<ul>
+<li><p><a href="https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox/tree/master/src/Collection%20Tools"><strong>COLLECTION TOOLS</strong></a></p>
+
+<ul>
+<li><p><a href="https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox/blob/master/src/Collection%20Tools/RVS_FIFOQueue.swift"><strong>RVS_FIFOQueue</strong></a></p>
+
+<p>This is a high-performance generic FIFO queue data structure. It&rsquo;s based on the work of <a href="https://oleb.net">Ole Begemann</a>, who used it as an example in his <a href="https://oleb.net/advanced-swift/">Advanced Swift</a> book.</p></li>
+<li><p><a href="https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox/blob/master/src/Collection%20Tools/RVS_SequenceProtocol.swift"><strong>RVS_SequenceProtocol</strong></a></p>
+
+<p>This is a simple protocol that gives classes and structs that conform to it some basic <a href="https://developer.apple.com/documentation/swift/sequence">Sequence</a> behavior.</p></li>
+</ul></li>
+<li><p><a href="https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox/tree/master/src/Debug%20Tools"><strong>DEBUG TOOLS</strong></a></p>
+
+<ul>
+<li><p><a href="https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox/blob/master/src/Debug%20Tools/RVS_DebugTools.swift"><strong>RVS_DebugTools</strong></a></p>
+
+<p>This is a set of tools used to aid debugging and testing code.</p></li>
+</ul></li>
+<li><p><a href="https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox/tree/master/src/Extensions"><strong>EXTENSIONS</strong></a></p>
+
+<ul>
+<li><p><a href="https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox/blob/master/src/Extensions/RVS_Int_Extensions.swift"><strong>RVS_Int_Extensions</strong></a></p>
+
+<p>Extensions to integer data types.</p></li>
+<li><p><a href="https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox/blob/master/src/Extensions/RVS_String_Extensions.swift"><strong>RVS_String_Extensions</strong></a></p>
+
+<p>Extensions to the <a href="https://developer.apple.com/documentation/swift/stringprotocol">StringProtocol protocol</a>. This adds some significant capabilities, such as <a href="https://en.wikipedia.org/wiki/MD5">MD5</a>/<a href="https://en.wikipedia.org/wiki/Secure_Hash_Algorithms">SHA</a>-hashing, substring searching, simple localization, and basic parsing.</p></li>
+</ul></li>
+</ul>
+<h2 id='usage' class='heading'>USAGE</h2>
+
+<ul>
+<li><p><a href="https://github.com/Carthage/Carthage"><strong>Carthage</strong></a></p>
+
+<p>You are probably best off using Carthage to install these tools. It&rsquo;s extremely simple to use, and squeaky clean. You will only need to include references to the files into your project.
+You implement it by adding the following line in your <a href="https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md">Cartfile</a>:</p>
+
+<p><code>github &quot;RiftValleySoftware/RVS_Generic_Swift_Toolbox&quot;</code></p>
+
+<p>Once you have done this, navigate the Terminal to the directory containing the Cartfile, and execute:</p>
+
+<p><code>carthage update</code></p>
+
+<p>You will likely see the following output:</p>
+<pre class="highlight plaintext"><code>Dependency "RVS_Generic_Swift_Toolbox" has no shared framework schemes
+
+If you believe this to be an error, please file an issue with the maintainers at     https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox/issues/new
+*** Skipped building RVS_PersistentPrefs due to the error:
+Dependency "RVS_PersistentPrefs" has no shared framework schemes
+
+If you believe this to be an error, please file an issue with the maintainers at    https://github.com/RiftValleySoftware/RVS_PersistentPrefs/issues/new
+</code></pre>
+
+<p>You can safely ignore this.</p>
+
+<p>This will result in a directory, at the same level as the Cartfile, called <code>Carthage</code>. Inside of that directory, will be another directory, called <code>Checkouts</code>. Inside of that directory, will be a directory called <code>RVS_Generic_Swift_Toolbox</code>.
+The files that you are looking for will be in the <code>src</code> directory. They are arranged in the grouping they are documented, above.</p>
+
+<p>Just drag those files into your Xcode project, and add them to the appropriate targets.</p></li>
+<li><p><strong><a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">Git Submodule</a></strong></p>
+
+<p>You could also directly include the project as a Git Submodule.  Submodules can be annoying to work with, but are a good way to maintain ironclad version integrity.
+If you do this, then you should do the same as above, but instead of a Carthage directory, you will have whatever directory you choose to use to place the submodule.</p></li>
+</ul>
+<h2 id='requirements' class='heading'>REQUIREMENTS</h2>
+
+<p>These utilities require <a href="https://developer.apple.com/swift/">the Swift programming language</a>, and are not designed to be abstracted via a framework or bundle. They should be directly added to the source of your intended application.</p>
+<h2 id='license' class='heading'>LICENSE</h2>
+
+<p>© Copyright 2019, <a href="https://riftvalleysoftware.com">The Great Rift Valley Software Company</a></p>
+
+<p><a href="https://opensource.org/licenses/MIT">MIT License</a></p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
+files (the &ldquo;Software&rdquo;), to deal in the Software without restriction, including without limitation the rights to use, copy,
+modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED &ldquo;AS IS&rdquo;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+          </div>
+        </section>
+
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>© 2019-2020 <a class="link" href="https://riftvalleysoftware.com" target="_blank" rel="external">The Great Rift Valley Software Company</a> under <a class="link" href="https://github.com/RiftValleySoftware/RVS_GTDriver/blob/master/LICENSE" target="_blank" rel="external">open source license</a>.</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

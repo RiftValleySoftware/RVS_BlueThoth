@@ -1,0 +1,7 @@
+def shared_pods
+    pod 'SwiftLint'
+end
+
+target 'RVS_Persistent_Prefs' do
+    shared_pods
+end

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="14865.1" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="appleTV" appearance="light"/>
+    <dependencies>
+        <deployment identifier="tvOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14819.2"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Persistent Prefs tvOS Test Harness View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="RVS_PersistentPrefs_tvOS_TestHarness_ViewController" customModule="RVS_PersistentPrefs_tvOS_TestHarness" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="Yqo-pe-P5p">
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="top" axis="vertical" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4mp-sM-vDM" userLabel="Main Structure Vertical Stack View">
+                                <rect key="frame" x="90" y="60" width="1740" height="646"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WEi-pk-XQX" userLabel="Integer Value Horizontal Stack View">
+                                        <rect key="frame" x="0.0" y="0.0" width="1740" height="46"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Integer" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E5V-dC-i3x">
+                                                <rect key="frame" x="0.0" y="0.0" width="127" height="46"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="38"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EAV-Gq-zXV">
+                                                <rect key="frame" x="135" y="0.0" width="1605" height="46"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="integerValueTextFieldChanged:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="MIb-EO-FpU"/>
+                                                    <action selector="integerValueTextFieldChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="Oy3-Ps-iNS"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="faT-lm-ZJ2" userLabel="String Value Horizontal Stack View">
+                                        <rect key="frame" x="0.0" y="54" width="1740" height="46"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="String" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2sK-vq-e0m">
+                                                <rect key="frame" x="0.0" y="0.0" width="127" height="46"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="38"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OWE-d5-YFT">
+                                                <rect key="frame" x="135" y="0.0" width="1605" height="46"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="stringValueTextFieldChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="S3M-79-meD"/>
+                                                    <action selector="stringValueTextFieldChanged:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="jIe-Nr-cdU"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="NQI-gI-Cla" userLabel="Array Value Horizontal Stack View">
+                                        <rect key="frame" x="0.0" y="108" width="1740" height="69"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Array" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mpo-is-M19">
+                                                <rect key="frame" x="0.0" y="11.5" width="870" height="46"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="38"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="b9I-Gn-8eV">
+                                                <rect key="frame" x="870" y="0.0" width="870" height="70"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="calibratedWhite"/>
+                                                <segments>
+                                                    <segment title="1"/>
+                                                    <segment title="2"/>
+                                                    <segment title="3"/>
+                                                    <segment title="4"/>
+                                                    <segment title="5"/>
+                                                </segments>
+                                                <connections>
+                                                    <action selector="arraySelectionSegmentedSwitchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="YMb-ZH-32R"/>
+                                                </connections>
+                                            </segmentedControl>
+                                        </subviews>
+                                    </stackView>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ed7-0E-7aL">
+                                        <rect key="frame" x="0.0" y="185" width="1740" height="46"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="arrayValueTextFieldChanged:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="vwI-8E-sX2"/>
+                                            <action selector="arrayValueTextFieldChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="xPN-Rk-KbT"/>
+                                        </connections>
+                                    </textField>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="cK0-Yn-7Ml" userLabel="Dictionary Value Horizontal Stack View">
+                                        <rect key="frame" x="0.0" y="239" width="1740" height="69"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dictionary" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H8A-kh-wQo">
+                                                <rect key="frame" x="0.0" y="0.0" width="870" height="69"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="38"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="b1S-9v-PX4" userLabel="Dictionary Selection Segmented Switch">
+                                                <rect key="frame" x="870" y="0.0" width="870" height="70"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="calibratedWhite"/>
+                                                <segments>
+                                                    <segment title="0"/>
+                                                    <segment title="1"/>
+                                                    <segment title="2"/>
+                                                    <segment title="3"/>
+                                                    <segment title="4"/>
+                                                </segments>
+                                                <connections>
+                                                    <action selector="dictionarySelectionSegmentedControlChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="f19-RB-Hw9"/>
+                                                </connections>
+                                            </segmentedControl>
+                                        </subviews>
+                                    </stackView>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="j8W-Ih-egs" userLabel="Dictionary Value Text Field">
+                                        <rect key="frame" x="0.0" y="316" width="1740" height="46"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="dictionaryValueTextFieldChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="Mlb-09-FxX"/>
+                                            <action selector="dictionaryValueTextFieldChanged:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="Sp0-J7-RwC"/>
+                                        </connections>
+                                    </textField>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="KbN-Oz-lrX" userLabel="Date Value Horizontal Stack View">
+                                        <rect key="frame" x="0.0" y="370" width="1740" height="46"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nt0-ZS-8I8">
+                                                <rect key="frame" x="0.0" y="0.0" width="127" height="46"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="38"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZM3-Yd-pQc">
+                                                <rect key="frame" x="135" y="0.0" width="1605" height="46"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="dateValueTextFieldChanged:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="kJu-KE-tc7"/>
+                                                    <action selector="dateValueTextFieldChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="w3I-uO-bmz"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CCP-k7-KGI" userLabel="Spacer View">
+                                        <rect key="frame" x="0.0" y="424" width="1740" height="128"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="128" id="Wy7-3R-UTY"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4An-la-Kh0">
+                                        <rect key="frame" x="0.0" y="560" width="1740" height="86"/>
+                                        <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                                        <state key="normal" title="RESET TO DEFAULT">
+                                            <color key="titleColor" red="1" green="0.055564177690000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="resetButtonHit:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="nv3-eo-qcM"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Nt0-ZS-8I8" firstAttribute="width" secondItem="E5V-dC-i3x" secondAttribute="width" id="IhP-A5-Ns3"/>
+                                    <constraint firstItem="2sK-vq-e0m" firstAttribute="width" secondItem="E5V-dC-i3x" secondAttribute="width" id="JpB-uW-TSY"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Yqo-pe-P5p" secondAttribute="trailing" id="4KD-gc-qFM"/>
+                            <constraint firstItem="wu6-TO-1qx" firstAttribute="trailing" secondItem="4mp-sM-vDM" secondAttribute="trailing" id="8jM-6d-6MO"/>
+                            <constraint firstItem="Yqo-pe-P5p" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="AAK-Mo-Zhu"/>
+                            <constraint firstItem="wu6-TO-1qx" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="4mp-sM-vDM" secondAttribute="bottom" id="LvA-eo-mRh"/>
+                            <constraint firstItem="Yqo-pe-P5p" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="dgM-yv-N6F"/>
+                            <constraint firstItem="4mp-sM-vDM" firstAttribute="leading" secondItem="wu6-TO-1qx" secondAttribute="leading" id="hIV-vO-IZ2"/>
+                            <constraint firstItem="4mp-sM-vDM" firstAttribute="top" secondItem="wu6-TO-1qx" secondAttribute="top" id="xU8-fD-Kbz"/>
+                            <constraint firstAttribute="bottom" secondItem="Yqo-pe-P5p" secondAttribute="bottom" id="yp4-l0-jSU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wu6-TO-1qx"/>
+                    </view>
+                    <connections>
+                        <outlet property="arraySelectionSegmentedSwitch" destination="b9I-Gn-8eV" id="00A-sZ-jqy"/>
+                        <outlet property="arrayValueLabel" destination="Mpo-is-M19" id="glD-xo-9Wy"/>
+                        <outlet property="arrayValueTextField" destination="ed7-0E-7aL" id="e4Z-8e-27r"/>
+                        <outlet property="dateValueLabel" destination="Nt0-ZS-8I8" id="DOW-Z2-FGT"/>
+                        <outlet property="dateValueTextField" destination="ZM3-Yd-pQc" id="bEi-MB-HRg"/>
+                        <outlet property="dictionarySelectionSegmentedSwitch" destination="b1S-9v-PX4" id="8vY-g1-tMx"/>
+                        <outlet property="dictionaryValueLabel" destination="H8A-kh-wQo" id="mZp-0K-vhr"/>
+                        <outlet property="dictionaryValueTextEntry" destination="j8W-Ih-egs" id="CMy-C1-BRd"/>
+                        <outlet property="integerValueLabel" destination="E5V-dC-i3x" id="LBz-B6-MQc"/>
+                        <outlet property="integerValueTextField" destination="EAV-Gq-zXV" id="vJY-eH-8ux"/>
+                        <outlet property="resetButton" destination="4An-la-Kh0" id="33k-AG-6JN"/>
+                        <outlet property="stringValueLabel" destination="2sK-vq-e0m" id="sr0-ay-hUn"/>
+                        <outlet property="stringValueTextField" destination="OWE-d5-YFT" id="7te-ao-Pu0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="51" y="64"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="background-gradient" width="1" height="1000"/>
+    </resources>
+</document>
