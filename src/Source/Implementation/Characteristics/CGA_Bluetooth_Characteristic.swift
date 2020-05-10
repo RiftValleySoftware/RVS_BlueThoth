@@ -266,17 +266,16 @@ public class CGA_Bluetooth_Characteristic: CGA_Bluetooth_Characteristic_Protocol
      
      - parameter inData: The Data instance to write.
      */
-// TODO: Implement this when we can test it.
-//    public func writeValue(_ inData: Data) {
-//        if  canWrite,
-//            let peripheralWrapper = service?.peripheral,
-//            let peripheral = peripheralWrapper.cbElementInstance {
-//            #if DEBUG
-//                print("Writing this value: \(inData) for the \(id) Characteristic.")
-//            #endif
-//            peripheral.writeValue(inData, for: cbElementInstance, type: canWriteWithoutResponse ? .withoutResponse : .withResponse)
-//        }
-//    }
+    public func writeValue(_ inData: Data) {
+        if  canWrite,
+            let peripheralWrapper = service?.peripheral,
+            let peripheral = peripheralWrapper.cbElementInstance {
+            #if DEBUG
+                print("Writing this value: \(inData) for the \(id) Characteristic.")
+            #endif
+            peripheral.writeValue(inData, for: cbElementInstance, type: canWriteWithoutResponse ? .withoutResponse : .withResponse)
+        }
+    }
     
     // MARK: Internal Properties (Declared here, so it can be overridden).
     

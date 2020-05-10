@@ -1,5 +1,12 @@
 # RVS_BlueThoth Change Log
 
+## 1.1.0.0000
+
+- **TBD**
+
+- Adding test harness projects.
+- Enabling Characteristic and Descriptor writes.
+
 ## 1.0.7.0000
 
 - **May 4, 2020**

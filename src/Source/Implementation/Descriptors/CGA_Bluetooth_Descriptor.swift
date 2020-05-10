@@ -171,17 +171,16 @@ public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Interna
      
      - parameter inData: The Data instance to write.
      */
-// TODO: Implement this when we can test it.
-//    public func writeValue(_ inData: Data) {
-//        if  let serviceWrapper = characteristic?.service,
-//            let peripheralWrapper = serviceWrapper.peripheral,
-//            let peripheral = peripheralWrapper.cbElementInstance {
-//            #if DEBUG
-//                print("Writing this value: \(inData) for the \(id) Descriptor.")
-//            #endif
-//            peripheral.writeValue(inData, for: cbElementInstance)
-//        }
-//    }
+    public func writeValue(_ inData: Data) {
+        if  let serviceWrapper = characteristic?.service,
+            let peripheralWrapper = serviceWrapper.peripheral,
+            let peripheral = peripheralWrapper.cbElementInstance {
+            #if DEBUG
+                print("Writing this value: \(inData) for the \(id) Descriptor.")
+            #endif
+            peripheral.writeValue(inData, for: cbElementInstance)
+        }
+    }
 
     // MARK: Internal Properties
     
