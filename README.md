@@ -17,13 +17,15 @@ COCOAPODS
 Once the project is ready for its debutante ball, I'll set up a podspec.
 We're not there, yet.
 
+We will not have a podfile in the RVS_BlueThoth project, as we want to simplify the dependency chain (See note, below).
+
 CARTHAGE
 -
 In your [Cartfile](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile), simply add the following line:
 
     github "https://github.com/RiftValleySoftware/RVS_BlueThoth"
     
-Then, once that's done, use [Terminal]() to `cd` to the directory that you want to use to receive the project, and run the following command:
+Then, once that's done, use [Terminal](https://support.apple.com/guide/terminal/welcome/mac) to [`cd`](https://www.freebsd.org/cgi/man.cgi?query=cd) to the directory that you want to use to receive the project, and run the following command:
 
     carthage update
     
@@ -56,6 +58,10 @@ In order to use the framework, you will now need to include it:
     
 (iOS version shown in all the above examples)
 
+**IMPORTANT NOTE**
+
+Even though there is a [Cartfile](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile) in the RVS_BlueThoth directory, and it includes its own Carthage dependencies, we have checked the "`Carthage`" directory into the repo, as we want it to be available for other dependency management systems.
+
 SIMPLE GIT SUBMODULE
 -
-You can also simply clone the project as [a Git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) into your own project, and follow the same workflow as the Carthage installation to add the framework to your project.
+You can also simply clone [the project]((https://github.com/RiftValleySoftware/RVS_BlueThoth)) as [a Git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) into your own project, and follow the same workflow as the Carthage installation to add the framework to your project.
