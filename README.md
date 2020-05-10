@@ -44,9 +44,15 @@ _Instead, you should import the "`RVS_BlueThoth.xcodeproj`" project file into yo
 Including the Project into Your project
 -
 
+**STEP ONE** Find the project (.xcodeproj) file in the "`Carthage/Checkouts/RVS_BlueThoth`" directory, and drag it into your workspace/project Project Navigator.
+
 ![Including the Project File](img/IncludeProjectFile.png)
 
 _Fig. 2: Including the BlueThoth Project File Into Your Own Project_
+
+**STEP TWO** Once the project has been included, got to your target's "`Frameworks, Libraries, and Embedded Content`" page in the "`General`" tab _(Hey! An Oxford Comma!)_.
+
+Select the "+" button, and choose the framework to embed in the target.
 
 ![Selecting the Appropriate Target As A Dependency](img/SelectTarget.png)
 
@@ -55,6 +61,8 @@ _Fig. 3: Selecting the Target Framework_
 ![The Target As A Dependency](img/AddFramework.png)
 
 _Fig. 4: The Target Framework As An Embedded Framework_
+
+Once this is done, the framework will appear in the "Frameowrks" automatic group in the Project Navigator.
 
 ![The Framework in the Project Navigator Frameworks Group](img/InFrameworksDir.png)
 
