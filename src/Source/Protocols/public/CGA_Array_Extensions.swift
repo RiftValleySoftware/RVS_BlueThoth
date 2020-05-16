@@ -209,7 +209,7 @@ public extension Array where Element == CGA_Bluetooth_Peripheral {
  
  This is applied to the sequence_contentnts Array. It allows us to search by UUID, as well as by identity.
  */
-public extension Array where Element == CBCharacteristic {
+public extension Array where Element: CBAttribute {
     /* ################################################################## */
     /**
      Special subscript that allows us to retrieve an Element by its UUID
@@ -217,22 +217,28 @@ public extension Array where Element == CBCharacteristic {
      - parameter inItem: The UUID of the item we want
      - returns: The found Element, or nil, if not found.
      */
-    subscript(_ inItem: CBUUID) -> Element! {
-        reduce(nil) { (current, nextItem) in
-            guard let current = current else { return nextItem.uuid.uuidString == inItem.uuidString ? nextItem : nil }
-            
-            return current
+    subscript(_ inUUIDString: String) -> Element! {
+        for element in self where element.uuid.uuidString == inUUIDString {
+            return element
         }
+        
+        return nil
     }
-    
+
     /* ################################################################## */
     /**
-     Special subscript that allows us to retrieve an Element by its contained Characteristic.
+     Special subscript that allows us to retrieve an Element by its contained Characteristic or CBService.
      
-     - parameter inItem: The CBCharacteristic we're looking to match.
+     - parameter inItem: The CBCharacteristic/CBService we're looking to match.
      - returns: The found Element, or nil, if not found.
      */
-    subscript(_ inItem: CBCharacteristic) -> Element! { reduce(nil) { (current, nextItem) in nil != current ? current : ((nextItem === inItem || nextItem.uuid == inItem.uuid) ? nextItem : nil) } }
+    subscript(_ inItem: Element) -> Element! {
+        for element in self where element.uuid.uuidString == inItem.uuid.uuidString {
+            return element
+        }
+        
+        return nil
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -250,11 +256,11 @@ public extension Array where Element == CGA_Bluetooth_Characteristic {
      - returns: The found Element, or nil, if not found.
      */
     subscript(_ inItem: CBUUID) -> Element! {
-        reduce(nil) { (current, nextItem) in
-            guard let current = current else { return nextItem.cbElementInstance.uuid.uuidString == inItem.uuidString ? nextItem : nil }
-            
-            return current
+        for element in self where element.cbElementInstance.uuid.uuidString == inItem.uuidString {
+            return element
         }
+        
+        return nil
     }
     
     /* ################################################################## */
@@ -265,11 +271,11 @@ public extension Array where Element == CGA_Bluetooth_Characteristic {
      - returns: The found Element, or nil, if not found.
      */
     subscript(_ inItem: CBCharacteristic) -> Element! {
-        reduce(nil) { (current, nextItem) in
-            guard let current = current else { return (nextItem === inItem) || nextItem.cbElementInstance.uuid.uuidString == inItem.uuid.uuidString ? nextItem : nil }
-
-            return current
+        for element in self where element.cbElementInstance.uuid.uuidString == inItem.uuid.uuidString {
+            return element
         }
+        
+        return nil
     }
     
     /* ################################################################## */
@@ -323,11 +329,11 @@ public extension Array where Element == CGA_Bluetooth_Descriptor_Protocol {
      - returns: The found Element, or nil, if not found.
      */
     subscript(_ inItem: CBUUID) -> Element! {
-        reduce(nil) { (current, nextItem) in
-            guard let current = current else { return nextItem.cbElementInstance.uuid.uuidString == inItem.uuidString ? nextItem : nil }
-            
-            return current
+        for element in self where element.cbElementInstance.uuid.uuidString == inItem.uuidString {
+            return element
         }
+        
+        return nil
     }
     
     /* ################################################################## */
@@ -337,12 +343,12 @@ public extension Array where Element == CGA_Bluetooth_Descriptor_Protocol {
      - parameter inItem: The CBDescriptor we're looking to match.
      - returns: The found Element, or nil, if not found.
      */
-    subscript(_ inItem: CBDescriptor) -> Element! {
-        reduce(nil) { (current, nextItem) in
-            guard let current = current else { return (nextItem === inItem) || nextItem.cbElementInstance.uuid.uuidString == inItem.uuid.uuidString ? nextItem : nil }
-
-            return current
+    subscript(_ inItem: CBAttribute) -> Element! {
+        for element in self where element.cbElementInstance.uuid.uuidString == inItem.uuid.uuidString {
+            return element
         }
+        
+        return nil
     }
     
     /* ################################################################## */
@@ -401,19 +407,11 @@ public extension Array where Element == CGA_Bluetooth_Service {
      - returns: The found Element, or nil, if not found.
      */
     subscript(_ inItem: CBService) -> Element! {
-        return reduce(nil) { (current, nextItem) in
-            if  nil == current {
-                if nextItem === inItem {
-                    return nextItem
-                } else if nextItem.cbElementInstance.uuid == inItem.uuid {
-                    return nextItem
-                }
-                    
-                return nil
-            }
-            
-            return current
+        for element in self where element.cbElementInstance.uuid.uuidString == inItem.uuid.uuidString {
+            return element
         }
+        
+        return nil
     }
     
     /* ################################################################## */
@@ -424,13 +422,11 @@ public extension Array where Element == CGA_Bluetooth_Service {
      - returns: The found Element, or nil, if not found.
      */
     subscript(_ inItem: CBCharacteristic) -> Element! {
-        return reduce(nil) { (current, nextItem) in
-            if  nil == current {
-                return (nil != nextItem.cbElementInstance?.characteristics?[inItem]) ? nextItem : nil
-            }
-            
-            return current
+        for element in self where nil != element.cbElementInstance?.characteristics?[inItem] {
+            return element
         }
+        
+        return nil
     }
     
     /* ################################################################## */
