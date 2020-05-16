@@ -36,8 +36,8 @@ class CGA_BaseViewController: UIViewController {
     // We adjust the NavBar color to fit the mode. Dark, High-Contrast Mode is just black.
     private let _darkMode_navbar_color: UIColor = UIColor(white: 0.065, alpha: 1.0)
     private let _darkMode_high_contrast_navbar_color: UIColor = .black
-    private let _lightMode_navbar_color: UIColor = UIColor(red: 0, green: 0.28, blue: 1.0, alpha: 1.0)
-    private let _lightMode_high_contrast_navbar_color: UIColor = UIColor(red: 0, green: 0.08, blue: 0.69, alpha: 1.0)
+    private let _lightMode_navbar_color: UIColor = UIColor(red: 0.1, green: 0.9, blue: 0.4, alpha: 1.0)
+    private let _lightMode_high_contrast_navbar_color: UIColor = UIColor(red: 0, green: 0.69, blue: 0.08, alpha: 1.0)
     
     // The BlueVanClef Logo
     // We reduce the alpha for Dark Mode. Dark, High-contrast Mode hides the logo completely.
