@@ -20,7 +20,7 @@
          location = "group:jazzy.sh">
       </FileRef>
       <FileRef
-         location = "group:Warnings.xcconfig">
+         location = "group:Cartfile">
       </FileRef>
    </Group>
    <FileRef

@@ -14,8 +14,6 @@
 		D41330B224674F2900502D83 /* RVS_BlueThoth_MacOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4C2D38B24550ABC00197A0A /* RVS_BlueThoth_MacOS.framework */; };
 		D41330B324674F2900502D83 /* RVS_BlueThoth_MacOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4C2D38B24550ABC00197A0A /* RVS_BlueThoth_MacOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D42ABE94246753DC00815395 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D42ABE93246753DC00815395 /* Assets.xcassets */; };
-		D430EBA82467607F0073CA59 /* RVS_PersistentPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D430EBA72467607F0073CA59 /* RVS_PersistentPrefs.swift */; };
-		D430EBA92467607F0073CA59 /* RVS_PersistentPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D430EBA72467607F0073CA59 /* RVS_PersistentPrefs.swift */; };
 		D431EC3424675E8D0094BB23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D431EC1924675E8D0094BB23 /* Assets.xcassets */; };
 		D431EC3524675E8D0094BB23 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D431EC1A24675E8D0094BB23 /* LaunchScreen.storyboard */; };
 		D431EC3624675E8D0094BB23 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D431EC1C24675E8D0094BB23 /* Main.storyboard */; };
@@ -136,6 +134,8 @@
 		D4B49D012455128300932C3D /* CGA_Bluetooth_Descriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B49C9C24550F1800932C3D /* CGA_Bluetooth_Descriptor.swift */; };
 		D4B49D022455129700932C3D /* RVS_SequenceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B49CD524550FB000932C3D /* RVS_SequenceProtocol.swift */; };
 		D4B49D032455129700932C3D /* RVS_String_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B49CD424550FB000932C3D /* RVS_String_Extensions.swift */; };
+		D4B6F1042496539800282766 /* RVS_PersistentPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B6F1032496539800282766 /* RVS_PersistentPrefs.swift */; };
+		D4B6F1052496539800282766 /* RVS_PersistentPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B6F1032496539800282766 /* RVS_PersistentPrefs.swift */; };
 		D4BC2F70245B4C13003B4775 /* CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BC2F6F245B4C13003B4775 /* CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift */; };
 		D4BC2F71245B4C13003B4775 /* CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BC2F6F245B4C13003B4775 /* CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift */; };
 		D4C3630B24675F1D00A378B1 /* RVS_BlueThoth_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B49CE0245511B700932C3D /* RVS_BlueThoth_iOS.framework */; };
@@ -241,7 +241,6 @@
 		D41330AC24674F1500502D83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D41330AD24674F1500502D83 /* RVS_BlueThoth_Test_Harness_MacOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RVS_BlueThoth_Test_Harness_MacOS.entitlements; sourceTree = "<group>"; };
 		D42ABE93246753DC00815395 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D430EBA72467607F0073CA59 /* RVS_PersistentPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RVS_PersistentPrefs.swift; path = Carthage/Checkouts/RVS_PersistentPrefs/RVS_Persistent_Prefs/RVS_PersistentPrefs.swift; sourceTree = SOURCE_ROOT; };
 		D431EC1924675E8D0094BB23 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D431EC1B24675E8D0094BB23 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D431EC1D24675E8D0094BB23 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -297,6 +296,7 @@
 		D4B49CD524550FB000932C3D /* RVS_SequenceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RVS_SequenceProtocol.swift; path = "Carthage/Checkouts/RVS_Generic_Swift_Toolbox/src/Collection Tools/RVS_SequenceProtocol.swift"; sourceTree = SOURCE_ROOT; };
 		D4B49CD82455113F00932C3D /* MacOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MacOS-Info.plist"; sourceTree = "<group>"; };
 		D4B49CE0245511B700932C3D /* RVS_BlueThoth_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RVS_BlueThoth_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4B6F1032496539800282766 /* RVS_PersistentPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RVS_PersistentPrefs.swift; path = Carthage/Checkouts/RVS_PersistentPrefs/src/RVS_PersistentPrefs.swift; sourceTree = SOURCE_ROOT; };
 		D4BC2F6F245B4C13003B4775 /* CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift; sourceTree = "<group>"; };
 		D4C2D38B24550ABC00197A0A /* RVS_BlueThoth_MacOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RVS_BlueThoth_MacOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4D3726424605421009B1F9E /* CGA_Bluetooth_Descriptor_AggregateFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Descriptor_AggregateFormat.swift; sourceTree = "<group>"; };
@@ -312,20 +312,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D41330B224674F2900502D83 /* RVS_BlueThoth_MacOS.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D45D2614245F4AC1001906EC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D45D2644245F4BD7001906EC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -660,7 +646,7 @@
 		D4C3631124675FB600A378B1 /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
-				D430EBA72467607F0073CA59 /* RVS_PersistentPrefs.swift */,
+				D4B6F1032496539800282766 /* RVS_PersistentPrefs.swift */,
 			);
 			name = Carthage;
 			sourceTree = "<group>";
@@ -676,28 +662,13 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		D45D2612245F4AC1001906EC /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D45D2642245F4BD7001906EC /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
 		D41330A024674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D41330B024674F1500502D83 /* Build configuration list for PBXNativeTarget "RVS_BlueThoth_Test_Harness_MacOS" */;
 			buildPhases = (
+				D4B6F101249652ED00282766 /* Carthage */,
+				D4B6F0FF2496523000282766 /* SwiftLint */,
 				D413309D24674F1400502D83 /* Sources */,
 				D413309E24674F1400502D83 /* Frameworks */,
 				D413309F24674F1400502D83 /* Resources */,
@@ -717,10 +688,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D45D261C245F4AC1001906EC /* Build configuration list for PBXNativeTarget "RVS_BlueThoth_WatchOS" */;
 			buildPhases = (
-				D45D2612245F4AC1001906EC /* Headers */,
+				D4B6F0FD249651E500282766 /* Carthage */,
+				D4B6F0FA2496510D00282766 /* SwiftLint */,
 				D45D2613245F4AC1001906EC /* Sources */,
-				D45D2614245F4AC1001906EC /* Frameworks */,
-				D45D2615245F4AC1001906EC /* Resources */,
 			);
 			buildRules = (
 			);
@@ -735,10 +705,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D45D264C245F4BD7001906EC /* Build configuration list for PBXNativeTarget "RVS_BlueThoth_TVOS" */;
 			buildPhases = (
-				D45D2642245F4BD7001906EC /* Headers */,
+				D4B6F0FE2496521400282766 /* Carthage */,
+				D4B6F0FB2496512C00282766 /* SwiftLint */,
 				D45D2643245F4BD7001906EC /* Sources */,
-				D45D2644245F4BD7001906EC /* Frameworks */,
-				D45D2645245F4BD7001906EC /* Resources */,
 			);
 			buildRules = (
 			);
@@ -753,6 +722,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D49DA24C24675DAE00A10344 /* Build configuration list for PBXNativeTarget "RVS_BlueThoth_Test_Harness_iOS" */;
 			buildPhases = (
+				D4B6F1022496530100282766 /* Carthage */,
+				D4B6F1002496528300282766 /* SwiftLint */,
 				D49DA23524675DAE00A10344 /* Sources */,
 				D49DA23624675DAE00A10344 /* Frameworks */,
 				D49DA23724675DAE00A10344 /* Resources */,
@@ -789,6 +760,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4C2D39224550ABC00197A0A /* Build configuration list for PBXNativeTarget "RVS_BlueThoth_MacOS" */;
 			buildPhases = (
+				D4B6F0FC2496514400282766 /* Carthage */,
 				D4FEB94E245AD8D1006EA5F9 /* SwiftLint */,
 				D4C2D38724550ABC00197A0A /* Sources */,
 			);
@@ -808,7 +780,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = "The Great Rift Valley Software Company";
 				TargetAttributes = {
 					D41330A024674F1400502D83 = {
@@ -867,20 +839,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D45D2615245F4AC1001906EC /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D45D2645245F4BD7001906EC /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D49DA23724675DAE00A10344 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -897,6 +855,168 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		D4B6F0FA2496510D00282766 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if test -f \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"\nfi\n";
+		};
+		D4B6F0FB2496512C00282766 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if test -f \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"\nfi\n";
+		};
+		D4B6F0FC2496514400282766 /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Carthage;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if command -v carthage; then\n    carthage update\nelse\n    echo \"\\nERROR: Carthage is Not Installed.\\n\\nTo install Carthage, make sure that you have Homebrew installed, then run:\\n\"\n    echo \"brew install carthage\\n\"\nfi\n";
+		};
+		D4B6F0FD249651E500282766 /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Carthage;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if command -v carthage; then\n    carthage update\nelse\n    echo \"\\nERROR: Carthage is Not Installed.\\n\\nTo install Carthage, make sure that you have Homebrew installed, then run:\\n\"\n    echo \"brew install carthage\\n\"\nfi\n";
+		};
+		D4B6F0FE2496521400282766 /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Carthage;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if command -v carthage; then\n    carthage update\nelse\n    echo \"\\nERROR: Carthage is Not Installed.\\n\\nTo install Carthage, make sure that you have Homebrew installed, then run:\\n\"\n    echo \"brew install carthage\\n\"\nfi\n";
+		};
+		D4B6F0FF2496523000282766 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if test -f \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"\nfi\n";
+		};
+		D4B6F1002496528300282766 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if test -f \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"\nfi\n";
+		};
+		D4B6F101249652ED00282766 /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Carthage;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if command -v carthage; then\n    carthage update\nelse\n    echo \"\\nERROR: Carthage is Not Installed.\\n\\nTo install Carthage, make sure that you have Homebrew installed, then run:\\n\"\n    echo \"brew install carthage\\n\"\nfi\n";
+		};
+		D4B6F1022496530100282766 /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Carthage;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if command -v carthage; then\n    carthage update\nelse\n    echo \"\\nERROR: Carthage is Not Installed.\\n\\nTo install Carthage, make sure that you have Homebrew installed, then run:\\n\"\n    echo \"brew install carthage\\n\"\nfi\n";
+		};
 		D4CFF905245AF1C4005A9656 /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -913,7 +1033,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "carthage update\n";
+			shellScript = "if command -v carthage; then\n    carthage update\nelse\n    echo \"\\nERROR: Carthage is Not Installed.\\n\\nTo install Carthage, make sure that you have Homebrew installed, then run:\\n\"\n    echo \"brew install carthage\\n\"\nfi\n";
 		};
 		D4FEB94D245AD8A1006EA5F9 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -931,7 +1051,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if command -v swiftlint; then\n    swiftlint\nfi\n";
+			shellScript = "if test -f \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"\nfi\n";
 		};
 		D4FEB94E245AD8D1006EA5F9 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -949,7 +1069,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if command -v swiftlint; then\n    swiftlint\nfi\n";
+			shellScript = "if test -f \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -958,7 +1078,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D430EBA82467607F0073CA59 /* RVS_PersistentPrefs.swift in Sources */,
+				D4B6F1042496539800282766 /* RVS_PersistentPrefs.swift in Sources */,
 				D41330A624674F1400502D83 /* ViewController.swift in Sources */,
 				D41330A424674F1400502D83 /* AppDelegate.swift in Sources */,
 			);
@@ -1059,7 +1179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D431EC4324675E8D0094BB23 /* CGA_AppDelegate.swift in Sources */,
-				D430EBA92467607F0073CA59 /* RVS_PersistentPrefs.swift in Sources */,
+				D4B6F1052496539800282766 /* RVS_PersistentPrefs.swift in Sources */,
 				D431EC3F24675E8D0094BB23 /* CGA_InfoViewController.swift in Sources */,
 				D431EC4124675E8D0094BB23 /* CGA_Extensions.swift in Sources */,
 				D431EC3B24675E8D0094BB23 /* CGA_ServiceViewController.swift in Sources */,
@@ -1226,6 +1346,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "MacOS-Framework-AppIcon";
 				CODE_SIGN_ENTITLEMENTS = test/RVS_BlueThoth_Test_Harness_MacOS/Meta/RVS_BlueThoth_Test_Harness_MacOS.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 0000;
@@ -1248,6 +1369,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "MacOS-Framework-AppIcon";
 				CODE_SIGN_ENTITLEMENTS = test/RVS_BlueThoth_Test_Harness_MacOS/Meta/RVS_BlueThoth_Test_Harness_MacOS.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 0000;

@@ -1,3 +1,11 @@
+*Version 1.0.6* **June 7, 2020**
+- Changed a silly typo in a test variable name.
+- Made a number of fairly fundamental changes to simplify the structure.
+- Swapped out the Pods SwiftLint for an embedded executable.
+- Switched the String extension to use the Carthage one.
+- Added CODEOWNERS
+
+
 *Version 1.0.5* **May 8, 2020**
 - Very minor change to replace an antiquated self reference.
 - The Mac test harness needed to have its window set as the initial controller.

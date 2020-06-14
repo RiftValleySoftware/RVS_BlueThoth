@@ -1,7 +1,0 @@
-def shared_pods
-    pod 'SwiftLint'
-end
-
-target 'RVS_Generic_Swift_Toolbox' do
-    shared_pods
-end

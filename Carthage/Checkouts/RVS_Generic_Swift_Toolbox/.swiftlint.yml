@@ -36,6 +36,5 @@ cyclomatic_complexity:
 - 24 # error
 
 excluded:
-- Pods
-- Carthage
-- tests
+- test
+- docs

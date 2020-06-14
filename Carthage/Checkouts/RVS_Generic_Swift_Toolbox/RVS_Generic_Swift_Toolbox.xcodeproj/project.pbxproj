@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D427DB3323DDC66900849489 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427DB2C23DDC66900849489 /* main.swift */; };
-		D461C7DF23E0BBF300680972 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D461C7DD23E0BAB400680972 /* Localizable.strings */; };
+		D4907AC424956330007FAE32 /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D4907AC324956330007FAE32 /* Warnings.xcconfig */; };
+		D4907AC824956501007FAE32 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4907AC624956501007FAE32 /* Localizable.strings */; };
 		D4CE2A7823DF4C7F00B37EF3 /* RVS_Extensions_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE2A7723DF4C7F00B37EF3 /* RVS_Extensions_Tests.swift */; };
 		D4D03C1B23DDDE9D005B54B5 /* RVS_Collection_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D03C1A23DDDE9D005B54B5 /* RVS_Collection_Tests.swift */; };
 		D4D03C2123DDE104005B54B5 /* RVS_FIFOQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427DB2923DDC66900849489 /* RVS_FIFOQueue.swift */; };
@@ -24,7 +25,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D427413C23DDCAA0008AAB76 /* Warnings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Warnings.xcconfig; path = Meta/Warnings.xcconfig; sourceTree = "<group>"; };
 		D427DB2723DDC66900849489 /* RVS_DebugTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_DebugTools.swift; sourceTree = "<group>"; };
 		D427DB2923DDC66900849489 /* RVS_FIFOQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_FIFOQueue.swift; sourceTree = "<group>"; };
 		D427DB2A23DDC66900849489 /* RVS_SequenceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_SequenceProtocol.swift; sourceTree = "<group>"; };
@@ -32,6 +32,8 @@
 		D427DB2E23DDC66900849489 /* RVS_Int_Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_Int_Extensions.swift; sourceTree = "<group>"; };
 		D427DB2F23DDC66900849489 /* RVS_String_Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_String_Extensions.swift; sourceTree = "<group>"; };
 		D461C7DC23E0BAB400680972 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D4907AC324956330007FAE32 /* Warnings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Warnings.xcconfig; path = "Project-Meta/Warnings.xcconfig"; sourceTree = "<group>"; };
+		D4907AC724956501007FAE32 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4CE2A7723DF4C7F00B37EF3 /* RVS_Extensions_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_Extensions_Tests.swift; sourceTree = "<group>"; };
 		D4D03C1823DDDE9D005B54B5 /* RVS_Generic_Swift_Toolbox_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RVS_Generic_Swift_Toolbox_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4D03C1A23DDDE9D005B54B5 /* RVS_Collection_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_Collection_Tests.swift; sourceTree = "<group>"; };
@@ -82,21 +84,22 @@
 			children = (
 				D4D5954423DDC92F00473A49 /* .swiftlint.yml */,
 				D4D5954323DDC92E00473A49 /* .jazzy.yaml */,
-				D427413C23DDCAA0008AAB76 /* Warnings.xcconfig */,
+				D4907AC324956330007FAE32 /* Warnings.xcconfig */,
 				D427DB2B23DDC66900849489 /* Main */,
 				D4D411A923DDC5AD00D607F7 /* Products */,
 			);
 			name = meta;
 			sourceTree = "<group>";
 		};
-		D4D03C1923DDDE9D005B54B5 /* tests */ = {
+		D4D03C1923DDDE9D005B54B5 /* test */ = {
 			isa = PBXGroup;
 			children = (
 				D4D03C1A23DDDE9D005B54B5 /* RVS_Collection_Tests.swift */,
 				D4CE2A7723DF4C7F00B37EF3 /* RVS_Extensions_Tests.swift */,
 				D4D03C1C23DDDE9D005B54B5 /* Info.plist */,
+				D4907AC624956501007FAE32 /* Localizable.strings */,
 			);
-			path = tests;
+			path = test;
 			sourceTree = "<group>";
 		};
 		D4D03C2023DDE029005B54B5 /* src */ = {
@@ -113,7 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				D49DBEA723DDC79D004006AB /* meta */,
-				D4D03C1923DDDE9D005B54B5 /* tests */,
+				D4D03C1923DDDE9D005B54B5 /* test */,
 				D4D03C2023DDE029005B54B5 /* src */,
 			);
 			sourceTree = "<group>";
@@ -169,7 +172,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = "The Great Rift Valley Software Company";
 				TargetAttributes = {
 					D4D03C1723DDDE9D005B54B5 = {
@@ -204,7 +207,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D461C7DF23E0BBF300680972 /* Localizable.strings in Resources */,
+				D4907AC824956501007FAE32 /* Localizable.strings in Resources */,
+				D4907AC424956330007FAE32 /* Warnings.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,6 +275,14 @@
 			path = tests;
 			sourceTree = SOURCE_ROOT;
 		};
+		D4907AC624956501007FAE32 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4907AC724956501007FAE32 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -280,7 +292,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
-				INFOPLIST_FILE = tests/Info.plist;
+				INFOPLIST_FILE = test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -299,7 +311,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
-				INFOPLIST_FILE = tests/Info.plist;
+				INFOPLIST_FILE = test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -314,7 +326,6 @@
 		};
 		D4D411AD23DDC5AD00D607F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D427413C23DDCAA0008AAB76 /* Warnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -375,7 +386,6 @@
 		};
 		D4D411AE23DDC5AD00D607F7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D427413C23DDCAA0008AAB76 /* Warnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
