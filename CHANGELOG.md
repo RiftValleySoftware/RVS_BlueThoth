@@ -2,7 +2,7 @@
 
 ## 1.2.0.0000
 
-- **TBD**
+- **June 21, 2020**
 
 - Adding test harness projects.
 - Enabling Characteristic and Descriptor writes.
