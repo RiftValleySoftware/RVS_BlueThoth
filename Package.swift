@@ -19,6 +19,6 @@ let package = Package(
     targets: [
         .target(
             name: "RVS_BlueThoth",
-            path: "./src")
+            path: "./src/Source")
     ]
 )
