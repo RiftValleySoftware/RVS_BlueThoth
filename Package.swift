@@ -13,7 +13,6 @@ let package = Package(
     products: [
         .library(
             name: "RVS-BlueThoth",
-            type: .dynamic,
             targets: ["RVS_BlueThoth"])
     ],
     dependencies: [
