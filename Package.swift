@@ -16,16 +16,16 @@ let package = Package(
             type: .dynamic,
             targets: ["RVS_BlueThoth"])
     ],
-    targets: [
-        .target(
-            name: "RVS_BlueThoth",
-            path: "./src/Source")
-    ],
     dependencies: [
         .package(
             name: "RVS_Generic_Swift_Toolbox",
             url: "git@github.com:RiftValleySoftware/RVS_Generic_Swift_Toolbox.git",
             Package.Dependency.Requirement.branch("master")
         )
+    ],
+    targets: [
+        .target(
+            name: "RVS_BlueThoth",
+            path: "./src/Source")
     ]
 )
