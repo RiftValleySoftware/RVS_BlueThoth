@@ -1,11 +1,12 @@
 # RVS_BlueThoth Change Log
 
-## 1.1.0.0000
+## 1.2.0.0000
 
 - **TBD**
 
 - Adding test harness projects.
 - Enabling Characteristic and Descriptor writes.
+- Swapped Carthage out for SPM
 
 ## 1.0.7.0000
 
