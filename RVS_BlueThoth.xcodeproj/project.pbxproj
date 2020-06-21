@@ -29,6 +29,16 @@
 		D431EC4124675E8D0094BB23 /* CGA_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D431EC2F24675E8D0094BB23 /* CGA_Extensions.swift */; };
 		D431EC4224675E8D0094BB23 /* CGA_PersistentPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D431EC3024675E8D0094BB23 /* CGA_PersistentPrefs.swift */; };
 		D431EC4324675E8D0094BB23 /* CGA_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D431EC3124675E8D0094BB23 /* CGA_AppDelegate.swift */; };
+		D4588F23249FBB3300C52549 /* RVS-Generic-Swift-Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4588F22249FBB3300C52549 /* RVS-Generic-Swift-Toolbox */; };
+		D4588F24249FBB3300C52549 /* RVS-Generic-Swift-Toolbox in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D4588F22249FBB3300C52549 /* RVS-Generic-Swift-Toolbox */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		D4588F26249FBB3900C52549 /* RVS-Generic-Swift-Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4588F25249FBB3900C52549 /* RVS-Generic-Swift-Toolbox */; };
+		D4588F27249FBB3900C52549 /* RVS-Generic-Swift-Toolbox in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D4588F25249FBB3900C52549 /* RVS-Generic-Swift-Toolbox */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		D4588F29249FBB3E00C52549 /* RVS-Generic-Swift-Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4588F28249FBB3E00C52549 /* RVS-Generic-Swift-Toolbox */; };
+		D4588F2A249FBB3E00C52549 /* RVS-Generic-Swift-Toolbox in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D4588F28249FBB3E00C52549 /* RVS-Generic-Swift-Toolbox */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		D4588F2C249FBB4400C52549 /* RVS-Generic-Swift-Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4588F2B249FBB4400C52549 /* RVS-Generic-Swift-Toolbox */; };
+		D4588F2D249FBB4400C52549 /* RVS-Generic-Swift-Toolbox in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D4588F2B249FBB4400C52549 /* RVS-Generic-Swift-Toolbox */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		D4588F37249FBCB500C52549 /* RVS-Persistent-Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D4588F36249FBCB500C52549 /* RVS-Persistent-Prefs */; };
+		D4588F38249FBCB500C52549 /* RVS-Persistent-Prefs in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D4588F36249FBCB500C52549 /* RVS-Persistent-Prefs */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D45D261F245F4B23001906EC /* CGA_Bluetooth_Service_Protocol_Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4700E082455E000004E99D3 /* CGA_Bluetooth_Service_Protocol_Internal.swift */; };
 		D45D2620245F4B23001906EC /* CGA_Bluetooth_Characteristic_Protocol_Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4700E032455DC54004E99D3 /* CGA_Bluetooth_Characteristic_Protocol_Internal.swift */; };
 		D45D2621245F4B23001906EC /* CGA_Bluetooth_Descriptor_Protocol_Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4700DFD2455C803004E99D3 /* CGA_Bluetooth_Descriptor_Protocol_Internal.swift */; };
@@ -110,14 +120,6 @@
 		D48AD8E0245CA9340043BCE7 /* CGA_Bluetooth_Descriptor_UserDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48AD8DF245CA9340043BCE7 /* CGA_Bluetooth_Descriptor_UserDescription.swift */; };
 		D48AD8E1245CA9340043BCE7 /* CGA_Bluetooth_Descriptor_UserDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48AD8DF245CA9340043BCE7 /* CGA_Bluetooth_Descriptor_UserDescription.swift */; };
 		D49BACA32459CF150022E2CD /* RVS_BlueThoth_Callbacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49BACA22459CF140022E2CD /* RVS_BlueThoth_Callbacks.swift */; };
-		D4AD1E65249FB9DD003AAAE7 /* RVS-Generic-Swift-Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4AD1E64249FB9DD003AAAE7 /* RVS-Generic-Swift-Toolbox */; };
-		D4AD1E66249FB9DD003AAAE7 /* RVS-Generic-Swift-Toolbox in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D4AD1E64249FB9DD003AAAE7 /* RVS-Generic-Swift-Toolbox */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		D4AD1E68249FB9E9003AAAE7 /* RVS-Generic-Swift-Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4AD1E67249FB9E9003AAAE7 /* RVS-Generic-Swift-Toolbox */; };
-		D4AD1E69249FB9E9003AAAE7 /* RVS-Generic-Swift-Toolbox in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D4AD1E67249FB9E9003AAAE7 /* RVS-Generic-Swift-Toolbox */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		D4AD1E6B249FB9EE003AAAE7 /* RVS-Generic-Swift-Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4AD1E6A249FB9EE003AAAE7 /* RVS-Generic-Swift-Toolbox */; };
-		D4AD1E6C249FB9EE003AAAE7 /* RVS-Generic-Swift-Toolbox in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D4AD1E6A249FB9EE003AAAE7 /* RVS-Generic-Swift-Toolbox */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		D4AD1E6E249FB9F5003AAAE7 /* RVS-Generic-Swift-Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4AD1E6D249FB9F5003AAAE7 /* RVS-Generic-Swift-Toolbox */; };
-		D4AD1E6F249FB9F5003AAAE7 /* RVS-Generic-Swift-Toolbox in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D4AD1E6D249FB9F5003AAAE7 /* RVS-Generic-Swift-Toolbox */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D4B49CF02455128300932C3D /* CGA_Bluetooth_Peripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B49C9E24550F1800932C3D /* CGA_Bluetooth_Peripheral.swift */; };
 		D4B49CF12455128300932C3D /* CGA_Bluetooth_Service_CurrentTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B49CA024550F1800932C3D /* CGA_Bluetooth_Service_CurrentTime.swift */; };
 		D4B49CF22455128300932C3D /* CGA_Bluetooth_Service_DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B49CA124550F1800932C3D /* CGA_Bluetooth_Service_DeviceInfo.swift */; };
@@ -136,8 +138,6 @@
 		D4B49CFF2455128300932C3D /* CGA_Bluetooth_Characteristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B49C9824550F1800932C3D /* CGA_Bluetooth_Characteristic.swift */; };
 		D4B49D002455128300932C3D /* CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B49C9B24550F1800932C3D /* CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration.swift */; };
 		D4B49D012455128300932C3D /* CGA_Bluetooth_Descriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B49C9C24550F1800932C3D /* CGA_Bluetooth_Descriptor.swift */; };
-		D4B6F1042496539800282766 /* RVS_PersistentPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B6F1032496539800282766 /* RVS_PersistentPrefs.swift */; };
-		D4B6F1052496539800282766 /* RVS_PersistentPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B6F1032496539800282766 /* RVS_PersistentPrefs.swift */; };
 		D4BC2F70245B4C13003B4775 /* CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BC2F6F245B4C13003B4775 /* CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift */; };
 		D4BC2F71245B4C13003B4775 /* CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BC2F6F245B4C13003B4775 /* CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift */; };
 		D4C3630B24675F1D00A378B1 /* RVS_BlueThoth_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B49CE0245511B700932C3D /* RVS_BlueThoth_iOS.framework */; };
@@ -225,7 +225,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D4AD1E66249FB9DD003AAAE7 /* RVS-Generic-Swift-Toolbox in Embed Frameworks */,
+				D4588F24249FBB3300C52549 /* RVS-Generic-Swift-Toolbox in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,7 +236,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D4AD1E69249FB9E9003AAAE7 /* RVS-Generic-Swift-Toolbox in Embed Frameworks */,
+				D4588F27249FBB3900C52549 /* RVS-Generic-Swift-Toolbox in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -247,7 +247,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D4AD1E6C249FB9EE003AAAE7 /* RVS-Generic-Swift-Toolbox in Embed Frameworks */,
+				D4588F2A249FBB3E00C52549 /* RVS-Generic-Swift-Toolbox in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -258,7 +258,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D4AD1E6F249FB9F5003AAAE7 /* RVS-Generic-Swift-Toolbox in Embed Frameworks */,
+				D4588F2D249FBB4400C52549 /* RVS-Generic-Swift-Toolbox in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,6 +269,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				D4588F38249FBCB500C52549 /* RVS-Persistent-Prefs in Embed Frameworks */,
 				D4C3630C24675F1D00A378B1 /* RVS_BlueThoth_iOS.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -361,7 +362,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4AD1E65249FB9DD003AAAE7 /* RVS-Generic-Swift-Toolbox in Frameworks */,
+				D4588F23249FBB3300C52549 /* RVS-Generic-Swift-Toolbox in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,7 +370,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4AD1E68249FB9E9003AAAE7 /* RVS-Generic-Swift-Toolbox in Frameworks */,
+				D4588F26249FBB3900C52549 /* RVS-Generic-Swift-Toolbox in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,7 +378,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4AD1E6B249FB9EE003AAAE7 /* RVS-Generic-Swift-Toolbox in Frameworks */,
+				D4588F29249FBB3E00C52549 /* RVS-Generic-Swift-Toolbox in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,7 +386,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4AD1E6E249FB9F5003AAAE7 /* RVS-Generic-Swift-Toolbox in Frameworks */,
+				D4588F2C249FBB4400C52549 /* RVS-Generic-Swift-Toolbox in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,6 +394,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4588F37249FBCB500C52549 /* RVS-Persistent-Prefs in Frameworks */,
 				D4C3630B24675F1D00A378B1 /* RVS_BlueThoth_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -535,8 +537,8 @@
 		D431EC2424675E8D0094BB23 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D431EC2524675E8D0094BB23 /* Navigation Screens */,
 				D431EC2A24675E8D0094BB23 /* CGA_BaseViewController.swift */,
+				D431EC2524675E8D0094BB23 /* Navigation Screens */,
 				D431EC2B24675E8D0094BB23 /* Modal Screens */,
 			);
 			path = "View Controllers";
@@ -763,7 +765,7 @@
 			);
 			name = RVS_BlueThoth_WatchOS;
 			packageProductDependencies = (
-				D4AD1E6A249FB9EE003AAAE7 /* RVS-Generic-Swift-Toolbox */,
+				D4588F28249FBB3E00C52549 /* RVS-Generic-Swift-Toolbox */,
 			);
 			productName = RVS_BlueThoth_WatchOS;
 			productReference = D45D2617245F4AC1001906EC /* RVS_BlueThoth_WatchOS.framework */;
@@ -784,7 +786,7 @@
 			);
 			name = RVS_BlueThoth_TVOS;
 			packageProductDependencies = (
-				D4AD1E6D249FB9F5003AAAE7 /* RVS-Generic-Swift-Toolbox */,
+				D4588F2B249FBB4400C52549 /* RVS-Generic-Swift-Toolbox */,
 			);
 			productName = RVS_BlueThoth_TVOS;
 			productReference = D45D2647245F4BD7001906EC /* RVS_BlueThoth_TVOS.framework */;
@@ -807,6 +809,7 @@
 			);
 			name = RVS_BlueThoth_Test_Harness_iOS;
 			packageProductDependencies = (
+				D4588F36249FBCB500C52549 /* RVS-Persistent-Prefs */,
 			);
 			productName = RVS_BlueThoth_Test_Harness_iOS;
 			productReference = D49DA23924675DAE00A10344 /* RVS_BlueThoth_Test_Harness_iOS.app */;
@@ -827,7 +830,7 @@
 			);
 			name = RVS_BlueThoth_iOS;
 			packageProductDependencies = (
-				D4AD1E64249FB9DD003AAAE7 /* RVS-Generic-Swift-Toolbox */,
+				D4588F22249FBB3300C52549 /* RVS-Generic-Swift-Toolbox */,
 			);
 			productName = RVS_BlueThoth_iOS;
 			productReference = D4B49CE0245511B700932C3D /* RVS_BlueThoth_iOS.framework */;
@@ -848,7 +851,7 @@
 			);
 			name = RVS_BlueThoth_MacOS;
 			packageProductDependencies = (
-				D4AD1E67249FB9E9003AAAE7 /* RVS-Generic-Swift-Toolbox */,
+				D4588F25249FBB3900C52549 /* RVS-Generic-Swift-Toolbox */,
 			);
 			productName = RVS_BlueToth;
 			productReference = D4C2D38B24550ABC00197A0A /* RVS_BlueThoth_MacOS.framework */;
@@ -894,7 +897,8 @@
 			);
 			mainGroup = D420C88B242FCD5600FCB9E0;
 			packageReferences = (
-				D4AD1E63249FB9DD003AAAE7 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */,
+				D4588F21249FBB3300C52549 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */,
+				D4588F35249FBCB500C52549 /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */,
 			);
 			productRefGroup = D420C895242FCD5600FCB9E0 /* Products */;
 			projectDirPath = "";
@@ -1054,7 +1058,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4B6F1042496539800282766 /* RVS_PersistentPrefs.swift in Sources */,
 				D41330A624674F1400502D83 /* ViewController.swift in Sources */,
 				D41330A424674F1400502D83 /* AppDelegate.swift in Sources */,
 			);
@@ -1151,7 +1154,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D431EC4324675E8D0094BB23 /* CGA_AppDelegate.swift in Sources */,
-				D4B6F1052496539800282766 /* RVS_PersistentPrefs.swift in Sources */,
 				D431EC3F24675E8D0094BB23 /* CGA_InfoViewController.swift in Sources */,
 				D431EC4124675E8D0094BB23 /* CGA_Extensions.swift in Sources */,
 				D431EC3B24675E8D0094BB23 /* CGA_ServiceViewController.swift in Sources */,
@@ -1829,9 +1831,17 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D4AD1E63249FB9DD003AAAE7 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */ = {
+		D4588F21249FBB3300C52549 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:RiftValleySoftware/RVS_Generic_Swift_Toolbox.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		D4588F35249FBCB500C52549 /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:RiftValleySoftware/RVS_PersistentPrefs.git";
 			requirement = {
 				branch = master;
 				kind = branch;
@@ -1840,25 +1850,30 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D4AD1E64249FB9DD003AAAE7 /* RVS-Generic-Swift-Toolbox */ = {
+		D4588F22249FBB3300C52549 /* RVS-Generic-Swift-Toolbox */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D4AD1E63249FB9DD003AAAE7 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
+			package = D4588F21249FBB3300C52549 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
 			productName = "RVS-Generic-Swift-Toolbox";
 		};
-		D4AD1E67249FB9E9003AAAE7 /* RVS-Generic-Swift-Toolbox */ = {
+		D4588F25249FBB3900C52549 /* RVS-Generic-Swift-Toolbox */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D4AD1E63249FB9DD003AAAE7 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
+			package = D4588F21249FBB3300C52549 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
 			productName = "RVS-Generic-Swift-Toolbox";
 		};
-		D4AD1E6A249FB9EE003AAAE7 /* RVS-Generic-Swift-Toolbox */ = {
+		D4588F28249FBB3E00C52549 /* RVS-Generic-Swift-Toolbox */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D4AD1E63249FB9DD003AAAE7 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
+			package = D4588F21249FBB3300C52549 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
 			productName = "RVS-Generic-Swift-Toolbox";
 		};
-		D4AD1E6D249FB9F5003AAAE7 /* RVS-Generic-Swift-Toolbox */ = {
+		D4588F2B249FBB4400C52549 /* RVS-Generic-Swift-Toolbox */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D4AD1E63249FB9DD003AAAE7 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
+			package = D4588F21249FBB3300C52549 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
 			productName = "RVS-Generic-Swift-Toolbox";
+		};
+		D4588F36249FBCB500C52549 /* RVS-Persistent-Prefs */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4588F35249FBCB500C52549 /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */;
+			productName = "RVS-Persistent-Prefs";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
