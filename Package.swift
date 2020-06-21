@@ -18,9 +18,9 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            name: "RVS_Generic_Swift_Toolbox",
+            name: "RVS-Generic-Swift-Toolbox",
             url: "git@github.com:RiftValleySoftware/RVS_Generic_Swift_Toolbox.git",
-            Package.Dependency.Requirement.branch("master")
+            .branch("master")
         )
     ],
     targets: [
