@@ -21,7 +21,9 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 */
 
 import CoreBluetooth
-import RVS_Generic_Swift_Toolbox
+#if !FRAMEWORK_BUILD
+    import RVS_Generic_Swift_Toolbox
+#endif
 
 /* ###################################################################################################################################### */
 /**
@@ -925,5 +927,4 @@ extension RVS_BlueThoth {
             _timer = nil
         }
     }
-
 }

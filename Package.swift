@@ -13,7 +13,8 @@ let package = Package(
     products: [
         .library(
             name: "RVS-BlueThoth",
-            targets: ["RVS_BlueThoth"])
+            targets: ["RVS_BlueThoth"]
+        )
     ],
     dependencies: [
         .package(
@@ -25,6 +26,7 @@ let package = Package(
     targets: [
         .target(
             name: "RVS_BlueThoth",
-            path: "./src/Source")
+            path: "./src/Source"
+        )
     ]
 )

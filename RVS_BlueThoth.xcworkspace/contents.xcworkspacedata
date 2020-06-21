@@ -11,6 +11,9 @@
          location = "group:CHANGELOG.md">
       </FileRef>
       <FileRef
+         location = "group:Cartfile">
+      </FileRef>
+      <FileRef
          location = "group:Package.swift">
       </FileRef>
       <FileRef
