@@ -320,6 +320,8 @@
 		D48AD8DF245CA9340043BCE7 /* CGA_Bluetooth_Descriptor_UserDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Descriptor_UserDescription.swift; sourceTree = "<group>"; };
 		D49BACA22459CF140022E2CD /* RVS_BlueThoth_Callbacks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Callbacks.swift; sourceTree = "<group>"; };
 		D49DA23924675DAE00A10344 /* RVS_BlueThoth_Test_Harness_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RVS_BlueThoth_Test_Harness_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4AF6F9424A3A3F100A3382E /* TVOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TVOS-Info.plist"; sourceTree = "<group>"; };
+		D4AF6F9524A3A3F100A3382E /* WatchOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WatchOS-Info.plist"; sourceTree = "<group>"; };
 		D4B49C8B24550F1800932C3D /* CGA_Bluetooth_Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Protocols.swift; sourceTree = "<group>"; };
 		D4B49C8E24550F1800932C3D /* CGA_Bluetooth_Characteristic_CurrentTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Characteristic_CurrentTime.swift; sourceTree = "<group>"; };
 		D4B49C8F24550F1800932C3D /* CGA_Bluetooth_Characteristic_LocalTimeInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Characteristic_LocalTimeInformation.swift; sourceTree = "<group>"; };
@@ -708,6 +710,8 @@
 			children = (
 				D4700E282455EA9B004E99D3 /* iOS-Info.plist */,
 				D4B49CD82455113F00932C3D /* MacOS-Info.plist */,
+				D4AF6F9424A3A3F100A3382E /* TVOS-Info.plist */,
+				D4AF6F9524A3A3F100A3382E /* WatchOS-Info.plist */,
 			);
 			path = Meta;
 			sourceTree = "<group>";
