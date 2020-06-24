@@ -13,14 +13,18 @@ let package = Package(
     products: [
         .library(
             name: "RVS-BlueThoth",
+            type: .dynamic,
             targets: ["RVS_BlueThoth"]
         )
     ],
     dependencies: [
         .package(
-            name: "RVS_Generic_Swift_Toolbox",
-            url: "https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox.git",
-            from: "1.2.0"
+            url: "git@github.com:RiftValleySoftware/RVS_Generic_Swift_Toolbox.git",
+            from: "1.2.1"
+        ),
+        .package(
+            url: "git@github.com:RiftValleySoftware/RVS_PersistentPrefs.git",
+            from: "1.1.1"
         )
     ],
     targets: [

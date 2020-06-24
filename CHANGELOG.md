@@ -1,5 +1,11 @@
 # RVS_BlueThoth Change Log
 
+## 1.2.1.0000
+
+- **June 24, 2020**
+
+- SPM had a number of issues. These have been addressed.
+
 ## 1.2.0.0000
 
 - **June 21, 2020**
