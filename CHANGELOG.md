@@ -1,5 +1,11 @@
 # RVS_BlueThoth Change Log
 
+## 1.2.2.0000
+
+- **June 25, 2020**
+
+- Removed the prefs dependency from the package file, as it is not necessary for consumers of the package.
+
 ## 1.2.1.0000
 
 - **June 24, 2020**
