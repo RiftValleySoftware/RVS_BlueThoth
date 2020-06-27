@@ -19,6 +19,15 @@ We're not there, yet.
 
 We will not have a podfile in the RVS_BlueThoth project, as we want to simplify the dependency chain (See note, below).
 
+[Swift Package Manager (SPM)](https://swift.org/package-manager/)
+-
+
+You can use SPM to load the project as a dependency, by referencing its [GitHub Repo](https://github.com/RiftValleySoftware/RVS_BlueThoth/) URI (SSH: [git@github.com:RiftValleySoftware/RVS_BlueThoth.git](git@github.com:RiftValleySoftware/RVS_BlueThoth.git), or HTTPS: [https://github.com/RiftValleySoftware/RVS_BlueThoth.git](https://github.com/RiftValleySoftware/RVS_BlueThoth.git)).
+
+Once you have the dependency attached, you reference it by adding an import to the files that consume the package:
+    
+    import RVS_BlueThoth
+
 CARTHAGE
 -
 In your [Cartfile](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile), simply add the following line:
