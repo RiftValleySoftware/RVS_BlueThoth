@@ -19,7 +19,9 @@ let package = Package(
     targets: [
         .target(
             name: "RVS_BlueThoth",
-            dependencies: [.product(name: "RVS-Generic-Swift-Toolbox", package: "RVS_Generic_Swift_Toolbox")],
+            dependencies: [
+                .product(name: "RVS-Generic-Swift-Toolbox", package: "RVS_Generic_Swift_Toolbox")
+            ],
             path: "./src/Source"
         )
     ]
