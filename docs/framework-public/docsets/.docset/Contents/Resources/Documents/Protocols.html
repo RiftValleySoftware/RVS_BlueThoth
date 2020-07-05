@@ -90,10 +90,25 @@
                 <a class="nav-group-task-link" href="Classes/CGA_Bluetooth_Descriptor.html">CGA_Bluetooth_Descriptor</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes.html#/s:17RVS_BlueThoth_iOS40CGA_Bluetooth_Descriptor_AggregateFormatC">CGA_Bluetooth_Descriptor_AggregateFormat</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes.html#/s:17RVS_BlueThoth_iOS53CGA_Bluetooth_Descriptor_CBUUIDL2CAPPSMCharacteristicC">CGA_Bluetooth_Descriptor_CBUUIDL2CAPPSMCharacteristic</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.html">CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration.html">CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/CGA_Bluetooth_Descriptor_PresentationFormat.html">CGA_Bluetooth_Descriptor_PresentationFormat</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes.html#/s:17RVS_BlueThoth_iOS58CGA_Bluetooth_Descriptor_ServerCharacteristicConfigurationC">CGA_Bluetooth_Descriptor_ServerCharacteristicConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes.html#/s:17RVS_BlueThoth_iOS40CGA_Bluetooth_Descriptor_UserDescriptionC">CGA_Bluetooth_Descriptor_UserDescription</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/CGA_Bluetooth_Peripheral.html">CGA_Bluetooth_Peripheral</a>
@@ -141,9 +156,6 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions/Data.html">Data</a>
               </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Extensions/StringProtocol.html">StringProtocol</a>
-              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -173,9 +185,6 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/CGA_Class_Protocol_UpdateService.html">CGA_Class_Protocol_UpdateService</a>
               </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols/RVS_SequenceProtocol.html">RVS_SequenceProtocol</a>
-              </li>
             </ul>
           </li>
         </ul>
@@ -192,53 +201,6 @@
 
         <section class="section">
           <div class="section-content">
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Standardized%20Sequence%20Protocol%20to%20Let%20Collectors%20be%20Sequences"></a>
-                <a name="//apple_ref/swift/Section/Standardized Sequence Protocol to Let Collectors be Sequences" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Standardized%20Sequence%20Protocol%20to%20Let%20Collectors%20be%20Sequences"></a>
-                  <h3 class="section-name"><p>Standardized Sequence Protocol to Let Collectors be Sequences</p>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:17RVS_BlueThoth_iOS0A17_SequenceProtocolP"></a>
-                    <a name="//apple_ref/swift/Protocol/RVS_SequenceProtocol" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0A17_SequenceProtocolP">RVS_SequenceProtocol</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>If you conform to this protocol, you get a few basic Sequence attributes for free.</p>
-
-<p>You&rsquo;ll need to set up a sequence_contents Array (read/write), and set the Element type, and that&rsquo;s about all.</p>
-
-<p>This also gives you a read-only subscript.</p>
-
-<p>This cannot be applied to enums, as it requires a stored property.</p>
-
-                        <a href="Protocols/RVS_SequenceProtocol.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">RVS_SequenceProtocol</span> <span class="p">:</span> <span class="kt">Sequence</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
             <div class="task-group">
               <div class="task-name-container">
                 <a name="/The%20Public%20Face%20of%20Characteristics"></a>
@@ -271,7 +233,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">CGA_Bluetooth_Characteristic_Protocol</span> <span class="p">:</span> <span class="kt">AnyObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/RVS_SequenceProtocol.html">RVS_SequenceProtocol</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">CGA_Bluetooth_Characteristic_Protocol</span> <span class="p">:</span> <span class="kt">AnyObject</span><span class="p">,</span> <span class="kt">RVS_SequenceProtocol</span></code></pre>
 
                         </div>
                       </div>
@@ -560,7 +522,7 @@ This is the only delegate for the BlueThoth framework. All events in the system 
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">CGA_Bluetooth_Service_Protocol</span> <span class="p">:</span> <span class="kt">AnyObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/RVS_SequenceProtocol.html">RVS_SequenceProtocol</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">CGA_Bluetooth_Service_Protocol</span> <span class="p">:</span> <span class="kt">AnyObject</span><span class="p">,</span> <span class="kt">RVS_SequenceProtocol</span></code></pre>
 
                         </div>
                       </div>
@@ -575,7 +537,7 @@ This is the only delegate for the BlueThoth framework. All events in the system 
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-04-30)</p>
+      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-07-05)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

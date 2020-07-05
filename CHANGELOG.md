@@ -1,5 +1,12 @@
 # RVS_BlueThoth Change Log
 
+## 1.3.0.0000
+
+- **July 5, 2020**
+
+- Updated the dependencies to the latest (static) versions.
+- Made the build product static.
+
 ## 1.2.2.0000
 
 - **June 25, 2020**

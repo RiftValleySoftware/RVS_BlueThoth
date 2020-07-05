@@ -14,7 +14,7 @@
          location = "group:Package.swift">
       </FileRef>
       <FileRef
-         location = "group:jazzy.sh">
+         location = "group:/Volumes/Development/RiftValley/RVS_BlueThoth/jazzy.command">
       </FileRef>
       <FileRef
          location = "group:LICENSE">

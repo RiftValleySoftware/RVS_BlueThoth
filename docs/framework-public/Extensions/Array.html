@@ -90,10 +90,25 @@
                 <a class="nav-group-task-link" href="../Classes/CGA_Bluetooth_Descriptor.html">CGA_Bluetooth_Descriptor</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes.html#/s:17RVS_BlueThoth_iOS40CGA_Bluetooth_Descriptor_AggregateFormatC">CGA_Bluetooth_Descriptor_AggregateFormat</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes.html#/s:17RVS_BlueThoth_iOS53CGA_Bluetooth_Descriptor_CBUUIDL2CAPPSMCharacteristicC">CGA_Bluetooth_Descriptor_CBUUIDL2CAPPSMCharacteristic</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.html">CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration.html">CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CGA_Bluetooth_Descriptor_PresentationFormat.html">CGA_Bluetooth_Descriptor_PresentationFormat</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes.html#/s:17RVS_BlueThoth_iOS58CGA_Bluetooth_Descriptor_ServerCharacteristicConfigurationC">CGA_Bluetooth_Descriptor_ServerCharacteristicConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes.html#/s:17RVS_BlueThoth_iOS40CGA_Bluetooth_Descriptor_UserDescriptionC">CGA_Bluetooth_Descriptor_UserDescription</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/CGA_Bluetooth_Peripheral.html">CGA_Bluetooth_Peripheral</a>
@@ -141,9 +156,6 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/Data.html">Data</a>
               </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Extensions/StringProtocol.html">StringProtocol</a>
-              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -173,9 +185,6 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/CGA_Class_Protocol_UpdateService.html">CGA_Class_Protocol_UpdateService</a>
               </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols/RVS_SequenceProtocol.html">RVS_SequenceProtocol</a>
-              </li>
             </ul>
           </li>
         </ul>
@@ -189,7 +198,7 @@
                 <div class="language">
                   <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Array</span> <span class="k">where</span> <span class="kt">Element</span> <span class="o">==</span> <span class="kt"><a href="../Classes/RVS_BlueThoth.html">RVS_BlueThoth</a></span><span class="o">.</span><span class="kt">DiscoveryData</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Array</span> <span class="k">where</span> <span class="kt">Element</span> <span class="o">==</span> <span class="kt"><a href="../Classes/CGA_Bluetooth_Peripheral.html">CGA_Bluetooth_Peripheral</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Array</span> <span class="k">where</span> <span class="kt">Element</span> <span class="o">==</span> <span class="kt">CBCharacteristic</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Array</span> <span class="k">where</span> <span class="kt">Element</span><span class="p">:</span> <span class="kt">CBAttribute</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Array</span> <span class="k">where</span> <span class="kt">Element</span> <span class="o">==</span> <span class="kt"><a href="../Classes/CGA_Bluetooth_Characteristic.html">CGA_Bluetooth_Characteristic</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Array</span> <span class="k">where</span> <span class="kt">Element</span> <span class="o">==</span> <span class="kt"><a href="../Protocols/CGA_Bluetooth_Descriptor_Protocol.html">CGA_Bluetooth_Descriptor_Protocol</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Array</span> <span class="k">where</span> <span class="kt">Element</span> <span class="o">==</span> <span class="kt"><a href="../Classes/CGA_Bluetooth_Service.html">CGA_Bluetooth_Service</a></span></code></pre>
@@ -779,11 +788,11 @@
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Available%20where%20%60Element%60%20==%20%60CBCharacteristic%60"></a>
-                <a name="//apple_ref/swift/Section/Available where `Element` == `CBCharacteristic`" class="dashAnchor"></a>
+                <a name="/Available%20where%20%60Element%60:%20%60CBAttribute%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Element`: `CBAttribute`" class="dashAnchor"></a>
                 <div class="section-name-container">
-                  <a class="section-name-link" href="#/Available%20where%20%60Element%60%20==%20%60CBCharacteristic%60"></a>
-                  <h3 class="section-name"><p>Available where <code>Element</code> == <code>CBCharacteristic</code></p>
+                  <a class="section-name-link" href="#/Available%20where%20%60Element%60:%20%60CBAttribute%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Element</code>: <code>CBAttribute</code></p>
 </h3>
                 </div>
               </div>
@@ -791,9 +800,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:Sa17RVS_BlueThoth_iOSSo16CBCharacteristicCRszlEyACSgSo6CBUUIDCcip"></a>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSSo11CBAttributeCRbzlEyxSgSScip"></a>
                     <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSSo16CBCharacteristicCRszlEyACSgSo6CBUUIDCcip">subscript(_:)</a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSSo11CBAttributeCRbzlEyxSgSScip">subscript(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -808,7 +817,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="nf">subscript</span><span class="p">(</span><span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBUUID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="nf">subscript</span><span class="p">(</span><span class="nv">inUUIDString</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -841,9 +850,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:Sa17RVS_BlueThoth_iOSSo16CBCharacteristicCRszlEyACSgACcip"></a>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSSo11CBAttributeCRbzlEyxSgxcip"></a>
                     <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSSo16CBCharacteristicCRszlEyACSgACcip">subscript(_:)</a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSSo11CBAttributeCRbzlEyxSgxcip">subscript(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -851,14 +860,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Special subscript that allows us to retrieve an Element by its contained Characteristic.</p>
+                        <p>Special subscript that allows us to retrieve an Element by its contained Characteristic or CBService.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="nf">subscript</span><span class="p">(</span><span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBCharacteristic</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="nf">subscript</span><span class="p">(</span><span class="nv">inItem</span><span class="p">:</span> <span class="kt">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -874,7 +883,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>The CBCharacteristic we&rsquo;re looking to match.</p>
+                                  <p>The CBCharacteristic/CBService we&rsquo;re looking to match.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1168,9 +1177,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:Sa17RVS_BlueThoth_iOSAA33CGA_Bluetooth_Descriptor_Protocol_pRszlEyAaB_pSgSo12CBDescriptorCcip"></a>
+                    <a name="/s:Sa17RVS_BlueThoth_iOSAA33CGA_Bluetooth_Descriptor_Protocol_pRszlEyAaB_pSgSo11CBAttributeCcip"></a>
                     <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA33CGA_Bluetooth_Descriptor_Protocol_pRszlEyAaB_pSgSo12CBDescriptorCcip">subscript(_:)</a>
+                    <a class="token" href="#/s:Sa17RVS_BlueThoth_iOSAA33CGA_Bluetooth_Descriptor_Protocol_pRszlEyAaB_pSgSo11CBAttributeCcip">subscript(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1185,7 +1194,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="nf">subscript</span><span class="p">(</span><span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBDescriptor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="nf">subscript</span><span class="p">(</span><span class="nv">inItem</span><span class="p">:</span> <span class="kt">CBAttribute</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -1537,7 +1546,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-04-30)</p>
+      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-07-05)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

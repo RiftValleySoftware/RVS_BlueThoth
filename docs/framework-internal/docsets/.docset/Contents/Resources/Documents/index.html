@@ -89,10 +89,25 @@
                 <a class="nav-group-task-link" href="Classes/CGA_Bluetooth_Descriptor.html">CGA_Bluetooth_Descriptor</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/CGA_Bluetooth_Descriptor_AggregateFormat.html">CGA_Bluetooth_Descriptor_AggregateFormat</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/CGA_Bluetooth_Descriptor_CBUUIDL2CAPPSMCharacteristic.html">CGA_Bluetooth_Descriptor_CBUUIDL2CAPPSMCharacteristic</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.html">CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration.html">CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/CGA_Bluetooth_Descriptor_PresentationFormat.html">CGA_Bluetooth_Descriptor_PresentationFormat</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/CGA_Bluetooth_Descriptor_ServerCharacteristicConfiguration.html">CGA_Bluetooth_Descriptor_ServerCharacteristicConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/CGA_Bluetooth_Descriptor_UserDescription.html">CGA_Bluetooth_Descriptor_UserDescription</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/CGA_Bluetooth_Peripheral.html">CGA_Bluetooth_Peripheral</a>
@@ -154,9 +169,6 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions/Data.html">Data</a>
               </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Extensions/StringProtocol.html">StringProtocol</a>
-              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -204,9 +216,6 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/CGA_ServiceFactory.html">CGA_ServiceFactory</a>
               </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols/RVS_SequenceProtocol.html">RVS_SequenceProtocol</a>
-              </li>
             </ul>
           </li>
         </ul>
@@ -219,9 +228,84 @@
             <p><img src="img/icon.png" alt="Icon"></p>
 <h1 id='rvs_bluethoth' class='heading'>RVS_BlueThoth</h1>
 
-<p>This is a Bluetooth SDK.</p>
+<p>This is a Bluetooth SDK for &ldquo;Central&rdquo; (Client) Core Bluetooth (BLE) implementation.</p>
+
+<p>It abstracts some of the more &ldquo;tedious&rdquo; aspects of using Core Bluetooth; allowing the app to easily implement a Bluetooth Client functionality.</p>
 
 <p><a href="https://github.com/RiftValleySoftware/RVS_BlueThoth">This is the GitHub repo for this project.</a> It is 100% open-source, MIT-licensed code.</p>
+<h1 id='installation' class='heading'>INSTALLATION</h1>
+<h2 id='cocoapods' class='heading'>COCOAPODS</h2>
+
+<p>Once the project is ready for its debutante ball, I&rsquo;ll set up a podspec.
+We&rsquo;re not there, yet.</p>
+
+<p>We will not have a podfile in the RVS_BlueThoth project, as we want to simplify the dependency chain (See note, below).</p>
+<h2 id='a-href-https-swift-org-package-manager-swift-package-manager-spm-a' class='heading'><a href="https://swift.org/package-manager/">Swift Package Manager (SPM)</a></h2>
+
+<p>You can use SPM to load the project as a dependency, by referencing its <a href="https://github.com/RiftValleySoftware/RVS_BlueThoth/">GitHub Repo</a> URI (SSH: <a href="git@github.com:RiftValleySoftware/RVS_BlueThoth.git">git@github.com:RiftValleySoftware/RVS_BlueThoth.git</a>, or HTTPS: <a href="https://github.com/RiftValleySoftware/RVS_BlueThoth.git">https://github.com/RiftValleySoftware/RVS_BlueThoth.git</a>).</p>
+
+<p>Once you have the dependency attached, you reference it by adding an import to the files that consume the package:</p>
+<pre class="highlight plaintext"><code>import RVS_BlueThoth
+</code></pre>
+<h2 id='carthage' class='heading'>CARTHAGE</h2>
+
+<p>In your <a href="https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile">Cartfile</a>, simply add the following line:</p>
+<pre class="highlight plaintext"><code>github "https://github.com/RiftValleySoftware/RVS_BlueThoth"
+</code></pre>
+
+<p>Then, once that&rsquo;s done, use <a href="https://support.apple.com/guide/terminal/welcome/mac">Terminal</a> to <a href="https://www.freebsd.org/cgi/man.cgi?query=cd"><code>cd</code></a> to the directory that you want to use to receive the project, and run the following command:</p>
+<pre class="highlight plaintext"><code>carthage update
+</code></pre>
+
+<p>This will create a directory called &ldquo;<code>Carthage</code>&rdquo;, which will contain the library in a subdirectory, called &ldquo;<code>Checkouts</code>,&rdquo; inside of which, you will find another subdirectory called &ldquo;<code><a href="Classes/RVS_BlueThoth.html">RVS_BlueThoth</a></code>.&rdquo;</p>
+
+<p><img src="img/CheckoutsDir.png" alt="Checkouts Directory"></p>
+
+<p><em>Fig. 1: The BlueThoth Directory in the Carthage Directory</em></p>
+
+<p><strong><em>IMPORTANT NOTE</em></strong></p>
+
+<p><em>Because of the complexity of code-signing, and also in order to improve the robustness of the project (by making it simple to use dependencies), I don&rsquo;t have Carhage build the framework.</em></p>
+
+<p><em>Instead, you should import the &ldquo;<code>RVS_BlueThoth.xcodeproj</code>&rdquo; project file into your project or workspace, and declare the appropriate frameworkto be an embedded framework (there are framework targets for all 4 major Apple operating system targets). Your project will make it a dependency.</em></p>
+<h2 id='including-the-project-into-your-project' class='heading'>Including the Project into Your project</h2>
+
+<p><strong>STEP ONE</strong> Find the project (.xcodeproj) file in the &ldquo;<code>Carthage/Checkouts/RVS_BlueThoth</code>&rdquo; directory, and drag it into your workspace/project Project Navigator.</p>
+
+<p><img src="img/IncludeProjectFile.png" alt="Including the Project File"></p>
+
+<p><em>Fig. 2: Including the BlueThoth Project File Into Your Own Project</em></p>
+
+<p><strong>STEP TWO</strong> Once the project has been included, got to your target&rsquo;s &ldquo;<code>Frameworks, Libraries, and Embedded Content</code>&rdquo; page in the &ldquo;<code>General</code>&rdquo; tab <em>(Hey! An Oxford Comma!)</em>.</p>
+
+<p>Select the &ldquo;+&rdquo; button, and choose the framework to embed in the target.</p>
+
+<p><img src="img/SelectTarget.png" alt="Selecting the Appropriate Target As A Dependency"></p>
+
+<p><em>Fig. 3: Selecting the Target Framework</em></p>
+
+<p><img src="img/AddFramework.png" alt="The Target As A Dependency"></p>
+
+<p><em>Fig. 4: The Target Framework As An Embedded Framework</em></p>
+
+<p>Once this is done, the framework will appear in the &ldquo;Frameowrks&rdquo; automatic group in the Project Navigator.</p>
+
+<p><img src="img/InFrameworksDir.png" alt="The Framework in the Project Navigator Frameworks Group"></p>
+
+<p><em>Fig. 5: The Framework Will Now Appear in the Project Navigator Frameworks Group</em></p>
+
+<p>In order to use the framework, you will now need to include it:</p>
+<pre class="highlight plaintext"><code>import RVS_BlueThoth_iOS
+</code></pre>
+
+<p><em>**NOTE:</em>* The iOS version is shown in all the above examples. The same workflow applies across all platforms.*</p>
+
+<p><strong>IMPORTANT NOTE</strong></p>
+
+<p>Even though there is a <a href="https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile">Cartfile</a> in the RVS_BlueThoth directory, and it includes its own Carthage dependencies, we have checked the &ldquo;<code>Carthage</code>&rdquo; directory into the repo, as we want it to be available for other dependency management systems.</p>
+<h2 id='simple-git-submodule' class='heading'>SIMPLE GIT SUBMODULE</h2>
+
+<p>You can also simply clone <a href="(https://github.com/RiftValleySoftware/RVS_BlueThoth)">the project</a> as <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">a Git submodule</a> into your own project, and follow the same workflow as the Carthage installation to add the framework to your project.</p>
 
           </div>
         </section>
@@ -230,7 +314,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-04-30)</p>
+      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-07-05)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
