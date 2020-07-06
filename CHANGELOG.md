@@ -1,5 +1,11 @@
 # RVS_BlueThoth Change Log
 
+## 1.4.0.0000
+
+- **TBD**
+
+- Starting the process of adding the write interaction handler.
+
 ## 1.3.0.0000
 
 - **July 5, 2020**

@@ -41,10 +41,16 @@ class CGA_CharacteristicViewController_TableRow: UITableViewCell {
      The bottom label displays the Descriptor value (interpreted)
      */
     @IBOutlet weak var descriptorValueLabel: UILabel!
+    
+    /* ################################################################## */
+    /**
+     This button allows interaction with the Descriptor.
+     */
+    @IBOutlet weak var interactionButton: UIButton!
 }
 
 /* ###################################################################################################################################### */
-// MARK: - The initial view controller (table of services) -
+// MARK: - The Characteristic View Controller (table of Descriptors) -
 /* ###################################################################################################################################### */
 /**
  This controls the Characteristic Information View.
@@ -55,6 +61,12 @@ class CGA_CharacteristicViewController: CGA_BaseViewController {
      The reuse ID that we use for creating new table cells.
      */
     private static let _descriptorRowReuseID = "detail-row"
+    
+    /* ################################################################## */
+    /**
+     The ID of the segue that is executed to display the Interaction Screen.
+     */
+    private static let _interactionSegueID = "interaction-screen"
     
     /* ################################################################## */
     /**
@@ -73,6 +85,12 @@ class CGA_CharacteristicViewController: CGA_BaseViewController {
      This is the table that will list the descriptors.
      */
     @IBOutlet weak var descriptorsTableView: UITableView!
+    
+    /* ################################################################## */
+    /**
+     This button allows interaction with the Characteristic.
+     */
+    @IBOutlet weak var interactionButton: UIButton!
 }
 
 /* ###################################################################################################################################### */
@@ -145,10 +163,25 @@ extension CGA_CharacteristicViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = characteristicInstance?.id.localizedVariant
+        interactionButton?.setTitle(interactionButton?.title(for: .normal)?.localizedVariant ?? "ERROR", for: .normal)
+        interactionButton?.isHidden = !(characteristicInstance?.canWrite ?? false)
         _refreshControl.tintColor = .white
         _refreshControl.addTarget(self, action: #selector(startOver(_:)), for: .valueChanged)
         descriptorsTableView?.refreshControl = _refreshControl
         updateAllDescriptors()
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called just before we bring in the Interaction screen.
+     
+     - parameter for: The segue being executed.
+     - parameter sender: The data we want passed into the destination (ignored).
+     */
+    override func prepare(for inSegue: UIStoryboardSegue, sender inSender: Any?) {
+        guard let destination = inSegue.destination as? CGA_InteractionViewController else { return }
+        
+        destination.characteristicInstance = characteristicInstance
     }
 }
 

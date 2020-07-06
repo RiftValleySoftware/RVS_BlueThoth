@@ -68,6 +68,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-PROPERTIES-NOTIFY-ENCRYPT"    =   " NE ";
 "SLUG-PROPERTIES-INDICATE-ENCRYPT"  =   " IE ";
 "SLUG-PROPERTIES-EXTENDED"          =   " EX ";
+"SLUG-INTERACT"                     =   "INTERACT";
 
 // MARK: - Info screen
 "SLUG-VERSION-FORMAT"               =   "VERSION: %@ (%@)";

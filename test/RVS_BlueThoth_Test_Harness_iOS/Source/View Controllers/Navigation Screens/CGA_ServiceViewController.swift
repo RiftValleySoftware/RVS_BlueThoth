@@ -84,7 +84,7 @@ class CG_TappableButton: UIButton {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - The initial view controller (table of services) -
+// MARK: - The Service view controller (table of Characteristics) -
 /* ###################################################################################################################################### */
 /**
  This controls the Service Information View.
@@ -101,6 +101,12 @@ class CGA_ServiceViewController: CGA_BaseViewController {
      The ID of the segue that is executed to display Characteristic details.
      */
     private static let _characteristicDetailSegueID = "show-characteristic-detail"
+    
+    /* ################################################################## */
+    /**
+     The ID of the segue that is executed to display the Interaction Screen.
+     */
+    private static let _interactionSegueID = "interaction-screen"
     
     /* ################################################################## */
     /**
@@ -199,9 +205,13 @@ extension CGA_ServiceViewController {
      */
     @objc func descriptorTapped(_ inGestureRecognizer: CG_TapGestureRecognizer) {
         if  let characteristic = serviceInstance?[inGestureRecognizer.rowIndex],
-            0 < characteristic.count {
+            (0 < characteristic.count || characteristic.canWrite) {
             inGestureRecognizer.backgroundView.backgroundColor = UIColor(cgColor: prefs.tableSelectionBackgroundColor)
-            performSegue(withIdentifier: Self._characteristicDetailSegueID, sender: characteristic)
+            if 0 < characteristic.count {
+                performSegue(withIdentifier: Self._characteristicDetailSegueID, sender: characteristic)
+            } else {
+                performSegue(withIdentifier: Self._interactionSegueID, sender: characteristic)
+            }
         }
     }
 }
@@ -250,15 +260,20 @@ extension CGA_ServiceViewController {
     
     /* ################################################################## */
     /**
-     This is called just before we bring in the Characteristic screen.
+     This is called just before we bring in the Characteristic or Interaction screen.
      
      - parameter for: The segue being executed.
      - parameter sender: The data we want passed into the destination.
      */
     override func prepare(for inSegue: UIStoryboardSegue, sender inSender: Any?) {
+        guard let senderData = inSender as? CGA_Bluetooth_Characteristic else { return }
         // We only go further if we are looking at Service details.
-        guard   let destination = inSegue.destination as? CGA_CharacteristicViewController,
-                let senderData = inSender as? CGA_Bluetooth_Characteristic else { return }
+        guard   let destination = inSegue.destination as? CGA_CharacteristicViewController else {
+                    if let destination = inSegue.destination as? CGA_InteractionViewController {
+                        destination.characteristicInstance = senderData
+                    }
+                    return
+        }
         
         destination.characteristicInstance = senderData
     }
@@ -412,7 +427,7 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         tableCell.backgroundColor = .clear
         
         // We set the ID label.
-        tableCell.characteristicIDLabel?.textColor = UIColor(white: 1.0, alpha: 0 < characteristic.count ? 1.0 : prefs.textColorForUnselectableCells)
+        tableCell.characteristicIDLabel?.textColor = UIColor(white: 1.0, alpha: (0 < characteristic.count || characteristic.canWrite) ? 1.0 : prefs.textColorForUnselectableCells)
         tableCell.characteristicIDLabel?.text = characteristic.id.localizedVariant
         tableCell.characteristicIDLabel?.accessibilityLabel = String(format: "SLUG-ACC-CHARACTERISTIC-ROW-ID-NO-DESCRIPTORS-FORMAT".localizedVariant, characteristic.id.localizedVariant)
         tableCell.valueLabel?.accessibilityLabel = String(format: "SLUG-ACC-CHARACTERISTIC-ROW-VALUE-NO-DESCRIPTORS-FORMAT".localizedVariant, characteristic.stringValue ??
@@ -434,14 +449,15 @@ extension CGA_ServiceViewController: UITableViewDataSource {
             }
         }
 
-        // This is a single-tap gesture recognizer for bringing in the Descriptors. It is attached to the table cell, in general.
-        if 0 < characteristic.count {   // Only if we have Descriptors.
+        // This is a single-tap gesture recognizer for bringing in the Descriptors and/or interaction screen. It is attached to the table cell, in general.
+        if 0 < characteristic.count || characteristic.canWrite {   // Only if we have Descriptors, or can write.
             let tapGestureRecognizer = CG_TapGestureRecognizer(target: self, action: #selector(descriptorTapped(_:)))
             tapGestureRecognizer.rowIndex = inIndexPath.row
             tapGestureRecognizer.backgroundView = tableCell
             tableCell.characteristicIDLabel?.accessibilityLabel = String(format: "SLUG-ACC-CHARACTERISTIC-ROW-ID-FORMAT".localizedVariant, characteristic.id.localizedVariant)
             tableCell.valueLabel?.accessibilityLabel = String(format: "SLUG-ACC-CHARACTERISTIC-ROW-VALUE-FORMAT".localizedVariant, characteristic.stringValue ??
                                                                 (nil != characteristic.value ? String(describing: characteristic.value) : ""))
+            
             tapGestureRecognizer.accessibilityLabel = "SLUG-ACC-CHARACTERISTIC-ROW".localizedVariant
             tableCell.addGestureRecognizer(tapGestureRecognizer)
         }
