@@ -1074,10 +1074,14 @@
                         <viewLayoutGuide key="safeArea" id="ERn-UQ-2gl"/>
                     </view>
                     <navigationItem key="navigationItem" id="3J1-ux-Cdf"/>
+                    <connections>
+                        <outlet property="backgroundGradientImage" destination="bPx-pg-FbO" id="KNt-A8-e6t"/>
+                        <outlet property="logoImage" destination="BoQ-Qs-tl4" id="eNO-gd-3dZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="efe-Gv-5pV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2749" y="869"/>
+            <point key="canvasLocation" x="2787" y="869"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

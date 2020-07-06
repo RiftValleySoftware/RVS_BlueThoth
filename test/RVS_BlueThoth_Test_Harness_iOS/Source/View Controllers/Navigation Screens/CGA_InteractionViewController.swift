@@ -34,5 +34,5 @@ class CGA_InteractionViewController: CGA_BaseViewController {
     /**
      The Characteristic that is associated with this view controller.
      */
-    var characteristicInstance: CGA_Bluetooth_Characteristic!
+    var characteristicInstance: CGA_Bluetooth_Characteristic!              
 }
