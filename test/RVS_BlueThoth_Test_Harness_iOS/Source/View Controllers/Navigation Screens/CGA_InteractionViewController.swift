@@ -118,6 +118,11 @@ extension CGA_InteractionViewController {
      - parameter: ignored (and optional)
      */
     @IBAction func notifyButtonHit(_: Any! = nil) {
+        if !(characteristicInstance?.isNotifying ?? false) {
+            characteristicInstance?.startNotifying()
+        } else {
+            characteristicInstance?.stopNotifying()
+        }
     }
 }
 
@@ -132,6 +137,7 @@ extension CGA_InteractionViewController {
         writeLabel?.text = writeLabel?.text?.localizedVariant ?? "ERROR"
         writeSendButton?.setTitle(writeSendButton?.title(for: .normal)?.localizedVariant, for: .normal)
         writeSendButton?.isEnabled = !writeTextView.text.isEmpty
+        notifyButton?.isHidden = !(characteristicInstance?.canNotify ?? true)
         navigationItem.title = "SLUG-INTERACT".localizedVariant
         
         if characteristicInstance?.canRead ?? false {
@@ -139,6 +145,36 @@ extension CGA_InteractionViewController {
             readButton?.setTitle(readButton?.title(for: .normal)?.localizedVariant, for: .normal)
         } else {
             readStackView?.isHidden = true
+        }
+
+        updateUI()
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - CGA_UpdatableScreenViewController Conformance -
+/* ###################################################################################################################################### */
+extension CGA_InteractionViewController: CGA_UpdatableScreenViewController {
+    /* ################################################################## */
+    /**
+     This simply makes sure that the UI matches the state of the Characteristic.
+     */
+    func updateUI() {
+        if  let data = characteristicInstance?.value,
+            let stringValue = String(data: data, encoding: .utf8) {
+            if characteristicInstance?.canRead ?? false {
+                readTextView?.text = stringValue
+            } else {
+                writeTextView?.text = stringValue
+            }
+        }
+        
+        if characteristicInstance?.canNotify ?? false {
+            let title = "SLUG-PROPERTIES-NOTIFY-\(characteristicInstance.isNotifying ? "ON" : "OFF")"
+            notifyButton.setTitle(title.localizedVariant, for: .normal)
+            notifyButton.setTitleColor(characteristicInstance.isNotifying ? (isDarkMode ? .black : .blue) : .white, for: .normal)
+            notifyButton.backgroundColor = characteristicInstance.isNotifying ? .green : .red
+            notifyButton.accessibilityLabel = notifyButton.accessibilityLabel?.localizedVariant
         }
     }
 }

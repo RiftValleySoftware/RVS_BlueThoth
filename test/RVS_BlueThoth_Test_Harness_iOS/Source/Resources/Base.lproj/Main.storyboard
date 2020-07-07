@@ -600,7 +600,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZDZ-HF-NDb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-726.08695652173924" y="868.52678571428567"/>
+            <point key="canvasLocation" x="-726" y="869"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="ARa-1p-Kjf">
@@ -925,7 +925,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="989.85507246376824" y="868.52678571428567"/>
+            <point key="canvasLocation" x="990" y="869"/>
         </scene>
         <!--Characteristic View Controller-->
         <scene sceneID="3HZ-Pa-gzf">
@@ -1059,11 +1059,11 @@
                                     <constraint firstAttribute="width" secondItem="BoQ-Qs-tl4" secondAttribute="height" multiplier="1:1" id="n87-M5-xtu"/>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="GvS-Xw-tPc">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GvS-Xw-tPc">
                                 <rect key="frame" x="20" y="88" width="374" height="744"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wYd-id-jPP">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="371"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="367"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-WRITE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qaV-lm-Wdy">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
@@ -1075,7 +1075,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="K8b-9i-3Hh">
-                                                <rect key="frame" x="0.0" y="30" width="374" height="311"/>
+                                                <rect key="frame" x="0.0" y="30" width="374" height="307"/>
                                                 <color key="backgroundColor" white="1" alpha="0.10445205479452055" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1085,7 +1085,7 @@
                                                 </connections>
                                             </textView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0eh-iX-I65">
-                                                <rect key="frame" x="0.0" y="341" width="374" height="30"/>
+                                                <rect key="frame" x="0.0" y="337" width="374" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="L9R-kz-90F"/>
                                                 </constraints>
@@ -1103,12 +1103,14 @@
                                         <constraints>
                                             <constraint firstItem="0eh-iX-I65" firstAttribute="leading" secondItem="wYd-id-jPP" secondAttribute="leading" id="0Xv-EL-X2E"/>
                                             <constraint firstAttribute="trailing" secondItem="K8b-9i-3Hh" secondAttribute="trailing" id="JeM-Lo-pI3"/>
+                                            <constraint firstItem="qaV-lm-Wdy" firstAttribute="leading" secondItem="wYd-id-jPP" secondAttribute="leading" id="MU1-NH-PuY"/>
+                                            <constraint firstAttribute="trailing" secondItem="qaV-lm-Wdy" secondAttribute="trailing" id="Zev-DZ-KnO"/>
                                             <constraint firstAttribute="trailing" secondItem="0eh-iX-I65" secondAttribute="trailing" id="aTX-VS-anG"/>
                                             <constraint firstItem="K8b-9i-3Hh" firstAttribute="leading" secondItem="wYd-id-jPP" secondAttribute="leading" id="bXd-Z9-Re5"/>
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2AJ-vY-UbF">
-                                        <rect key="frame" x="0.0" y="373" width="374" height="371"/>
+                                        <rect key="frame" x="0.0" y="377" width="374" height="367"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qd4-HE-Mbw">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
@@ -1125,7 +1127,7 @@
                                                 </connections>
                                             </button>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="W41-to-7NP">
-                                                <rect key="frame" x="0.0" y="30" width="374" height="341"/>
+                                                <rect key="frame" x="0.0" y="30" width="374" height="337"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1135,10 +1137,17 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="wYd-id-jPP" firstAttribute="leading" secondItem="GvS-Xw-tPc" secondAttribute="leading" id="5dJ-tp-xpp"/>
+                                    <constraint firstItem="2AJ-vY-UbF" firstAttribute="leading" secondItem="GvS-Xw-tPc" secondAttribute="leading" id="bW2-tu-yiM"/>
+                                    <constraint firstAttribute="trailing" secondItem="2AJ-vY-UbF" secondAttribute="trailing" id="smJ-4G-jKx"/>
+                                    <constraint firstAttribute="trailing" secondItem="wYd-id-jPP" secondAttribute="trailing" id="wNr-zG-xj9"/>
+                                </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BSM-ve-v9s">
                                 <rect key="frame" x="20" y="832" width="374" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <accessibility key="accessibilityConfiguration" label="SLUG-ACC-NOTIFICATION-BUTTON"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Ab5-jS-INe"/>
                                 </constraints>
@@ -1196,7 +1205,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2786.9565217391305" y="868.52678571428567"/>
+            <point key="canvasLocation" x="2787" y="869"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

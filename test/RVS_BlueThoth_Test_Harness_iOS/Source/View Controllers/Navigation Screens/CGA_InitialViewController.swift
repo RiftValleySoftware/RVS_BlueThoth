@@ -552,10 +552,17 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
      - parameter changedCharacteristic: The Characteristic that was changed.
      */
     func centralManager(_ inCentralManager: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, changedCharacteristic inCharacteristic: CGA_Bluetooth_Characteristic) {
-        if let currentScreen = _currentDeviceScreen as? CGA_ServiceViewController {
+        if          let currentScreen = _currentDeviceScreen as? CGA_ServiceViewController,
+                    currentScreen.serviceInstance.id == inService.id {
             currentScreen.updateUI()
-        } else if let currentScreen = _currentDeviceScreen as? CGA_CharacteristicViewController {
+        } else if   let currentScreen = _currentDeviceScreen as? CGA_CharacteristicViewController,
+                    currentScreen.characteristicInstance.id == inCharacteristic.id {
             currentScreen.updateUI()
+        } else if   let currentScreen = _currentDeviceScreen as? CGA_InteractionViewController,
+                    currentScreen.characteristicInstance.id == inCharacteristic.id {
+            currentScreen.updateUI()
+        } else {
+            
         }
     }
 

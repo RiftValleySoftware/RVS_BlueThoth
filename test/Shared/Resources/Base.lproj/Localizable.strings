@@ -176,6 +176,9 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-ACC-APP-VERSION-LABEL-FORMAT" =   "This is the current version of the app. It is \"%@.%@.\"";
 "SLUG-ACC-COPYRIGHT-BUTTON"         =   "This button displays the copyright information for the app. If you touch it, it will take you to the Great Rift Valley Software Company Web page in the browser.";
 
+// MARK: - Interaction Screen
+"SLUG-ACC-NOTIFICATION-BUTTON"      =   "This button controls whether or not the Characteristic is notifying.";
+
 /// MARK: - DATA INTERPRETATION
 
 // MARK: - Advertising Data Strings
