@@ -12,81 +12,13 @@ It abstracts some of the more "tedious" aspects of using Core Bluetooth; allowin
 
 INSTALLATION
 =
-COCOAPODS
+[This Project Requires Use of  the Swift Package Manager (SPM)](https://swift.org/package-manager/)
 -
-Once the project is ready for its debutante ball, I'll set up a podspec.
-We're not there, yet.
-
-We will not have a podfile in the RVS_BlueThoth project, as we want to simplify the dependency chain (See note, below).
-
-[Swift Package Manager (SPM)](https://swift.org/package-manager/)
--
-
+If you are unfamiliar with the SPM, [this series](https://littlegreenviper.com/series/spm/) may be helpful.
 You can use SPM to load the project as a dependency, by referencing its [GitHub Repo](https://github.com/RiftValleySoftware/RVS_BlueThoth/) URI (SSH: [git@github.com:RiftValleySoftware/RVS_BlueThoth.git](git@github.com:RiftValleySoftware/RVS_BlueThoth.git), or HTTPS: [https://github.com/RiftValleySoftware/RVS_BlueThoth.git](https://github.com/RiftValleySoftware/RVS_BlueThoth.git)).
 
 Once you have the dependency attached, you reference it by adding an import to the files that consume the package:
     
     import RVS_BlueThoth
 
-CARTHAGE
--
-In your [Cartfile](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile), simply add the following line:
-
-    github "https://github.com/RiftValleySoftware/RVS_BlueThoth"
-    
-Then, once that's done, use [Terminal](https://support.apple.com/guide/terminal/welcome/mac) to [`cd`](https://www.freebsd.org/cgi/man.cgi?query=cd) to the directory that you want to use to receive the project, and run the following command:
-
-    carthage update
-    
-This will create a directory called "`Carthage`", which will contain the library in a subdirectory, called "`Checkouts`," inside of which, you will find another subdirectory called "`RVS_BlueThoth`."
-
-![Checkouts Directory](img/CheckoutsDir.png)
-
-_Fig. 1: The BlueThoth Directory in the Carthage Directory_
-
-***IMPORTANT NOTE***
-
-_Because of the complexity of code-signing, and also in order to improve the robustness of the project (by making it simple to use dependencies), I don't have Carhage build the framework._
-
-_Instead, you should import the "`RVS_BlueThoth.xcodeproj`" project file into your project or workspace, and declare the appropriate frameworkto be an embedded framework (there are framework targets for all 4 major Apple operating system targets). Your project will make it a dependency._
-
-Including the Project into Your project
--
-
-**STEP ONE** Find the project (.xcodeproj) file in the "`Carthage/Checkouts/RVS_BlueThoth`" directory, and drag it into your workspace/project Project Navigator.
-
-![Including the Project File](img/IncludeProjectFile.png)
-
-_Fig. 2: Including the BlueThoth Project File Into Your Own Project_
-
-**STEP TWO** Once the project has been included, got to your target's "`Frameworks, Libraries, and Embedded Content`" page in the "`General`" tab _(Hey! An Oxford Comma!)_.
-
-Select the "+" button, and choose the framework to embed in the target.
-
-![Selecting the Appropriate Target As A Dependency](img/SelectTarget.png)
-
-_Fig. 3: Selecting the Target Framework_
-
-![The Target As A Dependency](img/AddFramework.png)
-
-_Fig. 4: The Target Framework As An Embedded Framework_
-
-Once this is done, the framework will appear in the "Frameowrks" automatic group in the Project Navigator.
-
-![The Framework in the Project Navigator Frameworks Group](img/InFrameworksDir.png)
-
-_Fig. 5: The Framework Will Now Appear in the Project Navigator Frameworks Group_
-
-In order to use the framework, you will now need to include it:
-
-    import RVS_BlueThoth_iOS
-    
-***NOTE:** The iOS version is shown in all the above examples. The same workflow applies across all platforms.*
-
-**IMPORTANT NOTE**
-
-Even though there is a [Cartfile](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile) in the RVS_BlueThoth directory, and it includes its own Carthage dependencies, we have checked the "`Carthage`" directory into the repo, as we want it to be available for other dependency management systems.
-
-SIMPLE GIT SUBMODULE
--
-You can also simply clone [the project]((https://github.com/RiftValleySoftware/RVS_BlueThoth)) as [a Git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) into your own project, and follow the same workflow as the Carthage installation to add the framework to your project.
+This project has a couple of sub-dependencies to the [RVS_Generic_Swift_Toolbox](https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox) project (required to use the SDK), and the [RVS_Persistent_Prefs project](https://github.com/RiftValleySoftware/RVS_PersistentPrefs) (which is only used for the test harness, and is not necessary for the SDK user).

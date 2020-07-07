@@ -27,12 +27,81 @@ import RVS_BlueThoth_iOS
 // MARK: - The Interaction View Controller -
 /* ###################################################################################################################################### */
 /**
- This controls the Service Information View.
+ This controls the Interaction View.
  */
 class CGA_InteractionViewController: CGA_BaseViewController {
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var writeStackView: UIStackView!
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var writeLabel: UILabel!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var writeTextView: UITextView!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var writeSendButton: UIButton!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var readStackView: UIStackView!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var readButton: UIButton!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var readTextView: UITextView!
+
     /* ################################################################## */
     /**
      The Characteristic that is associated with this view controller.
      */
     var characteristicInstance: CGA_Bluetooth_Characteristic!              
+}
+
+/* ###################################################################################################################################### */
+// MARK: - IBAction Handlers -
+/* ###################################################################################################################################### */
+extension CGA_InteractionViewController {
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func writeSendButtonHit(_ sender: Any) {
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func readButtonHit(_ sender: Any) {
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Base Class Override -
+/* ###################################################################################################################################### */
+extension CGA_InteractionViewController {
+    override func viewDidLoad() {
+        writeLabel?.text = writeLabel?.text?.localizedVariant ?? "ERROR"
+        writeSendButton?.setTitle(writeSendButton?.title(for: .normal)?.localizedVariant, for: .normal)
+
+        if characteristicInstance?.canRead ?? false {
+            readStackView?.isHidden = false
+            readButton?.setTitle(readButton?.title(for: .normal)?.localizedVariant, for: .normal)
+        } else {
+            readStackView?.isHidden = true
+        }
+    }
 }

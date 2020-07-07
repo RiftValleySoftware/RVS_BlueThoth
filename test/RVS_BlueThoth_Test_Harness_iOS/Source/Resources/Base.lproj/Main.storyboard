@@ -1056,20 +1056,89 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.15000000596046448" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BlueThothLogo" translatesAutoresizingMaskIntoConstraints="NO" id="BoQ-Qs-tl4">
                                 <rect key="frame" x="83" y="324" width="248" height="248"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="BoQ-Qs-tl4" secondAttribute="height" multiplier="1:1" id="oRz-j4-790"/>
+                                    <constraint firstAttribute="width" secondItem="BoQ-Qs-tl4" secondAttribute="height" multiplier="1:1" id="n87-M5-xtu"/>
                                 </constraints>
                             </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="GvS-Xw-tPc">
+                                <rect key="frame" x="20" y="88" width="374" height="774"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wYd-id-jPP">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="383"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-WRITE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qaV-lm-Wdy">
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="24"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="K8b-9i-3Hh">
+                                                <rect key="frame" x="0.0" y="24" width="374" height="329"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0eh-iX-I65">
+                                                <rect key="frame" x="0.0" y="353" width="374" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="L9R-kz-90F"/>
+                                                </constraints>
+                                                <state key="normal" title="SLUG-SEND">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="writeSendButtonHit:" destination="KOt-zR-Vpp" eventType="touchUpInside" id="vQF-MX-HMj"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2AJ-vY-UbF">
+                                        <rect key="frame" x="0.0" y="391" width="374" height="383"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qd4-HE-Mbw">
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="pYO-Bq-z8L"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <state key="normal" title="SLUG-READ">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="readButtonHit:" destination="KOt-zR-Vpp" eventType="touchUpInside" id="Jw1-h8-qLp"/>
+                                                </connections>
+                                            </button>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="W41-to-7NP">
+                                                <rect key="frame" x="0.0" y="30" width="374" height="353"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="2AJ-vY-UbF" firstAttribute="leading" secondItem="GvS-Xw-tPc" secondAttribute="leading" id="286-9a-rWC"/>
+                                    <constraint firstAttribute="trailing" secondItem="2AJ-vY-UbF" secondAttribute="trailing" id="ejK-1B-iBY"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="bPx-pg-FbO" secondAttribute="bottom" id="1f0-Ot-8xM"/>
-                            <constraint firstItem="BoQ-Qs-tl4" firstAttribute="centerX" secondItem="HsV-sY-PLQ" secondAttribute="centerX" id="7Rs-ne-2IV"/>
-                            <constraint firstItem="bPx-pg-FbO" firstAttribute="trailing" secondItem="ERn-UQ-2gl" secondAttribute="trailing" id="CYt-ZF-yww"/>
-                            <constraint firstItem="bPx-pg-FbO" firstAttribute="leading" secondItem="ERn-UQ-2gl" secondAttribute="leading" id="MvO-U1-uH6"/>
-                            <constraint firstItem="BoQ-Qs-tl4" firstAttribute="width" relation="lessThanOrEqual" secondItem="bPx-pg-FbO" secondAttribute="width" multiplier="0.6" priority="999" id="Nhu-ah-OKF"/>
-                            <constraint firstItem="BoQ-Qs-tl4" firstAttribute="height" relation="lessThanOrEqual" secondItem="bPx-pg-FbO" secondAttribute="height" multiplier="0.6" priority="999" id="XU7-KI-GFJ"/>
-                            <constraint firstItem="bPx-pg-FbO" firstAttribute="top" secondItem="HsV-sY-PLQ" secondAttribute="top" id="gc2-Xe-cMC"/>
-                            <constraint firstItem="BoQ-Qs-tl4" firstAttribute="centerY" secondItem="HsV-sY-PLQ" secondAttribute="centerY" id="rRW-md-4ek"/>
+                            <constraint firstItem="bPx-pg-FbO" firstAttribute="top" secondItem="HsV-sY-PLQ" secondAttribute="top" id="07w-ot-2km"/>
+                            <constraint firstItem="BoQ-Qs-tl4" firstAttribute="centerX" secondItem="HsV-sY-PLQ" secondAttribute="centerX" id="2KY-cq-00X"/>
+                            <constraint firstItem="GvS-Xw-tPc" firstAttribute="top" secondItem="ERn-UQ-2gl" secondAttribute="top" id="Fby-fG-mMc"/>
+                            <constraint firstAttribute="bottom" secondItem="bPx-pg-FbO" secondAttribute="bottom" id="Iph-pW-lNR"/>
+                            <constraint firstItem="GvS-Xw-tPc" firstAttribute="bottom" secondItem="ERn-UQ-2gl" secondAttribute="bottom" id="OUi-U8-DLl"/>
+                            <constraint firstItem="BoQ-Qs-tl4" firstAttribute="width" relation="lessThanOrEqual" secondItem="bPx-pg-FbO" secondAttribute="width" multiplier="0.6" id="ZS9-v0-9zh"/>
+                            <constraint firstItem="BoQ-Qs-tl4" firstAttribute="centerY" secondItem="HsV-sY-PLQ" secondAttribute="centerY" id="cZt-8W-HJi"/>
+                            <constraint firstItem="bPx-pg-FbO" firstAttribute="leading" secondItem="ERn-UQ-2gl" secondAttribute="leading" id="hHA-td-iPn"/>
+                            <constraint firstItem="ERn-UQ-2gl" firstAttribute="trailing" secondItem="GvS-Xw-tPc" secondAttribute="trailing" constant="20" id="tM1-4r-Auq"/>
+                            <constraint firstItem="GvS-Xw-tPc" firstAttribute="leading" secondItem="ERn-UQ-2gl" secondAttribute="leading" constant="20" id="y61-tI-Fq1"/>
+                            <constraint firstItem="bPx-pg-FbO" firstAttribute="trailing" secondItem="ERn-UQ-2gl" secondAttribute="trailing" id="yUv-UR-uZd"/>
+                            <constraint firstItem="BoQ-Qs-tl4" firstAttribute="height" relation="lessThanOrEqual" secondItem="bPx-pg-FbO" secondAttribute="height" multiplier="0.6" id="zsa-iE-k8x"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ERn-UQ-2gl"/>
                     </view>
@@ -1077,11 +1146,18 @@
                     <connections>
                         <outlet property="backgroundGradientImage" destination="bPx-pg-FbO" id="KNt-A8-e6t"/>
                         <outlet property="logoImage" destination="BoQ-Qs-tl4" id="eNO-gd-3dZ"/>
+                        <outlet property="readButton" destination="qd4-HE-Mbw" id="OZQ-bV-GmC"/>
+                        <outlet property="readStackView" destination="2AJ-vY-UbF" id="jWN-eR-PMa"/>
+                        <outlet property="readTextView" destination="W41-to-7NP" id="pa3-J8-gY0"/>
+                        <outlet property="writeLabel" destination="qaV-lm-Wdy" id="aAO-F2-0ZH"/>
+                        <outlet property="writeSendButton" destination="0eh-iX-I65" id="V3c-A6-xXf"/>
+                        <outlet property="writeStackView" destination="wYd-id-jPP" id="zzs-jR-nlU"/>
+                        <outlet property="writeTextView" destination="K8b-9i-3Hh" id="fer-B1-RzC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="efe-Gv-5pV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2787" y="869"/>
+            <point key="canvasLocation" x="2786.9565217391305" y="868.52678571428567"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
