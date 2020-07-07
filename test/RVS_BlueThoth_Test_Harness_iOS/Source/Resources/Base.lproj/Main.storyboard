@@ -433,6 +433,9 @@
                                                     <rect key="frame" x="20" y="35" width="334" height="37"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="37" id="Omx-7K-kdu"/>
+                                                    </constraints>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vHg-VK-CtY">
                                                     <rect key="frame" x="20" y="76" width="334" height="20"/>
@@ -447,7 +450,6 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="vHg-VK-CtY" secondAttribute="trailing" constant="20" id="615-Rn-8Bj"/>
-                                                <constraint firstAttribute="bottom" secondItem="vHg-VK-CtY" secondAttribute="bottom" constant="4" id="8e3-63-57h"/>
                                                 <constraint firstItem="vHg-VK-CtY" firstAttribute="leading" secondItem="wVw-x3-uB7" secondAttribute="leading" constant="20" id="CbA-lj-meQ"/>
                                                 <constraint firstItem="Uaa-w7-TfP" firstAttribute="top" secondItem="hzW-eI-epk" secondAttribute="bottom" id="FYK-wB-kda"/>
                                                 <constraint firstAttribute="trailing" secondItem="Uaa-w7-TfP" secondAttribute="trailing" constant="20" placeholder="YES" id="ZaH-U0-20R"/>

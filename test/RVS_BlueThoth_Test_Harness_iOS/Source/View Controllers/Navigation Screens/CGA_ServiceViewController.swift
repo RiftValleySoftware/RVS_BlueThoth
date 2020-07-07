@@ -30,6 +30,8 @@ import RVS_BlueThoth_iOS
  Our table cells have three rows.
  */
 class CGA_ServiceViewController_TableRow: UITableViewCell {
+    static let rowheights: [CGFloat] = [30, 50, 20]
+    
     /* ################################################################## */
     /**
      The label at the top, containing the Characteristic ID
@@ -468,5 +470,30 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         tableCell.accessibilityElements = [tableCell.characteristicIDLabel!, tableCell.propertiesStackView!, tableCell.valueLabel!]
 
         return tableCell
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - UITableViewDelegate Conformance -
+/* ###################################################################################################################################### */
+extension CGA_ServiceViewController: UITableViewDelegate {
+    /* ################################################################## */
+    /**
+     This returns the number of available rows, in the given section.
+     
+     - parameter inTableView: The table view that is asking for the row count.
+     - parameter numberOfRowsInSection: The 0-based section index being queried.
+     - returns: The height of the row in the given index.
+     */
+    func tableView(_ inTableView: UITableView, heightForRowAt inIndexPath: IndexPath) -> CGFloat {
+        if  let characteristic = serviceInstance?[inIndexPath.row] {
+            var height = CGA_ServiceViewController_TableRow.rowheights[0] + CGA_ServiceViewController_TableRow.rowheights[1]
+            if let lastRowText = characteristic.stringValue {
+                height += CGA_ServiceViewController_TableRow.rowheights[2] * CGFloat(lastRowText.split(separator: "\n").count)
+            }
+            return height
+        }
+        
+        return 0
     }
 }
