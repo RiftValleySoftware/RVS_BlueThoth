@@ -64,7 +64,7 @@ class CGA_InteractionViewController: CGA_BaseViewController {
     /**
      */
     @IBOutlet weak var readTextView: UITextView!
-
+    
     /* ################################################################## */
     /**
      The Characteristic that is associated with this view controller.
@@ -79,13 +79,20 @@ extension CGA_InteractionViewController {
     /* ################################################################## */
     /**
      */
-    @IBAction func writeSendButtonHit(_ sender: Any) {
+    @IBAction func writeSendButtonHit(_: Any) {
     }
     
     /* ################################################################## */
     /**
      */
-    @IBAction func readButtonHit(_ sender: Any) {
+    @IBAction func readButtonHit(_: Any) {
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func tappedInScreen(_: Any) {
+        resignAllFirstResponders()
     }
 }
 
@@ -93,15 +100,37 @@ extension CGA_InteractionViewController {
 // MARK: - Base Class Override -
 /* ###################################################################################################################################### */
 extension CGA_InteractionViewController {
+    /* ################################################################## */
+    /**
+     */
     override func viewDidLoad() {
         writeLabel?.text = writeLabel?.text?.localizedVariant ?? "ERROR"
         writeSendButton?.setTitle(writeSendButton?.title(for: .normal)?.localizedVariant, for: .normal)
+        writeSendButton?.isEnabled = !writeTextView.text.isEmpty
+        navigationItem.title = "SLUG-INTERACT".localizedVariant
 
         if characteristicInstance?.canRead ?? false {
             readStackView?.isHidden = false
             readButton?.setTitle(readButton?.title(for: .normal)?.localizedVariant, for: .normal)
         } else {
             readStackView?.isHidden = true
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Text View Delegate -
+/* ###################################################################################################################################### */
+extension CGA_InteractionViewController: UITextViewDelegate {
+    /* ################################################################## */
+    /**
+     Called when some text or attributes change in the text view.
+     
+     - parameter inTextView: The Text View that experienced the change.
+     */
+    func textViewDidChange(_ inTextView: UITextView) {
+        if writeTextView == inTextView {
+            writeSendButton?.isEnabled = !inTextView.text.isEmpty
         }
     }
 }

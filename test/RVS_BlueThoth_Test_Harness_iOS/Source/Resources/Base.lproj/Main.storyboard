@@ -1071,12 +1071,15 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="K8b-9i-3Hh">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="K8b-9i-3Hh">
                                                 <rect key="frame" x="0.0" y="24" width="374" height="329"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="backgroundColor" white="1" alpha="0.10445205479452055" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="KOt-zR-Vpp" id="Q4H-TT-8wr"/>
+                                                </connections>
                                             </textView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0eh-iX-I65">
                                                 <rect key="frame" x="0.0" y="353" width="374" height="30"/>
@@ -1086,11 +1089,20 @@
                                                 <state key="normal" title="SLUG-SEND">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="writeSendButtonHit:" destination="KOt-zR-Vpp" eventType="touchUpInside" id="vQF-MX-HMj"/>
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="0eh-iX-I65" firstAttribute="leading" secondItem="wYd-id-jPP" secondAttribute="leading" id="0Xv-EL-X2E"/>
+                                            <constraint firstAttribute="trailing" secondItem="K8b-9i-3Hh" secondAttribute="trailing" id="JeM-Lo-pI3"/>
+                                            <constraint firstAttribute="trailing" secondItem="0eh-iX-I65" secondAttribute="trailing" id="aTX-VS-anG"/>
+                                            <constraint firstItem="K8b-9i-3Hh" firstAttribute="leading" secondItem="wYd-id-jPP" secondAttribute="leading" id="bXd-Z9-Re5"/>
+                                        </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2AJ-vY-UbF">
                                         <rect key="frame" x="0.0" y="391" width="374" height="383"/>
@@ -1117,15 +1129,26 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="qd4-HE-Mbw" firstAttribute="leading" secondItem="2AJ-vY-UbF" secondAttribute="leading" id="4Qw-fM-0s0"/>
+                                            <constraint firstItem="W41-to-7NP" firstAttribute="leading" secondItem="2AJ-vY-UbF" secondAttribute="leading" id="NIT-Sb-IE4"/>
+                                            <constraint firstAttribute="trailing" secondItem="qd4-HE-Mbw" secondAttribute="trailing" id="UGp-Ud-bmc"/>
+                                            <constraint firstAttribute="trailing" secondItem="W41-to-7NP" secondAttribute="trailing" id="Ybl-Tx-f4T"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="2AJ-vY-UbF" firstAttribute="leading" secondItem="GvS-Xw-tPc" secondAttribute="leading" id="286-9a-rWC"/>
+                                    <constraint firstAttribute="trailing" secondItem="wYd-id-jPP" secondAttribute="trailing" id="X8N-vU-uje"/>
+                                    <constraint firstItem="2AJ-vY-UbF" firstAttribute="leading" secondItem="GvS-Xw-tPc" secondAttribute="leading" id="eNr-B2-STl"/>
                                     <constraint firstAttribute="trailing" secondItem="2AJ-vY-UbF" secondAttribute="trailing" id="ejK-1B-iBY"/>
+                                    <constraint firstItem="wYd-id-jPP" firstAttribute="leading" secondItem="GvS-Xw-tPc" secondAttribute="leading" id="qnL-47-1u0"/>
+                                    <constraint firstAttribute="trailing" secondItem="2AJ-vY-UbF" secondAttribute="trailing" id="ri8-zY-6MG"/>
                                 </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="bPx-pg-FbO" firstAttribute="top" secondItem="HsV-sY-PLQ" secondAttribute="top" id="07w-ot-2km"/>
                             <constraint firstItem="BoQ-Qs-tl4" firstAttribute="centerX" secondItem="HsV-sY-PLQ" secondAttribute="centerX" id="2KY-cq-00X"/>
@@ -1141,6 +1164,9 @@
                             <constraint firstItem="BoQ-Qs-tl4" firstAttribute="height" relation="lessThanOrEqual" secondItem="bPx-pg-FbO" secondAttribute="height" multiplier="0.6" id="zsa-iE-k8x"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ERn-UQ-2gl"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="3Bg-d6-enf" appends="YES" id="bZ9-GY-qcF"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="3J1-ux-Cdf"/>
                     <connections>
@@ -1156,6 +1182,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="efe-Gv-5pV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="3Bg-d6-enf">
+                    <connections>
+                        <action selector="tappedInScreen:" destination="KOt-zR-Vpp" id="I5G-y2-ZFb"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2786.9565217391305" y="868.52678571428567"/>
         </scene>
