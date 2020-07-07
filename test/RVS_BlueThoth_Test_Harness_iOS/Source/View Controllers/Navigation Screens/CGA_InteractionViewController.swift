@@ -67,6 +67,11 @@ class CGA_InteractionViewController: CGA_BaseViewController {
     
     /* ################################################################## */
     /**
+     */
+    @IBOutlet weak var notifyButton: UIButton!
+    
+    /* ################################################################## */
+    /**
      The Characteristic that is associated with this view controller.
      */
     var characteristicInstance: CGA_Bluetooth_Characteristic!              
@@ -78,21 +83,41 @@ class CGA_InteractionViewController: CGA_BaseViewController {
 extension CGA_InteractionViewController {
     /* ################################################################## */
     /**
+     This reacts to a tap in the area outside the keyboard, and puts away the keyboard.
+     
+     - parameter: ignored (and optional)
      */
-    @IBAction func writeSendButtonHit(_: Any) {
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBAction func readButtonHit(_: Any) {
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBAction func tappedInScreen(_: Any) {
+    @IBAction func tappedInScreen(_: Any! = nil) {
         resignAllFirstResponders()
+    }
+    
+    /* ################################################################## */
+    /**
+     - parameter: ignored (and optional)
+     */
+    @IBAction func writeSendButtonHit(_: Any! = nil) {
+        tappedInScreen()
+        // Have to have something to send.
+        if  let sendingText = writeTextView?.text,
+            !sendingText.isEmpty,
+            let data = sendingText.data(using: .utf8) {
+            characteristicInstance?.writeValue(data)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     - parameter: ignored (and optional)
+     */
+    @IBAction func readButtonHit(_: Any! = nil) {
+        tappedInScreen()
+    }
+    
+    /* ################################################################## */
+    /**
+     - parameter: ignored (and optional)
+     */
+    @IBAction func notifyButtonHit(_: Any! = nil) {
     }
 }
 
@@ -108,7 +133,7 @@ extension CGA_InteractionViewController {
         writeSendButton?.setTitle(writeSendButton?.title(for: .normal)?.localizedVariant, for: .normal)
         writeSendButton?.isEnabled = !writeTextView.text.isEmpty
         navigationItem.title = "SLUG-INTERACT".localizedVariant
-
+        
         if characteristicInstance?.canRead ?? false {
             readStackView?.isHidden = false
             readButton?.setTitle(readButton?.title(for: .normal)?.localizedVariant, for: .normal)
@@ -129,6 +154,7 @@ extension CGA_InteractionViewController: UITextViewDelegate {
      - parameter inTextView: The Text View that experienced the change.
      */
     func textViewDidChange(_ inTextView: UITextView) {
+        // The only text view we care about is the write one.
         if writeTextView == inTextView {
             writeSendButton?.isEnabled = !inTextView.text.isEmpty
         }
