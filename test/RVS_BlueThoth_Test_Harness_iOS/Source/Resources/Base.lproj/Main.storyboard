@@ -1067,17 +1067,38 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wYd-id-jPP">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="367"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-WRITE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qaV-lm-Wdy">
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="4UJ-40-WPj">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="kIb-dd-xvA"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-WRITE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qaV-lm-Wdy">
+                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="30" id="kIb-dd-xvA"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0eh-iX-I65">
+                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="30"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="30" id="L9R-kz-90F"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                        <state key="normal" title="SLUG-SEND">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <state key="disabled">
+                                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="writeSendButtonHit:" destination="KOt-zR-Vpp" eventType="touchUpInside" id="vQF-MX-HMj"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="K8b-9i-3Hh">
-                                                <rect key="frame" x="0.0" y="30" width="374" height="307"/>
+                                                <rect key="frame" x="0.0" y="30" width="374" height="337"/>
                                                 <color key="backgroundColor" white="1" alpha="0.10445205479452055" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1086,29 +1107,12 @@
                                                     <outlet property="delegate" destination="KOt-zR-Vpp" id="Q4H-TT-8wr"/>
                                                 </connections>
                                             </textView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0eh-iX-I65">
-                                                <rect key="frame" x="0.0" y="337" width="374" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="L9R-kz-90F"/>
-                                                </constraints>
-                                                <state key="normal" title="SLUG-SEND">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <state key="disabled">
-                                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="writeSendButtonHit:" destination="KOt-zR-Vpp" eventType="touchUpInside" id="vQF-MX-HMj"/>
-                                                </connections>
-                                            </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="0eh-iX-I65" firstAttribute="leading" secondItem="wYd-id-jPP" secondAttribute="leading" id="0Xv-EL-X2E"/>
                                             <constraint firstAttribute="trailing" secondItem="K8b-9i-3Hh" secondAttribute="trailing" id="JeM-Lo-pI3"/>
-                                            <constraint firstItem="qaV-lm-Wdy" firstAttribute="leading" secondItem="wYd-id-jPP" secondAttribute="leading" id="MU1-NH-PuY"/>
-                                            <constraint firstAttribute="trailing" secondItem="qaV-lm-Wdy" secondAttribute="trailing" id="Zev-DZ-KnO"/>
-                                            <constraint firstAttribute="trailing" secondItem="0eh-iX-I65" secondAttribute="trailing" id="aTX-VS-anG"/>
+                                            <constraint firstAttribute="trailing" secondItem="4UJ-40-WPj" secondAttribute="trailing" id="YpD-4o-Hp4"/>
                                             <constraint firstItem="K8b-9i-3Hh" firstAttribute="leading" secondItem="wYd-id-jPP" secondAttribute="leading" id="bXd-Z9-Re5"/>
+                                            <constraint firstItem="4UJ-40-WPj" firstAttribute="leading" secondItem="wYd-id-jPP" secondAttribute="leading" id="hYn-M9-GbY"/>
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2AJ-vY-UbF">

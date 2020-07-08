@@ -136,7 +136,6 @@ extension CGA_InteractionViewController {
     override func viewDidLoad() {
         writeLabel?.text = writeLabel?.text?.localizedVariant ?? "ERROR"
         writeSendButton?.setTitle(writeSendButton?.title(for: .normal)?.localizedVariant, for: .normal)
-        writeSendButton?.isEnabled = !writeTextView.text.isEmpty
         notifyButton?.isHidden = !(characteristicInstance?.canNotify ?? true)
         navigationItem.title = "SLUG-INTERACT".localizedVariant
         
@@ -169,6 +168,8 @@ extension CGA_InteractionViewController: CGA_UpdatableScreenViewController {
             }
         }
         
+        writeLabel?.isHidden = !(writeSendButton?.isHidden ?? false)
+
         if characteristicInstance?.canNotify ?? false {
             let title = "SLUG-PROPERTIES-NOTIFY-\(characteristicInstance.isNotifying ? "ON" : "OFF")"
             notifyButton.setTitle(title.localizedVariant, for: .normal)
@@ -192,7 +193,8 @@ extension CGA_InteractionViewController: UITextViewDelegate {
     func textViewDidChange(_ inTextView: UITextView) {
         // The only text view we care about is the write one.
         if writeTextView == inTextView {
-            writeSendButton?.isEnabled = !inTextView.text.isEmpty
+            writeSendButton?.isHidden = inTextView.text.isEmpty
+            writeLabel?.isHidden = !inTextView.text.isEmpty
         }
     }
 }
