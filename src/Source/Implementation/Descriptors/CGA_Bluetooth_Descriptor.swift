@@ -50,7 +50,7 @@ public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Interna
     /**
      If the Descriptor has a value, and that value can be expressed as a String, it is returned here.
      */
-    public var stringValue: String? { nil != dataValue ? String(data: dataValue!, encoding: .utf8) : nil }
+    public var stringValue: String? { String(data: dataValue ?? Data(), encoding: .utf8) ?? "" }
     
     /* ################################################################## */
     /**

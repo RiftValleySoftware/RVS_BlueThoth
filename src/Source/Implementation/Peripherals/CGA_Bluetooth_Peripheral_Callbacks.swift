@@ -424,11 +424,24 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
         } else if let characteristic = sequence_contents.characteristic(inCharacteristic) {
             #if DEBUG
                 print("Updated the \(characteristic.id) Characteristic value: \(String(describing: characteristic.value))")
-                if  let stringVal = characteristic.stringValue,
-                    !stringVal.isEmpty {
+                if  let stringVal = characteristic.stringValue {
                     print("\tAs String: \(stringVal)")
                 }
             #endif
+            // If we are concatenating data, we simply slap this onto the end of what we already have.
+            if  nil != characteristic._value,
+                characteristic.concatenateValue,
+                let data = inCharacteristic.value {
+                #if DEBUG
+                    print("Appending data to Characteristic \(inCharacteristic.uuid.uuidString)")
+                #endif
+                characteristic._value?.append(data)
+            } else {
+                #if DEBUG
+                    print("Starting new data for Characteristic \(inCharacteristic.uuid.uuidString)")
+                #endif
+                characteristic._value = inCharacteristic.value
+            }
             central?.updateThisCharacteristic(characteristic)
         }
     }

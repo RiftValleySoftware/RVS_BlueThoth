@@ -31,6 +31,12 @@ import CoreBluetooth
 public class CGA_Bluetooth_Characteristic: CGA_Bluetooth_Characteristic_Protocol_Internal {
     /* ################################################################## */
     /**
+     This is used to "aggregate" our data. If concatenateValue is true, then we append new data onto old.
+     */
+    internal var _value: Data?
+    
+    /* ################################################################## */
+    /**
      This is the type we're aggregating. We aggregate the public face of the Descriptors.
      */
     public typealias Element = CGA_Bluetooth_Descriptor_Protocol
@@ -40,6 +46,20 @@ public class CGA_Bluetooth_Characteristic: CGA_Bluetooth_Characteristic_Protocol
      This is our main cache Array. It contains wrapped instances of our aggregate CB type.
      */
     public var sequence_contents: Array<Element> = []
+    
+    /* ################################################################## */
+    /**
+     If this is set to true, then new data (value) will be appended to existing data.
+     
+     Changing the value of this property to false will invalidate any aggregated data (set _value to nil).
+     */
+    public var concatenateValue: Bool = false {
+        didSet {
+            if !concatenateValue {
+                _value = nil
+            }
+        }
+    }
 
     /* ################################################################## */
     /**
@@ -142,7 +162,7 @@ public class CGA_Bluetooth_Characteristic: CGA_Bluetooth_Characteristic_Protocol
      If the Characteristic has a value, and that value can be expressed as a String, it is returned here.
      This computed property is defined here, so it can be overridden by subclasses.
      */
-    public var stringValue: String? { nil != value ? String(data: value!, encoding: .utf8) : nil }
+    public var stringValue: String? { String(data: value ?? Data(), encoding: .utf8) ?? "" }
     
     /* ################################################################## */
     /**
@@ -195,7 +215,7 @@ public class CGA_Bluetooth_Characteristic: CGA_Bluetooth_Characteristic_Protocol
     /**
      If the Characteristic has a value, it is returned here.
      */
-    public var value: Data? { cbElementInstance?.value }
+    public var value: Data? { _value }
     
     /* ################################################################## */
     /**

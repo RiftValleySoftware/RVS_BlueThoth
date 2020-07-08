@@ -146,6 +146,17 @@ extension CGA_ServiceViewController {
     private func _setUpAccessibility() {
         characteristicsTableView?.accessibilityLabel = "SLUG-ACC-CHARACTERISTIC-TABLE".localizedVariant
     }
+    
+    /* ################################################################## */
+    /**
+     This just resets the data aggregators for each Characteristic.
+     */
+    private func _clearCharacteristicDataValues() {
+        serviceInstance?.forEach {
+            $0.concatenateValue = false
+            $0.concatenateValue = true
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -175,6 +186,9 @@ extension CGA_ServiceViewController {
      */
     @objc func readTapped(_ inButton: CG_TappableButton) {
         if let characteristicInstance = serviceInstance?[inButton.rowIndex] {
+            // This clears out our value.
+            characteristicInstance.concatenateValue = false
+            characteristicInstance.concatenateValue = true
             characteristicInstance.readValue()
         }
     }
@@ -193,6 +207,9 @@ extension CGA_ServiceViewController {
             if characteristicInstance.isNotifying {
                 characteristicInstance.stopNotifying()
             } else {
+                // This clears out our value.
+                characteristicInstance.concatenateValue = false
+                characteristicInstance.concatenateValue = true
                 characteristicInstance.startNotifying()
             }
         }
@@ -247,6 +264,7 @@ extension CGA_ServiceViewController {
         if navigationController?.navigationBar.backItem?.title?.isEmpty ?? true {
             navigationController?.navigationBar.backItem?.title = "SLUG-DEVICE".localizedVariant
         }
+        _clearCharacteristicDataValues()
         characteristicsTableView?.refreshControl = _refreshControl
         _refreshControl.addTarget(self, action: #selector(startOver(_:)), for: .valueChanged)
     }
