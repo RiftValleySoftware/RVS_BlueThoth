@@ -241,7 +241,11 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
                 if nil == serviceToAdd {
                     serviceToAdd = _serviceFactory[0].createInstance(parent: self, cbElementInstance: service)
                 }
-            
+                
+                #if DEBUG
+                    print("Staging the \(serviceToAdd.id) Service for the \(id) Peripheral.")
+                #endif
+
                 return serviceToAdd
             } ?? []
             
@@ -410,7 +414,7 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
      */
     public func peripheral(_ inPeripheral: CBPeripheral, didUpdateValueFor inCharacteristic: CBCharacteristic, error inError: Error?) {
         #if DEBUG
-            print("Received a Characteristic Update delegate callback.")
+            print("Received a Characteristic Update delegate callback for the \(inCharacteristic.uuid.uuidString) Characteristic.")
         #endif
         if let error = inError {
             #if DEBUG
@@ -418,6 +422,13 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             #endif
             central?.reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(error, characteristic: inCharacteristic))
         } else if let characteristic = sequence_contents.characteristic(inCharacteristic) {
+            #if DEBUG
+                print("Updated the \(characteristic.id) Characteristic value: \(String(describing: characteristic.value))")
+                if  let stringVal = characteristic.stringValue,
+                    !stringVal.isEmpty {
+                    print("\tAs String: \(stringVal)")
+                }
+            #endif
             central?.updateThisCharacteristic(characteristic)
         }
     }
@@ -432,7 +443,7 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
      */
     public func peripheral(_ inPeripheral: CBPeripheral, didUpdateValueFor inDescriptor: CBDescriptor, error inError: Error?) {
         #if DEBUG
-            print("Received a Descriptor Update delegate callback.")
+            print("Received a Characteristic Update delegate callback for the \(inDescriptor.uuid.uuidString) Descriptor.")
         #endif
         if let error = inError {
             #if DEBUG
@@ -441,6 +452,13 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             central?.reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(error, descriptor: inDescriptor))
         } else if   let characteristic = sequence_contents.characteristic(inDescriptor.characteristic),
                     let descriptor = characteristic.sequence_contents[inDescriptor] as? CGA_Bluetooth_Descriptor {
+            #if DEBUG
+                print("Updated the \(descriptor.id) Descriptor value: \(String(describing: descriptor.value))")
+                if  let stringVal = descriptor.stringValue,
+                    !stringVal.isEmpty {
+                    print("\tAs String: \(stringVal)")
+                }
+            #endif
             central?.updateThisDescriptor(descriptor)
         } else {
             #if DEBUG
@@ -510,10 +528,9 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
      
      - parameter toSendWriteWithoutResponse: The CBPeripheral that is now ready.
      */
-// TODO: Implement this when we can test it.
-//    public func peripheralIsReady(toSendWriteWithoutResponse inPeripheral: CBPeripheral) {
-//        #if DEBUG
-//            print("Received a Ready to Write Message From the Peripheral \(inPeripheral.identifier.uuidString).")
-//        #endif
-//    }
+    public func peripheralIsReady(toSendWriteWithoutResponse inPeripheral: CBPeripheral) {
+        #if DEBUG
+            print("Received a Ready to Write Message From the Peripheral \(inPeripheral.identifier.uuidString).")
+        #endif
+    }
 }

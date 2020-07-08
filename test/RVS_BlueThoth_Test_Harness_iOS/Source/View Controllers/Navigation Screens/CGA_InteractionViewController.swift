@@ -111,6 +111,7 @@ extension CGA_InteractionViewController {
      */
     @IBAction func readButtonHit(_: Any! = nil) {
         tappedInScreen()
+        characteristicInstance.readValue()
     }
     
     /* ################################################################## */
