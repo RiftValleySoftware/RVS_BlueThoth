@@ -14,10 +14,10 @@ opt_in_rules:
 
 function_body_length:
 - 55 # warning
-- 60 #error
+- 60 # error
 
 file_length:
-- 930 # warning
+- 999  # warning
 - 1000 # error
 
 type_body_length:
@@ -29,7 +29,7 @@ line_length:
 - 300 # error
 
 cyclomatic_complexity:
-- 9 # warning
+- 9  # warning
 - 12 # error
 
 excluded:

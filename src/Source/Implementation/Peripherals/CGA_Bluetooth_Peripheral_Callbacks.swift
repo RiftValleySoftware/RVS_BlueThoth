@@ -394,6 +394,9 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
      - parameter error: Any error that may have occured. Hopefully, it is nil.
      */
     public func peripheral(_ inPeripheral: CBPeripheral, didUpdateNotificationStateFor inCharacteristic: CBCharacteristic, error inError: Error?) {
+        #if DEBUG
+            print("Received a Characteristic Notification State Update delegate callback for the \(inCharacteristic.uuid.uuidString) Characteristic.")
+        #endif
         if let error = inError {
             #if DEBUG
                 print("ERROR!: \(error.localizedDescription) for Characteristic \(inCharacteristic.uuid.uuidString)")
@@ -500,7 +503,8 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
                 print("ERROR!: \(String(describing: error))")
             #endif
             central?.reportError(.internalError(error: error, id: id))
-        } else {
+        } else if let characteristic = sequence_contents.characteristic(inCharacteristic) {
+            central?.reportWriteCompleteForThisCharacteristic(characteristic)
         }
     }
 
@@ -545,5 +549,9 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
         #if DEBUG
             print("Received a Ready to Write Message From the Peripheral \(inPeripheral.identifier.uuidString).")
         #endif
+        guard let peripheral = central?.sequence_contents[inPeripheral],
+                peripheral.cbElementInstance == inPeripheral else { return }
+        
+        central?.sendDeviceReadyForWrite(peripheral)
     }
 }

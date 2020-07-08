@@ -231,6 +231,19 @@ extension RVS_BlueThoth {
     
     /* ################################################################## */
     /**
+     This is called to send a Device Ready for Write message to the delegate.
+     */
+    private func _sendDeviceReadyForWrite(_ inDevice: CGA_Bluetooth_Peripheral) {
+        DispatchQueue.main.async {
+            #if DEBUG
+                print("Sending a Device Ready For Write message to the delegate.")
+            #endif
+            self.delegate?.centralManager(self, deviceReadyForWrite: inDevice)
+        }
+    }
+
+    /* ################################################################## */
+    /**
      This is called to send a Service update message to the delegate.
      */
     private func _sendServiceUpdate(_ inService: CGA_Bluetooth_Service) {
@@ -243,7 +256,23 @@ extension RVS_BlueThoth {
             }
         }
     }
-
+    
+    /* ################################################################## */
+    /**
+     This is called to send a Characteristic Write Complete message to the delegate.
+     */
+    private func _sendCharacteristicWriteComplete(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
+        DispatchQueue.main.async {
+            #if DEBUG
+                print("Sending a Characteristic Write Complete message to the delegate.")
+            #endif
+            if  let service = inCharacteristic.service,
+                let device = service.peripheral {
+                self.delegate?.centralManager(self, device: device, service: service, characteristicWriteComplete: inCharacteristic)
+            }
+        }
+    }
+    
     /* ################################################################## */
     /**
      This is called to send a Characteristic update message to the delegate.
@@ -259,7 +288,7 @@ extension RVS_BlueThoth {
             }
         }
     }
-    
+
     /* ################################################################## */
     /**
      This is called to send a Descriptor update message to the delegate.
@@ -544,12 +573,28 @@ extension RVS_BlueThoth: CGA_Class_Protocol_UpdateDescriptor {
     
     /* ################################################################## */
     /**
+     This is called to inform an instance that a Device is ready for a write.
+     
+     - parameter inDevice: The Peripheral wrapper instance that is ready for a write.
+     */
+    public func sendDeviceReadyForWrite(_ inDevice: CGA_Bluetooth_Peripheral) { _sendDeviceReadyForWrite(inDevice) }
+    
+    /* ################################################################## */
+    /**
      This is called to inform an instance that a Service changed.
      
      - parameter inService: The Service wrapper instance that changed.
      */
     public func updateThisService(_ inService: CGA_Bluetooth_Service) { _sendServiceUpdate(inService) }
-
+    
+    /* ################################################################## */
+    /**
+     This is called to inform an instance that a Characteristic downstream changed.
+     
+     - parameter inCharacteristic: The Characteristic wrapper instance that reported a write complete.
+     */
+    public func reportWriteCompleteForThisCharacteristic(_ inCharacteristic: CGA_Bluetooth_Characteristic) { _sendCharacteristicWriteComplete(inCharacteristic) }
+    
     /* ################################################################## */
     /**
      This is called to inform an instance that a Characteristic downstream changed.

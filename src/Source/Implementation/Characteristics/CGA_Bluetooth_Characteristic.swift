@@ -305,16 +305,17 @@ public class CGA_Bluetooth_Characteristic: CGA_Bluetooth_Characteristic_Protocol
      If we have write permission, the Peripheral is asked to write the given data into its value.
      
      - parameter inData: The Data instance to write.
+     - parameter withResponseIfPossible: Optional. If True (default is false), then with response is preferred. Otherwise, without response (if available) will be used.
      */
-    public func writeValue(_ inData: Data) {
+    public func writeValue(_ inData: Data, withResponseIfPossible inWithResponse: Bool = false) {
         if  canWrite,
             let peripheralWrapper = service?.peripheral,
             let peripheral = peripheralWrapper.cbElementInstance {
             #if DEBUG
                 let stringValue = String(data: inData, encoding: .utf8) ?? String(describing: inData)
-                print("Writing this value: \(stringValue) for the \(id) Characteristic (With\(canWriteWithoutResponse ? "out" : "") Response).")
+                print("Writing this value: \(stringValue) for the \(id) Characteristic (With\((canWriteWithResponse && (inWithResponse || !canWriteWithoutResponse)) ? "" : "out") Response).")
             #endif
-            peripheral.writeValue(inData, for: cbElementInstance, type: canWriteWithoutResponse ? .withoutResponse : .withResponse)
+            peripheral.writeValue(inData, for: cbElementInstance, type: (canWriteWithResponse && (inWithResponse || !canWriteWithoutResponse)) ? .withResponse : .withoutResponse)
         }
     }
     

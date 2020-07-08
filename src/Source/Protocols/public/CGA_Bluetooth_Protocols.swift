@@ -247,9 +247,18 @@ public protocol CGA_BlueThoth_Delegate: class {
      OPTIONAL: This is called to tell the instance that a Peripheral device has had some change.
      
      - parameter centralManager: The central manager that is calling this.
-     - parameter deviceInfoChanged: The device instance that was connected.
+     - parameter deviceInfoChanged: The device instance that was changed.
      */
     func centralManager(_ centralManager: RVS_BlueThoth, deviceInfoChanged: CGA_Bluetooth_Peripheral)
+    
+    /* ################################################################## */
+    /**
+     OPTIONAL: This is called to tell the instance that a Peripheral device is ready for a write.
+     
+     - parameter centralManager: The central manager that is calling this.
+     - parameter deviceReadyForWrite: The device instance that is ready for a write.
+     */
+    func centralManager(_ centralManager: RVS_BlueThoth, deviceReadyForWrite: CGA_Bluetooth_Peripheral)
 
     /* ################################################################## */
     /**
@@ -260,6 +269,17 @@ public protocol CGA_BlueThoth_Delegate: class {
      - parameter changedService: The Service instance that was changed.
      */
     func centralManager(_ centralManager: RVS_BlueThoth, device: CGA_Bluetooth_Peripheral, changedService: CGA_Bluetooth_Service)
+    
+    /* ################################################################## */
+    /**
+     OPTIONAL: This is called to tell the instance that a Characteristic write with response received its response.
+     
+     - parameter centralManager: The central manager that is calling this.
+     - parameter device: The device instance that contained the changed Service.
+     - parameter service: The Service instance that contained the changed Characteristic.
+     - parameter characteristicWriteComplete: The Characteristic that hads its write completed.
+     */
+    func centralManager(_ centralManager: RVS_BlueThoth, device: CGA_Bluetooth_Peripheral, service: CGA_Bluetooth_Service, characteristicWriteComplete: CGA_Bluetooth_Characteristic)
     
     /* ################################################################## */
     /**
@@ -293,53 +313,109 @@ extension CGA_BlueThoth_Delegate {
     /**
      The default does nothing.
      */
-    public func handleError(_: Error, from: RVS_BlueThoth) { }
+    public func handleError(_ inError: Error, from: RVS_BlueThoth) {
+        #if DEBUG
+            print("Default Protocol Error Received: \(inError)")
+        #endif
+    }
     
     /* ################################################################## */
     /**
      The default does nothing.
      */
-    public func updateFrom(_: RVS_BlueThoth) { }
+    public func updateFrom(_ inCentral: RVS_BlueThoth) {
+        #if DEBUG
+            print("Default Protocol Central Update Received: \(inCentral)")
+        #endif
+    }
     
     /* ################################################################## */
     /**
      The default does nothing.
      */
-    public func centralManagerPoweredOn(_: RVS_BlueThoth) { }
+    public func centralManagerPoweredOn(_ inCentral: RVS_BlueThoth) {
+        #if DEBUG
+            print("Default Protocol Central Powered On Received: \(inCentral)")
+        #endif
+    }
 
     /* ################################################################## */
     /**
      The default does nothing.
      */
-    public func centralManager(_: RVS_BlueThoth, didConnectThisDevice: CGA_Bluetooth_Peripheral) { }
+    public func centralManager(_ inCentral: RVS_BlueThoth, didConnectThisDevice inDevice: CGA_Bluetooth_Peripheral) {
+        #if DEBUG
+            print("Default Protocol Central: \(inCentral) connected: \(inDevice)")
+        #endif
+    }
     
     /* ################################################################## */
     /**
      The default does nothing.
      */
-    public func centralManager(_: RVS_BlueThoth, willDisconnectThisDevice: CGA_Bluetooth_Peripheral) { }
+    public func centralManager(_ inCentral: RVS_BlueThoth, willDisconnectThisDevice inDevice: CGA_Bluetooth_Peripheral) {
+        #if DEBUG
+            print("Default Protocol Central: \(inCentral) will disconnect: \(inDevice)")
+        #endif
+    }
     
     /* ################################################################## */
     /**
      The default does nothing.
      */
-    public func centralManager(_ centralManager: RVS_BlueThoth, deviceInfoChanged: CGA_Bluetooth_Peripheral) { }
+    public func centralManager(_ inCentral: RVS_BlueThoth, deviceInfoChanged inDevice: CGA_Bluetooth_Peripheral) {
+        #if DEBUG
+            print("Default Protocol Central: \(inCentral) device info changed: \(inDevice)")
+        #endif
+    }
 
     /* ################################################################## */
     /**
      The default does nothing.
      */
-    public func centralManager(_ centralManager: RVS_BlueThoth, device: CGA_Bluetooth_Peripheral, changedService: CGA_Bluetooth_Service) { }
-    
-    /* ################################################################## */
-    /**
-     The default does nothing.
-     */
-    public func centralManager(_ centralManager: RVS_BlueThoth, device: CGA_Bluetooth_Peripheral, service: CGA_Bluetooth_Service, changedCharacteristic: CGA_Bluetooth_Characteristic) { }
+    public func centralManager(_ inCentral: RVS_BlueThoth, deviceReadyForWrite inDevice: CGA_Bluetooth_Peripheral) {
+        #if DEBUG
+            print("Default Protocol Central: \(inCentral) device ready for write: \(inDevice)")
+        #endif
+    }
 
     /* ################################################################## */
     /**
      The default does nothing.
      */
-    public func centralManager(_ centralManager: RVS_BlueThoth, device: CGA_Bluetooth_Peripheral, service: CGA_Bluetooth_Service, characteristic: CGA_Bluetooth_Characteristic, changedDescriptor: CGA_Bluetooth_Descriptor) { }
+    public func centralManager(_ inCentral: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, changedService inService: CGA_Bluetooth_Service) {
+        #if DEBUG
+            print("Default Protocol Central: \(inCentral) device: \(inDevice) Service changed: \(inService)")
+        #endif
+    }
+    
+    /* ################################################################## */
+    /**
+     The default does nothing.
+     */
+    public func centralManager(_ inCentral: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, characteristicWriteComplete inCharacteristic: CGA_Bluetooth_Characteristic) {
+        #if DEBUG
+            print("Default Protocol Central: \(inCentral) device: \(inDevice) Service: \(inService) Characteristic write complete: \(inCharacteristic)")
+        #endif
+    }
+
+    /* ################################################################## */
+    /**
+     The default does nothing.
+     */
+    public func centralManager(_ inCentral: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, changedCharacteristic inCharacteristic: CGA_Bluetooth_Characteristic) {
+        #if DEBUG
+            print("Default Protocol Central: \(inCentral) device: \(inDevice) Service: \(inService) Characteristic changed: \(inCharacteristic)")
+        #endif
+    }
+
+    /* ################################################################## */
+    /**
+     The default does nothing.
+     */
+    public func centralManager(_ inCentral: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, characteristic inCharacteristic: CGA_Bluetooth_Characteristic, changedDescriptor inDescriptor: CGA_Bluetooth_Descriptor) {
+        #if DEBUG
+            print("Default Protocol Central: \(inCentral) device: \(inDevice) Service: \(inService) Characteristic: \(inCharacteristic) Descriptor changed: \(inDescriptor)")
+        #endif
+    }
 }
