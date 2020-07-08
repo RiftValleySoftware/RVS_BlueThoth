@@ -101,6 +101,9 @@ extension CGA_InteractionViewController {
         if  let sendingText = writeTextView?.text,
             !sendingText.isEmpty,
             let data = sendingText.data(using: .utf8) {
+            #if DEBUG
+                print("Sending \"\(sendingText)\" to the Device")
+            #endif
             characteristicInstance?.writeValue(data)
         }
     }

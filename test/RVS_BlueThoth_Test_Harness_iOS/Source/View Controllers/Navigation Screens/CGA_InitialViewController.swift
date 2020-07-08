@@ -489,9 +489,13 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
      - parameter inCentralManager: The manager wrapper view that is calling this.
      */
     func updateFrom(_ inCentralManager: RVS_BlueThoth) {
+        #if DEBUG
+            print("General Update")
+        #endif
         updateUI()
         deviceTableView?.reloadData()
     }
+    
     /* ################################################################## */
     /**
      Called to tell the instance that a Peripheral device has been connected.
@@ -500,6 +504,9 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
      - parameter didConnectThisDevice: The device instance that was connected.
      */
     func centralManager(_ inCentralManager: RVS_BlueThoth, didConnectThisDevice inDevice: CGA_Bluetooth_Peripheral) {
+        #if DEBUG
+            print("Connected Device")
+        #endif
         _currentDeviceScreen?.updateUI()
     }
     
@@ -512,17 +519,23 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
      - parameter willDisconnectThisDevice: The device instance that will be removed after this call.
      */
     func centralManager(_ inCentralManager: RVS_BlueThoth, willDisconnectThisDevice inDevice: CGA_Bluetooth_Peripheral) {
+        #if DEBUG
+            print("Disconnecting Device")
+        #endif
         _resetToRoot()
     }
     
     /* ################################################################## */
-    /**
+    /**1
      OPTIONAL: This is called to tell the instance that a Peripheral device has had some change.
      
      - parameter inCentralManager: The central manager that is calling this.
      - parameter deviceInfoChanged: The device instance that was connected.
      */
     func centralManager(_ inCentralManager: RVS_BlueThoth, deviceInfoChanged inDevice: CGA_Bluetooth_Peripheral) {
+        #if DEBUG
+            print("Peripheral Update")
+        #endif
         if let currentScreen = _currentDeviceScreen as? CGA_InitialViewController {
             currentScreen.deviceTableView.reloadData()
         }
@@ -537,6 +550,9 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
      - parameter changedService: The Service instance that contained the changed Characteristic.
      */
     func centralManager(_ inCentralManager: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, changedService inService: CGA_Bluetooth_Service) {
+        #if DEBUG
+            print("Service Update")
+        #endif
         if let currentScreen = _currentDeviceScreen as? CGA_ServiceViewController {
             currentScreen.updateUI()
         }
@@ -552,6 +568,9 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
      - parameter changedCharacteristic: The Characteristic that was changed.
      */
     func centralManager(_ inCentralManager: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, changedCharacteristic inCharacteristic: CGA_Bluetooth_Characteristic) {
+        #if DEBUG
+            print("Characteristic Update")
+        #endif
         if          let currentScreen = _currentDeviceScreen as? CGA_ServiceViewController,
                     currentScreen.serviceInstance.id == inService.id {
             currentScreen.updateUI()
@@ -577,6 +596,9 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
      - parameter changedDescriptor: The Descriptor that was changed.
      */
     func centralManager(_ inCentralManager: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, characteristic inCharacteristic: CGA_Bluetooth_Characteristic, changedDescriptor inDescriptor: CGA_Bluetooth_Descriptor) {
+        #if DEBUG
+            print("Descriptor Update")
+        #endif
         if let currentScreen = _currentDeviceScreen as? CGA_CharacteristicViewController {
             currentScreen.updateUI()
         }

@@ -153,8 +153,8 @@ extension CGA_ServiceViewController {
      */
     private func _clearCharacteristicDataValues() {
         serviceInstance?.forEach {
-            $0.concatenateValue = false
-            $0.concatenateValue = true
+            $0.clearConcatenate(newValue: true)
+
         }
     }
 }
@@ -187,8 +187,7 @@ extension CGA_ServiceViewController {
     @objc func readTapped(_ inButton: CG_TappableButton) {
         if let characteristicInstance = serviceInstance?[inButton.rowIndex] {
             // This clears out our value.
-            characteristicInstance.concatenateValue = false
-            characteristicInstance.concatenateValue = true
+            characteristicInstance.clearConcatenate(newValue: true)
             characteristicInstance.readValue()
         }
     }
@@ -208,8 +207,7 @@ extension CGA_ServiceViewController {
                 characteristicInstance.stopNotifying()
             } else {
                 // This clears out our value.
-                characteristicInstance.concatenateValue = false
-                characteristicInstance.concatenateValue = true
+                characteristicInstance.clearConcatenate(newValue: true)
                 characteristicInstance.startNotifying()
             }
         }

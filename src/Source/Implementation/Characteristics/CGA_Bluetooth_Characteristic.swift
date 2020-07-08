@@ -269,7 +269,27 @@ public class CGA_Bluetooth_Characteristic: CGA_Bluetooth_Characteristic_Protocol
         peripheral.setNotifyValue(false, for: characteristic)
         return true
     }
-
+    
+    /* ################################################################## */
+    /**
+     This clears the concatenated value.
+     
+     - parameter newValue: If provided (default is none), then the given value is set as the new value.
+     - returns: The original value. This can be ignored.
+     */
+    @discardableResult
+    public func clearConcatenate(newValue inNewValue: Bool? = nil) -> Bool {
+        let ret = concatenateValue
+        concatenateValue = false
+        if let value = inNewValue {
+            concatenateValue = value
+        } else {
+            concatenateValue = ret
+        }
+        
+        return ret
+    }
+    
     /* ################################################################## */
     /**
      The required init, with a "primed" sequence.
@@ -291,7 +311,8 @@ public class CGA_Bluetooth_Characteristic: CGA_Bluetooth_Characteristic_Protocol
             let peripheralWrapper = service?.peripheral,
             let peripheral = peripheralWrapper.cbElementInstance {
             #if DEBUG
-                print("Writing this value: \(inData) for the \(id) Characteristic.")
+                let stringValue = String(data: inData, encoding: .utf8) ?? String(describing: inData)
+                print("Writing this value: \(stringValue) for the \(id) Characteristic (With\(canWriteWithoutResponse ? "out" : "") Response).")
             #endif
             peripheral.writeValue(inData, for: cbElementInstance, type: canWriteWithoutResponse ? .withoutResponse : .withResponse)
         }
