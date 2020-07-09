@@ -537,7 +537,7 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
      */
     func centralManager(_ inCentralManager: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, changedService inService: CGA_Bluetooth_Service) {
         #if DEBUG
-            print("Service Update")
+            print("Service Update Received")
         #endif
         if let currentScreen = _currentDeviceScreen as? CGA_ServiceViewController {
             currentScreen.updateUI()
@@ -555,10 +555,13 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
      */
     func centralManager(_ inCentralManager: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, changedCharacteristic inCharacteristic: CGA_Bluetooth_Characteristic) {
         #if DEBUG
-            print("Characteristic Update")
+            print("Characteristic Update Received")
+            if  let stringValue = inCharacteristic.stringValue {
+                print("\tString Value: \"\(stringValue)\"")
+            }
         #endif
-        if          let currentScreen = _currentDeviceScreen as? CGA_ServiceContainer,
-                    currentScreen.serviceInstance?.id == inService.id {
+        if  let currentScreen = _currentDeviceScreen as? CGA_ServiceContainer,
+            currentScreen.serviceInstance?.id == inService.id {
             currentScreen.updateUI()
         } else if   let currentScreen = _currentDeviceScreen as? CGA_CharacteristicContainer,
                     currentScreen.characteristicInstance?.id == inCharacteristic.id {
@@ -581,6 +584,12 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
     func centralManager(_ inCentralManager: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, characteristic inCharacteristic: CGA_Bluetooth_Characteristic, changedDescriptor inDescriptor: CGA_Bluetooth_Descriptor) {
         #if DEBUG
             print("Descriptor Update")
+            if  let stringValue = inCharacteristic.stringValue {
+                print("\tCharacteristic String Value: \"\(stringValue)\"")
+            }
+            if  let stringValue = inDescriptor.stringValue {
+                print("\tDescriptor String Value: \"\(stringValue)\"")
+            }
         #endif
         if let currentScreen = _currentDeviceScreen as? CGA_CharacteristicViewController {
             currentScreen.updateUI()

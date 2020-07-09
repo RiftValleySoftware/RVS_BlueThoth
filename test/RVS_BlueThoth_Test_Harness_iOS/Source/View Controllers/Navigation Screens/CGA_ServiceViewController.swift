@@ -30,7 +30,19 @@ import RVS_BlueThoth_iOS
  Our table cells have three rows.
  */
 class CGA_ServiceViewController_TableRow: UITableViewCell {
+    /* ################################################################## */
+    /**
+     This is the height of each row, as an Array of CGFloat.
+     */
     static let rowheights: [CGFloat] = [30, 50, 20]
+    
+    /* ################################################################## */
+    /**
+     This is a simple summation of the first two row heights. The third one needs to be calculated.
+     */
+    static var defaultHeights: CGFloat {
+        Self.rowheights[0] + Self.rowheights[1]
+    }
     
     /* ################################################################## */
     /**
@@ -503,13 +515,53 @@ extension CGA_ServiceViewController: UITableViewDelegate {
      */
     func tableView(_ inTableView: UITableView, heightForRowAt inIndexPath: IndexPath) -> CGFloat {
         if  let characteristic = serviceInstance?[inIndexPath.row] {
-            var height = CGA_ServiceViewController_TableRow.rowheights[0] + CGA_ServiceViewController_TableRow.rowheights[1]
-            if let lastRowText = characteristic.stringValue {
-                height += CGA_ServiceViewController_TableRow.rowheights[2] * CGFloat(lastRowText.split(separator: "\n").count)
+            var height = CGA_ServiceViewController_TableRow.defaultHeights
+            #if DEBUG
+                print("Characteristic \(characteristic.id) Found.")
+            #endif
+            if  let lastRowText = characteristic.stringValue {
+                let splitRow = lastRowText.setSplit(charactersIn: "\r\n")
+                height += CGA_ServiceViewController_TableRow.rowheights[2] * CGFloat(splitRow.count)
+
+                #if DEBUG
+                    print("\tString Value: \"\(lastRowText)\"")
+                    print("\tAs Array: \(String(describing: splitRow))")
+                    print("\tLine Height, In Display Units: \(height)")
+                #endif
             }
             return height
         }
         
+        #if DEBUG
+            print("Characteristic not found. 0-height row.")
+        #endif
         return 0
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - StringProtocol Extension For "Smart Split" -
+/* ###################################################################################################################################### */
+extension StringProtocol {
+    /* ################################################################## */
+    /**
+     This allows us to split a String, if one or more members of a CharacterSet are present.
+     
+     - parameter inCharacterset: A CharacterSet, containing all of the possible characters for a split.
+     - returns: An Array of Substrings. The result of the split.
+     */
+    func setSplit(_ inCharacterset: CharacterSet) -> [Self.SubSequence] {
+        return self.split { (char) -> Bool in char.unicodeScalars.contains { inCharacterset.contains($0) } }
+    }
+    
+    /* ################################################################## */
+    /**
+     This allows us to split a String, if one or more character members of a String are present.
+     
+     - parameter charactersIn: A String, containing all of the possible characters for a split.
+     - returns: An Array of Substrings. The result of the split.
+     */
+    func setSplit(charactersIn inString: String) -> [Self.SubSequence] {
+        return self.setSplit(CharacterSet(charactersIn: inString))
     }
 }
