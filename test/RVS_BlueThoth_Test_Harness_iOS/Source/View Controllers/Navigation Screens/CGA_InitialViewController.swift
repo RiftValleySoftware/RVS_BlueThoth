@@ -45,20 +45,6 @@ protocol CGA_ScannerViewController {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - Simple Protocol That Defines A UI Updater Method -
-/* ###################################################################################################################################### */
-/**
- We use this to ensure that all our View Controllers can get a generic "Update Thyself" message.
- */
-protocol CGA_UpdatableScreenViewController {
-    /* ################################################################## */
-    /**
-     Do whatever is necessary to update the UI.
-     */
-    func updateUI()
-}
-
-/* ###################################################################################################################################### */
 // MARK: - The CGA_InitialViewController_TableRow Class (Denotes One Row of the Table) -
 /* ###################################################################################################################################### */
 /**
@@ -571,14 +557,11 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
         #if DEBUG
             print("Characteristic Update")
         #endif
-        if          let currentScreen = _currentDeviceScreen as? CGA_ServiceViewController,
-                    currentScreen.serviceInstance.id == inService.id {
+        if          let currentScreen = _currentDeviceScreen as? CGA_ServiceContainer,
+                    currentScreen.serviceInstance?.id == inService.id {
             currentScreen.updateUI()
-        } else if   let currentScreen = _currentDeviceScreen as? CGA_CharacteristicViewController,
-                    currentScreen.characteristicInstance.id == inCharacteristic.id {
-            currentScreen.updateUI()
-        } else if   let currentScreen = _currentDeviceScreen as? CGA_InteractionViewController,
-                    currentScreen.characteristicInstance.id == inCharacteristic.id {
+        } else if   let currentScreen = _currentDeviceScreen as? CGA_CharacteristicContainer,
+                    currentScreen.characteristicInstance?.id == inCharacteristic.id {
             currentScreen.updateUI()
         } else {
             

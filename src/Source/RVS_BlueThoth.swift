@@ -281,6 +281,9 @@ extension RVS_BlueThoth {
         DispatchQueue.main.async {
             #if DEBUG
                 print("Sending a Characteristic Update message to the delegate.")
+                if let stringValue = inCharacteristic.stringValue {
+                    print("\tString Data: \"\(stringValue)\"")
+                }
             #endif
             if  let service = inCharacteristic.service,
                 let device = service.peripheral {
@@ -297,6 +300,9 @@ extension RVS_BlueThoth {
         DispatchQueue.main.async {
             #if DEBUG
                 print("Sending a Descriptor Update message to the delegate.")
+                if let stringValue = inDescriptor.stringValue {
+                    print("\tString Data: \"\(stringValue)\"")
+                }
             #endif
             if  let characteristic = inDescriptor.characteristic,
                 let service = characteristic.service,

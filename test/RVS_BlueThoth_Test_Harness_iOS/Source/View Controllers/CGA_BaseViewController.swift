@@ -21,6 +21,49 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 */
 
 import UIKit
+import RVS_BlueThoth_iOS
+
+/* ###################################################################################################################################### */
+// MARK: - Simple Protocol That Defines A UI Updater Method -
+/* ###################################################################################################################################### */
+/**
+ We use this to ensure that all our View Controllers can get a generic "Update Thyself" message.
+ */
+protocol CGA_UpdatableScreenViewController {
+    /* ################################################################## */
+    /**
+     Do whatever is necessary to update the UI.
+     */
+    func updateUI()
+}
+
+/* ###################################################################################################################################### */
+// MARK: - The CGA_ServiceContainer Protocol -
+/* ###################################################################################################################################### */
+/**
+ This protocol allows us to associate a Service instance with any instance we want.
+ */
+protocol CGA_ServiceContainer: CGA_UpdatableScreenViewController {
+    /* ################################################################## */
+    /**
+     The Service that is associated with this instance.
+     */
+    var serviceInstance: CGA_Bluetooth_Service? { get }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - The CGA_CharacteristicContainer Protocol -
+/* ###################################################################################################################################### */
+/**
+ This protocol allows us to associate a Characteristic instance with any instance we want.
+ */
+protocol CGA_CharacteristicContainer: CGA_UpdatableScreenViewController {
+    /* ################################################################## */
+    /**
+     The Characteristic that is associated with this instance.
+     */
+    var characteristicInstance: CGA_Bluetooth_Characteristic? { get }
+}
 
 /* ###################################################################################################################################### */
 // MARK: - The Base view controller Class -

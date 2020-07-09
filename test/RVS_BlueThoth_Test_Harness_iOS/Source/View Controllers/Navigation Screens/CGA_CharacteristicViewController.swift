@@ -55,7 +55,7 @@ class CGA_CharacteristicViewController_TableRow: UITableViewCell {
 /**
  This controls the Characteristic Information View.
  */
-class CGA_CharacteristicViewController: CGA_BaseViewController {
+class CGA_CharacteristicViewController: CGA_BaseViewController, CGA_CharacteristicContainer {
     /* ################################################################## */
     /**
      The reuse ID that we use for creating new table cells.
@@ -78,7 +78,7 @@ class CGA_CharacteristicViewController: CGA_BaseViewController {
     /**
      The Characteristic that is associated with this view controller.
      */
-    var characteristicInstance: CGA_Bluetooth_Characteristic!
+    var characteristicInstance: CGA_Bluetooth_Characteristic?
     
     /* ################################################################## */
     /**

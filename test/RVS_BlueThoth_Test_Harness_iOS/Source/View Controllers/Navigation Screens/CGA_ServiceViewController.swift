@@ -91,7 +91,7 @@ class CG_TappableButton: UIButton {
 /**
  This controls the Service Information View.
  */
-class CGA_ServiceViewController: CGA_BaseViewController {
+class CGA_ServiceViewController: CGA_BaseViewController, CGA_ServiceContainer {
     /* ################################################################## */
     /**
      The reuse ID that we use for creating new table cells.
@@ -126,7 +126,7 @@ class CGA_ServiceViewController: CGA_BaseViewController {
     /**
      The Service that is associated with this view controller.
      */
-    var serviceInstance: CGA_Bluetooth_Service!
+    var serviceInstance: CGA_Bluetooth_Service?
     
     /* ################################################################## */
     /**

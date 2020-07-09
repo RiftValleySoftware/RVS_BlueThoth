@@ -29,7 +29,7 @@ import RVS_BlueThoth_iOS
 /**
  This controls the Interaction View.
  */
-class CGA_InteractionViewController: CGA_BaseViewController {
+class CGA_InteractionViewController: CGA_BaseViewController, CGA_CharacteristicContainer {
     /* ################################################################## */
     /**
      */
@@ -74,7 +74,7 @@ class CGA_InteractionViewController: CGA_BaseViewController {
     /**
      The Characteristic that is associated with this view controller.
      */
-    var characteristicInstance: CGA_Bluetooth_Characteristic!              
+    var characteristicInstance: CGA_Bluetooth_Characteristic?
 }
 
 /* ###################################################################################################################################### */
@@ -114,7 +114,7 @@ extension CGA_InteractionViewController {
      */
     @IBAction func readButtonHit(_: Any! = nil) {
         tappedInScreen()
-        characteristicInstance.readValue()
+        characteristicInstance?.readValue()
     }
     
     /* ################################################################## */
@@ -175,10 +175,10 @@ extension CGA_InteractionViewController: CGA_UpdatableScreenViewController {
         writeLabel?.isHidden = !(writeSendButton?.isHidden ?? false)
 
         if characteristicInstance?.canNotify ?? false {
-            let title = "SLUG-PROPERTIES-NOTIFY-\(characteristicInstance.isNotifying ? "ON" : "OFF")"
+            let title = "SLUG-PROPERTIES-NOTIFY-\((characteristicInstance?.isNotifying ?? false) ? "ON" : "OFF")"
             notifyButton.setTitle(title.localizedVariant, for: .normal)
-            notifyButton.setTitleColor(characteristicInstance.isNotifying ? (isDarkMode ? .black : .blue) : .white, for: .normal)
-            notifyButton.backgroundColor = characteristicInstance.isNotifying ? .green : .red
+            notifyButton.setTitleColor((characteristicInstance?.isNotifying ?? false) ? (isDarkMode ? .black : .blue) : .white, for: .normal)
+            notifyButton.backgroundColor = (characteristicInstance?.isNotifying ?? false) ? .green : .red
             notifyButton.accessibilityLabel = notifyButton.accessibilityLabel?.localizedVariant
         }
     }

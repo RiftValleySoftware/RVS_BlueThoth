@@ -437,11 +437,18 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
                 let data = inCharacteristic.value {
                 #if DEBUG
                     print("Appending data to Characteristic \(inCharacteristic.uuid.uuidString)")
+                    if let stringValue = String(data: data, encoding: .utf8) {
+                        print("\tString Data: \"\(stringValue)\"")
+                    }
                 #endif
                 characteristic._value?.append(data)
             } else {
                 #if DEBUG
                     print("Starting new data for Characteristic \(inCharacteristic.uuid.uuidString)")
+                    if  let data = inCharacteristic.value,
+                        let stringValue = String(data: data, encoding: .utf8) {
+                        print("\tString Data: \"\(stringValue)\"")
+                    }
                 #endif
                 characteristic._value = inCharacteristic.value
             }
