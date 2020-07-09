@@ -538,30 +538,3 @@ extension CGA_ServiceViewController: UITableViewDelegate {
         return 0
     }
 }
-
-/* ###################################################################################################################################### */
-// MARK: - StringProtocol Extension For "Smart Split" -
-/* ###################################################################################################################################### */
-extension StringProtocol {
-    /* ################################################################## */
-    /**
-     This allows us to split a String, if one or more members of a CharacterSet are present.
-     
-     - parameter inCharacterset: A CharacterSet, containing all of the possible characters for a split.
-     - returns: An Array of Substrings. The result of the split.
-     */
-    func setSplit(_ inCharacterset: CharacterSet) -> [Self.SubSequence] {
-        return self.split { (char) -> Bool in char.unicodeScalars.contains { inCharacterset.contains($0) } }
-    }
-    
-    /* ################################################################## */
-    /**
-     This allows us to split a String, if one or more character members of a String are present.
-     
-     - parameter charactersIn: A String, containing all of the possible characters for a split.
-     - returns: An Array of Substrings. The result of the split.
-     */
-    func setSplit(charactersIn inString: String) -> [Self.SubSequence] {
-        return self.setSplit(CharacterSet(charactersIn: inString))
-    }
-}
