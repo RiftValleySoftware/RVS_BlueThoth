@@ -820,6 +820,29 @@
                                             <action selector="emptyNamesButtonHit:" destination="cy1-Z9-e68" eventType="touchUpInside" id="fBg-aQ-2o4"/>
                                         </connections>
                                     </button>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="GyJ-u7-rnU">
+                                        <rect key="frame" x="307" y="468" width="49" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="47" id="2xs-tl-GAv"/>
+                                            <constraint firstAttribute="height" constant="31" id="jfU-ae-uWN"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="alwaysUseCRLFSwitchHit:" destination="cy1-Z9-e68" eventType="valueChanged" id="fQC-eJ-PLW"/>
+                                        </connections>
+                                    </switch>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HNa-s8-MXF">
+                                        <rect key="frame" x="8" y="469" width="295" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="qaM-S4-PcP"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <state key="normal" title="SLUG-ALWAYS-USE-CRLF">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="alwaysUseCRLFButtonHit:" destination="cy1-Z9-e68" eventType="touchUpInside" id="K1h-pm-e8N"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -850,9 +873,11 @@
                                     <constraint firstItem="vo0-38-Oli" firstAttribute="top" secondItem="1Cd-dt-Kj0" secondAttribute="bottom" constant="8" id="YJb-Ke-NrL"/>
                                     <constraint firstItem="O9S-IR-UTB" firstAttribute="centerY" secondItem="b5Y-3b-Ma6" secondAttribute="centerY" id="a56-6j-FeY"/>
                                     <constraint firstItem="1Cd-dt-Kj0" firstAttribute="top" secondItem="seW-CP-P2g" secondAttribute="top" id="beb-hJ-cgU"/>
+                                    <constraint firstAttribute="trailing" secondItem="GyJ-u7-rnU" secondAttribute="trailing" constant="20" id="dTl-ss-2Pc"/>
                                     <constraint firstItem="1Lq-NV-vVg" firstAttribute="centerY" secondItem="DTF-x8-2dm" secondAttribute="centerY" id="fLO-Mm-KUR"/>
                                     <constraint firstItem="DTF-x8-2dm" firstAttribute="leading" secondItem="seW-CP-P2g" secondAttribute="leading" constant="8" id="fZm-Wr-LWq"/>
                                     <constraint firstItem="Tqv-3F-wD1" firstAttribute="leading" secondItem="seW-CP-P2g" secondAttribute="leading" constant="8" id="gJW-ka-f72"/>
+                                    <constraint firstItem="GyJ-u7-rnU" firstAttribute="leading" secondItem="HNa-s8-MXF" secondAttribute="trailing" constant="4" id="jyf-UG-eXV"/>
                                     <constraint firstAttribute="trailing" secondItem="qkH-kG-0hJ" secondAttribute="trailing" constant="8" id="lJO-pc-hpL"/>
                                     <constraint firstItem="p79-1Z-nVG" firstAttribute="top" secondItem="wPS-xN-Qvc" secondAttribute="bottom" constant="8" id="lqW-0Z-Nco"/>
                                     <constraint firstItem="qkH-kG-0hJ" firstAttribute="top" secondItem="7Yf-Ec-rJE" secondAttribute="bottom" constant="8" id="lqX-KD-Dia"/>
@@ -864,10 +889,13 @@
                                     <constraint firstItem="wPS-xN-Qvc" firstAttribute="leading" secondItem="seW-CP-P2g" secondAttribute="leading" constant="8" id="tBg-bV-6Oc"/>
                                     <constraint firstItem="34Z-uF-wxS" firstAttribute="leading" secondItem="seW-CP-P2g" secondAttribute="leading" constant="8" id="tCC-G0-CtB"/>
                                     <constraint firstAttribute="trailing" secondItem="JDo-ne-xIu" secondAttribute="trailing" constant="8" id="tSd-lJ-IsI"/>
+                                    <constraint firstItem="HNa-s8-MXF" firstAttribute="leading" secondItem="seW-CP-P2g" secondAttribute="leading" constant="8" id="uwx-zg-gmy"/>
                                     <constraint firstItem="34Z-uF-wxS" firstAttribute="top" secondItem="JDo-ne-xIu" secondAttribute="bottom" constant="8" id="vaC-bh-wh7"/>
                                     <constraint firstItem="b5Y-3b-Ma6" firstAttribute="top" secondItem="C9m-8k-slg" secondAttribute="bottom" constant="8" id="we3-sm-E9w"/>
                                     <constraint firstAttribute="trailing" secondItem="7Yf-Ec-rJE" secondAttribute="trailing" constant="8" id="yGi-c0-WlS"/>
                                     <constraint firstItem="7Yf-Ec-rJE" firstAttribute="top" secondItem="34Z-uF-wxS" secondAttribute="bottom" constant="8" id="ygx-Hh-GfY"/>
+                                    <constraint firstItem="GyJ-u7-rnU" firstAttribute="top" secondItem="SR1-Xp-tEd" secondAttribute="bottom" constant="8" id="zIf-NK-Jhy"/>
+                                    <constraint firstItem="GyJ-u7-rnU" firstAttribute="centerY" secondItem="HNa-s8-MXF" secondAttribute="centerY" id="zco-cV-zxS"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="lEX-c0-mJ4" appends="YES" id="W1g-Nc-x8N"/>
@@ -896,6 +924,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="aKk-Qj-mHb"/>
                     <connections>
+                        <outlet property="alwaysUseCRLFSwitch" destination="GyJ-u7-rnU" id="7Tu-jc-r8c"/>
+                        <outlet property="alwaysUseCRLFSwitchButton" destination="HNa-s8-MXF" id="bNr-wK-tMr"/>
                         <outlet property="backgroundGradientImage" destination="YHu-7n-kRe" id="8pW-55-b6R"/>
                         <outlet property="characteristicFilterLabel" destination="34Z-uF-wxS" id="LNl-jR-LkN"/>
                         <outlet property="characteristicFilterTextView" destination="7Yf-Ec-rJE" id="hQ3-bg-ARo"/>
@@ -925,7 +955,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="990" y="869"/>
+            <point key="canvasLocation" x="989.85507246376824" y="868.52678571428567"/>
         </scene>
         <!--Characteristic View Controller-->
         <scene sceneID="3HZ-Pa-gzf">

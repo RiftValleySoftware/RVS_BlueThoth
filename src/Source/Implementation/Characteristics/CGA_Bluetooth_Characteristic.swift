@@ -313,7 +313,7 @@ public class CGA_Bluetooth_Characteristic: CGA_Bluetooth_Characteristic_Protocol
             let peripheral = peripheralWrapper.cbElementInstance {
             #if DEBUG
                 let stringValue = String(data: inData, encoding: .utf8) ?? String(describing: inData)
-                print("Writing this value: \(stringValue) for the \(id) Characteristic (With\((canWriteWithResponse && (inWithResponse || !canWriteWithoutResponse)) ? "" : "out") Response).")
+                print("Writing this value: \"\(stringValue)\" for the \(id) Characteristic (With\((canWriteWithResponse && (inWithResponse || !canWriteWithoutResponse)) ? "" : "out") Response).")
             #endif
             peripheral.writeValue(inData, for: cbElementInstance, type: (canWriteWithResponse && (inWithResponse || !canWriteWithoutResponse)) ? .withResponse : .withoutResponse)
         }

@@ -82,6 +82,12 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
         
         /* ############################################################## */
         /**
+         This will be a Bool, true, if we will always force endline/carriage returns to be CRLF pairs.
+         */
+        case alwaysUseCRLF = "kAlwaysUseCRLF"
+        
+        /* ############################################################## */
+        /**
          This will be a CGColor, indicating the color to use for the selected table cells.
          */
         case tableSelectionBackgroundColor = "kBackgroundColorForTableSelection"
@@ -103,6 +109,7 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
                                         minimumRSSILevel.rawValue,
                                         discoverOnlyConnectableDevices.rawValue,
                                         allowEmptyNames.rawValue,
+                                        alwaysUseCRLF.rawValue,
                                         tableSelectionBackgroundColor.rawValue,
                                         textColorForUnselectableCells.rawValue
                                         ] }
@@ -140,6 +147,15 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
     var allowEmptyNames: Bool {
         get { values[Keys.allowEmptyNames.rawValue] as? Bool ?? false }
         set { values[Keys.allowEmptyNames.rawValue] = newValue }
+    }
+    
+    /* ################################################################## */
+    /**
+     This is a Boolean value. If true, then we will always send newlines as CRLF pairs. Default is false.
+     */
+    var alwaysUseCRLF: Bool {
+        get { values[Keys.alwaysUseCRLF.rawValue] as? Bool ?? false }
+        set { values[Keys.alwaysUseCRLF.rawValue] = newValue }
     }
 
     /* ################################################################## */

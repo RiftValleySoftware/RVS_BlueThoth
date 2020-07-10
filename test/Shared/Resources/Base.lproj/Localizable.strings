@@ -82,6 +82,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 // MARK: - Settings screen
 "SLUG-IGNORE-DUPES"                 =   "Continuously Update:";
 "SLUG-EMPTY-NAME"                   =   "Allow Empty Names:";
+"SLUG-ALWAYS-USE-CRLF"              =   "Always Use CRLF:";
 "SLUG-CONNECTED-ONLY"               =   "Only Connectable:";
 "SLUG-FILTER-HEADER"                =   "Filter UUIDs";
 "SLUG-DEVICE-FILTERS"               =   "Specific Device Identifiers:";
@@ -172,6 +173,8 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-ACC-EMPTY-NAMES-BUTTON-OFF"                   =   "This button will toggle the value of the switch that controls whether or not the app will only display devices that advertise or contain names. The switch is currently off, which means that all devices are being displayed in the list.";
 "SLUG-ACC-EMPTY-NAMES-SWITCH-ON"                    =   "This switch controls whether or not the app will only display devices that advertise or contain names. The switch is currently on, which means that only devices with names are being displayed in the list.";
 "SLUG-ACC-EMPTY-NAMES-SWITCH-OFF"                   =   "This switch controls whether or not the app will only display devices that advertise or contain names. The switch is currently off, which means that all devices are being displayed in the list.";
+"SLUG-ACC-ALWAYS-USE-CRLF-OFF"                      =   "This switch controls whether or not the app will always send endlines (next line, or carriage return) as a Carriage Return/Linefeed pair. The switch is currently off, which means that we will send simple linefeeds.";
+"SLUG-ACC-ALWAYS-USE-CRLF-ON"                       =   "This switch controls whether or not the app will always send endlines (next line, or carriage return) as a Carriage Return/Linefeed pair. The switch is currently on, which means that we will always send carriage return/linefeed pairs.";
 
 // MARK: - The About Screen
 "SLUG-ACC-APP-NAME-LABEL-FORMAT"    =   "This is the name of the app. It is \"%@.\"";

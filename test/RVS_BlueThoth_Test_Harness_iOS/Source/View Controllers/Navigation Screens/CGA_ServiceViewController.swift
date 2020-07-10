@@ -34,7 +34,16 @@ class CGA_ServiceViewController_TableRow: UITableViewCell {
     /**
      This is the height of each row, as an Array of CGFloat.
      */
-    static let rowheights: [CGFloat] = [30, 50, 20]
+    static let rowheights: [CGFloat] = [30, // The top (ID) row
+                                        50, // The middle (properties) row
+                                        20  // The bottom (value) row
+    ]
+    
+    /* ################################################################## */
+    /**
+     This is the font that is used in the value display label.
+     */
+    static let valueFont = UIFont.systemFont(ofSize: rowheights[2])
     
     /* ################################################################## */
     /**
@@ -496,7 +505,7 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         var valueText = ""
         
         if let stringValue = characteristic.stringValue {
-            valueText = stringValue
+            valueText = stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
         } else if let valueAsData = characteristic.value {
             valueText = String(describing: valueAsData)
         }
@@ -505,6 +514,7 @@ extension CGA_ServiceViewController: UITableViewDataSource {
             print("Character \(characteristic.id) Value: \"\(valueText)\"")
         #endif
         
+        tableCell.valueLabel?.font = CGA_ServiceViewController_TableRow.valueFont
         tableCell.valueLabel?.text = valueText
         
         tableCell.accessibilityElements = [tableCell.characteristicIDLabel!, tableCell.propertiesStackView!, tableCell.valueLabel!]
@@ -532,12 +542,12 @@ extension CGA_ServiceViewController: UITableViewDelegate {
                 print("Characteristic \(characteristic.id) Found.")
             #endif
             if  let lastRowText = characteristic.stringValue {
-                let splitRow = lastRowText.setSplit(charactersIn: "\r\n")
-                height += CGA_ServiceViewController_TableRow.rowheights[2] * (CGFloat(splitRow.count) + 1)
+                let nsVariant = lastRowText as NSString
+                let stringSize = nsVariant.size(withAttributes: [.font: CGA_ServiceViewController_TableRow.valueFont])
+                height += stringSize.height
 
                 #if DEBUG
                     print("\tString Value: \"\(lastRowText)\"")
-                    print("\tAs Array: \(String(describing: splitRow))")
                     print("\tLine Height, In Display Units: \(height)")
                 #endif
             }

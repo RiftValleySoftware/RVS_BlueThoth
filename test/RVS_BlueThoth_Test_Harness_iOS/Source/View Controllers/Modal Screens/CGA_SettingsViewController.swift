@@ -132,6 +132,7 @@ class CGA_SettingsViewController: CGA_BaseViewController {
     
     /* ################################################################## */
     /**
+     This button controls whether or not to filter out empty names.
      */
     @IBOutlet weak var emptyNamesSwitch: UISwitch!
     
@@ -140,6 +141,18 @@ class CGA_SettingsViewController: CGA_BaseViewController {
      This button is the "label" for the switch. I always like my labels to actuate their targets. This toggles the value of the switch.
      */
     @IBOutlet weak var emptyNamesSwitchButton: UIButton!
+    
+    /* ################################################################## */
+    /**
+     This switch controls whether or not to always send endlines as CRLF pairs.
+     */
+    @IBOutlet weak var alwaysUseCRLFSwitch: UISwitch!
+    
+    /* ################################################################## */
+    /**
+     This button is the "label" for the switch. I always like my labels to actuate their targets. This toggles the value of the switch.
+     */
+    @IBOutlet weak var alwaysUseCRLFSwitchButton: UIButton!
 }
 
 /* ###################################################################################################################################### */
@@ -169,6 +182,8 @@ extension CGA_SettingsViewController {
         onlyConnectablesSwitch?.accessibilityLabel = ("SLUG-ACC-CONNECTED-ONLY-SWITCH-O" + (prefs.discoverOnlyConnectableDevices ? "N" : "FF")).localizedVariant
         emptyNamesSwitchButton?.accessibilityLabel = ("SLUG-ACC-EMPTY-NAMES-BUTTON-O" + (prefs.allowEmptyNames ? "N" : "FF")).localizedVariant
         emptyNamesSwitch?.accessibilityLabel = ("SLUG-ACC-EMPTY-NAMES-SWITCH-O" + (prefs.allowEmptyNames ? "N" : "FF")).localizedVariant
+        alwaysUseCRLFSwitch?.accessibilityLabel = ("SLUG-ACC-ALWAYS-USE-CRLF-O" + (prefs.alwaysUseCRLF ? "N" : "FF")).localizedVariant
+        alwaysUseCRLFSwitchButton?.accessibilityLabel = ("SLUG-ACC-ALWAYS-USE-CRLF-O" + (prefs.alwaysUseCRLF ? "N" : "FF")).localizedVariant
         minimumRSSILevelValueLabel?.accessibilityLabel = String(format: "SLUG-ACC-SLIDER-MIN-LABEL".localizedVariant, Int(minimumRSSILevelSlider?.minimumValue ?? -100))
         minimumRSSILevelMaxValLabel?.accessibilityLabel = String(format: "SLUG-ACC-SLIDER-MAX-LABEL".localizedVariant, Int(minimumRSSILevelSlider?.maximumValue ?? 0))
     }
@@ -270,6 +285,30 @@ extension CGA_SettingsViewController {
         prefs.allowEmptyNames = !prefs.allowEmptyNames
         updateUI()
     }
+    
+    /* ################################################################## */
+    /**
+     Called when the "Always Use CRLF" switch is hit.
+     This immediately updates our prefs.
+     
+     - parameter inSwitch: The switch object.
+     */
+    @IBAction func alwaysUseCRLFSwitchHit(_ inSwitch: UISwitch) {
+        prefs.alwaysUseCRLF = inSwitch.isOn
+        updateUI()
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the label for the switch is hit.
+     It toggles the value in the prefs, and forces a UI update, which will change the switch.
+     
+     - parameter: ignored.
+     */
+    @IBAction func alwaysUseCRLFButtonHit(_: Any) {
+        prefs.alwaysUseCRLF = !prefs.alwaysUseCRLF
+        updateUI()
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -342,6 +381,7 @@ extension CGA_SettingsViewController {
         super.viewDidLoad()
         ignoreDuplicatesSwitchButton?.setTitle(ignoreDuplicatesSwitchButton?.title(for: .normal)?.localizedVariant, for: .normal)
         onlyConnectablesSwitchButton?.setTitle(onlyConnectablesSwitchButton?.title(for: .normal)?.localizedVariant, for: .normal)
+        alwaysUseCRLFSwitchButton?.setTitle(alwaysUseCRLFSwitchButton?.title(for: .normal)?.localizedVariant, for: .normal)
         emptyNamesSwitchButton?.setTitle(emptyNamesSwitchButton?.title(for: .normal)?.localizedVariant, for: .normal)
         filterHeaderLabel?.text = filterHeaderLabel?.text?.localizedVariant
         deviceFilterLabel?.text = deviceFilterLabel?.text?.localizedVariant

@@ -32,6 +32,12 @@ import RVS_BlueThoth_iOS
 class CGA_InteractionViewController: CGA_BaseViewController, CGA_CharacteristicContainer {
     /* ################################################################## */
     /**
+     This is a carriage return/linefeed pair, which will always be used in place of a simple CR or LF, alone.
+     */
+    private static let _crlf = "\r\n"
+
+    /* ################################################################## */
+    /**
      */
     @IBOutlet weak var writeStackView: UIStackView!
 
@@ -98,13 +104,18 @@ extension CGA_InteractionViewController {
     @IBAction func writeSendButtonHit(_: Any! = nil) {
         tappedInScreen()
         // Have to have something to send.
-        if  let sendingText = writeTextView?.text,
-            !sendingText.isEmpty,
-            let data = sendingText.data(using: .utf8) {
-            #if DEBUG
-                print("Sending \"\(sendingText)\" to the Device")
-            #endif
-            characteristicInstance?.writeValue(data)
+        if  var sendingText = writeTextView?.text,
+            !sendingText.isEmpty {
+            // See if we are to send CRLF as line endings.
+            if prefs.alwaysUseCRLF {
+                sendingText = sendingText.replacingOccurrences(of: "\n", with: Self._crlf).replacingOccurrences(of: "\r", with: Self._crlf)
+            }
+            if let data = sendingText.data(using: .utf8) {
+                #if DEBUG
+                    print("Sending \"\(sendingText)\" to the Device")
+                #endif
+                characteristicInstance?.writeValue(data)
+            }
         }
     }
     
