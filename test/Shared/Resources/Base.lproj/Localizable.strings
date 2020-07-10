@@ -135,6 +135,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-NOTIFY-OFF"        =   "This Characteristic supports notify, but is not currently notifying. Touching this button will start the Characteristic notifying.";
 "SLUG-ACC-CHARACTERISTIC-ROW-VALUE-NO-DESCRIPTORS-FORMAT"       =   "This is the value for the Characteristic. It is \"\(%@).\"";
 "SLUG-ACC-CHARACTERISTIC-ROW-VALUE-FORMAT"                      =   "This is the value for the Characteristic. It is \"\(%@).\" If you touch this, a screen will appear, displaying the Descriptors for this Characteristic.";
+"SLUG-ACC-CHARACTERISTIC-ROW-INTERACT"                          =   "If you select this row, a screen will appear, allowing you to interact with this Characteristic.";
 
 // MARK: - The Descriptor List Screen
 "SLUG-ACC-DESCRIPTOR-TABLE"         =   "This is a list of the descriptors for this Characteristic. Selecting a row will cause that descriptor to refresh its value.";
@@ -148,6 +149,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-ACC-DESCRIPTOR-EXTENDED-RELIABLE-WR-YES"                  =   "Reliable Write is Enabled. ";
 "SLUG-ACC-DESCRIPTOR-EXTENDED-AUX-WR-NO"                        =   "Writable Auxiliaries is Not Enabled.";
 "SLUG-ACC-DESCRIPTOR-EXTENDED-AUX-WR-YES"                       =   "Writable Auxiliaries is Enabled.";
+"SLUG-ACC-DESCRIPTOR-INTERACT-BUTTON"                           =   "If you select this button, a screen will appear, allowing you to interact with this Characteristic.";
 
 // MARK: - The App Settings Screen
 "SLUG-ACC-CONTINUOUS-UPDATE-BUTTON-ON"              =   "This button will toggle the value of the switch that controls whether or not the app is continuously updating the device list while scanning. The switch is currently on, which means that the names, advertising data and signal strength of the devices in the list are being continuously updated.";

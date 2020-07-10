@@ -165,6 +165,7 @@ extension CGA_CharacteristicViewController {
         navigationItem.title = characteristicInstance?.id.localizedVariant
         interactionButton?.setTitle(interactionButton?.title(for: .normal)?.localizedVariant ?? "ERROR", for: .normal)
         interactionButton?.isHidden = !(characteristicInstance?.canWrite ?? false)
+        interactionButton?.accessibilityLabel = "SLUG-ACC-DESCRIPTOR-INTERACT-BUTTON".localizedVariant
         _refreshControl.tintColor = .white
         _refreshControl.addTarget(self, action: #selector(startOver(_:)), for: .valueChanged)
         descriptorsTableView?.refreshControl = _refreshControl

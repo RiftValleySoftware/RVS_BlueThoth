@@ -488,12 +488,24 @@ extension CGA_ServiceViewController: UITableViewDataSource {
             tableCell.valueLabel?.accessibilityLabel = String(format: "SLUG-ACC-CHARACTERISTIC-ROW-VALUE-FORMAT".localizedVariant, characteristic.stringValue ??
                                                                 (nil != characteristic.value ? String(describing: characteristic.value) : ""))
             
-            tapGestureRecognizer.accessibilityLabel = "SLUG-ACC-CHARACTERISTIC-ROW".localizedVariant
+            tapGestureRecognizer.accessibilityLabel = (0 < characteristic.count ? "SLUG-ACC-CHARACTERISTIC-ROW" : "SLUG-ACC-CHARACTERISTIC-ROW-INTERACT").localizedVariant
             tableCell.addGestureRecognizer(tapGestureRecognizer)
         }
         
         // If there is a String-convertible value, we display it. Otherwise, we either display a described Data item, or blank.
-        tableCell.valueLabel?.text = characteristic.stringValue ?? (nil != characteristic.value ? String(describing: characteristic.value) : "")
+        var valueText = ""
+        
+        if let stringValue = characteristic.stringValue {
+            valueText = stringValue
+        } else if let valueAsData = characteristic.value {
+            valueText = String(describing: valueAsData)
+        }
+
+        #if DEBUG
+            print("Character \(characteristic.id) Value: \"\(valueText)\"")
+        #endif
+        
+        tableCell.valueLabel?.text = valueText
         
         tableCell.accessibilityElements = [tableCell.characteristicIDLabel!, tableCell.propertiesStackView!, tableCell.valueLabel!]
 
@@ -521,7 +533,7 @@ extension CGA_ServiceViewController: UITableViewDelegate {
             #endif
             if  let lastRowText = characteristic.stringValue {
                 let splitRow = lastRowText.setSplit(charactersIn: "\r\n")
-                height += CGA_ServiceViewController_TableRow.rowheights[2] * CGFloat(splitRow.count)
+                height += CGA_ServiceViewController_TableRow.rowheights[2] * (CGFloat(splitRow.count) + 1)
 
                 #if DEBUG
                     print("\tString Value: \"\(lastRowText)\"")
