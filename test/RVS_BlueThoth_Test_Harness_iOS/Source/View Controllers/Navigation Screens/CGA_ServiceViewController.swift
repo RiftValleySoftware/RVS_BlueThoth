@@ -34,9 +34,9 @@ class CGA_ServiceViewController_TableRow: UITableViewCell {
     /**
      This is the height of each row, as an Array of CGFloat.
      */
-    static let rowheights: [CGFloat] = [30, // The top (ID) row
+    static let rowheights: [CGFloat] = [20, // The top (ID) row
                                         50, // The middle (properties) row
-                                        20  // The bottom (value) row
+                                        17  // The bottom (value) row font size
     ]
     
     /* ################################################################## */
@@ -541,10 +541,11 @@ extension CGA_ServiceViewController: UITableViewDelegate {
             #if DEBUG
                 print("Characteristic \(characteristic.id) Found.")
             #endif
-            if  let lastRowText = characteristic.stringValue {
+            if  let lastRowText = characteristic.stringValue,
+                !lastRowText.isEmpty {
                 let nsVariant = lastRowText as NSString
                 let stringSize = nsVariant.size(withAttributes: [.font: CGA_ServiceViewController_TableRow.valueFont])
-                height += stringSize.height
+                height += (stringSize.height + CGA_ServiceViewController_TableRow.rowheights[2] / 2.0)
 
                 #if DEBUG
                     print("\tString Value: \"\(lastRowText)\"")
