@@ -194,10 +194,9 @@ extension CGA_InteractionViewController {
         responseContainer?.isHidden = !(myCharacteristicInstance?.canWriteWithResponse ?? true)
         
         navigationItem.title = "SLUG-INTERACT".localizedVariant
-        _setUpAccessibility()
-        if myCharacteristicInstance?.canRead ?? false {
+        if (myCharacteristicInstance?.canRead ?? false) || (myCharacteristicInstance?.canNotify ?? false) {
             readStackView?.isHidden = false
-            readButton?.setTitle(readButton?.title(for: .normal)?.localizedVariant, for: .normal)
+            readButton?.setTitle(("SLUG-PROPERTIES-" + (!(myCharacteristicInstance?.canRead ?? false) ? "NOTIFY" : "READ")).localizedVariant, for: .normal)
         } else {
             readStackView?.isHidden = true
         }
@@ -232,6 +231,8 @@ extension CGA_InteractionViewController: CGA_UpdatableScreenViewController {
             notifyButton?.setTitleColor((myCharacteristicInstance?.isNotifying ?? false) ? (isDarkMode ? .black : .blue) : .white, for: .normal)
             notifyButton?.backgroundColor = (myCharacteristicInstance?.isNotifying ?? false) ? .green : .red
         }
+        
+        _setUpAccessibility()
     }
 }
 
