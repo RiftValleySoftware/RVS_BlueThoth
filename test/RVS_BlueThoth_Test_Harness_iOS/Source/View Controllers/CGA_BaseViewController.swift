@@ -62,7 +62,7 @@ protocol CGA_CharacteristicContainer: CGA_UpdatableScreenViewController {
     /**
      The Characteristic that is associated with this instance.
      */
-    var characteristicInstance: CGA_Bluetooth_Characteristic? { get }
+    var characteristicInstance: CGA_Bluetooth_Writable? { get }
 }
 
 /* ###################################################################################################################################### */

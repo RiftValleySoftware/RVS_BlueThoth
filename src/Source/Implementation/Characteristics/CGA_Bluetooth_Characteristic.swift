@@ -28,7 +28,7 @@ import CoreBluetooth
 /**
  This class "wraps" instances of CBCharacteristic, adding some functionality, and linking the hierarchy.
  */
-public class CGA_Bluetooth_Characteristic: CGA_Bluetooth_Characteristic_Protocol_Internal {
+public class CGA_Bluetooth_Characteristic: CGA_Bluetooth_Characteristic_Protocol_Internal, CGA_Bluetooth_Writable {
     /* ################################################################## */
     /**
      This is used to "aggregate" our data. If concatenateValue is true, then we append new data onto old.
@@ -317,6 +317,17 @@ public class CGA_Bluetooth_Characteristic: CGA_Bluetooth_Characteristic_Protocol
             #endif
             peripheral.writeValue(inData, for: cbElementInstance, type: (canWriteWithResponse && (inWithResponse || !canWriteWithoutResponse)) ? .withResponse : .withoutResponse)
         }
+    }
+        
+    /* ################################################################## */
+    /**
+     If we have write permission, the Peripheral is asked to write the given data into its value. It will avoid responsibility.
+     This variant of the method is to satisfy the protocol.
+     
+     - parameter inData: The Data instance to write.
+     */
+    public func writeValue(_ inData: Data) {
+        writeValue(inData, withResponseIfPossible: false)
     }
     
     // MARK: Internal Properties (Declared here, so it can be overridden).

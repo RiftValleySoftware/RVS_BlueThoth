@@ -26,6 +26,8 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
  Remember that Bluetooth is a very dynamic, realtime environment. Caches can be extremely problematic. We want caches, but safe ones.
  */
 
+import Foundation
+
 /* ###################################################################################################################################### */
 // MARK: - The Main Protocol for Each Type -
 /* ###################################################################################################################################### */
@@ -418,4 +420,26 @@ extension CGA_BlueThoth_Delegate {
             print("Default Protocol Central: \(inCentral) device: \(inDevice) Service: \(inService) Characteristic: \(inCharacteristic) Descriptor changed: \(inDescriptor)")
         #endif
     }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Writaeable Entity Protocol -
+/* ###################################################################################################################################### */
+/**
+ This is a simple protocol for a basic writer.
+ */
+public protocol CGA_Bluetooth_Writable {
+    /* ################################################################## */
+    /**
+     REQUIRED: This returns a unique UUID String for the instance.
+     */
+    var id: String { get }
+    
+    /* ################################################################## */
+    /**
+     Writes data to the device.
+     
+     - parameter inData: The data to be sent to the device.
+     */
+    func writeValue(_ inData: Data)
 }

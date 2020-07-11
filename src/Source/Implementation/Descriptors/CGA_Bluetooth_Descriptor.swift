@@ -28,7 +28,7 @@ import CoreBluetooth
 /**
  This class "wraps" instances of CBDescriptor, adding some functionality, and linking the hierarchy.
  */
-public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Internal {
+public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Internal, CGA_Bluetooth_Writable {
     // MARK: Public Properties
     
     /* ################################################################## */
@@ -36,6 +36,17 @@ public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Interna
      If the Descriptor has a value, it is returned here. It is completely untyped, as each descriptor has its own types.
      */
     public var value: Any? { cbElementInstance?.value }
+    
+    /* ################################################################## */
+    /**
+     */
+    public var concatenateValue: Bool = false
+    
+    /* ################################################################## */
+    /**
+     */
+    @discardableResult
+    public func clearConcatenate(newValue inNewValue: Bool? = nil) -> Bool { false }
     
     /* ################################################################## */
     /**
