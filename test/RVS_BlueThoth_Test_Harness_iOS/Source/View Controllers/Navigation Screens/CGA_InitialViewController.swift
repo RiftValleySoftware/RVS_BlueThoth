@@ -563,8 +563,8 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
         if  let currentScreen = _currentDeviceScreen as? CGA_ServiceContainer,
             currentScreen.serviceInstance?.id == inService.id {
             currentScreen.updateUI()
-        } else if   let currentScreen = _currentDeviceScreen as? CGA_CharacteristicContainer,
-                    currentScreen.characteristicInstance?.id == inCharacteristic.id {
+        } else if   let currentScreen = _currentDeviceScreen as? CGA_WriteableElementContainer,
+                    currentScreen.writeableElementInstance?.id == inCharacteristic.id {
             currentScreen.updateUI()
         } else {
             

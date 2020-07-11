@@ -52,17 +52,17 @@ protocol CGA_ServiceContainer: CGA_UpdatableScreenViewController {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - The CGA_CharacteristicContainer Protocol -
+// MARK: - The CGA_WriteableElementContainer Protocol -
 /* ###################################################################################################################################### */
 /**
- This protocol allows us to associate a Characteristic instance with any instance we want.
+ This protocol allows us to associate a Characteristic or Descriptor instance with any instance we want.
  */
-protocol CGA_CharacteristicContainer: CGA_UpdatableScreenViewController {
+protocol CGA_WriteableElementContainer: CGA_UpdatableScreenViewController {
     /* ################################################################## */
     /**
      The Characteristic that is associated with this instance.
      */
-    var characteristicInstance: CGA_Bluetooth_Writable? { get }
+    var writeableElementInstance: CGA_Bluetooth_Writable? { get }
 }
 
 /* ###################################################################################################################################### */

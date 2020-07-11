@@ -55,7 +55,7 @@ class CGA_CharacteristicViewController_TableRow: UITableViewCell {
 /**
  This controls the Characteristic Information View.
  */
-class CGA_CharacteristicViewController: CGA_BaseViewController, CGA_CharacteristicContainer {
+class CGA_CharacteristicViewController: CGA_BaseViewController, CGA_WriteableElementContainer {
     /* ################################################################## */
     /**
      The reuse ID that we use for creating new table cells.
@@ -63,11 +63,11 @@ class CGA_CharacteristicViewController: CGA_BaseViewController, CGA_Characterist
     private static let _descriptorRowReuseID = "detail-row"
     
     /* ################################################################## */
-    /**
-     The ID of the segue that is executed to display the Interaction Screen.
-     */
-    private static let _interactionSegueID = "interaction-screen"
-    
+       /**
+        The ID of the segue that is executed to display the Descriptor Interaction Screen.
+        */
+    private static let _interactionDescriptorSegueID = "show-descriptor-write"
+
     /* ################################################################## */
     /**
      This implements a "pull to refresh."
@@ -78,14 +78,14 @@ class CGA_CharacteristicViewController: CGA_BaseViewController, CGA_Characterist
     /**
      The Characteristic that is associated with this view controller.
      */
-    var characteristicInstance: CGA_Bluetooth_Writable?
+    var writeableElementInstance: CGA_Bluetooth_Writable?
     
     /* ################################################################## */
     /**
      The Characteristic that is associated with this view controller, cast from the writable entity.
      */
     var myCharacteristicInstance: CGA_Bluetooth_Characteristic? {
-        characteristicInstance as? CGA_Bluetooth_Characteristic
+        writeableElementInstance as? CGA_Bluetooth_Characteristic
     }
 
     /* ################################################################## */
@@ -190,7 +190,7 @@ extension CGA_CharacteristicViewController {
     override func prepare(for inSegue: UIStoryboardSegue, sender inSender: Any?) {
         guard let destination = inSegue.destination as? CGA_InteractionViewController else { return }
         
-        destination.characteristicInstance = characteristicInstance
+        destination.writeableElementInstance = writeableElementInstance
     }
 }
 
@@ -258,7 +258,12 @@ extension CGA_CharacteristicViewController: UITableViewDelegate {
      - parameter didSelectRowAt: The index path (section, row) for the cell.
      */
     func tableView(_ inTableView: UITableView, didSelectRowAt inIndexPath: IndexPath) {
+        // We always read the value.
         myCharacteristicInstance?[inIndexPath.row].readValue()
-        inTableView.deselectRow(at: inIndexPath, animated: false)
+        // If we are not the client configuration descriptor, then we can also write.
+        if !(myCharacteristicInstance?[inIndexPath.row] is CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration) {
+            performSegue(withIdentifier: Self._interactionDescriptorSegueID, sender: myCharacteristicInstance?[inIndexPath.row])
+            inTableView.deselectRow(at: inIndexPath, animated: false)
+        }
     }
 }

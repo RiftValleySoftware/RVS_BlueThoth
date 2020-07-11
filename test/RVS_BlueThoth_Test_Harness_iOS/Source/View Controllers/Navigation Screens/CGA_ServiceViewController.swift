@@ -309,12 +309,12 @@ extension CGA_ServiceViewController {
         // We only go further if we are looking at Service details.
         guard   let destination = inSegue.destination as? CGA_CharacteristicViewController else {
                     if let destination = inSegue.destination as? CGA_InteractionViewController {
-                        destination.characteristicInstance = senderData
+                        destination.writeableElementInstance = senderData
                     }
                     return
         }
         
-        destination.characteristicInstance = senderData
+        destination.writeableElementInstance = senderData
     }
 }
 
