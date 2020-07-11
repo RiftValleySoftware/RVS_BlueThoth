@@ -831,7 +831,7 @@
                                         </connections>
                                     </switch>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HNa-s8-MXF">
-                                        <rect key="frame" x="8" y="469" width="295" height="30"/>
+                                        <rect key="frame" x="8" y="468.5" width="295" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="qaM-S4-PcP"/>
                                         </constraints>
@@ -1099,7 +1099,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-WRITE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qaV-lm-Wdy">
-                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="115.5" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="kIb-dd-xvA"/>
                                                         </constraints>
@@ -1107,8 +1107,25 @@
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bk0-sb-sVg">
+                                                        <rect key="frame" x="115.5" y="0.0" width="258.5" height="30"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Sm-uI-mqB">
+                                                                <rect key="frame" x="0.0" y="0.0" width="209.5" height="30"/>
+                                                                <accessibility key="accessibilityConfiguration" label="SLUG-ACC-WITH-RESPONSE"/>
+                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                                <state key="normal" title="SLUG-WITH-RESPONSE">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                            </button>
+                                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Gf2-Ly-49H">
+                                                                <rect key="frame" x="209.5" y="0.0" width="51" height="30"/>
+                                                                <accessibility key="accessibilityConfiguration" label="SLUG-ACC-WITH-RESPONSE-SWITCH"/>
+                                                            </switch>
+                                                        </subviews>
+                                                    </stackView>
                                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0eh-iX-I65">
-                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="30"/>
+                                                        <rect key="frame" x="374" y="0.0" width="0.0" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="L9R-kz-90F"/>
                                                         </constraints>
@@ -1226,6 +1243,9 @@
                         <outlet property="readButton" destination="qd4-HE-Mbw" id="OZQ-bV-GmC"/>
                         <outlet property="readStackView" destination="2AJ-vY-UbF" id="jWN-eR-PMa"/>
                         <outlet property="readTextView" destination="W41-to-7NP" id="pa3-J8-gY0"/>
+                        <outlet property="responseContainer" destination="Bk0-sb-sVg" id="x7F-Iv-TdY"/>
+                        <outlet property="responseLabelButton" destination="3Sm-uI-mqB" id="DLp-y9-34g"/>
+                        <outlet property="responseSwitch" destination="Gf2-Ly-49H" id="dcg-CR-EIK"/>
                         <outlet property="writeLabel" destination="qaV-lm-Wdy" id="aAO-F2-0ZH"/>
                         <outlet property="writeSendButton" destination="0eh-iX-I65" id="V3c-A6-xXf"/>
                         <outlet property="writeStackView" destination="wYd-id-jPP" id="zzs-jR-nlU"/>

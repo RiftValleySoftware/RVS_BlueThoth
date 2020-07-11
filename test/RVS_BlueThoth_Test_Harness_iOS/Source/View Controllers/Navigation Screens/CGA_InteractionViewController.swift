@@ -74,6 +74,21 @@ class CGA_InteractionViewController: CGA_BaseViewController, CGA_CharacteristicC
     /* ################################################################## */
     /**
      */
+    @IBOutlet weak var responseContainer: UIStackView!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var responseLabelButton: UIButton!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var responseSwitch: UISwitch!
+
+    /* ################################################################## */
+    /**
+     */
     @IBOutlet weak var notifyButton: UIButton!
     
     /* ################################################################## */
@@ -88,6 +103,21 @@ class CGA_InteractionViewController: CGA_BaseViewController, CGA_CharacteristicC
      */
     var myCharacteristicInstance: CGA_Bluetooth_Characteristic? {
         characteristicInstance as? CGA_Bluetooth_Characteristic
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Private Methods -
+/* ###################################################################################################################################### */
+extension CGA_InteractionViewController {
+    /* ################################################################## */
+    /**
+     This sets up the accessibility and voiceover strings for the screen.
+     */
+    private func _setUpAccessibility() {
+        notifyButton?.accessibilityLabel = notifyButton?.accessibilityLabel?.localizedVariant
+        responseLabelButton?.accessibilityLabel = notifyButton?.accessibilityLabel?.localizedVariant
+        responseSwitch?.accessibilityLabel = responseSwitch?.accessibilityLabel?.localizedVariant
     }
 }
 
@@ -159,9 +189,12 @@ extension CGA_InteractionViewController {
     override func viewDidLoad() {
         writeLabel?.text = writeLabel?.text?.localizedVariant ?? "ERROR"
         writeSendButton?.setTitle(writeSendButton?.title(for: .normal)?.localizedVariant, for: .normal)
+        responseLabelButton?.setTitle(responseLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         notifyButton?.isHidden = !(myCharacteristicInstance?.canNotify ?? true)
-        navigationItem.title = "SLUG-INTERACT".localizedVariant
+        responseContainer?.isHidden = !(myCharacteristicInstance?.canWriteWithResponse ?? true)
         
+        navigationItem.title = "SLUG-INTERACT".localizedVariant
+        _setUpAccessibility()
         if myCharacteristicInstance?.canRead ?? false {
             readStackView?.isHidden = false
             readButton?.setTitle(readButton?.title(for: .normal)?.localizedVariant, for: .normal)
@@ -195,10 +228,9 @@ extension CGA_InteractionViewController: CGA_UpdatableScreenViewController {
 
         if myCharacteristicInstance?.canNotify ?? false {
             let title = "SLUG-PROPERTIES-NOTIFY-\((myCharacteristicInstance?.isNotifying ?? false) ? "ON" : "OFF")"
-            notifyButton.setTitle(title.localizedVariant, for: .normal)
-            notifyButton.setTitleColor((myCharacteristicInstance?.isNotifying ?? false) ? (isDarkMode ? .black : .blue) : .white, for: .normal)
-            notifyButton.backgroundColor = (myCharacteristicInstance?.isNotifying ?? false) ? .green : .red
-            notifyButton.accessibilityLabel = notifyButton.accessibilityLabel?.localizedVariant
+            notifyButton?.setTitle(title.localizedVariant, for: .normal)
+            notifyButton?.setTitleColor((myCharacteristicInstance?.isNotifying ?? false) ? (isDarkMode ? .black : .blue) : .white, for: .normal)
+            notifyButton?.backgroundColor = (myCharacteristicInstance?.isNotifying ?? false) ? .green : .red
         }
     }
 }

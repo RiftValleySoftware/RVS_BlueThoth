@@ -72,6 +72,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 
 // MARK: - Interaction Screen
 "SLUG-WRITE"                        =   "WRITE";
+"SLUG-WITH-RESPONSE"                =   "RESPONSE";
 "SLUG-READ"                         =   "READ";
 "SLUG-SEND"                         =   "SEND";
 
@@ -183,6 +184,8 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 
 // MARK: - Interaction Screen
 "SLUG-ACC-NOTIFICATION-BUTTON"      =   "This button controls whether or not the Characteristic is notifying.";
+"SLUG-ACC-WITH-RESPONSE"            =   "Toggles the value of the Response Switch.";
+"SLUG-ACC-WITH-RESPONSE-SWITCH"     =   "If on, then the write will be sent, requiring a response from the device.";
 
 /// MARK: - DATA INTERPRETATION
 
