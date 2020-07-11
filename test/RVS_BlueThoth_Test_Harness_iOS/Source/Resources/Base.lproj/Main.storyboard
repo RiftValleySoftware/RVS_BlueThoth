@@ -1117,6 +1117,9 @@
                                                                 <state key="normal" title="SLUG-WITH-RESPONSE">
                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="responseButtonHit:" destination="KOt-zR-Vpp" eventType="touchUpInside" id="Cld-0m-B1L"/>
+                                                                </connections>
                                                             </button>
                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Gf2-Ly-49H">
                                                                 <rect key="frame" x="209.5" y="0.0" width="51" height="30"/>

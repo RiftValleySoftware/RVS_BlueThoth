@@ -148,13 +148,26 @@ extension CGA_InteractionViewController {
             if prefs.alwaysUseCRLF {
                 sendingText = sendingText.replacingOccurrences(of: "\n", with: Self._crlf).replacingOccurrences(of: "\r", with: Self._crlf)
             }
-            if let data = sendingText.data(using: .utf8) {
+            if  let data = sendingText.data(using: .utf8),
+                let responseValue = (responseSwitch?.isHidden ?? true) ? false : responseSwitch?.isOn {
                 #if DEBUG
                     print("Sending \"\(sendingText)\" to the Device")
+                    if responseValue {
+                        print("\tAnd asking for a response, if possible.")
+                    }
                 #endif
-                characteristicInstance?.writeValue(data)
+                myCharacteristicInstance?.writeValue(data, withResponseIfPossible: responseValue)
             }
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     - parameter: ignored (and optional)
+     */
+    @IBAction func responseButtonHit(_: Any! = nil) {
+        tappedInScreen()
+        responseSwitch?.isOn = !(responseSwitch?.isOn ?? true)
     }
     
     /* ################################################################## */
@@ -165,7 +178,7 @@ extension CGA_InteractionViewController {
         tappedInScreen()
         myCharacteristicInstance?.readValue()
     }
-    
+
     /* ################################################################## */
     /**
      - parameter: ignored (and optional)
@@ -214,13 +227,10 @@ extension CGA_InteractionViewController: CGA_UpdatableScreenViewController {
      This simply makes sure that the UI matches the state of the Characteristic.
      */
     func updateUI() {
-        if  let data = myCharacteristicInstance?.value,
+        if  ((myCharacteristicInstance?.canRead ?? false) || (myCharacteristicInstance?.canNotify ?? false)),
+            let data = myCharacteristicInstance?.value,
             let stringValue = String(data: data, encoding: .utf8) {
-            if myCharacteristicInstance?.canRead ?? false {
-                readTextView?.text = stringValue
-            } else {
-                writeTextView?.text = stringValue
-            }
+            readTextView?.text = stringValue
         }
         
         writeLabel?.isHidden = !(writeSendButton?.isHidden ?? false)

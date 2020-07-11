@@ -455,7 +455,7 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
             mappableLayers.insert(lastError, at: 1)
         }
         
-        CGA_AppDelegate.displayAlert("SLUG-ERROR".localizedVariant, message: mappableLayers.map { $0.localizedVariant }.joined(separator: "\n"))
+        CGA_AppDelegate.displayAlert(header: "SLUG-ERROR".localizedVariant, message: mappableLayers.map { $0.localizedVariant }.joined(separator: "\n"))
     }
     
     /* ################################################################## */

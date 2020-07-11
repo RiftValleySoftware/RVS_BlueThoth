@@ -39,28 +39,32 @@ class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
      - parameter message: a string to be displayed as the message of the alert. It is localized by this method.
      - parameter presentedBy: An optional UIViewController object that is acting as the presenter context for the alert. If nil, we use the top controller of the Navigation stack.
      */
-    class func displayAlert(_ inTitle: String, message inMessage: String ) {
-        #if DEBUG
-            print("ALERT:\t\(inTitle)\n\t\t\(inMessage)")
-        #endif
-        DispatchQueue.main.async {  // In case we're called off-thread...
-            if  let navController = appDelegateObject.window?.rootViewController as? UINavigationController,
-                let presentedBy = navController.topViewController {
-                // We use an alert for iPads, as action sheets are more complicated than we need for this.
-                let alertController = UIAlertController(title: inTitle, message: inMessage, preferredStyle: .pad == presentedBy.traitCollection.userInterfaceIdiom ? .alert : .actionSheet)
+    class func displayAlert(header inHeader: String, message inMessage: String = "", presentedBy inPresentingViewController: UIViewController! = nil) {
+        // This ensures that we are on the main thread.
+        DispatchQueue.main.async {
+            var presentedBy = inPresentingViewController
+            
+            if nil == presentedBy {
+                presentedBy = (UIApplication.shared.windows.filter { $0.isKeyWindow }.first)?.rootViewController
+            }
+            
+            if nil == presentedBy {
+                presentedBy = UIApplication.shared.delegate?.window??.rootViewController
+            }
+
+            if nil != presentedBy {
+                let style: UIAlertController.Style = ((.pad == presentedBy?.traitCollection.userInterfaceIdiom) || false) ? .alert : .actionSheet
+                let alertController = UIAlertController(title: inHeader, message: inMessage, preferredStyle: style)
+
                 let okAction = UIAlertAction(title: "SLUG-OK-BUTTON-TEXT".localizedVariant, style: UIAlertAction.Style.cancel, handler: nil)
                 
                 alertController.addAction(okAction)
                 
-                presentedBy.present(alertController, animated: true, completion: nil)
-            } else {
-                #if DEBUG
-                    print("ERROR! No top view controller!")
-                #endif
+                presentedBy?.present(alertController, animated: true, completion: nil)
             }
         }
     }
-    
+
     /* ################################################################## */
     /**
      This creates an Array of String, containing the advertisement data from the indexed device.
