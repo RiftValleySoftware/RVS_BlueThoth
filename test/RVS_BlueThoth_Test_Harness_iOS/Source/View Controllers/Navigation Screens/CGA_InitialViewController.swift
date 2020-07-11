@@ -595,6 +595,28 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
             currentScreen.updateUI()
         }
     }
+    
+    /* ################################################################## */
+    /**
+     This is called to tell the instance that a Characteristic write with response received its response.
+     
+     - parameter inCentralManager: The central manager that is calling this.
+     - parameter device: The device instance that contained the changed Service.
+     - parameter service: The Service instance that contained the changed Characteristic.
+     - parameter characteristicWriteComplete: The Characteristic that had its write completed.
+     */
+    func centralManager(_ inCentralManager: RVS_BlueThoth, device inPeripheral: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, characteristicWriteComplete inCharacteristic: CGA_Bluetooth_Characteristic) {
+        #if DEBUG
+            print("Characteristic: \(inCharacteristic.id) Wrote Its Value")
+            if  let stringValue = inCharacteristic.stringValue {
+                print("\tCharacteristic String Value: \"\(stringValue)\"")
+            }
+        #endif
+        CGA_AppDelegate.displayAlert(header: "WRITE-RESPONSE".localizedVariant)
+        if let currentScreen = _currentDeviceScreen as? CGA_CharacteristicViewController {
+            currentScreen.updateUI()
+        }
+    }
 }
 
 /* ###################################################################################################################################### */

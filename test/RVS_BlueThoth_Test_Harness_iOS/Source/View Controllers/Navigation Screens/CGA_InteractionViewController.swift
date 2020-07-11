@@ -149,7 +149,7 @@ extension CGA_InteractionViewController {
                 sendingText = sendingText.replacingOccurrences(of: "\n", with: Self._crlf).replacingOccurrences(of: "\r", with: Self._crlf)
             }
             if  let data = sendingText.data(using: .utf8),
-                let responseValue = (responseSwitch?.isHidden ?? true) ? false : responseSwitch?.isOn {
+                let responseValue = (responseSwitch?.isHidden ?? false) ? false : responseSwitch?.isOn {
                 #if DEBUG
                     print("Sending \"\(sendingText)\" to the Device")
                     if responseValue {
@@ -204,7 +204,7 @@ extension CGA_InteractionViewController {
         writeSendButton?.setTitle(writeSendButton?.title(for: .normal)?.localizedVariant, for: .normal)
         responseLabelButton?.setTitle(responseLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         notifyButton?.isHidden = !(myCharacteristicInstance?.canNotify ?? true)
-        responseContainer?.isHidden = !(myCharacteristicInstance?.canWriteWithResponse ?? true)
+        responseContainer?.isHidden = !(myCharacteristicInstance?.canWriteWithResponse ?? true) || !(myCharacteristicInstance?.canWriteWithoutResponse ?? true)
         
         navigationItem.title = "SLUG-INTERACT".localizedVariant
         if (myCharacteristicInstance?.canRead ?? false) || (myCharacteristicInstance?.canNotify ?? false) {

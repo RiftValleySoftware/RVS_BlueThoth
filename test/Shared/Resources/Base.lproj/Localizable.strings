@@ -35,6 +35,8 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "CGA-ERROR-DESCRIPTOR"              =   "Descriptor Error";
 "CGA-ERROR-INTERNAL"                =   "Internal Error";
 
+"WRITE-RESPONSE"                    =   "The Characteristic Write Was Successful";
+
 // MARK: - Device List screen
 "SLUG-DEVICES"                      =   "Device List";
 "SLUG-DISCOVERED-DEVICES"           =   "DISCOVERED DEVICES";
@@ -72,7 +74,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 
 // MARK: - Interaction Screen
 "SLUG-WRITE"                        =   "WRITE";
-"SLUG-WITH-RESPONSE"                =   "RESPONSE";
+"SLUG-WITH-RESPONSE"                =   "RESPONSE:";
 "SLUG-READ"                         =   "READ";
 "SLUG-SEND"                         =   "SEND";
 

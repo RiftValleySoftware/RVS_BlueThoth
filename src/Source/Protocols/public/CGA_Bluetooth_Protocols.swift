@@ -279,7 +279,7 @@ public protocol CGA_BlueThoth_Delegate: class {
      - parameter centralManager: The central manager that is calling this.
      - parameter device: The device instance that contained the changed Service.
      - parameter service: The Service instance that contained the changed Characteristic.
-     - parameter characteristicWriteComplete: The Characteristic that hads its write completed.
+     - parameter characteristicWriteComplete: The Characteristic that had its write completed.
      */
     func centralManager(_ centralManager: RVS_BlueThoth, device: CGA_Bluetooth_Peripheral, service: CGA_Bluetooth_Service, characteristicWriteComplete: CGA_Bluetooth_Characteristic)
     
