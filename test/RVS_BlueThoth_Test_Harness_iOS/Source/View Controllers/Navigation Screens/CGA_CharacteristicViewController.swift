@@ -188,9 +188,12 @@ extension CGA_CharacteristicViewController {
      - parameter sender: The data we want passed into the destination (ignored).
      */
     override func prepare(for inSegue: UIStoryboardSegue, sender inSender: Any?) {
-        guard let destination = inSegue.destination as? CGA_InteractionViewController else { return }
-        
-        destination.writeableElementInstance = writeableElementInstance
+        if let destination = inSegue.destination as? CGA_InteractionViewController {
+            destination.writeableElementInstance = writeableElementInstance
+        } else if   let destination = inSegue.destination as? CGA_DescriptorInteractionViewController,
+                    let descriptor = inSender as? CGA_Bluetooth_Descriptor {
+            destination.writeableElementInstance = descriptor
+        }
     }
 }
 
@@ -261,7 +264,8 @@ extension CGA_CharacteristicViewController: UITableViewDelegate {
         // We always read the value.
         myCharacteristicInstance?[inIndexPath.row].readValue()
         // If we are not the client configuration descriptor, then we can also write.
-        if !(myCharacteristicInstance?[inIndexPath.row] is CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration) {
+        if  !(myCharacteristicInstance?[inIndexPath.row] is CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration),
+            !(myCharacteristicInstance?[inIndexPath.row] is CGA_Bluetooth_Descriptor_PresentationFormat) {
             performSegue(withIdentifier: Self._interactionDescriptorSegueID, sender: myCharacteristicInstance?[inIndexPath.row])
             inTableView.deselectRow(at: inIndexPath, animated: false)
         }
