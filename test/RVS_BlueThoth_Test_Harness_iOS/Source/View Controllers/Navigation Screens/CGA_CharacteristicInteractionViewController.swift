@@ -24,12 +24,12 @@ import UIKit
 import RVS_BlueThoth_iOS
 
 /* ###################################################################################################################################### */
-// MARK: - The Interaction View Controller -
+// MARK: - The Characteristic Interaction View Controller -
 /* ###################################################################################################################################### */
 /**
  This controls the Interaction View.
  */
-class CGA_InteractionViewController: CGA_BaseViewController, CGA_WriteableElementContainer {
+class CGA_CharacteristicInteractionViewController: CGA_BaseViewController, CGA_WriteableElementContainer {
     /* ################################################################## */
     /**
      This is a carriage return/linefeed pair, which will always be used in place of a simple CR or LF, alone.
@@ -109,7 +109,7 @@ class CGA_InteractionViewController: CGA_BaseViewController, CGA_WriteableElemen
 /* ###################################################################################################################################### */
 // MARK: - Private Methods -
 /* ###################################################################################################################################### */
-extension CGA_InteractionViewController {
+extension CGA_CharacteristicInteractionViewController {
     /* ################################################################## */
     /**
      This sets up the accessibility and voiceover strings for the screen.
@@ -124,7 +124,7 @@ extension CGA_InteractionViewController {
 /* ###################################################################################################################################### */
 // MARK: - IBAction Handlers -
 /* ###################################################################################################################################### */
-extension CGA_InteractionViewController {
+extension CGA_CharacteristicInteractionViewController {
     /* ################################################################## */
     /**
      This reacts to a tap in the area outside the keyboard, and puts away the keyboard.
@@ -195,7 +195,7 @@ extension CGA_InteractionViewController {
 /* ###################################################################################################################################### */
 // MARK: - Base Class Override -
 /* ###################################################################################################################################### */
-extension CGA_InteractionViewController {
+extension CGA_CharacteristicInteractionViewController {
     /* ################################################################## */
     /**
      */
@@ -222,7 +222,7 @@ extension CGA_InteractionViewController {
 /* ###################################################################################################################################### */
 // MARK: - CGA_UpdatableScreenViewController Conformance -
 /* ###################################################################################################################################### */
-extension CGA_InteractionViewController: CGA_UpdatableScreenViewController {
+extension CGA_CharacteristicInteractionViewController: CGA_UpdatableScreenViewController {
     /* ################################################################## */
     /**
      This simply makes sure that the UI matches the state of the Characteristic.
@@ -250,7 +250,7 @@ extension CGA_InteractionViewController: CGA_UpdatableScreenViewController {
 /* ###################################################################################################################################### */
 // MARK: - Text View Delegate -
 /* ###################################################################################################################################### */
-extension CGA_InteractionViewController: UITextViewDelegate {
+extension CGA_CharacteristicInteractionViewController: UITextViewDelegate {
     /* ################################################################## */
     /**
      Called when some text or attributes change in the text view.

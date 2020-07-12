@@ -128,7 +128,7 @@
 		D4B49CFF2455128300932C3D /* CGA_Bluetooth_Characteristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B49C9824550F1800932C3D /* CGA_Bluetooth_Characteristic.swift */; };
 		D4B49D002455128300932C3D /* CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B49C9B24550F1800932C3D /* CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration.swift */; };
 		D4B49D012455128300932C3D /* CGA_Bluetooth_Descriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B49C9C24550F1800932C3D /* CGA_Bluetooth_Descriptor.swift */; };
-		D4BB6ABF24B3B5F1006FB2ED /* CGA_InteractionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BB6ABE24B3B5F1006FB2ED /* CGA_InteractionViewController.swift */; };
+		D4BB6ABF24B3B5F1006FB2ED /* CGA_CharacteristicInteractionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BB6ABE24B3B5F1006FB2ED /* CGA_CharacteristicInteractionViewController.swift */; };
 		D4BC2F70245B4C13003B4775 /* CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BC2F6F245B4C13003B4775 /* CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift */; };
 		D4BC2F71245B4C13003B4775 /* CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BC2F6F245B4C13003B4775 /* CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift */; };
 		D4C3630B24675F1D00A378B1 /* RVS_BlueThoth_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B49CE0245511B700932C3D /* RVS_BlueThoth_iOS.framework */; };
@@ -334,7 +334,7 @@
 		D4B49CA324550F1800932C3D /* CGA_Bluetooth_Service_Battery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Service_Battery.swift; sourceTree = "<group>"; };
 		D4B49CD82455113F00932C3D /* MacOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MacOS-Info.plist"; sourceTree = "<group>"; };
 		D4B49CE0245511B700932C3D /* RVS_BlueThoth_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RVS_BlueThoth_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4BB6ABE24B3B5F1006FB2ED /* CGA_InteractionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_InteractionViewController.swift; sourceTree = "<group>"; };
+		D4BB6ABE24B3B5F1006FB2ED /* CGA_CharacteristicInteractionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_CharacteristicInteractionViewController.swift; sourceTree = "<group>"; };
 		D4BC2F6F245B4C13003B4775 /* CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift; sourceTree = "<group>"; };
 		D4C2D38B24550ABC00197A0A /* RVS_BlueThoth_MacOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RVS_BlueThoth_MacOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4C9781724BA408400D58528 /* CGA_DescriptorInteractionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_DescriptorInteractionViewController.swift; sourceTree = "<group>"; };
@@ -547,7 +547,7 @@
 				D431EC2624675E8D0094BB23 /* CGA_PeripheralViewController.swift */,
 				D431EC2724675E8D0094BB23 /* CGA_ServiceViewController.swift */,
 				D431EC2824675E8D0094BB23 /* CGA_CharacteristicViewController.swift */,
-				D4BB6ABE24B3B5F1006FB2ED /* CGA_InteractionViewController.swift */,
+				D4BB6ABE24B3B5F1006FB2ED /* CGA_CharacteristicInteractionViewController.swift */,
 				D4C9781724BA408400D58528 /* CGA_DescriptorInteractionViewController.swift */,
 			);
 			path = "Navigation Screens";
@@ -1153,7 +1153,7 @@
 				D431EC3D24675E8D0094BB23 /* CGA_InitialViewController.swift in Sources */,
 				D431EC3C24675E8D0094BB23 /* CGA_CharacteristicViewController.swift in Sources */,
 				D431EC3A24675E8D0094BB23 /* CGA_PeripheralViewController.swift in Sources */,
-				D4BB6ABF24B3B5F1006FB2ED /* CGA_InteractionViewController.swift in Sources */,
+				D4BB6ABF24B3B5F1006FB2ED /* CGA_CharacteristicInteractionViewController.swift in Sources */,
 				D4C9781824BA408400D58528 /* CGA_DescriptorInteractionViewController.swift in Sources */,
 				D431EC3E24675E8D0094BB23 /* CGA_BaseViewController.swift in Sources */,
 				D431EC4224675E8D0094BB23 /* CGA_PersistentPrefs.swift in Sources */,

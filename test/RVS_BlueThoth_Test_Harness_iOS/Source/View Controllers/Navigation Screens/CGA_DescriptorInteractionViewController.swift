@@ -103,6 +103,17 @@ extension CGA_DescriptorInteractionViewController {
      */
     @IBAction func writeSendButtonHit(_: Any! = nil) {
         tappedInScreen()
+        // Have to have something to send.
+        if  var sendingText = writeTextView?.text,
+            !sendingText.isEmpty {
+            // See if we are to send CRLF as line endings.
+            if prefs.alwaysUseCRLF {
+                sendingText = sendingText.replacingOccurrences(of: "\n", with: Self._crlf).replacingOccurrences(of: "\r", with: Self._crlf)
+            }
+            if let data = sendingText.data(using: .utf8) {
+                myDescriptorInstance?.writeValue(data)
+            }
+        }
     }
 }
 

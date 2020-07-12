@@ -188,7 +188,7 @@ extension CGA_CharacteristicViewController {
      - parameter sender: The data we want passed into the destination (ignored).
      */
     override func prepare(for inSegue: UIStoryboardSegue, sender inSender: Any?) {
-        if let destination = inSegue.destination as? CGA_InteractionViewController {
+        if let destination = inSegue.destination as? CGA_CharacteristicInteractionViewController {
             destination.writeableElementInstance = writeableElementInstance
         } else if   let destination = inSegue.destination as? CGA_DescriptorInteractionViewController,
                     let descriptor = inSender as? CGA_Bluetooth_Descriptor {

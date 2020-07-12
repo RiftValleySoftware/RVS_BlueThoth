@@ -61,6 +61,8 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-PROPERTIES-READ"              =   " READ ";
 "SLUG-PROPERTIES-NOTIFY-OFF"        =   " NOTIFY ";
 "SLUG-PROPERTIES-NOTIFY-ON"         =   " NOTIFYING ";
+"SLUG-PROPERTIES-INDICATE-OFF"      =   " INDICATE ";
+"SLUG-PROPERTIES-INDICATE-ON"       =   " INDICATING ";
 // Simple Labels
 "SLUG-PROPERTIES-WRITE"             =   " WN ";
 "SLUG-PROPERTIES-WRITE-RESPONSE"    =   " WR ";
@@ -185,6 +187,9 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-ACC-COPYRIGHT-BUTTON"         =   "This button displays the copyright information for the app. If you touch it, it will take you to the Great Rift Valley Software Company Web page in the browser.";
 
 // MARK: - Interaction Screen
+"SLUG-ACC-WRITE-TEXT"               =   "This Text Field allows you to enter text to be sent to the device.";
+"SLUG-ACC-READ-TEXT"                =   "This Text Field displays text received from the device.";
+"SLUG-ACC-READ-BUTTON"              =   "Read the value of the Characteristic.";
 "SLUG-ACC-NOTIFICATION-BUTTON"      =   "This button controls whether or not the Characteristic is notifying.";
 "SLUG-ACC-WITH-RESPONSE"            =   "Toggles the value of the Response Switch.";
 "SLUG-ACC-WITH-RESPONSE-SWITCH"     =   "If on, then the write will be sent, requiring a response from the device.";

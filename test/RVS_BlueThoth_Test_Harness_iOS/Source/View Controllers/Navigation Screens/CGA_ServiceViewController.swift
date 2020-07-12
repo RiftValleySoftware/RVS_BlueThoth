@@ -34,7 +34,7 @@ class CGA_ServiceViewController_TableRow: UITableViewCell {
     /**
      This is the height of each row, as an Array of CGFloat.
      */
-    static let rowheights: [CGFloat] = [20, // The top (ID) row
+    static let rowheights: [CGFloat] = [27, // The top (ID) row
                                         50, // The middle (properties) row
                                         17  // The bottom (value) row font size
     ]
@@ -308,7 +308,7 @@ extension CGA_ServiceViewController {
         guard let senderData = inSender as? CGA_Bluetooth_Characteristic else { return }
         // We only go further if we are looking at Service details.
         guard   let destination = inSegue.destination as? CGA_CharacteristicViewController else {
-                    if let destination = inSegue.destination as? CGA_InteractionViewController {
+                    if let destination = inSegue.destination as? CGA_CharacteristicInteractionViewController {
                         destination.writeableElementInstance = senderData
                     }
                     return
@@ -363,10 +363,13 @@ extension CGA_ServiceViewController: UITableViewDataSource {
         /* ############################################################## */
         /**
          A simple "factory" for the Notification button.
+         
+         - parameter indicate: If true, then the button should be labels as an "Indicate" button.
+         - returns: A UIButton instance, with the button wired to toggle notification.
          */
-        private func _makeNotifyButton() -> UIButton {
+        private func _makeNotifyButton(indicate: Bool = false) -> UIButton {
             let ret = CG_TappableButton()
-            let title = "SLUG-PROPERTIES-NOTIFY-\(characteristic.isNotifying ? "ON" : "OFF")"
+            let title = indicate ? "SLUG-PROPERTIES-INDICATE-\(characteristic.isNotifying ? "ON" : "OFF")" : "SLUG-PROPERTIES-NOTIFY-\(characteristic.isNotifying ? "ON" : "OFF")"
             ret.setTitle(title.localizedVariant, for: .normal)
             ret.setTitleColor(characteristic.isNotifying ? labelTextColor : .white, for: .normal)
             ret.backgroundColor = characteristic.isNotifying ? .green : .red
@@ -425,13 +428,13 @@ extension CGA_ServiceViewController: UITableViewDataSource {
             [
                 characteristic.canRead ? _makeReadButton() : nil,
                 _writeLabel,
-                characteristic.canIndicate ? _makeLabel("SLUG-PROPERTIES-INDICATE") : nil,
+                (characteristic.canIndicate && characteristic.canNotify) ? _makeLabel("SLUG-PROPERTIES-INDICATE") : nil,
                 characteristic.canBroadcast ? _makeLabel("SLUG-PROPERTIES-BROADCAST") : nil,
                 characteristic.requiresAuthenticatedSignedWrites ? _makeLabel("SLUG-PROPERTIES-AUTH-SIGNED-WRITE") : nil,
                 characteristic.requiresNotifyEncryption ? _makeLabel("SLUG-PROPERTIES-NOTIFY-ENCRYPT") : nil,
                 characteristic.requiresNotifyEncryption ? _makeLabel("SLUG-PROPERTIES-INDICATE-ENCRYPT") : nil,
                 characteristic.hasExtendedProperties ? _makeLabel("SLUG-PROPERTIES-EXTENDED") : nil,
-                characteristic.canNotify ? _makeNotifyButton() : nil  // Notify goes on the end, because it's a big-ass button, and will move things around.
+                (characteristic.canNotify || characteristic.canIndicate) ? _makeNotifyButton(indicate: !characteristic.canNotify) : nil  // Notify (or indicate) goes on the end, because it's a big-ass button, and will move things around.
             ]
         }
     }

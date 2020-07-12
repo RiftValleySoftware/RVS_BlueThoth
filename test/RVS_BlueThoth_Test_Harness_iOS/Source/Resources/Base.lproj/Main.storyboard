@@ -1073,10 +1073,10 @@
             </objects>
             <point key="canvasLocation" x="2786.9565217391305" y="138.61607142857142"/>
         </scene>
-        <!--Interaction View Controller-->
+        <!--Characteristic Interaction View Controller-->
         <scene sceneID="Gd8-Om-Fcj">
             <objects>
-                <viewController id="KOt-zR-Vpp" customClass="CGA_InteractionViewController" customModule="RVS_BlueThoth_Test_Harness_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="KOt-zR-Vpp" customClass="CGA_CharacteristicInteractionViewController" customModule="RVS_BlueThoth_Test_Harness_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HsV-sY-PLQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1311,6 +1311,10 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="irO-pl-tS3" firstAttribute="top" secondItem="quX-6t-TdD" secondAttribute="top" id="A7I-Nh-b3U"/>
+                                    <constraint firstItem="czx-M0-Zzp" firstAttribute="top" secondItem="quX-6t-TdD" secondAttribute="top" id="AEF-FS-8Fx"/>
+                                </constraints>
                             </stackView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="HDS-04-4Z8">
                                 <rect key="frame" x="20" y="122" width="374" height="740"/>
