@@ -80,6 +80,8 @@ extension CGA_DescriptorInteractionViewController {
      This sets up the accessibility and voiceover strings for the screen.
      */
     private func _setUpAccessibility() {
+        writeSendButton?.accessibilityLabel = writeSendButton?.accessibilityLabel?.localizedVariant
+        writeTextView?.accessibilityLabel = writeTextView?.accessibilityLabel?.localizedVariant
     }
 }
 

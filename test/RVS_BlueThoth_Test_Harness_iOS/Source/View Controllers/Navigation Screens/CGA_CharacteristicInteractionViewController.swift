@@ -129,6 +129,11 @@ extension CGA_CharacteristicInteractionViewController {
         notifyButton?.accessibilityLabel = notifyButton?.accessibilityLabel?.localizedVariant
         responseLabelButton?.accessibilityLabel = notifyButton?.accessibilityLabel?.localizedVariant
         responseSwitch?.accessibilityLabel = responseSwitch?.accessibilityLabel?.localizedVariant
+        writeSendButton?.accessibilityLabel = writeSendButton?.accessibilityLabel?.localizedVariant
+        writeTextView?.accessibilityLabel = writeTextView?.accessibilityLabel?.localizedVariant
+        readButton?.accessibilityLabel = readButton?.accessibilityLabel?.localizedVariant
+        readTextView?.accessibilityLabel = readTextView?.accessibilityLabel?.localizedVariant
+        notifyButton?.accessibilityLabel = notifyButton?.accessibilityLabel?.localizedVariant
     }
 }
 
