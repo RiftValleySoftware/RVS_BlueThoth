@@ -193,6 +193,8 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-ACC-NOTIFICATION-BUTTON"      =   "This button controls whether or not the Characteristic is notifying.";
 "SLUG-ACC-WITH-RESPONSE"            =   "Toggles the value of the Response Switch.";
 "SLUG-ACC-WITH-RESPONSE-SWITCH"     =   "If on, then the write will be sent, requiring a response from the device.";
+"SLUG-ACC-SEND-BUTTON-CHAR"         =   "This button sets the Characteristic value to the contents of the text field below.";
+"SLUG-ACC-SEND-BUTTON-DESC"         =   "This button sets the Descriptor value to the contents of the text field below.";
 
 /// MARK: - DATA INTERPRETATION
 

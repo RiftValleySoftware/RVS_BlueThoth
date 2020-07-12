@@ -1130,6 +1130,7 @@
                                                     </stackView>
                                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0eh-iX-I65">
                                                         <rect key="frame" x="374" y="0.0" width="0.0" height="30"/>
+                                                        <accessibility key="accessibilityConfiguration" label="SLUG-ACC-SEND-BUTTON-CHAR"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="L9R-kz-90F"/>
                                                         </constraints>
@@ -1149,6 +1150,7 @@
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="K8b-9i-3Hh">
                                                 <rect key="frame" x="0.0" y="30" width="374" height="337"/>
                                                 <color key="backgroundColor" white="1" alpha="0.10445205479452055" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <accessibility key="accessibilityConfiguration" label="SLUG-ACC-WRITE-TEXT"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1170,6 +1172,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qd4-HE-Mbw">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <accessibility key="accessibilityConfiguration" label="SLUG-ACC-READ-BUTTON"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="pYO-Bq-z8L"/>
                                                 </constraints>
@@ -1185,6 +1188,7 @@
                                                 <rect key="frame" x="0.0" y="30" width="374" height="337"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <accessibility key="accessibilityConfiguration" label="SLUG-ACC-READ-TEXT"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1296,6 +1300,7 @@
                                     </label>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="czx-M0-Zzp">
                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="30"/>
+                                        <accessibility key="accessibilityConfiguration" label="SLUG-ACC-SEND-BUTTON-DESC"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="5cs-ko-8Dk"/>
                                         </constraints>
@@ -1319,6 +1324,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="HDS-04-4Z8">
                                 <rect key="frame" x="20" y="122" width="374" height="740"/>
                                 <color key="backgroundColor" white="1" alpha="0.1044520548" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration" label="SLUG-ACC-WRITE-TEXT"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
