@@ -38,56 +38,67 @@ class CGA_CharacteristicInteractionViewController: CGA_BaseViewController, CGA_W
 
     /* ################################################################## */
     /**
+     This stack view contains the items at the top of the screen.
      */
     @IBOutlet weak var writeStackView: UIStackView!
 
     /* ################################################################## */
     /**
+     This is the label for the write section.
      */
     @IBOutlet weak var writeLabel: UILabel!
     
     /* ################################################################## */
     /**
-     */
-    @IBOutlet weak var writeTextView: UITextView!
-    
-    /* ################################################################## */
-    /**
+     This button will send the data.
      */
     @IBOutlet weak var writeSendButton: UIButton!
     
     /* ################################################################## */
     /**
-     */
-    @IBOutlet weak var readStackView: UIStackView!
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBOutlet weak var readButton: UIButton!
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBOutlet weak var readTextView: UITextView!
-    
-    /* ################################################################## */
-    /**
+     This contains the response switch and button label.
      */
     @IBOutlet weak var responseContainer: UIStackView!
     
     /* ################################################################## */
     /**
+     This button toggles the switch value, and acts like a label.
      */
     @IBOutlet weak var responseLabelButton: UIButton!
     
     /* ################################################################## */
     /**
+     This switch denotes whether or not to request a response to the write.
      */
     @IBOutlet weak var responseSwitch: UISwitch!
 
     /* ################################################################## */
     /**
+     This is the text view that receives text to be written.
+     */
+    @IBOutlet weak var writeTextView: UITextView!
+
+    /* ################################################################## */
+    /**
+     This holds the vartious read/indicate stuff.
+     */
+    @IBOutlet weak var readStackView: UIStackView!
+    
+    /* ################################################################## */
+    /**
+     This button triggers a read.
+     */
+    @IBOutlet weak var readButton: UIButton!
+    
+    /* ################################################################## */
+    /**
+     This text view displays the read data as a string.
+     */
+    @IBOutlet weak var readTextView: UITextView!
+
+    /* ################################################################## */
+    /**
+     This button toggles notification state.
      */
     @IBOutlet weak var notifyButton: UIButton!
     
@@ -198,19 +209,21 @@ extension CGA_CharacteristicInteractionViewController {
 extension CGA_CharacteristicInteractionViewController {
     /* ################################################################## */
     /**
+     Called when the view hierarchy has been loaded from the nib.
      */
     override func viewDidLoad() {
+        guard let myCharacteristicInstance = myCharacteristicInstance else { return }
         writeLabel?.text = writeLabel?.text?.localizedVariant ?? "ERROR"
         writeSendButton?.setTitle(writeSendButton?.title(for: .normal)?.localizedVariant, for: .normal)
         responseLabelButton?.setTitle(responseLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
-        notifyButton?.isHidden = !(myCharacteristicInstance?.canNotify ?? true)
-        responseContainer?.isHidden = !(myCharacteristicInstance?.canWriteWithResponse ?? true) || !(myCharacteristicInstance?.canWriteWithoutResponse ?? true)
+        notifyButton?.isHidden = !(myCharacteristicInstance.canNotify || myCharacteristicInstance.canIndicate)
+        responseContainer?.isHidden = !(myCharacteristicInstance.canWriteWithResponse && myCharacteristicInstance.canWriteWithoutResponse)
         
         navigationItem.title = "SLUG-INTERACT".localizedVariant
-        if (myCharacteristicInstance?.canRead ?? false) || (myCharacteristicInstance?.canNotify ?? false) {
+        if myCharacteristicInstance.canRead || myCharacteristicInstance.canNotify {
             readStackView?.isHidden = false
-            readButton?.setTitle(("SLUG-PROPERTIES-" + (!(myCharacteristicInstance?.canRead ?? false) ? "NOTIFY" : "READ")).localizedVariant, for: .normal)
-            readButton?.isHidden = !(myCharacteristicInstance?.canRead ?? false)
+            readButton?.setTitle("SLUG-PROPERTIES-READ".localizedVariant, for: .normal)
+            readButton?.isHidden = !myCharacteristicInstance.canRead
         } else {
             readStackView?.isHidden = true
         }
@@ -228,19 +241,21 @@ extension CGA_CharacteristicInteractionViewController: CGA_UpdatableScreenViewCo
      This simply makes sure that the UI matches the state of the Characteristic.
      */
     func updateUI() {
-        if  ((myCharacteristicInstance?.canRead ?? false) || (myCharacteristicInstance?.canNotify ?? false)),
-            let data = myCharacteristicInstance?.value,
+        guard let myCharacteristicInstance = myCharacteristicInstance else { return }
+        if  (myCharacteristicInstance.canRead || myCharacteristicInstance.canNotify),
+            let data = myCharacteristicInstance.value,
             let stringValue = String(data: data, encoding: .utf8) {
             readTextView?.text = stringValue
         }
         
         writeLabel?.isHidden = !(writeSendButton?.isHidden ?? false)
 
-        if myCharacteristicInstance?.canNotify ?? false {
-            let title = "SLUG-PROPERTIES-NOTIFY-\((myCharacteristicInstance?.isNotifying ?? false) ? "ON" : "OFF")"
+        if myCharacteristicInstance.canNotify || myCharacteristicInstance.canIndicate {
+            let title = (!myCharacteristicInstance.canNotify && myCharacteristicInstance.canIndicate) ? "SLUG-PROPERTIES-INDICATE-\(myCharacteristicInstance.isNotifying ? "ON" : "OFF")" : "SLUG-PROPERTIES-NOTIFY-\(myCharacteristicInstance.isNotifying ? "ON" : "OFF")"
+            notifyButton?.setTitle(title, for: .normal)
             notifyButton?.setTitle(title.localizedVariant, for: .normal)
-            notifyButton?.setTitleColor((myCharacteristicInstance?.isNotifying ?? false) ? (isDarkMode ? .black : .blue) : .white, for: .normal)
-            notifyButton?.backgroundColor = (myCharacteristicInstance?.isNotifying ?? false) ? .green : .red
+            notifyButton?.setTitleColor(myCharacteristicInstance.isNotifying ? (isDarkMode ? .black : .blue) : .white, for: .normal)
+            notifyButton?.backgroundColor = myCharacteristicInstance.isNotifying ? .green : .red
         }
         
         _setUpAccessibility()
