@@ -204,11 +204,11 @@ public class CGA_Bluetooth_Characteristic: CGA_Bluetooth_Characteristic_Protocol
     /**
      This will return any extension properties, as a simple tuple, or nil, if there are none.
      */
-    public var extendedProperties: (isIndicating: Bool, isNotifying: Bool)? {
+    public var extendedProperties: (isReliableWriteEnabled: Bool, isWritableAuxiliariesEnabled: Bool)? {
         guard hasExtendedProperties else { return nil }
         let extensionDescriptors = sequence_contents.filter({ CBUUIDCharacteristicExtendedPropertiesString == $0.cbElementInstance.uuid.uuidString })
-        guard let extensionDescriptor = extensionDescriptors[0] as? CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration else { return nil }
-        return (isIndicating: extensionDescriptor.isIndicating, isNotifying: extensionDescriptor.isNotifying)
+        guard let extensionDescriptor = extensionDescriptors[0] as? CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties else { return nil }
+        return (isReliableWriteEnabled: extensionDescriptor.isReliableWriteEnabled, isWritableAuxiliariesEnabled: extensionDescriptor.isWritableAuxiliariesEnabled)
     }
 
     /* ################################################################## */

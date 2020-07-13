@@ -264,8 +264,7 @@ extension CGA_CharacteristicViewController: UITableViewDelegate {
         // We always read the value.
         myCharacteristicInstance?[inIndexPath.row].readValue()
         // If we are not the client configuration descriptor, then we can also write.
-        if  !(myCharacteristicInstance?[inIndexPath.row] is CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration),
-            !(myCharacteristicInstance?[inIndexPath.row] is CGA_Bluetooth_Descriptor_PresentationFormat) {
+        if  !(myCharacteristicInstance?[inIndexPath.row] is CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration) {
             performSegue(withIdentifier: Self._interactionDescriptorSegueID, sender: myCharacteristicInstance?[inIndexPath.row])
             inTableView.deselectRow(at: inIndexPath, animated: false)
         }

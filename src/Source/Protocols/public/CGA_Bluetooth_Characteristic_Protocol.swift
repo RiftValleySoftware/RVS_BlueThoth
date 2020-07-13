@@ -130,7 +130,7 @@ public protocol CGA_Bluetooth_Characteristic_Protocol: class, RVS_SequenceProtoc
     /**
      This will return any extension properties, as a simple tuple, or nil, if there are none.
      */
-    var extendedProperties: (isIndicating: Bool, isNotifying: Bool)? { get }
+    var extendedProperties: (isReliableWriteEnabled: Bool, isWritableAuxiliariesEnabled: Bool)? { get }
 
     /* ################################################################## */
     /**
