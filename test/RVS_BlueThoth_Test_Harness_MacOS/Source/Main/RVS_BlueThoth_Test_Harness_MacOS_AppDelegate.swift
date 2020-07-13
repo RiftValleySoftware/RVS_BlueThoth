@@ -29,7 +29,7 @@ import RVS_BlueThoth_MacOS
 /**
  */
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: NSObject, NSApplicationDelegate {
     /* ################################################################## */
     /**
      */

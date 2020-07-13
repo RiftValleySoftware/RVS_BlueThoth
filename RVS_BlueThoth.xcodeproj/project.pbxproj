@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D41330A424674F1400502D83 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41330A324674F1400502D83 /* AppDelegate.swift */; };
-		D41330A624674F1400502D83 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41330A524674F1400502D83 /* ViewController.swift */; };
+		D41330A424674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41330A324674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.swift */; };
+		D41330A624674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41330A524674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_InitialViewController.swift */; };
 		D41330A824674F1500502D83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D41330A724674F1500502D83 /* Assets.xcassets */; };
 		D41330AB24674F1500502D83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D41330A924674F1500502D83 /* Main.storyboard */; };
 		D41330B224674F2900502D83 /* RVS_BlueThoth_MacOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4C2D38B24550ABC00197A0A /* RVS_BlueThoth_MacOS.framework */; };
 		D41330B324674F2900502D83 /* RVS_BlueThoth_MacOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4C2D38B24550ABC00197A0A /* RVS_BlueThoth_MacOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D41BB97A24BCB85A00E72FDF /* RVS_BlueThoth_Test_Harness_MacOS_IAboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41BB97924BCB85900E72FDF /* RVS_BlueThoth_Test_Harness_MacOS_IAboutViewController.swift */; };
 		D42ABE94246753DC00815395 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D42ABE93246753DC00815395 /* Assets.xcassets */; };
 		D431EC3424675E8D0094BB23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D431EC1924675E8D0094BB23 /* Assets.xcassets */; };
 		D431EC3524675E8D0094BB23 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D431EC1A24675E8D0094BB23 /* LaunchScreen.storyboard */; };
@@ -272,12 +273,13 @@
 
 /* Begin PBXFileReference section */
 		D41330A124674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RVS_BlueThoth_Test_Harness_MacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D41330A324674F1400502D83 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D41330A524674F1400502D83 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D41330A324674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.swift; sourceTree = "<group>"; };
+		D41330A524674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_MacOS_InitialViewController.swift; sourceTree = "<group>"; };
 		D41330A724674F1500502D83 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D41330AA24674F1500502D83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D41330AC24674F1500502D83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D41330AD24674F1500502D83 /* RVS_BlueThoth_Test_Harness_MacOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RVS_BlueThoth_Test_Harness_MacOS.entitlements; sourceTree = "<group>"; };
+		D41BB97924BCB85900E72FDF /* RVS_BlueThoth_Test_Harness_MacOS_IAboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_MacOS_IAboutViewController.swift; sourceTree = "<group>"; };
 		D42ABE93246753DC00815395 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D431EC1924675E8D0094BB23 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D431EC1B24675E8D0094BB23 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -446,7 +448,7 @@
 		D41330BA24674FF400502D83 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				D41330A324674F1400502D83 /* AppDelegate.swift */,
+				D41330A324674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -454,7 +456,8 @@
 		D41330BB24674FFD00502D83 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D41330A524674F1400502D83 /* ViewController.swift */,
+				D41330A524674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_InitialViewController.swift */,
+				D41BB97924BCB85900E72FDF /* RVS_BlueThoth_Test_Harness_MacOS_IAboutViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -1051,8 +1054,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D41330A624674F1400502D83 /* ViewController.swift in Sources */,
-				D41330A424674F1400502D83 /* AppDelegate.swift in Sources */,
+				D41330A624674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_InitialViewController.swift in Sources */,
+				D41330A424674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.swift in Sources */,
+				D41BB97A24BCB85A00E72FDF /* RVS_BlueThoth_Test_Harness_MacOS_IAboutViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

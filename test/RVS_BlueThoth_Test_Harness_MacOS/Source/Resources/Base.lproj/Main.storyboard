@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11134" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11134"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -18,6 +19,7 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
+                                                <segue destination="ggO-dc-5dW" kind="modal" id="de9-2x-1x1"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
@@ -673,21 +675,21 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="RVS_BlueThoth_Test_Harness_MacOS_AppDelegate" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="357" y="-110"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1417"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
                         </connections>
@@ -698,20 +700,98 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="250"/>
+            <point key="canvasLocation" x="59" y="250"/>
         </scene>
-        <!--View Controller-->
+        <!--Initial Screen-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" userLabel="Initial Screen" customClass="RVS_BlueThoth_Test_Harness_MacOS_InitialViewController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="d7J-i0-Sxe" userLabel="Background Gradient Image View">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="axesIndependently" image="background-gradient" id="jqr-kD-o5y"/>
+                            </imageView>
+                            <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" alphaValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="wq6-jn-Rzu" userLabel="BlueThoth Logo Image View">
+                                <rect key="frame" x="96" y="54" width="288" height="162"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="BlueThothLogo" id="ckQ-5e-ef9"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="wq6-jn-Rzu" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="1rv-HB-uY5"/>
+                            <constraint firstAttribute="bottom" secondItem="d7J-i0-Sxe" secondAttribute="bottom" id="AzV-HE-kaM"/>
+                            <constraint firstItem="wq6-jn-Rzu" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="MOe-EU-8BT"/>
+                            <constraint firstAttribute="trailing" secondItem="d7J-i0-Sxe" secondAttribute="trailing" id="NlI-aV-c6R"/>
+                            <constraint firstItem="wq6-jn-Rzu" firstAttribute="width" relation="lessThanOrEqual" secondItem="d7J-i0-Sxe" secondAttribute="width" multiplier="0.6" id="Ql8-5s-Lr4"/>
+                            <constraint firstItem="d7J-i0-Sxe" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="fsL-6f-5d8"/>
+                            <constraint firstItem="d7J-i0-Sxe" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="i2a-HN-mnM"/>
+                            <constraint firstItem="wq6-jn-Rzu" firstAttribute="height" relation="lessThanOrEqual" secondItem="d7J-i0-Sxe" secondAttribute="height" multiplier="0.6" id="jFF-Ed-ofQ"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="59" y="705"/>
+        </scene>
+        <!--About Screen-->
+        <scene sceneID="Xzc-tz-AWb">
+            <objects>
+                <viewController id="XO0-1B-MQg" userLabel="About Screen" customClass="RVS_BlueThoth_Test_Harness_MacOS_AboutViewController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="9JF-I4-0LW">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="vHS-mF-VVV" userLabel="Background Gradient Image View">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="axesIndependently" image="background-gradient" id="GEb-ll-bmh"/>
+                            </imageView>
+                            <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" alphaValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="A1K-Hc-guy" userLabel="BlueThoth Logo Image View">
+                                <rect key="frame" x="96" y="54" width="288" height="162"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="BlueThothLogo" id="350-Oa-NVh"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="A1K-Hc-guy" firstAttribute="centerY" secondItem="9JF-I4-0LW" secondAttribute="centerY" id="2B1-ww-7pv"/>
+                            <constraint firstItem="vHS-mF-VVV" firstAttribute="leading" secondItem="9JF-I4-0LW" secondAttribute="leading" id="5FQ-Sk-sGh"/>
+                            <constraint firstItem="A1K-Hc-guy" firstAttribute="centerX" secondItem="9JF-I4-0LW" secondAttribute="centerX" id="Inw-LJ-OCh"/>
+                            <constraint firstAttribute="bottom" secondItem="vHS-mF-VVV" secondAttribute="bottom" id="WTD-hF-B02"/>
+                            <constraint firstItem="A1K-Hc-guy" firstAttribute="height" relation="lessThanOrEqual" secondItem="vHS-mF-VVV" secondAttribute="height" multiplier="0.6" id="bvu-OX-QNw"/>
+                            <constraint firstAttribute="trailing" secondItem="vHS-mF-VVV" secondAttribute="trailing" id="fRA-lZ-1Jn"/>
+                            <constraint firstItem="vHS-mF-VVV" firstAttribute="top" secondItem="9JF-I4-0LW" secondAttribute="top" id="lT2-J2-gZL"/>
+                            <constraint firstItem="A1K-Hc-guy" firstAttribute="width" relation="lessThanOrEqual" secondItem="vHS-mF-VVV" secondAttribute="width" multiplier="0.6" id="twe-Qc-gi1"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="qc7-ES-0kw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="643" y="705"/>
+        </scene>
+        <!--Window Controller-->
+        <scene sceneID="6OC-fc-Ybp">
+            <objects>
+                <windowController id="ggO-dc-5dW" sceneMemberID="viewController">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="U6c-CL-CF3">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1417"/>
+                        <connections>
+                            <outlet property="delegate" destination="ggO-dc-5dW" id="63Q-3l-Pwk"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="XO0-1B-MQg" kind="relationship" relationship="window.shadowedContentViewController" id="Bv7-kp-Shd"/>
+                    </connections>
+                </windowController>
+                <customObject id="Nnr-3M-kFj" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="643" y="250"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="BlueThothLogo" width="307" height="305"/>
+        <image name="background-gradient" width="1" height="1000"/>
+    </resources>
 </document>

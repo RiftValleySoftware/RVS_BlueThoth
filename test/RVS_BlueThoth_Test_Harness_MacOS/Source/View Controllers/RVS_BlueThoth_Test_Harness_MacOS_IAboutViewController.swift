@@ -23,11 +23,11 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 import Cocoa
 
 /* ###################################################################################################################################### */
-// MARK: - TheInitial Screen View Controller -
+// MARK: - The About Screen View Controller -
 /* ###################################################################################################################################### */
 /**
  */
-class ViewController: NSViewController {
+class RVS_BlueThoth_Test_Harness_MacOS_AboutViewController: NSViewController {
     /* ################################################################## */
     /**
      */
