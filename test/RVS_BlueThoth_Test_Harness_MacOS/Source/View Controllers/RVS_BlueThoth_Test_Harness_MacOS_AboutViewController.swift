@@ -21,25 +21,14 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 */
 
 import Cocoa
-import RVS_BlueThoth_MacOS
+import RVS_Generic_Swift_Toolbox
 
 /* ###################################################################################################################################### */
-// MARK: - The Initial Screen View Controller -
+// MARK: - The About Screen View Controller -
 /* ###################################################################################################################################### */
 /**
  */
-class RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController {
-    /* ################################################################## */
-    /**
-     The segue ID for displaying a peripheral window.
-     */
-    static private let _peripheralWindowSegueID = "peripheral-window-display"
-}
-
-/* ###################################################################################################################################### */
-// MARK: - Base Class Overrides -
-/* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_MacOS_InitialViewController {
+class RVS_BlueThoth_Test_Harness_MacOS_AboutViewController: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController {
     /* ################################################################## */
     /**
      Called when the view hierachy has loaded.

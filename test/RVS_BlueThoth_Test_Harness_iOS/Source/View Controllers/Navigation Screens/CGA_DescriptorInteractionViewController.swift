@@ -38,21 +38,25 @@ class CGA_DescriptorInteractionViewController: CGA_BaseViewController, CGA_Write
 
     /* ################################################################## */
     /**
+     The horizontal stack view that contains the write items
      */
     @IBOutlet weak var writeStackView: UIStackView!
 
     /* ################################################################## */
     /**
+     The label that says "WRITE"
      */
     @IBOutlet weak var writeLabel: UILabel!
     
     /* ################################################################## */
     /**
+     The text view that contains text to be sent.
      */
     @IBOutlet weak var writeTextView: UITextView!
     
     /* ################################################################## */
     /**
+     The button that appears when there is text in the text view. Pressing this, sends the data.
      */
     @IBOutlet weak var writeSendButton: UIButton!
 
@@ -125,6 +129,7 @@ extension CGA_DescriptorInteractionViewController {
 extension CGA_DescriptorInteractionViewController {
     /* ################################################################## */
     /**
+     Called when the view has loaded.
      */
     override func viewDidLoad() {
         writeLabel?.text = writeLabel?.text?.localizedVariant ?? "ERROR"

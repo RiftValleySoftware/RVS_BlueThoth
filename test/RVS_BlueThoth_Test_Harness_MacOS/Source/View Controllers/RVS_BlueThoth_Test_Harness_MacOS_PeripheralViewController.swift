@@ -21,15 +21,17 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 */
 
 import Cocoa
+import RVS_BlueThoth_MacOS
 
 /* ###################################################################################################################################### */
-// MARK: - The About Screen View Controller -
+// MARK: - The Peripheral Screen View Controller -
 /* ###################################################################################################################################### */
 /**
  */
-class RVS_BlueThoth_Test_Harness_MacOS_AboutViewController: NSViewController {
+class RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController {
     /* ################################################################## */
     /**
+     Called when the view hierachy has loaded.
      */
     override func viewDidLoad() {
         super.viewDidLoad()

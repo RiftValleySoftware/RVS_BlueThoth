@@ -21,7 +21,6 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 */
 
 import CoreGraphics   // For the CGColor
-import RVS_BlueThoth_iOS
 import RVS_Persistent_Prefs
 
 /* ###################################################################################################################################### */
@@ -207,11 +206,4 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
      Instead of storing it, we simply return the same alpha value.
      */
     var textColorForUnselectableCells: CGFloat { 0.5 }
-
-    /* ################################################################## */
-    /**
-     This is the scan criteria object to be used for filtering scans.
-     It is provided in the struct required by the Bluetooth subsystem.
-     */
-    var scanCriteria: RVS_BlueThoth.ScanCriteria! { RVS_BlueThoth.ScanCriteria(peripherals: peripheralFilterIDArray, services: serviceFilterIDArray, characteristics: characteristicFilterIDArray) }
 }

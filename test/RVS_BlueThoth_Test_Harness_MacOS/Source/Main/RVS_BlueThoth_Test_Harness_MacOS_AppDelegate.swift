@@ -24,12 +24,41 @@ import Cocoa
 import RVS_BlueThoth_MacOS
 
 /* ###################################################################################################################################### */
+// MARK: - Preferences Extension -
+/* ###################################################################################################################################### */
+extension CGA_PersistentPrefs {
+    /* ################################################################## */
+    /**
+     This is the scan criteria object to be used for filtering scans.
+     It is provided in the struct required by the Bluetooth subsystem.
+     */
+    var scanCriteria: RVS_BlueThoth.ScanCriteria! { RVS_BlueThoth.ScanCriteria(peripherals: peripheralFilterIDArray, services: serviceFilterIDArray, characteristics: characteristicFilterIDArray) }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - The Main Application Delegate -
 /* ###################################################################################################################################### */
 /**
  */
 @NSApplicationMain
 class RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: NSObject, NSApplicationDelegate {
+    /* ################################################################## */
+    /**
+     This is the Bluetooth Central Manager instance. Everything goes through this.
+     */
+    static var centralManager: RVS_BlueThoth?
+    
+    /* ################################################################## */
+    /**
+     This will contain our persistent prefs
+     */
+    var prefs = CGA_PersistentPrefs()
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Application Delegate Protocol Conformance -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate {
     /* ################################################################## */
     /**
      */
@@ -40,5 +69,40 @@ class RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: NSObject, NSApplicationDeleg
     /**
      */
     func applicationWillTerminate(_ aNotification: Notification) {
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Class Computed Properties -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate {
+    /* ################################################################## */
+    /**
+     This is a quick way to get this object instance (it's a SINGLETON), cast as the correct class.
+     
+     - returns: the app delegate object, in its natural environment.
+     */
+    @objc dynamic class var appDelegateObject: RVS_BlueThoth_Test_Harness_MacOS_AppDelegate {
+        return (NSApplication.shared.delegate as? RVS_BlueThoth_Test_Harness_MacOS_AppDelegate)!
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Class Functions -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate {
+    /* ################################################################## */
+    /**
+     This displays a simple alert, with an OK button.
+     
+     - parameter header: The header to display at the top.
+     - parameter message: A String, containing whatever messge is to be displayed below the header.
+     */
+    class func displayAlert(header inHeader: String, message inMessage: String = "") {
+        let alert = NSAlert()
+        alert.messageText = inHeader.localizedVariant
+        alert.informativeText = inMessage.localizedVariant
+        alert.addButton(withTitle: "SLUG-OK-BUTTON-TEXT".localizedVariant)
+        alert.runModal()
     }
 }
