@@ -31,11 +31,15 @@ import RVS_BlueThoth_MacOS
 class RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController {
     /* ################################################################## */
     /**
+     This enum has the scanning on/off states, expressed as 0-based Int.
      */
     enum ScanningModeSwitchValues: Int {
+        /// The SDK is not scanning for Peripherals.
         case notScanning
+        /// The SDK is scanning for Peripherals.
         case scanning
     }
+    
     /* ################################################################## */
     /**
      The segue ID for displaying a peripheral window.
@@ -44,11 +48,15 @@ class RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: RVS_BlueThoth_Test
 
     /* ################################################################## */
     /**
+     This is a segmented switch that reflects the state of the scanning.
      */
     @IBOutlet weak var scanningModeSegmentedSwitch: NSSegmentedControl!
     
     /* ################################################################## */
     /**
+     Called when the scanning/not scanning sgmented switch changes.
+     
+     - parameter inSwitch: The switch object.
      */
     @IBAction func scanningChanged(_ inSwitch: NSSegmentedControl) {
         if ScanningModeSwitchValues.notScanning.rawValue == inSwitch.selectedSegment {

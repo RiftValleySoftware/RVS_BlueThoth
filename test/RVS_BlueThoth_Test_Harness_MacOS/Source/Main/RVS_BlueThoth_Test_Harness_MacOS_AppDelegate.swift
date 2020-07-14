@@ -41,6 +41,9 @@ extension CGA_PersistentPrefs {
 extension Array where Element == RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol {
     /* ################################################################## */
     /**
+     Adds a screen to our Array. If it is already there, nothing happens.
+     
+     - parameter inScreen: The screen we want added.
      */
     mutating func addScreen(_ inScreen: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol) {
         if nil == self[inScreen.key] {
@@ -52,6 +55,9 @@ extension Array where Element == RVS_BlueThoth_Test_Harness_MacOS_Base_ViewContr
     
     /* ################################################################## */
     /**
+     Removes the given screen from our Array.
+     
+     - parameter inScreen: The screen we want removed.
      */
     mutating func removeScreen(_ inScreen: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol) {
         self.removeAll(where: { $0.key == inScreen.key })
@@ -59,6 +65,9 @@ extension Array where Element == RVS_BlueThoth_Test_Harness_MacOS_Base_ViewContr
     
     /* ################################################################## */
     /**
+     This subscript allows us to fetch an instance by its String key.
+     
+     - parameter inKey: The String, with the unique key for the screen.
      */
     subscript(_ inKey: String) -> Element? {
         for element in self where element.key == inKey {
@@ -101,15 +110,21 @@ class RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: NSObject, NSApplicationDeleg
 extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate {
     /* ################################################################## */
     /**
+     Called when the app has completed launching.
+     
+     - parameter: ignored.
      */
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
+    func applicationDidFinishLaunching(_: Notification) {
         centralManager = RVS_BlueThoth(delegate: self)
     }
 
     /* ################################################################## */
     /**
+     Called just before the app terminates.
+     
+     - parameter: ignored.
      */
-    func applicationWillTerminate(_ aNotification: Notification) {
+    func applicationWillTerminate(_: Notification) {
     }
 }
 

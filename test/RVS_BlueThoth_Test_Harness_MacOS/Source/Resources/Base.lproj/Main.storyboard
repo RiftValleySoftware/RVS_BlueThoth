@@ -891,10 +891,10 @@
             </objects>
             <point key="canvasLocation" x="1373" y="165"/>
         </scene>
-        <!--SLUG-PREFERENCES-->
+        <!--Preferences Screen-->
         <scene sceneID="kjr-EF-bVD">
             <objects>
-                <viewController title="SLUG-PREFERENCES" showSeguePresentationStyle="single" id="CBu-yz-Vwg" customClass="RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="SLUG-PREFERENCES" showSeguePresentationStyle="single" id="CBu-yz-Vwg" userLabel="Preferences Screen" customClass="RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="6nf-9I-pQU">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
