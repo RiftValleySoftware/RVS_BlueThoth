@@ -36,4 +36,42 @@ class RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueThoth_T
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    /* ################################################################## */
+    /**
+     Called just before the screen appears.
+     We use this to register with the app delegate.
+     */
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        appDelegateObject.screenList.addScreen(self)
+    }
+    
+    /* ################################################################## */
+    /**
+     Called just before the screen disappears.
+     We use this to un-register with the app delegate.
+     */
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
+        appDelegateObject.screenList.removeScreen(self)
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol Conformance -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol {
+    /* ################################################################## */
+    /**
+     This is a String key that uniquely identifies this screen.
+     */
+    var key: String { "ERROR" }
+
+    /* ################################################################## */
+    /**
+     This forces the UI elements to be updated.
+     */
+    func updateUI() {
+    }
 }

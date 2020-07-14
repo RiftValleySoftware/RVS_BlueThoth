@@ -31,9 +31,47 @@ import RVS_BlueThoth_MacOS
 class RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController {
     /* ################################################################## */
     /**
+     */
+    enum ScanningModeSwitchValues: Int {
+        case notScanning
+        case scanning
+    }
+    /* ################################################################## */
+    /**
      The segue ID for displaying a peripheral window.
      */
     static private let _peripheralWindowSegueID = "peripheral-window-display"
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var scanningModeSegmentedSwitch: NSSegmentedControl!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func scanningChanged(_ inSwitch: NSSegmentedControl) {
+        if ScanningModeSwitchValues.notScanning.rawValue == inSwitch.selectedSegment {
+            centralManager?.stopScanning()
+        } else {
+            centralManager?.startScanning()
+        }
+        
+        updateUI()
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - P{rivate Methods -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_InitialViewController {
+    /* ################################################################## */
+    /**
+     Sets up the various accessibility labels.
+     */
+    private func _setUpAccessibility() {
+        scanningModeSegmentedSwitch?.setAccessibilityLabel("SLUG-ACC-SCANNING-BUTTON-O" + ((ScanningModeSwitchValues.notScanning.rawValue == scanningModeSegmentedSwitch?.selectedSegment) ? "FF" : "N"))
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -46,5 +84,49 @@ extension RVS_BlueThoth_Test_Harness_MacOS_InitialViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        scanningModeSegmentedSwitch?.setLabel(scanningModeSegmentedSwitch?.label(forSegment: ScanningModeSwitchValues.notScanning.rawValue)?.localizedVariant ?? "ERROR", forSegment: ScanningModeSwitchValues.notScanning.rawValue)
+        scanningModeSegmentedSwitch?.setLabel(scanningModeSegmentedSwitch?.label(forSegment: ScanningModeSwitchValues.scanning.rawValue)?.localizedVariant ?? "ERROR", forSegment: ScanningModeSwitchValues.scanning.rawValue)
+        updateUI()
+    }
+    
+    /* ################################################################## */
+    /**
+     Called just before the screen appears.
+     We use this to register with the app delegate.
+     */
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        appDelegateObject.screenList.addScreen(self)
+    }
+    
+    /* ################################################################## */
+    /**
+     Called just before the screen disappears.
+     We use this to un-register with the app delegate.
+     */
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
+        appDelegateObject.screenList.removeScreen(self)
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol Conformance -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol {
+    /* ################################################################## */
+    /**
+     This is a String key that uniquely identifies this screen.
+     */
+    var key: String { "MAIN" }
+    
+    /* ################################################################## */
+    /**
+     This forces the UI elements to be updated.
+     */
+    func updateUI() {
+        scanningModeSegmentedSwitch?.isHidden = !(centralManager?.isBTAvailable ?? false)
+        scanningModeSegmentedSwitch?.setSelected(true, forSegment: (centralManager?.isScanning ?? false) ? ScanningModeSwitchValues.scanning.rawValue : ScanningModeSwitchValues.notScanning.rawValue)
+        _setUpAccessibility()
     }
 }

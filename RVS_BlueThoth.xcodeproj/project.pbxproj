@@ -159,6 +159,7 @@
 		D4D3727224605611009B1F9E /* CGA_Bluetooth_Descriptor_CBUUIDL2CAPPSMCharacteristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D3726E24605611009B1F9E /* CGA_Bluetooth_Descriptor_CBUUIDL2CAPPSMCharacteristic.swift */; };
 		D4DFB1C724BDE3290044D59A /* RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DFB1C624BDE3290044D59A /* RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.swift */; };
 		D4E2F4E124587624008A8317 /* CGA_Bluetooth_Peripheral_Callbacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E2F4E024587624008A8317 /* CGA_Bluetooth_Peripheral_Callbacks.swift */; };
+		D4F853F424BE4C12007136BE /* RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F853F324BE4C11007136BE /* RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController.swift */; };
 		D4F8EB7C2467651A00CCA9E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D431EC1E24675E8D0094BB23 /* Localizable.strings */; };
 		D4F8EB7D2467651E00CCA9E8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D431EC2024675E8D0094BB23 /* InfoPlist.strings */; };
 		D4FEB94F245ADD5A006EA5F9 /* RVS_BlueThoth.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B49C9924550F1800932C3D /* RVS_BlueThoth.swift */; };
@@ -352,6 +353,7 @@
 		D4DE33882459E54E0053F163 /* README-PUBLIC.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "README-PUBLIC.md"; sourceTree = "<group>"; };
 		D4DFB1C624BDE3290044D59A /* RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.swift; sourceTree = "<group>"; };
 		D4E2F4E024587624008A8317 /* CGA_Bluetooth_Peripheral_Callbacks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Peripheral_Callbacks.swift; sourceTree = "<group>"; };
+		D4F853F324BE4C11007136BE /* RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -464,8 +466,9 @@
 			isa = PBXGroup;
 			children = (
 				D413F09624BDECE000A3C772 /* RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController.swift */,
-				D41330A524674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_InitialViewController.swift */,
 				D41BB97924BCB85900E72FDF /* RVS_BlueThoth_Test_Harness_MacOS_AboutViewController.swift */,
+				D4F853F324BE4C11007136BE /* RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController.swift */,
+				D41330A524674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_InitialViewController.swift */,
 				D4DFB1C624BDE3290044D59A /* RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.swift */,
 			);
 			path = "View Controllers";
@@ -1080,6 +1083,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4F853F424BE4C12007136BE /* RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController.swift in Sources */,
 				D41330A624674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_InitialViewController.swift in Sources */,
 				D4DFB1C724BDE3290044D59A /* RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.swift in Sources */,
 				D413F09724BDECE000A3C772 /* RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController.swift in Sources */,

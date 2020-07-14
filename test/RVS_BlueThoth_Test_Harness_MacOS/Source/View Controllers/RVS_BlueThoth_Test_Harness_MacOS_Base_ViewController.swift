@@ -21,6 +21,21 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 */
 
 import Cocoa
+import RVS_BlueThoth_MacOS
+
+protocol RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol {
+    /* ################################################################## */
+    /**
+     This is a String key that uniquely identifies this screen.
+     */
+    var key: String { get }
+    
+    /* ################################################################## */
+    /**
+     This forces the UI elements to be updated.
+     */
+    func updateUI()
+}
 
 /* ################################################################################################################################## */
 // MARK: - The Base (Common) View Controller Class
@@ -49,6 +64,14 @@ extension RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController {
      */
     @objc dynamic var prefs: CGA_PersistentPrefs {
         return appDelegateObject.prefs
+    }
+
+    /* ################################################################## */
+    /**
+     This is the Bluetooth Central Manager instance. Everything goes through this.
+     */
+    var centralManager: RVS_BlueThoth? {
+        return appDelegateObject.centralManager
     }
 }
 

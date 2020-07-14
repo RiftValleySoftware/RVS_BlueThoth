@@ -36,6 +36,40 @@ extension CGA_PersistentPrefs {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - Array Extension for Registered Screens -
+/* ###################################################################################################################################### */
+extension Array where Element == RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol {
+    /* ################################################################## */
+    /**
+     */
+    mutating func addScreen(_ inScreen: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol) {
+        if nil == self[inScreen.key] {
+            self.append(inScreen)
+        }
+        
+        return
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    mutating func removeScreen(_ inScreen: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol) {
+        self.removeAll(where: { $0.key == inScreen.key })
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    subscript(_ inKey: String) -> Element? {
+        for element in self where element.key == inKey {
+            return element
+        }
+        
+        return nil
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - The Main Application Delegate -
 /* ###################################################################################################################################### */
 /**
@@ -46,13 +80,19 @@ class RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: NSObject, NSApplicationDeleg
     /**
      This is the Bluetooth Central Manager instance. Everything goes through this.
      */
-    static var centralManager: RVS_BlueThoth?
+    var centralManager: RVS_BlueThoth?
     
     /* ################################################################## */
     /**
      This will contain our persistent prefs
      */
     var prefs = CGA_PersistentPrefs()
+    
+    /* ################################################################## */
+    /**
+     This has our open windows.
+     */
+    var screenList: [RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol] = []
 }
 
 /* ###################################################################################################################################### */
@@ -63,6 +103,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate {
     /**
      */
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        centralManager = RVS_BlueThoth(delegate: self)
     }
 
     /* ################################################################## */
@@ -99,10 +140,58 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate {
      - parameter message: A String, containing whatever messge is to be displayed below the header.
      */
     class func displayAlert(header inHeader: String, message inMessage: String = "") {
-        let alert = NSAlert()
-        alert.messageText = inHeader.localizedVariant
-        alert.informativeText = inMessage.localizedVariant
-        alert.addButton(withTitle: "SLUG-OK-BUTTON-TEXT".localizedVariant)
-        alert.runModal()
+        DispatchQueue.main.async {
+            let alert = NSAlert()
+            alert.messageText = inHeader.localizedVariant
+            alert.informativeText = inMessage.localizedVariant
+            alert.addButton(withTitle: "SLUG-OK-BUTTON-TEXT".localizedVariant)
+            alert.runModal()
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - CGA_BlueThoth_Delegate Conformance -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
+    /* ################################################################## */
+    /**
+     Handles an error from the SDK.
+     
+     - parameter inError: The error that occurred.
+     - parameter from: The Central instance that experienced the error.
+     */
+    func handleError(_ inError: CGA_Errors, from inCentralInstance: RVS_BlueThoth) {
+        Self.displayAlert(header: "SLUG-ERROR".localizedVariant, message: String(describing: inError.layeredDescription))
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called to tell the instance to do whatever it needs to do to update its data.
+     NOTE: There may be no changes, or many changes. What has changed is not specified.
+     
+     - parameter inCentralInstance: The central manager that is calling this.
+     */
+    func updateFrom(_ inCentralInstance: RVS_BlueThoth) {
+        #if DEBUG
+            print("Central instance: \(String(describing: inCentralInstance)) reporting an update.")
+        #endif
+        
+        // We only update the main screen.
+        for screen in screenList where "MAIN" == screen.key {
+            screen.updateUI()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called to tell the instance that the state of the Central manager just became "powered on."
+     
+     - parameter inCentralInstance: The central manager that is calling this.
+     */
+    func centralManagerPoweredOn(_ inCentralInstance: RVS_BlueThoth) {
+        #if DEBUG
+            print("Central instance: \(String(describing: inCentralInstance)) powered on.")
+        #endif
     }
 }
