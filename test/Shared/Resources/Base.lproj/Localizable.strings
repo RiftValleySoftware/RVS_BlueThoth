@@ -40,6 +40,8 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 // MARK: - Device List screen
 "SLUG-DEVICES"                      =   "Device List";
 "SLUG-DISCOVERED-DEVICES"           =   "DISCOVERED DEVICES";
+"SLUG-NO-DEVICE-NAME"               =   "No Device Name";
+"SLUG-NO-DEVICE-FOUND"              =   "ERROR: No Device Found";
 // Scanning Button
 "SLUG-SCANNING"                     =   "SCANNING";
 "SLUG-NOT-SCANNING"                 =   "NOT SCANNING";

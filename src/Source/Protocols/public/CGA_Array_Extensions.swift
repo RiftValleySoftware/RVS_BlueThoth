@@ -66,6 +66,27 @@ public extension Array where Element == RVS_BlueThoth.DiscoveryData {
             return current
         }
     }
+    
+    /* ################################################################## */
+    /**
+     Special subscript that allows us to retrieve an Element by its ID (String)
+     
+     - parameter inID: The UUID/Identifier of Peripheral we're looking to match.
+     - returns: The found Element, or nil, if not found.
+     */
+    subscript(_ inID: String) -> Element! {
+        reduce(nil) { (current, nextItem) in
+            if  nil == current {
+                if nextItem.cbPeripheral.identifier.uuidString == inID {
+                    return nextItem
+                }
+               
+                return nil
+            }
+            
+            return current
+        }
+    }
 
     /* ################################################################## */
     /**
