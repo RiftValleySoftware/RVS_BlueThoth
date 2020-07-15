@@ -711,19 +711,23 @@
             <objects>
                 <viewController title="SLUG-INITIAL" id="XfG-lQ-9wD" userLabel="Initial Screen" customClass="RVS_BlueThoth_Test_Harness_MacOS_InitialViewController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="269"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="d7J-i0-Sxe" userLabel="Background Gradient Image View">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="269"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="axesIndependently" image="background-gradient" id="jqr-kD-o5y"/>
                             </imageView>
                             <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" alphaValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="wq6-jn-Rzu" userLabel="BlueThoth Logo Image View">
-                                <rect key="frame" x="96" y="54" width="288" height="162"/>
+                                <rect key="frame" x="96" y="52" width="288" height="162"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="BlueThothLogo" id="ckQ-5e-ef9"/>
                             </imageView>
+                            <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="0zk-kz-c6E">
+                                <rect key="frame" x="96" y="52" width="288" height="162"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NoBT" id="tWJ-Yj-puK"/>
+                            </imageView>
                             <segmentedControl hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7cJ-a2-jYV">
-                                <rect key="frame" x="91" y="227" width="298" height="24"/>
+                                <rect key="frame" x="91" y="223" width="298" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="bZG-Dt-JBu"/>
                                     <constraint firstAttribute="width" constant="294" placeholder="YES" id="pwl-Rr-I4V"/>
@@ -739,22 +743,75 @@
                                     <action selector="scanningChanged:" target="XfG-lQ-9wD" id="o4R-rQ-Ner"/>
                                 </connections>
                             </segmentedControl>
+                            <scrollView hidden="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="17" horizontalPageScroll="10" verticalLineScroll="17" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gnK-Cr-8Qv">
+                                <rect key="frame" x="20" y="20" width="440" height="197"/>
+                                <clipView key="contentView" drawsBackground="NO" id="w6z-E5-pCb">
+                                    <rect key="frame" x="0.0" y="0.0" width="440" height="197"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" id="6Ip-Dj-WK7">
+                                            <rect key="frame" x="0.0" y="0.0" width="440" height="197"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="gridColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <tableColumns>
+                                                <tableColumn width="440" minWidth="40" maxWidth="10000" id="3of-JE-BYx">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                    </tableHeaderCell>
+                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="YpG-Yu-GOg">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                </tableColumn>
+                                            </tableColumns>
+                                            <connections>
+                                                <outlet property="dataSource" destination="XfG-lQ-9wD" id="7bn-zx-4Ks"/>
+                                                <outlet property="delegate" destination="XfG-lQ-9wD" id="Ca8-v9-quC"/>
+                                            </connections>
+                                        </tableView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="fl5-nY-h76">
+                                    <rect key="frame" x="-100" y="-100" width="223" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="Taf-jD-j1e">
+                                    <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="wq6-jn-Rzu" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="1rv-HB-uY5"/>
+                            <constraint firstAttribute="trailing" secondItem="gnK-Cr-8Qv" secondAttribute="trailing" constant="20" id="3uB-GL-Dj7"/>
                             <constraint firstAttribute="bottom" secondItem="d7J-i0-Sxe" secondAttribute="bottom" id="AzV-HE-kaM"/>
-                            <constraint firstItem="7cJ-a2-jYV" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="E3I-Rt-Ki4"/>
-                            <constraint firstItem="wq6-jn-Rzu" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="MOe-EU-8BT"/>
+                            <constraint firstItem="7cJ-a2-jYV" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="23" id="E3I-Rt-Ki4"/>
+                            <constraint firstItem="0zk-kz-c6E" firstAttribute="height" relation="lessThanOrEqual" secondItem="d7J-i0-Sxe" secondAttribute="height" multiplier="0.6" id="Iyv-QO-vGU"/>
+                            <constraint firstItem="wq6-jn-Rzu" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" constant="1.5" id="MOe-EU-8BT"/>
                             <constraint firstAttribute="trailing" secondItem="d7J-i0-Sxe" secondAttribute="trailing" id="NlI-aV-c6R"/>
                             <constraint firstItem="wq6-jn-Rzu" firstAttribute="width" relation="lessThanOrEqual" secondItem="d7J-i0-Sxe" secondAttribute="width" multiplier="0.6" id="Ql8-5s-Lr4"/>
+                            <constraint firstAttribute="bottom" secondItem="gnK-Cr-8Qv" secondAttribute="bottom" constant="20" id="Yia-RS-pgR"/>
+                            <constraint firstItem="0zk-kz-c6E" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" constant="1.5" id="ZZF-Gg-hSg"/>
+                            <constraint firstItem="0zk-kz-c6E" firstAttribute="width" relation="lessThanOrEqual" secondItem="d7J-i0-Sxe" secondAttribute="width" multiplier="0.6" id="eY2-Ry-MLo"/>
                             <constraint firstItem="d7J-i0-Sxe" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="fsL-6f-5d8"/>
+                            <constraint firstItem="0zk-kz-c6E" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="h6X-K5-4gP"/>
                             <constraint firstItem="7cJ-a2-jYV" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="hbu-jr-BFw"/>
                             <constraint firstItem="d7J-i0-Sxe" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="i2a-HN-mnM"/>
                             <constraint firstItem="wq6-jn-Rzu" firstAttribute="height" relation="lessThanOrEqual" secondItem="d7J-i0-Sxe" secondAttribute="height" multiplier="0.6" id="jFF-Ed-ofQ"/>
+                            <constraint firstItem="gnK-Cr-8Qv" firstAttribute="top" secondItem="7cJ-a2-jYV" secondAttribute="bottom" constant="8" id="qcE-nQ-nbK"/>
+                            <constraint firstItem="gnK-Cr-8Qv" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="rC9-RE-R53"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="deviceTable" destination="6Ip-Dj-WK7" id="oI7-Is-e7j"/>
+                        <outlet property="noBTImage" destination="0zk-kz-c6E" id="Drd-je-vMv"/>
                         <outlet property="scanningModeSegmentedSwitch" destination="7cJ-a2-jYV" id="IvR-bK-awr"/>
+                        <outlet property="tableContainerScrollView" destination="gnK-Cr-8Qv" id="v7a-vl-T0r"/>
                         <segue destination="14X-7Y-r9e" kind="show" identifier="peripheral-window-display" id="QbN-lZ-NLl"/>
                     </connections>
                 </viewController>
@@ -840,7 +897,7 @@
         <!--Peripheral Screen-->
         <scene sceneID="LbW-p0-GxE">
             <objects>
-                <viewController title="SLUG-PERIPHERAL" id="kAw-5M-bo6" userLabel="Peripheral Screen" customClass="RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="SLUG-PERIPHERAL" storyboardIdentifier="peripheral-view-controller" id="kAw-5M-bo6" userLabel="Peripheral Screen" customClass="RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="dn3-5p-dqe">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -850,7 +907,7 @@
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="axesIndependently" image="background-gradient" id="rWt-sY-l4C"/>
                             </imageView>
                             <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" alphaValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="isv-8j-uSH" userLabel="BlueThoth Logo Image View">
-                                <rect key="frame" x="96" y="54" width="288" height="162"/>
+                                <rect key="frame" x="176" y="71" width="128" height="128"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="BlueThothLogo" id="fdQ-d3-lqe"/>
                             </imageView>
                         </subviews>
@@ -927,6 +984,7 @@
     </scenes>
     <resources>
         <image name="BlueThothLogo" width="307" height="305"/>
+        <image name="NoBT" width="342" height="342"/>
         <image name="background-gradient" width="1" height="1000"/>
     </resources>
 </document>

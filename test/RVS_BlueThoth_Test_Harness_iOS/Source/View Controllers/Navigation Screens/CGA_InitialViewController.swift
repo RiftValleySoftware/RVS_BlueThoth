@@ -512,8 +512,8 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
     }
     
     /* ################################################################## */
-    /**1
-     OPTIONAL: This is called to tell the instance that a Peripheral device has had some change.
+    /**
+     This is called to tell the instance that a Peripheral device has had some change.
      
      - parameter inCentralManager: The central manager that is calling this.
      - parameter deviceInfoChanged: The device instance that was connected.

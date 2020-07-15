@@ -38,14 +38,14 @@ extension CGA_PersistentPrefs {
 /* ###################################################################################################################################### */
 // MARK: - Array Extension for Registered Screens -
 /* ###################################################################################################################################### */
-extension Array where Element == RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol {
+extension Array where Element == RVS_BlueThoth_Test_Harness_MacOS_ControllerList_Protocol {
     /* ################################################################## */
     /**
      Adds a screen to our Array. If it is already there, nothing happens.
      
      - parameter inScreen: The screen we want added.
      */
-    mutating func addScreen(_ inScreen: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol) {
+    mutating func addScreen(_ inScreen: RVS_BlueThoth_Test_Harness_MacOS_ControllerList_Protocol) {
         if nil == self[inScreen.key] {
             self.append(inScreen)
         }
@@ -59,7 +59,7 @@ extension Array where Element == RVS_BlueThoth_Test_Harness_MacOS_Base_ViewContr
      
      - parameter inScreen: The screen we want removed.
      */
-    mutating func removeScreen(_ inScreen: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol) {
+    mutating func removeScreen(_ inScreen: RVS_BlueThoth_Test_Harness_MacOS_ControllerList_Protocol) {
         self.removeAll(where: { $0.key == inScreen.key })
     }
     
@@ -87,6 +87,12 @@ extension Array where Element == RVS_BlueThoth_Test_Harness_MacOS_Base_ViewContr
 class RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: NSObject, NSApplicationDelegate {
     /* ################################################################## */
     /**
+     This is the unique key for the initial (main) screen.
+     */
+    static let mainScreenID = "MAIN"
+
+    /* ################################################################## */
+    /**
      This is the Bluetooth Central Manager instance. Everything goes through this.
      */
     var centralManager: RVS_BlueThoth?
@@ -101,7 +107,7 @@ class RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: NSObject, NSApplicationDeleg
     /**
      This has our open windows.
      */
-    var screenList: [RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol] = []
+    var screenList: [RVS_BlueThoth_Test_Harness_MacOS_ControllerList_Protocol] = []
 }
 
 /* ###################################################################################################################################### */
@@ -198,6 +204,23 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
         }
     }
     
+    /* ################################################################## */
+    /**
+     This is called to tell the instance that a Peripheral device has had some change.
+     
+     - parameter inCentralManager: The central manager that is calling this.
+     - parameter deviceInfoChanged: The device instance that was connected.
+     */
+    func centralManager(_ inCentralManager: RVS_BlueThoth, deviceInfoChanged inDevice: CGA_Bluetooth_Peripheral) {
+        #if DEBUG
+            print("Peripheral Update")
+        #endif
+        
+        for screen in screenList where "MAIN" == screen.key {
+            screen.updateUI()
+        }
+    }
+
     /* ################################################################## */
     /**
      This is called to tell the instance that the state of the Central manager just became "powered on."

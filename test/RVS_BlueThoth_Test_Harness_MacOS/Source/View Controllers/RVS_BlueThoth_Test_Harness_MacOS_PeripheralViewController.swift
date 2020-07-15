@@ -29,6 +29,19 @@ import RVS_BlueThoth_MacOS
 /**
  */
 class RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController {
+    static let storyboardID  = "peripheral-view-controller"
+    
+    /* ################################################################## */
+    /**
+     This is the Peripheral instance associated with this screen.
+     */
+    var peripheralInstance: CGA_Bluetooth_Peripheral?
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Base Class Overrides -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
     /* ################################################################## */
     /**
      Called when the view hierachy has loaded.
@@ -61,12 +74,12 @@ class RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueThoth_T
 /* ###################################################################################################################################### */
 // MARK: - RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol Conformance -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol {
+extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueThoth_Test_Harness_MacOS_ControllerList_Protocol {
     /* ################################################################## */
     /**
      This is a String key that uniquely identifies this screen.
      */
-    var key: String { "ERROR" }
+    var key: String { peripheralInstance?.id ?? "ERROR" }
 
     /* ################################################################## */
     /**

@@ -23,10 +23,16 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 import Cocoa
 import RVS_BlueThoth_MacOS
 
-protocol RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol {
+/* ################################################################################################################################## */
+// MARK: - Controller List Protocol
+/* ################################################################################################################################## */
+/**
+ This protocol defines the requirements for any View Controller that will be listed by the App Delegate.
+ */
+protocol RVS_BlueThoth_Test_Harness_MacOS_ControllerList_Protocol {
     /* ################################################################## */
     /**
-     This is a String key that uniquely identifies this screen.
+     This is a String key that uniquely identifies this screen. It must be unique for the Array.
      */
     var key: String { get }
     
@@ -43,8 +49,7 @@ protocol RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol {
 /**
  This class provides some common tools for all view controllers.
  */
-class RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController: NSViewController {
-}
+class RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController: NSViewController { }
 
 /* ################################################################################################################################## */
 // MARK: - Instance Computed Properties
@@ -54,25 +59,19 @@ extension RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController {
     /**
      This is an accessor to our app delegate object. READ-ONLY
      */
-    @objc dynamic var appDelegateObject: RVS_BlueThoth_Test_Harness_MacOS_AppDelegate {
-        return RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.appDelegateObject
-    }
+    @objc dynamic var appDelegateObject: RVS_BlueThoth_Test_Harness_MacOS_AppDelegate { RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.appDelegateObject }
     
     /* ################################################################## */
     /**
      This is an accessor to our shared prefs object.
      */
-    @objc dynamic var prefs: CGA_PersistentPrefs {
-        return appDelegateObject.prefs
-    }
+    @objc dynamic var prefs: CGA_PersistentPrefs { appDelegateObject.prefs }
 
     /* ################################################################## */
     /**
      This is the Bluetooth Central Manager instance. Everything goes through this.
      */
-    var centralManager: RVS_BlueThoth? {
-        return appDelegateObject.centralManager
-    }
+    @objc dynamic var centralManager: RVS_BlueThoth? { appDelegateObject.centralManager }
 }
 
 /* ################################################################################################################################## */

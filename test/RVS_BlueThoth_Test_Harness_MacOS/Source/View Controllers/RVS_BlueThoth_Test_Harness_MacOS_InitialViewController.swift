@@ -48,9 +48,39 @@ class RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: RVS_BlueThoth_Test
 
     /* ################################################################## */
     /**
+     This is a String key that uniquely identifies this screen.
+     */
+    let key: String = RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.mainScreenID
+    
+    /* ################################################################## */
+    /**
+     The currently selected device (nil, if no device selected).
+     */
+    private var _selectedDevice: CGA_Bluetooth_Peripheral?
+    
+    /* ################################################################## */
+    /**
      This is a segmented switch that reflects the state of the scanning.
      */
     @IBOutlet weak var scanningModeSegmentedSwitch: NSSegmentedControl!
+    
+    /* ################################################################## */
+    /**
+     This contains the Peripheral List table.
+     */
+    @IBOutlet weak var tableContainerScrollView: NSScrollView!
+
+    /* ################################################################## */
+    /**
+     This is the Peripheral List table.
+     */
+    @IBOutlet weak var deviceTable: NSTableView!
+    
+    /* ################################################################## */
+    /**
+     This is the image that is shown if Bluetooth is not available.
+     */
+    @IBOutlet weak var noBTImage: NSImageView!
     
     /* ################################################################## */
     /**
@@ -121,20 +151,98 @@ extension RVS_BlueThoth_Test_Harness_MacOS_InitialViewController {
 /* ###################################################################################################################################### */
 // MARK: - RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol Conformance -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol {
-    /* ################################################################## */
-    /**
-     This is a String key that uniquely identifies this screen.
-     */
-    var key: String { "MAIN" }
-    
+extension RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: RVS_BlueThoth_Test_Harness_MacOS_ControllerList_Protocol {
     /* ################################################################## */
     /**
      This forces the UI elements to be updated.
      */
     func updateUI() {
         scanningModeSegmentedSwitch?.isHidden = !(centralManager?.isBTAvailable ?? false)
+        tableContainerScrollView?.isHidden = !(centralManager?.isBTAvailable ?? false)
+        noBTImage?.isHidden = !(tableContainerScrollView?.isHidden ?? true)
+        
         scanningModeSegmentedSwitch?.setSelected(true, forSegment: (centralManager?.isScanning ?? false) ? ScanningModeSwitchValues.scanning.rawValue : ScanningModeSwitchValues.notScanning.rawValue)
+        
         _setUpAccessibility()
+        
+        deviceTable?.reloadData()
+    }
+}
+
+/* ################################################################################################################################## */
+// MARK: - NSTableViewDelegate/DataSource Methods
+/* ################################################################################################################################## */
+extension RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: NSTableViewDelegate, NSTableViewDataSource {
+    /* ################################################################## */
+    /**
+     Called to supply the number of rows in the table.
+     
+     - parameters:
+        - inTableView: The table instance.
+     
+     - returns: A 1-based Int, with 0 being no rows.
+     */
+    func numberOfRows(in inTableView: NSTableView) -> Int { centralManager?.stagedBLEPeripherals.count ?? 0 }
+
+    /* ################################################################## */
+    /**
+     This is called to supply the string display for one row that corresponds to a device.
+     
+     - parameters:
+        - inTableView: The table instance.
+        - objectValueFor: Container object for the column that holds the row.
+        - row: 0-based Int, with the index of the row, within the column.
+     
+     - returns: A String, with the device name.
+     */
+    func tableView(_ inTableView: NSTableView, objectValueFor inTableColumn: NSTableColumn?, row inRow: Int) -> Any? {
+        if  let device = centralManager?.stagedBLEPeripherals[inRow],
+            !device.preferredName.isEmpty {
+            return device.preferredName
+        }
+        
+        return "NO DEVICE NAME"
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called when a row is selected. We match the device to the row, set that in the semaphore, and approve the selection.
+     
+     - parameters:
+        - inTableView: The table instance.
+        - shouldSelectRow: 0-based Int, with the index of the row, within the column.
+     
+     - returns: False (always).
+     */
+    func tableView(_ inTableView: NSTableView, shouldSelectRow inRow: Int) -> Bool {
+        if  let device = centralManager?.stagedBLEPeripherals[inRow] {
+            #if DEBUG
+                print("Row \(inRow) was selected.")
+            #endif
+            _selectedDevice = device.peripheralInstance
+            return true
+        }
+        
+        _selectedDevice = nil
+        return false
+    }
+    
+    /* ################################################################## */
+    /**
+     Called after the selection was set up and approved.
+     
+     We open a modal window, with the device info.
+     
+     - parameter: Ignored
+     */
+    func tableViewSelectionDidChange(_: Notification) {
+        if  let device = _selectedDevice,
+            let newController = storyboard?.instantiateController(withIdentifier: RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.storyboardID) as? RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
+            newController.peripheralInstance = device
+            presentAsModalWindow(newController)
+        }
+        
+        _selectedDevice = nil
+        deviceTable.deselectAll(nil)
     }
 }
