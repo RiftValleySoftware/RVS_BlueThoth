@@ -20,6 +20,7 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT
 The Great Rift Valley Software Company: https://riftvalleysoftware.com
 */
 
+import Foundation
 import CoreGraphics   // For the CGColor
 import RVS_Persistent_Prefs
 
@@ -125,7 +126,7 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
     /**
      This is a Boolean value. If true, then the scan will not use duplicate filtering (meaning that it will be continuously updating).
      */
-    var continuouslyUpdatePeripherals: Bool {
+    @objc dynamic var continuouslyUpdatePeripherals: Bool {
         get { values[Keys.continuouslyUpdatePeripherals.rawValue] as? Bool ?? false }
         set { values[Keys.continuouslyUpdatePeripherals.rawValue] = newValue }
     }
@@ -134,7 +135,7 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
     /**
      This is a Boolean value. If true, then devices that are not advertising as connctable will be ignored.
      */
-    var discoverOnlyConnectableDevices: Bool {
+    @objc dynamic var discoverOnlyConnectableDevices: Bool {
         get { values[Keys.discoverOnlyConnectableDevices.rawValue] as? Bool ?? false }
         set { values[Keys.discoverOnlyConnectableDevices.rawValue] = newValue }
     }
@@ -143,7 +144,7 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
     /**
      This is a Boolean value. If true, then devices that do not have names will be included. Default is false.
      */
-    var allowEmptyNames: Bool {
+    @objc dynamic var allowEmptyNames: Bool {
         get { values[Keys.allowEmptyNames.rawValue] as? Bool ?? false }
         set { values[Keys.allowEmptyNames.rawValue] = newValue }
     }
@@ -152,7 +153,7 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
     /**
      This is a Boolean value. If true, then we will always send newlines as CRLF pairs. Default is false.
      */
-    var alwaysUseCRLF: Bool {
+    @objc dynamic var alwaysUseCRLF: Bool {
         get { values[Keys.alwaysUseCRLF.rawValue] as? Bool ?? false }
         set { values[Keys.alwaysUseCRLF.rawValue] = newValue }
     }
@@ -161,7 +162,7 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
     /**
      This is a Boolean value. If true, then the scan will not use duplicate filtering (meaning that it will be continuously updating).
      */
-    var minimumRSSILevel: Int {
+    @objc dynamic var minimumRSSILevel: Int {
         get { values[Keys.minimumRSSILevel.rawValue] as? Int ?? -100 }
         set { values[Keys.minimumRSSILevel.rawValue] = newValue }
     }
@@ -170,7 +171,7 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
     /**
      This is an Array of String, containing the UUIDs of specific Peripherals for which we are filtering.
      */
-    var peripheralFilterIDArray: [String] {
+    @objc dynamic var peripheralFilterIDArray: [String] {
         get { values[Keys.peripheralFilterIDArray.rawValue] as? [String] ?? [] }
         set { values[Keys.peripheralFilterIDArray.rawValue] = newValue }
     }
@@ -179,7 +180,7 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
     /**
      This is an Array of String, containing the UUIDs of specific Services for which we are filtering.
      */
-    var serviceFilterIDArray: [String] {
+    @objc dynamic var serviceFilterIDArray: [String] {
         get { values[Keys.serviceFilterIDArray.rawValue] as? [String] ?? [] }
         set { values[Keys.serviceFilterIDArray.rawValue] = newValue }
     }
@@ -188,7 +189,7 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
     /**
      This is an Array of String, containing the UUIDs of specific Characteristics for which we are filtering.
      */
-    var characteristicFilterIDArray: [String] {
+    @objc dynamic var characteristicFilterIDArray: [String] {
         get { values[Keys.characteristicFilterIDArray.rawValue] as? [String] ?? [] }
         set { values[Keys.characteristicFilterIDArray.rawValue] = newValue }
     }
@@ -198,12 +199,12 @@ class CGA_PersistentPrefs: RVS_PersistentPrefs {
      This is a CGColor, indicating the color to use for the selected table cells.
      Instead of storing it, we simply return the same color.
      */
-    var tableSelectionBackgroundColor: CGColor { CGColor(srgbRed: 0.5, green: 0.5, blue: 0.5, alpha: 1) }
+    @objc dynamic var tableSelectionBackgroundColor: CGColor { CGColor(srgbRed: 0.5, green: 0.5, blue: 0.5, alpha: 1) }
     
     /* ################################################################## */
     /**
      This is a floating-point number to be used as an alpha component. We use it for the table cells that can't be clicked.
      Instead of storing it, we simply return the same alpha value.
      */
-    var textColorForUnselectableCells: CGFloat { 0.5 }
+    @objc dynamic var textColorForUnselectableCells: CGFloat { 0.5 }
 }

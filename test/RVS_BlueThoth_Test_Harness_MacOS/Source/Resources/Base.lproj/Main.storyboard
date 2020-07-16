@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -907,7 +907,7 @@
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="axesIndependently" image="background-gradient" id="rWt-sY-l4C"/>
                             </imageView>
                             <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" alphaValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="isv-8j-uSH" userLabel="BlueThoth Logo Image View">
-                                <rect key="frame" x="176" y="71" width="128" height="128"/>
+                                <rect key="frame" x="96" y="54" width="288" height="162"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="BlueThothLogo" id="fdQ-d3-lqe"/>
                             </imageView>
                         </subviews>
@@ -934,7 +934,7 @@
                     <window key="window" title="SLUG-PREFERENCES" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="1jM-Dl-xdE">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+                        <rect key="contentRect" x="196" y="240" width="480" height="640"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1417"/>
                         <connections>
                             <outlet property="delegate" destination="0zn-zr-cZj" id="UQM-Vh-Fns"/>
@@ -946,40 +946,77 @@
                 </windowController>
                 <customObject id="AS1-CH-M0E" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1373" y="165"/>
+            <point key="canvasLocation" x="1334" y="350"/>
         </scene>
         <!--Preferences Screen-->
         <scene sceneID="kjr-EF-bVD">
             <objects>
                 <viewController title="SLUG-PREFERENCES" showSeguePresentationStyle="single" id="CBu-yz-Vwg" userLabel="Preferences Screen" customClass="RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="6nf-9I-pQU">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                    <view key="view" misplaced="YES" id="6nf-9I-pQU">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="63"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="tcx-Cq-9iu" userLabel="Background Gradient Image View">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="67"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="axesIndependently" image="background-gradient" id="5uW-61-H9T"/>
                             </imageView>
                             <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" alphaValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="bhN-dy-Nzt" userLabel="BlueThoth Logo Image View">
-                                <rect key="frame" x="96" y="54" width="288" height="162"/>
+                                <rect key="frame" x="96" y="13" width="288" height="41"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="BlueThothLogo" id="Ccb-bi-kdb"/>
                             </imageView>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VgG-dX-lwB">
+                                <rect key="frame" x="20" y="20" width="440" height="27"/>
+                                <subviews>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xN5-cM-y5g">
+                                        <rect key="frame" x="-2" y="-2" width="444" height="31"/>
+                                        <buttonCell key="cell" type="check" title="SLUG-IGNORE-DUPES" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" borderStyle="border" inset="2" id="70Q-YH-bLx">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="systemBold" size="16"/>
+                                            <connections>
+                                                <binding destination="Eie-DR-9th" name="value" keyPath="values.continuouslyUpdatePeripherals" id="PYQ-ll-ETb"/>
+                                            </connections>
+                                        </buttonCell>
+                                        <color key="contentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <binding destination="CBu-yz-Vwg" name="value" keyPath="self.prefs.continuouslyUpdatePeripherals" id="vmt-Kk-Z9Q"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="xN5-cM-y5g" secondAttribute="trailing" id="ail-oh-0se"/>
+                                    <constraint firstItem="xN5-cM-y5g" firstAttribute="leading" secondItem="VgG-dX-lwB" secondAttribute="leading" id="uiN-d7-SY8"/>
+                                </constraints>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="VgG-dX-lwB" firstAttribute="top" secondItem="6nf-9I-pQU" secondAttribute="top" constant="20" id="6Rv-TZ-A0T"/>
                             <constraint firstItem="tcx-Cq-9iu" firstAttribute="top" secondItem="6nf-9I-pQU" secondAttribute="top" id="FS4-Pd-wib"/>
                             <constraint firstAttribute="bottom" secondItem="tcx-Cq-9iu" secondAttribute="bottom" id="Hw6-o7-xMr"/>
                             <constraint firstItem="bhN-dy-Nzt" firstAttribute="width" relation="lessThanOrEqual" secondItem="tcx-Cq-9iu" secondAttribute="width" multiplier="0.6" id="N4P-Jf-Akk"/>
                             <constraint firstItem="tcx-Cq-9iu" firstAttribute="leading" secondItem="6nf-9I-pQU" secondAttribute="leading" id="Pkp-Gz-jhK"/>
+                            <constraint firstAttribute="trailing" secondItem="VgG-dX-lwB" secondAttribute="trailing" constant="20" id="TCa-xr-4ag"/>
+                            <constraint firstItem="VgG-dX-lwB" firstAttribute="leading" secondItem="6nf-9I-pQU" secondAttribute="leading" constant="20" id="cjK-Ld-0cV"/>
                             <constraint firstItem="bhN-dy-Nzt" firstAttribute="centerX" secondItem="6nf-9I-pQU" secondAttribute="centerX" id="mHf-In-FQT"/>
+                            <constraint firstAttribute="bottom" secondItem="VgG-dX-lwB" secondAttribute="bottom" constant="20" id="rCd-3P-dwx"/>
                             <constraint firstItem="bhN-dy-Nzt" firstAttribute="height" relation="lessThanOrEqual" secondItem="tcx-Cq-9iu" secondAttribute="height" multiplier="0.6" id="rwY-C9-gFw"/>
                             <constraint firstItem="bhN-dy-Nzt" firstAttribute="centerY" secondItem="6nf-9I-pQU" secondAttribute="centerY" id="tWz-a7-3CY"/>
                             <constraint firstAttribute="trailing" secondItem="tcx-Cq-9iu" secondAttribute="trailing" id="yOq-Wi-upP"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="ignoreDupesCheckbox" destination="xN5-cM-y5g" id="Rka-at-Xnl"/>
+                    </connections>
                 </viewController>
                 <customObject id="oRX-zl-7n4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController representsSharedInstance="YES" id="Eie-DR-9th"/>
             </objects>
-            <point key="canvasLocation" x="1373" y="609"/>
+            <point key="canvasLocation" x="1334" y="1134"/>
         </scene>
     </scenes>
     <resources>

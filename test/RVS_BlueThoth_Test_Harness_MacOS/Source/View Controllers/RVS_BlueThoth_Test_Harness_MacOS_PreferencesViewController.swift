@@ -30,9 +30,27 @@ import Cocoa
 class RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController {
     /* ################################################################## */
     /**
+     */
+    @IBOutlet weak var ignoreDupesCheckbox: NSButton!
+    
+    /* ################################################################## */
+    /**
      Called when the view hierachy has loaded.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        ignoreDupesCheckbox?.title = ignoreDupesCheckbox?.title.localizedVariant ?? "ERROR"
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Private Instance Methods -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController {
+    /* ################################################################## */
+    /**
+     */
+    private func _setUpAccessibility() {
+        
     }
 }
