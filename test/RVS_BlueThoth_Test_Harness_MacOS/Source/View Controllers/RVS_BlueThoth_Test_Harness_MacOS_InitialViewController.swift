@@ -98,6 +98,10 @@ class RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: RVS_BlueThoth_Test
         if ScanningModeSwitchValues.notScanning.rawValue == inSwitch.selectedSegment {
             centralManager?.stopScanning()
         } else {
+            centralManager?.scanCriteria = prefs.scanCriteria
+            centralManager?.minimumRSSILevelIndBm = prefs.minimumRSSILevel
+            centralManager?.discoverOnlyConnectablePeripherals = prefs.discoverOnlyConnectableDevices
+            centralManager?.allowEmptyNames = prefs.allowEmptyNames
             centralManager?.startScanning(duplicateFilteringIsOn: !prefs.continuouslyUpdatePeripherals)
         }
         
