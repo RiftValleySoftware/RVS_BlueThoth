@@ -35,11 +35,29 @@ class RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController: RVS_BlueThoth_
     
     /* ################################################################## */
     /**
+     */
+    @IBOutlet weak var allowEmptyNamesCheckbox: NSButton!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var onlyConnectableCheckbox: NSButton!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var alwaysUseCRLFCheckbox: NSButton!
+    
+    /* ################################################################## */
+    /**
      Called when the view hierachy has loaded.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
         ignoreDupesCheckbox?.title = ignoreDupesCheckbox?.title.localizedVariant ?? "ERROR"
+        allowEmptyNamesCheckbox?.title = allowEmptyNamesCheckbox?.title.localizedVariant ?? "ERROR"
+        onlyConnectableCheckbox?.title = onlyConnectableCheckbox?.title.localizedVariant ?? "ERROR"
+        alwaysUseCRLFCheckbox?.title = alwaysUseCRLFCheckbox?.title.localizedVariant ?? "ERROR"
     }
 }
 

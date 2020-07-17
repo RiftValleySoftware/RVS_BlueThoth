@@ -953,22 +953,22 @@
             <objects>
                 <viewController title="SLUG-PREFERENCES" showSeguePresentationStyle="single" id="CBu-yz-Vwg" userLabel="Preferences Screen" customClass="RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" misplaced="YES" id="6nf-9I-pQU">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="63"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="159"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="tcx-Cq-9iu" userLabel="Background Gradient Image View">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="67"/>
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="172"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="axesIndependently" image="background-gradient" id="5uW-61-H9T"/>
                             </imageView>
                             <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" alphaValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="bhN-dy-Nzt" userLabel="BlueThoth Logo Image View">
-                                <rect key="frame" x="96" y="13" width="288" height="41"/>
+                                <rect key="frame" x="96" y="34" width="288" height="104"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="BlueThothLogo" id="Ccb-bi-kdb"/>
                             </imageView>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VgG-dX-lwB">
-                                <rect key="frame" x="20" y="20" width="440" height="27"/>
+                                <rect key="frame" x="20" y="20" width="440" height="132"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xN5-cM-y5g">
-                                        <rect key="frame" x="-2" y="-2" width="444" height="31"/>
+                                        <rect key="frame" x="-2" y="103" width="444" height="31"/>
                                         <buttonCell key="cell" type="check" title="SLUG-IGNORE-DUPES" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" borderStyle="border" inset="2" id="70Q-YH-bLx">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="systemBold" size="16"/>
@@ -977,19 +977,61 @@
                                             </connections>
                                         </buttonCell>
                                         <color key="contentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <connections>
-                                            <binding destination="CBu-yz-Vwg" name="value" keyPath="self.prefs.continuouslyUpdatePeripherals" id="vmt-Kk-Z9Q"/>
-                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xmJ-pV-SgO">
+                                        <rect key="frame" x="-2" y="68" width="444" height="31"/>
+                                        <buttonCell key="cell" type="check" title="SLUG-CONNECTED-ONLY" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" borderStyle="border" inset="2" id="IPE-SG-bJo">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="systemBold" size="16"/>
+                                            <connections>
+                                                <binding destination="Eie-DR-9th" name="value" keyPath="values.discoverOnlyConnectableDevices" id="mIh-rW-8sY"/>
+                                            </connections>
+                                        </buttonCell>
+                                        <color key="contentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AFc-Lc-ebR">
+                                        <rect key="frame" x="-2" y="33" width="444" height="31"/>
+                                        <buttonCell key="cell" type="check" title="SLUG-EMPTY-NAME" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" borderStyle="border" inset="2" id="o2p-Xl-8WB">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="systemBold" size="16"/>
+                                            <connections>
+                                                <binding destination="Eie-DR-9th" name="value" keyPath="values.allowEmptyNames" id="vJT-dh-9ML"/>
+                                            </connections>
+                                        </buttonCell>
+                                        <color key="contentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jJm-EQ-vyk">
+                                        <rect key="frame" x="-2" y="-2" width="444" height="31"/>
+                                        <buttonCell key="cell" type="check" title="SLUG-ALWAYS-USE-CRLF" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" borderStyle="border" inset="2" id="BXC-gr-Ele">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="systemBold" size="16"/>
+                                            <connections>
+                                                <binding destination="Eie-DR-9th" name="value" keyPath="values.alwaysUseCRLF" id="tvg-1b-SRf"/>
+                                            </connections>
+                                        </buttonCell>
+                                        <color key="contentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="AFc-Lc-ebR" firstAttribute="leading" secondItem="VgG-dX-lwB" secondAttribute="leading" id="2vq-hL-fEo"/>
+                                    <constraint firstAttribute="trailing" secondItem="xmJ-pV-SgO" secondAttribute="trailing" id="4La-Q8-w2v"/>
+                                    <constraint firstItem="xmJ-pV-SgO" firstAttribute="leading" secondItem="VgG-dX-lwB" secondAttribute="leading" id="BEc-fI-CN5"/>
+                                    <constraint firstAttribute="trailing" secondItem="jJm-EQ-vyk" secondAttribute="trailing" id="Hb7-m8-T7u"/>
+                                    <constraint firstItem="jJm-EQ-vyk" firstAttribute="leading" secondItem="VgG-dX-lwB" secondAttribute="leading" id="Yi9-QB-Mad"/>
                                     <constraint firstAttribute="trailing" secondItem="xN5-cM-y5g" secondAttribute="trailing" id="ail-oh-0se"/>
+                                    <constraint firstAttribute="trailing" secondItem="AFc-Lc-ebR" secondAttribute="trailing" id="fKF-3g-s1Q"/>
                                     <constraint firstItem="xN5-cM-y5g" firstAttribute="leading" secondItem="VgG-dX-lwB" secondAttribute="leading" id="uiN-d7-SY8"/>
                                 </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
@@ -1010,7 +1052,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="allowEmptyNamesCheckbox" destination="AFc-Lc-ebR" id="l9K-5L-jba"/>
+                        <outlet property="alwaysUseCRLFCheckbox" destination="jJm-EQ-vyk" id="BHQ-7Q-bgz"/>
                         <outlet property="ignoreDupesCheckbox" destination="xN5-cM-y5g" id="Rka-at-Xnl"/>
+                        <outlet property="onlyConnectableCheckbox" destination="xmJ-pV-SgO" id="XY7-ns-L9v"/>
                     </connections>
                 </viewController>
                 <customObject id="oRX-zl-7n4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
