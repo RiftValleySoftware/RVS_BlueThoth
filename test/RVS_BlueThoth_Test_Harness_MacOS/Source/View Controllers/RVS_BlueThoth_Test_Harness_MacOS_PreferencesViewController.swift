@@ -21,6 +21,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 */
 
 import Cocoa
+import RVS_Persistent_Prefs
 
 /* ###################################################################################################################################### */
 // MARK: - The Preferences Screen View Controller -
@@ -50,6 +51,74 @@ class RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController: RVS_BlueThoth_
     
     /* ################################################################## */
     /**
+     */
+    @IBOutlet weak var minimumRSSILabel: NSTextFieldCell!
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var minimumRSSIFixedLabel: NSTextFieldCell!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var rssiValueLabel: NSTextFieldCell!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var maximumRSSIFixedLabel: NSTextFieldCell!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var minimumRSSISlider: NSSlider!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var filterUUIDsLabel: NSTextFieldCell!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var deviceFiltersLabel: NSTextFieldCell!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet var deviceFilterTextView: NSTextView!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var serviceFiltersLabel: NSTextFieldCell!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet var serviceFiltersTextView: NSTextView!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var characteristicsFiltersLabel: NSTextFieldCell!
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet var characteristicsFiltersTextView: NSTextView!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func minimumRSSIChanged(_ inSlider: NSSlider) {
+        prefs.minimumRSSILevel = Int(inSlider.intValue)
+        _updateUI()
+    }
+    
+    /* ################################################################## */
+    /**
      Called when the view hierachy has loaded.
      */
     override func viewDidLoad() {
@@ -58,6 +127,18 @@ class RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController: RVS_BlueThoth_
         allowEmptyNamesCheckbox?.title = allowEmptyNamesCheckbox?.title.localizedVariant ?? "ERROR"
         onlyConnectableCheckbox?.title = onlyConnectableCheckbox?.title.localizedVariant ?? "ERROR"
         alwaysUseCRLFCheckbox?.title = alwaysUseCRLFCheckbox?.title.localizedVariant ?? "ERROR"
+        minimumRSSIFixedLabel?.title = String(format: (minimumRSSIFixedLabel?.title ?? "%d").localizedVariant, -100)
+        maximumRSSIFixedLabel?.title = String(format: (maximumRSSIFixedLabel?.title ?? "%d").localizedVariant, 0)
+        minimumRSSILabel?.title = String(format: (minimumRSSILabel?.title ?? "%d").localizedVariant, 0)
+        minimumRSSISlider?.intValue = Int32(prefs.minimumRSSILevel)
+        filterUUIDsLabel?.title = String(format: (filterUUIDsLabel?.title ?? "%d").localizedVariant, 0)
+        deviceFiltersLabel?.title = String(format: (deviceFiltersLabel?.title ?? "%d").localizedVariant, 0)
+        deviceFilterTextView?.string = prefs.peripheralFilterIDArray.joined(separator: "\n")
+        serviceFiltersLabel?.title = String(format: (serviceFiltersLabel?.title ?? "%d").localizedVariant, 0)
+        serviceFiltersTextView?.string = prefs.serviceFilterIDArray.joined(separator: "\n")
+        characteristicsFiltersLabel?.title = String(format: (characteristicsFiltersLabel?.title ?? "%d").localizedVariant, 0)
+        characteristicsFiltersTextView?.string = prefs.characteristicFilterIDArray.joined(separator: "\n")
+        _updateUI()
     }
 }
 
@@ -70,5 +151,22 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController {
      */
     private func _setUpAccessibility() {
         
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    private func _updateUI() {
+        rssiValueLabel?.title = String(format: (maximumRSSIFixedLabel?.placeholderString ?? "%d").localizedVariant, prefs.minimumRSSILevel)
+    }
+}
+/* ###################################################################################################################################### */
+// MARK: - NSTextViewDelegate Conformance -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController: NSTextViewDelegate {
+    func textDidChange(_ notification: Notification) {
+        prefs.peripheralFilterIDArray = deviceFilterTextView.string.split(separator: "\n").compactMap { $0.uuidFormat }
+        prefs.serviceFilterIDArray = serviceFiltersTextView.string.split(separator: "\n").compactMap { $0.uuidFormat }
+        prefs.characteristicFilterIDArray = characteristicsFiltersTextView.string.split(separator: "\n").compactMap { $0.uuidFormat }
     }
 }

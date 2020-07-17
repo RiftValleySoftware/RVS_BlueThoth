@@ -934,7 +934,7 @@
                     <window key="window" title="SLUG-PREFERENCES" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="1jM-Dl-xdE">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="480" height="640"/>
+                        <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1417"/>
                         <connections>
                             <outlet property="delegate" destination="0zn-zr-cZj" id="UQM-Vh-Fns"/>
@@ -946,29 +946,29 @@
                 </windowController>
                 <customObject id="AS1-CH-M0E" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1334" y="350"/>
+            <point key="canvasLocation" x="1365" y="165"/>
         </scene>
         <!--Preferences Screen-->
         <scene sceneID="kjr-EF-bVD">
             <objects>
                 <viewController title="SLUG-PREFERENCES" showSeguePresentationStyle="single" id="CBu-yz-Vwg" userLabel="Preferences Screen" customClass="RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" misplaced="YES" id="6nf-9I-pQU">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="159"/>
+                    <view key="view" id="6nf-9I-pQU">
+                        <rect key="frame" x="0.0" y="0.0" width="699" height="533"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="tcx-Cq-9iu" userLabel="Background Gradient Image View">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="172"/>
+                                <rect key="frame" x="0.0" y="0.0" width="699" height="533"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="axesIndependently" image="background-gradient" id="5uW-61-H9T"/>
                             </imageView>
                             <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" alphaValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="bhN-dy-Nzt" userLabel="BlueThoth Logo Image View">
-                                <rect key="frame" x="96" y="34" width="288" height="104"/>
+                                <rect key="frame" x="196" y="114" width="307" height="305"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="BlueThothLogo" id="Ccb-bi-kdb"/>
                             </imageView>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VgG-dX-lwB">
-                                <rect key="frame" x="20" y="20" width="440" height="132"/>
+                                <rect key="frame" x="20" y="20" width="659" height="493"/>
                                 <subviews>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xN5-cM-y5g">
-                                        <rect key="frame" x="-2" y="103" width="444" height="31"/>
+                                    <button verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="xN5-cM-y5g">
+                                        <rect key="frame" x="-2" y="464" width="663" height="31"/>
                                         <buttonCell key="cell" type="check" title="SLUG-IGNORE-DUPES" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" borderStyle="border" inset="2" id="70Q-YH-bLx">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="systemBold" size="16"/>
@@ -978,8 +978,8 @@
                                         </buttonCell>
                                         <color key="contentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xmJ-pV-SgO">
-                                        <rect key="frame" x="-2" y="68" width="444" height="31"/>
+                                    <button verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="xmJ-pV-SgO">
+                                        <rect key="frame" x="-2" y="429" width="663" height="31"/>
                                         <buttonCell key="cell" type="check" title="SLUG-CONNECTED-ONLY" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" borderStyle="border" inset="2" id="IPE-SG-bJo">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="systemBold" size="16"/>
@@ -989,8 +989,8 @@
                                         </buttonCell>
                                         <color key="contentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AFc-Lc-ebR">
-                                        <rect key="frame" x="-2" y="33" width="444" height="31"/>
+                                    <button verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="AFc-Lc-ebR">
+                                        <rect key="frame" x="-2" y="394" width="663" height="31"/>
                                         <buttonCell key="cell" type="check" title="SLUG-EMPTY-NAME" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" borderStyle="border" inset="2" id="o2p-Xl-8WB">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="systemBold" size="16"/>
@@ -1000,8 +1000,8 @@
                                         </buttonCell>
                                         <color key="contentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jJm-EQ-vyk">
-                                        <rect key="frame" x="-2" y="-2" width="444" height="31"/>
+                                    <button verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="jJm-EQ-vyk">
+                                        <rect key="frame" x="-2" y="359" width="663" height="31"/>
                                         <buttonCell key="cell" type="check" title="SLUG-ALWAYS-USE-CRLF" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" borderStyle="border" inset="2" id="BXC-gr-Ele">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="systemBold" size="16"/>
@@ -1011,15 +1011,221 @@
                                         </buttonCell>
                                         <color key="contentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </button>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="uP3-hN-TaA">
+                                        <rect key="frame" x="-2" y="334" width="663" height="19"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="SLUG-MINIMUM-RSSI-LABEL" id="CWz-7w-jCz">
+                                            <font key="font" metaFont="systemBold" size="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" verticalCompressionResistancePriority="1000" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VO1-GE-3O0">
+                                        <rect key="frame" x="0.0" y="306" width="659" height="20"/>
+                                        <subviews>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RRd-TE-Dcy">
+                                                <rect key="frame" x="-2" y="2" width="233" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="SLUG-MINIMUM-RSSI-LEFT-FORMAT" id="HaJ-mo-h24">
+                                                    <font key="font" usesAppearanceFont="YES"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BVc-32-qxq">
+                                                <rect key="frame" x="235" y="2" width="180" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="SLUG-RSSI-LEVEL-FORMAT" placeholderString="SLUG-RSSI-LEVEL-FORMAT" id="mDy-TT-zNk">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="C7S-DF-68U">
+                                                <rect key="frame" x="419" y="2" width="242" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="SLUG-MINIMUM-RSSI-RIGHT-FORMAT" id="Wce-qs-mrl">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="Ijc-US-Q6n"/>
+                                        </constraints>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                    <slider verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Wp4-yG-5Og">
+                                        <rect key="frame" x="-2" y="274" width="663" height="24"/>
+                                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="-100" doubleValue="-100" tickMarkPosition="above" numberOfTickMarks="101" allowsTickMarkValuesOnly="YES" sliderType="linear" id="mmX-kh-If3"/>
+                                        <connections>
+                                            <action selector="minimumRSSIChanged:" target="CBu-yz-Vwg" id="tMT-W7-Qcf"/>
+                                        </connections>
+                                    </slider>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="PQf-uw-6zX">
+                                        <rect key="frame" x="-2" y="249" width="663" height="19"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="SLUG-FILTER-HEADER" id="gZj-KC-rFG">
+                                            <font key="font" metaFont="systemBold" size="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="vBB-l9-YfF">
+                                        <rect key="frame" x="-2" y="224" width="663" height="17"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="SLUG-DEVICE-FILTERS" id="Nib-WA-dw0">
+                                            <font key="font" metaFont="systemBold" size="14"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <scrollView verticalCompressionResistancePriority="1000" borderType="none" autohidesScrollers="YES" horizontalLineScroll="0.0" horizontalPageScroll="0.0" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98c-2c-eBL" userLabel="Peripheral Scroll View - Text View">
+                                        <rect key="frame" x="0.0" y="166" width="659" height="50"/>
+                                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="hFc-mA-ZTl">
+                                            <rect key="frame" x="0.0" y="0.0" width="659" height="50"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="aVA-8t-kY8">
+                                                    <rect key="frame" x="0.0" y="0.0" width="659" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" white="1" alpha="0.14787564212328766" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <size key="minSize" width="659" height="50"/>
+                                                    <size key="maxSize" width="659" height="10000000"/>
+                                                    <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="CBu-yz-Vwg" id="CtI-32-P6D"/>
+                                                    </connections>
+                                                </textView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </clipView>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="EYe-M1-OMO"/>
+                                        </constraints>
+                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Xxa-xe-8Qq">
+                                            <rect key="frame" x="-100" y="-100" width="225" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="97t-dQ-zxP">
+                                            <rect key="frame" x="644" y="0.0" width="15" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                    </scrollView>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="hUU-Zc-Q1f">
+                                        <rect key="frame" x="-2" y="141" width="663" height="17"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="SLUG-SERVICE-FILTERS" id="jfe-MJ-HkX">
+                                            <font key="font" metaFont="systemBold" size="14"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <scrollView verticalCompressionResistancePriority="1000" borderType="none" autohidesScrollers="YES" horizontalLineScroll="0.0" horizontalPageScroll="0.0" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ie-KS-kWh" userLabel="Service Scroll View - Text View">
+                                        <rect key="frame" x="0.0" y="83" width="659" height="50"/>
+                                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="SKE-fk-c9m">
+                                            <rect key="frame" x="0.0" y="0.0" width="659" height="50"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="1T1-iG-ODW">
+                                                    <rect key="frame" x="0.0" y="0.0" width="659" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" white="1" alpha="0.14787564210000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <size key="minSize" width="659" height="50"/>
+                                                    <size key="maxSize" width="659" height="10000000"/>
+                                                    <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="CBu-yz-Vwg" id="7nJ-Io-OrU"/>
+                                                    </connections>
+                                                </textView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </clipView>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="6qD-Tp-L88"/>
+                                        </constraints>
+                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="wsx-jC-DeX">
+                                            <rect key="frame" x="-100" y="-100" width="225" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="afV-Aw-CQt">
+                                            <rect key="frame" x="644" y="0.0" width="15" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                    </scrollView>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="IPx-9N-ZkR">
+                                        <rect key="frame" x="-2" y="58" width="663" height="17"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="SLUG-CHARACTERISTIC-FILTERS" id="Xwk-Qh-EEM">
+                                            <font key="font" metaFont="systemBold" size="14"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <scrollView verticalCompressionResistancePriority="1000" borderType="none" autohidesScrollers="YES" horizontalLineScroll="0.0" horizontalPageScroll="0.0" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="arY-wO-IBi" userLabel="Characteristics Scroll View - Text View">
+                                        <rect key="frame" x="0.0" y="0.0" width="659" height="50"/>
+                                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="rlA-hD-iLN">
+                                            <rect key="frame" x="0.0" y="0.0" width="659" height="50"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="xHz-2l-OmP">
+                                                    <rect key="frame" x="0.0" y="0.0" width="659" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" white="1" alpha="0.14787564210000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <size key="minSize" width="659" height="50"/>
+                                                    <size key="maxSize" width="659" height="10000000"/>
+                                                    <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="CBu-yz-Vwg" id="Ne4-Pj-PtJ"/>
+                                                    </connections>
+                                                </textView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </clipView>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="T5C-BL-L43"/>
+                                        </constraints>
+                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="10A-jY-OoL">
+                                            <rect key="frame" x="-100" y="-100" width="225" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="pyI-ec-oz3">
+                                            <rect key="frame" x="644" y="0.0" width="15" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                    </scrollView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="PQf-uw-6zX" secondAttribute="trailing" id="0dr-A2-kJa"/>
                                     <constraint firstItem="AFc-Lc-ebR" firstAttribute="leading" secondItem="VgG-dX-lwB" secondAttribute="leading" id="2vq-hL-fEo"/>
                                     <constraint firstAttribute="trailing" secondItem="xmJ-pV-SgO" secondAttribute="trailing" id="4La-Q8-w2v"/>
+                                    <constraint firstItem="IPx-9N-ZkR" firstAttribute="leading" secondItem="VgG-dX-lwB" secondAttribute="leading" id="6Yx-7b-YIi"/>
+                                    <constraint firstAttribute="trailing" secondItem="hUU-Zc-Q1f" secondAttribute="trailing" id="8sL-Np-bw4"/>
                                     <constraint firstItem="xmJ-pV-SgO" firstAttribute="leading" secondItem="VgG-dX-lwB" secondAttribute="leading" id="BEc-fI-CN5"/>
+                                    <constraint firstItem="98c-2c-eBL" firstAttribute="leading" secondItem="VgG-dX-lwB" secondAttribute="leading" id="CMu-ft-LeM"/>
+                                    <constraint firstItem="vBB-l9-YfF" firstAttribute="leading" secondItem="VgG-dX-lwB" secondAttribute="leading" id="Cuv-0r-F6r"/>
+                                    <constraint firstAttribute="trailing" secondItem="IPx-9N-ZkR" secondAttribute="trailing" id="FD7-8t-m9i"/>
+                                    <constraint firstAttribute="trailing" secondItem="3Ie-KS-kWh" secondAttribute="trailing" id="Geh-E9-ru1"/>
                                     <constraint firstAttribute="trailing" secondItem="jJm-EQ-vyk" secondAttribute="trailing" id="Hb7-m8-T7u"/>
+                                    <constraint firstItem="uP3-hN-TaA" firstAttribute="leading" secondItem="VgG-dX-lwB" secondAttribute="leading" id="JP5-84-GhQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="Wp4-yG-5Og" secondAttribute="trailing" id="Klc-PD-bIY"/>
+                                    <constraint firstAttribute="trailing" secondItem="VO1-GE-3O0" secondAttribute="trailing" id="Kuh-Rw-LSm"/>
+                                    <constraint firstAttribute="trailing" secondItem="vBB-l9-YfF" secondAttribute="trailing" id="N0n-Si-KxH"/>
+                                    <constraint firstItem="hUU-Zc-Q1f" firstAttribute="leading" secondItem="VgG-dX-lwB" secondAttribute="leading" id="R8Y-Ef-d36"/>
                                     <constraint firstItem="jJm-EQ-vyk" firstAttribute="leading" secondItem="VgG-dX-lwB" secondAttribute="leading" id="Yi9-QB-Mad"/>
+                                    <constraint firstItem="PQf-uw-6zX" firstAttribute="leading" secondItem="VgG-dX-lwB" secondAttribute="leading" id="YwI-n3-bGS"/>
                                     <constraint firstAttribute="trailing" secondItem="xN5-cM-y5g" secondAttribute="trailing" id="ail-oh-0se"/>
+                                    <constraint firstItem="VO1-GE-3O0" firstAttribute="leading" secondItem="VgG-dX-lwB" secondAttribute="leading" id="bDp-w8-cp7"/>
+                                    <constraint firstAttribute="trailing" secondItem="uP3-hN-TaA" secondAttribute="trailing" id="ckj-WS-Acf"/>
                                     <constraint firstAttribute="trailing" secondItem="AFc-Lc-ebR" secondAttribute="trailing" id="fKF-3g-s1Q"/>
+                                    <constraint firstAttribute="trailing" secondItem="98c-2c-eBL" secondAttribute="trailing" id="kH6-du-E3v"/>
+                                    <constraint firstItem="Wp4-yG-5Og" firstAttribute="leading" secondItem="VgG-dX-lwB" secondAttribute="leading" id="nZb-Vs-jw0"/>
+                                    <constraint firstItem="3Ie-KS-kWh" firstAttribute="leading" secondItem="VgG-dX-lwB" secondAttribute="leading" id="s8n-t0-T60"/>
                                     <constraint firstItem="xN5-cM-y5g" firstAttribute="leading" secondItem="VgG-dX-lwB" secondAttribute="leading" id="uiN-d7-SY8"/>
                                 </constraints>
                                 <visibilityPriorities>
@@ -1027,8 +1233,28 @@
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
@@ -1054,14 +1280,69 @@
                     <connections>
                         <outlet property="allowEmptyNamesCheckbox" destination="AFc-Lc-ebR" id="l9K-5L-jba"/>
                         <outlet property="alwaysUseCRLFCheckbox" destination="jJm-EQ-vyk" id="BHQ-7Q-bgz"/>
+                        <outlet property="characteristicsFiltersLabel" destination="Xwk-Qh-EEM" id="NAk-tT-aT8"/>
+                        <outlet property="characteristicsFiltersTextView" destination="xHz-2l-OmP" id="RVo-MT-7hC"/>
+                        <outlet property="deviceFilterTextView" destination="aVA-8t-kY8" id="SKe-XH-MGr"/>
+                        <outlet property="deviceFiltersLabel" destination="Nib-WA-dw0" id="pUm-4D-NNL"/>
+                        <outlet property="filterUUIDsLabel" destination="gZj-KC-rFG" id="OYz-o1-lzB"/>
                         <outlet property="ignoreDupesCheckbox" destination="xN5-cM-y5g" id="Rka-at-Xnl"/>
+                        <outlet property="maximumRSSIFixedLabel" destination="Wce-qs-mrl" id="sBX-L9-62Y"/>
+                        <outlet property="minimumRSSIFixedLabel" destination="HaJ-mo-h24" id="nnF-k6-QxB"/>
+                        <outlet property="minimumRSSILabel" destination="CWz-7w-jCz" id="X8i-Tx-FGC"/>
+                        <outlet property="minimumRSSISlider" destination="Wp4-yG-5Og" id="mq8-7P-DL0"/>
                         <outlet property="onlyConnectableCheckbox" destination="xmJ-pV-SgO" id="XY7-ns-L9v"/>
+                        <outlet property="rssiValueLabel" destination="mDy-TT-zNk" id="UD8-mz-r6g"/>
+                        <outlet property="serviceFiltersLabel" destination="jfe-MJ-HkX" id="t20-wj-gps"/>
+                        <outlet property="serviceFiltersTextView" destination="1T1-iG-ODW" id="x5b-Xe-bcE"/>
                     </connections>
                 </viewController>
                 <customObject id="oRX-zl-7n4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController representsSharedInstance="YES" id="Eie-DR-9th"/>
+                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="0.0" horizontalPageScroll="0.0" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" id="0Tv-aS-Ul9">
+                    <rect key="frame" x="0.0" y="0.0" width="659" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="e5u-8v-tma">
+                        <rect key="frame" x="0.0" y="0.0" width="659" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="g6c-CL-9Mc">
+                                <rect key="frame" x="0.0" y="0.0" width="659" height="50"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="1" alpha="0.14787564210000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <size key="minSize" width="659" height="50"/>
+                                <size key="maxSize" width="659" height="10000000"/>
+                                <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                <connections>
+                                    <outlet property="delegate" destination="CBu-yz-Vwg" id="hPu-6a-oRV"/>
+                                </connections>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </clipView>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="2jr-ip-3LN"/>
+                    </constraints>
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="GgD-YE-z9L">
+                        <rect key="frame" x="-100" y="-100" width="225" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="g1j-z1-ORM">
+                        <rect key="frame" x="644" y="0.0" width="15" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="cGk-X5-Sp6">
+                    <rect key="frame" x="0.0" y="0.0" width="663" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="SLUG-SERVICE-FILTERS" id="cp7-3f-Yip">
+                        <font key="font" metaFont="systemBold" size="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </objects>
-            <point key="canvasLocation" x="1334" y="1134"/>
+            <point key="canvasLocation" x="1366" y="741"/>
         </scene>
     </scenes>
     <resources>
