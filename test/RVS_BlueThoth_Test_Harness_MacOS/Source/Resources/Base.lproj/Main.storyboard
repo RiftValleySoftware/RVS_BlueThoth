@@ -973,7 +973,11 @@
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="systemBold" size="16"/>
                                             <connections>
-                                                <binding destination="Eie-DR-9th" name="value" keyPath="values.continuouslyUpdatePeripherals" id="PYQ-ll-ETb"/>
+                                                <binding destination="CBu-yz-Vwg" name="value" keyPath="prefs.continuouslyUpdatePeripherals" id="40E-Fv-wTZ">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                    </dictionary>
+                                                </binding>
                                             </connections>
                                         </buttonCell>
                                         <color key="contentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -984,7 +988,7 @@
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="systemBold" size="16"/>
                                             <connections>
-                                                <binding destination="Eie-DR-9th" name="value" keyPath="values.discoverOnlyConnectableDevices" id="mIh-rW-8sY"/>
+                                                <binding destination="CBu-yz-Vwg" name="value" keyPath="prefs.discoverOnlyConnectableDevices" id="haQ-ai-KOo"/>
                                             </connections>
                                         </buttonCell>
                                         <color key="contentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -995,7 +999,7 @@
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="systemBold" size="16"/>
                                             <connections>
-                                                <binding destination="Eie-DR-9th" name="value" keyPath="values.allowEmptyNames" id="vJT-dh-9ML"/>
+                                                <binding destination="CBu-yz-Vwg" name="value" keyPath="prefs.allowEmptyNames" id="VnC-LT-78p"/>
                                             </connections>
                                         </buttonCell>
                                         <color key="contentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1006,7 +1010,7 @@
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="systemBold" size="16"/>
                                             <connections>
-                                                <binding destination="Eie-DR-9th" name="value" keyPath="values.alwaysUseCRLF" id="tvg-1b-SRf"/>
+                                                <binding destination="CBu-yz-Vwg" name="value" keyPath="prefs.alwaysUseCRLF" id="RhW-7b-2gr"/>
                                             </connections>
                                         </buttonCell>
                                         <color key="contentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

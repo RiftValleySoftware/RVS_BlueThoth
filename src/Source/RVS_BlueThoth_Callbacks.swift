@@ -135,9 +135,9 @@ extension RVS_BlueThoth: CBCentralManagerDelegate {
             name = tempName
         } else if inPeripheral.name?.isEmpty ?? true {
             #if DEBUG
-                print("Assigning \"\("SLUG-NO-DEVICE-NAME".localizedVariant)\" as the name for this Peripheral: \(inPeripheral.identifier.uuidString).")
+                print("Assigning \"\("SLUG-NO-DEVICE-NAME")\" as the name for this Peripheral: \(inPeripheral.identifier.uuidString).")
             #endif
-            name = "SLUG-NO-DEVICE-NAME".localizedVariant
+            name = "SLUG-NO-DEVICE-NAME"
         }
         
         // See if we have asked for only particular peripherals.
@@ -155,13 +155,13 @@ extension RVS_BlueThoth: CBCentralManagerDelegate {
             guard   !inPeripheral.identifier.uuidString.isEmpty
             else {
                 #if DEBUG
-                    print("Not Adding \(name) (BLE).")
+                    print("Not Processing \(name), because the identifier is empty.")
                 #endif
                 return
             }
             
             #if DEBUG
-                print("Added \(name) (BLE).")
+                print("Processing \(name).")
                 print("\tUUID: \(inPeripheral.identifier.uuidString)")
                 print("\tAdvertising Info:\n\t\t\(String(describing: inAdvertisementData))\n")
             #endif
@@ -174,7 +174,7 @@ extension RVS_BlueThoth: CBCentralManagerDelegate {
                 deviceInStaging.rssi = inRSSI.intValue
             } else {
                 #if DEBUG
-                    print("Adding new peripheral to staging Array.")
+                    print("Adding new peripheral to the end of the staging Array (\(stagedBLEPeripherals.count) items).")
                 #endif
                 stagedBLEPeripherals.append(DiscoveryData(central: self, peripheral: inPeripheral, advertisementData: inAdvertisementData, rssi: inRSSI.intValue))
             }

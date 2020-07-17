@@ -98,11 +98,12 @@ class RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: RVS_BlueThoth_Test
         if ScanningModeSwitchValues.notScanning.rawValue == inSwitch.selectedSegment {
             centralManager?.stopScanning()
         } else {
-            centralManager?.scanCriteria = prefs.scanCriteria
-            centralManager?.minimumRSSILevelIndBm = prefs.minimumRSSILevel
-            centralManager?.discoverOnlyConnectablePeripherals = prefs.discoverOnlyConnectableDevices
-            centralManager?.allowEmptyNames = prefs.allowEmptyNames
-            centralManager?.startScanning(duplicateFilteringIsOn: !prefs.continuouslyUpdatePeripherals)
+            let prefsTemp = prefs
+            centralManager?.scanCriteria = prefsTemp.scanCriteria
+            centralManager?.minimumRSSILevelIndBm = prefsTemp.minimumRSSILevel
+            centralManager?.discoverOnlyConnectablePeripherals = prefsTemp.discoverOnlyConnectableDevices
+            centralManager?.allowEmptyNames = prefsTemp.allowEmptyNames
+            centralManager?.startScanning(duplicateFilteringIsOn: !prefsTemp.continuouslyUpdatePeripherals)
         }
         
         updateUI()
@@ -117,7 +118,16 @@ extension RVS_BlueThoth_Test_Harness_MacOS_InitialViewController {
     /**
      This is a complete count of all advertisement data rows, and headers.
      */
-    private var _completeTableMapRowCount: Int { _tableMap.reduce(_tableMap.count) { (current, next) -> Int in current + _numberOfStringsForThisDevice(next.key) } }
+    private var _completeTableMapRowCount: Int {
+        var ret: Int = 0
+        
+        for key in _tableMap {
+            let temp = _numberOfStringsForThisDevice(key.key)
+            ret += temp
+        }
+        
+        return ret
+    }
     
     /* ################################################################## */
     /**
@@ -156,10 +166,13 @@ extension RVS_BlueThoth_Test_Harness_MacOS_InitialViewController {
             guard let device = centralManager?.stagedBLEPeripherals[key] else { return (value: "", isHeader: false) }
             
             if index == inIndex {
-                return (value: device.preferredName.isEmpty ? device.localName.isEmpty ? device.name.isEmpty ? "ERROR" : device.name : device.localName : device.preferredName, isHeader: true)
+                return (value: device.preferredName.isEmpty ? device.localName.isEmpty ? device.name.isEmpty ? "SLUG-NO-DEVICE-NAME".localizedVariant : device.name : device.localName : device.preferredName, isHeader: true)
             } else if let advertisingData = _tableMap[key] {
-                if (index + advertisingData.count) > inIndex {
-                    return (value: advertisingData[inIndex - index], isHeader: false)
+                for advData in advertisingData {
+                    if index == inIndex {
+                        return (value: advData, isHeader: false)
+                    }
+                    index += 1
                 }
             }
             
