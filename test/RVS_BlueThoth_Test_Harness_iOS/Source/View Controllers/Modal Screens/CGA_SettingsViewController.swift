@@ -323,6 +323,7 @@ extension CGA_SettingsViewController {
         dismissKeyboard()
         ignoreDuplicatesScanningSwitch?.setOn(prefs.continuouslyUpdatePeripherals, animated: true)
         onlyConnectablesSwitch?.setOn(prefs.discoverOnlyConnectableDevices, animated: true)
+        alwaysUseCRLFSwitch?.setOn(prefs.alwaysUseCRLF, animated: true)
         emptyNamesSwitch?.setOn(prefs.allowEmptyNames, animated: true)
         deviceFilterTextView?.text = prefs.peripheralFilterIDArray.joined(separator: "\n")
         serviceFilterTextView?.text = prefs.serviceFilterIDArray.joined(separator: "\n")
