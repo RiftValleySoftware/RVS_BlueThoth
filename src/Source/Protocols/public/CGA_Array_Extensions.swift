@@ -56,7 +56,7 @@ public extension Array where Element == RVS_BlueThoth.DiscoveryData {
             if  nil == current {
                 if nextItem === inItem {
                     return nextItem
-                } else if nextItem.cbPeripheral.identifier == inItem.identifier {
+                } else if nextItem.cbPeripheral.identifier.uuidString == inItem.identifier.uuidString {
                     return nextItem
                 }
                

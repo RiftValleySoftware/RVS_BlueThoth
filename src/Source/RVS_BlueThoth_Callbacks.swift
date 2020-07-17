@@ -103,21 +103,6 @@ extension RVS_BlueThoth: CBCentralManagerDelegate {
         - rssi: The signal strength, in DB.
      */
     public func centralManager(_ inCentralManager: CBCentralManager, didDiscover inPeripheral: CBPeripheral, advertisementData inAdvertisementData: [String: Any], rssi inRSSI: NSNumber) {
-        var name: String = "EMPTY"
-        
-        if !allowEmptyNames {
-            guard   let tempName = inPeripheral.name,
-                    !tempName.isEmpty
-            else {
-                #if DEBUG
-                    print("Discarding empty-name Peripheral: \(inPeripheral.identifier.uuidString).")
-                #endif
-                return
-            }
-            
-            name = tempName
-        }
-        
         guard minimumRSSILevelIndBm <= inRSSI.intValue else {
             #if DEBUG
                 print("Discarding Peripheral: \(inPeripheral.identifier.uuidString), because its RSSI level of \(inRSSI.intValue) is less than our minimum RSSI threshold of \(minimumRSSILevelIndBm)")
@@ -133,6 +118,26 @@ extension RVS_BlueThoth: CBCentralManagerDelegate {
                 #endif
                 return
             }
+        }
+        
+        var name: String = "ERROR"
+        
+        if !allowEmptyNames {
+            guard   let tempName = inPeripheral.name,
+                    !tempName.isEmpty
+            else {
+                #if DEBUG
+                    print("Discarding empty-name Peripheral: \(inPeripheral.identifier.uuidString).")
+                #endif
+                return
+            }
+            
+            name = tempName
+        } else if inPeripheral.name?.isEmpty ?? true {
+            #if DEBUG
+                print("Assigning \"\("SLUG-NO-DEVICE-NAME".localizedVariant)\" as the name for this Peripheral: \(inPeripheral.identifier.uuidString).")
+            #endif
+            name = "SLUG-NO-DEVICE-NAME".localizedVariant
         }
         
         // See if we have asked for only particular peripherals.
@@ -160,10 +165,17 @@ extension RVS_BlueThoth: CBCentralManagerDelegate {
                 print("\tUUID: \(inPeripheral.identifier.uuidString)")
                 print("\tAdvertising Info:\n\t\t\(String(describing: inAdvertisementData))\n")
             #endif
+            
             if  let deviceInStaging = stagedBLEPeripherals[inPeripheral] {
+                #if DEBUG
+                    print("Updating previously staged peripheral.")
+                #endif
                 deviceInStaging.advertisementData = AdvertisementData(advertisementData: inAdvertisementData)
                 deviceInStaging.rssi = inRSSI.intValue
             } else {
+                #if DEBUG
+                    print("Adding new peripheral to staging Array.")
+                #endif
                 stagedBLEPeripherals.append(DiscoveryData(central: self, peripheral: inPeripheral, advertisementData: inAdvertisementData, rssi: inRSSI.intValue))
             }
             
