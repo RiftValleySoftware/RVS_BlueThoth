@@ -199,7 +199,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
         #endif
         
         // We only update the main screen.
-        for screen in screenList where "MAIN" == screen.key {
+        for screen in self.screenList where "MAIN" == screen.key {
             screen.updateUI()
         }
     }
@@ -216,7 +216,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
             print("Peripheral Update")
         #endif
         
-        for screen in screenList where "MAIN" == screen.key {
+        for screen in self.screenList where "MAIN" == screen.key {
             screen.updateUI()
         }
     }

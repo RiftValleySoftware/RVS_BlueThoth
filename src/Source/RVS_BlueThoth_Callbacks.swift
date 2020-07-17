@@ -123,7 +123,7 @@ extension RVS_BlueThoth: CBCentralManagerDelegate {
         var name: String = "ERROR"
         
         if !allowEmptyNames {
-            guard   let tempName = inPeripheral.name,
+            guard   let tempName = inPeripheral.name ?? (inAdvertisementData[CBAdvertisementDataLocalNameKey] as? String),
                     !tempName.isEmpty
             else {
                 #if DEBUG

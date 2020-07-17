@@ -98,12 +98,13 @@ class RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: RVS_BlueThoth_Test
         if ScanningModeSwitchValues.notScanning.rawValue == inSwitch.selectedSegment {
             centralManager?.stopScanning()
         } else {
-            let prefsTemp = prefs
-            centralManager?.scanCriteria = prefsTemp.scanCriteria
-            centralManager?.minimumRSSILevelIndBm = prefsTemp.minimumRSSILevel
-            centralManager?.discoverOnlyConnectablePeripherals = prefsTemp.discoverOnlyConnectableDevices
-            centralManager?.allowEmptyNames = prefsTemp.allowEmptyNames
-            centralManager?.startScanning(duplicateFilteringIsOn: !prefsTemp.continuouslyUpdatePeripherals)
+            centralManager?.scanCriteria = prefs.scanCriteria
+            centralManager?.minimumRSSILevelIndBm = prefs.minimumRSSILevel
+            centralManager?.discoverOnlyConnectablePeripherals = prefs.discoverOnlyConnectableDevices
+            centralManager?.allowEmptyNames = prefs.allowEmptyNames
+            _tableMap = [:]
+            deviceTable?.reloadData()
+            centralManager?.startScanning(duplicateFilteringIsOn: !prefs.continuouslyUpdatePeripherals)
         }
         
         updateUI()
