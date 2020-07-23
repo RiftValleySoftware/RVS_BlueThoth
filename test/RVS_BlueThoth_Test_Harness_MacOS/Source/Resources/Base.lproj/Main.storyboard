@@ -685,9 +685,37 @@
             </objects>
             <point key="canvasLocation" x="779" y="-197"/>
         </scene>
+        <!--Main Split View Controller-->
+        <scene sceneID="F8c-ss-vfN">
+            <objects>
+                <splitViewController id="GZl-iU-0n7" userLabel="Main Split View Controller" customClass="RVS_BlueThoth_Test_Harness_MacOS_SplitViewController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <splitViewItems>
+                        <splitViewItem holdingPriority="1000" id="BnQ-jM-Dan" userLabel="Discovery Screen"/>
+                        <splitViewItem id="aH6-oR-yaN" userLabel="Detail Screen"/>
+                    </splitViewItems>
+                    <splitView key="splitView" dividerStyle="thin" vertical="YES" id="Rhv-4S-Wdd">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <outlet property="delegate" destination="GZl-iU-0n7" id="3ef-oE-ncf"/>
+                        </connections>
+                    </splitView>
+                    <connections>
+                        <outlet property="detailsSplitViewItem" destination="aH6-oR-yaN" id="sUF-O7-0lx"/>
+                        <outlet property="discoveryScreenSplitViewItem" destination="BnQ-jM-Dan" id="jJL-Gy-3ya"/>
+                        <outlet property="splitView" destination="Rhv-4S-Wdd" id="h1z-l9-ACN"/>
+                        <segue destination="XfG-lQ-9wD" kind="relationship" relationship="splitItems" id="A2m-MH-giB"/>
+                        <segue destination="kAw-5M-bo6" kind="relationship" relationship="splitItems" id="OmJ-f7-cBq"/>
+                    </connections>
+                </splitViewController>
+                <customObject id="F0f-K7-tYn" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="46" y="604"/>
+        </scene>
         <!--Initial Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
+                <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <windowController id="B8D-0N-5wS" userLabel="Initial Window Controller" customClass="RVS_BlueThoth_MacOS_Test_Harness_Base_WindowController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="SLUG-INITIAL" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" resizable="YES"/>
@@ -699,38 +727,37 @@
                         </connections>
                     </window>
                     <connections>
-                        <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
+                        <segue destination="GZl-iU-0n7" kind="relationship" relationship="window.shadowedContentViewController" id="LqX-2V-LBK"/>
                     </connections>
                 </windowController>
-                <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="133" y="165"/>
+            <point key="canvasLocation" x="46" y="165"/>
         </scene>
-        <!--Initial Screen-->
+        <!--Discovery Screen-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController title="SLUG-INITIAL" id="XfG-lQ-9wD" userLabel="Initial Screen" customClass="RVS_BlueThoth_Test_Harness_MacOS_InitialViewController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="SLUG-INITIAL" id="XfG-lQ-9wD" userLabel="Discovery Screen" customClass="RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="269"/>
+                        <rect key="frame" x="0.0" y="0.0" width="316" height="269"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="d7J-i0-Sxe" userLabel="Background Gradient Image View">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="269"/>
+                                <rect key="frame" x="0.0" y="0.0" width="316" height="269"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="axesIndependently" image="background-gradient" id="jqr-kD-o5y"/>
                             </imageView>
                             <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" alphaValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="wq6-jn-Rzu" userLabel="BlueThoth Logo Image View">
-                                <rect key="frame" x="96" y="52" width="288" height="162"/>
+                                <rect key="frame" x="63" y="52" width="190" height="162"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="BlueThothLogo" id="ckQ-5e-ef9"/>
                             </imageView>
                             <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="0zk-kz-c6E">
-                                <rect key="frame" x="96" y="52" width="288" height="162"/>
+                                <rect key="frame" x="63" y="52" width="190" height="162"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NoBT" id="tWJ-Yj-puK"/>
                             </imageView>
                             <segmentedControl hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7cJ-a2-jYV">
-                                <rect key="frame" x="91" y="223" width="298" height="24"/>
+                                <rect key="frame" x="6" y="223" width="304" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="bZG-Dt-JBu"/>
-                                    <constraint firstAttribute="width" constant="294" placeholder="YES" id="pwl-Rr-I4V"/>
+                                    <constraint firstAttribute="width" constant="300" placeholder="YES" id="riL-Gr-VVh"/>
                                 </constraints>
                                 <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="csr-sS-sbc">
                                     <font key="font" metaFont="system"/>
@@ -744,18 +771,18 @@
                                 </connections>
                             </segmentedControl>
                             <scrollView hidden="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="17" horizontalPageScroll="10" verticalLineScroll="17" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gnK-Cr-8Qv">
-                                <rect key="frame" x="20" y="20" width="440" height="197"/>
+                                <rect key="frame" x="20" y="20" width="276" height="197"/>
                                 <clipView key="contentView" drawsBackground="NO" id="w6z-E5-pCb">
-                                    <rect key="frame" x="0.0" y="0.0" width="440" height="197"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="276" height="197"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" id="6Ip-Dj-WK7">
-                                            <rect key="frame" x="0.0" y="0.0" width="440" height="197"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="276" height="197"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="gridColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <tableColumns>
-                                                <tableColumn width="440" minWidth="40" maxWidth="10000" id="3of-JE-BYx">
+                                                <tableColumn width="276" minWidth="40" maxWidth="10000" id="3of-JE-BYx">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -801,7 +828,9 @@
                             <constraint firstItem="d7J-i0-Sxe" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="fsL-6f-5d8"/>
                             <constraint firstItem="0zk-kz-c6E" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="h6X-K5-4gP"/>
                             <constraint firstItem="7cJ-a2-jYV" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="hbu-jr-BFw"/>
+                            <constraint firstItem="7cJ-a2-jYV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="8" id="hs9-ef-B1h"/>
                             <constraint firstItem="d7J-i0-Sxe" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="i2a-HN-mnM"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="7cJ-a2-jYV" secondAttribute="trailing" constant="8" id="j2D-Pv-aOH"/>
                             <constraint firstItem="wq6-jn-Rzu" firstAttribute="height" relation="lessThanOrEqual" secondItem="d7J-i0-Sxe" secondAttribute="height" multiplier="0.6" id="jFF-Ed-ofQ"/>
                             <constraint firstItem="gnK-Cr-8Qv" firstAttribute="top" secondItem="7cJ-a2-jYV" secondAttribute="bottom" constant="8" id="qcE-nQ-nbK"/>
                             <constraint firstItem="gnK-Cr-8Qv" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="rC9-RE-R53"/>
@@ -816,7 +845,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="133" y="609"/>
+            <point key="canvasLocation" x="-262" y="1078"/>
         </scene>
         <!--About Screen-->
         <scene sceneID="Xzc-tz-AWb">
@@ -872,20 +901,21 @@
             </objects>
             <point key="canvasLocation" x="752" y="165"/>
         </scene>
-        <!--Peripheral Screen-->
+        <!--Placeholder Screen-->
         <scene sceneID="LbW-p0-GxE">
             <objects>
-                <viewController title="SLUG-PERIPHERAL" storyboardIdentifier="peripheral-view-controller" id="kAw-5M-bo6" userLabel="Peripheral Screen" customClass="RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
+                <customObject id="OBc-zY-8Sp" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <viewController title="SLUG-PLACEHOLDER" storyboardIdentifier="placeholder-view-controller" id="kAw-5M-bo6" userLabel="Placeholder Screen" customClass="RVS_BlueThoth_Test_Harness_MacOS_PlaceholderViewController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="dn3-5p-dqe">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="270" height="270"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="tcH-2u-brJ" userLabel="Background Gradient Image View">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                <rect key="frame" x="0.0" y="0.0" width="270" height="270"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="axesIndependently" image="background-gradient" id="rWt-sY-l4C"/>
                             </imageView>
                             <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" alphaValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="isv-8j-uSH" userLabel="BlueThoth Logo Image View">
-                                <rect key="frame" x="96" y="54" width="288" height="162"/>
+                                <rect key="frame" x="54" y="54" width="162" height="162"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="BlueThothLogo" id="fdQ-d3-lqe"/>
                             </imageView>
                         </subviews>
@@ -901,9 +931,8 @@
                         </constraints>
                     </view>
                 </viewController>
-                <customObject id="OBc-zY-8Sp" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="133" y="1032"/>
+            <point key="canvasLocation" x="358" y="1078"/>
         </scene>
         <!--Preferences Window Controller-->
         <scene sceneID="7OO-zd-DAA">
@@ -1325,6 +1354,79 @@
                 </textField>
             </objects>
             <point key="canvasLocation" x="1366" y="741"/>
+        </scene>
+        <!--Peripheral Screen-->
+        <scene sceneID="03U-Ji-WLd">
+            <objects>
+                <viewController title="SLUG-PERIPHERAL" storyboardIdentifier="peripheral-view-controller" id="VCc-zN-6TJ" userLabel="Peripheral Screen" customClass="RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="y77-qu-InE">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="heA-dk-G5p" userLabel="Background Gradient Image View">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="axesIndependently" image="background-gradient" id="Ti2-r7-rzf"/>
+                            </imageView>
+                            <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" alphaValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="172-ox-J2S" userLabel="BlueThoth Logo Image View">
+                                <rect key="frame" x="96" y="54" width="288" height="162"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="BlueThothLogo" id="V1W-3S-jNC"/>
+                            </imageView>
+                            <progressIndicator hidden="YES" wantsLayer="YES" maxValue="100" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="7hm-rD-EpR">
+                                <rect key="frame" x="224" y="119" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="7hm-rD-EpR" secondAttribute="height" multiplier="1:1" id="Aqu-JN-NDT"/>
+                                    <constraint firstAttribute="width" constant="32" id="H3l-oR-j9v"/>
+                                </constraints>
+                                <contentFilters>
+                                    <ciFilter name="CIColorControls">
+                                        <configuration>
+                                            <real key="inputBrightness" value="1"/>
+                                            <real key="inputContrast" value="0.0"/>
+                                            <null key="inputImage"/>
+                                            <real key="inputSaturation" value="0.0"/>
+                                        </configuration>
+                                    </ciFilter>
+                                </contentFilters>
+                            </progressIndicator>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Lyu-3q-kRA">
+                                <rect key="frame" x="14" y="222" width="165" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" placeholder="YES" id="Fg0-Cs-88y"/>
+                                    <constraint firstAttribute="width" constant="153" placeholder="YES" id="pQr-zc-q5m"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="SLUG-DISCONNECT" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OUX-a6-vbC">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="disconnectButtonHit:" target="VCc-zN-6TJ" id="qqV-gn-rPr"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Lyu-3q-kRA" firstAttribute="leading" secondItem="y77-qu-InE" secondAttribute="leading" constant="20" id="2E0-Td-D85"/>
+                            <constraint firstItem="172-ox-J2S" firstAttribute="centerX" secondItem="y77-qu-InE" secondAttribute="centerX" id="9Lt-8m-LlX"/>
+                            <constraint firstItem="172-ox-J2S" firstAttribute="height" relation="lessThanOrEqual" secondItem="heA-dk-G5p" secondAttribute="height" multiplier="0.6" id="H6Z-Zh-7jM"/>
+                            <constraint firstItem="heA-dk-G5p" firstAttribute="leading" secondItem="y77-qu-InE" secondAttribute="leading" id="QaM-j0-uLf"/>
+                            <constraint firstItem="7hm-rD-EpR" firstAttribute="centerY" secondItem="y77-qu-InE" secondAttribute="centerY" id="UMc-wV-zwg"/>
+                            <constraint firstItem="172-ox-J2S" firstAttribute="centerY" secondItem="y77-qu-InE" secondAttribute="centerY" id="eNo-E1-iZP"/>
+                            <constraint firstItem="7hm-rD-EpR" firstAttribute="centerX" secondItem="y77-qu-InE" secondAttribute="centerX" id="hbo-1N-Wks"/>
+                            <constraint firstAttribute="trailing" secondItem="heA-dk-G5p" secondAttribute="trailing" id="oUo-x5-7hK"/>
+                            <constraint firstItem="Lyu-3q-kRA" firstAttribute="top" secondItem="y77-qu-InE" secondAttribute="top" constant="20" id="rjz-wb-w7n"/>
+                            <constraint firstAttribute="bottom" secondItem="heA-dk-G5p" secondAttribute="bottom" id="rte-OQ-Thh"/>
+                            <constraint firstItem="heA-dk-G5p" firstAttribute="top" secondItem="y77-qu-InE" secondAttribute="top" id="ugj-Vb-4bu"/>
+                            <constraint firstItem="172-ox-J2S" firstAttribute="width" relation="lessThanOrEqual" secondItem="heA-dk-G5p" secondAttribute="width" multiplier="0.6" id="vqr-0o-zWN"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Lyu-3q-kRA" secondAttribute="trailing" constant="20" id="yIu-qj-aAR"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="disconnectButton" destination="Lyu-3q-kRA" id="mPX-Ks-C1z"/>
+                        <outlet property="loadingSpinner" destination="7hm-rD-EpR" id="KWu-Bj-8Lh"/>
+                    </connections>
+                </viewController>
+                <customObject id="tb3-Q0-c7O" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="358" y="1472"/>
         </scene>
     </scenes>
     <resources>

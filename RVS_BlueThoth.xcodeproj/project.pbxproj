@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D41330A424674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41330A324674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.swift */; };
-		D41330A624674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41330A524674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_InitialViewController.swift */; };
+		D41330A624674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41330A524674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController.swift */; };
 		D41330A824674F1500502D83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D41330A724674F1500502D83 /* Assets.xcassets */; };
 		D41330AB24674F1500502D83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D41330A924674F1500502D83 /* Main.storyboard */; };
 		D41330B224674F2900502D83 /* RVS_BlueThoth_MacOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4C2D38B24550ABC00197A0A /* RVS_BlueThoth_MacOS.framework */; };
@@ -35,6 +35,8 @@
 		D431EC4124675E8D0094BB23 /* CGA_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D431EC2F24675E8D0094BB23 /* CGA_Extensions.swift */; };
 		D431EC4224675E8D0094BB23 /* CGA_PersistentPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D431EC3024675E8D0094BB23 /* CGA_PersistentPrefs.swift */; };
 		D431EC4324675E8D0094BB23 /* CGA_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D431EC3124675E8D0094BB23 /* CGA_AppDelegate.swift */; };
+		D43B6EDB24CA13EF00D56A2A /* RVS_BlueThoth_Test_Harness_MacOS_PlaceholderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43B6EDA24CA13EF00D56A2A /* RVS_BlueThoth_Test_Harness_MacOS_PlaceholderViewController.swift */; };
+		D43B6EDD24CA1DA700D56A2A /* RVS_BlueThoth_Test_Harness_MacOS_SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43B6EDC24CA1DA600D56A2A /* RVS_BlueThoth_Test_Harness_MacOS_SplitViewController.swift */; };
 		D45D261F245F4B23001906EC /* CGA_Bluetooth_Service_Protocol_Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4700E082455E000004E99D3 /* CGA_Bluetooth_Service_Protocol_Internal.swift */; };
 		D45D2620245F4B23001906EC /* CGA_Bluetooth_Characteristic_Protocol_Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4700E032455DC54004E99D3 /* CGA_Bluetooth_Characteristic_Protocol_Internal.swift */; };
 		D45D2621245F4B23001906EC /* CGA_Bluetooth_Descriptor_Protocol_Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4700DFD2455C803004E99D3 /* CGA_Bluetooth_Descriptor_Protocol_Internal.swift */; };
@@ -279,7 +281,7 @@
 /* Begin PBXFileReference section */
 		D41330A124674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RVS_BlueThoth_Test_Harness_MacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D41330A324674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.swift; sourceTree = "<group>"; };
-		D41330A524674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_MacOS_InitialViewController.swift; sourceTree = "<group>"; };
+		D41330A524674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController.swift; sourceTree = "<group>"; };
 		D41330A724674F1500502D83 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D41330AA24674F1500502D83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D41330AC24674F1500502D83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -304,6 +306,8 @@
 		D431EC3024675E8D0094BB23 /* CGA_PersistentPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_PersistentPrefs.swift; sourceTree = "<group>"; };
 		D431EC3124675E8D0094BB23 /* CGA_AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_AppDelegate.swift; sourceTree = "<group>"; };
 		D431EC3324675E8D0094BB23 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D43B6EDA24CA13EF00D56A2A /* RVS_BlueThoth_Test_Harness_MacOS_PlaceholderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_MacOS_PlaceholderViewController.swift; sourceTree = "<group>"; };
+		D43B6EDC24CA1DA600D56A2A /* RVS_BlueThoth_Test_Harness_MacOS_SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_MacOS_SplitViewController.swift; sourceTree = "<group>"; };
 		D45D2617245F4AC1001906EC /* RVS_BlueThoth_WatchOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RVS_BlueThoth_WatchOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D45D2647245F4BD7001906EC /* RVS_BlueThoth_TVOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RVS_BlueThoth_TVOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4700DFB2455C75B004E99D3 /* CGA_Bluetooth_Descriptor_Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Descriptor_Protocol.swift; sourceTree = "<group>"; };
@@ -468,7 +472,9 @@
 				D413F09624BDECE000A3C772 /* RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController.swift */,
 				D41BB97924BCB85900E72FDF /* RVS_BlueThoth_Test_Harness_MacOS_AboutViewController.swift */,
 				D4F853F324BE4C11007136BE /* RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController.swift */,
-				D41330A524674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_InitialViewController.swift */,
+				D43B6EDC24CA1DA600D56A2A /* RVS_BlueThoth_Test_Harness_MacOS_SplitViewController.swift */,
+				D41330A524674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController.swift */,
+				D43B6EDA24CA13EF00D56A2A /* RVS_BlueThoth_Test_Harness_MacOS_PlaceholderViewController.swift */,
 				D4DFB1C624BDE3290044D59A /* RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.swift */,
 			);
 			path = "View Controllers";
@@ -1084,10 +1090,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4F853F424BE4C12007136BE /* RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController.swift in Sources */,
-				D41330A624674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_InitialViewController.swift in Sources */,
+				D41330A624674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController.swift in Sources */,
+				D43B6EDD24CA1DA700D56A2A /* RVS_BlueThoth_Test_Harness_MacOS_SplitViewController.swift in Sources */,
 				D4DFB1C724BDE3290044D59A /* RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.swift in Sources */,
 				D413F09724BDECE000A3C772 /* RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController.swift in Sources */,
 				D41330A424674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.swift in Sources */,
+				D43B6EDB24CA13EF00D56A2A /* RVS_BlueThoth_Test_Harness_MacOS_PlaceholderViewController.swift in Sources */,
 				D413F09924BDEE7700A3C772 /* CGA_PersistentPrefs.swift in Sources */,
 				D413F08C24BDE81200A3C772 /* RVS_BlueThoth_MacOS_Test_Harness_Base_WindowController.swift in Sources */,
 				D41BB97A24BCB85A00E72FDF /* RVS_BlueThoth_Test_Harness_MacOS_AboutViewController.swift in Sources */,

@@ -28,7 +28,7 @@ import RVS_BlueThoth_MacOS
 /* ###################################################################################################################################### */
 /**
  */
-class RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController {
+class RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController {
     /* ################################################################## */
     /**
      This enum has the scanning on/off states, expressed as 0-based Int.
@@ -84,6 +84,16 @@ class RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: RVS_BlueThoth_Test
     
     /* ################################################################## */
     /**
+     The main split view
+     */
+    var mainSplitView: RVS_BlueThoth_Test_Harness_MacOS_SplitViewController! {
+        guard let parent = parent as? RVS_BlueThoth_Test_Harness_MacOS_SplitViewController else { return nil }
+        
+        return parent
+    }
+
+    /* ################################################################## */
+    /**
      Called when the scanning/not scanning segmented switch changes.
      
      - parameter inSwitch: The switch object.
@@ -108,7 +118,7 @@ class RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: RVS_BlueThoth_Test
 /* ###################################################################################################################################### */
 // MARK: - Private Methods -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_MacOS_InitialViewController {
+extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
     /* ################################################################## */
     /**
      This is a complete count of all advertisement data rows, and headers.
@@ -296,7 +306,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_InitialViewController {
 /* ###################################################################################################################################### */
 // MARK: - Base Class Overrides -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_MacOS_InitialViewController {
+extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
     /* ################################################################## */
     /**
      Called when the view hierachy has loaded.
@@ -332,7 +342,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_InitialViewController {
 /* ###################################################################################################################################### */
 // MARK: - RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol Conformance -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: RVS_BlueThoth_Test_Harness_MacOS_ControllerList_Protocol {
+extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThoth_Test_Harness_MacOS_ControllerList_Protocol {
     /* ################################################################## */
     /**
      This forces the UI elements to be updated.
@@ -353,7 +363,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: RVS_BlueThoth_
 /* ################################################################################################################################## */
 // MARK: - NSTableViewDelegate/DataSource Methods
 /* ################################################################################################################################## */
-extension RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: NSTableViewDelegate, NSTableViewDataSource {
+extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: NSTableViewDelegate, NSTableViewDataSource {
     /* ################################################################## */
     /**
      Called to supply the number of rows in the table.
@@ -413,7 +423,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: NSTableViewDel
         if  let device = _selectedDevice,
             let newController = storyboard?.instantiateController(withIdentifier: RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.storyboardID) as? RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
             newController.peripheralInstance = device.peripheralInstance
-            presentAsModalWindow(newController)
+            mainSplitView?.setDetailsViewController(newController)
         }
         
         _selectedDevice = nil

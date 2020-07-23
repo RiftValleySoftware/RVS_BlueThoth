@@ -29,13 +29,69 @@ import RVS_BlueThoth_MacOS
 /**
  */
 class RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController {
+    /* ################################################################## */
+    /**
+     This is the storyboard ID that we use to create an instance of this view.
+     */
     static let storyboardID  = "peripheral-view-controller"
+    
+    /* ################################################################## */
+    /**
+     This is the spinner that is displayed while the device is being connected.
+     */
+    @IBOutlet weak var loadingSpinner: NSProgressIndicator!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var disconnectButton: NSButton!
     
     /* ################################################################## */
     /**
      This is the Peripheral instance associated with this screen.
      */
-    var peripheralInstance: CGA_Bluetooth_Peripheral?
+    var peripheralInstance: CGA_Bluetooth_Peripheral? {
+        didSet {
+            updateUI()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     The main split view
+     */
+    var mainSplitView: RVS_BlueThoth_Test_Harness_MacOS_SplitViewController! {
+        guard let parent = parent as? RVS_BlueThoth_Test_Harness_MacOS_SplitViewController else { return nil }
+        
+        return parent
+    }
+}
+
+extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func disconnectButtonHit(_ sender: Any) {
+        mainSplitView?.setDetailsViewController()
+    }
+
+    /* ################################################################## */
+    /**
+     This shows and starts the loading spinner.
+     */
+    func startLoadingAnimation() {
+        loadingSpinner?.startAnimation(nil)
+        loadingSpinner?.isHidden = false
+    }
+    
+    /* ################################################################## */
+    /**
+     This stops and hides the loading spinner.
+     */
+    func stopLoadingAnimation() {
+        loadingSpinner?.isHidden = true
+        loadingSpinner?.stopAnimation(nil)
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -48,6 +104,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateUI()
     }
     
     /* ################################################################## */
@@ -86,5 +143,15 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueTho
      This forces the UI elements to be updated.
      */
     func updateUI() {
+        guard let device = peripheralInstance else {
+            stopLoadingAnimation()
+            return
+        }
+        
+        if device.isConnected {
+            stopLoadingAnimation()
+        } else {
+            startLoadingAnimation()
+        }
     }
 }
