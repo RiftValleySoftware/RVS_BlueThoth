@@ -33,4 +33,31 @@ class RVS_BlueThoth_Test_Harness_MacOS_PlaceholderViewController: NSViewControll
      This is the storyboard ID that we use to create an instance of this view.
      */
     static let storyboardID  = "placeholder-view-controller"
+    
+    /* ################################################################## */
+    /**
+     The main split view
+     */
+    var mainSplitView: RVS_BlueThoth_Test_Harness_MacOS_SplitViewController! {
+        guard let parent = parent as? RVS_BlueThoth_Test_Harness_MacOS_SplitViewController else { return nil }
+        
+        return parent
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Base Class Overrides -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_PlaceholderViewController {
+    /* ################################################################## */
+    /**
+     When we load, we make sure to deselect any selected item.
+     */
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if let discoveryController = mainSplitView?.discoveryScreenSplitViewItem?.viewController as? RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
+            discoveryController.selectedDevice = nil
+            discoveryController.updateUI()
+        }
+    }
 }

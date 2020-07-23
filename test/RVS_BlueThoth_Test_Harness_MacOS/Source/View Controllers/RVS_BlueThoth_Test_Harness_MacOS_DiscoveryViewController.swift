@@ -48,12 +48,6 @@ class RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThoth_Te
     
     /* ################################################################## */
     /**
-     The currently selected device (nil, if no device selected).
-     */
-    private var _selectedDevice: RVS_BlueThoth.DiscoveryData?
-    
-    /* ################################################################## */
-    /**
      This will map the discovered devices for display in the table. The key is the ID of the Peripheral. The value is all the rows it will display.
      */
     private var _tableMap: [String: [String]] = [:]
@@ -82,6 +76,12 @@ class RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThoth_Te
      */
     @IBOutlet weak var noBTImage: NSImageView!
     
+    /* ################################################################## */
+    /**
+     The currently selected device (nil, if no device selected).
+     */
+    var selectedDevice: RVS_BlueThoth.DiscoveryData?
+
     /* ################################################################## */
     /**
      The main split view
@@ -356,6 +356,11 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThot
         
         _setUpAccessibility()
         _buildTableMap()
+        
+        if nil == selectedDevice {
+            deviceTable?.deselectAll(nil)
+        }
+        
         deviceTable?.reloadData()
     }
 }
@@ -400,15 +405,14 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: NSTableViewD
      */
     func tableView(_ inTableView: NSTableView, shouldSelectRow inRow: Int) -> Bool {
         if  let peripheral = _getIndexedDevice(inRow),
-            _selectedDevice?.identifier != peripheral.identifier {
+            selectedDevice?.identifier != peripheral.identifier {
             #if DEBUG
                 print("Row \(inRow) was selected. Connecting...")
             #endif
-            _selectedDevice = peripheral
+            selectedDevice = peripheral
             return true
         }
         
-        _selectedDevice = nil
         return false
     }
 
@@ -427,7 +431,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: NSTableViewD
             oldPeripheral = currentDetailsViewController.peripheralInstance
         }
         
-        if  let device = _selectedDevice,
+        if  let device = selectedDevice,
             let newController = storyboard?.instantiateController(withIdentifier: RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.storyboardID) as? RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
             newController.peripheralInstance = device.peripheralInstance
             mainSplitView?.setDetailsViewController(newController)
@@ -436,8 +440,5 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: NSTableViewD
         if let oldPeripheral = oldPeripheral {
             oldPeripheral.disconnect()
         }
-        
-        _selectedDevice = nil
-        deviceTable.deselectAll(nil)
     }
 }
