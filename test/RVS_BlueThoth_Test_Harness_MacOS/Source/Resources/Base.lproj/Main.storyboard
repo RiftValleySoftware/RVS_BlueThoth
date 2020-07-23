@@ -812,7 +812,6 @@
                         <outlet property="noBTImage" destination="0zk-kz-c6E" id="Drd-je-vMv"/>
                         <outlet property="scanningModeSegmentedSwitch" destination="7cJ-a2-jYV" id="IvR-bK-awr"/>
                         <outlet property="tableContainerScrollView" destination="gnK-Cr-8Qv" id="v7a-vl-T0r"/>
-                        <segue destination="14X-7Y-r9e" kind="show" identifier="peripheral-window-display" id="QbN-lZ-NLl"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -873,27 +872,6 @@
             </objects>
             <point key="canvasLocation" x="752" y="165"/>
         </scene>
-        <!--Peripheral Window Controller-->
-        <scene sceneID="7zB-DC-ZsA">
-            <objects>
-                <windowController id="14X-7Y-r9e" userLabel="Peripheral Window Controller" customClass="RVS_BlueThoth_MacOS_Test_Harness_Base_WindowController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="SLUG-PERIPHERAL" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="7c8-PP-CfA">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="480" height="270"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1417"/>
-                        <connections>
-                            <outlet property="delegate" destination="14X-7Y-r9e" id="cVG-Yx-XNA"/>
-                        </connections>
-                    </window>
-                    <connections>
-                        <segue destination="kAw-5M-bo6" kind="relationship" relationship="window.shadowedContentViewController" id="3Ua-1B-dLO"/>
-                    </connections>
-                </windowController>
-                <customObject id="2zo-sI-qL8" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="133" y="1080"/>
-        </scene>
         <!--Peripheral Screen-->
         <scene sceneID="LbW-p0-GxE">
             <objects>
@@ -925,7 +903,7 @@
                 </viewController>
                 <customObject id="OBc-zY-8Sp" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="133" y="1515"/>
+            <point key="canvasLocation" x="133" y="1032"/>
         </scene>
         <!--Preferences Window Controller-->
         <scene sceneID="7OO-zd-DAA">

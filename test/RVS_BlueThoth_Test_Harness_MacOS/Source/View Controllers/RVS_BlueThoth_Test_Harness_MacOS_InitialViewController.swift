@@ -42,12 +42,6 @@ class RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: RVS_BlueThoth_Test
     
     /* ################################################################## */
     /**
-     The segue ID for displaying a peripheral window.
-     */
-    static private let _peripheralWindowSegueID = "peripheral-window-display"
-
-    /* ################################################################## */
-    /**
      This is a String key that uniquely identifies this screen.
      */
     let key: String = RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.mainScreenID
@@ -56,7 +50,7 @@ class RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: RVS_BlueThoth_Test
     /**
      The currently selected device (nil, if no device selected).
      */
-    private var _selectedDevice: CGA_Bluetooth_Peripheral?
+    private var _selectedDevice: RVS_BlueThoth.DiscoveryData?
     
     /* ################################################################## */
     /**
@@ -138,6 +132,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_InitialViewController {
     
     /* ################################################################## */
     /**
+     This builds a "map" of the device data, so we can build a table from it.
      */
     private func _buildTableMap() {
         _tableMap = [:]
@@ -156,6 +151,33 @@ extension RVS_BlueThoth_Test_Harness_MacOS_InitialViewController {
      - returns: The number of advertisement strings for the given device.
      */
     private func _numberOfStringsForThisDevice(_ inDeviceID: String) -> Int { _tableMap[inDeviceID]?.count ?? 0 }
+    
+    /* ################################################################## */
+    /**
+     This returns the Peripheral wrapper instance, associated with a particular table index.
+     */
+    private func _getIndexedDevice(_ inIndex: Int) -> RVS_BlueThoth.DiscoveryData? {
+        var index: Int = 0
+        
+        for key in _sortedDevices {
+            guard let device = centralManager?.stagedBLEPeripherals[key] else { return nil }
+            
+            if index == inIndex {
+                return device
+            } else if let advertisingData = _tableMap[key] {
+                for _ in 0..<advertisingData.count {
+                    if index == inIndex {
+                        return device
+                    }
+                    index += 1
+                }
+            }
+            
+            index += 1
+        }
+        
+        return nil
+    }
     
     /* ################################################################## */
     /**
@@ -367,11 +389,11 @@ extension RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: NSTableViewDel
      - returns: False (always).
      */
     func tableView(_ inTableView: NSTableView, shouldSelectRow inRow: Int) -> Bool {
-        if  let device = centralManager?.stagedBLEPeripherals[inRow] {
+        if  let peripheral = _getIndexedDevice(inRow) {
             #if DEBUG
-                print("Row \(inRow) was selected.")
+                print("Row \(inRow) was selected. Connecting...")
             #endif
-            _selectedDevice = device.peripheralInstance
+            _selectedDevice = peripheral
             return true
         }
         
@@ -390,7 +412,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_InitialViewController: NSTableViewDel
     func tableViewSelectionDidChange(_: Notification) {
         if  let device = _selectedDevice,
             let newController = storyboard?.instantiateController(withIdentifier: RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.storyboardID) as? RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
-            newController.peripheralInstance = device
+            newController.peripheralInstance = device.peripheralInstance
             presentAsModalWindow(newController)
         }
         
