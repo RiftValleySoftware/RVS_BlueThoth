@@ -1399,7 +1399,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="disconnectButtonHit:" target="VCc-zN-6TJ" id="qqV-gn-rPr"/>
+                                    <action selector="disconnectThisPeripheral:" target="VCc-zN-6TJ" id="qqV-gn-rPr"/>
                                 </connections>
                             </button>
                         </subviews>

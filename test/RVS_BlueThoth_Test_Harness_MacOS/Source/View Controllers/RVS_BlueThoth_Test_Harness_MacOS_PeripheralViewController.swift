@@ -70,8 +70,12 @@ class RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueThoth_T
 extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
     /* ################################################################## */
     /**
+     Called when the disconnect button is hit, or we want to disconnect the device.
+     
+     - parameter: ignored. Can be omitted.
      */
-    @IBAction func disconnectButtonHit(_ sender: Any) {
+    @IBAction func disconnectThisPeripheral(_: Any! = nil) {
+        peripheralInstance?.disconnect()
         mainSplitView?.setDetailsViewController()
     }
 
