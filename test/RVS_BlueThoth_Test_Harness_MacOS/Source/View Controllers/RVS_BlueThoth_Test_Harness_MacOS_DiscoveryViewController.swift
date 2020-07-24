@@ -44,7 +44,7 @@ class RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThoth_Te
     /**
      This is a String key that uniquely identifies this screen.
      */
-    let key: String = RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.mainScreenID
+    let key: String = RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.deviceScreenID
     
     /* ################################################################## */
     /**

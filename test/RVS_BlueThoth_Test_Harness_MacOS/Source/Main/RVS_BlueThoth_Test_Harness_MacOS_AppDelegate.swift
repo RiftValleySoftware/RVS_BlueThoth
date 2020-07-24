@@ -87,9 +87,9 @@ extension Array where Element == RVS_BlueThoth_Test_Harness_MacOS_ControllerList
 class RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: NSObject, NSApplicationDelegate {
     /* ################################################################## */
     /**
-     This is the unique key for the initial (main) screen.
+     This is the unique key for the device discovery panel.
      */
-    static let mainScreenID = "MAIN"
+    static let deviceScreenID = "DeviceDiscovery"
 
     /* ################################################################## */
     /**
@@ -199,7 +199,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
         #endif
         
         // We only update the main screen.
-        for screen in self.screenList where "MAIN" == screen.key {
+        for screen in self.screenList where Self.deviceScreenID == screen.key {
             screen.updateUI()
         }
     }
@@ -214,12 +214,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
         #if DEBUG
             print("Peripheral Connected")
         #endif
-        for screen in self.screenList {
-            if  let id = screen.peripheralInstance?.identifier,
-                inPeripheral.id == id {
-                screen.updateUI()
-            }
-        }
+        screenList.forEach { $0.updateUI() }
     }
 
     /* ################################################################## */
@@ -234,7 +229,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
             print("Peripheral Update")
         #endif
         
-        for screen in self.screenList where "MAIN" == screen.key {
+        for screen in self.screenList where Self.deviceScreenID == screen.key {
             screen.updateUI()
         }
     }

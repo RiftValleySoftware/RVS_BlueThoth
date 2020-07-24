@@ -1388,7 +1388,7 @@
                                     </ciFilter>
                                 </contentFilters>
                             </progressIndicator>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Lyu-3q-kRA">
+                            <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Lyu-3q-kRA">
                                 <rect key="frame" x="14" y="222" width="165" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" placeholder="YES" id="Fg0-Cs-88y"/>

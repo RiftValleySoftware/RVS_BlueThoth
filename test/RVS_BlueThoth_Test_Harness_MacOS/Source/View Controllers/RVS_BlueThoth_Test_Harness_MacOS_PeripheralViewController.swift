@@ -109,6 +109,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        disconnectButton?.title = (disconnectButton?.title ?? "").localizedVariant
         updateUI()
     }
     
@@ -160,8 +161,10 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueTho
         }
         
         if device.isConnected {
+            disconnectButton?.isHidden = false
             stopLoadingAnimation()
         } else {
+            disconnectButton?.isHidden = true
             startLoadingAnimation()
         }
     }
