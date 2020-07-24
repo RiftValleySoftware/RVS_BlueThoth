@@ -206,7 +206,7 @@ extension RVS_BlueThoth: CBCentralManagerDelegate {
         }
         
         #if DEBUG
-            print("Connected \(String(describing: inPeripheral.name)).")
+            print("Connected \(inPeripheral.identifier.uuidString).")
         #endif
         
         let newInstance = CGA_Bluetooth_Peripheral(discoveryData: discoveredDevice)

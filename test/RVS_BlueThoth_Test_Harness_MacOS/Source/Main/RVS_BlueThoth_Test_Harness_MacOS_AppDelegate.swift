@@ -203,7 +203,25 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
             screen.updateUI()
         }
     }
-    
+    /* ################################################################## */
+    /**
+     This is called to tell the instance that a Peripheral device has been connected.
+     
+     - parameter inCentralInstance: The central manager that is calling this.
+     - parameter didConnectThisDevice: The device instance that was connected.
+     */
+    func centralManager(_ inCentralInstance: RVS_BlueThoth, didConnectThisDevice inPeripheral: CGA_Bluetooth_Peripheral) {
+        #if DEBUG
+            print("Peripheral Connected")
+        #endif
+        for screen in self.screenList {
+            if  let id = screen.peripheralInstance?.identifier,
+                inPeripheral.id == id {
+                screen.updateUI()
+            }
+        }
+    }
+
     /* ################################################################## */
     /**
      This is called to tell the instance that a Peripheral device has had some change.

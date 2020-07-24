@@ -483,7 +483,7 @@ extension RVS_BlueThoth {
             return false
         }
         #if DEBUG
-            print("Connecting \(String(describing: peripheral.name)).")
+            print("Connecting \(peripheral.identifier.uuidString).")
         #endif
         cbCentral.connect(peripheral, options: nil)
         
@@ -760,7 +760,7 @@ extension RVS_BlueThoth {
          This holds the advertisement data that came with the discovery.
          */
         public var advertisementData: AdvertisementData!
-        
+
         /* ############################################################## */
         /**
          This is the signal strength, at the time of discovery, in dBm.

@@ -41,6 +41,23 @@ protocol RVS_BlueThoth_Test_Harness_MacOS_ControllerList_Protocol {
      This forces the UI elements to be updated.
      */
     func updateUI()
+    
+    /* ################################################################## */
+    /**
+     If the screen is associated with a Peripheral, that Peripheral is exposed here. It can be nil.
+     */
+    var peripheralInstance: RVS_BlueThoth.DiscoveryData? { get }
+}
+
+/* ################################################################################################################################## */
+// MARK: - Controller List Protocol Defaults
+/* ################################################################################################################################## */
+extension RVS_BlueThoth_Test_Harness_MacOS_ControllerList_Protocol {
+    /* ################################################################## */
+    /**
+     Default is nil.
+     */
+    var peripheralInstance: RVS_BlueThoth.DiscoveryData? { nil }
 }
 
 /* ################################################################################################################################## */

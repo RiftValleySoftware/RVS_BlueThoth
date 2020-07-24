@@ -21,6 +21,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 */
 
 import Cocoa
+import CoreBluetooth
 import RVS_BlueThoth_MacOS
 
 /* ###################################################################################################################################### */
@@ -50,12 +51,12 @@ class RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueThoth_T
     /**
      This is the Peripheral instance associated with this screen.
      */
-    var peripheralInstance: CGA_Bluetooth_Peripheral? {
+    var peripheralInstance: RVS_BlueThoth.DiscoveryData? {
         didSet {
             updateUI()
         }
     }
-    
+
     /* ################################################################## */
     /**
      The main split view
@@ -118,7 +119,12 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
      */
     override func viewWillAppear() {
         super.viewWillAppear()
+        #if DEBUG
+            print("Connecting to Peripheral From Screen.")
+        #endif
         appDelegateObject.screenList.addScreen(self)
+        startLoadingAnimation()
+        peripheralInstance?.connect()
     }
     
     /* ################################################################## */
@@ -128,6 +134,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
      */
     override func viewWillDisappear() {
         super.viewWillDisappear()
+        peripheralInstance?.disconnect()
         appDelegateObject.screenList.removeScreen(self)
     }
 }
@@ -140,7 +147,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueTho
     /**
      This is a String key that uniquely identifies this screen.
      */
-    var key: String { peripheralInstance?.id ?? "ERROR" }
+    var key: String { peripheralInstance?.identifier ?? "ERROR" }
 
     /* ################################################################## */
     /**

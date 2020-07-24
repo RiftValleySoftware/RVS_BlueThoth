@@ -155,7 +155,7 @@ extension CGA_Bluetooth_Peripheral {
      */
     public func startOver() {
         #if DEBUG
-            print("Starting The Service Discovery Over From Scratch for \(discoveryData.preferredName).")
+        print("Starting The Service Discovery Over From Scratch for \(discoveryData.cbPeripheral.identifier.uuidString).")
         #endif
         clear()
         let services: [CBUUID]! = _discoveryFilter.isEmpty ? nil : _discoveryFilter

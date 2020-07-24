@@ -407,7 +407,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: NSTableViewD
         if  let peripheral = _getIndexedDevice(inRow),
             selectedDevice?.identifier != peripheral.identifier {
             #if DEBUG
-                print("Row \(inRow) was selected. Connecting...")
+                print("Row \(inRow) was selected.")
             #endif
             selectedDevice = peripheral
             return true
@@ -425,7 +425,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: NSTableViewD
      - parameter: Ignored
      */
     func tableViewSelectionDidChange(_: Notification) {
-        var oldPeripheral: CGA_Bluetooth_Peripheral!
+        var oldPeripheral: RVS_BlueThoth.DiscoveryData!
         
         if let currentDetailsViewController = mainSplitView?.detailsSplitViewItem?.viewController as? RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
             oldPeripheral = currentDetailsViewController.peripheralInstance
@@ -433,7 +433,10 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: NSTableViewD
         
         if  let device = selectedDevice,
             let newController = storyboard?.instantiateController(withIdentifier: RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.storyboardID) as? RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
-            newController.peripheralInstance = device.peripheralInstance
+            #if DEBUG
+                print("Connecting to Peripheral.")
+            #endif
+            newController.peripheralInstance = device
             mainSplitView?.setDetailsViewController(newController)
         }
         
