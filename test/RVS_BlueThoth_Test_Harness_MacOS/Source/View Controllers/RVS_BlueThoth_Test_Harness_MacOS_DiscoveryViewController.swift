@@ -81,6 +81,12 @@ class RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThoth_Te
      The currently selected device (nil, if no device selected).
      */
     var selectedDevice: RVS_BlueThoth.DiscoveryData?
+    
+    /* ################################################################## */
+    /**
+     This will contain the selection range, or nil (no selection).
+     */
+    private var _currentSelectionRange: Range<Int>?
 
     /* ################################################################## */
     /**
@@ -157,14 +163,23 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
     /* ################################################################## */
     /**
      - parameter inDeviceID: The key for the device in our table.
-     
-     - returns: The number of advertisement strings for the given device.
+     - returns: Index, in the main table Array, for this device. Can be nil.
      */
-    private func _numberOfStringsForThisDevice(_ inDeviceID: String) -> Int { _tableMap[inDeviceID]?.count ?? 0 }
+    private func _indexOfThisDevice(_ inDeviceID: String) -> Int? { _sortedDevices.firstIndex(where: {$0 == inDeviceID}) }
     
     /* ################################################################## */
     /**
+     - parameter inDeviceID: The key for the device in our table.
+     - returns: The number of advertisement strings for the given device.
+     */
+    private func _numberOfStringsForThisDevice(_ inDeviceID: String) -> Int { _tableMap[inDeviceID]?.count ?? 0 }
+
+    /* ################################################################## */
+    /**
      This returns the Peripheral wrapper instance, associated with a particular table index.
+
+     - parameter inIndex: The 0-based row index.
+     - returns: The discovery data struct for the indexed device.
      */
     private func _getIndexedDevice(_ inIndex: Int) -> RVS_BlueThoth.DiscoveryData? {
         var index: Int = 0
@@ -191,6 +206,10 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
     
     /* ################################################################## */
     /**
+     This returns the row string, along with whether or not it is a header, for the indexed row.
+     
+     - parameter inIndex: The 0-based row index.
+     - returns: a tuple, containing the string value, and a boolean flag, indicating whether or not it is a header.
      */
     private func _getIndexedTableMapRow(_ inIndex: Int) -> (value: String, isHeader: Bool) {
         var index: Int = 0
@@ -213,6 +232,27 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
         }
         
         return (value: "", isHeader: false)
+    }
+    
+    /* ################################################################## */
+    /**
+     This returns a range, with the row indexes of all the rows belonging to the device that contains the given row.
+     
+     - parameter inIndex: The 0-based index of the selected row.
+     - returns: An Int Range, containing all the indexes involved in the selected device.
+     */
+    private func _getAllRowIndexesForGroupContainingThisRowIndex(_ inIndex: Int) -> Range<Int>? {
+        var totalIndex = 0
+
+        for group in _tableMap {
+            let range = (totalIndex..<totalIndex + group.value.count + 1)
+            if range.contains(inIndex) {
+                return range
+            }
+            totalIndex = range.upperBound
+        }
+        
+        return nil
     }
 
     /* ################################################################## */
@@ -359,6 +399,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThot
         
         if nil == selectedDevice {
             deviceTable?.deselectAll(nil)
+            _currentSelectionRange = nil
         }
         
         deviceTable?.reloadData()
@@ -422,9 +463,11 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: NSTableViewD
                 print("Row \(inRow) was selected.")
             #endif
             selectedDevice = peripheral
+            _currentSelectionRange = _getAllRowIndexesForGroupContainingThisRowIndex(inRow)
             return true
         }
         
+        _currentSelectionRange = nil
         return false
     }
 
@@ -448,6 +491,9 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: NSTableViewD
             #if DEBUG
                 print("Connecting to Peripheral.")
             #endif
+            if let selectedRange = _currentSelectionRange {
+                deviceTable?.selectRowIndexes(IndexSet(integersIn: selectedRange), byExtendingSelection: true)
+            }
             newController.peripheralInstance = device
             mainSplitView?.setDetailsViewController(newController)
         }
