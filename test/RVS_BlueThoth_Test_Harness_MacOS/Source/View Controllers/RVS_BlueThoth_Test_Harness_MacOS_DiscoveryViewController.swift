@@ -395,6 +395,18 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: NSTableViewD
     
     /* ################################################################## */
     /**
+     Called to indicate whether or not the row is a group header (indicated by no value).
+     
+     - parameters:
+        - inTableView: The table instance.
+        - isGroupRow: The 0-based Int index of the row.
+     
+     - returns: True, if this is a group header row.
+     */
+    func tableView(_ inTableView: NSTableView, isGroupRow inRow: Int) -> Bool { _getIndexedTableMapRow(inRow).isHeader }
+
+    /* ################################################################## */
+    /**
      This is called when a row is selected. We match the device to the row, set that in the semaphore, and approve the selection.
      
      - parameters:
