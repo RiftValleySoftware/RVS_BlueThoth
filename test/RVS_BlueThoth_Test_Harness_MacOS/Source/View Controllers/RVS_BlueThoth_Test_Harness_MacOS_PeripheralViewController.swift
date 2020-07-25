@@ -38,17 +38,6 @@ class RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueThoth_T
     
     /* ################################################################## */
     /**
-     This is the spinner that is displayed while the device is being connected.
-     */
-    @IBOutlet weak var loadingSpinner: NSProgressIndicator!
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBOutlet weak var disconnectButton: NSButton!
-    
-    /* ################################################################## */
-    /**
      This is the Peripheral instance associated with this screen.
      */
     var peripheralInstance: RVS_BlueThoth.DiscoveryData? {
@@ -57,6 +46,22 @@ class RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueThoth_T
         }
     }
 
+    /* ################################################################## */
+    /**
+     This is the spinner that is displayed while the device is being connected.
+     */
+    @IBOutlet weak var loadingSpinner: NSProgressIndicator!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var disconnectButton: NSButton!
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Computed Properties -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
     /* ################################################################## */
     /**
      The main split view
@@ -68,6 +73,9 @@ class RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueThoth_T
     }
 }
 
+/* ###################################################################################################################################### */
+// MARK: - IBAction Methods -
+/* ###################################################################################################################################### */
 extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
     /* ################################################################## */
     /**
@@ -79,7 +87,26 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
         peripheralInstance?.disconnect()
         mainSplitView?.setDetailsViewController()
     }
+}
 
+/* ###################################################################################################################################### */
+// MARK: - Private Instance Methods -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
+    /* ################################################################## */
+    /**
+     Sets up the various accessibility labels.
+     */
+    private func _setUpAccessibility() {
+        loadingSpinner?.setAccessibilityLabel("SLUG-ACC-CONNECTING-LABEL".localizedVariant)
+        disconnectButton?.setAccessibilityLabel("SLUG-ACC-DISCONNECT-LABEL".localizedVariant)
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Instance Methods -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
     /* ################################################################## */
     /**
      This shows and starts the loading spinner.
@@ -110,7 +137,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         disconnectButton?.title = (disconnectButton?.title ?? "").localizedVariant
-        updateUI()
+        _setUpAccessibility()
     }
     
     /* ################################################################## */
@@ -121,11 +148,11 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
     override func viewWillAppear() {
         super.viewWillAppear()
         #if DEBUG
-            print("Connecting to Peripheral From Screen.")
+            print("Connecting to Peripheral.")
         #endif
         appDelegateObject.screenList.addScreen(self)
-        startLoadingAnimation()
         peripheralInstance?.connect()
+        updateUI()
     }
     
     /* ################################################################## */
@@ -135,6 +162,9 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
      */
     override func viewWillDisappear() {
         super.viewWillDisappear()
+        #if DEBUG
+            print("Disconnecting from Peripheral.")
+        #endif
         peripheralInstance?.disconnect()
         appDelegateObject.screenList.removeScreen(self)
     }
@@ -157,12 +187,13 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueTho
     func updateUI() {
         guard let device = peripheralInstance else {
             stopLoadingAnimation()
+            disconnectButton?.isHidden = true
             return
         }
         
         if device.isConnected {
-            disconnectButton?.isHidden = false
             stopLoadingAnimation()
+            disconnectButton?.isHidden = false
         } else {
             disconnectButton?.isHidden = true
             startLoadingAnimation()

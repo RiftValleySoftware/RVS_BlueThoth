@@ -78,15 +78,15 @@ class RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThoth_Te
     
     /* ################################################################## */
     /**
+     This is the "Start Over From Scratch" button.
+     */
+    @IBOutlet weak var reloadButton: NSButton!
+
+    /* ################################################################## */
+    /**
      The currently selected device (nil, if no device selected).
      */
     var selectedDevice: RVS_BlueThoth.DiscoveryData?
-    
-    /* ################################################################## */
-    /**
-     This will contain the selection range, or nil (no selection).
-     */
-    private var _currentSelectionRange: Range<Int>?
 
     /* ################################################################## */
     /**
@@ -96,28 +96,6 @@ class RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThoth_Te
         guard let parent = parent as? RVS_BlueThoth_Test_Harness_MacOS_SplitViewController else { return nil }
         
         return parent
-    }
-
-    /* ################################################################## */
-    /**
-     Called when the scanning/not scanning segmented switch changes.
-     
-     - parameter inSwitch: The switch object.
-     */
-    @IBAction func scanningChanged(_ inSwitch: NSSegmentedControl) {
-        if ScanningModeSwitchValues.notScanning.rawValue == inSwitch.selectedSegment {
-            centralManager?.stopScanning()
-        } else {
-            centralManager?.scanCriteria = prefs.scanCriteria
-            centralManager?.minimumRSSILevelIndBm = prefs.minimumRSSILevel
-            centralManager?.discoverOnlyConnectablePeripherals = prefs.discoverOnlyConnectableDevices
-            centralManager?.allowEmptyNames = prefs.allowEmptyNames
-            _tableMap = [:]
-            deviceTable?.reloadData()
-            centralManager?.startScanning(duplicateFilteringIsOn: !prefs.continuouslyUpdatePeripherals)
-        }
-        
-        updateUI()
     }
 }
 
@@ -260,7 +238,9 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
      Sets up the various accessibility labels.
      */
     private func _setUpAccessibility() {
+        reloadButton?.setAccessibilityLabel("SLUG-ACC-RELOAD-BUTTON".localizedVariant)
         scanningModeSegmentedSwitch?.setAccessibilityLabel("SLUG-ACC-SCANNING-BUTTON-O" + ((ScanningModeSwitchValues.notScanning.rawValue == scanningModeSegmentedSwitch?.selectedSegment) ? "FF" : "N"))
+        tableContainerScrollView?.setAccessibilityLabel("SLUG-ACC-DEVICELIST-TABLE-MAC".localizedVariant)
     }
     
     /* ################################################################## */
@@ -380,6 +360,45 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - IBAction Handlers -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
+    /* ################################################################## */
+    /**
+     Called when the scanning/not scanning segmented switch changes.
+     
+     - parameter inSwitch: The switch object.
+     */
+    @IBAction func scanningChanged(_ inSwitch: NSSegmentedControl) {
+        if ScanningModeSwitchValues.notScanning.rawValue == inSwitch.selectedSegment {
+            centralManager?.stopScanning()
+        } else {
+            centralManager?.scanCriteria = prefs.scanCriteria
+            centralManager?.minimumRSSILevelIndBm = prefs.minimumRSSILevel
+            centralManager?.discoverOnlyConnectablePeripherals = prefs.discoverOnlyConnectableDevices
+            centralManager?.allowEmptyNames = prefs.allowEmptyNames
+            _tableMap = [:]
+            deviceTable?.reloadData()
+            centralManager?.startScanning(duplicateFilteringIsOn: !prefs.continuouslyUpdatePeripherals)
+        }
+        
+        updateUI()
+    }
+
+    /* ################################################################## */
+    /**
+     This is the "Start Over From Scratch" button.
+     
+     - parameter: ignored
+     */
+    @IBAction func reloadButtonHit(_: NSButton) {
+        mainSplitView?.setDetailsViewController()
+        centralManager?.startOver()
+        updateUI()
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol Conformance -
 /* ###################################################################################################################################### */
 extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThoth_Test_Harness_MacOS_ControllerList_Protocol {
@@ -391,7 +410,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThot
         scanningModeSegmentedSwitch?.isHidden = !(centralManager?.isBTAvailable ?? false)
         tableContainerScrollView?.isHidden = !(centralManager?.isBTAvailable ?? false)
         noBTImage?.isHidden = !(tableContainerScrollView?.isHidden ?? true)
-        
+        reloadButton?.isHidden = (0 == (centralManager?.stagedBLEPeripherals.count ?? 0))
         scanningModeSegmentedSwitch?.setSelected(true, forSegment: (centralManager?.isScanning ?? false) ? ScanningModeSwitchValues.scanning.rawValue : ScanningModeSwitchValues.notScanning.rawValue)
         
         _setUpAccessibility()
@@ -399,7 +418,6 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThot
         
         if nil == selectedDevice {
             deviceTable?.deselectAll(nil)
-            _currentSelectionRange = nil
         }
         
         deviceTable?.reloadData()
@@ -457,17 +475,18 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: NSTableViewD
      - returns: False (always).
      */
     func tableView(_ inTableView: NSTableView, shouldSelectRow inRow: Int) -> Bool {
+        deviceTable?.deselectAll(nil)
         if  let peripheral = _getIndexedDevice(inRow),
             selectedDevice?.identifier != peripheral.identifier {
             #if DEBUG
                 print("Row \(inRow) was selected.")
             #endif
             selectedDevice = peripheral
-            _currentSelectionRange = _getAllRowIndexesForGroupContainingThisRowIndex(inRow)
-            return true
+            if let selectedRange = _getAllRowIndexesForGroupContainingThisRowIndex(inRow) {
+                deviceTable?.selectRowIndexes(IndexSet(integersIn: selectedRange), byExtendingSelection: true)
+            }
         }
-        
-        _currentSelectionRange = nil
+
         return false
     }
 
@@ -480,26 +499,13 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: NSTableViewD
      - parameter: Ignored
      */
     func tableViewSelectionDidChange(_: Notification) {
-        var oldPeripheral: RVS_BlueThoth.DiscoveryData!
-        
-        if let currentDetailsViewController = mainSplitView?.detailsSplitViewItem?.viewController as? RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
-            oldPeripheral = currentDetailsViewController.peripheralInstance
-        }
-        
         if  let device = selectedDevice,
             let newController = storyboard?.instantiateController(withIdentifier: RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.storyboardID) as? RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
             #if DEBUG
-                print("Connecting to Peripheral.")
+                print("Connecting to another Peripheral.")
             #endif
-            if let selectedRange = _currentSelectionRange {
-                deviceTable?.selectRowIndexes(IndexSet(integersIn: selectedRange), byExtendingSelection: true)
-            }
             newController.peripheralInstance = device
             mainSplitView?.setDetailsViewController(newController)
-        }
-        
-        if let oldPeripheral = oldPeripheral {
-            oldPeripheral.disconnect()
         }
     }
 }

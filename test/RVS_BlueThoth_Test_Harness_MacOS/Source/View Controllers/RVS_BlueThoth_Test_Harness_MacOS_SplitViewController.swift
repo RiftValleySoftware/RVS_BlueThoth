@@ -50,6 +50,7 @@ class RVS_BlueThoth_Test_Harness_MacOS_SplitViewController: NSSplitViewControlle
         if let detailsSplitViewItem = detailsSplitViewItem {
             removeSplitViewItem(detailsSplitViewItem)
         }
+        
         guard let newDetailsViewController = inPeripheralViewController else {
              if let newPlaceholderViewController = storyboard?.instantiateController(withIdentifier: RVS_BlueThoth_Test_Harness_MacOS_PlaceholderViewController.storyboardID) as? NSViewController {
                 detailsSplitViewItem = NSSplitViewItem(viewController: newPlaceholderViewController)

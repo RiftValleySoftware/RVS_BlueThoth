@@ -110,6 +110,8 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-ACC-EDIT-BUTTON-EDIT"         =   "The table of devices can be edited by touching this button. When you edit the table, you can choose certain devices to ignore.";
 "SLUG-ACC-EDIT-BUTTON-DONE"         =   "The table of devices is currently being edited, and you can end that by touching this button. When you edit the table, you can choose certain devices to ignore.";
 "SLUG-ACC-DEVICELIST-TABLE"         =   "This table displays the discovered Bluetooth LE devices. Each row represents one device. You can pull down on the table to reload all the devices. If you reload the table, the order of the devices in the table may change, and all ignored devices will no longer be ignored.";
+"SLUG-ACC-DEVICELIST-TABLE-MAC"     =   "This table displays the discovered Bluetooth LE devices. Each row represents one device.";
+"SLUG-ACC-RELOAD-BUTTON"            =   "Press this button to reload all the devices. If you reload the table, the order of the devices in the table may change, and all ignored devices will no longer be ignored.";
 "SLUG-ACC-DEVICELIST-TABLE-RSSI-FORMAT"             =   "This is the signal strength for this device. It is currently %d decibels.";
 "SLUG-ACC-DEVICELIST-TABLE-NAME-ADVERTISED-FORMAT"  =   "This is the advertised name for this device. It is \"%@.\"";
 "SLUG-ACC-DEVICELIST-TABLE-NAME-SIMPLE-FORMAT"      =   "This is the name for this device. It is \"%@.\"";
@@ -122,6 +124,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-ACC-BACK-BUTTON"              =   "Return to the screen with the details for this Peripheral";
 "SLUG-ACC-DEVICE-NAME-FORMAT"       =   "This screen represents the details for the Peripheral named \"%@.\"";
 "SLUG-ACC-DEVICE-INFO-TEXT-DISPLAY" =   "This displays the advertising information for this peripheral.";
+"SLUG-ACC-DISCONNECT-LABEL"         =   "The device is currently connected. Press this button to disconnect.";
 "SLUG-ACC-CONNECTING-LABEL"         =   "The device is currently being connected. Please wait for the connection to complete.";
 "SLUG-ACC-SERVICES-TABLE"           =   "This table displays a list of available Services for this Peripheral. If you select a row, another screen will appear, containing the details of that Service.";
 "SLUG-ACC-SERVICES-TABLE-ROW"       =   "This row represents the %@ Service. If you select this row, another screen will appear, with details about this Service.";
