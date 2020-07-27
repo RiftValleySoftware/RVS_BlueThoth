@@ -55,6 +55,7 @@ class RVS_BlueThoth_Test_Harness_MacOS_SplitViewController: NSSplitViewControlle
     func setDetailsViewController(_ inPeripheralViewController: RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController? = nil) {
         if let detailsSplitViewItem = detailsSplitViewItem {
             removeSplitViewItem(detailsSplitViewItem)
+            setCharacteristicViewController()
         }
         
         guard let newDetailsViewController = inPeripheralViewController else {
@@ -73,12 +74,14 @@ class RVS_BlueThoth_Test_Harness_MacOS_SplitViewController: NSSplitViewControlle
     /**
      This allows us to associate a new View Controller with the details side of the split.
      
-     - parameter inPeripheralViewController: The Peripheral View Controller to place there. If nil, or omitted, the placeholder will be set.
+     - parameter inPeripheralViewController: The Peripheral View Controller to place there. If nil, or omitted, the view will be removed.
      */
     func setCharacteristicViewController(_ inCharacteristicViewController: RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController? = nil) {
         if let characteristicSplitViewItem = characteristicSplitViewItem {
             removeSplitViewItem(characteristicSplitViewItem)
         }
+        
+        characteristicSplitViewItem = nil
         
         guard let newCharacteristicViewController = inCharacteristicViewController else { return }
 

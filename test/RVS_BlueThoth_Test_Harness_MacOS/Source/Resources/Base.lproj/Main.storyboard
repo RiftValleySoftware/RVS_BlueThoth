@@ -1396,6 +1396,65 @@
                                 <rect key="frame" x="96" y="54" width="288" height="162"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="BlueThothLogo" id="V1W-3S-jNC"/>
                             </imageView>
+                            <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Lyu-3q-kRA">
+                                <rect key="frame" x="14" y="222" width="165" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" placeholder="YES" id="Fg0-Cs-88y"/>
+                                    <constraint firstAttribute="width" constant="153" placeholder="YES" id="pQr-zc-q5m"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="SLUG-DISCONNECT" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OUX-a6-vbC">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="disconnectThisPeripheral:" target="VCc-zN-6TJ" id="qqV-gn-rPr"/>
+                                </connections>
+                            </button>
+                            <scrollView hidden="YES" fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RDr-Aj-TUi">
+                                <rect key="frame" x="20" y="19" width="440" height="197"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <clipView key="contentView" drawsBackground="NO" id="uJA-N4-jo4">
+                                    <rect key="frame" x="1" y="1" width="438" height="195"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" id="FUm-0T-CYy">
+                                            <rect key="frame" x="0.0" y="0.0" width="438" height="195"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <size key="intercellSpacing" width="3" height="2"/>
+                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <tableViewGridLines key="gridStyleMask" dashed="YES"/>
+                                            <color key="gridColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <tableColumns>
+                                                <tableColumn width="435" minWidth="40" maxWidth="1000" id="vqq-99-gqT">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                    </tableHeaderCell>
+                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="vMX-tZ-cGf">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </textFieldCell>
+                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                </tableColumn>
+                                            </tableColumns>
+                                            <connections>
+                                                <outlet property="dataSource" destination="VCc-zN-6TJ" id="fiY-kS-kZ5"/>
+                                                <outlet property="delegate" destination="VCc-zN-6TJ" id="E2A-vv-DWP"/>
+                                            </connections>
+                                        </tableView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="6xJ-Px-Isb">
+                                    <rect key="frame" x="1" y="119" width="223" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="7CH-hr-be5">
+                                    <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
                             <progressIndicator hidden="YES" wantsLayer="YES" maxValue="100" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="7hm-rD-EpR">
                                 <rect key="frame" x="224" y="119" width="32" height="32"/>
                                 <constraints>
@@ -1413,20 +1472,6 @@
                                     </ciFilter>
                                 </contentFilters>
                             </progressIndicator>
-                            <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Lyu-3q-kRA">
-                                <rect key="frame" x="14" y="222" width="165" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" placeholder="YES" id="Fg0-Cs-88y"/>
-                                    <constraint firstAttribute="width" constant="153" placeholder="YES" id="pQr-zc-q5m"/>
-                                </constraints>
-                                <buttonCell key="cell" type="push" title="SLUG-DISCONNECT" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OUX-a6-vbC">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="disconnectThisPeripheral:" target="VCc-zN-6TJ" id="qqV-gn-rPr"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="Lyu-3q-kRA" firstAttribute="leading" secondItem="y77-qu-InE" secondAttribute="leading" constant="20" id="2E0-Td-D85"/>
@@ -1447,11 +1492,45 @@
                     <connections>
                         <outlet property="disconnectButton" destination="Lyu-3q-kRA" id="mPX-Ks-C1z"/>
                         <outlet property="loadingSpinner" destination="7hm-rD-EpR" id="KWu-Bj-8Lh"/>
+                        <outlet property="serviceTableContainerView" destination="RDr-Aj-TUi" id="T8m-ch-0eX"/>
                     </connections>
                 </viewController>
                 <customObject id="tb3-Q0-c7O" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="358" y="1472"/>
+            <point key="canvasLocation" x="-265" y="1616"/>
+        </scene>
+        <!--Characteristic Screen-->
+        <scene sceneID="lx9-3F-Rco">
+            <objects>
+                <viewController title="SLUG-PERIPHERAL" storyboardIdentifier="characteristic-view-controller" id="Csf-nd-wgb" userLabel="Characteristic Screen" customClass="RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="gcr-wM-m57">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="6Gc-f6-rZl" userLabel="Background Gradient Image View">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="axesIndependently" image="background-gradient" id="Pmg-AR-pd0"/>
+                            </imageView>
+                            <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" alphaValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="BG3-gT-fbd" userLabel="BlueThoth Logo Image View">
+                                <rect key="frame" x="96" y="54" width="288" height="162"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="BlueThothLogo" id="vNI-Jt-QfB"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="BG3-gT-fbd" firstAttribute="centerX" secondItem="gcr-wM-m57" secondAttribute="centerX" id="7fs-AI-tCg"/>
+                            <constraint firstItem="BG3-gT-fbd" firstAttribute="height" relation="lessThanOrEqual" secondItem="6Gc-f6-rZl" secondAttribute="height" multiplier="0.6" id="Nhh-4u-K0S"/>
+                            <constraint firstItem="BG3-gT-fbd" firstAttribute="centerY" secondItem="gcr-wM-m57" secondAttribute="centerY" id="Sa7-yD-Whc"/>
+                            <constraint firstItem="6Gc-f6-rZl" firstAttribute="leading" secondItem="gcr-wM-m57" secondAttribute="leading" id="U7C-k1-xwX"/>
+                            <constraint firstAttribute="trailing" secondItem="6Gc-f6-rZl" secondAttribute="trailing" id="YBI-DT-gsj"/>
+                            <constraint firstItem="6Gc-f6-rZl" firstAttribute="top" secondItem="gcr-wM-m57" secondAttribute="top" id="ZKF-hV-zad"/>
+                            <constraint firstItem="BG3-gT-fbd" firstAttribute="width" relation="lessThanOrEqual" secondItem="6Gc-f6-rZl" secondAttribute="width" multiplier="0.6" id="jcs-vr-AMO"/>
+                            <constraint firstAttribute="bottom" secondItem="6Gc-f6-rZl" secondAttribute="bottom" id="loQ-Zh-TLr"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="LhI-dv-ucJ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="314" y="1616"/>
         </scene>
     </scenes>
     <resources>

@@ -47,6 +47,12 @@ class RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueThoth_M
 
     /* ################################################################## */
     /**
+     This is the outer container of the Services tableView.
+     */
+    @IBOutlet weak var serviceTableContainerView: NSScrollView!
+    
+    /* ################################################################## */
+    /**
      This is the spinner that is displayed while the device is being connected.
      */
     @IBOutlet weak var loadingSpinner: NSProgressIndicator!
@@ -170,15 +176,82 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueTho
         guard let device = peripheralInstance else {
             stopLoadingAnimation()
             disconnectButton?.isHidden = true
+            serviceTableContainerView?.isHidden = true
             return
         }
         
         if device.isConnected {
             stopLoadingAnimation()
             disconnectButton?.isHidden = false
+            serviceTableContainerView?.isHidden = false
         } else {
+            serviceTableContainerView?.isHidden = true
             disconnectButton?.isHidden = true
             startLoadingAnimation()
         }
+    }
+}
+
+/* ################################################################################################################################## */
+// MARK: - NSTableViewDelegate/DataSource Methods
+/* ################################################################################################################################## */
+extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: NSTableViewDelegate, NSTableViewDataSource {
+    /* ################################################################## */
+    /**
+     Called to supply the number of rows in the table.
+     
+     - parameters:
+        - inTableView: The table instance.
+     
+     - returns: A 1-based Int, with 0 being no rows.
+     */
+    func numberOfRows(in inTableView: NSTableView) -> Int { 0 }
+
+    /* ################################################################## */
+    /**
+     This is called to supply the string display for one row that corresponds to a device.
+     
+     - parameters:
+        - inTableView: The table instance.
+        - objectValueFor: Container object for the column that holds the row.
+        - row: 0-based Int, with the index of the row, within the column.
+     
+     - returns: A String, with the device name.
+     */
+    func tableView(_ inTableView: NSTableView, objectValueFor inTableColumn: NSTableColumn?, row inRow: Int) -> Any? { "ERROR" }
+    
+    /* ################################################################## */
+    /**
+     Called to indicate whether or not the row is a group header (indicated by no value).
+     
+     - parameters:
+        - inTableView: The table instance.
+        - isGroupRow: The 0-based Int index of the row.
+     
+     - returns: True, if this is a group header row.
+     */
+    func tableView(_ inTableView: NSTableView, isGroupRow inRow: Int) -> Bool { false }
+
+    /* ################################################################## */
+    /**
+     This is called when a row is selected. We match the device to the row, set that in the semaphore, and approve the selection.
+     
+     - parameters:
+        - inTableView: The table instance.
+        - shouldSelectRow: 0-based Int, with the index of the row, within the column.
+     
+     - returns: False (always).
+     */
+    func tableView(_ inTableView: NSTableView, shouldSelectRow inRow: Int) -> Bool { false }
+
+    /* ################################################################## */
+    /**
+     Called after the selection was set up and approved.
+     
+     We open a modal window, with the device info.
+     
+     - parameter: Ignored
+     */
+    func tableViewSelectionDidChange(_: Notification) {
     }
 }
