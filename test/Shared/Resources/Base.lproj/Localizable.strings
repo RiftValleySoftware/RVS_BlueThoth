@@ -165,10 +165,6 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 
 // MARK: - The App Settings Screen
 // Mac-only
-"SLUG-ACC-CONTINUOUS-UPDATE-CHECKBOX"               =   "This checkbox controls whether or not the app is continuously updating the device list while scanning.";
-"SLUG-ACC-EMPTY-NAMES-CHECKBOX"                     =   "This checkbox controls whether or not the app will only display devices that advertise or contain names.";
-"SLUG-ACC-CONNECTED-ONLY-CHECKBOX"                  =   "This checkbox controls whether or not the app will only display connectable devices.";
-"SLUG-ACC-ALWAYS-USE-CRLF-CHECKBOX"                 =   "This checkbox controls whether or not the app will always send endlines (next line, or carriage return) as a Carriage Return/Linefeed pair.";
 "SLUG-ACC-SLIDER-LABEL"                             =   "This is the current value of the Minimum RSSI Slider, in decibels.";
 "SLUG-ACC-SLIDER"                                   =   "This slider will allow you to select a minimum signal strength for discovered devices. It is useful to keep distant devices out of the list. You can adjust it from -100 decibels, to 0 decibels.";
 
@@ -188,10 +184,10 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-ACC-CONNECTED-ONLY-BUTTON-OFF"                =   "This button will toggle the value of the switch that controls whether or not the app will only display connectable devices. The switch is currently off, which means that devices will be displayed, regardless of their connectability.";
 "SLUG-ACC-CONNECTED-ONLY-SWITCH-ON"                 =   "This switch controls whether or not the app will only display connectable devices. The switch is currently on, which means that only devices that advertise as being connectable are being displayed in the list.";
 "SLUG-ACC-CONNECTED-ONLY-SWITCH-OFF"                =   "This switch controls whether or not the app will only display connectable devices. The switch is currently off, which means that devices will be displayed, regardless of their connectability.";
-"SLUG-ACC-EMPTY-NAMES-BUTTON-ON"                    =   "This button will toggle the value of the switch that controls whether or not the app will only display devices that advertise or contain names. The switch is currently on, which means that only devices with names are being displayed in the list.";
-"SLUG-ACC-EMPTY-NAMES-BUTTON-OFF"                   =   "This button will toggle the value of the switch that controls whether or not the app will only display devices that advertise or contain names. The switch is currently off, which means that all devices are being displayed in the list.";
-"SLUG-ACC-EMPTY-NAMES-SWITCH-ON"                    =   "This switch controls whether or not the app will only display devices that advertise or contain names. The switch is currently on, which means that only devices with names are being displayed in the list.";
-"SLUG-ACC-EMPTY-NAMES-SWITCH-OFF"                   =   "This switch controls whether or not the app will only display devices that advertise or contain names. The switch is currently off, which means that all devices are being displayed in the list.";
+"SLUG-ACC-EMPTY-NAMES-BUTTON-ON"                    =   "This button will toggle the value of the switch that controls whether or not the app will only display devices that advertise or contain names. The switch is currently on, which means that all devices are being displayed in the list.";
+"SLUG-ACC-EMPTY-NAMES-BUTTON-OFF"                   =   "This button will toggle the value of the switch that controls whether or not the app will only display devices that advertise or contain names. The switch is currently off, which means that only devices with names are being displayed in the list.";
+"SLUG-ACC-EMPTY-NAMES-SWITCH-ON"                    =   "This switch controls whether or not the app will only display devices that advertise or contain names. The switch is currently on, which means that all devices are being displayed in the list.";
+"SLUG-ACC-EMPTY-NAMES-SWITCH-OFF"                   =   "This switch controls whether or not the app will only display devices that advertise or contain names. The switch is currently off, which means that only devices with names are being displayed in the list.";
 "SLUG-ACC-ALWAYS-USE-CRLF-OFF"                      =   "This switch controls whether or not the app will always send endlines (next line, or carriage return) as a Carriage Return/Linefeed pair. The switch is currently off, which means that we will send simple linefeeds.";
 "SLUG-ACC-ALWAYS-USE-CRLF-ON"                       =   "This switch controls whether or not the app will always send endlines (next line, or carriage return) as a Carriage Return/Linefeed pair. The switch is currently on, which means that we will always send carriage return/linefeed pairs.";
 

@@ -147,19 +147,19 @@ class RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController: RVS_BlueThoth_
     /**
      */
     override func setUpAccessibility() {
-        let ignoreDupesString = "SLUG-ACC-CONTINUOUS-UPDATE-CHECKBOX"
+        let ignoreDupesString = "SLUG-ACC-CONTINUOUS-UPDATE-SWITCH-O" + (prefs.continuouslyUpdatePeripherals ? "N" : "FF")
         ignoreDupesCheckbox?.setAccessibilityLabel(ignoreDupesString.localizedVariant)
         ignoreDupesCheckbox?.toolTip = ignoreDupesString.localizedVariant
         
-        let emptyNamesString = "SLUG-ACC-EMPTY-NAMES-CHECKBOX"
+        let emptyNamesString = "SLUG-ACC-EMPTY-NAMES-SWITCH-O" + (prefs.allowEmptyNames ? "N" : "FF")
         allowEmptyNamesCheckbox?.setAccessibilityLabel(emptyNamesString.localizedVariant)
         allowEmptyNamesCheckbox?.toolTip = emptyNamesString.localizedVariant
         
-        let onlyConnectableString = "SLUG-ACC-CONNECTED-ONLY-CHECKBOX"
+        let onlyConnectableString = "SLUG-ACC-CONNECTED-ONLY-SWITCH-O" + (prefs.discoverOnlyConnectableDevices ? "N" : "FF")
         onlyConnectableCheckbox?.setAccessibilityLabel(onlyConnectableString.localizedVariant)
         onlyConnectableCheckbox?.toolTip = onlyConnectableString.localizedVariant
 
-        let crlfString = "SLUG-ACC-ALWAYS-USE-CRLF-CHECKBOX"
+        let crlfString = "SLUG-ACC-ALWAYS-USE-CRLF-O" + (prefs.alwaysUseCRLF ? "N" : "FF")
         alwaysUseCRLFCheckbox?.setAccessibilityLabel(crlfString.localizedVariant)
         alwaysUseCRLFCheckbox?.toolTip = crlfString.localizedVariant
 
@@ -191,8 +191,11 @@ class RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController: RVS_BlueThoth_
 extension RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController {
     /* ################################################################## */
     /**
+     Called to force the UI elements and accessibility to update.
+     
+     - parameter: ignored.
      */
-    func updateUI() {
+    @IBAction func updateUI(_: Any! = nil) {
         rssiValueLabel?.title = String(format: (maximumRSSIFixedLabel?.placeholderString ?? "%d").localizedVariant, prefs.minimumRSSILevel)
         setUpAccessibility()
     }

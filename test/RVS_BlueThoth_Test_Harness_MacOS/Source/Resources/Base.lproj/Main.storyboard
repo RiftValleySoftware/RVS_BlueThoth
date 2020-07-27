@@ -997,14 +997,13 @@
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="systemBold" size="16"/>
                                             <connections>
-                                                <binding destination="CBu-yz-Vwg" name="value" keyPath="prefs.continuouslyUpdatePeripherals" id="40E-Fv-wTZ">
-                                                    <dictionary key="options">
-                                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                    </dictionary>
-                                                </binding>
+                                                <binding destination="CBu-yz-Vwg" name="value" keyPath="prefs.continuouslyUpdatePeripherals" id="Qyy-25-Rrt"/>
                                             </connections>
                                         </buttonCell>
                                         <color key="contentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <action selector="updateUI:" target="CBu-yz-Vwg" id="hSH-MF-Lkh"/>
+                                        </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="xmJ-pV-SgO">
                                         <rect key="frame" x="-2" y="429" width="663" height="31"/>
@@ -1016,6 +1015,9 @@
                                             </connections>
                                         </buttonCell>
                                         <color key="contentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <action selector="updateUI:" target="CBu-yz-Vwg" id="OIw-nY-HcD"/>
+                                        </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="AFc-Lc-ebR">
                                         <rect key="frame" x="-2" y="394" width="663" height="31"/>
@@ -1027,6 +1029,9 @@
                                             </connections>
                                         </buttonCell>
                                         <color key="contentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <action selector="updateUI:" target="CBu-yz-Vwg" id="Hif-B9-LXY"/>
+                                        </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="jJm-EQ-vyk">
                                         <rect key="frame" x="-2" y="359" width="663" height="31"/>
@@ -1038,6 +1043,9 @@
                                             </connections>
                                         </buttonCell>
                                         <color key="contentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <action selector="updateUI:" target="CBu-yz-Vwg" id="g16-99-cf0"/>
+                                        </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="uP3-hN-TaA">
                                         <rect key="frame" x="-2" y="334" width="663" height="19"/>
