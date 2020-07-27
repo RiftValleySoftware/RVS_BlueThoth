@@ -264,27 +264,25 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
             var ret = "\(current)\n"
             
             if let asStringArray = value as? [String] {
-                ret += current + asStringArray.reduce("\(key): ") { (current2, next2) in
-                    return "\(current2)\n\(next2.localizedVariant)"
-                }
+                ret += current + asStringArray.reduce("\t\(key): ") { (current2, next2) in "\(current2)\n\(next2.localizedVariant)" }
             } else if let value = value as? String {
-                ret += "\(key): \(value.localizedVariant)"
+                ret += "\t\(key): \(value.localizedVariant)"
             } else if let value = value as? Bool {
-                ret += "\(key): \(value ? "true" : "false")"
+                ret += "\t\(key): \(value ? "true" : "false")"
             } else if let value = value as? Int {
-                ret += "\(key): \(value)"
+                ret += "\t\(key): \(value)"
             } else if let value = value as? Double {
                 if "kCBAdvDataTimestamp" == next.key {  // If it's the timestamp, we can translate that, here.
                     let date = Date(timeIntervalSinceReferenceDate: value)
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "SLUG-MAIN-LIST-DATE-FORMAT".localizedVariant
                     let displayedDate = dateFormatter.string(from: date)
-                    ret += "\(key): \(displayedDate)"
+                    ret += "\t\(key): \(displayedDate)"
                 } else {
-                    ret += "\(key): \(value)"
+                    ret += "\t\(key): \(value)"
                 }
             } else {    // Anything else is just a described instance of something or other.
-                ret += "\(key): \(String(describing: value))"
+                ret += "\t\(key): \(String(describing: value))"
             }
             
             return ret

@@ -143,7 +143,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
                 for characteristic in characteristics {
                     index += 1
                     if index == inIndex {
-                        return (value: characteristic.localizedVariant, isHeader: false)
+                        return (value: "\t" + characteristic.localizedVariant, isHeader: false)
                     }
                 }
             }
