@@ -142,6 +142,13 @@ class RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController: RVS_BlueThoth_
         characteristicsFiltersTextView?.string = prefs.characteristicFilterIDArray.joined(separator: "\n")
         _updateUI()
     }
+    
+    /* ################################################################## */
+    /**
+     */
+    override func setUpAccessibility() {
+        
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -151,17 +158,11 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController {
     /* ################################################################## */
     /**
      */
-    private func _setUpAccessibility() {
-        
-    }
-    
-    /* ################################################################## */
-    /**
-     */
     private func _updateUI() {
         rssiValueLabel?.title = String(format: (maximumRSSIFixedLabel?.placeholderString ?? "%d").localizedVariant, prefs.minimumRSSILevel)
     }
 }
+
 /* ###################################################################################################################################### */
 // MARK: - NSTextViewDelegate Conformance -
 /* ###################################################################################################################################### */

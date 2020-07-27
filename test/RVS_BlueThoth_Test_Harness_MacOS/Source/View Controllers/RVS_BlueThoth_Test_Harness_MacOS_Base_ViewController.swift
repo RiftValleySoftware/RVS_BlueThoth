@@ -105,4 +105,30 @@ extension RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController {
     func displayAlert(header inHeader: String, message inMessage: String = "") {
         RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.displayAlert(header: inHeader, message: inMessage)
     }
+    
+    /* ################################################################## */
+    /**
+     Sets up the various accessibility labels.
+     
+     The base implementation is empty.
+     */
+    @objc func setUpAccessibility() { }
+}
+
+/* ################################################################################################################################## */
+// MARK: - Basic Split View Component Window Controller Class
+/* ################################################################################################################################## */
+/**
+This is for views designed to be displayed in the split view.
+*/
+class RVS_BlueThoth_MacOS_Test_Harness_Base_SplitView_ViewController: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController {
+    /* ################################################################## */
+    /**
+     The main split view
+     */
+    var mainSplitView: RVS_BlueThoth_Test_Harness_MacOS_SplitViewController! {
+        guard let parent = parent as? RVS_BlueThoth_Test_Harness_MacOS_SplitViewController else { return nil }
+        
+        return parent
+    }
 }

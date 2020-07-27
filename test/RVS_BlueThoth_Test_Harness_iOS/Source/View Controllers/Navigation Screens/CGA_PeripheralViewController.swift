@@ -113,7 +113,7 @@ extension CGA_PeripheralViewController {
     /**
      This sets up the accessibility and voiceover strings for the screen.
      */
-    private func _setUpAccessibility() {
+    func setUpAccessibility() {
         navigationItem.accessibilityLabel = String(format: "SLUG-ACC-DEVICE-NAME-FORMAT".localizedVariant, deviceAdvInfo?.preferredName ?? "ERROR")
         connectingLabel?.accessibilityLabel = "SLUG-ACC-CONNECTING-LABEL".localizedVariant
         busyAnimationActivityIndicatorView?.accessibilityLabel = "SLUG-ACC-CONNECTING-LABEL".localizedVariant
@@ -176,7 +176,7 @@ extension CGA_PeripheralViewController: CGA_UpdatableScreenViewController {
             servicesLabel?.isHidden = true
         }
         
-        _setUpAccessibility()
+        setUpAccessibility()
     }
 }
 

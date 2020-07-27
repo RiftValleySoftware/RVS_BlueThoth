@@ -172,7 +172,7 @@ extension CGA_SettingsViewController {
     /**
      This sets up the accessibility and voiceover strings for the screen.
      */
-    private func _setUpAccessibility() {
+    func setUpAccessibility() {
         ignoreDuplicatesSwitchButton?.accessibilityLabel = ("SLUG-ACC-CONTINUOUS-UPDATE-BUTTON-O" + (prefs.continuouslyUpdatePeripherals ? "N" : "FF")).localizedVariant
         ignoreDuplicatesScanningSwitch?.accessibilityLabel = ("SLUG-ACC-CONTINUOUS-UPDATE-SWITCH-O" + (prefs.continuouslyUpdatePeripherals ? "N" : "FF")).localizedVariant
         deviceFilterTextView?.accessibilityLabel = "SLUG-ACC-DEVICE-UUIDS".localizedVariant
@@ -328,7 +328,7 @@ extension CGA_SettingsViewController {
         deviceFilterTextView?.text = prefs.peripheralFilterIDArray.joined(separator: "\n")
         serviceFilterTextView?.text = prefs.serviceFilterIDArray.joined(separator: "\n")
         characteristicFilterTextView?.text = prefs.characteristicFilterIDArray.joined(separator: "\n")
-        _setUpAccessibility()
+        setUpAccessibility()
         updateMInimumRSSIValue()
     }
     

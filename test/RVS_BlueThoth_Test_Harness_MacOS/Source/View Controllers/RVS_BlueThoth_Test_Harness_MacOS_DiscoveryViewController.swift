@@ -28,7 +28,7 @@ import RVS_BlueThoth_MacOS
 /* ###################################################################################################################################### */
 /**
  */
-class RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController {
+class RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThoth_MacOS_Test_Harness_Base_SplitView_ViewController {
     /* ################################################################## */
     /**
      This enum has the scanning on/off states, expressed as 0-based Int.
@@ -87,16 +87,6 @@ class RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThoth_Te
      The currently selected device (nil, if no device selected).
      */
     var selectedDevice: RVS_BlueThoth.DiscoveryData?
-
-    /* ################################################################## */
-    /**
-     The main split view
-     */
-    var mainSplitView: RVS_BlueThoth_Test_Harness_MacOS_SplitViewController! {
-        guard let parent = parent as? RVS_BlueThoth_Test_Harness_MacOS_SplitViewController else { return nil }
-        
-        return parent
-    }
 }
 
 /* ###################################################################################################################################### */
@@ -232,16 +222,6 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
         
         return nil
     }
-
-    /* ################################################################## */
-    /**
-     Sets up the various accessibility labels.
-     */
-    private func _setUpAccessibility() {
-        reloadButton?.setAccessibilityLabel("SLUG-ACC-RELOAD-BUTTON".localizedVariant)
-        scanningModeSegmentedSwitch?.setAccessibilityLabel("SLUG-ACC-SCANNING-BUTTON-O" + ((ScanningModeSwitchValues.notScanning.rawValue == scanningModeSegmentedSwitch?.selectedSegment) ? "FF" : "N"))
-        tableContainerScrollView?.setAccessibilityLabel("SLUG-ACC-DEVICELIST-TABLE-MAC".localizedVariant)
-    }
     
     /* ################################################################## */
     /**
@@ -357,6 +337,16 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
         super.viewWillDisappear()
         appDelegateObject.screenList.removeScreen(self)
     }
+    
+    /* ################################################################## */
+    /**
+     Sets up the various accessibility labels.
+     */
+    override func setUpAccessibility() {
+        reloadButton?.setAccessibilityLabel("SLUG-ACC-RELOAD-BUTTON".localizedVariant)
+        scanningModeSegmentedSwitch?.setAccessibilityLabel("SLUG-ACC-SCANNING-BUTTON-O" + ((ScanningModeSwitchValues.notScanning.rawValue == scanningModeSegmentedSwitch?.selectedSegment) ? "FF" : "N"))
+        tableContainerScrollView?.setAccessibilityLabel("SLUG-ACC-DEVICELIST-TABLE-MAC".localizedVariant)
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -413,7 +403,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThot
         reloadButton?.isHidden = (0 == (centralManager?.stagedBLEPeripherals.count ?? 0))
         scanningModeSegmentedSwitch?.setSelected(true, forSegment: (centralManager?.isScanning ?? false) ? ScanningModeSwitchValues.scanning.rawValue : ScanningModeSwitchValues.notScanning.rawValue)
         
-        _setUpAccessibility()
+        setUpAccessibility()
         _buildTableMap()
         
         if nil == selectedDevice {

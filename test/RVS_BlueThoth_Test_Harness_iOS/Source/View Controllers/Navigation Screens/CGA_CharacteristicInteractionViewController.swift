@@ -125,7 +125,7 @@ extension CGA_CharacteristicInteractionViewController {
     /**
      This sets up the accessibility and voiceover strings for the screen.
      */
-    private func _setUpAccessibility() {
+    func setUpAccessibility() {
         notifyButton?.accessibilityLabel = notifyButton?.accessibilityLabel?.localizedVariant
         responseLabelButton?.accessibilityLabel = notifyButton?.accessibilityLabel?.localizedVariant
         responseSwitch?.accessibilityLabel = responseSwitch?.accessibilityLabel?.localizedVariant
@@ -263,7 +263,7 @@ extension CGA_CharacteristicInteractionViewController: CGA_UpdatableScreenViewCo
             notifyButton?.backgroundColor = myCharacteristicInstance.isNotifying ? .green : .red
         }
         
-        _setUpAccessibility()
+        setUpAccessibility()
     }
 }
 

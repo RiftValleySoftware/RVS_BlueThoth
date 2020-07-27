@@ -27,22 +27,12 @@ import Cocoa
 /* ###################################################################################################################################### */
 /**
  */
-class RVS_BlueThoth_Test_Harness_MacOS_PlaceholderViewController: NSViewController {
+class RVS_BlueThoth_Test_Harness_MacOS_PlaceholderViewController: RVS_BlueThoth_MacOS_Test_Harness_Base_SplitView_ViewController {
     /* ################################################################## */
     /**
      This is the storyboard ID that we use to create an instance of this view.
      */
     static let storyboardID  = "placeholder-view-controller"
-    
-    /* ################################################################## */
-    /**
-     The main split view
-     */
-    var mainSplitView: RVS_BlueThoth_Test_Harness_MacOS_SplitViewController! {
-        guard let parent = parent as? RVS_BlueThoth_Test_Harness_MacOS_SplitViewController else { return nil }
-        
-        return parent
-    }
 }
 
 /* ###################################################################################################################################### */

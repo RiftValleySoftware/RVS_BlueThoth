@@ -128,7 +128,7 @@ extension CGA_CharacteristicViewController {
     /**
      This sets up the accessibility and voiceover strings for the screen.
      */
-    private func _setUpAccessibility() {
+    func setUpAccessibility() {
         descriptorsTableView?.accessibilityLabel = "SLUG-ACC-DESCRIPTOR-TABLE".localizedVariant
     }
 }
@@ -156,7 +156,7 @@ extension CGA_CharacteristicViewController: CGA_UpdatableScreenViewController {
      */
     func updateUI() {
         descriptorsTableView?.reloadData()
-        _setUpAccessibility()
+        setUpAccessibility()
     }
 }
 

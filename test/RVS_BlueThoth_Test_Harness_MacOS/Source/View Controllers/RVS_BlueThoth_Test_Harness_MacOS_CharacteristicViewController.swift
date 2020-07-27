@@ -24,89 +24,44 @@ import Cocoa
 import RVS_BlueThoth_MacOS
 
 /* ###################################################################################################################################### */
-// MARK: - The Peripheral Screen View Controller -
+// MARK: - The Characteristic Screen View Controller -
 /* ###################################################################################################################################### */
 /**
  */
-class RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueThoth_MacOS_Test_Harness_Base_SplitView_ViewController {
+class RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_BlueThoth_MacOS_Test_Harness_Base_SplitView_ViewController {
     /* ################################################################## */
     /**
      This is the storyboard ID that we use to create an instance of this view.
      */
-    static let storyboardID  = "peripheral-view-controller"
+    static let storyboardID  = "characteristic-view-controller"
     
     /* ################################################################## */
     /**
-     This is the Peripheral instance associated with this screen.
+     This is the Characteristic instance associated with this screen.
      */
-    var peripheralInstance: RVS_BlueThoth.DiscoveryData? {
+    var characteristicInstance: CGA_Bluetooth_Characteristic? {
         didSet {
             updateUI()
         }
-    }
-
-    /* ################################################################## */
-    /**
-     This is the spinner that is displayed while the device is being connected.
-     */
-    @IBOutlet weak var loadingSpinner: NSProgressIndicator!
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBOutlet weak var disconnectButton: NSButton!
-}
-
-/* ###################################################################################################################################### */
-// MARK: - IBAction Methods -
-/* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
-    /* ################################################################## */
-    /**
-     Called when the disconnect button is hit, or we want to disconnect the device.
-     
-     - parameter: ignored. Can be omitted.
-     */
-    @IBAction func disconnectThisPeripheral(_: Any! = nil) {
-        peripheralInstance?.disconnect()
-        mainSplitView?.setDetailsViewController()
     }
 }
 
 /* ###################################################################################################################################### */
 // MARK: - Instance Methods -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
-    /* ################################################################## */
-    /**
-     This shows and starts the loading spinner.
-     */
-    func startLoadingAnimation() {
-        loadingSpinner?.startAnimation(nil)
-        loadingSpinner?.isHidden = false
-    }
-    
-    /* ################################################################## */
-    /**
-     This stops and hides the loading spinner.
-     */
-    func stopLoadingAnimation() {
-        loadingSpinner?.isHidden = true
-        loadingSpinner?.stopAnimation(nil)
-    }
+extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
 }
 
 /* ###################################################################################################################################### */
 // MARK: - Base Class Overrides -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
+extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
     /* ################################################################## */
     /**
      Called when the view hierachy has loaded.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        disconnectButton?.title = (disconnectButton?.title ?? "").localizedVariant
         setUpAccessibility()
     }
     
@@ -117,11 +72,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
      */
     override func viewWillAppear() {
         super.viewWillAppear()
-        #if DEBUG
-            print("Connecting to Peripheral.")
-        #endif
         appDelegateObject.screenList.addScreen(self)
-        peripheralInstance?.connect()
         updateUI()
     }
     
@@ -132,10 +83,6 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
      */
     override func viewWillDisappear() {
         super.viewWillDisappear()
-        #if DEBUG
-            print("Disconnecting from Peripheral.")
-        #endif
-        peripheralInstance?.disconnect()
         appDelegateObject.screenList.removeScreen(self)
     }
     
@@ -144,15 +91,13 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
      Sets up the various accessibility labels.
      */
     override func setUpAccessibility() {
-        loadingSpinner?.setAccessibilityLabel("SLUG-ACC-CONNECTING-LABEL".localizedVariant)
-        disconnectButton?.setAccessibilityLabel("SLUG-ACC-DISCONNECT-LABEL".localizedVariant)
     }
 }
 
 /* ###################################################################################################################################### */
 // MARK: - RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController_Protocol Conformance -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueThoth_Test_Harness_MacOS_ControllerList_Protocol {
+extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_BlueThoth_Test_Harness_MacOS_ControllerList_Protocol {
     /* ################################################################## */
     /**
      This is a String key that uniquely identifies this screen.
@@ -164,18 +109,5 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueTho
      This forces the UI elements to be updated.
      */
     func updateUI() {
-        guard let device = peripheralInstance else {
-            stopLoadingAnimation()
-            disconnectButton?.isHidden = true
-            return
-        }
-        
-        if device.isConnected {
-            stopLoadingAnimation()
-            disconnectButton?.isHidden = false
-        } else {
-            disconnectButton?.isHidden = true
-            startLoadingAnimation()
-        }
     }
 }

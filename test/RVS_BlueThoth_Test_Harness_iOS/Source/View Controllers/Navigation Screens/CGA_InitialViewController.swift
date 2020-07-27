@@ -367,7 +367,7 @@ extension CGA_InitialViewController {
     /**
      This sets up the accessibility and voiceover strings for the screen.
      */
-    private func _setUpAccessibility() {
+    func setUpAccessibility() {
         scanningButton?.accessibilityLabel = ("SLUG-ACC-SCANNING-BUTTON-O" + (isScanning ? "N" : "FF")).localizedVariant
         noBTImage?.accessibilityLabel = "SLUG-ACC-NO-BT-IMAGE".localizedVariant
         editButton?.accessibilityLabel = ("SLUG-ACC-EDIT-BUTTON-" + ((deviceTableView?.isEditing ?? false) ? "DONE" : "EDIT")).localizedVariant
@@ -431,7 +431,7 @@ extension CGA_InitialViewController: CGA_UpdatableScreenViewController {
         scanningButton?.titleLabel?.text = title    // We do this to prevent that "flash" of old text.
         scanningButton?.backgroundColor = color
         
-        _setUpAccessibility()
+        setUpAccessibility()
     }
 }
 
