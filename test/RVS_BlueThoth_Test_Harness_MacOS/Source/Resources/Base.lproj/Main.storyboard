@@ -1493,6 +1493,7 @@
                         <outlet property="disconnectButton" destination="Lyu-3q-kRA" id="mPX-Ks-C1z"/>
                         <outlet property="loadingSpinner" destination="7hm-rD-EpR" id="KWu-Bj-8Lh"/>
                         <outlet property="serviceTableContainerView" destination="RDr-Aj-TUi" id="T8m-ch-0eX"/>
+                        <outlet property="serviceTableView" destination="FUm-0T-CYy" id="ato-py-4Y1"/>
                     </connections>
                 </viewController>
                 <customObject id="tb3-Q0-c7O" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

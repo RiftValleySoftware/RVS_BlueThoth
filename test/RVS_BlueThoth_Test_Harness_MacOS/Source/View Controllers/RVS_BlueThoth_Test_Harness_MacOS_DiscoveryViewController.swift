@@ -97,17 +97,8 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
     /**
      This is a complete count of all advertisement data rows, and headers.
      */
-    private var _completeTableMapRowCount: Int {
-        var ret: Int = 0
-        
-        for key in _tableMap {
-            let temp = _numberOfStringsForThisDevice(key.key)
-            ret += temp
-        }
-        
-        return ret
-    }
-    
+    private var _completeTableMapRowCount: Int { _tableMap.reduce(0) { (current, next) -> Int in current + 1 + next.value.count } }
+
     /* ################################################################## */
     /**
      This just helps us to keep the table in a predictable order.
@@ -189,10 +180,10 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
                 return (value: device.preferredName.isEmpty ? device.localName.isEmpty ? device.name.isEmpty ? "SLUG-NO-DEVICE-NAME".localizedVariant : device.name : device.localName : device.preferredName, isHeader: true)
             } else if let advertisingData = _tableMap[key] {
                 for advData in advertisingData {
+                    index += 1
                     if index == inIndex {
                         return (value: advData, isHeader: false)
                     }
-                    index += 1
                 }
             }
             

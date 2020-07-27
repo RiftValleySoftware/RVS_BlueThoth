@@ -37,6 +37,12 @@ class RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueThoth_M
     
     /* ################################################################## */
     /**
+     This will map the discovered Services and Characteristics for display in the table. The key is the ID of the Service. The value is all the rows (Characteristic IDs) it will display.
+     */
+    private var _tableMap: [String: [String]] = [:]
+
+    /* ################################################################## */
+    /**
      This is the Peripheral instance associated with this screen.
      */
     var peripheralInstance: RVS_BlueThoth.DiscoveryData? {
@@ -50,7 +56,13 @@ class RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueThoth_M
      This is the outer container of the Services tableView.
      */
     @IBOutlet weak var serviceTableContainerView: NSScrollView!
-    
+
+    /* ################################################################## */
+    /**
+     This is the Services tableView.
+     */
+    @IBOutlet weak var serviceTableView: NSTableView!
+
     /* ################################################################## */
     /**
      This is the spinner that is displayed while the device is being connected.
@@ -76,6 +88,70 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
     @IBAction func disconnectThisPeripheral(_: Any! = nil) {
         peripheralInstance?.disconnect()
         mainSplitView?.setDetailsViewController()
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Private Instance Methods -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
+    /* ################################################################## */
+    /**
+     This is a complete count of all advertisement data rows, and headers.
+     */
+    private var _completeTableMapRowCount: Int { _tableMap.reduce(0) { (current, next) -> Int in current + 1 + next.value.count } }
+    
+    /* ################################################################## */
+    /**
+     This just helps us to keep the table in a predictable order.
+     */
+    private var _sortedServices: [String] { _tableMap.keys.sorted() }
+
+    /* ################################################################## */
+    /**
+     This builds a "map" of the device data, so we can build a table from it.
+     */
+    private func _buildTableMap() {
+        _tableMap = [:]
+        
+        if let peripheralInstance = peripheralInstance?.peripheralInstance {
+            for service in peripheralInstance where !service.id.isEmpty {
+                var characteristicArray: [String] = []
+                for characteristic in service where !characteristic.id.isEmpty {
+                    characteristicArray.append(characteristic.id)
+                }
+                
+                _tableMap[service.id] = characteristicArray
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This returns the row string, along with whether or not it is a header, for the indexed row.
+     
+     - parameter inIndex: The 0-based row index.
+     - returns: a tuple, containing the string value, and a boolean flag, indicating whether or not it is a header.
+     */
+    private func _getIndexedTableMapRow(_ inIndex: Int) -> (value: String, isHeader: Bool) {
+        var index: Int = 0
+        
+        for service in _sortedServices {
+            if index == inIndex {
+                return (value: service.localizedVariant, isHeader: true)
+            } else if let characteristics = _tableMap[service] {
+                for characteristic in characteristics {
+                    index += 1
+                    if index == inIndex {
+                        return (value: characteristic.localizedVariant, isHeader: false)
+                    }
+                }
+            }
+            
+            index += 1
+        }
+        
+        return (value: "", isHeader: false)
     }
 }
 
@@ -184,11 +260,15 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueTho
             stopLoadingAnimation()
             disconnectButton?.isHidden = false
             serviceTableContainerView?.isHidden = false
+            _buildTableMap()
         } else {
             serviceTableContainerView?.isHidden = true
             disconnectButton?.isHidden = true
             startLoadingAnimation()
+            _tableMap = [:]
         }
+        
+        serviceTableView?.reloadData()
     }
 }
 
@@ -205,7 +285,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: NSTableView
      
      - returns: A 1-based Int, with 0 being no rows.
      */
-    func numberOfRows(in inTableView: NSTableView) -> Int { 0 }
+    func numberOfRows(in inTableView: NSTableView) -> Int { _completeTableMapRowCount }
 
     /* ################################################################## */
     /**
@@ -218,11 +298,11 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: NSTableView
      
      - returns: A String, with the device name.
      */
-    func tableView(_ inTableView: NSTableView, objectValueFor inTableColumn: NSTableColumn?, row inRow: Int) -> Any? { "ERROR" }
+    func tableView(_ inTableView: NSTableView, objectValueFor inTableColumn: NSTableColumn?, row inRow: Int) -> Any? { _getIndexedTableMapRow(inRow).value }
     
     /* ################################################################## */
     /**
-     Called to indicate whether or not the row is a group header (indicated by no value).
+     Called to indicate whether or not the row is a group header.
      
      - parameters:
         - inTableView: The table instance.
@@ -230,7 +310,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: NSTableView
      
      - returns: True, if this is a group header row.
      */
-    func tableView(_ inTableView: NSTableView, isGroupRow inRow: Int) -> Bool { false }
+    func tableView(_ inTableView: NSTableView, isGroupRow inRow: Int) -> Bool { _getIndexedTableMapRow(inRow).isHeader }
 
     /* ################################################################## */
     /**
@@ -252,6 +332,5 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: NSTableView
      
      - parameter: Ignored
      */
-    func tableViewSelectionDidChange(_: Notification) {
-    }
+    func tableViewSelectionDidChange(_: Notification) { }
 }
