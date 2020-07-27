@@ -145,7 +145,10 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
      */
     override func setUpAccessibility() {
         loadingSpinner?.setAccessibilityLabel("SLUG-ACC-CONNECTING-LABEL".localizedVariant)
+        loadingSpinner?.toolTip = "SLUG-ACC-CONNECTING-LABEL".localizedVariant
+        
         disconnectButton?.setAccessibilityLabel("SLUG-ACC-DISCONNECT-LABEL".localizedVariant)
+        disconnectButton?.toolTip = "SLUG-ACC-DISCONNECT-LABEL".localizedVariant
     }
 }
 

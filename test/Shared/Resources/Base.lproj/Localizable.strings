@@ -164,6 +164,14 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-ACC-DESCRIPTOR-INTERACT-BUTTON"                           =   "If you select this button, a screen will appear, allowing you to interact with this Characteristic.";
 
 // MARK: - The App Settings Screen
+// Mac-only
+"SLUG-ACC-CONTINUOUS-UPDATE-CHECKBOX"               =   "This checkbox controls whether or not the app is continuously updating the device list while scanning.";
+"SLUG-ACC-EMPTY-NAMES-CHECKBOX"                     =   "This checkbox controls whether or not the app will only display devices that advertise or contain names.";
+"SLUG-ACC-CONNECTED-ONLY-CHECKBOX"                  =   "This checkbox controls whether or not the app will only display connectable devices.";
+"SLUG-ACC-ALWAYS-USE-CRLF-CHECKBOX"                 =   "This checkbox controls whether or not the app will always send endlines (next line, or carriage return) as a Carriage Return/Linefeed pair.";
+"SLUG-ACC-SLIDER-LABEL"                             =   "This is the current value of the Minimum RSSI Slider, in decibels.";
+"SLUG-ACC-SLIDER"                                   =   "This slider will allow you to select a minimum signal strength for discovered devices. It is useful to keep distant devices out of the list. You can adjust it from -100 decibels, to 0 decibels.";
+
 "SLUG-ACC-CONTINUOUS-UPDATE-BUTTON-ON"              =   "This button will toggle the value of the switch that controls whether or not the app is continuously updating the device list while scanning. The switch is currently on, which means that the names, advertising data and signal strength of the devices in the list are being continuously updated.";
 "SLUG-ACC-CONTINUOUS-UPDATE-BUTTON-OFF"             =   "This button will toggle the value of the switch that controls whether or not the app is continuously updating the device list while scanning. The switch is currently off, which means that the names, advertising data and signal strength of the devices will remain consistent with their state upon discovery.";
 "SLUG-ACC-CONTINUOUS-UPDATE-SWITCH-ON"              =   "This switch controls whether or not the app is continuously updating the device list while scanning. It is currently on, which means that the names, advertising data and signal strength of the devices in the list are being continuously updated.";

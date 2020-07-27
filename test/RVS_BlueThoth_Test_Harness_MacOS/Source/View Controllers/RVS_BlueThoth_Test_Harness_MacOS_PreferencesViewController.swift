@@ -114,7 +114,7 @@ class RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController: RVS_BlueThoth_
      */
     @IBAction func minimumRSSIChanged(_ inSlider: NSSlider) {
         prefs.minimumRSSILevel = Int(inSlider.intValue)
-        _updateUI()
+        updateUI()
     }
     
     /* ################################################################## */
@@ -140,26 +140,61 @@ class RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController: RVS_BlueThoth_
         serviceFiltersTextView?.string = prefs.serviceFilterIDArray.joined(separator: "\n")
         characteristicsFiltersLabel?.title = String(format: (characteristicsFiltersLabel?.title ?? "%d").localizedVariant, 0)
         characteristicsFiltersTextView?.string = prefs.characteristicFilterIDArray.joined(separator: "\n")
-        _updateUI()
+        updateUI()
     }
     
     /* ################################################################## */
     /**
      */
     override func setUpAccessibility() {
+        let ignoreDupesString = "SLUG-ACC-CONTINUOUS-UPDATE-CHECKBOX"
+        ignoreDupesCheckbox?.setAccessibilityLabel(ignoreDupesString.localizedVariant)
+        ignoreDupesCheckbox?.toolTip = ignoreDupesString.localizedVariant
         
+        let emptyNamesString = "SLUG-ACC-EMPTY-NAMES-CHECKBOX"
+        allowEmptyNamesCheckbox?.setAccessibilityLabel(emptyNamesString.localizedVariant)
+        allowEmptyNamesCheckbox?.toolTip = emptyNamesString.localizedVariant
+        
+        let onlyConnectableString = "SLUG-ACC-CONNECTED-ONLY-CHECKBOX"
+        onlyConnectableCheckbox?.setAccessibilityLabel(onlyConnectableString.localizedVariant)
+        onlyConnectableCheckbox?.toolTip = onlyConnectableString.localizedVariant
+
+        let crlfString = "SLUG-ACC-ALWAYS-USE-CRLF-CHECKBOX"
+        alwaysUseCRLFCheckbox?.setAccessibilityLabel(crlfString.localizedVariant)
+        alwaysUseCRLFCheckbox?.toolTip = crlfString.localizedVariant
+
+        minimumRSSIFixedLabel?.setAccessibilityLabel("SLUG-ACC-SLIDER-MIN-LABEL".localizedVariant)
+        maximumRSSIFixedLabel?.setAccessibilityLabel("SLUG-ACC-SLIDER-MAX-LABEL".localizedVariant)
+        minimumRSSILabel?.setAccessibilityLabel("SLUG-ACC-SLIDER-LABEL".localizedVariant)
+        
+        let sliderString = "SLUG-ACC-SLIDER"
+        minimumRSSISlider?.setAccessibilityLabel(sliderString.localizedVariant)
+        minimumRSSISlider?.toolTip = sliderString.localizedVariant
+
+        let devicesString = "SLUG-ACC-DEVICE-UUIDS"
+        deviceFilterTextView?.setAccessibilityLabel(devicesString.localizedVariant)
+        deviceFilterTextView?.toolTip = devicesString.localizedVariant
+        
+        let servicesString = "SLUG-ACC-SERVICE-UUIDS"
+        serviceFiltersTextView?.setAccessibilityLabel(servicesString.localizedVariant)
+        serviceFiltersTextView?.toolTip = servicesString.localizedVariant
+        
+        let characteristicsString = "SLUG-ACC-CHARACTERISTIC-UUIDS"
+        characteristicsFiltersTextView?.setAccessibilityLabel(characteristicsString.localizedVariant)
+        characteristicsFiltersTextView?.toolTip = characteristicsString.localizedVariant
     }
 }
 
 /* ###################################################################################################################################### */
-// MARK: - Private Instance Methods -
+// MARK: - Instance Methods -
 /* ###################################################################################################################################### */
 extension RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController {
     /* ################################################################## */
     /**
      */
-    private func _updateUI() {
+    func updateUI() {
         rssiValueLabel?.title = String(format: (maximumRSSIFixedLabel?.placeholderString ?? "%d").localizedVariant, prefs.minimumRSSILevel)
+        setUpAccessibility()
     }
 }
 
