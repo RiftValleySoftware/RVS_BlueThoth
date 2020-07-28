@@ -28,7 +28,7 @@ import CoreBluetooth
 /**
  This class "wraps" instances of CBDescriptor, adding some functionality, and linking the hierarchy.
  */
-public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Internal, CGA_Bluetooth_Writable {
+public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Internal, CGA_Bluetooth_Writable, CGA_Class_Protocol {
     // MARK: Public Properties
     
     /* ################################################################## */
@@ -205,7 +205,7 @@ public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Interna
     /**
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Characteristic
      */
-    internal weak var parent: CGA_Class_Protocol?
+    public weak var parent: CGA_Class_Protocol?
     
     /* ################################################################## */
     /**
@@ -223,7 +223,7 @@ public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Interna
     /**
      This returns the parent Central Manager
      */
-    internal var central: RVS_BlueThoth? { parent?.central }
+    public var central: RVS_BlueThoth? { parent?.central }
     
     /* ################################################################## */
     /**

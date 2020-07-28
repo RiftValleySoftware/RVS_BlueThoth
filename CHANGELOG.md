@@ -2,9 +2,10 @@
 
 ## 1.4.0.0000
 
-- **TBD**
+- **July 28, 2020**
 
-- Starting the process of adding the write interaction handler.
+- Added write handling (Characteristics and Descriptors).
+- Starting Mac Test Harness implementation (still incomplete).
 
 ## 1.3.0.0000
 

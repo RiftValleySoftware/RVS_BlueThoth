@@ -511,6 +511,40 @@ extension RVS_BlueThoth {
         
         return true
     }
+    
+    /* ################################################################## */
+    /**
+     This searches the hierarchy, and will return any instance that has an ID that matches the string passed in.
+     This could be a Peripheral, Service, Characteristic or Descriptor. The response will need to be cast.
+     
+     - parameter inUUIDString: The String for the UUID for which we are searching.
+     - returns: Any element in the hierarchy with a UUID that matches the one passed in, or nil.
+     */
+    public func findEntityByUUIDString(_ inUUIDString: String) -> CGA_Class_Protocol? {
+        for peripheral in self {
+            if inUUIDString == peripheral.id {
+                return peripheral
+            }
+            
+            for service in peripheral {
+                if inUUIDString == service.id {
+                    return service
+                }
+                
+                for characteristic in service {
+                    if inUUIDString == characteristic.id {
+                        return characteristic
+                    }
+                    
+                    for descriptor in characteristic where inUUIDString == descriptor.id {
+                        return descriptor as? CGA_Bluetooth_Descriptor
+                    }
+                }
+            }
+        }
+        
+        return nil
+    }
 }
 
 /* ###################################################################################################################################### */
