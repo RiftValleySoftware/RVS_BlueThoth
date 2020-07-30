@@ -37,6 +37,12 @@ class RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueThoth_M
     
     /* ################################################################## */
     /**
+     If a Characteristic was selected in the table, this is a semaphore for that.
+     */
+    private var _selectedCharacteristic: CGA_Bluetooth_Characteristic?
+    
+    /* ################################################################## */
+    /**
      This will map the discovered Services and Characteristics for display in the table. The key is the ID of the Service. The value is all the rows (Characteristic IDs) it will display.
      */
     private var _tableMap: [String: [String]] = [:]
@@ -268,6 +274,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueTho
             _tableMap = [:]
         }
         
+        _selectedCharacteristic = nil
         serviceTableView?.reloadData()
     }
 }
@@ -322,7 +329,30 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: NSTableView
      
      - returns: False (always).
      */
-    func tableView(_ inTableView: NSTableView, shouldSelectRow inRow: Int) -> Bool { false }
+    func tableView(_ inTableView: NSTableView, shouldSelectRow inRow: Int) -> Bool {
+        var index: Int = 0
+        _selectedCharacteristic = nil
+        
+        for service in _sortedServices {
+            if let characteristics = _tableMap[service] {
+                for characteristic in characteristics {
+                    index += 1
+                    if  index == inRow,
+                        let entity = centralManager?.findEntityByUUIDString(characteristic) as? CGA_Bluetooth_Characteristic {
+                        #if DEBUG
+                            print("Selecting Row \(inRow), Which is for Characteristic \(entity.id)")
+                        #endif
+                        _selectedCharacteristic = entity
+                        return true
+                    }
+                }
+            }
+            
+            index += 1
+        }
+        
+        return false
+    }
 
     /* ################################################################## */
     /**
@@ -332,5 +362,15 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: NSTableView
      
      - parameter: Ignored
      */
-    func tableViewSelectionDidChange(_: Notification) { }
+    func tableViewSelectionDidChange(_: Notification) {
+        if  let characteristic = _selectedCharacteristic,
+            let newController = storyboard?.instantiateController(withIdentifier: RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController.storyboardID) as? RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
+            #if DEBUG
+                print("Connecting to another Characteristic.")
+            #endif
+            _selectedCharacteristic = nil
+            newController.characteristicInstance = characteristic
+            mainSplitView?.setCharacteristicViewController(newController)
+        }
+    }
 }
