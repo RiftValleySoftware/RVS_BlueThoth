@@ -37,6 +37,12 @@ class RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueThoth_M
     
     /* ################################################################## */
     /**
+     This is the initial width of the new section.
+     */
+    static let minimumThickness: CGFloat = 400
+    
+    /* ################################################################## */
+    /**
      If a Characteristic was selected in the table, this is a semaphore for that.
      */
     private var _selectedCharacteristic: CGA_Bluetooth_Characteristic?

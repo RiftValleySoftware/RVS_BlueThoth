@@ -58,15 +58,13 @@ class RVS_BlueThoth_Test_Harness_MacOS_SplitViewController: NSSplitViewControlle
             setCharacteristicViewController()
         }
         
-        guard let newDetailsViewController = inPeripheralViewController else {
-             if let newPlaceholderViewController = storyboard?.instantiateController(withIdentifier: RVS_BlueThoth_Test_Harness_MacOS_PlaceholderViewController.storyboardID) as? NSViewController {
-                detailsSplitViewItem = NSSplitViewItem(viewController: newPlaceholderViewController)
-                addSplitViewItem(detailsSplitViewItem)
-            }
-            return
-        }
+        detailsSplitViewItem = nil
+        
+        guard let newDetailsViewController = inPeripheralViewController else { return }
 
         detailsSplitViewItem = NSSplitViewItem(viewController: newDetailsViewController)
+        detailsSplitViewItem.minimumThickness = RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.minimumThickness
+        detailsSplitViewItem.maximumThickness = RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.minimumThickness
         addSplitViewItem(detailsSplitViewItem)
     }
     
@@ -86,6 +84,7 @@ class RVS_BlueThoth_Test_Harness_MacOS_SplitViewController: NSSplitViewControlle
         guard let newCharacteristicViewController = inCharacteristicViewController else { return }
 
         characteristicSplitViewItem = NSSplitViewItem(viewController: newCharacteristicViewController)
+        characteristicSplitViewItem.minimumThickness = RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController.minimumThickness
         addSplitViewItem(characteristicSplitViewItem)
     }
 }

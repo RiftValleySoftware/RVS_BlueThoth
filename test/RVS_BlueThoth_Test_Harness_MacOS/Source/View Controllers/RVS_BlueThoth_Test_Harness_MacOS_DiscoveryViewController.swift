@@ -468,6 +468,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: NSTableViewD
             if let selectedRange = _getAllRowIndexesForGroupContainingThisRowIndex(inRow) {
                 deviceTable?.selectRowIndexes(IndexSet(integersIn: selectedRange), byExtendingSelection: true)
             }
+            mainSplitView?.setDetailsViewController(nil)
         }
 
         return false
