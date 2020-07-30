@@ -203,6 +203,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
             screen.updateUI()
         }
     }
+    
     /* ################################################################## */
     /**
      This is called to tell the instance that a Peripheral device has been connected.
@@ -217,6 +218,16 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
         screenList.forEach { $0.updateUI() }
     }
 
+    /* ################################################################## */
+    /**
+     Called prior to a device being disconnected.
+     
+     - parameter inCentralInstance: The central manager that is calling this.
+     - parameter willDisconnectThisDevice: The device instance that will be disconnected.
+     */
+    func centralManager(_ inCentralInstance: RVS_BlueThoth, willDisconnectThisDevice inDevice: CGA_Bluetooth_Peripheral) {
+    }
+    
     /* ################################################################## */
     /**
      This is called to tell the instance that a Peripheral device has had some change.

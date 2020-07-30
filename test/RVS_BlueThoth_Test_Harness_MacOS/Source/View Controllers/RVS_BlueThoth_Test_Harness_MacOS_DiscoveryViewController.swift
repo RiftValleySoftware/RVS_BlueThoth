@@ -375,7 +375,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
      - parameter: ignored
      */
     @IBAction func reloadButtonHit(_: NSButton) {
-        mainSplitView?.setDetailsViewController()
+        mainSplitView?.setPeripheralViewController()
         centralManager?.startOver()
         updateUI()
     }
@@ -468,7 +468,6 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: NSTableViewD
             if let selectedRange = _getAllRowIndexesForGroupContainingThisRowIndex(inRow) {
                 deviceTable?.selectRowIndexes(IndexSet(integersIn: selectedRange), byExtendingSelection: true)
             }
-            mainSplitView?.setDetailsViewController(nil)
         }
 
         return false
@@ -489,7 +488,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: NSTableViewD
                 print("Connecting to another Peripheral.")
             #endif
             newController.peripheralInstance = device
-            mainSplitView?.setDetailsViewController(newController)
+            mainSplitView?.setPeripheralViewController(newController)
         }
     }
 }

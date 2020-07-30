@@ -38,7 +38,7 @@ class RVS_BlueThoth_Test_Harness_MacOS_SplitViewController: NSSplitViewControlle
     /**
      The details side of the screen.
      */
-    @IBOutlet var detailsSplitViewItem: NSSplitViewItem!
+    @IBOutlet var peripheralSplitViewItem: NSSplitViewItem!
     
     /* ################################################################## */
     /**
@@ -52,20 +52,21 @@ class RVS_BlueThoth_Test_Harness_MacOS_SplitViewController: NSSplitViewControlle
      
      - parameter inPeripheralViewController: The Peripheral View Controller to place there. If nil, or omitted, the placeholder will be set.
      */
-    func setDetailsViewController(_ inPeripheralViewController: RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController? = nil) {
-        if let detailsSplitViewItem = detailsSplitViewItem {
-            removeSplitViewItem(detailsSplitViewItem)
+    func setPeripheralViewController(_ inPeripheralViewController: RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController? = nil) {
+        if let peripheralSplitViewItem = peripheralSplitViewItem {
+            removeSplitViewItem(peripheralSplitViewItem)
             setCharacteristicViewController()
         }
         
-        detailsSplitViewItem = nil
-        
+        peripheralSplitViewItem = nil
+        characteristicSplitViewItem = nil
+
         guard let newDetailsViewController = inPeripheralViewController else { return }
 
-        detailsSplitViewItem = NSSplitViewItem(viewController: newDetailsViewController)
-        detailsSplitViewItem.minimumThickness = RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.minimumThickness
-        detailsSplitViewItem.maximumThickness = RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.minimumThickness
-        addSplitViewItem(detailsSplitViewItem)
+        peripheralSplitViewItem = NSSplitViewItem(viewController: newDetailsViewController)
+        peripheralSplitViewItem.minimumThickness = RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.minimumThickness
+        peripheralSplitViewItem.maximumThickness = RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.minimumThickness
+        addSplitViewItem(peripheralSplitViewItem)
     }
     
     /* ################################################################## */

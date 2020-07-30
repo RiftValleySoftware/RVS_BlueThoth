@@ -99,7 +99,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
      */
     @IBAction func disconnectThisPeripheral(_: Any! = nil) {
         peripheralInstance?.disconnect()
-        mainSplitView?.setDetailsViewController()
+        mainSplitView?.setPeripheralViewController()
     }
 }
 
@@ -230,6 +230,12 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
             print("Disconnecting from Peripheral.")
         #endif
         peripheralInstance?.disconnect()
+        
+        if  let screen = mainSplitView?.discoveryScreenSplitViewItem?.viewController as? RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
+            screen.deviceTable.deselectAll(nil)
+            mainSplitView?.setPeripheralViewController()
+        }
+
         appDelegateObject.screenList.removeScreen(self)
     }
     
