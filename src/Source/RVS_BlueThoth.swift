@@ -524,21 +524,9 @@ extension RVS_BlueThoth {
         for peripheral in self {
             if inUUIDString == peripheral.id {
                 return peripheral
-            }
-            
-            for service in peripheral {
-                if inUUIDString == service.id {
-                    return service
-                }
-                
-                for characteristic in service {
-                    if inUUIDString == characteristic.id {
-                        return characteristic
-                    }
-                    
-                    for descriptor in characteristic where inUUIDString == descriptor.id {
-                        return descriptor as? CGA_Bluetooth_Descriptor
-                    }
+            } else {
+                if let uuidString = peripheral.findEntityByUUIDString(inUUIDString) {
+                    return uuidString
                 }
             }
         }

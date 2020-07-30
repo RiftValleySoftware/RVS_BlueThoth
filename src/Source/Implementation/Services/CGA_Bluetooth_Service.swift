@@ -254,6 +254,33 @@ extension CGA_Bluetooth_Service: CGA_Class_Protocol_UpdateDescriptor {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - CGA_Class_Protocol Conformance -
+/* ###################################################################################################################################### */
+extension CGA_Bluetooth_Service {
+    /* ################################################################## */
+    /**
+     This searches the hierarchy, and will return any instance that has an ID that matches the string passed in.
+     This could be a Peripheral, Service, Characteristic or Descriptor. The response will need to be cast.
+     
+     - parameter inUUIDString: The String for the UUID for which we are searching.
+     - returns: Any element in the hierarchy with a UUID that matches the one passed in, or nil.
+     */
+    public func findEntityByUUIDString(_ inUUIDString: String) -> CGA_Class_Protocol? {
+        for characteristic in self {
+            if inUUIDString == characteristic.id {
+                return characteristic
+            } else {
+                if let uuidString = characteristic.findEntityByUUIDString(inUUIDString) {
+                    return uuidString
+                }
+            }
+        }
+        
+        return nil
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - CGA_ServiceFactory Conformance -
 /* ###################################################################################################################################### */
 /**

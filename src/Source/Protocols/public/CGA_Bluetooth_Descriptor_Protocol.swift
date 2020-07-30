@@ -28,7 +28,7 @@ import CoreBluetooth
 /**
  This protocol publishes a public interface for our Descriptor wrapper classes.
  */
-public protocol CGA_Bluetooth_Descriptor_Protocol: class {
+public protocol CGA_Bluetooth_Descriptor_Protocol: CGA_Class_Protocol {
     /* ################################################################## */
     /**
      This returns a unique UUID String for the instance.

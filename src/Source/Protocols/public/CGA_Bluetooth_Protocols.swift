@@ -52,6 +52,16 @@ public protocol CGA_Class_Protocol: class {
      REQUIRED: This returns a unique UUID String for the instance.
      */
     var id: String { get }
+    
+    /* ################################################################## */
+    /**
+     OPTIONAL: This searches the hierarchy, and will return any instance that has an ID that matches the string passed in.
+               This could be a Peripheral, Service, Characteristic or Descriptor. The response will need to be cast.
+     
+     - parameter inUUIDString: The String for the UUID for which we are searching.
+     - returns: Any element in the hierarchy with a UUID that matches the one passed in, or nil.
+     */
+    func findEntityByUUIDString(_ inUUIDString: String) -> CGA_Class_Protocol?
 
     /* ################################################################## */
     /**
@@ -91,6 +101,12 @@ extension CGA_Class_Protocol {
     public func handleError(_ inError: CGA_Errors) {
         parent?.handleError(inError)
     }
+    
+    /* ################################################################## */
+    /**
+     Default does nothing.
+     */
+    public func findEntityByUUIDString(_ inUUIDString: String) -> CGA_Class_Protocol? { nil }
     
     /* ################################################################## */
     /**
