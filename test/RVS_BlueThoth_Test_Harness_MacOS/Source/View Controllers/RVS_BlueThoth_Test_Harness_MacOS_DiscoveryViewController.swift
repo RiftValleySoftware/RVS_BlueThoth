@@ -98,13 +98,24 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
      This is a complete count of all advertisement data rows, and headers.
      */
     private var _completeTableMapRowCount: Int { _tableMap.reduce(0) { (current, next) -> Int in current + 1 + next.value.count } }
-
+    
     /* ################################################################## */
     /**
-     This just helps us to keep the table in a predictable order.
+     Access the table keys as a simple String Array
      */
-    private var _sortedDevices: [String] { _tableMap.keys.map { String($0) } }
+    private var _tableKeys: [String] { _tableMap.keys.map { String($0) } }
     
+    /* ################################################################## */
+    /**
+     Return a list of advertisement data for the table at the given key.
+     
+     - parameter inKey: The device ID (the key).
+     - returns: An Array of String, for the given key.
+     */
+    private func _infoForKey(_ inKey: String) -> [String] {
+        return _tableMap[inKey] ?? []
+    }
+
     /* ################################################################## */
     /**
      This builds a "map" of the device data, so we can build a table from it.
@@ -124,7 +135,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
      - parameter inDeviceID: The key for the device in our table.
      - returns: Index, in the main table Array, for this device. Can be nil.
      */
-    private func _indexOfThisDevice(_ inDeviceID: String) -> Int? { _sortedDevices.firstIndex(where: { $0 == inDeviceID }) }
+    private func _indexOfThisDevice(_ inDeviceID: String) -> Int? { _tableKeys.firstIndex(where: { $0 == inDeviceID }) }
     
     /* ################################################################## */
     /**
@@ -143,7 +154,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
     private func _getIndexedDevice(_ inIndex: Int) -> RVS_BlueThoth.DiscoveryData? {
         var index: Int = 0
         
-        for key in _sortedDevices {
+        for key in _tableKeys {
             guard let device = centralManager?.stagedBLEPeripherals[key] else { return nil }
             
             if index == inIndex {
@@ -173,13 +184,13 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
     private func _getIndexedTableMapRow(_ inIndex: Int) -> (value: String, isHeader: Bool) {
         var index: Int = 0
         
-        for key in _sortedDevices {
+        for key in _tableKeys {
             guard let device = centralManager?.stagedBLEPeripherals[key] else { return (value: "", isHeader: false) }
             
             if index == inIndex {
                 return (value: device.preferredName.isEmpty ? device.localName.isEmpty ? device.name.isEmpty ? "SLUG-NO-DEVICE-NAME".localizedVariant : device.name : device.localName : device.preferredName, isHeader: true)
-            } else if let advertisingData = _tableMap[key] {
-                for advData in advertisingData {
+            } else {
+                for advData in _infoForKey(key) {
                     index += 1
                     if index == inIndex {
                         return (value: advData, isHeader: false)
