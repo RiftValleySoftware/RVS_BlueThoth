@@ -103,7 +103,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
     /**
      This just helps us to keep the table in a predictable order.
      */
-    private var _sortedDevices: [String] { _tableMap.keys.sorted() }
+    private var _sortedDevices: [String] { _tableMap.keys.map { String($0) } }
     
     /* ################################################################## */
     /**
@@ -124,7 +124,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
      - parameter inDeviceID: The key for the device in our table.
      - returns: Index, in the main table Array, for this device. Can be nil.
      */
-    private func _indexOfThisDevice(_ inDeviceID: String) -> Int? { _sortedDevices.firstIndex(where: {$0 == inDeviceID}) }
+    private func _indexOfThisDevice(_ inDeviceID: String) -> Int? { _sortedDevices.firstIndex(where: { $0 == inDeviceID }) }
     
     /* ################################################################## */
     /**
