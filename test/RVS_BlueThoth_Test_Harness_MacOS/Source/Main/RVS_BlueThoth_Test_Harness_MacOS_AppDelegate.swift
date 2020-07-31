@@ -197,10 +197,9 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
         #if DEBUG
             print("Central instance: \(String(describing: inCentralInstance)) reporting an update.")
         #endif
-        
-        // We only update the main screen.
-        for screen in self.screenList where Self.deviceScreenID == screen.key {
-            screen.updateUI()
+        if !screenList.isEmpty,
+            let discoveryViewController = screenList[0] as? RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
+            discoveryViewController.buildTableMap()
         }
     }
     
@@ -215,7 +214,9 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
         #if DEBUG
             print("Peripheral Connected")
         #endif
-        screenList.forEach { $0.updateUI() }
+        for screen in self.screenList where inPeripheral.id == screen.key {
+            screen.updateUI()
+        }
     }
 
     /* ################################################################## */
@@ -227,12 +228,13 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
      */
     func centralManager(_ inCentralInstance: RVS_BlueThoth, willDisconnectThisDevice inDevice: CGA_Bluetooth_Peripheral) {
         #if DEBUG
-            print("Peripheral Connected")
+            print("Peripheral Disonnected")
         #endif
         
         if !screenList.isEmpty,
             let discoveryViewController = screenList[0] as? RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
             discoveryViewController.mainSplitView?.collapseSplit()
+            discoveryViewController.buildTableMap()
         }
     }
     
@@ -248,8 +250,13 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
             print("Peripheral Update")
         #endif
         
-        for screen in self.screenList where Self.deviceScreenID == screen.key {
-            screen.updateUI()
+        if !screenList.isEmpty,
+            let discoveryViewController = screenList[0] as? RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
+            discoveryViewController.mainSplitView?.collapseSplit()
+            discoveryViewController.buildTableMap()
+            for screen in self.screenList where Self.deviceScreenID == screen.key {
+                screen.updateUI()
+            }
         }
     }
 

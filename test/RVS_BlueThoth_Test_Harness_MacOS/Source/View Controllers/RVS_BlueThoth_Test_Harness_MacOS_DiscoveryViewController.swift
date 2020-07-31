@@ -115,20 +115,6 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
     private func _infoForKey(_ inKey: String) -> [String] {
         return _tableMap[inKey] ?? []
     }
-
-    /* ################################################################## */
-    /**
-     This builds a "map" of the device data, so we can build a table from it.
-     */
-    private func _buildTableMap() {
-        _tableMap = [:]
-        
-        guard let centralManager = centralManager else { return }
-        
-        for index in 0..<centralManager.stagedBLEPeripherals.count {
-            _tableMap[centralManager.stagedBLEPeripherals[index].identifier] = _createAdvertimentStringsFor(index)
-        }
-    }
     
     /* ################################################################## */
     /**
@@ -412,13 +398,28 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThot
         scanningModeSegmentedSwitch?.setSelected(true, forSegment: (centralManager?.isScanning ?? false) ? ScanningModeSwitchValues.scanning.rawValue : ScanningModeSwitchValues.notScanning.rawValue)
         
         setUpAccessibility()
-        _buildTableMap()
         
         if nil == selectedDevice {
             deviceTable?.deselectAll(nil)
         }
         
         deviceTable?.reloadData()
+    }
+    
+    /* ################################################################## */
+    /**
+     This builds a "map" of the device data, so we can build a table from it.
+     */
+    func buildTableMap() {
+        _tableMap = [:]
+        
+        guard let centralManager = centralManager else { return }
+        
+        for index in 0..<centralManager.stagedBLEPeripherals.count {
+            _tableMap[centralManager.stagedBLEPeripherals[index].identifier] = _createAdvertimentStringsFor(index)
+        }
+        
+        updateUI()
     }
 }
 
