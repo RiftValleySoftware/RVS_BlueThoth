@@ -99,7 +99,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
      */
     @IBAction func disconnectThisPeripheral(_: Any! = nil) {
         peripheralInstance?.disconnect()
-        mainSplitView?.setPeripheralViewController()
+        mainSplitView?.collapseSplit()
     }
 }
 

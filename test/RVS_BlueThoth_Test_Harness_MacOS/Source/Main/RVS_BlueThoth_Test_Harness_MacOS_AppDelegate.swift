@@ -230,12 +230,6 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
         #if DEBUG
             print("Peripheral Disonnected")
         #endif
-        
-        if !screenList.isEmpty,
-            let discoveryViewController = screenList[0] as? RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
-            discoveryViewController.mainSplitView?.collapseSplit()
-            discoveryViewController.buildTableMap()
-        }
     }
     
     /* ################################################################## */
