@@ -226,6 +226,14 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
      - parameter willDisconnectThisDevice: The device instance that will be disconnected.
      */
     func centralManager(_ inCentralInstance: RVS_BlueThoth, willDisconnectThisDevice inDevice: CGA_Bluetooth_Peripheral) {
+        #if DEBUG
+            print("Peripheral Connected")
+        #endif
+        
+        if !screenList.isEmpty,
+            let discoveryViewController = screenList[0] as? RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
+            discoveryViewController.mainSplitView?.collapseSplit()
+        }
     }
     
     /* ################################################################## */

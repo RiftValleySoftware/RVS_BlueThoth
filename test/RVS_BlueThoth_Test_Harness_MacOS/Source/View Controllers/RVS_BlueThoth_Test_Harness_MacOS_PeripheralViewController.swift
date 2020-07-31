@@ -230,8 +230,6 @@ extension RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
             print("Disconnecting from Peripheral.")
         #endif
         peripheralInstance?.disconnect()
-        
-        mainSplitView?.collapseSplit()
         appDelegateObject.screenList.removeScreen(self)
     }
     

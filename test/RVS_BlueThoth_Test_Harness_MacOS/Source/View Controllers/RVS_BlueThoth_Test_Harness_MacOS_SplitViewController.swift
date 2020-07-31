@@ -59,6 +59,10 @@ class RVS_BlueThoth_Test_Harness_MacOS_SplitViewController: NSSplitViewControlle
             removeSplitViewItem(peripheralSplitViewItem)
         }
         
+        if let discoveryViewController = discoveryScreenSplitViewItem?.viewController as? RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
+            discoveryViewController.deviceTable?.deselectAll(nil)
+        }
+        
         peripheralSplitViewItem = nil
         characteristicSplitViewItem = nil
     }

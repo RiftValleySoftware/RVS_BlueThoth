@@ -493,7 +493,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: NSTableViewD
                 }
             }
         }
-
+        
         return false
     }
 }
