@@ -364,6 +364,9 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
      - parameter inSwitch: The switch object.
      */
     @IBAction func scanningChanged(_ inSwitch: NSSegmentedControl) {
+        mainSplitView?.collapseSplit()
+        deviceTable?.deselectAll(nil)
+
         if ScanningModeSwitchValues.notScanning.rawValue == inSwitch.selectedSegment {
             centralManager?.stopScanning()
         } else {
@@ -386,7 +389,8 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
      - parameter: ignored
      */
     @IBAction func reloadButtonHit(_: NSButton) {
-        mainSplitView?.setPeripheralViewController()
+        mainSplitView?.collapseSplit()
+        deviceTable?.deselectAll(nil)
         centralManager?.startOver()
         updateUI()
     }
@@ -470,7 +474,9 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: NSTableViewD
      */
     func tableView(_ inTableView: NSTableView, shouldSelectRow inRow: Int) -> Bool {
         deviceTable?.deselectAll(nil)
-        if  let peripheral = _getIndexedDevice(inRow),
+        if  !(centralManager?.isScanning ?? true),
+            let peripheral = _getIndexedDevice(inRow),
+            peripheral.canConnect,
             selectedDevice?.identifier != peripheral.identifier {
             #if DEBUG
                 print("Row \(inRow) was selected.")
@@ -478,28 +484,16 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: NSTableViewD
             selectedDevice = peripheral
             if let selectedRange = _getAllRowIndexesForGroupContainingThisRowIndex(inRow) {
                 deviceTable?.selectRowIndexes(IndexSet(integersIn: selectedRange), byExtendingSelection: true)
+                if  let newController = storyboard?.instantiateController(withIdentifier: RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.storyboardID) as? RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
+                    #if DEBUG
+                        print("Connecting to another Peripheral.")
+                    #endif
+                    newController.peripheralInstance = peripheral
+                    mainSplitView?.setPeripheralViewController(newController)
+                }
             }
         }
 
         return false
-    }
-
-    /* ################################################################## */
-    /**
-     Called after the selection was set up and approved.
-     
-     We open a modal window, with the device info.
-     
-     - parameter: Ignored
-     */
-    func tableViewSelectionDidChange(_: Notification) {
-        if  let device = selectedDevice,
-            let newController = storyboard?.instantiateController(withIdentifier: RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.storyboardID) as? RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController {
-            #if DEBUG
-                print("Connecting to another Peripheral.")
-            #endif
-            newController.peripheralInstance = device
-            mainSplitView?.setPeripheralViewController(newController)
-        }
     }
 }

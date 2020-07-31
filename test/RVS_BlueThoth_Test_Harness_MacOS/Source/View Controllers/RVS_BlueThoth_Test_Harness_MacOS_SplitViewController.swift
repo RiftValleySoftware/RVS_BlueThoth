@@ -48,6 +48,23 @@ class RVS_BlueThoth_Test_Harness_MacOS_SplitViewController: NSSplitViewControlle
     
     /* ################################################################## */
     /**
+     Calling this, removes both of the right-hand screens, leaving only the device list screen.
+     */
+    func collapseSplit() {
+        if let characteristicSplitViewItem = characteristicSplitViewItem {
+            removeSplitViewItem(characteristicSplitViewItem)
+        }
+        
+        if let peripheralSplitViewItem = peripheralSplitViewItem {
+            removeSplitViewItem(peripheralSplitViewItem)
+        }
+        
+        peripheralSplitViewItem = nil
+        characteristicSplitViewItem = nil
+    }
+    
+    /* ################################################################## */
+    /**
      This allows us to associate a new View Controller with the details side of the split.
      
      - parameter inPeripheralViewController: The Peripheral View Controller to place there. If nil, or omitted, the placeholder will be set.
