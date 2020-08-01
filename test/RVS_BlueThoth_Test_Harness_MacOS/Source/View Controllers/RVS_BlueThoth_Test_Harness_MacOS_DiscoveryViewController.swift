@@ -362,7 +362,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
             centralManager?.allowEmptyNames = prefs.allowEmptyNames
             _tableMap = [:]
             deviceTable?.reloadData()
-            centralManager?.startScanning(duplicateFilteringIsOn: !prefs.continuouslyUpdatePeripherals)
+            centralManager?.startScanning(duplicateFilteringIsOn: prefs.continuouslyUpdatePeripherals)
         }
         
         updateUI()
@@ -396,7 +396,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThot
         noBTImage?.isHidden = !(tableContainerScrollView?.isHidden ?? true)
         reloadButton?.isHidden = (0 == (centralManager?.stagedBLEPeripherals.count ?? 0))
         scanningModeSegmentedSwitch?.setSelected(true, forSegment: (centralManager?.isScanning ?? false) ? ScanningModeSwitchValues.scanning.rawValue : ScanningModeSwitchValues.notScanning.rawValue)
-        
+        deviceTable?.isEnabled = !(centralManager?.isScanning ?? true)
         setUpAccessibility()
         
         if nil == selectedDevice {

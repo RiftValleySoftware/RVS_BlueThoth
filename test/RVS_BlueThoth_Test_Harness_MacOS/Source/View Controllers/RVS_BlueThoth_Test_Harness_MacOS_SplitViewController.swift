@@ -86,7 +86,6 @@ class RVS_BlueThoth_Test_Harness_MacOS_SplitViewController: NSSplitViewControlle
 
         peripheralSplitViewItem = NSSplitViewItem(viewController: newDetailsViewController)
         peripheralSplitViewItem.minimumThickness = RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.minimumThickness
-        peripheralSplitViewItem.maximumThickness = RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.minimumThickness
         addSplitViewItem(peripheralSplitViewItem)
     }
     

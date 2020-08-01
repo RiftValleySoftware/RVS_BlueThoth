@@ -690,7 +690,7 @@
             <objects>
                 <splitViewController id="GZl-iU-0n7" userLabel="Main Split View Controller" customClass="RVS_BlueThoth_Test_Harness_MacOS_SplitViewController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
-                        <splitViewItem holdingPriority="1000" id="BnQ-jM-Dan" userLabel="Discovery Screen"/>
+                        <splitViewItem holdingPriority="255" behavior="contentList" id="BnQ-jM-Dan" userLabel="Discovery Screen"/>
                     </splitViewItems>
                     <splitView key="splitView" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rhv-4S-Wdd">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
@@ -773,18 +773,18 @@
                                     <rect key="frame" x="0.0" y="0.0" width="276" height="295"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" selectionHighlightStyle="sourceList" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" id="6Ip-Dj-WK7">
+                                        <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" selectionHighlightStyle="sourceList" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" enabled="NO" id="6Ip-Dj-WK7">
                                             <rect key="frame" x="0.0" y="0.0" width="276" height="295"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="276" minWidth="40" maxWidth="10000" id="3of-JE-BYx">
-                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" enabled="NO" borderStyle="border" alignment="left">
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
-                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" allowsUndo="NO" title="Text Cell" drawsBackground="YES" id="YpG-Yu-GOg">
+                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" enabled="NO" allowsUndo="NO" title="Text Cell" drawsBackground="YES" id="YpG-Yu-GOg">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="1" alpha="0.14787564210000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -961,7 +961,11 @@
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="systemBold" size="16"/>
                                             <connections>
-                                                <binding destination="CBu-yz-Vwg" name="value" keyPath="prefs.continuouslyUpdatePeripherals" id="Qyy-25-Rrt"/>
+                                                <binding destination="CBu-yz-Vwg" name="value" keyPath="prefs.continuouslyUpdatePeripherals" id="cf2-Iy-M0d">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                    </dictionary>
+                                                </binding>
                                             </connections>
                                         </buttonCell>
                                         <color key="contentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
