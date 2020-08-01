@@ -1473,33 +1473,113 @@
             <objects>
                 <viewController title="SLUG-PERIPHERAL" storyboardIdentifier="characteristic-view-controller" id="Csf-nd-wgb" userLabel="Characteristic Screen" customClass="RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="gcr-wM-m57">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="148"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="6Gc-f6-rZl" userLabel="Background Gradient Image View">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="148"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="axesIndependently" image="background-gradient" id="Pmg-AR-pd0"/>
                             </imageView>
                             <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" alphaValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="BG3-gT-fbd" userLabel="BlueThoth Logo Image View">
-                                <rect key="frame" x="96" y="54" width="288" height="162"/>
+                                <rect key="frame" x="96" y="-78" width="288" height="305"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="BlueThothLogo" id="vNI-Jt-QfB"/>
                             </imageView>
+                            <stackView distribution="fillEqually" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jA1-zT-hl0">
+                                <rect key="frame" x="20" y="20" width="440" height="108"/>
+                                <subviews>
+                                    <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MUv-MP-gco">
+                                        <rect key="frame" x="0.0" y="58" width="440" height="50"/>
+                                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="sYS-qe-4Em">
+                                            <rect key="frame" x="0.0" y="0.0" width="425" height="50"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" smartInsertDelete="YES" id="Don-iP-Kza">
+                                                    <rect key="frame" x="0.0" y="0.0" width="425" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    <size key="minSize" width="425" height="50"/>
+                                                    <size key="maxSize" width="425" height="10000000"/>
+                                                    <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                </textView>
+                                            </subviews>
+                                        </clipView>
+                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="cPg-Rz-w1S">
+                                            <rect key="frame" x="-100" y="-100" width="225" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                        <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="F4e-vc-0XQ">
+                                            <rect key="frame" x="425" y="0.0" width="15" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                    </scrollView>
+                                    <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kg9-2A-Bs8">
+                                        <rect key="frame" x="0.0" y="0.0" width="440" height="50"/>
+                                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="J9X-Qj-h3u">
+                                            <rect key="frame" x="0.0" y="0.0" width="425" height="50"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" smartInsertDelete="YES" id="vng-ok-T4g">
+                                                    <rect key="frame" x="0.0" y="0.0" width="425" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    <size key="minSize" width="425" height="50"/>
+                                                    <size key="maxSize" width="425" height="10000000"/>
+                                                    <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                </textView>
+                                            </subviews>
+                                        </clipView>
+                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="8Qt-JZ-gta">
+                                            <rect key="frame" x="-100" y="-100" width="225" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                        <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="zzZ-W2-fmc">
+                                            <rect key="frame" x="425" y="0.0" width="15" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                    </scrollView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="MUv-MP-gco" firstAttribute="leading" secondItem="jA1-zT-hl0" secondAttribute="leading" id="6Au-zF-4mX"/>
+                                    <constraint firstItem="kg9-2A-Bs8" firstAttribute="leading" secondItem="jA1-zT-hl0" secondAttribute="leading" id="Dmb-UN-o7o"/>
+                                    <constraint firstAttribute="trailing" secondItem="kg9-2A-Bs8" secondAttribute="trailing" id="O0f-uW-kn0"/>
+                                    <constraint firstAttribute="trailing" secondItem="MUv-MP-gco" secondAttribute="trailing" id="hcE-kt-AtJ"/>
+                                </constraints>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="jA1-zT-hl0" secondAttribute="trailing" constant="20" id="6bM-PW-sXb"/>
                             <constraint firstItem="BG3-gT-fbd" firstAttribute="centerX" secondItem="gcr-wM-m57" secondAttribute="centerX" id="7fs-AI-tCg"/>
-                            <constraint firstItem="BG3-gT-fbd" firstAttribute="height" relation="lessThanOrEqual" secondItem="6Gc-f6-rZl" secondAttribute="height" multiplier="0.6" id="Nhh-4u-K0S"/>
+                            <constraint firstAttribute="bottom" secondItem="jA1-zT-hl0" secondAttribute="bottom" constant="20" id="LP5-h1-RWi"/>
                             <constraint firstItem="BG3-gT-fbd" firstAttribute="centerY" secondItem="gcr-wM-m57" secondAttribute="centerY" id="Sa7-yD-Whc"/>
                             <constraint firstItem="6Gc-f6-rZl" firstAttribute="leading" secondItem="gcr-wM-m57" secondAttribute="leading" id="U7C-k1-xwX"/>
+                            <constraint firstItem="jA1-zT-hl0" firstAttribute="leading" secondItem="gcr-wM-m57" secondAttribute="leading" constant="20" id="WYb-cO-ZV7"/>
                             <constraint firstAttribute="trailing" secondItem="6Gc-f6-rZl" secondAttribute="trailing" id="YBI-DT-gsj"/>
                             <constraint firstItem="6Gc-f6-rZl" firstAttribute="top" secondItem="gcr-wM-m57" secondAttribute="top" id="ZKF-hV-zad"/>
+                            <constraint firstItem="jA1-zT-hl0" firstAttribute="top" secondItem="gcr-wM-m57" secondAttribute="top" constant="20" id="iOL-2A-feG"/>
                             <constraint firstItem="BG3-gT-fbd" firstAttribute="width" relation="lessThanOrEqual" secondItem="6Gc-f6-rZl" secondAttribute="width" multiplier="0.6" id="jcs-vr-AMO"/>
                             <constraint firstAttribute="bottom" secondItem="6Gc-f6-rZl" secondAttribute="bottom" id="loQ-Zh-TLr"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="valueTextView" destination="Don-iP-Kza" id="Bwi-4U-E1a"/>
+                        <outlet property="valueTextViewContainer" destination="MUv-MP-gco" id="BKN-sh-g8d"/>
+                        <outlet property="writeTextView" destination="vng-ok-T4g" id="Kmz-LN-HGN"/>
+                        <outlet property="writeTextViewContainer" destination="kg9-2A-Bs8" id="M2S-0G-jb3"/>
+                    </connections>
                 </viewController>
                 <customObject id="LhI-dv-ucJ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="186" y="1447"/>
+            <point key="canvasLocation" x="186" y="1446.5"/>
         </scene>
     </scenes>
     <resources>

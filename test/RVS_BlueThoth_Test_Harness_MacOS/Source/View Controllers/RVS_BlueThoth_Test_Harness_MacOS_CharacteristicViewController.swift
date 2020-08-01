@@ -40,7 +40,27 @@ class RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_BlueTho
      This is the initial width of the new section.
      */
     static let minimumThickness: CGFloat = 400
-
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var valueTextViewContainer: NSScrollView!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet var valueTextView: NSTextView!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var writeTextViewContainer: NSScrollView!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet var writeTextView: NSTextView!
+    
     /* ################################################################## */
     /**
      This is the Characteristic instance associated with this screen.
