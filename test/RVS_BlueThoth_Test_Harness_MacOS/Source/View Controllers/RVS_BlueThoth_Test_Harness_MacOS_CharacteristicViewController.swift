@@ -202,6 +202,10 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
         writeNoResponseLabel?.isHidden = !(characteristicInstance?.canWriteWithoutResponse ?? false)
         writeResponseLabel?.isHidden = !(characteristicInstance?.canWriteWithResponse ?? false)
         extendedLabel?.isHidden = !(characteristicInstance?.hasExtendedProperties ?? false)
+        
+        if !(notifyButton?.isHidden ?? true) {
+            notifyButton?.state = (characteristicInstance?.isNotifying ?? false) ? .on : .off
+        }
     }
   
     /* ################################################################## */
@@ -225,8 +229,8 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
      */
     func setWriteItemsVisibility() {
         if characteristicInstance?.canWrite ?? false {
-            valueTextFieldLabelContainer?.isHidden = false
-            valueTextViewContainer?.isHidden = false
+            writeTextFieldLabelContainer?.isHidden = false
+            writeTextViewContainer?.isHidden = false
             sendButtonContainer?.isHidden = false
         } else {
             writeTextFieldLabelContainer?.isHidden = true

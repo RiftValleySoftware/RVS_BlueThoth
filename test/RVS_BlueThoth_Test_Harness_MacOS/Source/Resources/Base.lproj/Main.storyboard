@@ -1587,18 +1587,18 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <scrollView borderType="line" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MUv-MP-gco">
+                                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MUv-MP-gco">
                                         <rect key="frame" x="0.0" y="168" width="1774" height="100"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="sYS-qe-4Em">
-                                            <rect key="frame" x="1" y="1" width="1772" height="98"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1774" height="100"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" smartInsertDelete="YES" id="Don-iP-Kza">
-                                                    <rect key="frame" x="0.0" y="0.0" width="1772" height="98"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="1774" height="100"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <size key="minSize" width="1772" height="98"/>
+                                                    <size key="minSize" width="1774" height="100"/>
                                                     <size key="maxSize" width="1774" height="10000000"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 </textView>
@@ -1627,18 +1627,18 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kg9-2A-Bs8">
+                                    <scrollView borderType="line" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kg9-2A-Bs8">
                                         <rect key="frame" x="0.0" y="29" width="1774" height="100"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="J9X-Qj-h3u">
-                                            <rect key="frame" x="0.0" y="0.0" width="1774" height="100"/>
+                                            <rect key="frame" x="1" y="1" width="1772" height="98"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" smartInsertDelete="YES" id="vng-ok-T4g">
-                                                    <rect key="frame" x="0.0" y="0.0" width="1774" height="100"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="1772" height="98"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" white="1" alpha="0.1522902397" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <size key="minSize" width="1774" height="100"/>
+                                                    <size key="minSize" width="1772" height="98"/>
                                                     <size key="maxSize" width="1774" height="10000000"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 </textView>
