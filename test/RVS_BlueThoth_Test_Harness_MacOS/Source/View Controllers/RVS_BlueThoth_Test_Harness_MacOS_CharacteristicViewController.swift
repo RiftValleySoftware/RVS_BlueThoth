@@ -136,6 +136,20 @@ class RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_BlueTho
 // MARK: - Instance Methods -
 /* ###################################################################################################################################### */
 extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
+    
+    /* ################################################################## */
+    /**
+     This sets up the buttons and labels at the top of the screen.
+     */
+    func setButtonsAndLabelsVisibility() {
+        readButton?.isHidden = !(characteristicInstance?.canRead ?? false)
+        notifyButton?.isHidden = !(characteristicInstance?.canNotify ?? false)
+        indicateLabel?.isHidden = !(characteristicInstance?.canIndicate ?? false)
+        writeNoResponseLabel?.isHidden = !(characteristicInstance?.canWriteWithoutResponse ?? false)
+        writeResponseLabel?.isHidden = !(characteristicInstance?.canWriteWithResponse ?? false)
+        extendedLabel?.isHidden = !(characteristicInstance?.hasExtendedProperties ?? false)
+    }
+  
     /* ################################################################## */
     /**
      This either shows or hides the read items.
@@ -186,13 +200,6 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
         sendButtonText?.title = (sendButtonText?.title ?? "ERROR").localizedVariant
         valueTextFieldLabel?.stringValue = (valueTextFieldLabel?.stringValue ?? "ERROR").localizedVariant
         writeTextFieldLabel?.stringValue = (writeTextFieldLabel?.stringValue ?? "ERROR").localizedVariant
-
-        readButton?.isHidden = !(characteristicInstance?.canRead ?? false)
-        notifyButton?.isHidden = !(characteristicInstance?.canNotify ?? false)
-        indicateLabel?.isHidden = !(characteristicInstance?.canIndicate ?? false)
-        writeNoResponseLabel?.isHidden = !(characteristicInstance?.canWriteWithoutResponse ?? false)
-        writeResponseLabel?.isHidden = !(characteristicInstance?.canWriteWithResponse ?? false)
-        extendedLabel?.isHidden = !(characteristicInstance?.hasExtendedProperties ?? false)
         
         setUpAccessibility()
     }
@@ -241,6 +248,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_Blu
      This forces the UI elements to be updated.
      */
     func updateUI() {
+        setButtonsAndLabelsVisibility()
         setReadItemsVisibility()
         setWriteItemsVisibility()
     }

@@ -42,6 +42,12 @@ class RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThoth_Ma
     
     /* ################################################################## */
     /**
+     This is the container for one device in our table.
+     */
+    typealias TableRow = (id: String, contents: [String])
+    
+    /* ################################################################## */
+    /**
      This is the width of the discovery section, which is fixed.
      */
     static let screenThickness: CGFloat = 360
@@ -56,7 +62,7 @@ class RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThoth_Ma
     /**
      This will map the discovered devices for display in the table. The key is the ID of the Peripheral. The value is all the rows it will display.
      */
-    private var _tableMap: [String: [String]] = [:]
+    private var _tableMap: [TableRow] = []
     
     /* ################################################################## */
     /**
@@ -103,13 +109,13 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
     /**
      This is a complete count of all advertisement data rows, and headers.
      */
-    private var _completeTableMapRowCount: Int { _tableMap.reduce(0) { (current, next) -> Int in current + 1 + next.value.count } }
+    private var _completeTableMapRowCount: Int { _tableMap.reduce(0) { (current, next) -> Int in current + 1 + next.contents.count } }
     
     /* ################################################################## */
     /**
      Access the table keys as a simple String Array
      */
-    private var _tableKeys: [String] { _tableMap.keys.map { String($0) } }
+    private var _tableKeys: [String] { _tableMap.map { String($0.id) } }
     
     /* ################################################################## */
     /**
@@ -119,7 +125,11 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
      - returns: An Array of String, for the given key.
      */
     private func _infoForKey(_ inKey: String) -> [String] {
-        return _tableMap[inKey] ?? []
+        for item in _tableMap where item.id == inKey {
+            return item.contents
+        }
+        
+        return []
     }
     
     /* ################################################################## */
@@ -134,7 +144,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
      - parameter inDeviceID: The key for the device in our table.
      - returns: The number of advertisement strings for the given device.
      */
-    private func _numberOfStringsForThisDevice(_ inDeviceID: String) -> Int { _tableMap[inDeviceID]?.count ?? 0 }
+    private func _numberOfStringsForThisDevice(_ inDeviceID: String) -> Int { _infoForKey(inDeviceID).count }
 
     /* ################################################################## */
     /**
@@ -151,7 +161,8 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
             
             if index == inIndex {
                 return device
-            } else if let advertisingData = _tableMap[key] {
+            } else {
+                let advertisingData = _infoForKey(key)
                 for _ in 0..<advertisingData.count {
                     if index == inIndex {
                         return device
@@ -207,7 +218,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
         var totalIndex = 0
 
         for group in _tableMap {
-            let range = (totalIndex..<totalIndex + group.value.count + 1)
+            let range = (totalIndex..<totalIndex + group.contents.count + 1)
             if range.contains(inIndex) {
                 return range
             }
@@ -240,12 +251,13 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
      - returns: An Array of String, with the advertisement data in "key: value" form.
      */
     private func _createAdvertimentStringsFor(_ inIndex: Int) -> [String] {
-        guard let centralManager = centralManager, (0..<centralManager.stagedBLEPeripherals.count).contains(inIndex) else { return [] }
+        guard let centralManager = centralManager else { return [] }
         
-        let id = centralManager.stagedBLEPeripherals[inIndex].identifier
-        let adData = centralManager.stagedBLEPeripherals[inIndex].advertisementData
+        let peripherals = centralManager.stagedBLEPeripherals.sorted { (a, b) -> Bool in a.identifier < b.identifier }
         
-        return _createAdvertimentStringsFor(adData, id: id)
+        guard (0..<peripherals.count).contains( inIndex ) else { return [] }
+        
+        return _createAdvertimentStringsFor(peripherals[inIndex].advertisementData, id: peripherals[inIndex].identifier)
     }
     
     /* ################################################################## */
@@ -366,7 +378,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
             centralManager?.minimumRSSILevelIndBm = prefs.minimumRSSILevel
             centralManager?.discoverOnlyConnectablePeripherals = prefs.discoverOnlyConnectableDevices
             centralManager?.allowEmptyNames = prefs.allowEmptyNames
-            _tableMap = [:]
+            _tableMap = []
             deviceTable?.reloadData()
             centralManager?.startScanning(duplicateFilteringIsOn: prefs.continuouslyUpdatePeripherals)
         }
@@ -417,12 +429,16 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThot
      This builds a "map" of the device data, so we can build a table from it.
      */
     func buildTableMap() {
-        _tableMap = [:]
+        _tableMap = []
         
         guard let centralManager = centralManager else { return }
         
-        for index in 0..<centralManager.stagedBLEPeripherals.count {
-            _tableMap[centralManager.stagedBLEPeripherals[index].identifier] = _createAdvertimentStringsFor(index)
+        let peripherals = centralManager.stagedBLEPeripherals.sorted { (a, b) -> Bool in a.identifier < b.identifier }
+        
+        for index in 0..<peripherals.count {
+            let id = centralManager.stagedBLEPeripherals[index].identifier
+            let strings = _createAdvertimentStringsFor(centralManager.stagedBLEPeripherals[index].advertisementData, id: id)
+            _tableMap.append((id: id, contents: strings))
         }
         
         updateUI()

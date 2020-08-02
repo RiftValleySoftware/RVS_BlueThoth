@@ -1392,7 +1392,7 @@
                                             <tableViewGridLines key="gridStyleMask" dashed="YES"/>
                                             <color key="gridColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <tableColumns>
-                                                <tableColumn width="437" minWidth="40" maxWidth="1000" id="vqq-99-gqT">
+                                                <tableColumn editable="NO" width="437" minWidth="40" maxWidth="1000" id="vqq-99-gqT">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
