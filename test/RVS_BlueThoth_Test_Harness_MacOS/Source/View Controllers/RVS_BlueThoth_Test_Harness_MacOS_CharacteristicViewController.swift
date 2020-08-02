@@ -37,6 +37,12 @@ class RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_BlueTho
     
     /* ################################################################## */
     /**
+     This is a carriage return/linefeed pair, which will always be used in place of a simple CR or LF, alone.
+     */
+    private static let _crlf = "\r\n"
+
+    /* ################################################################## */
+    /**
      This is the initial width of the new section.
      */
     static let minimumThickness: CGFloat = 400
@@ -120,7 +126,7 @@ class RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_BlueTho
     /**
      */
     @IBOutlet weak var sendButtonText: NSButtonCell!
-
+        
     /* ################################################################## */
     /**
      This is the Characteristic instance associated with this screen.
@@ -128,6 +134,54 @@ class RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_BlueTho
     var characteristicInstance: CGA_Bluetooth_Characteristic? {
         didSet {
             updateUI()
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - IBAction Methods -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
+    /* ################################################################## */
+    /**
+     - parameter: ignored
+     */
+    @IBAction func readButtonHit(_: Any) {
+        characteristicInstance?.readValue()
+    }
+    
+    /* ################################################################## */
+    /**
+     - parameter inButton: The Notify checkbox button
+     */
+    @IBAction func notifyButtonChanged(_ inButton: NSButton) {
+        if .on == inButton.state {
+            characteristicInstance?.startNotifying()
+        } else {
+            characteristicInstance?.stopNotifying()
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     - parameter: ignored
+     */
+    @IBAction func sendButtonHit(_: Any) {
+        if var textToSend = writeTextView?.string {
+            // See if we are to send CRLF as line endings.
+            if prefs.alwaysUseCRLF {
+                textToSend = textToSend.replacingOccurrences(of: "\n", with: Self._crlf).replacingOccurrences(of: "\r", with: Self._crlf)
+            }
+            if  let data = textToSend.data(using: .utf8) {
+                let responseValue = writeResponseLabel?.isHidden ?? false
+                #if DEBUG
+                    print("Sending \"\(textToSend)\" to the Device")
+                    if responseValue {
+                        print("\tAnd asking for a response, if possible.")
+                    }
+                #endif
+                characteristicInstance?.writeValue(data, withResponseIfPossible: responseValue)
+            }
         }
     }
 }

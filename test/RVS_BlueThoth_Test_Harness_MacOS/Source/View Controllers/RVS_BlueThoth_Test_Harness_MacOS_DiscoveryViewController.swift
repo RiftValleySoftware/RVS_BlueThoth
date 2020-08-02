@@ -99,6 +99,12 @@ class RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThoth_Ma
      The currently selected device (nil, if no device selected).
      */
     var selectedDevice: RVS_BlueThoth.DiscoveryData?
+    
+    /* ################################################################## */
+    /**
+     This returns the peripherals, in a sorted order.
+     */
+    var sortedPeripherals: [RVS_BlueThoth.DiscoveryData] { centralManager?.stagedBLEPeripherals.sorted { (a, b) -> Bool in a.identifier < b.identifier } ?? [] }
 }
 
 /* ###################################################################################################################################### */
@@ -251,10 +257,8 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
      - returns: An Array of String, with the advertisement data in "key: value" form.
      */
     private func _createAdvertimentStringsFor(_ inIndex: Int) -> [String] {
-        guard let centralManager = centralManager else { return [] }
-        
-        let peripherals = centralManager.stagedBLEPeripherals.sorted { (a, b) -> Bool in a.identifier < b.identifier }
-        
+        let peripherals = sortedPeripherals
+
         guard (0..<peripherals.count).contains( inIndex ) else { return [] }
         
         return _createAdvertimentStringsFor(peripherals[inIndex].advertisementData, id: peripherals[inIndex].identifier)
@@ -431,13 +435,11 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThot
     func buildTableMap() {
         _tableMap = []
         
-        guard let centralManager = centralManager else { return }
-        
-        let peripherals = centralManager.stagedBLEPeripherals.sorted { (a, b) -> Bool in a.identifier < b.identifier }
+        let peripherals = sortedPeripherals
         
         for index in 0..<peripherals.count {
-            let id = centralManager.stagedBLEPeripherals[index].identifier
-            let strings = _createAdvertimentStringsFor(centralManager.stagedBLEPeripherals[index].advertisementData, id: id)
+            let id = peripherals[index].identifier
+            let strings = _createAdvertimentStringsFor(peripherals[index].advertisementData, id: id)
             _tableMap.append((id: id, contents: strings))
         }
         

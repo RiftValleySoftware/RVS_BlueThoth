@@ -1499,6 +1499,9 @@
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="systemBold" size="14"/>
                                                 </buttonCell>
+                                                <connections>
+                                                    <action selector="readButtonHit:" target="Csf-nd-wgb" id="coZ-Ea-Fe7"/>
+                                                </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4Mr-x8-EbQ">
                                                 <rect key="frame" x="295" y="-2" width="293" height="28"/>
@@ -1507,6 +1510,9 @@
                                                     <font key="font" metaFont="systemBold" size="14"/>
                                                 </buttonCell>
                                                 <color key="contentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <connections>
+                                                    <action selector="notifyButtonChanged:" target="Csf-nd-wgb" id="SU2-h5-XU5"/>
+                                                </connections>
                                             </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PLB-kS-sK4">
                                                 <rect key="frame" x="592" y="0.0" width="293" height="24"/>
@@ -1660,6 +1666,9 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="systemBold" size="16"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="sendButtonHit:" target="Csf-nd-wgb" id="pjR-lt-GiB"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
