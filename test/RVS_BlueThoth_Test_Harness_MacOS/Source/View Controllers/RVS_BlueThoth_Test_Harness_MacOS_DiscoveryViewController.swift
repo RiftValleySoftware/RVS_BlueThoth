@@ -42,6 +42,12 @@ class RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThoth_Ma
     
     /* ################################################################## */
     /**
+     This is the width of the discovery section, which is fixed.
+     */
+    static let screenThickness: CGFloat = 360
+
+    /* ################################################################## */
+    /**
      This is a String key that uniquely identifies this screen.
      */
     let key: String = RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.deviceScreenID

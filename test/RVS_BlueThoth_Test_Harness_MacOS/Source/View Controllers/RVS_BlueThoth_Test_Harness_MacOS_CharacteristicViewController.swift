@@ -44,6 +44,46 @@ class RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_BlueTho
     /* ################################################################## */
     /**
      */
+    @IBOutlet weak var readButton: NSButton!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var notifyButton: NSButton!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var indicateLabel: NSTextField!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var writeResponseLabel: NSTextField!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var writeNoResponseLabel: NSTextField!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var extendedLabel: NSTextField!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var valueTextFieldLabelContainer: NSTextField!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var valueTextFieldLabel: NSTextFieldCell!
+
+    /* ################################################################## */
+    /**
+     */
     @IBOutlet weak var valueTextViewContainer: NSScrollView!
     
     /* ################################################################## */
@@ -54,13 +94,33 @@ class RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_BlueTho
     /* ################################################################## */
     /**
      */
+    @IBOutlet weak var writeTextFieldLabelContainer: NSTextField!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var writeTextFieldLabel: NSTextFieldCell!
+    
+    /* ################################################################## */
+    /**
+     */
     @IBOutlet weak var writeTextViewContainer: NSScrollView!
     
     /* ################################################################## */
     /**
      */
     @IBOutlet var writeTextView: NSTextView!
-    
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var sendButtonContainer: NSButton!
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var sendButtonText: NSButtonCell!
+
     /* ################################################################## */
     /**
      This is the Characteristic instance associated with this screen.
@@ -76,6 +136,35 @@ class RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_BlueTho
 // MARK: - Instance Methods -
 /* ###################################################################################################################################### */
 extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
+    /* ################################################################## */
+    /**
+     This either shows or hides the read items.
+     */
+    func setReadItemsVisibility() {
+        if (characteristicInstance?.canNotify ?? false) || (characteristicInstance?.canRead ?? false) {
+            valueTextFieldLabelContainer?.isHidden = false
+            valueTextViewContainer?.isHidden = false
+        } else {
+            valueTextFieldLabelContainer?.isHidden = true
+            valueTextViewContainer?.isHidden = true
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This either shows or hides the write items.
+     */
+    func setWriteItemsVisibility() {
+        if characteristicInstance?.canWrite ?? false {
+            valueTextFieldLabelContainer?.isHidden = false
+            valueTextViewContainer?.isHidden = false
+            sendButtonContainer?.isHidden = false
+        } else {
+            writeTextFieldLabelContainer?.isHidden = true
+            writeTextViewContainer?.isHidden = true
+            sendButtonContainer?.isHidden = true
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -88,6 +177,23 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        readButton?.title = (readButton?.title ?? "ERROR").localizedVariant
+        notifyButton?.title = (notifyButton?.title ?? "ERROR").localizedVariant
+        indicateLabel?.stringValue = (indicateLabel?.stringValue ?? "ERROR").localizedVariant
+        writeResponseLabel?.stringValue = (writeResponseLabel?.stringValue ?? "ERROR").localizedVariant
+        writeNoResponseLabel?.stringValue = (writeNoResponseLabel?.stringValue ?? "ERROR").localizedVariant
+        extendedLabel?.stringValue = (extendedLabel?.stringValue ?? "ERROR").localizedVariant
+        sendButtonText?.title = (sendButtonText?.title ?? "ERROR").localizedVariant
+        valueTextFieldLabel?.stringValue = (valueTextFieldLabel?.stringValue ?? "ERROR").localizedVariant
+        writeTextFieldLabel?.stringValue = (writeTextFieldLabel?.stringValue ?? "ERROR").localizedVariant
+
+        readButton?.isHidden = !(characteristicInstance?.canRead ?? false)
+        notifyButton?.isHidden = !(characteristicInstance?.canNotify ?? false)
+        indicateLabel?.isHidden = !(characteristicInstance?.canIndicate ?? false)
+        writeNoResponseLabel?.isHidden = !(characteristicInstance?.canWriteWithoutResponse ?? false)
+        writeResponseLabel?.isHidden = !(characteristicInstance?.canWriteWithResponse ?? false)
+        extendedLabel?.isHidden = !(characteristicInstance?.hasExtendedProperties ?? false)
+        
         setUpAccessibility()
     }
     
@@ -135,5 +241,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_Blu
      This forces the UI elements to be updated.
      */
     func updateUI() {
+        setReadItemsVisibility()
+        setWriteItemsVisibility()
     }
 }

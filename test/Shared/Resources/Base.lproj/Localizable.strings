@@ -76,6 +76,16 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-PROPERTIES-INDICATE-ENCRYPT"  =   " IE ";
 "SLUG-PROPERTIES-EXTENDED"          =   " EX ";
 "SLUG-INTERACT"                     =   "WRITE";
+// Mac-Only
+"SLUG-READ-BUTTON"                  =   "READ";
+"SLUG-NOTIFY-BUTTON"                =   "NOTIFY";
+"SLUG-INDICATE-LABEL"               =   "IND";
+"SLUG-EX-LABEL"                     =   "EX";
+"SLUG-WRITE-NO-RESPONSE-LABEL"      =   "W";
+"SLUG-WRITE-RESPONSE-LABEL"         =   "W(R)";
+"SLUG-VALUE-LABEL"                  =   "VALUE:";
+"SLUG-WRITE-TEXT-FIELD-LABEL"       =   "WRITE:";
+"SLUG-WRITE-TEXT-FIELD-PLACEHOLDER" =   "Enter Text to Send to Peripheral";
 
 // MARK: - Interaction Screen
 "SLUG-WRITE"                        =   "WRITE";

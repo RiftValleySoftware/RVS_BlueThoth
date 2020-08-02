@@ -23,9 +23,10 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 import Cocoa
 
 /* ###################################################################################################################################### */
-// MARK: - The Initial Screen View Controller -
+// MARK: - The Split Screen View Controller -
 /* ###################################################################################################################################### */
 /**
+ This is the first screen to come up, and contains all the other screens.
  */
 class RVS_BlueThoth_Test_Harness_MacOS_SplitViewController: NSSplitViewController {
     /* ################################################################## */
@@ -45,10 +46,29 @@ class RVS_BlueThoth_Test_Harness_MacOS_SplitViewController: NSSplitViewControlle
      The characteristic split view, which is displayed to the right of the details view.
      */
     @IBOutlet var characteristicSplitViewItem: NSSplitViewItem!
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Base Class Overrides -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_SplitViewController {
     /* ################################################################## */
     /**
-     Calling this, removes both of the right-hand screens, leaving only the device list screen.
+     This is called as we load. It simply ensures that we start off with just the simple discovery screen.
+     */
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        collapseSplit()
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Instance Methods -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_SplitViewController {
+    /* ################################################################## */
+    /**
+     Calling this, removes both of the right-hand screens, leaving only the device list screen. It also reduces the size of the screen.
      */
     func collapseSplit() {
         if let characteristicSplitViewItem = characteristicSplitViewItem {
@@ -61,6 +81,8 @@ class RVS_BlueThoth_Test_Harness_MacOS_SplitViewController: NSSplitViewControlle
         
         if let discoveryViewController = discoveryScreenSplitViewItem?.viewController as? RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
             discoveryViewController.deviceTable?.deselectAll(nil)
+            discoveryScreenSplitViewItem.minimumThickness = RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController.screenThickness
+            discoveryScreenSplitViewItem.maximumThickness = RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController.screenThickness
         }
         
         peripheralSplitViewItem = nil
@@ -87,6 +109,8 @@ class RVS_BlueThoth_Test_Harness_MacOS_SplitViewController: NSSplitViewControlle
         peripheralSplitViewItem = NSSplitViewItem(viewController: newDetailsViewController)
         peripheralSplitViewItem.minimumThickness = RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.minimumThickness
         addSplitViewItem(peripheralSplitViewItem)
+        
+        newDetailsViewController.updateUI()
     }
     
     /* ################################################################## */
@@ -107,5 +131,7 @@ class RVS_BlueThoth_Test_Harness_MacOS_SplitViewController: NSSplitViewControlle
         characteristicSplitViewItem = NSSplitViewItem(viewController: newCharacteristicViewController)
         characteristicSplitViewItem.minimumThickness = RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController.minimumThickness
         addSplitViewItem(characteristicSplitViewItem)
+        
+        newCharacteristicViewController.updateUI()
     }
 }
