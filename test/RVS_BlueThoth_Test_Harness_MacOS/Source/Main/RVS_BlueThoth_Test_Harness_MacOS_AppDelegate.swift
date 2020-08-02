@@ -265,4 +265,20 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
             print("Central instance: \(String(describing: inCentralInstance)) powered on.")
         #endif
     }
+    
+    /* ################################################################## */
+    /**
+     This is called when a Peripheral announces a change to one of its Characteristics.
+     
+     - parameters:
+        - inCentralInstance: The central manager that is calling this.
+        - device: The Peripheral that contains the changed Characteristic.
+        - service: The Service that contains the changed Characteristic.
+        - changedCharacteristic: The Characteristic that has experienced the change.
+     */
+    func centralManager(_ inCentral: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, changedCharacteristic inCharacteristic: CGA_Bluetooth_Characteristic) {
+        for screen in self.screenList where inCharacteristic.id == screen.key {
+            screen.updateUI()
+        }
+    }
 }

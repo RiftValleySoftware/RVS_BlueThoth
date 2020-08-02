@@ -212,6 +212,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
         if (characteristicInstance?.canNotify ?? false) || (characteristicInstance?.canRead ?? false) {
             valueTextFieldLabelContainer?.isHidden = false
             valueTextViewContainer?.isHidden = false
+            valueTextView?.string = characteristicInstance?.stringValue ?? ""
         } else {
             valueTextFieldLabelContainer?.isHidden = true
             valueTextViewContainer?.isHidden = true
@@ -295,7 +296,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_Blu
     /**
      This is a String key that uniquely identifies this screen.
      */
-    var key: String { peripheralInstance?.identifier ?? "ERROR" }
+    var key: String { characteristicInstance?.id ?? "ERROR" }
 
     /* ################################################################## */
     /**
