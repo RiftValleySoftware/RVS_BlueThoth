@@ -146,6 +146,11 @@ class RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_BlueTho
     
     /* ################################################################## */
     /**
+     */
+    @IBOutlet weak var refreshButton: NSButton!
+    
+    /* ################################################################## */
+    /**
      This is the Characteristic instance associated with this screen.
      When this is changed, we wipe the cache.
      */
@@ -225,6 +230,15 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
     @IBAction func sendButtonResponseHit(_: Any) {
         sendButtonHit()
     }
+
+    /* ################################################################## */
+    /**
+     - parameter: ignored.
+     */
+    @IBAction func refreshButtonHit(_: Any) {
+        currentDisplayedValueText = ""
+        updateUI()
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -256,10 +270,12 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
     func setReadItemsVisibility() {
         if (characteristicInstance?.canNotify ?? false) || (characteristicInstance?.canRead ?? false) {
             valueTextFieldLabelContainer?.isHidden = false
+            refreshButton?.isHidden = currentDisplayedValueText.isEmpty
             valueTextViewContainer?.isHidden = false
             valueTextView?.title = currentDisplayedValueText
         } else {
             valueTextFieldLabelContainer?.isHidden = true
+            refreshButton?.isHidden = true
             valueTextViewContainer?.isHidden = true
         }
     }
