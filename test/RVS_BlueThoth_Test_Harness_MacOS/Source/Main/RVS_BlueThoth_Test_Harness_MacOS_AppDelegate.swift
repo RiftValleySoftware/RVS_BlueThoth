@@ -231,6 +231,15 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
         #if DEBUG
             print("Peripheral Connected")
         #endif
+        // We make sure that we will build up values.
+        inPeripheral.forEach { (service) in
+            service.forEach { (characteristic) in
+                if characteristic.canRead || characteristic.canNotify {
+                    characteristic.clearConcatenate(newValue: true)
+                }
+            }
+        }
+        
         updateScreen(inPeripheral.id)
     }
 

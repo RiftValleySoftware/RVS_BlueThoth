@@ -237,6 +237,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
      */
     @IBAction func refreshButtonHit(_: Any) {
         currentDisplayedValueText = ""
+        characteristicInstance?.clearConcatenate(newValue: true)
         updateUI()
     }
 }
