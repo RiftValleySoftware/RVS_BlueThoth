@@ -92,6 +92,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-WITH-RESPONSE"                =   "RESPONSE:";
 "SLUG-READ"                         =   "READ";
 "SLUG-SEND"                         =   "SEND";
+"SLUG-SEND-RESPONSE"                =   "SEND (WITH RESPONSE)";
 
 // MARK: - Info screen
 "SLUG-VERSION-FORMAT"               =   "VERSION: %@ (%@)";

@@ -172,6 +172,23 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - Instance Methods -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate {
+    /* ################################################################## */
+    /**
+     Updates a single screen UI.
+     
+     - parameter inScreenID: A String, with the unique ID of the screen.
+     */
+    func updateScreen(_ inScreenID: String) {
+        for screen in self.screenList where inScreenID == screen.key {
+            screen.updateUI()
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - CGA_BlueThoth_Delegate Conformance -
 /* ###################################################################################################################################### */
 extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
@@ -214,9 +231,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
         #if DEBUG
             print("Peripheral Connected")
         #endif
-        for screen in self.screenList where inPeripheral.id == screen.key {
-            screen.updateUI()
-        }
+        updateScreen(inPeripheral.id)
     }
 
     /* ################################################################## */
@@ -248,9 +263,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
             let discoveryViewController = screenList[0] as? RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
             discoveryViewController.mainSplitView?.collapseSplit()
             discoveryViewController.buildTableMap()
-            for screen in self.screenList where Self.deviceScreenID == screen.key {
-                screen.updateUI()
-            }
+            updateScreen(Self.deviceScreenID)
         }
     }
 
@@ -282,8 +295,26 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
             RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController.characteristicValueCache[inCharacteristic.id] = origValue + newValue
         }
         
-        for screen in self.screenList where inCharacteristic.id == screen.key {
-            screen.updateUI()
-        }
+        updateScreen(inCharacteristic.id)
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called to tell the instance that a Characteristic write with response received its response.
+     
+     - parameter inCentralManager: The central manager that is calling this.
+     - parameter device: The device instance that contained the changed Service.
+     - parameter service: The Service instance that contained the changed Characteristic.
+     - parameter characteristicWriteComplete: The Characteristic that had its write completed.
+     */
+    func centralManager(_ inCentralManager: RVS_BlueThoth, device inPeripheral: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, characteristicWriteComplete inCharacteristic: CGA_Bluetooth_Characteristic) {
+        #if DEBUG
+            print("Characteristic: \(inCharacteristic.id) Wrote Its Value")
+            if  let stringValue = inCharacteristic.stringValue {
+                print("\tCharacteristic String Value: \"\(stringValue)\"")
+            }
+        #endif
+        
+        Self.displayAlert(header: "WRITE-RESPONSE".localizedVariant)
     }
 }

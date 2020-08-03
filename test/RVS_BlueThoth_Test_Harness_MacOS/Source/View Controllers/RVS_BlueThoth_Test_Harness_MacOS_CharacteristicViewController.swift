@@ -39,6 +39,10 @@ class RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_BlueTho
     /**
      This holds values for the Characteristics.
      
+     This is a ghastly hack, but it suffices for a test harness.
+     
+     We use this to build up strings, which may come from the device, piecemeal.
+     
      The key is the Characteristic UUID, and the value is the current String for that Characteristic.
      */
     static var characteristicValueCache: [String: String] = [:]
@@ -128,7 +132,7 @@ class RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_BlueTho
     /* ################################################################## */
     /**
      */
-    @IBOutlet weak var sendButtonContainer: NSButton!
+    @IBOutlet weak var sendButtonContainer: NSView!
 
     /* ################################################################## */
     /**
@@ -137,7 +141,13 @@ class RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_BlueTho
         
     /* ################################################################## */
     /**
+     */
+    @IBOutlet weak var sendResponseButtonText: NSButtonCell!
+    
+    /* ################################################################## */
+    /**
      This is the Characteristic instance associated with this screen.
+     When this is changed, we wipe the cache.
      */
     var characteristicInstance: CGA_Bluetooth_Characteristic? {
         didSet {
@@ -152,9 +162,8 @@ class RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_BlueTho
     var currentDisplayedValueText: String {
         get { Self.characteristicValueCache[characteristicInstance?.id ?? ""] ?? "" }
         set {
-            if  let id = characteristicInstance?.id {
-                let addedValue = (Self.characteristicValueCache[id] ?? "") + newValue
-                Self.characteristicValueCache[id] = addedValue
+            if let id = characteristicInstance?.id {
+                Self.characteristicValueCache[id] = newValue
             }
         }
     }
@@ -188,16 +197,16 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
 
     /* ################################################################## */
     /**
-     - parameter: ignored
+     - parameter inButton: used as a flag. If nil, then we are sending with response.
      */
-    @IBAction func sendButtonHit(_: Any) {
+    @IBAction func sendButtonHit(_ inButton: Any! = nil) {
         if var textToSend = writeTextView?.string {
             // See if we are to send CRLF as line endings.
             if prefs.alwaysUseCRLF {
                 textToSend = textToSend.replacingOccurrences(of: "\n", with: Self._crlf).replacingOccurrences(of: "\r", with: Self._crlf)
             }
             if  let data = textToSend.data(using: .utf8) {
-                let responseValue = writeResponseLabel?.isHidden ?? false
+                let responseValue = nil == inButton
                 #if DEBUG
                     print("Sending \"\(textToSend)\" to the Device")
                     if responseValue {
@@ -207,6 +216,14 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
                 characteristicInstance?.writeValue(data, withResponseIfPossible: responseValue)
             }
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     - parameter: ignored.
+     */
+    @IBAction func sendButtonResponseHit(_: Any) {
+        sendButtonHit()
     }
 }
 
@@ -256,6 +273,18 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
             writeTextFieldLabelContainer?.isHidden = false
             writeTextViewContainer?.isHidden = false
             sendButtonContainer?.isHidden = false
+            
+            if characteristicInstance?.canWriteWithResponse ?? false {
+                sendResponseButtonText?.controlView?.isHidden = false
+            } else {
+                sendResponseButtonText?.controlView?.isHidden = true
+            }
+            
+            if characteristicInstance?.canWriteWithoutResponse ?? false {
+                sendButtonText?.controlView?.isHidden = false
+            } else {
+                sendButtonText?.controlView?.isHidden = true
+            }
         } else {
             writeTextFieldLabelContainer?.isHidden = true
             writeTextViewContainer?.isHidden = true
@@ -281,6 +310,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
         writeNoResponseLabel?.stringValue = (writeNoResponseLabel?.stringValue ?? "ERROR").localizedVariant
         extendedLabel?.stringValue = (extendedLabel?.stringValue ?? "ERROR").localizedVariant
         sendButtonText?.title = (sendButtonText?.title ?? "ERROR").localizedVariant
+        sendResponseButtonText?.title = (sendResponseButtonText?.title ?? "ERROR").localizedVariant
         valueTextFieldLabel?.stringValue = (valueTextFieldLabel?.stringValue ?? "ERROR").localizedVariant
         writeTextFieldLabel?.stringValue = (writeTextFieldLabel?.stringValue ?? "ERROR").localizedVariant
         

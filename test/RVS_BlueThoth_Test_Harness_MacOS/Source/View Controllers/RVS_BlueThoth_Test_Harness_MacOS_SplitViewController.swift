@@ -81,6 +81,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_SplitViewController {
         
         if let discoveryViewController = discoveryScreenSplitViewItem?.viewController as? RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
             discoveryViewController.deviceTable?.deselectAll(nil)
+            discoveryViewController.selectedDevice = nil
             discoveryScreenSplitViewItem.minimumThickness = RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController.screenThickness
             discoveryScreenSplitViewItem.maximumThickness = RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController.screenThickness
         }

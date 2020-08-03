@@ -261,7 +261,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
 
         guard (0..<peripherals.count).contains( inIndex ) else { return [] }
         
-        return _createAdvertimentStringsFor(peripherals[inIndex].advertisementData, id: peripherals[inIndex].identifier)
+        return _createAdvertimentStringsFor(peripherals[inIndex].advertisementData, id: peripherals[inIndex].identifier, power: peripherals[inIndex].rssi)
     }
     
     /* ################################################################## */
@@ -270,14 +270,15 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
      
      - parameter inAdData: The advertisement data.
      - parameter id: The ID string.
+     - parameter power: The RSSI level.
      - returns: An Array of String, with the advertisement data in "key: value" form.
      */
-    private func _createAdvertimentStringsFor(_ inAdData: RVS_BlueThoth.AdvertisementData?, id inID: String) -> [String] {
+    private func _createAdvertimentStringsFor(_ inAdData: RVS_BlueThoth.AdvertisementData?, id inID: String, power inPower: Int) -> [String] {
         // This gives us a predictable order of things.
         guard let sortedAdDataKeys = inAdData?.advertisementData.keys.sorted() else { return [] }
         let sortedAdData: [(key: String, value: Any?)] = sortedAdDataKeys.compactMap { (key:$0, value: inAdData?.advertisementData[$0]) }
 
-        let retStr = sortedAdData.reduce("SLUG-ID".localizedVariant + ": \(inID)") { (current, next) in
+        let retStr = sortedAdData.reduce("SLUG-ID".localizedVariant + ": \(inID)\n\t" + String(format: "SLUG-RSSI-LEVEL-FORMAT".localizedVariant, inPower)) { (current, next) in
             let key = next.key.localizedVariant
             let value = next.value
             var ret = "\(current)\n"
@@ -374,6 +375,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
     @IBAction func scanningChanged(_ inSwitch: NSSegmentedControl) {
         mainSplitView?.collapseSplit()
         deviceTable?.deselectAll(nil)
+        selectedDevice = nil
 
         if ScanningModeSwitchValues.notScanning.rawValue == inSwitch.selectedSegment {
             centralManager?.stopScanning()
@@ -399,6 +401,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
     @IBAction func reloadButtonHit(_: NSButton) {
         mainSplitView?.collapseSplit()
         deviceTable?.deselectAll(nil)
+        selectedDevice = nil
         centralManager?.startOver()
         updateUI()
     }
@@ -439,7 +442,8 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThot
         
         for index in 0..<peripherals.count {
             let id = peripherals[index].identifier
-            let strings = _createAdvertimentStringsFor(peripherals[index].advertisementData, id: id)
+            let power = peripherals[index].rssi
+            let strings = _createAdvertimentStringsFor(peripherals[index].advertisementData, id: id, power: power)
             _tableMap.append((id: id, contents: strings))
         }
         
@@ -514,6 +518,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: NSTableViewD
                         print("Connecting to another Peripheral.")
                     #endif
                     newController.peripheralInstance = peripheral
+                    RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController.characteristicValueCache = [:]
                     mainSplitView?.setPeripheralViewController(newController)
                 }
             }

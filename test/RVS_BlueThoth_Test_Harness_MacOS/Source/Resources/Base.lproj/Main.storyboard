@@ -1473,25 +1473,25 @@
             <objects>
                 <viewController title="SLUG-PERIPHERAL" storyboardIdentifier="characteristic-view-controller" id="Csf-nd-wgb" userLabel="Characteristic Screen" customClass="RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="gcr-wM-m57">
-                        <rect key="frame" x="0.0" y="0.0" width="1814" height="371"/>
+                        <rect key="frame" x="0.0" y="0.0" width="387" height="469"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="6Gc-f6-rZl" userLabel="Background Gradient Image View">
-                                <rect key="frame" x="0.0" y="0.0" width="1814" height="371"/>
+                                <rect key="frame" x="0.0" y="0.0" width="387" height="469"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="axesIndependently" image="background-gradient" id="Pmg-AR-pd0"/>
                             </imageView>
                             <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" alphaValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="BG3-gT-fbd" userLabel="BlueThoth Logo Image View">
-                                <rect key="frame" x="754" y="33" width="307" height="305"/>
+                                <rect key="frame" x="77" y="82" width="233" height="305"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="BlueThothLogo" id="vNI-Jt-QfB"/>
                             </imageView>
                             <stackView distribution="fillProportionally" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jA1-zT-hl0">
-                                <rect key="frame" x="20" y="20" width="1774" height="331"/>
+                                <rect key="frame" x="20" y="20" width="347" height="429"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dRY-8y-hJF">
-                                        <rect key="frame" x="0.0" y="287" width="1774" height="44"/>
+                                        <rect key="frame" x="0.0" y="405" width="347" height="24"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hm6-0r-PBT">
-                                                <rect key="frame" x="-6" y="13" width="301" height="35"/>
+                                                <rect key="frame" x="-6" y="-7" width="63" height="35"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="24" id="XOe-L8-2Rf"/>
                                                 </constraints>
@@ -1504,7 +1504,7 @@
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4Mr-x8-EbQ">
-                                                <rect key="frame" x="295" y="18" width="293" height="28"/>
+                                                <rect key="frame" x="57" y="-2" width="55" height="28"/>
                                                 <buttonCell key="cell" type="check" title="SLUG-NOTIFY-BUTTON" bezelStyle="regularSquare" imagePosition="left" alignment="left" borderStyle="border" inset="2" id="KRe-YQ-cxA">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="systemBold" size="14"/>
@@ -1515,7 +1515,7 @@
                                                 </connections>
                                             </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PLB-kS-sK4">
-                                                <rect key="frame" x="592" y="20" width="293" height="24"/>
+                                                <rect key="frame" x="116" y="0.0" width="55" height="24"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="SLUG-INDICATE-LABEL" id="AAb-03-OiY">
                                                     <font key="font" metaFont="systemBold" size="16"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1523,7 +1523,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wL5-ns-5tt">
-                                                <rect key="frame" x="889" y="20" width="293" height="24"/>
+                                                <rect key="frame" x="176" y="0.0" width="55" height="24"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="SLUG-WRITE-RESPONSE-LABEL" id="TUz-GR-nYy">
                                                     <font key="font" metaFont="systemBold" size="16"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1531,7 +1531,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8hg-12-mgP">
-                                                <rect key="frame" x="1186" y="20" width="293" height="24"/>
+                                                <rect key="frame" x="235" y="0.0" width="55" height="24"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="SLUG-WRITE-NO-RESPONSE-LABEL" id="7jf-6I-TZM">
                                                     <font key="font" metaFont="systemBold" size="16"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1539,7 +1539,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lE5-hR-Yql">
-                                                <rect key="frame" x="1483" y="20" width="293" height="24"/>
+                                                <rect key="frame" x="294" y="0.0" width="55" height="24"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="SLUG-EX-LABEL" id="7ar-SO-WwM">
                                                     <font key="font" metaFont="systemBold" size="16"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1577,7 +1577,7 @@
                                         </customSpacing>
                                     </stackView>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h5Z-1y-aMc">
-                                        <rect key="frame" x="-2" y="256" width="1778" height="23"/>
+                                        <rect key="frame" x="-2" y="374" width="351" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="23" id="Hap-Gy-R2g"/>
                                         </constraints>
@@ -1588,7 +1588,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="hFr-FW-McK">
-                                        <rect key="frame" x="-2" y="168" width="1778" height="80"/>
+                                        <rect key="frame" x="-2" y="286" width="351" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" placeholder="YES" id="VDb-wZ-EuE"/>
                                         </constraints>
@@ -1599,7 +1599,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GmL-0W-tEV">
-                                        <rect key="frame" x="-2" y="137" width="1778" height="23"/>
+                                        <rect key="frame" x="-2" y="255" width="351" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="23" id="1ca-4n-hrJ"/>
                                         </constraints>
@@ -1610,17 +1610,17 @@
                                         </textFieldCell>
                                     </textField>
                                     <scrollView borderType="line" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kg9-2A-Bs8">
-                                        <rect key="frame" x="0.0" y="29" width="1774" height="100"/>
+                                        <rect key="frame" x="0.0" y="147" width="347" height="100"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="J9X-Qj-h3u">
-                                            <rect key="frame" x="1" y="1" width="1772" height="98"/>
+                                            <rect key="frame" x="1" y="1" width="345" height="98"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" smartInsertDelete="YES" id="vng-ok-T4g">
-                                                    <rect key="frame" x="0.0" y="0.0" width="1772" height="98"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="345" height="98"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" white="1" alpha="0.1522902397" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <size key="minSize" width="1772" height="98"/>
+                                                    <size key="minSize" width="345" height="98"/>
                                                     <size key="maxSize" width="1774" height="10000000"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 </textView>
@@ -1638,25 +1638,47 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jdo-Wf-BbC">
-                                        <rect key="frame" x="800" y="-7" width="175" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="163" placeholder="YES" id="K1d-sN-2a2"/>
-                                            <constraint firstAttribute="height" constant="21" id="Rmf-iE-c7F"/>
-                                        </constraints>
-                                        <buttonCell key="cell" type="push" title="SLUG-SEND" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qTB-GB-arT">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="systemBold" size="16"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="sendButtonHit:" target="Csf-nd-wgb" id="pjR-lt-GiB"/>
-                                        </connections>
-                                    </button>
+                                    <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AGJ-SK-oLc">
+                                        <rect key="frame" x="0.0" y="0.0" width="347" height="139"/>
+                                        <subviews>
+                                            <button horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="zaq-b4-R3k">
+                                                <rect key="frame" x="-6" y="52" width="228" height="32"/>
+                                                <buttonCell key="cell" type="push" title="SLUG-SEND-RESPONSE" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oJQ-az-fUF">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="systemBold" size="16"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="sendButtonResponseHit:" target="Csf-nd-wgb" id="7GD-5M-fTC"/>
+                                                </connections>
+                                            </button>
+                                            <button horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="jdo-Wf-BbC">
+                                                <rect key="frame" x="218" y="52" width="135" height="32"/>
+                                                <buttonCell key="cell" type="push" title="SLUG-SEND" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qTB-GB-arT">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="systemBold" size="16"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="sendButtonHit:" target="Csf-nd-wgb" id="pjR-lt-GiB"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="hFr-FW-McK" secondAttribute="trailing" id="Ai3-rK-qOo"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="AGJ-SK-oLc" secondAttribute="trailing" id="BGJ-Ys-Wcw"/>
                                     <constraint firstItem="kg9-2A-Bs8" firstAttribute="leading" secondItem="jA1-zT-hl0" secondAttribute="leading" id="Dmb-UN-o7o"/>
+                                    <constraint firstItem="AGJ-SK-oLc" firstAttribute="centerX" secondItem="jA1-zT-hl0" secondAttribute="centerX" id="ElO-Mq-dYA"/>
                                     <constraint firstItem="hFr-FW-McK" firstAttribute="leading" secondItem="jA1-zT-hl0" secondAttribute="leading" id="F6K-kS-yEP"/>
+                                    <constraint firstItem="AGJ-SK-oLc" firstAttribute="leading" relation="lessThanOrEqual" secondItem="jA1-zT-hl0" secondAttribute="leading" id="KYP-hi-bCz"/>
                                     <constraint firstItem="GmL-0W-tEV" firstAttribute="leading" secondItem="jA1-zT-hl0" secondAttribute="leading" id="NPr-VO-uPT"/>
                                     <constraint firstAttribute="trailing" secondItem="kg9-2A-Bs8" secondAttribute="trailing" id="O0f-uW-kn0"/>
                                     <constraint firstAttribute="trailing" secondItem="h5Z-1y-aMc" secondAttribute="trailing" id="QI2-ax-NPf"/>
@@ -1702,8 +1724,9 @@
                         <outlet property="indicateLabel" destination="PLB-kS-sK4" id="lfI-fT-9HE"/>
                         <outlet property="notifyButton" destination="4Mr-x8-EbQ" id="H71-tO-b8E"/>
                         <outlet property="readButton" destination="hm6-0r-PBT" id="y5j-z7-xJR"/>
-                        <outlet property="sendButtonContainer" destination="jdo-Wf-BbC" id="OxK-fd-BWy"/>
+                        <outlet property="sendButtonContainer" destination="AGJ-SK-oLc" id="554-Uh-f6z"/>
                         <outlet property="sendButtonText" destination="qTB-GB-arT" id="dBP-4w-5oK"/>
+                        <outlet property="sendResponseButtonText" destination="oJQ-az-fUF" id="wWf-VY-2oG"/>
                         <outlet property="valueTextFieldLabel" destination="mwA-hH-MG8" id="FZ8-Ws-VVN"/>
                         <outlet property="valueTextFieldLabelContainer" destination="h5Z-1y-aMc" id="Zd3-U9-hd5"/>
                         <outlet property="valueTextView" destination="ufr-ng-tdO" id="soP-S5-43K"/>
