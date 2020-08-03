@@ -518,7 +518,6 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: NSTableViewD
                         print("Connecting to another Peripheral.")
                     #endif
                     newController.peripheralInstance = peripheral
-                    RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController.characteristicValueCache = [:]
                     mainSplitView?.setPeripheralViewController(newController)
                 }
             }

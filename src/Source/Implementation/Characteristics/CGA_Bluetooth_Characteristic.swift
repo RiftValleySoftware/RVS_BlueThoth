@@ -33,7 +33,11 @@ public class CGA_Bluetooth_Characteristic: CGA_Bluetooth_Characteristic_Protocol
     /**
      This is used to "aggregate" our data. If concatenateValue is true, then we append new data onto old.
      */
-    internal var _value: Data?
+    internal var _value: Data? {
+        didSet {
+            central?.updateThisCharacteristic(self)
+        }
+    }
     
     /* ################################################################## */
     /**

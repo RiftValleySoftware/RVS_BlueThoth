@@ -199,7 +199,6 @@ extension CGA_Bluetooth_Service {
                     print("The \(characteristic.uuid.uuidString) Characteristic will not be added to the \(id) Service, as it is not staged.")
                 #endif
             }
-            central?.updateThisCharacteristic(inCharacteristic)
         } else {
             #if DEBUG
                 print("ERROR! \(String(describing: inCharacteristic)) does not have a CBCharacteristic instance.")

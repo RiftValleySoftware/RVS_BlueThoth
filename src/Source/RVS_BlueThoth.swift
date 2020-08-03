@@ -279,14 +279,14 @@ extension RVS_BlueThoth {
      */
     private func _sendCharacteristicUpdate(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
         DispatchQueue.main.async {
-            #if DEBUG
-                print("Sending a Characteristic Update message to the delegate.")
-                if let stringValue = inCharacteristic.stringValue {
-                    print("\tString Data: \"\(stringValue)\"")
-                }
-            #endif
             if  let service = inCharacteristic.service,
                 let device = service.peripheral {
+                #if DEBUG
+                    print("Sending a Characteristic Update message to the delegate.")
+                    if let stringValue = inCharacteristic.stringValue {
+                        print("\tString Data: \"\(stringValue)\"")
+                    }
+                #endif
                 self.delegate?.centralManager(self, device: device, service: service, changedCharacteristic: inCharacteristic)
             }
         }

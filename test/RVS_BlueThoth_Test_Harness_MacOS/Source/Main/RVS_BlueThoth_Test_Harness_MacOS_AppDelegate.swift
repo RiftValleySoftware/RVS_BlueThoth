@@ -299,11 +299,6 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
         - changedCharacteristic: The Characteristic that has experienced the change.
      */
     func centralManager(_ inCentral: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, changedCharacteristic inCharacteristic: CGA_Bluetooth_Characteristic) {
-        let origValue = RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController.characteristicValueCache[inCharacteristic.id] ?? ""
-        if let newValue = inCharacteristic.stringValue {
-            RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController.characteristicValueCache[inCharacteristic.id] = origValue + newValue
-        }
-        
         updateScreen(inCharacteristic.id)
     }
     

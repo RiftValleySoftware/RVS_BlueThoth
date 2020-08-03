@@ -1755,6 +1755,7 @@
                         <outlet property="indicateLabel" destination="PLB-kS-sK4" id="lfI-fT-9HE"/>
                         <outlet property="notifyButton" destination="4Mr-x8-EbQ" id="H71-tO-b8E"/>
                         <outlet property="readButton" destination="hm6-0r-PBT" id="y5j-z7-xJR"/>
+                        <outlet property="readHeaderStackView" destination="sEy-wM-h5y" id="Hwo-Zv-h3K"/>
                         <outlet property="refreshButton" destination="xDy-H5-sGR" id="Atr-D9-x30"/>
                         <outlet property="sendButtonContainer" destination="AGJ-SK-oLc" id="554-Uh-f6z"/>
                         <outlet property="sendButtonText" destination="qTB-GB-arT" id="dBP-4w-5oK"/>

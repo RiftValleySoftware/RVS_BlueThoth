@@ -402,8 +402,6 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
                 print("ERROR!: \(error.localizedDescription) for Characteristic \(inCharacteristic.uuid.uuidString)")
             #endif
             central?.reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(error, characteristic: inCharacteristic))
-        } else if let characteristic = sequence_contents.characteristic(inCharacteristic) {
-            central?.updateThisCharacteristic(characteristic)
         }
     }
 
@@ -426,9 +424,10 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
             central?.reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(error, characteristic: inCharacteristic))
         } else if let characteristic = sequence_contents.characteristic(inCharacteristic) {
             #if DEBUG
-                print("Updated the \(characteristic.id) Characteristic value: \(String(describing: characteristic.value))")
                 if  let stringVal = characteristic.stringValue {
-                    print("\tAs String: \(stringVal)")
+                    print("Updating the \(characteristic.id) Characteristic, which currently has the value: \"\(stringVal)\"")
+                } else {
+                    print("Updating the \(characteristic.id) Characteristic, which currently has the value: \(String(describing: characteristic.value))")
                 }
             #endif
             // If we are concatenating data, we simply slap this onto the end of what we already have.
@@ -436,9 +435,10 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
                 characteristic.concatenateValue,
                 let data = inCharacteristic.value {
                 #if DEBUG
-                    print("Appending data to Characteristic \(inCharacteristic.uuid.uuidString)")
                     if let stringValue = String(data: data, encoding: .utf8) {
-                        print("\tString Data: \"\(stringValue)\"")
+                        print("Appending String Data: \"\(stringValue)\" to Characteristic \(inCharacteristic.uuid.uuidString)")
+                    } else {
+                        print("Appending Data: \(String(describing: characteristic.value)) to Characteristic \(inCharacteristic.uuid.uuidString)")
                     }
                 #endif
                 characteristic._value?.append(data)
@@ -447,12 +447,13 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
                     print("Starting new data for Characteristic \(inCharacteristic.uuid.uuidString)")
                     if  let data = inCharacteristic.value,
                         let stringValue = String(data: data, encoding: .utf8) {
-                        print("\tString Data: \"\(stringValue)\"")
+                        print("Starting new String Data: \"\(stringValue)\" for Characteristic \(inCharacteristic.uuid.uuidString)")
+                    } else {
+                        print("Starting new Data: \(String(describing: inCharacteristic.value)) for Characteristic \(inCharacteristic.uuid.uuidString)")
                     }
                 #endif
                 characteristic._value = inCharacteristic.value
             }
-            central?.updateThisCharacteristic(characteristic)
         }
     }
 

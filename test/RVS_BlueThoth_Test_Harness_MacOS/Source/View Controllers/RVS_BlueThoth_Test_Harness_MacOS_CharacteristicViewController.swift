@@ -34,18 +34,6 @@ class RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_BlueTho
      This is the storyboard ID that we use to create an instance of this view.
      */
     static let storyboardID  = "characteristic-view-controller"
-    
-    /* ################################################################## */
-    /**
-     This holds values for the Characteristics.
-     
-     This is a ghastly hack, but it suffices for a test harness.
-     
-     We use this to build up strings, which may come from the device, piecemeal.
-     
-     The key is the Characteristic UUID, and the value is the current String for that Characteristic.
-     */
-    static var characteristicValueCache: [String: String] = [:]
 
     /* ################################################################## */
     /**
@@ -88,6 +76,11 @@ class RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_BlueTho
     /**
      */
     @IBOutlet weak var extendedLabel: NSTextField!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var readHeaderStackView: NSStackView!
     
     /* ################################################################## */
     /**
@@ -159,19 +152,6 @@ class RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_BlueTho
             updateUI()
         }
     }
-    
-    /* ################################################################## */
-    /**
-     This is the text displayed in the read section (if available).
-     */
-    var currentDisplayedValueText: String {
-        get { Self.characteristicValueCache[characteristicInstance?.id ?? ""] ?? "" }
-        set {
-            if let id = characteristicInstance?.id {
-                Self.characteristicValueCache[id] = newValue
-            }
-        }
-    }
 }
 
 /* ###################################################################################################################################### */
@@ -184,6 +164,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
      */
     @IBAction func readButtonHit(_: Any) {
         valueTextView?.title = ""
+        characteristicInstance?.clearConcatenate(newValue: true)
         characteristicInstance?.readValue()
     }
     
@@ -194,6 +175,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
     @IBAction func notifyButtonChanged(_ inButton: NSButton) {
         valueTextView?.title = ""
         if .on == inButton.state {
+            characteristicInstance?.clearConcatenate(newValue: true)
             characteristicInstance?.startNotifying()
         } else {
             characteristicInstance?.stopNotifying()
@@ -236,7 +218,6 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
      - parameter: ignored.
      */
     @IBAction func refreshButtonHit(_: Any) {
-        currentDisplayedValueText = ""
         characteristicInstance?.clearConcatenate(newValue: true)
         updateUI()
     }
@@ -271,11 +252,11 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
     func setReadItemsVisibility() {
         if (characteristicInstance?.canNotify ?? false) || (characteristicInstance?.canRead ?? false) {
             valueTextFieldLabelContainer?.isHidden = false
-            refreshButton?.isHidden = currentDisplayedValueText.isEmpty
-            valueTextViewContainer?.isHidden = false
-            valueTextView?.title = currentDisplayedValueText
+            refreshButton?.isHidden = (valueTextView?.title ?? "").isEmpty
+            readHeaderStackView?.isHidden = false
+            valueTextView?.title = characteristicInstance?.stringValue ?? ""
         } else {
-            valueTextFieldLabelContainer?.isHidden = true
+            readHeaderStackView?.isHidden = true
             refreshButton?.isHidden = true
             valueTextViewContainer?.isHidden = true
         }
