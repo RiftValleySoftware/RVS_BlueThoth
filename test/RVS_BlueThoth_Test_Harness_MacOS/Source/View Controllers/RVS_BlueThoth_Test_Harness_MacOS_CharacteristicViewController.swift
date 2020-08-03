@@ -240,9 +240,6 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
         writeResponseLabel?.isHidden = !(characteristicInstance?.canWriteWithResponse ?? false)
         extendedLabel?.isHidden = !(characteristicInstance?.hasExtendedProperties ?? false)
         
-        if !(notifyButton?.isHidden ?? true) {
-            notifyButton?.state = (characteristicInstance?.isNotifying ?? false) ? .on : .off
-        }
     }
   
     /* ################################################################## */
@@ -251,7 +248,6 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
      */
     func setReadItemsVisibility() {
         if (characteristicInstance?.canNotify ?? false) || (characteristicInstance?.canRead ?? false) {
-            valueTextFieldLabelContainer?.isHidden = false
             refreshButton?.isHidden = (valueTextView?.title ?? "").isEmpty
             readHeaderStackView?.isHidden = false
             valueTextView?.title = characteristicInstance?.stringValue ?? ""
@@ -311,7 +307,8 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
         sendResponseButtonText?.title = (sendResponseButtonText?.title ?? "ERROR").localizedVariant
         valueTextFieldLabel?.stringValue = (valueTextFieldLabel?.stringValue ?? "ERROR").localizedVariant
         writeTextFieldLabel?.stringValue = (writeTextFieldLabel?.stringValue ?? "ERROR").localizedVariant
-        
+        notifyButton?.state = (characteristicInstance?.isNotifying ?? false) ? .on : .off
+
         setUpAccessibility()
     }
     
