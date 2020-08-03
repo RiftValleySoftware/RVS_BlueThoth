@@ -52,6 +52,9 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-MAIN-LIST-DATE-FORMAT"        =   "MM/dd/yyyy h:mm:ss.SSS a";
 "SLUG-ID"                           =   "ID";
 
+// Mac Main Window Title
+"SLUG-INITIAL"                      =   "Bluetooth Explorer";
+
 // MARK: - Services screen
 "SLUG-CONNECTING"                   =   "CONNECTING...";
 "SLUG-SERVICES"                     =   "SERVICES";
