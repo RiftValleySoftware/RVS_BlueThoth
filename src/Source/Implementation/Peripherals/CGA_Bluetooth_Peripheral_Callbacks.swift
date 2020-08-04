@@ -397,12 +397,17 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
         #if DEBUG
             print("Received a Characteristic Notification State Update delegate callback for the \(inCharacteristic.uuid.uuidString) Characteristic.")
         #endif
-        if let error = inError {
-            #if DEBUG
-                print("ERROR!: \(error.localizedDescription) for Characteristic \(inCharacteristic.uuid.uuidString)")
-            #endif
-            central?.reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(error, characteristic: inCharacteristic))
+        guard let error = inError else {
+            if let characteristic = sequence_contents.characteristic(inCharacteristic) {
+                central?.updateThisCharacteristicNotificationState(characteristic)
+            }
+            return
         }
+        
+        #if DEBUG
+            print("ERROR!: \(error.localizedDescription) for Characteristic \(inCharacteristic.uuid.uuidString)")
+        #endif
+        central?.reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(error, characteristic: inCharacteristic))
     }
 
     /* ################################################################## */

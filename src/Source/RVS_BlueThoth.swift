@@ -275,6 +275,22 @@ extension RVS_BlueThoth {
     
     /* ################################################################## */
     /**
+     This is called to send a Characteristic notification update message to the delegate.
+     */
+    private func _sendCharacteristicNotificationUpdate(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
+        DispatchQueue.main.async {
+            if  let service = inCharacteristic.service,
+                let device = service.peripheral {
+                #if DEBUG
+                    print("Sending a Characteristic Notification Update message to the delegate.")
+                #endif
+                self.delegate?.centralManager(self, device: device, service: service, changedCharacteristicNotificationState: inCharacteristic)
+            }
+        }
+    }
+
+    /* ################################################################## */
+    /**
      This is called to send a Characteristic update message to the delegate.
      */
     private func _sendCharacteristicUpdate(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
@@ -622,6 +638,14 @@ extension RVS_BlueThoth: CGA_Class_Protocol_UpdateDescriptor {
      - parameter inCharacteristic: The Characteristic wrapper instance that reported a write complete.
      */
     public func reportWriteCompleteForThisCharacteristic(_ inCharacteristic: CGA_Bluetooth_Characteristic) { _sendCharacteristicWriteComplete(inCharacteristic) }
+    
+    /* ################################################################## */
+    /**
+     This is called to inform an instance that a Characteristic changed its notification state.
+     
+     - parameter inCharacteristic: The Characteristic wrapper instance that changed.
+     */
+    public func updateThisCharacteristicNotificationState(_ inCharacteristic: CGA_Bluetooth_Characteristic) { _sendCharacteristicNotificationUpdate(inCharacteristic) }
     
     /* ################################################################## */
     /**

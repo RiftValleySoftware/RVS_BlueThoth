@@ -301,6 +301,17 @@ public protocol CGA_BlueThoth_Delegate: class {
     
     /* ################################################################## */
     /**
+     OPTIONAL: This is called to tell the instance that a Characteristic changed its notification state.
+     
+     - parameter centralManager: The central manager that is calling this.
+     - parameter device: The device instance that contained the changed Service.
+     - parameter service: The Service instance that contained the changed Characteristic.
+     - parameter changedCharacteristicNotificationState: The Characteristic that was changed.
+     */
+    func centralManager(_ centralManager: RVS_BlueThoth, device: CGA_Bluetooth_Peripheral, service: CGA_Bluetooth_Service, changedCharacteristicNotificationState: CGA_Bluetooth_Characteristic)
+    
+    /* ################################################################## */
+    /**
      OPTIONAL: This is called to tell the instance that a Characteristic changed its value.
      
      - parameter centralManager: The central manager that is calling this.
@@ -414,6 +425,16 @@ extension CGA_BlueThoth_Delegate {
     public func centralManager(_ inCentral: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, characteristicWriteComplete inCharacteristic: CGA_Bluetooth_Characteristic) {
         #if DEBUG
             print("Default Protocol Central: \(inCentral) device: \(inDevice) Service: \(inService) Characteristic write complete: \(inCharacteristic)")
+        #endif
+    }
+    
+    /* ################################################################## */
+    /**
+     The default does nothing.
+     */
+    public func centralManager(_ inCentral: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, changedCharacteristicNotificationState inCharacteristic: CGA_Bluetooth_Characteristic) {
+        #if DEBUG
+            print("Default Protocol Central: \(inCentral) device: \(inDevice) Service: \(inService) Characteristic: \(inCharacteristic) changed its notification state to: \(inCharacteristic.isNotifying ? "ON" : "OFF")")
         #endif
     }
 

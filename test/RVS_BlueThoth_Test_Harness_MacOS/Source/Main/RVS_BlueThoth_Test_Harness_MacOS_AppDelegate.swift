@@ -150,15 +150,6 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate {
         aboutMenuItem?.title = (aboutMenuItem?.title ?? "ERROR").localizedVariant
         centralManager = RVS_BlueThoth(delegate: self)
     }
-
-    /* ################################################################## */
-    /**
-     Called just before the app terminates.
-     
-     - parameter: ignored.
-     */
-    func applicationWillTerminate(_: Notification) {
-    }
 }
 
 /* ###################################################################################################################################### */
@@ -315,6 +306,19 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
         #endif
     }
     
+    /* ################################################################## */
+    /**
+     This is called to tell the instance that a Characteristic changed its notification state.
+     
+     - parameter inCentral: The central manager that is calling this.
+     - parameter device: The device instance that contained the changed Service.
+     - parameter service: The Service instance that contained the changed Characteristic.
+     - parameter changedCharacteristicNotificationState: The Characteristic that was changed.
+     */
+    func centralManager(_ inCentral: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, changedCharacteristicNotificationState inCharacteristic: CGA_Bluetooth_Characteristic) {
+        updateScreen(inCharacteristic.id)
+    }
+
     /* ################################################################## */
     /**
      This is called when a Peripheral announces a change to one of its Characteristics.

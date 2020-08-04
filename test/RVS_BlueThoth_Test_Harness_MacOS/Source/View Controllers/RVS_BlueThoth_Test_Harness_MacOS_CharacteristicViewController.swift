@@ -146,6 +146,12 @@ class RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_BlueTho
     
     /* ################################################################## */
     /**
+     This stack view will contain any Descriptors.
+     */
+    @IBOutlet weak var descriptorStackView: NSStackView!
+    
+    /* ################################################################## */
+    /**
      This is the Characteristic instance associated with this screen.
      When this is changed, we wipe the cache.
      */
@@ -229,6 +235,58 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
 // MARK: - Instance Methods -
 /* ###################################################################################################################################### */
 extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
+    /* ################################################################## */
+    /**
+     This sets up the Descriptor list (if any).
+     */
+    func setUpDescriptors() {
+        func createLabel(_ inText: String, isHeader: Bool = false) -> NSView {
+            let ret = NSTextField()
+            ret.textColor = .white
+            ret.drawsBackground = false
+            ret.isBordered = false
+            ret.isBezeled = false
+            ret.isEditable = false
+            if isHeader {
+                ret.font = .boldSystemFont(ofSize: 16)
+            } else {
+                ret.font = .systemFont(ofSize: 14)
+            }
+            
+            ret.stringValue = inText
+            
+            return ret
+        }
+        
+        if  let characteristicInstance = characteristicInstance,
+            0 < characteristicInstance.count {
+            descriptorStackView?.arrangedSubviews.forEach { $0.removeFromSuperview() }
+            
+            for descriptor in characteristicInstance {
+                descriptorStackView?.addArrangedSubview(createLabel(descriptor.id.localizedVariant, isHeader: true))
+                var labelText = ""
+                
+                if let characteristic = descriptor as? CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration {
+                    labelText = "SLUG-ACC-DESCRIPTOR-CLIENTCHAR-NOTIFY-\(characteristic.isNotifying ? "YES" : "NO")".localizedVariant
+                    labelText += "SLUG-ACC-DESCRIPTOR-CLIENTCHAR-INDICATE-\(characteristic.isIndicating ? "YES" : "NO")".localizedVariant
+                }
+                
+                if let characteristic = descriptor as? CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties {
+                    labelText = "SLUG-ACC-DESCRIPTOR-EXTENDED-RELIABLE-WR-\(characteristic.isReliableWriteEnabled ? "YES" : "NO")".localizedVariant
+                    labelText += "SLUG-ACC-DESCRIPTOR-EXTENDED-AUX-WR-\(characteristic.isWritableAuxiliariesEnabled ? "YES" : "NO")".localizedVariant
+                }
+                
+                if let characteristic = descriptor as? CGA_Bluetooth_Descriptor_PresentationFormat {
+                    labelText = "SLUG-CHAR-PRESENTATION-\(characteristic.stringValue ?? "255")".localizedVariant
+                }
+                descriptorStackView?.addArrangedSubview(createLabel(labelText))
+            }
+            
+            descriptorStackView?.isHidden = false
+        } else {
+            descriptorStackView?.isHidden = true
+        }
+    }
     
     /* ################################################################## */
     /**
@@ -239,9 +297,8 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
         notifyButton?.isHidden = !(characteristicInstance?.canNotify ?? false)
         indicateLabel?.isHidden = !(characteristicInstance?.canIndicate ?? false)
         extendedLabel?.isHidden = !(characteristicInstance?.hasExtendedProperties ?? false)
-        
     }
-  
+
     /* ################################################################## */
     /**
      This either shows or hides the read items.
@@ -371,6 +428,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_Blu
         setButtonsAndLabelsVisibility()
         setReadItemsVisibility()
         setWriteItemsVisibility()
+        setUpDescriptors()
         setUpAccessibility()
     }
 }
