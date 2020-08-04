@@ -1,5 +1,12 @@
 # RVS_BlueThoth Change Log
 
+## 1.4.1.0000
+
+- **TBD**
+
+- Added Mac test harness.
+- Some minor fixes and work on the SDK.
+
 ## 1.4.0.0000
 
 - **July 28, 2020**
