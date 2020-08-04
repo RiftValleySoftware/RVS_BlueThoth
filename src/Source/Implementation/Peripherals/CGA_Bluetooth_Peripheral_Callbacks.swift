@@ -399,6 +399,7 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
         #endif
         guard let error = inError else {
             if let characteristic = sequence_contents.characteristic(inCharacteristic) {
+                characteristic.forEach { $0.readValue() }
                 central?.updateThisCharacteristicNotificationState(characteristic)
             }
             return
@@ -435,6 +436,7 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
                     print("Updating the \(characteristic.id) Characteristic, which currently has the value: \(String(describing: characteristic.value))")
                 }
             #endif
+            characteristic.forEach { $0.readValue() }
             // If we are concatenating data, we simply slap this onto the end of what we already have.
             if  nil != characteristic._value,
                 characteristic.concatenateValue,

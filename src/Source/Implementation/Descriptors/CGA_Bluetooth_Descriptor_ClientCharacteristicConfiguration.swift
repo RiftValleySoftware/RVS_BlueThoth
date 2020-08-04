@@ -34,7 +34,7 @@ public class CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration: CGA_Blu
      - returns: True, if the Characteristic is currently notifying.
      */
     public var isNotifying: Bool {
-        guard let value = cbElementInstance.value as? Int8 else { return false }
+        guard let value = intValue else { return false }
         return 1 == value & 0x01
     }
     
@@ -43,7 +43,7 @@ public class CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration: CGA_Blu
      - returns: True, if the Characteristic is currently indicating.
      */
     public var isIndicating: Bool {
-        guard let value = cbElementInstance.value as? Int8 else { return false }
+        guard let value = intValue else { return false }
         return 2 == value & 0x02
     }
     

@@ -343,13 +343,20 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
      - parameter characteristicWriteComplete: The Characteristic that had its write completed.
      */
     func centralManager(_ inCentralManager: RVS_BlueThoth, device inPeripheral: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, characteristicWriteComplete inCharacteristic: CGA_Bluetooth_Characteristic) {
-        #if DEBUG
-            print("Characteristic: \(inCharacteristic.id) Wrote Its Value")
-            if  let stringValue = inCharacteristic.stringValue {
-                print("\tCharacteristic String Value: \"\(stringValue)\"")
-            }
-        #endif
-        
         Self.displayAlert(header: "WRITE-RESPONSE".localizedVariant)
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called to tell the instance that a Descriptor changed its value.
+     
+     - parameter centralManager: The central manager that is calling this.
+     - parameter device: The device instance that contained the changed Service.
+     - parameter service: The Service instance that contained the changed Characteristic.
+     - parameter characteristic: The Characteristic that contains the Descriptor that was changed.
+     - parameter changedDescriptor: The Descriptor that was changed.
+     */
+    public func centralManager(_ inCentral: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, characteristic inCharacteristic: CGA_Bluetooth_Characteristic, changedDescriptor inDescriptor: CGA_Bluetooth_Descriptor) {
+        updateScreen(inCharacteristic.id)
     }
 }

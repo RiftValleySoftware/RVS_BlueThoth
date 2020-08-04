@@ -69,7 +69,10 @@ public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Interna
      This computed property is defined here, so it can be overridden by subclasses.
      */
     public var intValue: Int64? {
-        guard var data = dataValue else { return nil }
+        guard var data = dataValue else {
+            guard let value = cbElementInstance?.value as? NSNumber else { return nil }
+            return value.int64Value
+        }
         var number = Int64(0)
         data.castInto(&number)
         return number
@@ -81,7 +84,10 @@ public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Interna
      This computed property is defined here, so it can be overridden by subclasses.
      */
     public var uInt8Value: UInt8? {
-        guard var data = dataValue else { return nil }
+        guard var data = dataValue else {
+            guard let value = cbElementInstance?.value as? NSNumber else { return nil }
+            return value.uint8Value
+        }
         var number = UInt8(0)
         data.castInto(&number)
         return number
@@ -93,7 +99,10 @@ public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Interna
      This computed property is defined here, so it can be overridden by subclasses.
      */
     public var uInt16Value: UInt16? {
-        guard var data = dataValue else { return nil }
+        guard var data = dataValue else {
+            guard let value = cbElementInstance?.value as? NSNumber else { return nil }
+            return value.uint16Value
+        }
         var number = UInt16(0)
         data.castInto(&number)
         return number
@@ -105,7 +114,10 @@ public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Interna
      This computed property is defined here, so it can be overridden by subclasses.
      */
     public var uInt32Value: UInt32? {
-        guard var data = dataValue else { return nil }
+        guard var data = dataValue else {
+            guard let value = cbElementInstance?.value as? NSNumber else { return nil }
+            return value.uint32Value
+        }
         var number = UInt32(0)
         data.castInto(&number)
         return number
@@ -117,7 +129,10 @@ public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Interna
      This computed property is defined here, so it can be overridden by subclasses.
      */
     public var uInt64Value: UInt64? {
-        guard var data = dataValue else { return nil }
+        guard var data = dataValue else {
+            guard let value = cbElementInstance?.value as? NSNumber else { return nil }
+            return value.uint64Value
+        }
         var number = UInt64(0)
         data.castInto(&number)
         return number
@@ -129,7 +144,10 @@ public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Interna
      This computed property is defined here, so it can be overridden by subclasses.
      */
     public var boolValue: Bool? {
-        guard var data = dataValue else { return nil }
+        guard var data = dataValue else {
+            guard let value = cbElementInstance?.value as? NSNumber else { return nil }
+            return value.boolValue
+        }
         var ret = Bool(false)
         data.castInto(&ret)
         return ret
@@ -141,7 +159,10 @@ public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Interna
      This computed property is defined here, so it can be overridden by subclasses.
      */
     public var doubleValue: Double? {
-        guard var data = dataValue else { return nil }
+        guard var data = dataValue else {
+            guard let value = cbElementInstance?.value as? NSNumber else { return nil }
+            return value.doubleValue
+        }
         var ret = Double(0.0)
         data.castInto(&ret)
         return ret
