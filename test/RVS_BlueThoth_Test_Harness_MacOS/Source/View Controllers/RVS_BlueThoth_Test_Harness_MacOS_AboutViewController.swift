@@ -28,12 +28,27 @@ import RVS_Generic_Swift_Toolbox
 /* ###################################################################################################################################### */
 /**
  */
-class RVS_BlueThoth_Test_Harness_MacOS_AboutViewController: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController {
+class RVS_BlueThoth_Test_Harness_MacOS_AboutViewController: NSViewController {
+    /* ################################################################## */
+    /**
+     The app version label.
+     */
+    @IBOutlet weak var versionLabel: NSTextField!
+    
+    /* ################################################################## */
+    /**
+     The label that contains the main app info.
+     */
+    @IBOutlet weak var mainInfoLabel: NSTextField!
+
     /* ################################################################## */
     /**
      Called when the view hierachy has loaded.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = title?.localizedVariant
+        versionLabel?.stringValue = String(format: "SLUG-VERSION-FORMAT".localizedVariant, Bundle.main.appVersionString, Bundle.main.appVersionBuildString)
+        mainInfoLabel?.stringValue = (mainInfoLabel?.stringValue ?? "ERROR").localizedVariant
     }
 }

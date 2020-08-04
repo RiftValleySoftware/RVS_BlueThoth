@@ -79,6 +79,66 @@ extension Array where Element == RVS_BlueThoth_Test_Harness_MacOS_ControllerList
 }
 
 /* ###################################################################################################################################### */
+// MARK: - Bundle Extension -
+/* ###################################################################################################################################### */
+/**
+ This extension adds a few simple accessors for some of the more common bundle items.
+ */
+extension Bundle {
+    // MARK: General Stuff for common Apple-Supplied Items
+    
+    /* ################################################################## */
+    /**
+     The app name, as a string. It is required, and "ERROR" is returned if it is not present.
+     */
+    var appDisplayName: String { (object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ?? object(forInfoDictionaryKey: "CFBundleName") as? String) ?? "ERROR" }
+
+    /* ################################################################## */
+    /**
+     The app version, as a string. It is required, and "ERROR" is returned if it is not present.
+     */
+    var appVersionString: String { object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "ERROR" }
+    
+    /* ################################################################## */
+    /**
+     The build version, as a string. It is required, and "ERROR" is returned if it is not present.
+     */
+    var appVersionBuildString: String { object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "ERROR" }
+    
+    /* ################################################################## */
+    /**
+     If there is a copyright string, it is returned here. It may be nil.
+     */
+    var copyrightString: String? { object(forInfoDictionaryKey: "NSHumanReadableCopyright") as? String }
+
+    // MARK: Specific to this app.
+    
+    /* ################################################################## */
+    /**
+     If there is a copyright site URI, it is returned here as a String. It may be nil.
+     */
+    var siteURIAsString: String? { object(forInfoDictionaryKey: "InfoScreenCopyrightSiteURL") as? String }
+    
+    /* ################################################################## */
+    /**
+     If there is a help site URI, it is returned here as a String. It may be nil.
+     */
+    var helpURIAsString: String? { object(forInfoDictionaryKey: "InfoScreenHelpSiteURL") as? String }
+    
+    /* ################################################################## */
+    /**
+     If there is a copyright site URI, it is returned here as a URL. It may be nil.
+     */
+    var siteURI: URL? { URL(string: siteURIAsString ?? "") }
+    
+    /* ################################################################## */
+    /**
+     If there is a help site URI, it is returned here as a URL. It may be nil.
+     */
+    var helpURI: URL? { URL(string: helpURIAsString ?? "") }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - The Main Application Delegate -
 /* ###################################################################################################################################### */
 /**
@@ -91,6 +151,12 @@ class RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: NSObject, NSApplicationDeleg
      */
     static let deviceScreenID = "DeviceDiscovery"
 
+    /* ################################################################## */
+    /**
+     This is the menu item for the about item. It allows us to customize the text.
+     */
+    @IBOutlet weak var aboutMenuItem: NSMenuItem!
+    
     /* ################################################################## */
     /**
      This is the Bluetooth Central Manager instance. Everything goes through this.
@@ -121,6 +187,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate {
      - parameter: ignored.
      */
     func applicationDidFinishLaunching(_: Notification) {
+        aboutMenuItem?.title = (aboutMenuItem?.title ?? "ERROR").localizedVariant
         centralManager = RVS_BlueThoth(delegate: self)
     }
 

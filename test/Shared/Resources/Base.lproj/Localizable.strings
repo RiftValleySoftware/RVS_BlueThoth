@@ -53,7 +53,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-ID"                           =   "ID";
 
 // Mac Main Window Title
-"SLUG-INITIAL"                      =   "Bluetooth Explorer";
+"SLUG-INITIAL"                      =   "RVS_BlueThoth_Test_Harness_MacOS";
 
 // MARK: - Services screen
 "SLUG-CONNECTING"                   =   "CONNECTING...";
@@ -101,6 +101,10 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-VERSION-FORMAT"               =   "VERSION: %@ (%@)";
 "SLUG-MAIN-INFO-TEXT"               =   "This is a test harness app for the RVS_BlueThoth Bluetooth Framework.";
 
+// Mac-Only
+"SLUG-ABOUT-MENU"                   =   "About RVS_BlueThoth_Test_Harness_MacOS";
+"SLUG-ABOUT-TITLE"                  =   "About RVS_BlueThoth_Test_Harness_MacOS";
+
 // MARK: - Settings screen
 "SLUG-IGNORE-DUPES"                 =   "Continuously Update:";
 "SLUG-EMPTY-NAME"                   =   "Allow Empty Names:";
@@ -114,6 +118,9 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-RSSI-LEVEL-FORMAT"            =   "%d dBm";
 "SLUG-MINIMUM-RSSI-LEFT-FORMAT"     =   "%d";
 "SLUG-MINIMUM-RSSI-RIGHT-FORMAT"    =   "%d";
+
+// Mac-Only
+"SLUG-PREFERENCES"                  =   "Preferences";
 
 /// MARK: - ACCESSIBILITY STRINGS
 

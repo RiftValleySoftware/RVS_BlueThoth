@@ -15,8 +15,7 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="RVS_BlueThoth_Test_Harness_MacOS" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
-                                        <menuItem title="About RVS_BlueThoth_Test_Harness_MacOS" id="5kV-Vb-QxS">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menuItem title="SLUG-ABOUT-MENU" id="5kV-Vb-QxS">
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
                                                 <segue destination="ggO-dc-5dW" kind="modal" id="de9-2x-1x1"/>
@@ -679,7 +678,11 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="RVS_BlueThoth_Test_Harness_MacOS_AppDelegate" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="RVS_BlueThoth_Test_Harness_MacOS_AppDelegate" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target">
+                    <connections>
+                        <outlet property="aboutMenuItem" destination="5kV-Vb-QxS" id="hGZ-7c-0uS"/>
+                    </connections>
+                </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -873,31 +876,61 @@
         <!--About Screen-->
         <scene sceneID="Xzc-tz-AWb">
             <objects>
-                <viewController title="SLUG-ABOUT" id="XO0-1B-MQg" userLabel="About Screen" customClass="RVS_BlueThoth_Test_Harness_MacOS_AboutViewController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="SLUG-ABOUT-TITLE" id="XO0-1B-MQg" userLabel="About Screen" customClass="RVS_BlueThoth_Test_Harness_MacOS_AboutViewController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="9JF-I4-0LW">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="93"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="vHS-mF-VVV" userLabel="Background Gradient Image View">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="93"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="axesIndependently" image="background-gradient" id="GEb-ll-bmh"/>
                             </imageView>
                             <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" alphaValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="A1K-Hc-guy" userLabel="BlueThoth Logo Image View">
-                                <rect key="frame" x="96" y="54" width="288" height="162"/>
+                                <rect key="frame" x="96" y="19" width="288" height="55"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="BlueThothLogo" id="350-Oa-NVh"/>
                             </imageView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Jeu-mm-5TV">
+                                <rect key="frame" x="18" y="47" width="444" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="26" id="pqU-oK-DOv"/>
+                                </constraints>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Label" id="iSU-l1-T6s">
+                                    <font key="font" metaFont="systemBold" size="20"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OcM-qf-sfp">
+                                <rect key="frame" x="18" y="20" width="444" height="19"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="SLUG-MAIN-INFO-TEXT" id="6cd-yI-ah8">
+                                    <font key="font" metaFont="system" size="16"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstItem="A1K-Hc-guy" firstAttribute="centerY" secondItem="9JF-I4-0LW" secondAttribute="centerY" id="2B1-ww-7pv"/>
+                            <constraint firstAttribute="bottom" secondItem="OcM-qf-sfp" secondAttribute="bottom" constant="20" id="2Kk-Ed-m4B"/>
                             <constraint firstItem="vHS-mF-VVV" firstAttribute="leading" secondItem="9JF-I4-0LW" secondAttribute="leading" id="5FQ-Sk-sGh"/>
+                            <constraint firstItem="Jeu-mm-5TV" firstAttribute="leading" secondItem="9JF-I4-0LW" secondAttribute="leading" constant="20" id="9sm-zk-yQY"/>
                             <constraint firstItem="A1K-Hc-guy" firstAttribute="centerX" secondItem="9JF-I4-0LW" secondAttribute="centerX" id="Inw-LJ-OCh"/>
                             <constraint firstAttribute="bottom" secondItem="vHS-mF-VVV" secondAttribute="bottom" id="WTD-hF-B02"/>
+                            <constraint firstItem="OcM-qf-sfp" firstAttribute="top" secondItem="Jeu-mm-5TV" secondAttribute="bottom" constant="8" id="Wjn-dK-FGh"/>
+                            <constraint firstAttribute="trailing" secondItem="OcM-qf-sfp" secondAttribute="trailing" constant="20" id="aOM-bl-E91"/>
                             <constraint firstItem="A1K-Hc-guy" firstAttribute="height" relation="lessThanOrEqual" secondItem="vHS-mF-VVV" secondAttribute="height" multiplier="0.6" id="bvu-OX-QNw"/>
+                            <constraint firstItem="OcM-qf-sfp" firstAttribute="leading" secondItem="9JF-I4-0LW" secondAttribute="leading" constant="20" id="cPO-EG-w8m"/>
                             <constraint firstAttribute="trailing" secondItem="vHS-mF-VVV" secondAttribute="trailing" id="fRA-lZ-1Jn"/>
+                            <constraint firstItem="Jeu-mm-5TV" firstAttribute="top" secondItem="9JF-I4-0LW" secondAttribute="top" constant="20" id="gCI-LO-sjt"/>
                             <constraint firstItem="vHS-mF-VVV" firstAttribute="top" secondItem="9JF-I4-0LW" secondAttribute="top" id="lT2-J2-gZL"/>
                             <constraint firstItem="A1K-Hc-guy" firstAttribute="width" relation="lessThanOrEqual" secondItem="vHS-mF-VVV" secondAttribute="width" multiplier="0.6" id="twe-Qc-gi1"/>
+                            <constraint firstAttribute="trailing" secondItem="Jeu-mm-5TV" secondAttribute="trailing" constant="20" id="vv7-u2-2yG"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mainInfoLabel" destination="OcM-qf-sfp" id="dJy-lv-gYi"/>
+                        <outlet property="versionLabel" destination="Jeu-mm-5TV" id="JIP-uK-uqr"/>
+                    </connections>
                 </viewController>
                 <customObject id="qc7-ES-0kw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -907,7 +940,7 @@
         <scene sceneID="6OC-fc-Ybp">
             <objects>
                 <windowController showSeguePresentationStyle="single" id="ggO-dc-5dW" userLabel="About Window Controller" customClass="RVS_BlueThoth_MacOS_Test_Harness_Base_WindowController" customModule="RVS_BlueThoth_Test_Harness_MacOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="SLUG-ABOUT" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="U6c-CL-CF3">
+                    <window key="window" title="SLUG-ABOUT-TITLE" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="U6c-CL-CF3">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>

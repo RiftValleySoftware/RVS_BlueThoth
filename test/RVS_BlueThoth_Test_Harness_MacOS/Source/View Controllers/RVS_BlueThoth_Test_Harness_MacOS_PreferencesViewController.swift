@@ -123,6 +123,7 @@ class RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController: RVS_BlueThoth_
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = title?.localizedVariant
         centralManager?.stopScanning()
         centralManager?.startOver()
         ignoreDupesCheckbox?.title = ignoreDupesCheckbox?.title.localizedVariant ?? "ERROR"
