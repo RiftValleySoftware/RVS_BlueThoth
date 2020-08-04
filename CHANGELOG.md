@@ -2,7 +2,7 @@
 
 ## 1.4.1.0000
 
-- **TBD**
+- **August 4, 2020**
 
 - Added Mac test harness.
 - Some minor fixes and work on the SDK.
