@@ -316,6 +316,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
      - parameter changedCharacteristicNotificationState: The Characteristic that was changed.
      */
     func centralManager(_ inCentral: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, changedCharacteristicNotificationState inCharacteristic: CGA_Bluetooth_Characteristic) {
+        inCharacteristic.forEach { $0.readValue() }
         updateScreen(inCharacteristic.id)
     }
 
@@ -330,6 +331,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
         - changedCharacteristic: The Characteristic that has experienced the change.
      */
     func centralManager(_ inCentral: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, changedCharacteristic inCharacteristic: CGA_Bluetooth_Characteristic) {
+        inCharacteristic.forEach { $0.readValue() }
         updateScreen(inCharacteristic.id)
     }
     
@@ -343,6 +345,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_AppDelegate: CGA_BlueThoth_Delegate {
      - parameter characteristicWriteComplete: The Characteristic that had its write completed.
      */
     func centralManager(_ inCentralManager: RVS_BlueThoth, device inPeripheral: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, characteristicWriteComplete inCharacteristic: CGA_Bluetooth_Characteristic) {
+        inCharacteristic.forEach { $0.readValue() }
         Self.displayAlert(header: "WRITE-RESPONSE".localizedVariant)
     }
     
