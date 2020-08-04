@@ -27,6 +27,7 @@ import RVS_BlueThoth_MacOS
 // MARK: - The Peripheral Screen View Controller -
 /* ###################################################################################################################################### */
 /**
+ This controls the main screen for a Peripheral, once it has been selected in the Discovery screen. It appears in the first screen to the right of the Discovery Screen.
  */
 class RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueThoth_MacOS_Test_Harness_Base_SplitView_ViewController {
     /* ################################################################## */
@@ -59,7 +60,7 @@ class RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController: RVS_BlueThoth_M
      */
     var peripheralInstance: RVS_BlueThoth.DiscoveryData? {
         didSet {
-            updateUI()
+            updateUI()  // Update the UI whjen this is set, to make sure we adapt.
         }
     }
 

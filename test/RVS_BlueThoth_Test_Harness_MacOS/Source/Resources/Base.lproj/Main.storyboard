@@ -1533,7 +1533,7 @@
                                         <rect key="frame" x="0.0" y="431" width="347" height="24"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hm6-0r-PBT">
-                                                <rect key="frame" x="-6" y="-7" width="63" height="35"/>
+                                                <rect key="frame" x="-6" y="-7" width="93" height="35"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="24" id="XOe-L8-2Rf"/>
                                                 </constraints>
@@ -1546,7 +1546,7 @@
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4Mr-x8-EbQ">
-                                                <rect key="frame" x="57" y="-2" width="55" height="28"/>
+                                                <rect key="frame" x="87" y="-2" width="85" height="28"/>
                                                 <buttonCell key="cell" type="check" title="SLUG-NOTIFY-BUTTON" bezelStyle="regularSquare" imagePosition="left" inset="2" id="KRe-YQ-cxA">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="systemBold" size="15"/>
@@ -1557,31 +1557,15 @@
                                                 </connections>
                                             </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PLB-kS-sK4">
-                                                <rect key="frame" x="116" y="0.0" width="55" height="24"/>
+                                                <rect key="frame" x="176" y="0.0" width="84" height="24"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="SLUG-INDICATE-LABEL" id="AAb-03-OiY">
                                                     <font key="font" metaFont="systemBold" size="16"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wL5-ns-5tt">
-                                                <rect key="frame" x="176" y="0.0" width="55" height="24"/>
-                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="SLUG-WRITE-RESPONSE-LABEL" id="TUz-GR-nYy">
-                                                    <font key="font" metaFont="systemBold" size="16"/>
-                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                            </textField>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8hg-12-mgP">
-                                                <rect key="frame" x="235" y="0.0" width="55" height="24"/>
-                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="SLUG-WRITE-NO-RESPONSE-LABEL" id="7jf-6I-TZM">
-                                                    <font key="font" metaFont="systemBold" size="16"/>
-                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                            </textField>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lE5-hR-Yql">
-                                                <rect key="frame" x="294" y="0.0" width="55" height="24"/>
+                                                <rect key="frame" x="264" y="0.0" width="85" height="24"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="SLUG-EX-LABEL" id="7ar-SO-WwM">
                                                     <font key="font" metaFont="systemBold" size="16"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1592,12 +1576,8 @@
                                         <constraints>
                                             <constraint firstItem="lE5-hR-Yql" firstAttribute="width" secondItem="hm6-0r-PBT" secondAttribute="width" id="Ekl-FP-5gN"/>
                                             <constraint firstItem="PLB-kS-sK4" firstAttribute="height" secondItem="hm6-0r-PBT" secondAttribute="height" id="VXC-ls-F94"/>
-                                            <constraint firstItem="wL5-ns-5tt" firstAttribute="height" secondItem="hm6-0r-PBT" secondAttribute="height" id="ZvE-Bb-Ode"/>
-                                            <constraint firstItem="wL5-ns-5tt" firstAttribute="width" secondItem="hm6-0r-PBT" secondAttribute="width" id="bBb-hV-8d4"/>
                                             <constraint firstItem="lE5-hR-Yql" firstAttribute="height" secondItem="hm6-0r-PBT" secondAttribute="height" id="eR2-Ym-aK8"/>
-                                            <constraint firstItem="8hg-12-mgP" firstAttribute="width" secondItem="hm6-0r-PBT" secondAttribute="width" id="fGS-1O-ctM"/>
                                             <constraint firstItem="4Mr-x8-EbQ" firstAttribute="width" secondItem="hm6-0r-PBT" secondAttribute="width" id="gjQ-Ei-hyV"/>
-                                            <constraint firstItem="8hg-12-mgP" firstAttribute="height" secondItem="hm6-0r-PBT" secondAttribute="height" id="oML-Tx-u0f"/>
                                             <constraint firstItem="PLB-kS-sK4" firstAttribute="width" secondItem="hm6-0r-PBT" secondAttribute="width" id="quJ-Pg-N8R"/>
                                             <constraint firstItem="4Mr-x8-EbQ" firstAttribute="height" secondItem="hm6-0r-PBT" secondAttribute="height" id="scC-l6-KlX"/>
                                         </constraints>
@@ -1606,12 +1586,8 @@
                                             <integer value="1000"/>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
-                                            <integer value="1000"/>
-                                            <integer value="1000"/>
                                         </visibilityPriorities>
                                         <customSpacing>
-                                            <real value="3.4028234663852886e+38"/>
-                                            <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
@@ -1803,11 +1779,8 @@
                         <outlet property="sendButtonText" destination="qTB-GB-arT" id="dBP-4w-5oK"/>
                         <outlet property="sendResponseButtonText" destination="oJQ-az-fUF" id="wWf-VY-2oG"/>
                         <outlet property="valueTextFieldLabel" destination="mwA-hH-MG8" id="FZ8-Ws-VVN"/>
-                        <outlet property="valueTextFieldLabelContainer" destination="h5Z-1y-aMc" id="Zd3-U9-hd5"/>
                         <outlet property="valueTextView" destination="ufr-ng-tdO" id="soP-S5-43K"/>
                         <outlet property="valueTextViewContainer" destination="hFr-FW-McK" id="Mws-dV-hnM"/>
-                        <outlet property="writeNoResponseLabel" destination="8hg-12-mgP" id="3Pw-3L-3ze"/>
-                        <outlet property="writeResponseLabel" destination="wL5-ns-5tt" id="ilu-2O-GlX"/>
                         <outlet property="writeTextFieldLabel" destination="pB2-89-m2W" id="tCj-zJ-9dX"/>
                         <outlet property="writeTextFieldLabelContainer" destination="GmL-0W-tEV" id="aDB-Eg-jsZ"/>
                         <outlet property="writeTextView" destination="vng-ok-T4g" id="Kmz-LN-HGN"/>

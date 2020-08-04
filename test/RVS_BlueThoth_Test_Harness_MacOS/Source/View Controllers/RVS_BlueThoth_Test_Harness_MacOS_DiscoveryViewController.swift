@@ -24,9 +24,10 @@ import Cocoa
 import RVS_BlueThoth_MacOS
 
 /* ###################################################################################################################################### */
-// MARK: - The Initial Screen View Controller -
+// MARK: - The Device Discovery Screen View Controller -
 /* ###################################################################################################################################### */
 /**
+ This is the permanent Device Discovery Screen. It is the leftmost screen, and contains a table that is updated as the discovery scanning goes on.
  */
 class RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController: RVS_BlueThoth_MacOS_Test_Harness_Base_SplitView_ViewController {
     /* ################################################################## */

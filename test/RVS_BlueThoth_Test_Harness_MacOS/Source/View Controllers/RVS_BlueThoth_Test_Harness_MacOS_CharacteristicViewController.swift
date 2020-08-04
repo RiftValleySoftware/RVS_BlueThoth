@@ -27,6 +27,7 @@ import RVS_BlueThoth_MacOS
 // MARK: - The Characteristic Screen View Controller -
 /* ###################################################################################################################################### */
 /**
+ This controls the screen for a selected Characteristic. It appears in the screen just to the right of the Peripheral Screen.
  */
 class RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_BlueThoth_MacOS_Test_Harness_Base_SplitView_ViewController {
     /* ################################################################## */
@@ -49,91 +50,91 @@ class RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_BlueTho
     
     /* ################################################################## */
     /**
+     This is the read button. Selecting this, sends a read command to the Peripheral.
      */
     @IBOutlet weak var readButton: NSButton!
     
     /* ################################################################## */
     /**
+     This checkbox controls the notification state for the Characteristic.
      */
     @IBOutlet weak var notifyButton: NSButton!
     
     /* ################################################################## */
     /**
+     This is an indicator for indication.
      */
     @IBOutlet weak var indicateLabel: NSTextField!
     
     /* ################################################################## */
     /**
-     */
-    @IBOutlet weak var writeResponseLabel: NSTextField!
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBOutlet weak var writeNoResponseLabel: NSTextField!
-    
-    /* ################################################################## */
-    /**
+     This is the label that says there are extended attributes in a Descriptor.
      */
     @IBOutlet weak var extendedLabel: NSTextField!
     
     /* ################################################################## */
     /**
+     This is the stack view that wraps the read header items.
      */
     @IBOutlet weak var readHeaderStackView: NSStackView!
-    
+
     /* ################################################################## */
     /**
-     */
-    @IBOutlet weak var valueTextFieldLabelContainer: NSTextField!
-    
-    /* ################################################################## */
-    /**
+     This is the label for the Read Value text area.
      */
     @IBOutlet weak var valueTextFieldLabel: NSTextFieldCell!
 
     /* ################################################################## */
     /**
+     This is the wrapper for the value text area.
      */
     @IBOutlet weak var valueTextViewContainer: NSTextField!
     
     /* ################################################################## */
     /**
+     This is the actual text item for the value text area.
      */
     @IBOutlet weak var valueTextView: NSTextFieldCell!
     
     /* ################################################################## */
     /**
+     This wraps the write text entry area label.
      */
     @IBOutlet weak var writeTextFieldLabelContainer: NSTextField!
     
     /* ################################################################## */
     /**
+     This is the actual text item for the write text label.
      */
     @IBOutlet weak var writeTextFieldLabel: NSTextFieldCell!
     
     /* ################################################################## */
     /**
+     This wraps the text entry text view.
      */
     @IBOutlet weak var writeTextViewContainer: NSScrollView!
     
     /* ################################################################## */
     /**
+     This is the text entry text view.
      */
     @IBOutlet var writeTextView: NSTextView!
 
     /* ################################################################## */
     /**
+     This wraps the send buttons.
      */
     @IBOutlet weak var sendButtonContainer: NSView!
 
     /* ################################################################## */
     /**
+     This is the send (no response) button text.
      */
     @IBOutlet weak var sendButtonText: NSButtonCell!
         
     /* ################################################################## */
     /**
+     This is the send (with response) button text.
      */
     @IBOutlet weak var sendResponseButtonText: NSButtonCell!
     
@@ -237,8 +238,6 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
         readButton?.isHidden = !(characteristicInstance?.canRead ?? false)
         notifyButton?.isHidden = !(characteristicInstance?.canNotify ?? false)
         indicateLabel?.isHidden = !(characteristicInstance?.canIndicate ?? false)
-        writeNoResponseLabel?.isHidden = !(characteristicInstance?.canWriteWithoutResponse ?? false)
-        writeResponseLabel?.isHidden = !(characteristicInstance?.canWriteWithResponse ?? false)
         extendedLabel?.isHidden = !(characteristicInstance?.hasExtendedProperties ?? false)
         
     }
@@ -301,8 +300,6 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
         readButton?.title = (readButton?.title ?? "ERROR").localizedVariant
         notifyButton?.title = (notifyButton?.title ?? "ERROR").localizedVariant
         indicateLabel?.stringValue = (indicateLabel?.stringValue ?? "ERROR").localizedVariant
-        writeResponseLabel?.stringValue = (writeResponseLabel?.stringValue ?? "ERROR").localizedVariant
-        writeNoResponseLabel?.stringValue = (writeNoResponseLabel?.stringValue ?? "ERROR").localizedVariant
         extendedLabel?.stringValue = (extendedLabel?.stringValue ?? "ERROR").localizedVariant
         sendButtonText?.title = (sendButtonText?.title ?? "ERROR").localizedVariant
         sendResponseButtonText?.title = (sendResponseButtonText?.title ?? "ERROR").localizedVariant
@@ -343,10 +340,6 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
         readButton?.toolTip = readButton?.accessibilityTitle()
         indicateLabel?.setAccessibilityTitle("SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-INDICATE".localizedVariant)
         indicateLabel?.toolTip = indicateLabel?.accessibilityTitle()
-        writeResponseLabel?.setAccessibilityTitle("SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-WRITE-RESPONSE".localizedVariant)
-        writeResponseLabel?.toolTip = writeResponseLabel?.accessibilityTitle()
-        writeNoResponseLabel?.setAccessibilityTitle("SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-WRITE".localizedVariant)
-        writeNoResponseLabel?.toolTip = writeNoResponseLabel?.accessibilityTitle()
         extendedLabel?.setAccessibilityTitle("SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-EXTENDED".localizedVariant)
         extendedLabel?.toolTip = extendedLabel?.accessibilityTitle()
         sendButtonText?.setAccessibilityTitle("SLUG-ACC-SEND-BUTTON".localizedVariant)

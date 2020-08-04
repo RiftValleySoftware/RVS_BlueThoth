@@ -27,96 +27,126 @@ import RVS_Persistent_Prefs
 // MARK: - The Preferences Screen View Controller -
 /* ###################################################################################################################################### */
 /**
+ This is the Preferences/Settings modal screen.
  */
 class RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController: RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController {
     /* ################################################################## */
     /**
+     The checkbox that allows us to continuously update while scanning.
      */
     @IBOutlet weak var ignoreDupesCheckbox: NSButton!
     
     /* ################################################################## */
     /**
+     The checkbox that allows scanning to include Peripherals with no names.
      */
     @IBOutlet weak var allowEmptyNamesCheckbox: NSButton!
     
     /* ################################################################## */
     /**
+     The checkbox that allows non-connectbale device to be read (or only connectable)
      */
     @IBOutlet weak var onlyConnectableCheckbox: NSButton!
     
     /* ################################################################## */
     /**
+     The checkbox that ensures that all linefeeds/carriage returns be sent as a full CRLF pair.
      */
     @IBOutlet weak var alwaysUseCRLFCheckbox: NSButton!
     
     /* ################################################################## */
     /**
+     The label for the RSSI slider.
      */
     @IBOutlet weak var minimumRSSILabel: NSTextFieldCell!
 
     /* ################################################################## */
     /**
+     The label for the low end of the slider.
      */
     @IBOutlet weak var minimumRSSIFixedLabel: NSTextFieldCell!
     
     /* ################################################################## */
     /**
+     The label that displays the current slider value.
      */
     @IBOutlet weak var rssiValueLabel: NSTextFieldCell!
     
     /* ################################################################## */
     /**
+     The label for the upper end of the slider.
      */
     @IBOutlet weak var maximumRSSIFixedLabel: NSTextFieldCell!
     
     /* ################################################################## */
     /**
+     The slider.
      */
     @IBOutlet weak var minimumRSSISlider: NSSlider!
     
     /* ################################################################## */
     /**
+     The label for the filters section.
      */
     @IBOutlet weak var filterUUIDsLabel: NSTextFieldCell!
     
     /* ################################################################## */
     /**
+     The label for the devices filter.
      */
     @IBOutlet weak var deviceFiltersLabel: NSTextFieldCell!
     
     /* ################################################################## */
     /**
+     The devices text view.
      */
     @IBOutlet var deviceFilterTextView: NSTextView!
     
     /* ################################################################## */
     /**
+     The label for the services filter.
      */
     @IBOutlet weak var serviceFiltersLabel: NSTextFieldCell!
     
     /* ################################################################## */
     /**
+     The services filter text view.
      */
     @IBOutlet var serviceFiltersTextView: NSTextView!
     
     /* ################################################################## */
     /**
+     The label for the characteristic text view.
      */
     @IBOutlet weak var characteristicsFiltersLabel: NSTextFieldCell!
 
     /* ################################################################## */
     /**
+     The Characteristic text view.
      */
     @IBOutlet var characteristicsFiltersTextView: NSTextView!
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: - IBAction Methods -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController {
     /* ################################################################## */
     /**
+     Called when the RSSI slider changes value.
+     
+     - parameter inSlider: The RSSI slider object.
      */
     @IBAction func minimumRSSIChanged(_ inSlider: NSSlider) {
         prefs.minimumRSSILevel = Int(inSlider.intValue)
         updateUI()
     }
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Base Class Override Methods -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController {
     /* ################################################################## */
     /**
      Called when the view hierachy has loaded.
@@ -146,6 +176,7 @@ class RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController: RVS_BlueThoth_
     
     /* ################################################################## */
     /**
+     Sets up all the accessibility items.
      */
     override func setUpAccessibility() {
         let ignoreDupesString = "SLUG-ACC-CONTINUOUS-UPDATE-SWITCH-O" + (prefs.continuouslyUpdatePeripherals ? "N" : "FF")
