@@ -139,6 +139,7 @@ class RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_BlueTho
     
     /* ################################################################## */
     /**
+     This allows you to wipe the value, and start over.
      */
     @IBOutlet weak var refreshButton: NSButton!
     
@@ -338,6 +339,24 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController {
      Sets up the various accessibility labels.
      */
     override func setUpAccessibility() {
+        readButton?.setAccessibilityTitle("SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-READ".localizedVariant)
+        readButton?.toolTip = readButton?.accessibilityTitle()
+        indicateLabel?.setAccessibilityTitle("SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-INDICATE".localizedVariant)
+        indicateLabel?.toolTip = indicateLabel?.accessibilityTitle()
+        writeResponseLabel?.setAccessibilityTitle("SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-WRITE-RESPONSE".localizedVariant)
+        writeResponseLabel?.toolTip = writeResponseLabel?.accessibilityTitle()
+        writeNoResponseLabel?.setAccessibilityTitle("SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-WRITE".localizedVariant)
+        writeNoResponseLabel?.toolTip = writeNoResponseLabel?.accessibilityTitle()
+        extendedLabel?.setAccessibilityTitle("SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-EXTENDED".localizedVariant)
+        extendedLabel?.toolTip = extendedLabel?.accessibilityTitle()
+        sendButtonText?.setAccessibilityTitle("SLUG-ACC-SEND-BUTTON".localizedVariant)
+        sendResponseButtonText?.setAccessibilityTitle("SLUG-ACC-SEND-BUTTON-RESPONSE".localizedVariant)
+        valueTextFieldLabel?.setAccessibilityTitle("SLUG-ACC-VALUE".localizedVariant)
+        writeTextFieldLabel?.setAccessibilityTitle("SLUG-ACC-WRITE-VALUE".localizedVariant)
+        refreshButton?.setAccessibilityTitle("SLUG-ACC-REFRESH".localizedVariant)
+        refreshButton?.toolTip = refreshButton?.accessibilityTitle()
+        notifyButton?.setAccessibilityTitle(("SLUG-ACC-CHARACTERISTIC-ROW-SLUG-PROPERTIES-NOTIFY-O" + ((characteristicInstance?.isNotifying ?? false) ? "N" : "FF")).localizedVariant)
+        notifyButton?.toolTip = notifyButton?.accessibilityTitle()
     }
 }
 
@@ -359,5 +378,6 @@ extension RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController: RVS_Blu
         setButtonsAndLabelsVisibility()
         setReadItemsVisibility()
         setWriteItemsVisibility()
+        setUpAccessibility()
     }
 }

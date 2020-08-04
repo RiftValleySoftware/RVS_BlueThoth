@@ -26,8 +26,6 @@ import RVS_Generic_Swift_Toolbox
 /* ###################################################################################################################################### */
 // MARK: - The About Screen View Controller -
 /* ###################################################################################################################################### */
-/**
- */
 class RVS_BlueThoth_Test_Harness_MacOS_AboutViewController: NSViewController {
     /* ################################################################## */
     /**
@@ -40,7 +38,12 @@ class RVS_BlueThoth_Test_Harness_MacOS_AboutViewController: NSViewController {
      The label that contains the main app info.
      */
     @IBOutlet weak var mainInfoLabel: NSTextField!
+}
 
+/* ###################################################################################################################################### */
+// MARK: - Base Class Override Methods -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_AboutViewController {
     /* ################################################################## */
     /**
      Called when the view hierachy has loaded.
@@ -50,5 +53,19 @@ class RVS_BlueThoth_Test_Harness_MacOS_AboutViewController: NSViewController {
         title = title?.localizedVariant
         versionLabel?.stringValue = String(format: "SLUG-VERSION-FORMAT".localizedVariant, Bundle.main.appVersionString, Bundle.main.appVersionBuildString)
         mainInfoLabel?.stringValue = (mainInfoLabel?.stringValue ?? "ERROR").localizedVariant
+        _setUpAccessibility()
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Private Methods -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_MacOS_AboutViewController {
+    /* ################################################################## */
+    /**
+     This sets up the accessibility and voiceover strings for the screen.
+     */
+    private func _setUpAccessibility() {
+        versionLabel?.setAccessibilityTitle(String(format: "SLUG-ACC-APP-VERSION-LABEL-FORMAT".localizedVariant, Bundle.main.appVersionString, Bundle.main.appVersionBuildString))
     }
 }

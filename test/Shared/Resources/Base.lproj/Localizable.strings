@@ -170,6 +170,11 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-ACC-CHARACTERISTIC-ROW-VALUE-FORMAT"                      =   "This is the value for the Characteristic. It is \"\(%@).\" If you touch this, a screen will appear, displaying the Descriptors for this Characteristic.";
 "SLUG-ACC-CHARACTERISTIC-ROW-INTERACT"                          =   "If you select this row, a screen will appear, allowing you to interact with this Characteristic.";
 
+// Mac-only
+"SLUG-ACC-VALUE"                                                =   "This is the current value of the Characteristic";
+"SLUG-ACC-WRITE-VALUE"                                          =   "Enter a string to be sent to the Characteristic.";
+"SLUG-ACC-REFRESH"                                              =   "If you select this, the value will be removed, and you can start over.";
+
 // MARK: - The Descriptor List Screen
 "SLUG-ACC-DESCRIPTOR-TABLE"         =   "This is a list of the descriptors for this Characteristic. Selecting a row will cause that descriptor to refresh its value.";
 
@@ -226,6 +231,10 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-ACC-WITH-RESPONSE-SWITCH"     =   "If on, then the write will be sent, requiring a response from the device.";
 "SLUG-ACC-SEND-BUTTON-CHAR"         =   "This button sets the Characteristic value to the contents of the text field below.";
 "SLUG-ACC-SEND-BUTTON-DESC"         =   "This button sets the Descriptor value to the contents of the text field below.";
+
+// Mac-Only
+"SLUG-ACC-SEND-BUTTON"              =   "This button will send the string in the text field, without a response.";
+"SLUG-ACC-SEND-BUTTON-RESPONSE"     =   "This button will send the string in the text field, and will request a response.";
 
 /// MARK: - DATA INTERPRETATION
 
