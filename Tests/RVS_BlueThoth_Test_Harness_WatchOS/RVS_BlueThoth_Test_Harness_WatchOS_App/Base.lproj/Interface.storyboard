@@ -6,12 +6,24 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="16012"/>
     </dependencies>
     <scenes>
-        <!--Blue Thoth Test Harness WatchOS Discovery Interface Controller-->
+        <!--background-gradient-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension"/>
+                <controller backgroundImage="background-gradient" fullBounds="YES" fullScreen="YES" id="AgC-eL-Hgc" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
+                    <items>
+                        <group width="1" height="1" alignment="left" layout="overlap" id="VeA-Zu-N10">
+                            <items>
+                                <imageView width="100" height="100" alignment="center" verticalAlignment="center" alpha="0.14999999999999999" image="BlueThothLogo" id="GYm-A7-1jr"/>
+                            </items>
+                        </group>
+                    </items>
+                </controller>
             </objects>
             <point key="canvasLocation" x="30" y="28"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="BlueThothLogo" width="307" height="305"/>
+        <image name="background-gradient" width="1" height="1000"/>
+    </resources>
 </document>
