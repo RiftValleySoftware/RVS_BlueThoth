@@ -29,26 +29,66 @@ import Foundation
 class RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController: WKInterfaceController {
     /* ################################################################## */
     /**
+     The Table Row Controller ID.
      */
-    override func awake(withContext context: Any?) {
-        super.awake(withContext: context)
-        
-        // Configure interface objects here.
+    static let discoveredDeviceTableRowControllerID = "discoveredDeviceTableRowController"
+    
+    /* ################################################################## */
+    /**
+     The switch that controls the scanning for Peripherals.
+     */
+    @IBOutlet weak var scanningSwitch: WKInterfaceSwitch!
+
+    /* ################################################################## */
+    /**
+     The table that lists the discovered devices.
+     */
+    @IBOutlet weak var deviceListTable: WKInterfaceTable!
+}
+
+/* ###################################################################################################################################### */
+// MARK: - IBAction Methods -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
+    /* ################################################################## */
+    /**
+     Called when the Scanning switch changes value
+     
+     - parameter inIsOn: True, if the switch is now on.
+     */
+    @IBAction func scanningSwitchChanged(_ inIsOn: Bool) {
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Base Class Override Methods -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
+    /* ################################################################## */
+    /**
+     Called as the View is set up.
+     
+     - parameter withContext: The context provided to the view, as it was instantiated.
+     */
+    override func awake(withContext inContext: Any?) {
+        super.awake(withContext: inContext)
+        scanningSwitch?.setTitle("SLUG-SCANNING".localizedVariant)
+        scanningSwitch?.setOn(false)
     }
     
     /* ################################################################## */
     /**
+     Called just before the view activates.
      */
     override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
         super.willActivate()
     }
     
     /* ################################################################## */
     /**
+     Called just before the view deactivates.
      */
     override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
         super.didDeactivate()
     }
 }

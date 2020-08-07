@@ -41,10 +41,11 @@ extension CGA_PersistentPrefs {
 class RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: NSObject, WKExtensionDelegate {
     /* ################################################################## */
     /**
+     - parameter inBackgroundTasks: A set of background tasks that need to be taken care of.
      */
-    func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
+    func handle(_ inBackgroundTasks: Set<WKRefreshBackgroundTask>) {
         // Sent when the system needs to launch the application in the background to process tasks. Tasks arrive in a set, so loop through and process each one.
-        for task in backgroundTasks {
+        for task in inBackgroundTasks {
             // Use a switch statement to check the task type
             switch task {
             case let backgroundTask as WKApplicationRefreshBackgroundTask:

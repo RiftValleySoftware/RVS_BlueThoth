@@ -839,8 +839,8 @@
 		D4B6750924DDA66C00B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_Extension */ = {
 			isa = PBXGroup;
 			children = (
-				D4B6750A24DDA66C00B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController.swift */,
 				D4B6750B24DDA66C00B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.swift */,
+				D4B6750A24DDA66C00B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController.swift */,
 				D4B6750C24DDA66C00B32A63 /* Info.plist */,
 			);
 			path = RVS_BlueThoth_Test_Harness_WatchOS_Extension;

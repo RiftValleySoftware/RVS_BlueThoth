@@ -14,9 +14,31 @@
                         <group width="1" height="1" alignment="left" layout="overlap" id="VeA-Zu-N10">
                             <items>
                                 <imageView width="100" height="100" alignment="center" verticalAlignment="center" alpha="0.14999999999999999" image="BlueThothLogo" id="GYm-A7-1jr"/>
+                                <group width="1" alignment="left" layout="vertical" id="GdZ-12-AlB">
+                                    <items>
+                                        <switch width="1" alignment="left" title="SLUG-SCANNING" id="mMb-tO-hBH">
+                                            <color key="titleColor" red="0.1007060781" green="0.33945328000000002" blue="0.99620097880000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <color key="tintColor" red="0.1007060781" green="0.33945328000000002" blue="0.99620097880000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <connections>
+                                                <action selector="scanningSwitchChanged:" destination="AgC-eL-Hgc" id="Foo-BE-4um"/>
+                                            </connections>
+                                        </switch>
+                                        <table alignment="left" id="cwd-pb-B5i">
+                                            <items>
+                                                <tableRow identifier="discoveredDeviceTableRowController" id="iQh-uO-qJ6">
+                                                    <group key="rootItem" width="1" alignment="left" id="EMw-VM-L8B"/>
+                                                </tableRow>
+                                            </items>
+                                        </table>
+                                    </items>
+                                </group>
                             </items>
                         </group>
                     </items>
+                    <connections>
+                        <outlet property="deviceListTable" destination="cwd-pb-B5i" id="7Ql-6G-54p"/>
+                        <outlet property="scanningSwitch" destination="mMb-tO-hBH" id="Ksz-e6-zE1"/>
+                    </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="30" y="28"/>
