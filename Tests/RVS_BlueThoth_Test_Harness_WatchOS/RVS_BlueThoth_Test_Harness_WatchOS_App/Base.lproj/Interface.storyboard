@@ -25,8 +25,19 @@
                                         </switch>
                                         <table alignment="left" id="cwd-pb-B5i">
                                             <items>
-                                                <tableRow identifier="discoveredDeviceTableRowController" id="iQh-uO-qJ6">
-                                                    <group key="rootItem" width="1" alignment="left" id="EMw-VM-L8B"/>
+                                                <tableRow identifier="RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController" id="iQh-uO-qJ6" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
+                                                    <group key="rootItem" width="1" alignment="left" id="EMw-VM-L8B">
+                                                        <items>
+                                                            <button width="1" alignment="left" title="Button" id="jMt-uB-pvJ">
+                                                                <connections>
+                                                                    <action selector="deviceRowButtonHit" destination="iQh-uO-qJ6" id="tgE-Nm-d2j"/>
+                                                                </connections>
+                                                            </button>
+                                                        </items>
+                                                    </group>
+                                                    <connections>
+                                                        <outlet property="deviceRowButton" destination="jMt-uB-pvJ" id="D7p-U6-uTV"/>
+                                                    </connections>
                                                 </tableRow>
                                             </items>
                                         </table>

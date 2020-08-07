@@ -22,17 +22,12 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 
 import WatchKit
 import Foundation
+import RVS_BlueThoth_WatchOS
 
 /* ###################################################################################################################################### */
 // MARK: - Main Watch App Discovery Interface Controller -
 /* ###################################################################################################################################### */
 class RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController: WKInterfaceController {
-    /* ################################################################## */
-    /**
-     The Table Row Controller ID.
-     */
-    static let discoveredDeviceTableRowControllerID = "discoveredDeviceTableRowController"
-    
     /* ################################################################## */
     /**
      The switch that controls the scanning for Peripherals.
@@ -44,6 +39,12 @@ class RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController: WKInterfa
      The table that lists the discovered devices.
      */
     @IBOutlet weak var deviceListTable: WKInterfaceTable!
+
+    /* ################################################################## */
+    /**
+     The BlueThoth instance for this app.
+     */
+    var driverInstance: RVS_BlueThoth?
 }
 
 /* ###################################################################################################################################### */
@@ -82,6 +83,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
      */
     override func willActivate() {
         super.willActivate()
+        populateTable()
     }
     
     /* ################################################################## */
@@ -90,5 +92,29 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
      */
     override func didDeactivate() {
         super.didDeactivate()
+    }
+    
+    /* ################################################################## */
+    /**
+     This adds devices to the table for display.
+     */
+    func populateTable() {
+        if  let driverInstance = driverInstance,
+            driverInstance.isBTAvailable,
+            0 < driverInstance.stagedBLEPeripherals.count {
+            let rowControllerInitializedArray = [String](repeatElement("RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController", count: driverInstance.stagedBLEPeripherals.count))
+            
+            deviceListTable.setNumberOfRows(rowControllerInitializedArray.count, withRowType: "RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController")
+            
+            for item in rowControllerInitializedArray.enumerated() {
+                if let deviceRow = deviceListTable.rowController(at: item.offset) as? RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController {
+                    let deviceInstance = driverInstance.stagedBLEPeripherals[item.offset]
+                    deviceRow.deviceInstance = deviceInstance
+                    deviceRow.deviceRowButton.setTitle(deviceInstance.preferredName)
+                }
+            }
+        } else {
+            deviceListTable.setNumberOfRows(0, withRowType: "")
+        }
     }
 }
