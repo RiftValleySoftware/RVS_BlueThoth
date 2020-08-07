@@ -174,6 +174,9 @@
                 <a class="nav-group-task-link" href="../Protocols/CGA_Bluetooth_Service_Protocol.html">CGA_Bluetooth_Service_Protocol</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CGA_Bluetooth_Writable.html">CGA_Bluetooth_Writable</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/CGA_Class_Protocol.html">CGA_Class_Protocol</a>
               </li>
               <li class="nav-group-task">
@@ -196,7 +199,7 @@
             <h1>CGA_Bluetooth_Descriptor</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">CGA_Bluetooth_Descriptor</span> <span class="p">:</span> <span class="kt">CGA_Bluetooth_Descriptor_Protocol_Internal</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">CGA_Bluetooth_Descriptor</span> <span class="p">:</span> <span class="kt">CGA_Bluetooth_Descriptor_Protocol_Internal</span><span class="p">,</span> <span class="kt"><a href="../Protocols/CGA_Bluetooth_Writable.html">CGA_Bluetooth_Writable</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/CGA_Class_Protocol.html">CGA_Class_Protocol</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">CGA_Bluetooth_Descriptor</span><span class="p">:</span> <span class="kt">CGA_DescriptorFactory</span></code></pre>
 
                 </div>
@@ -240,6 +243,59 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Any</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS24CGA_Bluetooth_DescriptorC16concatenateValueSbvp"></a>
+                    <a name="//apple_ref/swift/Property/concatenateValue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS24CGA_Bluetooth_DescriptorC16concatenateValueSbvp">concatenateValue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">concatenateValue</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS24CGA_Bluetooth_DescriptorC16clearConcatenate8newValueS2bSg_tF"></a>
+                    <a name="//apple_ref/swift/Method/clearConcatenate(newValue:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS24CGA_Bluetooth_DescriptorC16clearConcatenate8newValueS2bSg_tF">clearConcatenate(newValue:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">clearConcatenate</span><span class="p">(</span><span class="n">newValue</span> <span class="nv">inNewValue</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -638,13 +694,80 @@ This computed property is defined here, so it can be overridden by subclasses.</
                 </li>
               </ul>
             </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Internal%20Properties"></a>
+                <a name="//apple_ref/swift/Section/Internal Properties" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Internal%20Properties"></a>
+                  <h3 class="section-name"><p>Internal Properties</p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS24CGA_Bluetooth_DescriptorC6parentAA0E15_Class_Protocol_pSgvp"></a>
+                    <a name="//apple_ref/swift/Property/parent" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS24CGA_Bluetooth_DescriptorC6parentAA0E15_Class_Protocol_pSgvp">parent</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is used to reference an &ldquo;owning instance&rdquo; of this instance, and it should be a CGA_Bluetooth_Characteristic</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">parent</span><span class="p">:</span> <span class="kt"><a href="../Protocols/CGA_Class_Protocol.html">CGA_Class_Protocol</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS24CGA_Bluetooth_DescriptorC7centralAA0a1_bC0CSgvp"></a>
+                    <a name="//apple_ref/swift/Property/central" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS24CGA_Bluetooth_DescriptorC7centralAA0a1_bC0CSgvp">central</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This returns the parent Central Manager</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">central</span><span class="p">:</span> <span class="kt"><a href="../Classes/RVS_BlueThoth.html">RVS_BlueThoth</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </section>
 
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-07-05)</p>
+      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-08-07)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

@@ -9,22 +9,22 @@ rm -drf docs/framework-internal/*
 mkdir -p docs/framework-public/img
 mkdir -p docs/framework-internal/img
 
-echo "Creating Public API Docs for the Framework\n"
+echo "Creating Public API Docs for the iOS Framework\n"
 
-jazzy   --readme ./src/README-PUBLIC.md \
+jazzy   --readme ./Sources/RVS_BlueThoth/README-PUBLIC.md \
         --github_url https://github.com/RiftValleySoftware/RVS_BlueThoth \
         --title RVS_BlueThoth\ Doumentation \
         --min_acl public \
         --theme fullwidth \
-        --exclude ./src/Source/Implementation/Peripherals/CGA_Bluetooth_Peripheral_Callbacks.swift,./src/Source/RVS_BlueThoth_Callbacks.swift \
+        --exclude ./Sources/RVS_BlueThoth/Implementation/Peripherals/CGA_Bluetooth_Peripheral_Callbacks.swift,./Sources/RVS_BlueThoth/RVS_BlueThoth_Callbacks.swift \
         --output docs/framework-public \
         --build-tool-arguments -scheme,"RVS_BlueThoth_iOS"
-cp ./src/img/* docs/framework-public/img
+cp ./Sources/RVS_BlueThoth/img/* docs/framework-public/img
 
-echo "\nCreating Internal API Docs for the Framework\n"
+echo "\nCreating Internal API Docs for the iOS Test Harness and Framework\n"
 
 jazzy   --readme ./README.md \
-        --github_url https://github.com/RiftValleySoftware/BlueVanClef \
+        --github_url https://github.com/RiftValleySoftware/RVS_BlueThoth/ \
         --title RVS_BlueThoth\ Doumentation \
         --min_acl private \
         --theme fullwidth \
