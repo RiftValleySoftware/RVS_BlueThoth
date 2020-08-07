@@ -35,7 +35,7 @@
 		<string>com.apple.watchkit</string>
 	</dict>
 	<key>WKExtensionDelegateClassName</key>
-	<string>$(PRODUCT_MODULE_NAME).ExtensionDelegate</string>
+	<string>$(PRODUCT_MODULE_NAME).RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate</string>
 	<key>WKWatchOnly</key>
 	<true/>
 </dict>

@@ -6,10 +6,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="16012"/>
     </dependencies>
     <scenes>
-        <!--Blue Toth WatchOS Test Harness Discovery Interface Controller-->
+        <!--Blue Thoth Test Harness WatchOS Discovery Interface Controller-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="RVS_BlueToth_WatchOS_Test_Harness_DiscoveryInterfaceController" customModule="RVS_BlueToth_WatchOS_Test_Harness_WatchKit_Extension"/>
+                <controller id="AgC-eL-Hgc" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension"/>
             </objects>
             <point key="canvasLocation" x="30" y="28"/>
         </scene>

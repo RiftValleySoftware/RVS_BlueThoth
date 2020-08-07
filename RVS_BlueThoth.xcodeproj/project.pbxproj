@@ -36,8 +36,8 @@
 		D431EC4224675E8D0094BB23 /* CGA_PersistentPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D431EC3024675E8D0094BB23 /* CGA_PersistentPrefs.swift */; };
 		D431EC4324675E8D0094BB23 /* CGA_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D431EC3124675E8D0094BB23 /* CGA_AppDelegate.swift */; };
 		D43B6EDD24CA1DA700D56A2A /* RVS_BlueThoth_Test_Harness_MacOS_SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43B6EDC24CA1DA600D56A2A /* RVS_BlueThoth_Test_Harness_MacOS_SplitViewController.swift */; };
-		D44E0CE124DD9E62003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D44E0CE024DD9E62003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		D44E0CF024DD9E63003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D44E0CEF24DD9E63003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D44E0CE124DD9E62003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D44E0CE024DD9E62003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D44E0CF024DD9E63003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D44E0CEF24DD9E63003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D45D261F245F4B23001906EC /* CGA_Bluetooth_Service_Protocol_Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4700E082455E000004E99D3 /* CGA_Bluetooth_Service_Protocol_Internal.swift */; };
 		D45D2620245F4B23001906EC /* CGA_Bluetooth_Characteristic_Protocol_Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4700E032455DC54004E99D3 /* CGA_Bluetooth_Characteristic_Protocol_Internal.swift */; };
 		D45D2621245F4B23001906EC /* CGA_Bluetooth_Descriptor_Protocol_Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4700DFD2455C803004E99D3 /* CGA_Bluetooth_Descriptor_Protocol_Internal.swift */; };
@@ -138,17 +138,17 @@
 		D4B49CFF2455128300932C3D /* CGA_Bluetooth_Characteristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B49C9824550F1800932C3D /* CGA_Bluetooth_Characteristic.swift */; };
 		D4B49D002455128300932C3D /* CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B49C9B24550F1800932C3D /* CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration.swift */; };
 		D4B49D012455128300932C3D /* CGA_Bluetooth_Descriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B49C9C24550F1800932C3D /* CGA_Bluetooth_Descriptor.swift */; };
-		D4B674F024DD9F6300B32A63 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4B674E824DD9F3200B32A63 /* Interface.storyboard */; };
-		D4B674F124DD9F6900B32A63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4B674E724DD9F3200B32A63 /* Assets.xcassets */; };
 		D4B674F624DD9FC500B32A63 /* RVS-Persistent-Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D4B674F524DD9FC500B32A63 /* RVS-Persistent-Prefs */; };
 		D4B674F924DD9FD000B32A63 /* RVS_BlueThoth_WatchOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45D2617245F4AC1001906EC /* RVS_BlueThoth_WatchOS.framework */; };
 		D4B674FA24DD9FD000B32A63 /* RVS_BlueThoth_WatchOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D45D2617245F4AC1001906EC /* RVS_BlueThoth_WatchOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D4B674FE24DD9FE900B32A63 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D431EC1E24675E8D0094BB23 /* Localizable.strings */; };
 		D4B674FF24DD9FF300B32A63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D42ABE93246753DC00815395 /* Assets.xcassets */; };
-		D4B6750324DDA04300B32A63 /* RVS_BlueToth_WatchOS_Test_HarnessExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B6750124DDA04300B32A63 /* RVS_BlueToth_WatchOS_Test_HarnessExtensionDelegate.swift */; };
 		D4B6750424DDA0A900B32A63 /* CGA_PersistentPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D431EC3024675E8D0094BB23 /* CGA_PersistentPrefs.swift */; };
 		D4B6750524DDA17300B32A63 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D431EC2024675E8D0094BB23 /* InfoPlist.strings */; };
-		D4B6750724DDA2BB00B32A63 /* RVS_BlueToth_WatchOS_Test_Harness_DiscoveryInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B6750624DDA2BB00B32A63 /* RVS_BlueToth_WatchOS_Test_Harness_DiscoveryInterfaceController.swift */; };
+		D4B6751224DDA67700B32A63 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4B6750F24DDA66C00B32A63 /* Interface.storyboard */; };
+		D4B6751324DDA67A00B32A63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4B6750E24DDA66C00B32A63 /* Assets.xcassets */; };
+		D4B6751424DDA68000B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B6750A24DDA66C00B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController.swift */; };
+		D4B6751524DDA68000B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B6750B24DDA66C00B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.swift */; };
 		D4BB6ABF24B3B5F1006FB2ED /* CGA_CharacteristicInteractionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BB6ABE24B3B5F1006FB2ED /* CGA_CharacteristicInteractionViewController.swift */; };
 		D4BC2F70245B4C13003B4775 /* CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BC2F6F245B4C13003B4775 /* CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift */; };
 		D4BC2F71245B4C13003B4775 /* CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BC2F6F245B4C13003B4775 /* CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift */; };
@@ -316,7 +316,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				D44E0CE124DD9E62003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness WatchKit App.app in Embed Watch Content */,
+				D44E0CE124DD9E62003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit App.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -327,7 +327,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				D44E0CF024DD9E63003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness WatchKit Extension.appex in Embed App Extensions */,
+				D44E0CF024DD9E63003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,9 +374,9 @@
 		D431EC3124675E8D0094BB23 /* CGA_AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_AppDelegate.swift; sourceTree = "<group>"; };
 		D431EC3324675E8D0094BB23 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D43B6EDC24CA1DA600D56A2A /* RVS_BlueThoth_Test_Harness_MacOS_SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_MacOS_SplitViewController.swift; sourceTree = "<group>"; };
-		D44E0CDD24DD9E62003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RVS_BlueToth_WatchOS_Test_Harness.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D44E0CE024DD9E62003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RVS_BlueToth_WatchOS_Test_Harness WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D44E0CEF24DD9E63003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "RVS_BlueToth_WatchOS_Test_Harness WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D44E0CDD24DD9E62003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RVS_BlueThoth_WatchOS_Test_Harness.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D44E0CE024DD9E62003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RVS_BlueThoth_WatchOS_Test_Harness WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D44E0CEF24DD9E63003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D45D2617245F4AC1001906EC /* RVS_BlueThoth_WatchOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RVS_BlueThoth_WatchOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D45D2647245F4BD7001906EC /* RVS_BlueThoth_TVOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RVS_BlueThoth_TVOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4700DFB2455C75B004E99D3 /* CGA_Bluetooth_Descriptor_Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Descriptor_Protocol.swift; sourceTree = "<group>"; };
@@ -417,12 +417,12 @@
 		D4B49CA324550F1800932C3D /* CGA_Bluetooth_Service_Battery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Service_Battery.swift; sourceTree = "<group>"; };
 		D4B49CD82455113F00932C3D /* MacOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MacOS-Info.plist"; sourceTree = "<group>"; };
 		D4B49CE0245511B700932C3D /* RVS_BlueThoth_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RVS_BlueThoth_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4B674E724DD9F3200B32A63 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D4B674E924DD9F3200B32A63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
-		D4B674EA24DD9F3200B32A63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D4B674EF24DD9F3200B32A63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D4B6750124DDA04300B32A63 /* RVS_BlueToth_WatchOS_Test_HarnessExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_BlueToth_WatchOS_Test_HarnessExtensionDelegate.swift; sourceTree = "<group>"; };
-		D4B6750624DDA2BB00B32A63 /* RVS_BlueToth_WatchOS_Test_Harness_DiscoveryInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_BlueToth_WatchOS_Test_Harness_DiscoveryInterfaceController.swift; sourceTree = "<group>"; };
+		D4B6750A24DDA66C00B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController.swift; sourceTree = "<group>"; };
+		D4B6750B24DDA66C00B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.swift; sourceTree = "<group>"; };
+		D4B6750C24DDA66C00B32A63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4B6750E24DDA66C00B32A63 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D4B6751024DDA66C00B32A63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		D4B6751124DDA66C00B32A63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4BB6ABE24B3B5F1006FB2ED /* CGA_CharacteristicInteractionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_CharacteristicInteractionViewController.swift; sourceTree = "<group>"; };
 		D4BC2F6F245B4C13003B4775 /* CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift; sourceTree = "<group>"; };
 		D4C2D38B24550ABC00197A0A /* RVS_BlueThoth_MacOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RVS_BlueThoth_MacOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -508,7 +508,7 @@
 			path = RVS_BlueThoth_Test_Harness_MacOS;
 			sourceTree = "<group>";
 		};
-		D41330B724674FA200502D83 /* test */ = {
+		D41330B724674FA200502D83 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				D41330BC2467503300502D83 /* Shared */,
@@ -516,7 +516,7 @@
 				D41330A224674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS */,
 				D4B674E524DD9F3200B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS */,
 			);
-			path = test;
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		D41330B824674FBB00502D83 /* Meta */ = {
@@ -588,8 +588,8 @@
 		D420C88B242FCD5600FCB9E0 = {
 			isa = PBXGroup;
 			children = (
-				D41330B724674FA200502D83 /* test */,
-				D48D85172430F05500A925ED /* src */,
+				D41330B724674FA200502D83 /* Tests */,
+				D48D85172430F05500A925ED /* Sources */,
 				D420C895242FCD5600FCB9E0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -603,9 +603,9 @@
 				D45D2647245F4BD7001906EC /* RVS_BlueThoth_TVOS.framework */,
 				D41330A124674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS.app */,
 				D49DA23924675DAE00A10344 /* RVS_BlueThoth_Test_Harness_iOS.app */,
-				D44E0CDD24DD9E62003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness.app */,
-				D44E0CE024DD9E62003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness WatchKit App.app */,
-				D44E0CEF24DD9E63003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness WatchKit Extension.appex */,
+				D44E0CDD24DD9E62003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness.app */,
+				D44E0CE024DD9E62003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit App.app */,
+				D44E0CEF24DD9E63003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -742,17 +742,17 @@
 			path = Implementation;
 			sourceTree = "<group>";
 		};
-		D48D85172430F05500A925ED /* src */ = {
+		D48D85172430F05500A925ED /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				D4DE33882459E54E0053F163 /* README-PUBLIC.md */,
 				D4B49CD224550F3100932C3D /* Meta */,
-				D4B49C8A24550F1800932C3D /* Source */,
+				D4B49C8A24550F1800932C3D /* RVS_BlueThoth */,
 			);
-			path = src;
+			path = Sources;
 			sourceTree = "<group>";
 		};
-		D4B49C8A24550F1800932C3D /* Source */ = {
+		D4B49C8A24550F1800932C3D /* RVS_BlueThoth */ = {
 			isa = PBXGroup;
 			children = (
 				D4B49C9924550F1800932C3D /* RVS_BlueThoth.swift */,
@@ -760,7 +760,7 @@
 				D4700E262455E88B004E99D3 /* Protocols */,
 				D4700E272455E899004E99D3 /* Implementation */,
 			);
-			path = Source;
+			path = RVS_BlueThoth;
 			sourceTree = "<group>";
 		};
 		D4B49C8D24550F1800932C3D /* Characteristics */ = {
@@ -830,30 +830,30 @@
 		D4B674E524DD9F3200B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS */ = {
 			isa = PBXGroup;
 			children = (
-				D4B674E624DD9F3200B32A63 /* RVS_BlueToth_WatchOS_Test_Harness WatchKit App */,
-				D4B674EB24DD9F3200B32A63 /* RVS_BlueToth_WatchOS_Test_Harness WatchKit Extension */,
+				D4B6750D24DDA66C00B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_App */,
+				D4B6750924DDA66C00B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_Extension */,
 			);
 			path = RVS_BlueThoth_Test_Harness_WatchOS;
 			sourceTree = "<group>";
 		};
-		D4B674E624DD9F3200B32A63 /* RVS_BlueToth_WatchOS_Test_Harness WatchKit App */ = {
+		D4B6750924DDA66C00B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_Extension */ = {
 			isa = PBXGroup;
 			children = (
-				D4B674E724DD9F3200B32A63 /* Assets.xcassets */,
-				D4B674E824DD9F3200B32A63 /* Interface.storyboard */,
-				D4B674EA24DD9F3200B32A63 /* Info.plist */,
+				D4B6750A24DDA66C00B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController.swift */,
+				D4B6750B24DDA66C00B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.swift */,
+				D4B6750C24DDA66C00B32A63 /* Info.plist */,
 			);
-			path = "RVS_BlueToth_WatchOS_Test_Harness WatchKit App";
+			path = RVS_BlueThoth_Test_Harness_WatchOS_Extension;
 			sourceTree = "<group>";
 		};
-		D4B674EB24DD9F3200B32A63 /* RVS_BlueToth_WatchOS_Test_Harness WatchKit Extension */ = {
+		D4B6750D24DDA66C00B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_App */ = {
 			isa = PBXGroup;
 			children = (
-				D4B6750124DDA04300B32A63 /* RVS_BlueToth_WatchOS_Test_HarnessExtensionDelegate.swift */,
-				D4B6750624DDA2BB00B32A63 /* RVS_BlueToth_WatchOS_Test_Harness_DiscoveryInterfaceController.swift */,
-				D4B674EF24DD9F3200B32A63 /* Info.plist */,
+				D4B6750E24DDA66C00B32A63 /* Assets.xcassets */,
+				D4B6750F24DDA66C00B32A63 /* Interface.storyboard */,
+				D4B6751124DDA66C00B32A63 /* Info.plist */,
 			);
-			path = "RVS_BlueToth_WatchOS_Test_Harness WatchKit Extension";
+			path = RVS_BlueThoth_Test_Harness_WatchOS_App;
 			sourceTree = "<group>";
 		};
 		D4F8EB7B246764F900CCA9E8 /* Resources */ = {
@@ -891,9 +891,9 @@
 			productReference = D41330A124674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D44E0CDC24DD9E62003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness */ = {
+		D44E0CDC24DD9E62003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D44E0D0524DD9E64003E3FD4 /* Build configuration list for PBXNativeTarget "RVS_BlueToth_WatchOS_Test_Harness" */;
+			buildConfigurationList = D44E0D0524DD9E64003E3FD4 /* Build configuration list for PBXNativeTarget "RVS_BlueThoth_WatchOS_Test_Harness" */;
 			buildPhases = (
 				D44E0CFD24DD9E64003E3FD4 /* Embed Watch Content */,
 			);
@@ -902,14 +902,14 @@
 			dependencies = (
 				D44E0CE324DD9E62003E3FD4 /* PBXTargetDependency */,
 			);
-			name = RVS_BlueToth_WatchOS_Test_Harness;
+			name = RVS_BlueThoth_WatchOS_Test_Harness;
 			productName = RVS_BlueToth_WatchOS_Test_Harness;
-			productReference = D44E0CDD24DD9E62003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness.app */;
+			productReference = D44E0CDD24DD9E62003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness.app */;
 			productType = "com.apple.product-type.application.watchapp2-container";
 		};
-		D44E0CDF24DD9E62003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness WatchKit App */ = {
+		D44E0CDF24DD9E62003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit App */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D44E0D0424DD9E64003E3FD4 /* Build configuration list for PBXNativeTarget "RVS_BlueToth_WatchOS_Test_Harness WatchKit App" */;
+			buildConfigurationList = D44E0D0424DD9E64003E3FD4 /* Build configuration list for PBXNativeTarget "RVS_BlueThoth_WatchOS_Test_Harness WatchKit App" */;
 			buildPhases = (
 				D44E0CDE24DD9E62003E3FD4 /* Resources */,
 				D44E0D0024DD9E64003E3FD4 /* Embed App Extensions */,
@@ -919,14 +919,14 @@
 			dependencies = (
 				D44E0CF224DD9E63003E3FD4 /* PBXTargetDependency */,
 			);
-			name = "RVS_BlueToth_WatchOS_Test_Harness WatchKit App";
+			name = "RVS_BlueThoth_WatchOS_Test_Harness WatchKit App";
 			productName = "RVS_BlueToth_WatchOS_Test_Harness WatchKit App";
-			productReference = D44E0CE024DD9E62003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness WatchKit App.app */;
+			productReference = D44E0CE024DD9E62003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit App.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
-		D44E0CEE24DD9E63003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness WatchKit Extension */ = {
+		D44E0CEE24DD9E63003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D44E0D0324DD9E64003E3FD4 /* Build configuration list for PBXNativeTarget "RVS_BlueToth_WatchOS_Test_Harness WatchKit Extension" */;
+			buildConfigurationList = D44E0D0324DD9E64003E3FD4 /* Build configuration list for PBXNativeTarget "RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension" */;
 			buildPhases = (
 				D4B6750824DDA2F700B32A63 /* SwiftLint */,
 				D44E0CEB24DD9E63003E3FD4 /* Sources */,
@@ -938,12 +938,12 @@
 			dependencies = (
 				D4B674FC24DD9FD000B32A63 /* PBXTargetDependency */,
 			);
-			name = "RVS_BlueToth_WatchOS_Test_Harness WatchKit Extension";
+			name = "RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension";
 			packageProductDependencies = (
 				D4B674F524DD9FC500B32A63 /* RVS-Persistent-Prefs */,
 			);
 			productName = "RVS_BlueToth_WatchOS_Test_Harness WatchKit Extension";
-			productReference = D44E0CEF24DD9E63003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness WatchKit Extension.appex */;
+			productReference = D44E0CEF24DD9E63003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
 		};
 		D45D2616245F4AC1001906EC /* RVS_BlueThoth_WatchOS */ = {
@@ -1116,9 +1116,9 @@
 				D45D2646245F4BD7001906EC /* RVS_BlueThoth_TVOS */,
 				D49DA23824675DAE00A10344 /* RVS_BlueThoth_Test_Harness_iOS */,
 				D41330A024674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS */,
-				D44E0CDC24DD9E62003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness */,
-				D44E0CDF24DD9E62003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness WatchKit App */,
-				D44E0CEE24DD9E63003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness WatchKit Extension */,
+				D44E0CDC24DD9E62003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness */,
+				D44E0CDF24DD9E62003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit App */,
+				D44E0CEE24DD9E63003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -1140,11 +1140,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4B674F124DD9F6900B32A63 /* Assets.xcassets in Resources */,
+				D4B6751224DDA67700B32A63 /* Interface.storyboard in Resources */,
 				D4B674FE24DD9FE900B32A63 /* Localizable.strings in Resources */,
 				D4B674FF24DD9FF300B32A63 /* Assets.xcassets in Resources */,
-				D4B674F024DD9F6300B32A63 /* Interface.storyboard in Resources */,
 				D4B6750524DDA17300B32A63 /* InfoPlist.strings in Resources */,
+				D4B6751324DDA67A00B32A63 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1314,9 +1314,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4B6750324DDA04300B32A63 /* RVS_BlueToth_WatchOS_Test_HarnessExtensionDelegate.swift in Sources */,
 				D4B6750424DDA0A900B32A63 /* CGA_PersistentPrefs.swift in Sources */,
-				D4B6750724DDA2BB00B32A63 /* RVS_BlueToth_WatchOS_Test_Harness_DiscoveryInterfaceController.swift in Sources */,
+				D4B6751524DDA68000B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.swift in Sources */,
+				D4B6751424DDA68000B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1526,12 +1526,12 @@
 		};
 		D44E0CE324DD9E62003E3FD4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D44E0CDF24DD9E62003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness WatchKit App */;
+			target = D44E0CDF24DD9E62003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit App */;
 			targetProxy = D44E0CE224DD9E62003E3FD4 /* PBXContainerItemProxy */;
 		};
 		D44E0CF224DD9E63003E3FD4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D44E0CEE24DD9E63003E3FD4 /* RVS_BlueToth_WatchOS_Test_Harness WatchKit Extension */;
+			target = D44E0CEE24DD9E63003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension */;
 			targetProxy = D44E0CF124DD9E63003E3FD4 /* PBXContainerItemProxy */;
 		};
 		D4B674FC24DD9FD000B32A63 /* PBXTargetDependency */ = {
@@ -1582,10 +1582,10 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		D4B674E824DD9F3200B32A63 /* Interface.storyboard */ = {
+		D4B6750F24DDA66C00B32A63 /* Interface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D4B674E924DD9F3200B32A63 /* Base */,
+				D4B6751024DDA66C00B32A63 /* Base */,
 			);
 			name = Interface.storyboard;
 			sourceTree = "<group>";
@@ -1597,14 +1597,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "MacOS-Framework-AppIcon";
-				CODE_SIGN_ENTITLEMENTS = test/RVS_BlueThoth_Test_Harness_MacOS/Meta/RVS_BlueThoth_Test_Harness_MacOS.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Tests/RVS_BlueThoth_Test_Harness_MacOS/Meta/RVS_BlueThoth_Test_Harness_MacOS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 0000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = test/RVS_BlueThoth_Test_Harness_MacOS/Meta/Info.plist;
+				INFOPLIST_FILE = Tests/RVS_BlueThoth_Test_Harness_MacOS/Meta/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1620,14 +1620,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "MacOS-Framework-AppIcon";
-				CODE_SIGN_ENTITLEMENTS = test/RVS_BlueThoth_Test_Harness_MacOS/Meta/RVS_BlueThoth_Test_Harness_MacOS.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Tests/RVS_BlueThoth_Test_Harness_MacOS/Meta/RVS_BlueThoth_Test_Harness_MacOS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 0000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = test/RVS_BlueThoth_Test_Harness_MacOS/Meta/Info.plist;
+				INFOPLIST_FILE = Tests/RVS_BlueThoth_Test_Harness_MacOS/Meta/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1794,7 +1794,7 @@
 				CURRENT_PROJECT_VERSION = 0000;
 				DEVELOPMENT_TEAM = P53V4JS928;
 				IBSC_MODULE = RVS_BlueToth_WatchOS_Test_Harness_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/test/RVS_BlueThoth_Test_Harness_WatchOS/RVS_BlueToth_WatchOS_Test_Harness WatchKit App/Info.plist";
+				INFOPLIST_FILE = Tests/RVS_BlueThoth_Test_Harness_WatchOS/RVS_BlueThoth_Test_Harness_WatchOS_App/Info.plist;
 				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.RVS-BlueToth-WatchOS-Test-Harness.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1815,7 +1815,7 @@
 				CURRENT_PROJECT_VERSION = 0000;
 				DEVELOPMENT_TEAM = P53V4JS928;
 				IBSC_MODULE = RVS_BlueToth_WatchOS_Test_Harness_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/test/RVS_BlueThoth_Test_Harness_WatchOS/RVS_BlueToth_WatchOS_Test_Harness WatchKit App/Info.plist";
+				INFOPLIST_FILE = Tests/RVS_BlueThoth_Test_Harness_WatchOS/RVS_BlueThoth_Test_Harness_WatchOS_App/Info.plist;
 				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.RVS-BlueToth-WatchOS-Test-Harness.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1836,7 +1836,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0000;
 				DEVELOPMENT_TEAM = P53V4JS928;
-				INFOPLIST_FILE = "$(SRCROOT)/test/RVS_BlueThoth_Test_Harness_WatchOS/RVS_BlueToth_WatchOS_Test_Harness WatchKit Extension/Info.plist";
+				INFOPLIST_FILE = Tests/RVS_BlueThoth_Test_Harness_WatchOS/RVS_BlueThoth_Test_Harness_WatchOS_Extension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1862,7 +1862,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0000;
 				DEVELOPMENT_TEAM = P53V4JS928;
-				INFOPLIST_FILE = "$(SRCROOT)/test/RVS_BlueThoth_Test_Harness_WatchOS/RVS_BlueToth_WatchOS_Test_Harness WatchKit Extension/Info.plist";
+				INFOPLIST_FILE = Tests/RVS_BlueThoth_Test_Harness_WatchOS/RVS_BlueThoth_Test_Harness_WatchOS_Extension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1896,7 +1896,7 @@
 					"FRAMEWORK_BUILD=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "src/Meta/WatchOS-Info.plist";
+				INFOPLIST_FILE = "Sources/Meta/WatchOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1930,7 +1930,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_PREPROCESSOR_DEFINITIONS = "FRAMEWORK_BUILD=1";
-				INFOPLIST_FILE = "src/Meta/WatchOS-Info.plist";
+				INFOPLIST_FILE = "Sources/Meta/WatchOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1967,7 +1967,7 @@
 					"FRAMEWORK_BUILD=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "src/Meta/TVOS-Info.plist";
+				INFOPLIST_FILE = "Sources/Meta/TVOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2000,7 +2000,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_PREPROCESSOR_DEFINITIONS = "FRAMEWORK_BUILD=1";
-				INFOPLIST_FILE = "src/Meta/TVOS-Info.plist";
+				INFOPLIST_FILE = "Sources/Meta/TVOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2029,7 +2029,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
-				INFOPLIST_FILE = "$(SRCROOT)/test/RVS_BlueThoth_Test_Harness_iOS/Meta/Info.plist";
+				INFOPLIST_FILE = Tests/RVS_BlueThoth_Test_Harness_iOS/Meta/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2051,7 +2051,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
-				INFOPLIST_FILE = "$(SRCROOT)/test/RVS_BlueThoth_Test_Harness_iOS/Meta/Info.plist";
+				INFOPLIST_FILE = Tests/RVS_BlueThoth_Test_Harness_iOS/Meta/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2082,7 +2082,7 @@
 					"FRAMEWORK_BUILD=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "src/Meta/iOS-Info.plist";
+				INFOPLIST_FILE = "Sources/Meta/iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2116,7 +2116,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_PREPROCESSOR_DEFINITIONS = "FRAMEWORK_BUILD=1";
-				INFOPLIST_FILE = "src/Meta/iOS-Info.plist";
+				INFOPLIST_FILE = "Sources/Meta/iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2155,7 +2155,7 @@
 					"FRAMEWORK_BUILD=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "src/Meta/MacOS-Info.plist";
+				INFOPLIST_FILE = "Sources/Meta/MacOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2187,7 +2187,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_PREPROCESSOR_DEFINITIONS = "FRAMEWORK_BUILD=1";
-				INFOPLIST_FILE = "src/Meta/MacOS-Info.plist";
+				INFOPLIST_FILE = "Sources/Meta/MacOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2227,7 +2227,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D44E0D0324DD9E64003E3FD4 /* Build configuration list for PBXNativeTarget "RVS_BlueToth_WatchOS_Test_Harness WatchKit Extension" */ = {
+		D44E0D0324DD9E64003E3FD4 /* Build configuration list for PBXNativeTarget "RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D44E0D0124DD9E64003E3FD4 /* Debug */,
@@ -2236,7 +2236,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D44E0D0424DD9E64003E3FD4 /* Build configuration list for PBXNativeTarget "RVS_BlueToth_WatchOS_Test_Harness WatchKit App" */ = {
+		D44E0D0424DD9E64003E3FD4 /* Build configuration list for PBXNativeTarget "RVS_BlueThoth_WatchOS_Test_Harness WatchKit App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D44E0CFE24DD9E64003E3FD4 /* Debug */,
@@ -2245,7 +2245,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D44E0D0524DD9E64003E3FD4 /* Build configuration list for PBXNativeTarget "RVS_BlueToth_WatchOS_Test_Harness" */ = {
+		D44E0D0524DD9E64003E3FD4 /* Build configuration list for PBXNativeTarget "RVS_BlueThoth_WatchOS_Test_Harness" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D44E0CFB24DD9E64003E3FD4 /* Debug */,
