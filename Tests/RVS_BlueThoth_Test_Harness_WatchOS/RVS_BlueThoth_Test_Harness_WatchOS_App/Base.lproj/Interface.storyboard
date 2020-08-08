@@ -14,6 +14,7 @@
                         <group width="1" height="1" alignment="left" layout="overlap" id="VeA-Zu-N10">
                             <items>
                                 <imageView width="100" height="100" alignment="center" verticalAlignment="center" alpha="0.14999999999999999" image="BlueThothLogo" id="GYm-A7-1jr"/>
+                                <imageView width="100" height="100" alignment="center" verticalAlignment="center" image="NoBT" id="6gY-g5-Jl0"/>
                                 <group width="1" alignment="left" layout="vertical" id="GdZ-12-AlB">
                                     <items>
                                         <switch width="1" alignment="left" title="SLUG-SCANNING" id="mMb-tO-hBH">
@@ -48,6 +49,7 @@
                     </items>
                     <connections>
                         <outlet property="deviceListTable" destination="cwd-pb-B5i" id="7Ql-6G-54p"/>
+                        <outlet property="noBTImage" destination="6gY-g5-Jl0" id="RKH-b9-gMX"/>
                         <outlet property="scanningSwitch" destination="mMb-tO-hBH" id="Ksz-e6-zE1"/>
                     </connections>
                 </controller>
@@ -57,6 +59,7 @@
     </scenes>
     <resources>
         <image name="BlueThothLogo" width="307" height="305"/>
+        <image name="NoBT" width="341.5" height="341.5"/>
         <image name="background-gradient" width="1" height="1000"/>
     </resources>
 </document>

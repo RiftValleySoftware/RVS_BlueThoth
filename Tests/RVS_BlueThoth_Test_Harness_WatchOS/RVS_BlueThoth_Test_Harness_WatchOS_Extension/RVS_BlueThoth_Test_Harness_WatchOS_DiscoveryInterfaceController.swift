@@ -42,9 +42,21 @@ class RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController: WKInterfa
 
     /* ################################################################## */
     /**
+     The "NO BT" image.
+     */
+    @IBOutlet weak var noBTImage: WKInterfaceImage!
+    
+    /* ################################################################## */
+    /**
      The BlueThoth instance for this app.
      */
     var driverInstance: RVS_BlueThoth?
+    
+    /* ################################################################## */
+    /**
+     Accesses the single Central Manager instance.
+     */
+    var centralManager: RVS_BlueThoth? { RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.extensionDelegateObject?.centralManager }
 }
 
 /* ###################################################################################################################################### */
@@ -58,6 +70,13 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
      - parameter inIsOn: True, if the switch is now on.
      */
     @IBAction func scanningSwitchChanged(_ inIsOn: Bool) {
+        if  let centralManager = centralManager,
+            centralManager.isBTAvailable,
+            inIsOn {
+            centralManager.startScanning()
+        } else {
+            centralManager?.stopScanning()
+        }
     }
 }
 
@@ -74,7 +93,16 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
     override func awake(withContext inContext: Any?) {
         super.awake(withContext: inContext)
         scanningSwitch?.setTitle("SLUG-SCANNING".localizedVariant)
-        scanningSwitch?.setOn(false)
+        if  let centralManager = centralManager,
+            centralManager.isBTAvailable {
+            noBTImage?.setHidden(true)
+            scanningSwitch?.setHidden(false)
+            scanningSwitch?.setOn(centralManager.isScanning)
+        } else {
+            noBTImage?.setHidden(false)
+            scanningSwitch?.setOn(false)
+            scanningSwitch?.setHidden(true)
+        }
     }
     
     /* ################################################################## */

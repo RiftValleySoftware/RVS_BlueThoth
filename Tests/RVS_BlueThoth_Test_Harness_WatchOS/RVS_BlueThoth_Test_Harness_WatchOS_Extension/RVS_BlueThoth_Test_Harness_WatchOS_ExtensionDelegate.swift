@@ -107,6 +107,12 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: WKExtensionDeleg
 extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate {
     /* ################################################################## */
     /**
+     Quick access to the extension delegate object.
+     */
+    class var extensionDelegateObject: RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate! { WKExtension.shared().delegate as? RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate }
+
+    /* ################################################################## */
+    /**
      Displays the given message and title in an alert with an "OK" button.
      
      - parameter header: a string to be displayed as the title of the alert. It is localized by this method.
