@@ -27,7 +27,13 @@ import RVS_BlueThoth_WatchOS
 /* ###################################################################################################################################### */
 // MARK: - Main Watch App Discovery Interface Controller -
 /* ###################################################################################################################################### */
-class RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController: WKInterfaceController {
+class RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController: RVS_BlueThoth_Test_Harness_WatchOS_Base {
+    /* ################################################################## */
+    /**
+     This is the ID for the main Discovery Screen.
+     */
+    static let id: String = "MAIN"
+
     /* ################################################################## */
     /**
      The switch that controls the scanning for Peripherals.
@@ -76,6 +82,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
             centralManager.startScanning()
         } else {
             centralManager?.stopScanning()
+            scanningSwitch?.setOn(false)
         }
     }
 }
@@ -91,37 +98,16 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
      - parameter withContext: The context provided to the view, as it was instantiated.
      */
     override func awake(withContext inContext: Any?) {
+        id = Self.id
         super.awake(withContext: inContext)
         scanningSwitch?.setTitle("SLUG-SCANNING".localizedVariant)
-        if  let centralManager = centralManager,
-            centralManager.isBTAvailable {
-            noBTImage?.setHidden(true)
-            scanningSwitch?.setHidden(false)
-            scanningSwitch?.setOn(centralManager.isScanning)
-        } else {
-            noBTImage?.setHidden(false)
-            scanningSwitch?.setOn(false)
-            scanningSwitch?.setHidden(true)
-        }
     }
-    
-    /* ################################################################## */
-    /**
-     Called just before the view activates.
-     */
-    override func willActivate() {
-        super.willActivate()
-        populateTable()
-    }
-    
-    /* ################################################################## */
-    /**
-     Called just before the view deactivates.
-     */
-    override func didDeactivate() {
-        super.didDeactivate()
-    }
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Instance Methods -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
     /* ################################################################## */
     /**
      This adds devices to the table for display.
@@ -144,5 +130,29 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
         } else {
             deviceListTable.setNumberOfRows(0, withRowType: "")
         }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - RVS_BlueThoth_Test_Harness_WatchOS_Base_Protocol Conformance -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
+    /* ################################################################## */
+    /**
+     This sets everything up to reflect the current state of the Central Manager.
+     */
+    override func updateUI() {
+        if  let centralManager = centralManager,
+            centralManager.isBTAvailable {
+            noBTImage?.setHidden(true)
+            scanningSwitch?.setHidden(false)
+            scanningSwitch?.setOn(centralManager.isScanning)
+        } else {
+            noBTImage?.setHidden(false)
+            scanningSwitch?.setOn(false)
+            scanningSwitch?.setHidden(true)
+        }
+
+        populateTable()
     }
 }

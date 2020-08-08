@@ -41,8 +41,15 @@ extension CGA_PersistentPrefs {
 class RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: NSObject {
     /* ################################################################## */
     /**
+     This is the Central Manager instance.
      */
     var centralManager: RVS_BlueThoth?
+    
+    /* ################################################################## */
+    /**
+     This contains all of our screens. The key is the ID of the device or attribute associated with that screen.
+     */
+    var screenList: [String: RVS_BlueThoth_Test_Harness_WatchOS_Base_Protocol] = [:]
 }
 
 /* ###################################################################################################################################### */
@@ -151,6 +158,8 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: CGA_BlueThoth_De
         #if DEBUG
             print("Powered On.")
         #endif
+        
+        screenList[RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController.id]?.updateUI()
     }
 
     /* ################################################################## */
@@ -276,5 +285,85 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: CGA_BlueThoth_De
             }
         #endif
         Self.displayAlert(header: "WRITE-RESPONSE".localizedVariant)
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Base Class for Interface Controllers -
+/* ###################################################################################################################################### */
+/**
+ This is a protocol that allows us to have predictable methods for screen instances.
+ */
+protocol RVS_BlueThoth_Test_Harness_WatchOS_Base_Protocol {
+    /* ################################################################## */
+    /**
+     REQUIRED: This will contain whatever instance is to be associated with a screen.
+     */
+    var attachedBlueThothInstance: CGA_Class_Protocol? { get }
+    
+    /* ################################################################## */
+    /**
+     REQUIRED: This is called to update the UI of the controller to reflect the current state of the driver.
+     */
+    func updateUI()
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Base Class for Interface Controllers -
+/* ###################################################################################################################################### */
+/**
+ This is a base class for screen instance View Controllers.
+ */
+class RVS_BlueThoth_Test_Harness_WatchOS_Base: WKInterfaceController, RVS_BlueThoth_Test_Harness_WatchOS_Base_Protocol {
+    /* ################################################################## */
+    /**
+     This is a stored property that each screen sets to its ID.
+     */
+    var id = ""
+    
+    /* ################################################################## */
+    /**
+     This will contain whatever instance is to be associated with a screen.
+     */
+    var attachedBlueThothInstance: CGA_Class_Protocol?
+}
+
+/* ###################################################################################################################################### */
+// MARK: - RVS_BlueThoth_Test_Harness_WatchOS_Base_Protocol Conformance -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_WatchOS_Base {
+    /* ################################################################## */
+    /**
+     Default does nothing.
+     It has to be objc dynamic, to allow override.
+     */
+    @objc dynamic func updateUI() { }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Base Class Override Methods -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_WatchOS_Base {
+    /* ################################################################## */
+    /**
+     Called just before the view activates.
+     */
+    override func willActivate() {
+        super.willActivate()
+        if  let extensionDelegateObject = RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.extensionDelegateObject {
+            extensionDelegateObject.screenList[id] = self
+        }
+        updateUI()
+    }
+    
+    /* ################################################################## */
+    /**
+     Called just after the view deactivates.
+     */
+    override func didDeactivate() {
+        super.didDeactivate()
+        if  let extensionDelegateObject = RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.extensionDelegateObject {
+            extensionDelegateObject.screenList.removeValue(forKey: id)
+        }
     }
 }
