@@ -31,20 +31,48 @@ class RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController: NSObject {
     /* ################################################################## */
     /**
      */
-    var deviceInstance: RVS_BlueThoth.DiscoveryData! {
+    static let screenID = "Device-Screen"
+    
+    /* ################################################################## */
+    /**
+     */
+    var deviceDiscoveryData: RVS_BlueThoth.DiscoveryData! {
         didSet {
-            deviceLabel?.setText(deviceInstance.preferredName)
+            deviceLabel?.setText(deviceDiscoveryData.preferredName)
+            deviceLabel?.setAlpha(deviceDiscoveryData.canConnect ? 1.0 : 0.5)
+            deviceButton?.setEnabled(deviceDiscoveryData.canConnect)
         }
     }
+    
+    /* ################################################################## */
+    /**
+     */
+    var interfaceController: RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController?
 
     /* ################################################################## */
     /**
      */
     @IBOutlet weak var deviceLabel: WKInterfaceLabel!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var deviceButton: WKInterfaceButton!
 }
 
 /* ###################################################################################################################################### */
 // MARK: - IBAction Methods -
 /* ###################################################################################################################################### */
 extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController {
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func tappedRow(_: Any) {
+        if deviceDiscoveryData?.canConnect ?? false {
+            #if DEBUG
+                print("Device Selected: \(deviceDiscoveryData?.preferredName ?? "ERROR")")
+            #endif
+            interfaceController?.pushController(withName: Self.screenID, context: deviceDiscoveryData)
+        }
+    }
 }

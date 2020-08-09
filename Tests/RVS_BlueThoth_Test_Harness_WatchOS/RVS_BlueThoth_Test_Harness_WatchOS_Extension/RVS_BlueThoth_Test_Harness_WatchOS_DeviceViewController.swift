@@ -58,10 +58,27 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
             deviceDiscoveryData = context
             id = context.identifier
             setTitle(deviceDiscoveryData.preferredName)
-            connectingLabel?.setText("SLUG-CONNECTING".localizedVariant)
-            connectingLabel?.setHidden(false)
-            context.connect()
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called as the screen is activated
+     */
+    override func willActivate() {
+        super.willActivate()
+        connectingLabel?.setText("SLUG-CONNECTING".localizedVariant)
+        connectingLabel?.setHidden(false)
+        deviceDiscoveryData?.connect()
+    }
+    
+    /* ################################################################## */
+    /**
+     Called sfter the screen has deactivated
+     */
+    override func didDeactivate() {
+        super.didDeactivate()
+        deviceDiscoveryData?.disconnect()
     }
 }
 

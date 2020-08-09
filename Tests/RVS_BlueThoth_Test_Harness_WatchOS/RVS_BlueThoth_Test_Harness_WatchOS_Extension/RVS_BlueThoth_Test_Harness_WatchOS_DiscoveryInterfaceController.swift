@@ -97,31 +97,6 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
         scanningSwitch?.setTitle("SLUG-SCANNING".localizedVariant)
         setTitle("SLUG-DEVICES".localizedVariant)
     }
-    
-    /* ################################################################## */
-    /**
-     Table touch handler.
-     
-     - parameters:
-        - withIdentifier: The segue ID for this (we ignore)
-        - in: The table instance (we ignore)
-        - rowIndex: The vertical position (0-based) of the row that was touched.
-     
-        - returns: The context, if any. Can be nil.
-     */
-    override func contextForSegue(withIdentifier: String, in: WKInterfaceTable, rowIndex inRowIndex: Int) -> Any? {
-        if  let driverInstance = centralManager,
-            driverInstance.isBTAvailable,
-            inRowIndex < driverInstance.stagedBLEPeripherals.count {
-            let deviceDiscoveryData = driverInstance.stagedBLEPeripherals[inRowIndex]
-            #if DEBUG
-                print("Device Selected: \(deviceDiscoveryData.preferredName)")
-            #endif
-            
-            return deviceDiscoveryData
-        }
-        return nil
-    }
 }
 
 /* ###################################################################################################################################### */
@@ -139,11 +114,12 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
             let rowControllerInitializedArray = [String](repeatElement("RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController", count: driverInstance.stagedBLEPeripherals.count))
             
             deviceListTable.setNumberOfRows(rowControllerInitializedArray.count, withRowType: "RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController")
-            
+
             for item in rowControllerInitializedArray.enumerated() {
                 if let deviceRow = deviceListTable.rowController(at: item.offset) as? RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController {
                     let deviceInstance = driverInstance.stagedBLEPeripherals[item.offset]
-                    deviceRow.deviceInstance = deviceInstance
+                    deviceRow.interfaceController = self
+                    deviceRow.deviceDiscoveryData = deviceInstance
                 }
             }
         } else {

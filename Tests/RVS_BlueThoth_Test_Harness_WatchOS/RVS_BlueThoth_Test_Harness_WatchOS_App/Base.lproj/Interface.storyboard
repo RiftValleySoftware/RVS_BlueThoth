@@ -22,14 +22,19 @@
                         <table alignment="left" hidden="YES" id="cwd-pb-B5i">
                             <items>
                                 <tableRow identifier="RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController" id="iQh-uO-qJ6" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
-                                    <group key="rootItem" width="1" alignment="left" id="EMw-VM-L8B">
+                                    <group key="rootItem" width="1" alignment="left" layout="overlap" id="EMw-VM-L8B">
                                         <items>
                                             <label width="1" height="1" alignment="center" textAlignment="center" id="WLQ-Uz-0Ec"/>
+                                            <button width="1" height="1" alignment="left" enabled="NO" id="BSE-sA-AVZ" userLabel="Device Button">
+                                                <connections>
+                                                    <action selector="tappedRow:" destination="iQh-uO-qJ6" id="kT9-Ek-oO4"/>
+                                                </connections>
+                                            </button>
                                         </items>
                                     </group>
                                     <connections>
+                                        <outlet property="deviceButton" destination="BSE-sA-AVZ" id="krj-Eg-HaP"/>
                                         <outlet property="deviceLabel" destination="WLQ-Uz-0Ec" id="5gn-qc-Ho8"/>
-                                        <segue destination="s4R-NB-7GP" kind="push" id="k1p-vR-ind"/>
                                     </connections>
                                 </tableRow>
                             </items>
@@ -47,7 +52,7 @@
         <!--Device Screen-->
         <scene sceneID="oNp-XT-HEc">
             <objects>
-                <controller backgroundImage="background-gradient" fullBounds="YES" id="s4R-NB-7GP" userLabel="Device Screen" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
+                <controller identifier="Device-Screen" backgroundImage="background-gradient" fullBounds="YES" id="s4R-NB-7GP" userLabel="Device Screen" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
                     <items>
                         <group width="1" height="1" alignment="left" layout="overlap" id="k4h-Nu-K6S">
                             <items>
