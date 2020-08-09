@@ -36,6 +36,12 @@ class RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController: RVS_BlueT
 
     /* ################################################################## */
     /**
+     The image that indicates Bluetooth is not available.
+     */
+    @IBOutlet weak var noBTImage: WKInterfaceImage!
+    
+    /* ################################################################## */
+    /**
      The switch that controls the scanning for Peripherals.
      */
     @IBOutlet weak var scanningSwitch: WKInterfaceSwitch!
@@ -45,12 +51,6 @@ class RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController: RVS_BlueT
      The table that lists the discovered devices.
      */
     @IBOutlet weak var deviceListTable: WKInterfaceTable!
-
-    /* ################################################################## */
-    /**
-     The "NO BT" image.
-     */
-    @IBOutlet weak var noBTImage: WKInterfaceImage!
     
     /* ################################################################## */
     /**
@@ -104,17 +104,21 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
      
      - parameters:
         - withIdentifier: The segue ID for this (we ignore)
-        - in: The table instance
+        - in: The table instance (we ignore)
         - rowIndex: The vertical position (0-based) of the row that was touched.
      
         - returns: The context, if any. Can be nil.
      */
-    override func contextForSegue(withIdentifier inSegueIdentifier: String, in inTable: WKInterfaceTable, rowIndex inRowIndex: Int) -> Any? {
+    override func contextForSegue(withIdentifier: String, in: WKInterfaceTable, rowIndex inRowIndex: Int) -> Any? {
         if  let driverInstance = centralManager,
             driverInstance.isBTAvailable,
             inRowIndex < driverInstance.stagedBLEPeripherals.count {
-            let deviceInstance = driverInstance.stagedBLEPeripherals[inRowIndex]
-            print("Device Selected: \(deviceInstance.preferredName)")
+            let deviceDiscoveryData = driverInstance.stagedBLEPeripherals[inRowIndex]
+            #if DEBUG
+                print("Device Selected: \(deviceDiscoveryData.preferredName)")
+            #endif
+            
+            return deviceDiscoveryData
         }
         return nil
     }
@@ -159,12 +163,14 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
     override func updateUI() {
         if  let centralManager = centralManager,
             centralManager.isBTAvailable {
+            deviceListTable?.setHidden(false)
             noBTImage?.setHidden(true)
             scanningSwitch?.setHidden(false)
             scanningSwitch?.setOn(centralManager.isScanning)
         } else {
-            noBTImage?.setHidden(false)
             scanningSwitch?.setOn(false)
+            noBTImage?.setHidden(false)
+            deviceListTable?.setHidden(true)
             scanningSwitch?.setHidden(true)
         }
 
