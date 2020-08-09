@@ -54,12 +54,6 @@ class RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController: RVS_BlueT
     
     /* ################################################################## */
     /**
-     The BlueThoth instance for this app.
-     */
-    var driverInstance: RVS_BlueThoth?
-    
-    /* ################################################################## */
-    /**
      Accesses the single Central Manager instance.
      */
     var centralManager: RVS_BlueThoth? { RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.extensionDelegateObject?.centralManager }
@@ -101,6 +95,28 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
         id = Self.id
         super.awake(withContext: inContext)
         scanningSwitch?.setTitle("SLUG-SCANNING".localizedVariant)
+        setTitle("SLUG-DEVICES".localizedVariant)
+    }
+    
+    /* ################################################################## */
+    /**
+     Table touch handler.
+     
+     - parameters:
+        - withIdentifier: The segue ID for this (we ignore)
+        - in: The table instance
+        - rowIndex: The vertical position (0-based) of the row that was touched.
+     
+        - returns: The context, if any. Can be nil.
+     */
+    override func contextForSegue(withIdentifier inSegueIdentifier: String, in inTable: WKInterfaceTable, rowIndex inRowIndex: Int) -> Any? {
+        if  let driverInstance = centralManager,
+            driverInstance.isBTAvailable,
+            inRowIndex < driverInstance.stagedBLEPeripherals.count {
+            let deviceInstance = driverInstance.stagedBLEPeripherals[inRowIndex]
+            print("Device Selected: \(deviceInstance.preferredName)")
+        }
+        return nil
     }
 }
 
@@ -113,7 +129,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
      This adds devices to the table for display.
      */
     func populateTable() {
-        if  let driverInstance = driverInstance,
+        if  let driverInstance = centralManager,
             driverInstance.isBTAvailable,
             0 < driverInstance.stagedBLEPeripherals.count {
             let rowControllerInitializedArray = [String](repeatElement("RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController", count: driverInstance.stagedBLEPeripherals.count))
@@ -124,7 +140,6 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
                 if let deviceRow = deviceListTable.rowController(at: item.offset) as? RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController {
                     let deviceInstance = driverInstance.stagedBLEPeripherals[item.offset]
                     deviceRow.deviceInstance = deviceInstance
-                    deviceRow.deviceRowButton.setTitle(deviceInstance.preferredName)
                 }
             }
         } else {

@@ -164,7 +164,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: CGA_BlueThoth_De
 
     /* ################################################################## */
     /**
-     Called to tell this controller to recalculate its table.
+     Called to tell this controller to recalculate the discovery table.
      
      - parameter inCentralManager: The manager wrapper view that is calling this.
      */
@@ -172,6 +172,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: CGA_BlueThoth_De
         #if DEBUG
             print("General Update")
         #endif
+        screenList[RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController.id]?.updateUI()
     }
     
     /* ################################################################## */

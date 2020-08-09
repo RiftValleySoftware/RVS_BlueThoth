@@ -6,10 +6,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="16012"/>
     </dependencies>
     <scenes>
-        <!--background-gradient-->
+        <!--SLUG-DEVICES-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller backgroundImage="background-gradient" fullBounds="YES" fullScreen="YES" id="AgC-eL-Hgc" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
+                <controller title="SLUG-DEVICES" backgroundImage="background-gradient" fullBounds="YES" fullScreen="YES" id="AgC-eL-Hgc" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
                     <items>
                         <group width="1" height="1" alignment="left" layout="overlap" id="VeA-Zu-N10">
                             <items>
@@ -29,15 +29,12 @@
                                                 <tableRow identifier="RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController" id="iQh-uO-qJ6" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
                                                     <group key="rootItem" width="1" alignment="left" id="EMw-VM-L8B">
                                                         <items>
-                                                            <button width="1" alignment="left" title="Button" id="jMt-uB-pvJ">
-                                                                <connections>
-                                                                    <action selector="deviceRowButtonHit" destination="iQh-uO-qJ6" id="tgE-Nm-d2j"/>
-                                                                </connections>
-                                                            </button>
+                                                            <label width="1" height="1" alignment="center" textAlignment="center" id="WLQ-Uz-0Ec"/>
                                                         </items>
                                                     </group>
                                                     <connections>
-                                                        <outlet property="deviceRowButton" destination="jMt-uB-pvJ" id="D7p-U6-uTV"/>
+                                                        <outlet property="deviceLabel" destination="WLQ-Uz-0Ec" id="5gn-qc-Ho8"/>
+                                                        <segue destination="s4R-NB-7GP" kind="push" id="k1p-vR-ind"/>
                                                     </connections>
                                                 </tableRow>
                                             </items>
@@ -55,6 +52,21 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="30" y="28"/>
+        </scene>
+        <!--background-gradient-->
+        <scene sceneID="oNp-XT-HEc">
+            <objects>
+                <controller backgroundImage="background-gradient" fullBounds="YES" id="s4R-NB-7GP">
+                    <items>
+                        <group width="1" height="1" alignment="left" layout="overlap" id="k4h-Nu-K6S">
+                            <items>
+                                <imageView width="100" height="100" alignment="center" verticalAlignment="center" alpha="0.25" image="BlueThothLogo" id="c6u-2o-uhi"/>
+                            </items>
+                        </group>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="321" y="28"/>
         </scene>
     </scenes>
     <resources>

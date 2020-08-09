@@ -31,21 +31,20 @@ class RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController: NSObject {
     /* ################################################################## */
     /**
      */
-    var deviceInstance: RVS_BlueThoth.DiscoveryData!
-    
+    var deviceInstance: RVS_BlueThoth.DiscoveryData! {
+        didSet {
+            deviceLabel?.setText(deviceInstance.preferredName)
+        }
+    }
+
     /* ################################################################## */
     /**
      */
-    @IBOutlet weak var deviceRowButton: WKInterfaceButton!
+    @IBOutlet weak var deviceLabel: WKInterfaceLabel!
 }
 
 /* ###################################################################################################################################### */
 // MARK: - IBAction Methods -
 /* ###################################################################################################################################### */
 extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController {
-    /* ################################################################## */
-    /**
-     */
-    @IBAction func deviceRowButtonHit() {
-    }
 }
