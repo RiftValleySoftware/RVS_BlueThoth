@@ -50,6 +50,29 @@ class RVS_BlueThoth_Test_Harness_WatchOS_Base: WKInterfaceController, RVS_BlueTh
      This is a stored property that each screen sets to its ID.
      */
     var id = ""
+    
+    /* ################################################################## */
+    /**
+     This is a stupid semaphore flag that we use to prevent UI layout before the screen has finished loading.
+     */
+    var hasLoaded: Bool = false
+    
+    /* ################################################################## */
+    /**
+     Simple accessor to the main extension delegate instance.
+     */
+    var extensionDelegateInstance: RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate? { RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.extensionDelegateObject }
+    
+    /* ################################################################## */
+    /**
+     Displays an alert.
+     
+     - parameter inTitle: REQUIRED: a string to be displayed as the title of the alert. It is localized by this method.
+     - parameter message: OPTIONAL: a string to be displayed as the message of the alert. It is localized by this method.
+     */
+    func displayAlert(header inTitle: String, message inMessage: String = "") {
+        RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.displayAlert(header: inTitle, message: inMessage, from: self)
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -68,6 +91,17 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_Base {
 // MARK: - Base Class Override Methods -
 /* ###################################################################################################################################### */
 extension RVS_BlueThoth_Test_Harness_WatchOS_Base {
+    /* ################################################################## */
+    /**
+     Called after the view has been set up.
+     
+     - parameter withContext: The context being passed in.
+     */
+    override func awake(withContext inContext: Any?) {
+        super.awake(withContext: inContext)
+        hasLoaded = true
+    }
+    
     /* ################################################################## */
     /**
      Called just before the view activates.

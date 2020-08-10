@@ -73,7 +73,8 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
         if  let centralManager = centralManager,
             centralManager.isBTAvailable,
             inIsOn {
-            centralManager.startScanning()
+            centralManager.startOver(true)
+            populateTable()
         } else {
             centralManager?.stopScanning()
             scanningSwitch?.setOn(false)
@@ -94,8 +95,11 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
     override func awake(withContext inContext: Any?) {
         id = Self.id
         super.awake(withContext: inContext)
-        scanningSwitch?.setTitle("SLUG-SCANNING".localizedVariant)
-        setTitle("SLUG-DEVICES".localizedVariant)
+        if let extensionDelegateInstance = extensionDelegateInstance {
+            extensionDelegateInstance.centralManager = RVS_BlueThoth(delegate: extensionDelegateInstance)
+            scanningSwitch?.setTitle("SLUG-SCANNING".localizedVariant)
+            setTitle("SLUG-DEVICES".localizedVariant)
+        }
     }
 }
 
@@ -118,7 +122,6 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
             for item in rowControllerInitializedArray.enumerated() {
                 if let deviceRow = deviceListTable.rowController(at: item.offset) as? RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController {
                     let deviceInstance = driverInstance.stagedBLEPeripherals[item.offset]
-                    deviceRow.interfaceController = self
                     deviceRow.deviceDiscoveryData = deviceInstance
                 }
             }
@@ -137,19 +140,21 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
      This sets everything up to reflect the current state of the Central Manager.
      */
     override func updateUI() {
-        if  let centralManager = centralManager,
-            centralManager.isBTAvailable {
-            deviceListTable?.setHidden(false)
-            noBTImage?.setHidden(true)
-            scanningSwitch?.setHidden(false)
-            scanningSwitch?.setOn(centralManager.isScanning)
-        } else {
-            scanningSwitch?.setOn(false)
-            noBTImage?.setHidden(false)
-            deviceListTable?.setHidden(true)
-            scanningSwitch?.setHidden(true)
-        }
+        if hasLoaded {
+            if  let centralManager = centralManager,
+                centralManager.isBTAvailable {
+                deviceListTable?.setHidden(false)
+                noBTImage?.setHidden(true)
+                scanningSwitch?.setHidden(false)
+                scanningSwitch?.setOn(centralManager.isScanning)
+            } else {
+                scanningSwitch?.setOn(false)
+                noBTImage?.setHidden(false)
+                deviceListTable?.setHidden(true)
+                scanningSwitch?.setHidden(true)
+            }
 
-        populateTable()
+            populateTable()
+        }
     }
 }

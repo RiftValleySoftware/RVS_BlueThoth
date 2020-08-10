@@ -30,28 +30,23 @@ import RVS_BlueThoth_WatchOS
 /**
  This View Controller is for the individual device screen.
  */
-class RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController: RVS_BlueThoth_Test_Harness_WatchOS_Base {
+class RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryViewController: RVS_BlueThoth_Test_Harness_WatchOS_Base {
     /* ################################################################## */
     /**
      */
-    static let screenID = "Connected-Device-Screen"
-    
+    static let screenID = "Device-Screen"
+
     /* ################################################################## */
     /**
      This is the device discovery struct that describes this device.
      */
     var deviceDiscoveryData: RVS_BlueThoth.DiscoveryData!
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBOutlet weak var connectingLabel: WKInterfaceLabel!
 }
 
 /* ###################################################################################################################################### */
 // MARK: - Overridden Base Class Methods -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryViewController {
     /* ################################################################## */
     /**
      This is called as the view is established.
@@ -65,47 +60,33 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
             setTitle(deviceDiscoveryData.preferredName)
         }
     }
-    
-    /* ################################################################## */
-    /**
-     Called as the screen is activated
-     */
-    override func willActivate() {
-        super.willActivate()
-        connectingLabel?.setText("SLUG-CONNECTING".localizedVariant)
-        connectingLabel?.setHidden(false)
-        deviceDiscoveryData?.connect()
-    }
-    
-    /* ################################################################## */
-    /**
-     Called sfter the screen has deactivated
-     */
-    override func didDeactivate() {
-        super.didDeactivate()
-        deviceDiscoveryData?.disconnect()
-    }
 }
 
 /* ###################################################################################################################################### */
 // MARK: - RVS_BlueThoth_Test_Harness_WatchOS_Base_Protocol Conformance -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryViewController {
     /* ################################################################## */
     /**
      This sets everything up to reflect the current state of the Central Manager.
      */
     override func updateUI() {
         if hasLoaded {
-            if  let device = deviceDiscoveryData?.peripheralInstance,
-                device.isConnected {
-                #if DEBUG
-                    print("Device: \(device.id) connected")
-                #endif
-                connectingLabel?.setHidden(true)
-            } else {
-                connectingLabel?.setHidden(false)
-            }
         }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - IBAction Methods -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryViewController {
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func tappedRow(_: Any) {
+        #if DEBUG
+            print("Device Selected: \(deviceDiscoveryData?.preferredName ?? "ERROR")")
+        #endif
+        pushController(withName: RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryViewController.screenID, context: deviceDiscoveryData)
     }
 }

@@ -25,16 +25,11 @@
                                     <group key="rootItem" width="1" alignment="left" layout="overlap" id="EMw-VM-L8B">
                                         <items>
                                             <label width="1" height="1" alignment="center" textAlignment="center" id="WLQ-Uz-0Ec"/>
-                                            <button width="1" height="1" alignment="left" enabled="NO" id="BSE-sA-AVZ" userLabel="Device Button">
-                                                <connections>
-                                                    <action selector="tappedRow:" destination="iQh-uO-qJ6" id="kT9-Ek-oO4"/>
-                                                </connections>
-                                            </button>
                                         </items>
                                     </group>
                                     <connections>
-                                        <outlet property="deviceButton" destination="BSE-sA-AVZ" id="krj-Eg-HaP"/>
                                         <outlet property="deviceLabel" destination="WLQ-Uz-0Ec" id="5gn-qc-Ho8"/>
+                                        <segue destination="Nkb-53-HMU" kind="push" id="HVT-iv-b8M"/>
                                     </connections>
                                 </tableRow>
                             </items>
@@ -49,10 +44,21 @@
             </objects>
             <point key="canvasLocation" x="30" y="28"/>
         </scene>
-        <!--Device Screen-->
+        <!--Device-Screen-->
+        <scene sceneID="UxI-nT-USb">
+            <objects>
+                <controller identifier="Device-Screen" backgroundImage="background-gradient" id="Nkb-53-HMU">
+                    <items>
+                        <imageView width="100" height="100" alignment="center" verticalAlignment="center" alpha="0.25" image="BlueThothLogo" id="uu6-hu-bg0"/>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="306" y="28"/>
+        </scene>
+        <!--Connected Device Screen-->
         <scene sceneID="oNp-XT-HEc">
             <objects>
-                <controller identifier="Device-Screen" backgroundImage="background-gradient" fullBounds="YES" id="s4R-NB-7GP" userLabel="Device Screen" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
+                <controller identifier="Connected-Device-Screen" backgroundImage="background-gradient" fullBounds="YES" id="s4R-NB-7GP" userLabel="Connected Device Screen" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
                     <items>
                         <group width="1" height="1" alignment="left" layout="overlap" id="k4h-Nu-K6S">
                             <items>
@@ -66,7 +72,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="321" y="28"/>
+            <point key="canvasLocation" x="580" y="28"/>
         </scene>
     </scenes>
     <resources>

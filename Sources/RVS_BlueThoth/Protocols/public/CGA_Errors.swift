@@ -28,7 +28,13 @@ import CoreBluetooth
 /**
  This enumeration defines a powerful error reporting system for the Bluetooth framework. It conforms to the standard <code>Error</code> protocol.
  */
-public enum CGA_Errors: Error {
+public enum CGA_Errors: Error, Equatable {
+    /* ################################################################## */
+    /**
+     Simple equatable. We just compare the names, and not the contents.
+     */
+    public static func == (lhs: CGA_Errors, rhs: CGA_Errors) -> Bool { lhs.localizedDescription == rhs.localizedDescription }
+    
     /* ################################################################## */
     /**
      This indicates that the Bluetooth system is not available.

@@ -26,6 +26,9 @@ import RVS_BlueThoth_WatchOS
 /* ###################################################################################################################################### */
 // MARK: - Preferences Extension -
 /* ###################################################################################################################################### */
+/**
+ This extension adds a bit of extra "sauce" to the shared prefs class, in that it adds stuff specific to our platform.
+ */
 extension CGA_PersistentPrefs {
     /* ################################################################## */
     /**
@@ -38,10 +41,13 @@ extension CGA_PersistentPrefs {
 /* ###################################################################################################################################### */
 // MARK: - Main Watch App Extension Delegate -
 /* ###################################################################################################################################### */
+/**
+ This is the main app extension delegate class.
+ */
 class RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: NSObject {
     /* ################################################################## */
     /**
-     This is the Central Manager instance.
+     This is the Central Manager instance. It is created by the intial screen, but stored here.
      */
     var centralManager: RVS_BlueThoth?
     
@@ -50,21 +56,52 @@ class RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: NSObject {
      This contains all of our screens. The key is the ID of the device or attribute associated with that screen.
      */
     var screenList: [String: RVS_BlueThoth_Test_Harness_WatchOS_Base_Protocol] = [:]
+    
+    /* ################################################################## */
+    /**
+     Quick accessor for the main discovery screen.
+     */
+    var mainScreen: RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController? { screenList[RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController.id] as? RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Class Functions -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate {
+    /* ################################################################## */
+    /**
+     Quick access to the extension delegate object.
+     */
+    class var extensionDelegateObject: RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate! { WKExtension.shared().delegate as? RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate }
+    
+    /* ################################################################## */
+    /**
+     Displays the given message and title in an alert with an "OK" button.
+     
+     - parameter inTitle: REQUIRED: a string to be displayed as the title of the alert. It is localized by this method.
+     - parameter message: OPTIONAL: a string to be displayed as the message of the alert. It is localized by this method.
+     - parameter from: REQUIRED: The controller presenting the error.
+     */
+    class func displayAlert(header inTitle: String, message inMessage: String = "", from inController: WKInterfaceController) {
+        #if DEBUG
+            print("ALERT:\t\(inTitle)\n\t\t\(inMessage)")
+        #endif
+        DispatchQueue.main.async {  // In case we're called off-thread...
+            let okAction = WKAlertAction(title: "SLUG-OK-BUTTON-TEXT".localizedVariant, style: WKAlertActionStyle.default) {
+                #if DEBUG
+                    print("Alert Dismissed")
+                #endif
+            }
+            
+            inController.presentAlert(withTitle: inTitle.localizedVariant, message: inMessage.localizedVariant, preferredStyle: WKAlertControllerStyle.alert, actions: [okAction])
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
 // MARK: - WKExtensionDelegate Conformance -
 /* ###################################################################################################################################### */
 extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: WKExtensionDelegate {
-    /* ################################################################## */
-    /**
-     Called after the application has finished its launch setup.
-     At this point, we create our RVS_BueThoth instance.
-     */
-    func applicationDidFinishLaunching() {
-        centralManager = RVS_BlueThoth(delegate: self)
-    }
-    
     /* ################################################################## */
     /**
      This is called while the app is in the background, with various tasks that need to be handled.
@@ -104,41 +141,6 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: WKExtensionDeleg
 }
 
 /* ###################################################################################################################################### */
-// MARK: - Class Functions -
-/* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate {
-    /* ################################################################## */
-    /**
-     Quick access to the extension delegate object.
-     */
-    class var extensionDelegateObject: RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate! { WKExtension.shared().delegate as? RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate }
-    
-    /* ################################################################## */
-    /**
-     Displays the given message and title in an alert with an "OK" button.
-     
-     - parameter inTitle: REQUIRED: a string to be displayed as the title of the alert. It is localized by this method.
-     - parameter message: OPTIONAL: a string to be displayed as the message of the alert. It is localized by this method.
-     */
-    class func displayAlert(header inTitle: String, message inMessage: String = "") {
-        #if DEBUG
-            print("ALERT:\t\(inTitle)\n\t\t\(inMessage)")
-        #endif
-        DispatchQueue.main.async {  // In case we're called off-thread...
-            let okAction = WKAlertAction(title: "SLUG-OK-BUTTON-TEXT".localizedVariant, style: WKAlertActionStyle.default) {
-                #if DEBUG
-                    print("Alert Dismissed")
-                #endif
-            }
-            
-            if let screen = extensionDelegateObject?.screenList[RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController.id] as? WKInterfaceController {
-                screen.presentAlert(withTitle: inTitle.localizedVariant, message: inMessage.localizedVariant, preferredStyle: WKAlertControllerStyle.alert, actions: [okAction])
-            }
-        }
-    }
-}
-
-/* ###################################################################################################################################### */
 // MARK: - CGA_BlueThoth_Delegate Conformance -
 /* ###################################################################################################################################### */
 extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: CGA_BlueThoth_Delegate {
@@ -154,7 +156,20 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: CGA_BlueThoth_De
             print("ERROR!\n\t\(String(describing: inError))")
         #endif
         
-        Self.displayAlert(header: "SLUG-ERROR".localizedVariant, message: String(describing: inError))
+        mainScreen?.displayAlert(header: "SLUG-ERROR".localizedVariant, message: String(describing: inError))
+    }
+    
+    /* ################################################################## */
+    /**
+     Called to tell this controller to recalculate the discovery table.
+     
+     - parameter inCentralManager: The manager wrapper view that is calling this.
+     */
+    func updateFrom(_ inCentralManager: RVS_BlueThoth) {
+        #if DEBUG
+            print("General Update")
+        #endif
+        mainScreen?.updateUI()
     }
     
     /* ################################################################## */
@@ -168,22 +183,9 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: CGA_BlueThoth_De
             print("Powered On.")
         #endif
         
-        screenList[RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController.id]?.updateUI()
+        mainScreen?.updateUI()
     }
 
-    /* ################################################################## */
-    /**
-     Called to tell this controller to recalculate the discovery table.
-     
-     - parameter inCentralManager: The manager wrapper view that is calling this.
-     */
-    func updateFrom(_ inCentralManager: RVS_BlueThoth) {
-        #if DEBUG
-            print("General Update")
-        #endif
-        screenList[RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController.id]?.updateUI()
-    }
-    
     /* ################################################################## */
     /**
      Called to tell the instance that a Peripheral device has been connected.
@@ -295,6 +297,5 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: CGA_BlueThoth_De
                 print("\tCharacteristic String Value: \"\(stringValue)\"")
             }
         #endif
-        Self.displayAlert(header: "WRITE-RESPONSE".localizedVariant)
     }
 }

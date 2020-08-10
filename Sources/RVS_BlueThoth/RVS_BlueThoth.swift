@@ -455,12 +455,16 @@ extension RVS_BlueThoth {
     /* ################################################################## */
     /**
      This eliminates all of the stored results, and asks the Bluetooth subsystem to start over from scratch.
+     
+     - parameter inScan: OPTIONAL:  If true, then the scan will be started afterwards.
+                                    If false, then the scan will not be started, even if it was scanning.
+                                    If not provided, then the scanning will restart, if it was previously scanning.
      */
-    public func startOver() {
+    public func startOver(_ inScan: Bool! = nil) {
         #if DEBUG
             print("Starting The Central Manager Peripheral Discovery Over From Scratch.")
         #endif
-        let wasScanning = isScanning
+        let wasScanning = inScan ?? isScanning
         stopScanning()
         clear()
         if wasScanning {
