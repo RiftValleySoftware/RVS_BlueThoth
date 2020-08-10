@@ -53,7 +53,7 @@ class RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: NSObject {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - Main Watch App Extension Delegate -
+// MARK: - WKExtensionDelegate Conformance -
 /* ###################################################################################################################################### */
 extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: WKExtensionDelegate {
     /* ################################################################## */
@@ -112,16 +112,27 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate {
      Quick access to the extension delegate object.
      */
     class var extensionDelegateObject: RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate! { WKExtension.shared().delegate as? RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate }
-
+    
     /* ################################################################## */
     /**
      Displays the given message and title in an alert with an "OK" button.
      
-     - parameter header: a string to be displayed as the title of the alert. It is localized by this method.
+     - parameter inTitle: REQUIRED: a string to be displayed as the title of the alert. It is localized by this method.
+     - parameter message: OPTIONAL: a string to be displayed as the message of the alert. It is localized by this method.
+     - parameter fromScreen: REQUIRED: The screen presenting the alert.
      */
-    class func displayAlert(header inHeader: String) {
-        // This ensures that we are on the main thread.
-        DispatchQueue.main.async {
+    class func displayAlert(header inTitle: String, message inMessage: String = "", fromScreen inScreen: WKInterfaceController) {
+        #if DEBUG
+            print("ALERT:\t\(inTitle)\n\t\t\(inMessage)")
+        #endif
+        DispatchQueue.main.async {  // In case we're called off-thread...
+            let okAction = WKAlertAction(title: "SLUG-OK-BUTTON-TEXT".localizedVariant, style: WKAlertActionStyle.default) {
+                #if DEBUG
+                    print("Alert Dismissed")
+                #endif
+            }
+            
+            inScreen.presentAlert(withTitle: inTitle.localizedVariant, message: inMessage.localizedVariant, preferredStyle: WKAlertControllerStyle.alert, actions: [okAction])
         }
     }
 }
