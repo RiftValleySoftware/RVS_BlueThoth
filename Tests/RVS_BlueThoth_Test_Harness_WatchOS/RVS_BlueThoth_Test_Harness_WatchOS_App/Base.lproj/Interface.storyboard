@@ -47,10 +47,13 @@
         <!--Device-Screen-->
         <scene sceneID="UxI-nT-USb">
             <objects>
-                <controller identifier="Device-Screen" backgroundImage="background-gradient" id="Nkb-53-HMU">
+                <controller identifier="Device-Screen" backgroundImage="background-gradient" id="Nkb-53-HMU" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryViewController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
                     <items>
-                        <imageView width="100" height="100" alignment="center" verticalAlignment="center" alpha="0.25" image="BlueThothLogo" id="uu6-hu-bg0"/>
+                        <label width="1" alignment="left" text="Label" numberOfLines="0" id="nyz-mY-M4L"/>
                     </items>
+                    <connections>
+                        <outlet property="advertisingInformationLabel" destination="nyz-mY-M4L" id="Bt5-59-2EU"/>
+                    </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="306" y="28"/>

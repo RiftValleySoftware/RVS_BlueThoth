@@ -51,12 +51,6 @@ class RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController: RVS_BlueT
      The table that lists the discovered devices.
      */
     @IBOutlet weak var deviceListTable: WKInterfaceTable!
-    
-    /* ################################################################## */
-    /**
-     Accesses the single Central Manager instance.
-     */
-    var centralManager: RVS_BlueThoth? { RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.extensionDelegateObject?.centralManager }
 }
 
 /* ###################################################################################################################################### */
@@ -101,6 +95,25 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
             setTitle("SLUG-DEVICES".localizedVariant)
         }
     }
+    
+    /* ################################################################## */
+    /**
+     Table touch handler.
+     
+     - parameters:
+        - withIdentifier: The segue ID for this (we ignore)
+        - in: The table instance
+        - rowIndex: The vertical position (0-based) of the row that was touched.
+     
+        - returns: The context, if any. Can be nil.
+     */
+    override func contextForSegue(withIdentifier inSegueIdentifier: String, in inTable: WKInterfaceTable, rowIndex inRowIndex: Int) -> Any? {
+        guard  let centralManager = centralManager,
+            centralManager.isBTAvailable,
+            (0..<centralManager.stagedBLEPeripherals.count).contains(inRowIndex) else { return nil }
+        
+        return centralManager.stagedBLEPeripherals[inRowIndex]
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -140,21 +153,19 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
      This sets everything up to reflect the current state of the Central Manager.
      */
     override func updateUI() {
-        if hasLoaded {
-            if  let centralManager = centralManager,
-                centralManager.isBTAvailable {
-                deviceListTable?.setHidden(false)
-                noBTImage?.setHidden(true)
-                scanningSwitch?.setHidden(false)
-                scanningSwitch?.setOn(centralManager.isScanning)
-            } else {
-                scanningSwitch?.setOn(false)
-                noBTImage?.setHidden(false)
-                deviceListTable?.setHidden(true)
-                scanningSwitch?.setHidden(true)
-            }
-
-            populateTable()
+        if  let centralManager = centralManager,
+            centralManager.isBTAvailable {
+            deviceListTable?.setHidden(false)
+            noBTImage?.setHidden(true)
+            scanningSwitch?.setHidden(false)
+            scanningSwitch?.setOn(centralManager.isScanning)
+        } else {
+            scanningSwitch?.setOn(false)
+            noBTImage?.setHidden(false)
+            deviceListTable?.setHidden(true)
+            scanningSwitch?.setHidden(true)
         }
+
+        populateTable()
     }
 }

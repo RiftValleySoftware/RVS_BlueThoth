@@ -53,15 +53,15 @@ class RVS_BlueThoth_Test_Harness_WatchOS_Base: WKInterfaceController, RVS_BlueTh
     
     /* ################################################################## */
     /**
-     This is a stupid semaphore flag that we use to prevent UI layout before the screen has finished loading.
-     */
-    var hasLoaded: Bool = false
-    
-    /* ################################################################## */
-    /**
      Simple accessor to the main extension delegate instance.
      */
     var extensionDelegateInstance: RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate? { RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.extensionDelegateObject }
+    
+    /* ################################################################## */
+    /**
+     Returns the Central manager BlueThoth instance.
+     */
+    var centralManager: RVS_BlueThoth? { extensionDelegateInstance?.centralManager }
     
     /* ################################################################## */
     /**
@@ -99,7 +99,6 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_Base {
      */
     override func awake(withContext inContext: Any?) {
         super.awake(withContext: inContext)
-        hasLoaded = true
     }
     
     /* ################################################################## */

@@ -96,16 +96,14 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
      This sets everything up to reflect the current state of the Central Manager.
      */
     override func updateUI() {
-        if hasLoaded {
-            if  let device = deviceDiscoveryData?.peripheralInstance,
-                device.isConnected {
-                #if DEBUG
-                    print("Device: \(device.id) connected")
-                #endif
-                connectingLabel?.setHidden(true)
-            } else {
-                connectingLabel?.setHidden(false)
-            }
+        if  let device = deviceDiscoveryData?.peripheralInstance,
+            device.isConnected {
+            #if DEBUG
+                print("Device: \(device.id) connected")
+            #endif
+            connectingLabel?.setHidden(true)
+        } else {
+            connectingLabel?.setHidden(false)
         }
     }
 }
