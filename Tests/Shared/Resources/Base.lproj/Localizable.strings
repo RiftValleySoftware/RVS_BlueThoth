@@ -34,6 +34,8 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "CGA-ERROR-CHARACTERISTIC"          =   "Characteristic Error";
 "CGA-ERROR-DESCRIPTOR"              =   "Descriptor Error";
 "CGA-ERROR-INTERNAL"                =   "Internal Error";
+"CGA-ERROR-BTUNAVAILABLE"           =   "Bluetooth Not Available";
+"CGA-ERROR-UNAUTH"                  =   "Operation Unauthorized";
 
 "WRITE-RESPONSE"                    =   "The Characteristic Write Was Successful";
 

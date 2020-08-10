@@ -119,9 +119,8 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate {
      
      - parameter inTitle: REQUIRED: a string to be displayed as the title of the alert. It is localized by this method.
      - parameter message: OPTIONAL: a string to be displayed as the message of the alert. It is localized by this method.
-     - parameter fromScreen: REQUIRED: The screen presenting the alert.
      */
-    class func displayAlert(header inTitle: String, message inMessage: String = "", fromScreen inScreen: WKInterfaceController) {
+    class func displayAlert(header inTitle: String, message inMessage: String = "") {
         #if DEBUG
             print("ALERT:\t\(inTitle)\n\t\t\(inMessage)")
         #endif
@@ -132,7 +131,9 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate {
                 #endif
             }
             
-            inScreen.presentAlert(withTitle: inTitle.localizedVariant, message: inMessage.localizedVariant, preferredStyle: WKAlertControllerStyle.alert, actions: [okAction])
+            if let screen = extensionDelegateObject?.screenList[RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController.id] as? WKInterfaceController {
+                screen.presentAlert(withTitle: inTitle.localizedVariant, message: inMessage.localizedVariant, preferredStyle: WKAlertControllerStyle.alert, actions: [okAction])
+            }
         }
     }
 }
@@ -152,6 +153,8 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: CGA_BlueThoth_De
         #if DEBUG
             print("ERROR!\n\t\(String(describing: inError))")
         #endif
+        
+        Self.displayAlert(header: "SLUG-ERROR".localizedVariant, message: String(describing: inError))
     }
     
     /* ################################################################## */

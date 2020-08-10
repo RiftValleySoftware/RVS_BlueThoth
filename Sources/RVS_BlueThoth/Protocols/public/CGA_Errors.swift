@@ -31,6 +31,18 @@ import CoreBluetooth
 public enum CGA_Errors: Error {
     /* ################################################################## */
     /**
+     This indicates that the Bluetooth system is not available.
+     */
+    case btUnavailable
+    
+    /* ################################################################## */
+    /**
+     This indicates that the operation was not authenticated/authorized.
+     */
+    case unauthorized
+    
+    /* ################################################################## */
+    /**
      This indicates that a connection attempt timed out.
      */
     case timeoutError(RVS_BlueThoth.DiscoveryData!)
@@ -79,6 +91,12 @@ public enum CGA_Errors: Error {
         var ret: String = ""
         
         switch self {
+        case .btUnavailable:
+            ret = "CGA-ERROR-BTUNAVAILABLE"
+
+        case .unauthorized:
+            ret = "CGA-ERROR-UNAUTH"
+
         case .timeoutError:
             ret = "CGA-ERROR-TIMEOUT"
 
@@ -113,6 +131,10 @@ public enum CGA_Errors: Error {
         var ret: [String] = []
         
         switch self {
+        case .btUnavailable,
+             .unauthorized:
+            ret = [localizedDescription]
+
         case .timeoutError(let value):
             ret = [localizedDescription]
             if let value = value?.preferredName {
@@ -153,6 +175,10 @@ public enum CGA_Errors: Error {
         var ret: Any! = nil
         
         switch self {
+        case .btUnavailable,
+             .unauthorized:
+            ret = nil
+
         case .timeoutError(let value):
             ret = value
             

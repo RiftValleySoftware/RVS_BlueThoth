@@ -68,16 +68,18 @@ extension RVS_BlueThoth: CBCentralManagerDelegate {
                 print("Central Manager State Changed to Unauthorized.")
             #endif
             stopScanning()
-
-        case .unknown:
-            #if DEBUG
-                print("Central Manager State Changed to Unknown.")
-            #endif
-            stopScanning()
+            reportError(.unauthorized)
 
         case .unsupported:
             #if DEBUG
                 print("Central Manager State Changed to Unsupported.")
+            #endif
+            stopScanning()
+            reportError(.btUnavailable)
+
+        case .unknown:
+            #if DEBUG
+                print("Central Manager State Changed to Unknown.")
             #endif
             stopScanning()
 
