@@ -241,14 +241,14 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 /// MARK: - DATA INTERPRETATION
 
 // MARK: - Advertising Data Strings
-"kCBAdvDataLocalName"               =   "Name";
 "kCBAdvDataIsConnectable"           =   "Can Connect";
-"kCBAdvDataTxPowerLevel"            =   "Transmit Power Level";
-"kCBAdvDataTimestamp"               =   "Timestamp";
-"kCBAdvDataRxPrimaryPHY"            =   "Primary Receive";
-"kCBAdvDataServiceUUIDs"            =   "Advertised Services";
-"kCBAdvDataRxSecondaryPHY"          =   "Secondary Receive";
+"kCBAdvDataLocalName"               =   "Name";
 "kCBAdvDataManufacturerData"        =   "Manufacturer Data";
+"kCBAdvDataRxPrimaryPHY"            =   "Primary Receive";
+"kCBAdvDataRxSecondaryPHY"          =   "Secondary Receive";
+"kCBAdvDataServiceUUIDs"            =   "Advertised Services";
+"kCBAdvDataTimestamp"               =   "Timestamp";
+"kCBAdvDataTxPowerLevel"            =   "Transmit Power Level";
 
 // MARK: - GATT Service IDs
 "1800"                              =    "Generic Access";
