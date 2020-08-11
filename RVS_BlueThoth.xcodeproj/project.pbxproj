@@ -21,6 +21,7 @@
 		D413F09724BDECE000A3C772 /* RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D413F09624BDECE000A3C772 /* RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController.swift */; };
 		D413F09924BDEE7700A3C772 /* CGA_PersistentPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D431EC3024675E8D0094BB23 /* CGA_PersistentPrefs.swift */; };
 		D41BB97A24BCB85A00E72FDF /* RVS_BlueThoth_Test_Harness_MacOS_AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41BB97924BCB85900E72FDF /* RVS_BlueThoth_Test_Harness_MacOS_AboutViewController.swift */; };
+		D42299C524E2E1F700549680 /* Localizable.strings in CopyFiles */ = {isa = PBXBuildFile; fileRef = D431EC1E24675E8D0094BB23 /* Localizable.strings */; };
 		D42ABE94246753DC00815395 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D42ABE93246753DC00815395 /* Assets.xcassets */; };
 		D431EC3424675E8D0094BB23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D431EC1924675E8D0094BB23 /* Assets.xcassets */; };
 		D431EC3524675E8D0094BB23 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D431EC1A24675E8D0094BB23 /* LaunchScreen.storyboard */; };
@@ -312,6 +313,16 @@
 				D413F09224BDEC0300A3C772 /* RVS_BlueThoth_iOS.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D42299C424E2E1EC00549680 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				D42299C524E2E1F700549680 /* Localizable.strings in CopyFiles */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D44E0CFD24DD9E64003E3FD4 /* Embed Watch Content */ = {
@@ -944,6 +955,7 @@
 				D44E0CEB24DD9E63003E3FD4 /* Sources */,
 				D44E0CEC24DD9E63003E3FD4 /* Frameworks */,
 				D4B674FD24DD9FD000B32A63 /* Embed Frameworks */,
+				D42299C424E2E1EC00549680 /* CopyFiles */,
 			);
 			buildRules = (
 			);

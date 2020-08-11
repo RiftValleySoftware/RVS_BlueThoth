@@ -23,18 +23,6 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 import WatchKit
 import RVS_BlueThoth_WatchOS
 
-public extension StringProtocol {
-    /* ################################################################## */
-    /**
-     - returns: the localized string (main bundle) for this string.
-     */
-    var localizedVariant: String {
-        let ret = NSLocalizedString(String(self), comment: "")
-        
-        return ret
-    }
-}
-
 /* ###################################################################################################################################### */
 // MARK: - Preferences Extension -
 /* ###################################################################################################################################### */
