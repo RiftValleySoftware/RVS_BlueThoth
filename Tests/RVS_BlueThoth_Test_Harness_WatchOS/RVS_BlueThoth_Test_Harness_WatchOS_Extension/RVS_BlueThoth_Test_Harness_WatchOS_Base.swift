@@ -113,9 +113,9 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_Base {
      */
     override func willActivate() {
         super.willActivate()
-        if  let extensionDelegateObject = RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.extensionDelegateObject {
-            extensionDelegateObject.screenList[id] = self
-        }
+        let id = self.id
+        print("Registering: \(id)")
+        extensionDelegateInstance?.screenList[id] = self
         updateUI()
     }
     

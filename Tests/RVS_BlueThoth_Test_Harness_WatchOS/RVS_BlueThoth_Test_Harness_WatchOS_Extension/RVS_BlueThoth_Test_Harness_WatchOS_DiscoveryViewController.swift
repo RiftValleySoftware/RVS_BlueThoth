@@ -33,6 +33,12 @@ import RVS_BlueThoth_WatchOS
 class RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryViewController: RVS_BlueThoth_Test_Harness_WatchOS_Base {
     /* ################################################################## */
     /**
+     The segue ID for the connection segue (from the CONNECT button).
+     */
+    static let connectionSegueID = "connect-to-device"
+    
+    /* ################################################################## */
+    /**
      This is the device discovery struct that describes this device.
      */
     var deviceDiscoveryData: RVS_BlueThoth.DiscoveryData!
@@ -77,6 +83,20 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryViewController {
     override func willActivate() {
         super.willActivate()
         updateUI()
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called as we switch to the connection screen.
+     
+     - parameter withIdentifier: The String that identifies the segue.
+     - returns: nil, if the segue is not ours, or the device discovery data.
+     */
+    override func contextForSegue(withIdentifier inSegueIdentifier: String) -> Any? {
+        print(inSegueIdentifier)
+        guard Self.connectionSegueID == inSegueIdentifier else { return nil }
+        
+        return deviceDiscoveryData
     }
 }
 

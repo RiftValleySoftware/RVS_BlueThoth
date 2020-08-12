@@ -254,7 +254,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: CGA_BlueThoth_De
         #if DEBUG
             print("Connected Device")
         #endif
-        screenList[inDevice.id]?.updateUI()
+        screenList[inDevice.id + "-CONNECTED"]?.updateUI()
     }
     
     /* ################################################################## */

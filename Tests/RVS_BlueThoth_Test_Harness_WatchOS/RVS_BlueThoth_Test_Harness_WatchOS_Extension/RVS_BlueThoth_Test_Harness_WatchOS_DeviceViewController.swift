@@ -60,9 +60,14 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
      */
     override func awake(withContext inContext: Any?) {
         if let context = inContext as? RVS_BlueThoth.DiscoveryData {
+            id = context.identifier + "-CONNECTED"
+            super.awake(withContext: inContext)
             deviceDiscoveryData = context
-            id = context.identifier
+            connectingLabel?.setHidden(false)
+            connectingLabel?.setText("SLUG-CONNECTING".localizedVariant)
             setTitle(deviceDiscoveryData.preferredName)
+        } else {
+            super.awake(withContext: inContext)
         }
     }
     
@@ -72,8 +77,6 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
      */
     override func willActivate() {
         super.willActivate()
-        connectingLabel?.setText("SLUG-CONNECTING".localizedVariant)
-        connectingLabel?.setHidden(false)
         deviceDiscoveryData?.connect()
     }
     
@@ -103,6 +106,11 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
             #endif
             connectingLabel?.setHidden(true)
         } else {
+            #if DEBUG
+                if  let device = deviceDiscoveryData?.peripheralInstance {
+                    print("Device: \(device.id) disconnected")
+                }
+            #endif
             connectingLabel?.setHidden(false)
         }
     }

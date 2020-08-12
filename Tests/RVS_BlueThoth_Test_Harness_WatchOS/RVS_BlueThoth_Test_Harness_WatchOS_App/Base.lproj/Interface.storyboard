@@ -94,7 +94,7 @@
                         <label width="1" alignment="left" text="Label" numberOfLines="0" id="nyz-mY-M4L"/>
                         <button width="1" alignment="left" title="SLUG-CONNECT" id="vn1-qE-crI">
                             <connections>
-                                <segue destination="s4R-NB-7GP" kind="push" id="bnF-F7-UZH"/>
+                                <segue destination="s4R-NB-7GP" kind="push" identifier="connect-to-device" id="bnF-F7-UZH"/>
                             </connections>
                         </button>
                     </items>
