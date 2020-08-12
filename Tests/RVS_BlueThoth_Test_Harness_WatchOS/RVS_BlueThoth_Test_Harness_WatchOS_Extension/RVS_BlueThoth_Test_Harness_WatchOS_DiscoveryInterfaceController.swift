@@ -67,6 +67,9 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
         if  let centralManager = centralManager,
             centralManager.isBTAvailable,
             inIsOn {
+            centralManager.allowEmptyNames = prefs?.allowEmptyNames ?? false
+            centralManager.discoverOnlyConnectablePeripherals = prefs?.discoverOnlyConnectableDevices ?? false
+            centralManager.minimumRSSILevelIndBm = prefs?.minimumRSSILevel ?? -100
             centralManager.startOver(true)
             populateTable()
         } else {
@@ -113,6 +116,16 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
             (0..<centralManager.stagedBLEPeripherals.count).contains(inRowIndex) else { return nil }
         
         return centralManager.stagedBLEPeripherals[inRowIndex]
+    }
+    
+    /* ################################################################## */
+    /**
+     Called before the view disappears. We use this to stop the scanning.
+     */
+    override func willDisappear() {
+        super.willDisappear()
+        centralManager?.stopScanning()
+        scanningSwitch?.setOn(false)
     }
 }
 

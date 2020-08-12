@@ -50,7 +50,7 @@ class RVS_BlueThoth_Test_Harness_WatchOS_Base: WKInterfaceController, RVS_BlueTh
      This is a stored property that each screen sets to its ID.
      */
     var id = ""
-    
+
     /* ################################################################## */
     /**
      Simple accessor to the main extension delegate instance.
@@ -63,6 +63,12 @@ class RVS_BlueThoth_Test_Harness_WatchOS_Base: WKInterfaceController, RVS_BlueTh
      */
     var centralManager: RVS_BlueThoth? { extensionDelegateInstance?.centralManager }
     
+    /* ################################################################## */
+    /**
+     This accesses our stored preferences.
+     */
+    var prefs: CGA_PersistentPrefs? { extensionDelegateInstance?.prefs }
+
     /* ################################################################## */
     /**
      Displays an alert.

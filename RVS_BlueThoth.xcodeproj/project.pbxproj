@@ -21,6 +21,7 @@
 		D413F09724BDECE000A3C772 /* RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D413F09624BDECE000A3C772 /* RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController.swift */; };
 		D413F09924BDEE7700A3C772 /* CGA_PersistentPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D431EC3024675E8D0094BB23 /* CGA_PersistentPrefs.swift */; };
 		D41BB97A24BCB85A00E72FDF /* RVS_BlueThoth_Test_Harness_MacOS_AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41BB97924BCB85900E72FDF /* RVS_BlueThoth_Test_Harness_MacOS_AboutViewController.swift */; };
+		D41F873324E41F1E006724E2 /* RVS_BlueThoth_Test_Harness_WatchOS_PrefsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41F873224E41F1E006724E2 /* RVS_BlueThoth_Test_Harness_WatchOS_PrefsController.swift */; };
 		D42299C524E2E1F700549680 /* Localizable.strings in CopyFiles */ = {isa = PBXBuildFile; fileRef = D431EC1E24675E8D0094BB23 /* Localizable.strings */; };
 		D42ABE94246753DC00815395 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D42ABE93246753DC00815395 /* Assets.xcassets */; };
 		D431EC3424675E8D0094BB23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D431EC1924675E8D0094BB23 /* Assets.xcassets */; };
@@ -373,6 +374,7 @@
 		D413F08B24BDE81200A3C772 /* RVS_BlueThoth_MacOS_Test_Harness_Base_WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_MacOS_Test_Harness_Base_WindowController.swift; sourceTree = "<group>"; };
 		D413F09624BDECE000A3C772 /* RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_MacOS_Base_ViewController.swift; sourceTree = "<group>"; };
 		D41BB97924BCB85900E72FDF /* RVS_BlueThoth_Test_Harness_MacOS_AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_MacOS_AboutViewController.swift; sourceTree = "<group>"; };
+		D41F873224E41F1E006724E2 /* RVS_BlueThoth_Test_Harness_WatchOS_PrefsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_WatchOS_PrefsController.swift; sourceTree = "<group>"; };
 		D42ABE93246753DC00815395 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D431EC1924675E8D0094BB23 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D431EC1B24675E8D0094BB23 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -859,6 +861,7 @@
 			children = (
 				D4B6750B24DDA66C00B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.swift */,
 				D40A392824E0771400B08133 /* RVS_BlueThoth_Test_Harness_WatchOS_Base.swift */,
+				D41F873224E41F1E006724E2 /* RVS_BlueThoth_Test_Harness_WatchOS_PrefsController.swift */,
 				D4B6750A24DDA66C00B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController.swift */,
 				D47AE94C24DDEF5B00F5BCD8 /* RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController.swift */,
 				D43399B124E18F86008ECEF0 /* RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryViewController.swift */,
@@ -1339,6 +1342,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D43399B224E18F86008ECEF0 /* RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryViewController.swift in Sources */,
+				D41F873324E41F1E006724E2 /* RVS_BlueThoth_Test_Harness_WatchOS_PrefsController.swift in Sources */,
 				D4B6750424DDA0A900B32A63 /* CGA_PersistentPrefs.swift in Sources */,
 				D40A392924E0771400B08133 /* RVS_BlueThoth_Test_Harness_WatchOS_Base.swift in Sources */,
 				D4B6751524DDA68000B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.swift in Sources */,

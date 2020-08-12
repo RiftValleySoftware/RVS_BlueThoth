@@ -12,6 +12,12 @@
                 <controller title="SLUG-DEVICES" backgroundImage="background-gradient" id="AgC-eL-Hgc" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
                     <items>
                         <imageView width="100" height="100" alignment="center" verticalAlignment="center" image="NoBT" id="3SO-EZ-3zF"/>
+                        <button width="30" height="30" alignment="right" verticalAlignment="bottom" alpha="0.5" backgroundImage="ellipsis.circle.fill" catalog="system" id="Ol8-Ij-rQ6">
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <segue destination="Im9-Lv-tgM" kind="modal" id="wUl-bu-cTo"/>
+                            </connections>
+                        </button>
                         <switch width="1" alignment="left" hidden="YES" title="SLUG-SCANNING" id="mMb-tO-hBH">
                             <color key="titleColor" red="0.1007060781" green="0.33945328000000002" blue="0.99620097880000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <color key="tintColor" red="0.1007060781" green="0.33945328000000002" blue="0.99620097880000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -43,6 +49,42 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="30" y="28"/>
+        </scene>
+        <!--Blue Thoth Test Harness WatchOS Prefs Controller-->
+        <scene sceneID="gJy-fj-2qq">
+            <objects>
+                <controller id="Im9-Lv-tgM" customClass="RVS_BlueThoth_Test_Harness_WatchOS_PrefsController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
+                    <items>
+                        <switch width="1" alignment="left" title="SLUG-CONNECTED-ONLY" id="Wga-Gi-NdI">
+                            <connections>
+                                <action selector="connectedOnlySwitchHit:" destination="Im9-Lv-tgM" id="B5H-a8-TbL"/>
+                            </connections>
+                        </switch>
+                        <switch width="1" alignment="left" title="SLUG-EMPTY-NAME" id="4qj-eZ-RJc">
+                            <connections>
+                                <action selector="emptyNamesSwitchHit:" destination="Im9-Lv-tgM" id="nLX-5J-VvH"/>
+                            </connections>
+                        </switch>
+                        <label alignment="left" text="SLUG-MINIMUM-RSSI-LABEL" id="vPP-2v-1n2">
+                            <fontDescription key="font" style="UICTFontTextStyleTitle2"/>
+                        </label>
+                        <label width="1" alignment="center" text="SLUG-RSSI-LEVEL-FORMAT" textAlignment="center" id="sRF-y8-f4V"/>
+                        <slider width="1" alignment="left" value="-100" minimum="-100" maximum="0.0" steps="10" id="y2t-qm-qzP">
+                            <connections>
+                                <action selector="rssiSliderChanged:" destination="Im9-Lv-tgM" id="QqI-Oe-sfS"/>
+                            </connections>
+                        </slider>
+                    </items>
+                    <connections>
+                        <outlet property="connectedOnlySwitch" destination="Wga-Gi-NdI" id="mVx-50-OOT"/>
+                        <outlet property="emptyNamesSwitch" destination="4qj-eZ-RJc" id="eUh-XP-faY"/>
+                        <outlet property="minimumRSSISlider" destination="y2t-qm-qzP" id="NuC-YS-Hiy"/>
+                        <outlet property="rssiLevelLabel" destination="sRF-y8-f4V" id="8vk-y8-w2M"/>
+                        <outlet property="rssiSectionLabel" destination="vPP-2v-1n2" id="enQ-C3-UAH"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="30" y="366"/>
         </scene>
         <!--Device-Screen-->
         <scene sceneID="UxI-nT-USb">
@@ -82,5 +124,6 @@
         <image name="BlueThothLogo" width="307" height="305"/>
         <image name="NoBT" width="341.5" height="341.5"/>
         <image name="background-gradient" width="1" height="1000"/>
+        <image name="ellipsis.circle.fill" catalog="system" width="128" height="121"/>
     </resources>
 </document>

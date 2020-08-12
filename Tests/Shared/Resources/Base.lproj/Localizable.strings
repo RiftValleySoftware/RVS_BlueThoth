@@ -109,9 +109,9 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 
 // MARK: - Settings screen
 "SLUG-IGNORE-DUPES"                 =   "Continuously Update:";
+"SLUG-CONNECTED-ONLY"               =   "Only Connectable:";
 "SLUG-EMPTY-NAME"                   =   "Allow Empty Names:";
 "SLUG-ALWAYS-USE-CRLF"              =   "Always Use CRLF:";
-"SLUG-CONNECTED-ONLY"               =   "Only Connectable:";
 "SLUG-FILTER-HEADER"                =   "Filter UUIDs";
 "SLUG-DEVICE-FILTERS"               =   "Specific Device Identifiers:";
 "SLUG-SERVICE-FILTERS"              =   "Advertised Services:";
@@ -121,6 +121,9 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-RSSI-LEVEL-FORMAT"            =   "%d dBm";
 "SLUG-MINIMUM-RSSI-LEFT-FORMAT"     =   "%d";
 "SLUG-MINIMUM-RSSI-RIGHT-FORMAT"    =   "%d";
+
+// Watch-Only
+"SLUG-MINIMUM-RSSI-LABEL-WATCH"     =   "Min. RSSI:";
 
 // Mac-Only
 "SLUG-PREFERENCES"                  =   "Preferences";
