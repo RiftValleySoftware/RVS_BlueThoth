@@ -33,51 +33,49 @@ import RVS_BlueThoth_WatchOS
 class RVS_BlueThoth_Test_Harness_WatchOS_PrefsController: WKInterfaceController {
     /* ################################################################## */
     /**
+     The switch for "Connected Only"
      */
     @IBOutlet weak var connectedOnlySwitch: WKInterfaceSwitch!
 
     /* ################################################################## */
     /**
+     The switch for "Empty Names"
      */
     @IBOutlet weak var emptyNamesSwitch: WKInterfaceSwitch!
 
     /* ################################################################## */
     /**
-     */
-    @IBOutlet weak var alwaysUseCRLFSwitch: WKInterfaceSwitch!
-
-    /* ################################################################## */
-    /**
+     The label above the RSSI slider
      */
     @IBOutlet weak var rssiSectionLabel: WKInterfaceLabel!
 
     /* ################################################################## */
     /**
+     This label displays the value of the RSSI slider
      */
     @IBOutlet weak var rssiLevelLabel: WKInterfaceLabel!
 
     /* ################################################################## */
     /**
+     This is the slider that sets the minimum RSSI
      */
     @IBOutlet weak var minimumRSSISlider: WKInterfaceSlider!
     
     /* ################################################################## */
     /**
+     Used to track the prefs value while in this screen.
      */
     var connectedOnly: Bool = false
     
     /* ################################################################## */
     /**
+     Used to track the prefs value while in this screen.
      */
     var emptyNames: Bool = false
     
     /* ################################################################## */
     /**
-     */
-    var alwaysUseCRLF: Bool = false
-    
-    /* ################################################################## */
-    /**
+     Used to track the prefs value while in this screen.
      */
     var currentRSSI: Int = -100
     
