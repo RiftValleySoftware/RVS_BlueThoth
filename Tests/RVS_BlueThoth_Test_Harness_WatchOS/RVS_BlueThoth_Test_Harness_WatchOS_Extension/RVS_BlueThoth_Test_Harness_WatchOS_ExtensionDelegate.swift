@@ -99,7 +99,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate {
     
     /* ################################################################## */
     /**
-     This creates an Array of String, containing the advertisement data from the indexed device.
+     This special class function creates an Array of String, containing the advertisement data from the indexed device.
      
      - parameter inAdData: The advertisement data.
      - parameter id: The ID string.
@@ -111,7 +111,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate {
         guard let sortedAdDataKeys = inAdData?.advertisementData.keys.sorted() else { return [] }
         let sortedAdData: [(key: String, value: Any?)] = sortedAdDataKeys.compactMap { (key:$0, value: inAdData?.advertisementData[$0]) }
 
-        let retStr = sortedAdData.reduce("SLUG-ID".localizedVariant + ": \(inID)\n\t" + String(format: "SLUG-RSSI-LEVEL-FORMAT".localizedVariant, inPower)) { (current, next) in
+        let retStr = sortedAdData.reduce("SLUG-ID".localizedVariant + ": \(inID)\n\t" + String(format: "SLUG-RSSI-LEVEL-FORMAT-ADV".localizedVariant, inPower)) { (current, next) in
             let key = next.key.localizedVariant
             let value = next.value
             var ret = "\(current)\n"
@@ -143,6 +143,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate {
         
         return retStr
     }
+
 }
 
 /* ###################################################################################################################################### */

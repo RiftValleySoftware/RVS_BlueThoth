@@ -279,7 +279,7 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
         guard let sortedAdDataKeys = inAdData?.advertisementData.keys.sorted() else { return [] }
         let sortedAdData: [(key: String, value: Any?)] = sortedAdDataKeys.compactMap { (key:$0, value: inAdData?.advertisementData[$0]) }
 
-        let retStr = sortedAdData.reduce("SLUG-ID".localizedVariant + ": \(inID)\n\t" + String(format: "SLUG-RSSI-LEVEL-FORMAT".localizedVariant, inPower)) { (current, next) in
+        let retStr = sortedAdData.reduce("SLUG-ID".localizedVariant + ": \(inID)\n\t" + String(format: "SLUG-RSSI-LEVEL-FORMAT-ADV".localizedVariant, inPower)) { (current, next) in
             let key = next.key.localizedVariant
             let value = next.value
             var ret = "\(current)\n"

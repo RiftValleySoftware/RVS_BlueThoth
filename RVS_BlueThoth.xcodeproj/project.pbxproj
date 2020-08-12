@@ -583,7 +583,6 @@
 			children = (
 				D413F09824BDEE6700A3C772 /* Sources */,
 				D4F8EB7B246764F900CCA9E8 /* Resources */,
-				D42ABE93246753DC00815395 /* Assets.xcassets */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -884,6 +883,7 @@
 			children = (
 				D431EC1E24675E8D0094BB23 /* Localizable.strings */,
 				D431EC2024675E8D0094BB23 /* InfoPlist.strings */,
+				D42ABE93246753DC00815395 /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";

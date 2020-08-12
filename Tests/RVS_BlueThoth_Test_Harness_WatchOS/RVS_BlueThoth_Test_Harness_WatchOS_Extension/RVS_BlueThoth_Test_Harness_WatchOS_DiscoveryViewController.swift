@@ -82,7 +82,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryViewController {
      */
     override func updateUI() {
         let advertisingStrings = RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.createAdvertimentStringsFor(deviceDiscoveryData.advertisementData, id: deviceDiscoveryData.identifier, power: deviceDiscoveryData.rssi)
-        advertisingInformationLabel.setText(advertisingStrings.joined(separator: "\n"))
+        advertisingInformationLabel.setText(advertisingStrings.joined(separator: "\n-\n"))
     }
 }
 
