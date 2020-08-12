@@ -125,8 +125,9 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_Base {
      */
     override func didDeactivate() {
         super.didDeactivate()
-        if  let extensionDelegateObject = RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.extensionDelegateObject {
-            extensionDelegateObject.screenList.removeValue(forKey: id)
+        if  let extensionDelegateObject = RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.extensionDelegateObject,
+            1 < extensionDelegateObject.screenList.count {
+            extensionDelegateObject.screenList[id] = nil
         }
     }
 }

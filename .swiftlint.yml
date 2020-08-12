@@ -4,6 +4,7 @@ disabled_rules:
 - type_name
 - syntactic_sugar
 - todo
+- implicit_getter
 
 opt_in_rules:
 - control_statement
