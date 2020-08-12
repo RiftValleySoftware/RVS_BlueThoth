@@ -77,7 +77,7 @@ class RVS_BlueThoth_Test_Harness_WatchOS_Base: WKInterfaceController, RVS_BlueTh
      - parameter message: OPTIONAL: a string to be displayed as the message of the alert. It is localized by this method.
      */
     func displayAlert(header inTitle: String, message inMessage: String = "") {
-        RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.displayAlert(header: inTitle, message: inMessage, from: self)
+        RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.displayAlert(header: inTitle, message: inMessage)
     }
 }
 

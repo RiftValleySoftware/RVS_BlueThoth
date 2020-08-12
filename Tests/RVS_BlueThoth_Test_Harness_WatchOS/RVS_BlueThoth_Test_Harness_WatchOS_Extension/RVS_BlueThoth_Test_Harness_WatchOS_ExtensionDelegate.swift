@@ -47,6 +47,7 @@ extension CGA_PersistentPrefs {
 extension Array where Element: RVS_BlueThoth_Test_Harness_WatchOS_Base {
     /* ################################################################## */
     /**
+     This subscript allows us to use an Array just like a Dictionary.
      */
     subscript(_ inIDString: String) -> Element? {
         get {
@@ -58,6 +59,7 @@ extension Array where Element: RVS_BlueThoth_Test_Harness_WatchOS_Base {
         }
         
         set {
+            // If we have a valid key, and the value is nil, we delete. Otherwise, we replace the element at that spot.
             for elem in enumerated() where inIDString == self[elem.offset].id {
                 if let newValue = newValue {
                     self[elem.offset] = newValue
@@ -68,6 +70,7 @@ extension Array where Element: RVS_BlueThoth_Test_Harness_WatchOS_Base {
                 return
             }
             
+            // If we fall through to here, it's a new element, and we simply append it.
             if let newValue = newValue {
                 append(newValue)
             }
@@ -76,11 +79,13 @@ extension Array where Element: RVS_BlueThoth_Test_Harness_WatchOS_Base {
     
     /* ################################################################## */
     /**
+     The main controller will always be the first one.
      */
     var mainViewController: RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController? { first as? RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController }
     
     /* ################################################################## */
     /**
+     The top controller will always be the last one (most times, we will just have two controllers in the Array, anyway).
      */
     var topViewController: RVS_BlueThoth_Test_Harness_WatchOS_Base? { last }
 }
@@ -135,7 +140,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate {
      - parameter message: OPTIONAL: a string to be displayed as the message of the alert. It is localized by this method.
      - parameter from: REQUIRED: The controller presenting the error.
      */
-    class func displayAlert(header inTitle: String, message inMessage: String = "", from inController: WKInterfaceController) {
+    class func displayAlert(header inTitle: String, message inMessage: String = "") {
         #if DEBUG
             print("ALERT:\t\(inTitle)\n\t\t\(inMessage)")
         #endif
@@ -146,7 +151,8 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate {
                 #endif
             }
             
-            inController.presentAlert(withTitle: inTitle.localizedVariant, message: inMessage.localizedVariant, preferredStyle: WKAlertControllerStyle.alert, actions: [okAction])
+            // We always display the alert from the top view controller.
+            extensionDelegateObject?.screenList.topViewController?.presentAlert(withTitle: inTitle.localizedVariant, message: inMessage.localizedVariant, preferredStyle: WKAlertControllerStyle.alert, actions: [okAction])
         }
     }
     
