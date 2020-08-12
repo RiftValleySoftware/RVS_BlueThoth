@@ -42,6 +42,12 @@ class RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryViewController: RVS_BlueThoth_
      This label displays the advertising strings.
      */
     @IBOutlet weak var advertisingInformationLabel: WKInterfaceLabel!
+    
+    /* ################################################################## */
+    /**
+     If the device is connectable, this button is displayed, and will bring in the connected device screen.
+     */
+    @IBOutlet weak var connectButton: WKInterfaceButton!
 }
 
 /* ###################################################################################################################################### */
@@ -59,6 +65,8 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryViewController {
             deviceDiscoveryData = context
             id = context.identifier
             setTitle(deviceDiscoveryData.preferredName)
+            connectButton?.setTitle("SLUG-CONNECT".localizedVariant)
+            connectButton?.setHidden(!deviceDiscoveryData.canConnect)
         }
     }
     

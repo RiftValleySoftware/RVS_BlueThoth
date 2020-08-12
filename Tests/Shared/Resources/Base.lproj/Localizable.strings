@@ -63,6 +63,9 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-DEVICE"                       =   "Device";
 "SLUG-DISCONNECT"                   =   "DISCONNECT";
 
+// Watch-Only
+"SLUG-CONNECT"                      =   "CONNECT";
+
 // MARK: - Characteristics Screen
 "SLUG-CURRENT-TIME-DATE-FORMAT"     =   "MM/dd/yyyy h:mm:ss.SSS a";
 // Buttons
