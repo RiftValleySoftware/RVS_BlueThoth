@@ -99,23 +99,12 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_Base {
 extension RVS_BlueThoth_Test_Harness_WatchOS_Base {
     /* ################################################################## */
     /**
-     Called after the view has been set up.
-     
-     - parameter withContext: The context being passed in.
-     */
-    override func awake(withContext inContext: Any?) {
-        super.awake(withContext: inContext)
-    }
-    
-    /* ################################################################## */
-    /**
      Called just before the view activates.
      */
     override func willActivate() {
         super.willActivate()
         let id = self.id
-        print("Registering: \(id)")
-        extensionDelegateInstance?.screenList[id] = self
+        extensionDelegateInstance?.screenList[id] = self    // We add or update the main list with a reference to ourselves.
         updateUI()
     }
     
@@ -126,7 +115,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_Base {
     override func didDeactivate() {
         super.didDeactivate()
         if  let extensionDelegateObject = RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.extensionDelegateObject,
-            1 < extensionDelegateObject.screenList.count {
+            1 < extensionDelegateObject.screenList.count {  // We always leave the main one.
             extensionDelegateObject.screenList[id] = nil
         }
     }
