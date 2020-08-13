@@ -33,12 +33,6 @@ import RVS_BlueThoth_WatchOS
 class RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController: RVS_BlueThoth_Test_Harness_WatchOS_Base {
     /* ################################################################## */
     /**
-     This flag is used to prevent the device from being disconnecete/reconnected when we look at details.
-     */
-    var stupidDetailsSemaphore: Bool = false
-    
-    /* ################################################################## */
-    /**
      This is the device discovery struct that describes this device.
      */
     var deviceDiscoveryData: RVS_BlueThoth.DiscoveryData!
@@ -93,8 +87,6 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
      - parameter withContext: The context, passed in from the main view. It will be the device discovery struct.
      */
     override func awake(withContext inContext: Any?) {
-        stupidDetailsSemaphore  = false
-        
         if let context = inContext as? RVS_BlueThoth.DiscoveryData {
             id = context.identifier + "-CONNECTED"
             super.awake(withContext: inContext)
@@ -113,20 +105,11 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
      */
     override func willActivate() {
         super.willActivate()
-        if !stupidDetailsSemaphore {
+        if !(deviceDiscoveryData?.isConnected ?? false) {
+            #if DEBUG
+                print("Device: \(deviceDiscoveryData?.identifier ?? "ERROR") connecting")
+            #endif
             deviceDiscoveryData?.connect()
-        }
-        stupidDetailsSemaphore  = false
-    }
-    
-    /* ################################################################## */
-    /**
-     Called sfter the screen has deactivated
-     */
-    override func didDeactivate() {
-        super.didDeactivate()
-        if !stupidDetailsSemaphore {
-            deviceDiscoveryData?.disconnect()
         }
     }
     
@@ -144,7 +127,6 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
     override func contextForSegue(withIdentifier inSegueIdentifier: String, in inTable: WKInterfaceTable, rowIndex inRowIndex: Int) -> Any? {
         if  let device = deviceDiscoveryData?.peripheralInstance,
             inRowIndex < device.count {
-            stupidDetailsSemaphore  = true
             return device[inRowIndex]
         }
         return nil
@@ -162,18 +144,10 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
     override func updateUI() {
         if  let device = deviceDiscoveryData?.peripheralInstance,
             device.isConnected {
-            #if DEBUG
-                print("Device: \(device.id) connected")
-            #endif
+            populateTable()
             connectingLabel?.setHidden(true)
             servicesTable?.setHidden(false)
-            populateTable()
         } else {
-            #if DEBUG
-                if  let device = deviceDiscoveryData?.peripheralInstance {
-                    print("Device: \(device.id) disconnected")
-                }
-            #endif
             connectingLabel?.setHidden(false)
             servicesTable?.setHidden(true)
         }

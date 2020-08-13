@@ -139,7 +139,27 @@
         <!--Service Details Screen-->
         <scene sceneID="vpn-a4-0An">
             <objects>
-                <controller identifier="Service-Details-Screen" title="Service Details Screen" backgroundImage="background-gradient" id="k70-7h-bDn" customClass="RVS_BlueThoth_Test_Harness_WatchOS_ServiceViewController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension"/>
+                <controller identifier="Service-Details-Screen" title="Service Details Screen" backgroundImage="background-gradient" id="k70-7h-bDn" customClass="RVS_BlueThoth_Test_Harness_WatchOS_ServiceViewController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
+                    <items>
+                        <table alignment="left" id="CHh-nW-qEK">
+                            <items>
+                                <tableRow identifier="RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTableController" id="0iq-yk-Sko" customClass="RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTableController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
+                                    <group key="rootItem" width="1" alignment="left" layout="overlap" id="ufC-T4-6aR">
+                                        <items>
+                                            <label width="1" alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="mHI-Vu-nz5"/>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="characteristicLabel" destination="mHI-Vu-nz5" id="nsb-gq-BGP"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="characteristicsTable" destination="CHh-nW-qEK" id="Ysp-w6-vqU"/>
+                    </connections>
+                </controller>
             </objects>
             <point key="canvasLocation" x="879" y="28"/>
         </scene>

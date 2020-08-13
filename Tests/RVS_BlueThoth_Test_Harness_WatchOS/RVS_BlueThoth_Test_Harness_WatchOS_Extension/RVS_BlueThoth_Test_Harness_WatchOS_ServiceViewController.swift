@@ -36,12 +36,38 @@ class RVS_BlueThoth_Test_Harness_WatchOS_ServiceViewController: RVS_BlueThoth_Te
      This is the device discovery struct that describes this device.
      */
     var serviceInstance: CGA_Bluetooth_Service?
+    
+    /* ################################################################## */
+    /**
+     This displays the Characteristics the Service has available.
+     */
+    @IBOutlet weak var characteristicsTable: WKInterfaceTable!
 }
 
 /* ###################################################################################################################################### */
 // MARK: - Instance Methods -
 /* ###################################################################################################################################### */
 extension RVS_BlueThoth_Test_Harness_WatchOS_ServiceViewController {
+    /* ################################################################## */
+    /**
+     This adds Services to the table for display.
+     */
+    func populateTable() {
+        if  let serviceInstance = serviceInstance,
+            0 < serviceInstance.count {
+            let rowControllerInitializedArray = [String](repeatElement("RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTableController", count: serviceInstance.count))
+            
+            characteristicsTable.setNumberOfRows(rowControllerInitializedArray.count, withRowType: "RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTableController")
+
+            for item in rowControllerInitializedArray.enumerated() {
+                if let charRow = characteristicsTable.rowController(at: item.offset) as? RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTableController {
+                    charRow.characteristicInstance = serviceInstance[item.offset]
+                }
+            }
+        } else {
+            characteristicsTable.setNumberOfRows(0, withRowType: "")
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -60,6 +86,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ServiceViewController {
             super.awake(withContext: inContext)
             serviceInstance = context
             setTitle(id.localizedVariant)
+            updateUI()
         } else {
             super.awake(withContext: inContext)
         }
@@ -75,5 +102,6 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ServiceViewController {
      This sets everything up to reflect the current state of the Central Manager.
      */
     override func updateUI() {
+        populateTable()
     }
 }

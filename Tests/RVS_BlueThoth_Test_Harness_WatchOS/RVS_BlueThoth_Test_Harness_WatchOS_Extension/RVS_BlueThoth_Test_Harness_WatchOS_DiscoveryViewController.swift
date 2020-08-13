@@ -82,6 +82,13 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryViewController {
      */
     override func willActivate() {
         super.willActivate()
+        // We should never be connected in this screen.
+        if let peripheral = deviceDiscoveryData?.peripheralInstance {
+            #if DEBUG
+                print("Device: \(peripheral.id) disconnecting")
+            #endif
+            peripheral.disconnect()
+        }
         updateUI()
     }
     

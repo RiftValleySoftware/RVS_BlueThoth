@@ -120,6 +120,12 @@ class RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: NSObject {
      Quick accessor for the main discovery screen.
      */
     var mainScreen: RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController? { screenList.mainViewController }
+    
+    /* ################################################################## */
+    /**
+     Quick accessor for the top screen.
+     */
+    var topScreen: RVS_BlueThoth_Test_Harness_WatchOS_Base? { screenList.topViewController }
 }
 
 /* ###################################################################################################################################### */
@@ -149,6 +155,9 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate {
                 #if DEBUG
                     print("Alert Dismissed")
                 #endif
+                // Make sure we clean up after ourselves.
+                RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.extensionDelegateObject?.topScreen?.popToRootController()
+                extensionDelegateObject?.centralManager?.forEach { $0.disconnect() }
             }
             
             // We always display the alert from the top view controller.
@@ -265,7 +274,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: CGA_BlueThoth_De
         
         // We don't display an error for BT unavailable. We just leave the "No BT" image.
         if .btUnavailable != inError {
-            mainScreen?.displayAlert(header: "SLUG-ERROR".localizedVariant, message: String(describing: inError))
+            Self.displayAlert(header: "SLUG-ERROR".localizedVariant, message: String(describing: inError))
         }
     }
     
