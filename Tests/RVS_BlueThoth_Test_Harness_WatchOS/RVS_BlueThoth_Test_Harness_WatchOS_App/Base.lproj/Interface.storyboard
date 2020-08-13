@@ -122,6 +122,7 @@
                                     </group>
                                     <connections>
                                         <outlet property="serviceLabel" destination="5mQ-8P-6nh" id="5wt-lQ-zeR"/>
+                                        <segue destination="k70-7h-bDn" kind="push" id="XMv-MZ-0Ef"/>
                                     </connections>
                                 </tableRow>
                             </items>
@@ -134,6 +135,13 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="580" y="28"/>
+        </scene>
+        <!--Service Details Screen-->
+        <scene sceneID="vpn-a4-0An">
+            <objects>
+                <controller identifier="Service-Details-Screen" title="Service Details Screen" backgroundImage="background-gradient" id="k70-7h-bDn" customClass="RVS_BlueThoth_Test_Harness_WatchOS_ServiceViewController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension"/>
+            </objects>
+            <point key="canvasLocation" x="879" y="28"/>
         </scene>
     </scenes>
     <resources>

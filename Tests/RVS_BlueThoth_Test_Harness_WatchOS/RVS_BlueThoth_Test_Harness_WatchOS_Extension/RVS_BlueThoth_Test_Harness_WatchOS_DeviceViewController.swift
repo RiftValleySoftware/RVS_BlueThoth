@@ -33,6 +33,12 @@ import RVS_BlueThoth_WatchOS
 class RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController: RVS_BlueThoth_Test_Harness_WatchOS_Base {
     /* ################################################################## */
     /**
+     This flag is used to prevent the device from being disconnecete/reconnected when we look at details.
+     */
+    var stupidDetailsSemaphore: Bool = false
+    
+    /* ################################################################## */
+    /**
      This is the device discovery struct that describes this device.
      */
     var deviceDiscoveryData: RVS_BlueThoth.DiscoveryData!
@@ -87,6 +93,8 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
      - parameter withContext: The context, passed in from the main view. It will be the device discovery struct.
      */
     override func awake(withContext inContext: Any?) {
+        stupidDetailsSemaphore  = false
+        
         if let context = inContext as? RVS_BlueThoth.DiscoveryData {
             id = context.identifier + "-CONNECTED"
             super.awake(withContext: inContext)
@@ -105,7 +113,10 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
      */
     override func willActivate() {
         super.willActivate()
-        deviceDiscoveryData?.connect()
+        if !stupidDetailsSemaphore {
+            deviceDiscoveryData?.connect()
+        }
+        stupidDetailsSemaphore  = false
     }
     
     /* ################################################################## */
@@ -114,7 +125,9 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
      */
     override func didDeactivate() {
         super.didDeactivate()
-        deviceDiscoveryData?.disconnect()
+        if !stupidDetailsSemaphore {
+            deviceDiscoveryData?.disconnect()
+        }
     }
     
     /* ################################################################## */
@@ -129,6 +142,11 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
         - returns: The context, if any. Can be nil.
      */
     override func contextForSegue(withIdentifier inSegueIdentifier: String, in inTable: WKInterfaceTable, rowIndex inRowIndex: Int) -> Any? {
+        if  let device = deviceDiscoveryData?.peripheralInstance,
+            inRowIndex < device.count {
+            stupidDetailsSemaphore  = true
+            return device[inRowIndex]
+        }
         return nil
     }
 }
