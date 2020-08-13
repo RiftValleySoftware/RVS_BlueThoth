@@ -25,28 +25,22 @@ import Foundation
 import RVS_BlueThoth_WatchOS
 
 /* ###################################################################################################################################### */
-// MARK: - Main Watch App Discovery Peripheral Table Controller -
+// MARK: - Main Watch App Service Table Controller -
 /* ###################################################################################################################################### */
-class RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController: NSObject {
+class RVS_BlueThoth_Test_Harness_WatchOS_ServiceTableController: NSObject {
     /* ################################################################## */
     /**
-     Each table item has an associated Peripheral, denoted by discovery data.
+     Each table item has an associated Service.
      */
-    var deviceDiscoveryData: RVS_BlueThoth.DiscoveryData! {
+    var serviceInstance: CGA_Bluetooth_Service? {
         didSet {
-            var name = deviceDiscoveryData.preferredName
-            
-            if name.isEmpty {
-                name = "SLUG-NO-DEVICE-NAME".localizedVariant
-            }
-            
-            deviceLabel?.setText(name)
+            serviceLabel?.setText(serviceInstance?.id)
         }
     }
     
     /* ################################################################## */
     /**
-     This displays the Peripheral name.
+     This displays the Service ID.
      */
-    @IBOutlet weak var deviceLabel: WKInterfaceLabel!
+    @IBOutlet weak var serviceLabel: WKInterfaceLabel!
 }

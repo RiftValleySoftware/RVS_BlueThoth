@@ -111,15 +111,25 @@
             <objects>
                 <controller identifier="Connected-Device-Screen" backgroundImage="background-gradient" fullBounds="YES" id="s4R-NB-7GP" userLabel="Connected Device Screen" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
                     <items>
-                        <group width="1" height="1" alignment="left" layout="overlap" id="k4h-Nu-K6S">
+                        <label width="1" alignment="center" verticalAlignment="center" text="SLUG-CONNECTING" textAlignment="center" id="U2K-bl-slL"/>
+                        <table alignment="left" id="CkK-cX-MQ8">
                             <items>
-                                <imageView width="100" height="100" alignment="center" verticalAlignment="center" alpha="0.25" image="BlueThothLogo" id="c6u-2o-uhi"/>
-                                <label width="1" alignment="center" verticalAlignment="center" text="SLUG-CONNECTING" textAlignment="center" id="U2K-bl-slL"/>
+                                <tableRow identifier="RVS_BlueThoth_Test_Harness_WatchOS_ServiceTableController" id="cKw-Qg-Wuf" customClass="RVS_BlueThoth_Test_Harness_WatchOS_ServiceTableController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
+                                    <group key="rootItem" width="1" alignment="left" id="Eyv-F3-qdV">
+                                        <items>
+                                            <label width="1" alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="5mQ-8P-6nh"/>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="serviceLabel" destination="5mQ-8P-6nh" id="5wt-lQ-zeR"/>
+                                    </connections>
+                                </tableRow>
                             </items>
-                        </group>
+                        </table>
                     </items>
                     <connections>
                         <outlet property="connectingLabel" destination="U2K-bl-slL" id="kqy-OE-tNf"/>
+                        <outlet property="servicesTable" destination="CkK-cX-MQ8" id="ABa-X9-Cuu"/>
                     </connections>
                 </controller>
             </objects>
@@ -127,7 +137,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="BlueThothLogo" width="307" height="305"/>
         <image name="NoBT" width="341.5" height="341.5"/>
         <image name="background-gradient" width="1" height="1000"/>
         <image name="ellipsis.circle.fill" catalog="system" width="128" height="121"/>

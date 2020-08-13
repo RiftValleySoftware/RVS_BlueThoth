@@ -33,19 +33,47 @@ import RVS_BlueThoth_WatchOS
 class RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController: RVS_BlueThoth_Test_Harness_WatchOS_Base {
     /* ################################################################## */
     /**
-     */
-    static let screenID = "Connected-Device-Screen"
-    
-    /* ################################################################## */
-    /**
      This is the device discovery struct that describes this device.
      */
     var deviceDiscoveryData: RVS_BlueThoth.DiscoveryData!
     
     /* ################################################################## */
     /**
+     This label is shown while the device is undergoing a connection, and is hidden upon connection.
      */
     @IBOutlet weak var connectingLabel: WKInterfaceLabel!
+
+    /* ################################################################## */
+    /**
+     This displays the Services the device has available.
+     */
+    @IBOutlet weak var servicesTable: WKInterfaceTable!
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Instance Methods -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
+    /* ################################################################## */
+    /**
+     This adds Services to the table for display.
+     */
+    func populateTable() {
+        if  let deviceInstance = deviceDiscoveryData?.peripheralInstance,
+            0 < deviceInstance.count {
+            let rowControllerInitializedArray = [String](repeatElement("RVS_BlueThoth_Test_Harness_WatchOS_ServiceTableController", count: deviceInstance.count))
+            
+            servicesTable.setNumberOfRows(rowControllerInitializedArray.count, withRowType: "RVS_BlueThoth_Test_Harness_WatchOS_ServiceTableController")
+
+            for item in rowControllerInitializedArray.enumerated() {
+                if let serviceRow = servicesTable.rowController(at: item.offset) as? RVS_BlueThoth_Test_Harness_WatchOS_ServiceTableController {
+                    serviceRow.serviceInstance = deviceInstance[item.offset]
+                }
+            }
+        } else {
+            servicesTable.setNumberOfRows(0, withRowType: "")
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -105,6 +133,8 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
                 print("Device: \(device.id) connected")
             #endif
             connectingLabel?.setHidden(true)
+            servicesTable?.setHidden(false)
+            populateTable()
         } else {
             #if DEBUG
                 if  let device = deviceDiscoveryData?.peripheralInstance {
@@ -112,6 +142,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
                 }
             #endif
             connectingLabel?.setHidden(false)
+            servicesTable?.setHidden(true)
         }
     }
 }

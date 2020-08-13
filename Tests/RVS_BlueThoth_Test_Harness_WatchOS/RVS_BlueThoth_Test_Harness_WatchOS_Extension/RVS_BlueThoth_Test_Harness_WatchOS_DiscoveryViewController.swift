@@ -69,7 +69,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryViewController {
     override func awake(withContext inContext: Any?) {
         if let context = inContext as? RVS_BlueThoth.DiscoveryData {
             deviceDiscoveryData = context
-            id = context.identifier
+            id = context.identifier + "-DISCOVERED"
             setTitle(deviceDiscoveryData.preferredName)
             connectButton?.setTitle("SLUG-CONNECT".localizedVariant)
             connectButton?.setHidden(!deviceDiscoveryData.canConnect)
@@ -111,20 +111,5 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryViewController {
     override func updateUI() {
         let advertisingStrings = RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.createAdvertimentStringsFor(deviceDiscoveryData.advertisementData, id: deviceDiscoveryData.identifier, power: deviceDiscoveryData.rssi)
         advertisingInformationLabel.setText(advertisingStrings.joined(separator: "\n-\n"))
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - IBAction Methods -
-/* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryViewController {
-    /* ################################################################## */
-    /**
-     */
-    @IBAction func connectToDevice(_: Any) {
-        #if DEBUG
-            print("Connecting to: \(deviceDiscoveryData?.preferredName ?? "ERROR")")
-        #endif
-        pushController(withName: RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController.screenID, context: deviceDiscoveryData)
     }
 }
