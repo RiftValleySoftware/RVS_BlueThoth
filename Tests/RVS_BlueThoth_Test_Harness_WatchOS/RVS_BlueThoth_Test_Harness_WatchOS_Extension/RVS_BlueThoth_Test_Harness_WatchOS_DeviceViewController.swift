@@ -93,7 +93,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
             deviceDiscoveryData = context
             connectingLabel?.setHidden(false)
             connectingLabel?.setText("SLUG-CONNECTING".localizedVariant)
-            setTitle(deviceDiscoveryData.preferredName)
+            setTitle(deviceDiscoveryData.preferredName.isEmpty ? "SLUG-NO-DEVICE-NAME".localizedVariant : deviceDiscoveryData.preferredName)
         } else {
             super.awake(withContext: inContext)
         }
@@ -115,6 +115,21 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
     override func didDeactivate() {
         super.didDeactivate()
         deviceDiscoveryData?.disconnect()
+    }
+    
+    /* ################################################################## */
+    /**
+     Table touch handler.
+     
+     - parameters:
+        - withIdentifier: The segue ID for this (we ignore)
+        - in: The table instance
+        - rowIndex: The vertical position (0-based) of the row that was touched.
+     
+        - returns: The context, if any. Can be nil.
+     */
+    override func contextForSegue(withIdentifier inSegueIdentifier: String, in inTable: WKInterfaceTable, rowIndex inRowIndex: Int) -> Any? {
+        return nil
     }
 }
 

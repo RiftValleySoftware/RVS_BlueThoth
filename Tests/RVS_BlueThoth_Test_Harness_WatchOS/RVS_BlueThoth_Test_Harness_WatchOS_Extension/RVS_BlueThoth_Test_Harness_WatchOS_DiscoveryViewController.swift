@@ -70,7 +70,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryViewController {
         if let context = inContext as? RVS_BlueThoth.DiscoveryData {
             deviceDiscoveryData = context
             id = context.identifier + "-DISCOVERED"
-            setTitle(deviceDiscoveryData.preferredName)
+            setTitle(deviceDiscoveryData.preferredName.isEmpty ? "SLUG-NO-DEVICE-NAME".localizedVariant : deviceDiscoveryData.preferredName)
             connectButton?.setTitle("SLUG-CONNECT".localizedVariant)
             connectButton?.setHidden(!deviceDiscoveryData.canConnect)
         }
