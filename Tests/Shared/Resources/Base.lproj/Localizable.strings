@@ -94,6 +94,17 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-VALUE-LABEL"                  =   "VALUE:";
 "SLUG-WRITE-TEXT-FIELD-LABEL"       =   "WRITE:";
 "SLUG-WRITE-TEXT-FIELD-PLACEHOLDER" =   "Enter Text to Send to Peripheral";
+// Watch-Only
+"SLUG-WATCH-PROPERTY-READ"          =   "READ";
+"SLUG-WATCH-PROPERTY-NOTIFY"        =   "NOTIFY";
+"SLUG-WATCH-PROPERTY-WRITE"         =   "WRITE";
+"SLUG-WATCH-PROPERTY-WRITE-RESP"    =   "WRITE (R)";
+"SLUG-WATCH-PROPERTY-INDICATE"      =   "INDICATE";
+"SLUG-WATCH-PROPERTY-BROADCAST"     =   "BROADCAST";
+"SLUG-WATCH-PROPERTY-AUTH-SW"       =   "AUTH SIG WR";
+"SLUG-WATCH-PROPERTY-NOTIFY-ENC"    =   "ENC. NOTIFY";
+"SLUG-WATCH-PROPERTY-INDICATE-ENC"  =   "ENC. INDICATE";
+"SLUG-WATCH-PROPERTY-EXTENDED"      =   "EXTENDED";
 
 // MARK: - Interaction Screen
 "SLUG-WRITE"                        =   "WRITE";

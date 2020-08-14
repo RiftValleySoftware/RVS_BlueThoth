@@ -156,7 +156,6 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate {
                     print("Alert Dismissed")
                 #endif
                 // Make sure we clean up after ourselves.
-                RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.extensionDelegateObject?.topScreen?.popToRootController()
                 extensionDelegateObject?.centralManager?.forEach { $0.disconnect() }
             }
             
@@ -274,6 +273,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: CGA_BlueThoth_De
         
         // We don't display an error for BT unavailable. We just leave the "No BT" image.
         if .btUnavailable != inError {
+            screenList.topViewController?.popToRootController()
             Self.displayAlert(header: "SLUG-ERROR".localizedVariant, message: String(describing: inError))
         }
     }
@@ -331,6 +331,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: CGA_BlueThoth_De
         #if DEBUG
             print("Disconnecting Device")
         #endif
+        screenList.topViewController?.popToRootController()
     }
     
     /* ################################################################## */
@@ -344,6 +345,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: CGA_BlueThoth_De
         #if DEBUG
             print("Peripheral Update")
         #endif
+        screenList.topViewController?.updateUI()
     }
 
     /* ################################################################## */
@@ -358,6 +360,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: CGA_BlueThoth_De
         #if DEBUG
             print("Service Update Received")
         #endif
+        screenList.topViewController?.updateUI()
     }
     
     /* ################################################################## */
@@ -376,6 +379,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: CGA_BlueThoth_De
                 print("\tString Value: \"\(stringValue)\"")
             }
         #endif
+        screenList.topViewController?.updateUI()
     }
 
     /* ################################################################## */
@@ -398,6 +402,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: CGA_BlueThoth_De
                 print("\tDescriptor String Value: \"\(stringValue)\"")
             }
         #endif
+        screenList.topViewController?.updateUI()
     }
     
     /* ################################################################## */

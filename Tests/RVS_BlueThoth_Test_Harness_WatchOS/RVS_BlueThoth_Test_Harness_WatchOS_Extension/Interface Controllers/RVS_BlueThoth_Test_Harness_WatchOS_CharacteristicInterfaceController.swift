@@ -53,6 +53,60 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicInterfaceController {
      This adds Characteristic Properties to the table for display.
      */
     func populateTable() {
+        var propertyArray: [(type: String, value: String)] = []
+        if  (characteristicInstance?.canRead ?? false) || (characteristicInstance?.canNotify ?? false),
+            let stringValue = characteristicInstance?.stringValue,
+            !stringValue.isEmpty {
+            propertyArray.append((type: "LabelOnly", value: stringValue))
+        }
+        if characteristicInstance?.canRead ?? false {
+            propertyArray.append((type: "ButtonOnly", value: "SLUG-WATCH-PROPERTY-READ".localizedVariant))
+        }
+        if characteristicInstance?.canNotify ?? false {
+            propertyArray.append((type: "SwitchOnly", value: "SLUG-WATCH-PROPERTY-NOTIFY".localizedVariant))
+        }
+        if characteristicInstance?.canWriteWithResponse ?? false {
+            propertyArray.append((type: "LabelOnly", value: "SLUG-WATCH-PROPERTY-WRITE-RESP"))
+        }
+        if characteristicInstance?.canWriteWithoutResponse ?? false {
+            propertyArray.append((type: "LabelOnly", value: "SLUG-WATCH-PROPERTY-WRITE"))
+        }
+        if characteristicInstance?.canIndicate ?? false {
+            propertyArray.append((type: "LabelOnly", value: "SLUG-WATCH-PROPERTY-INDICATE"))
+        }
+        if characteristicInstance?.canBroadcast ?? false {
+            propertyArray.append((type: "LabelOnly", value: "SLUG-WATCH-PROPERTY-BROADCAST"))
+        }
+        if characteristicInstance?.requiresNotifyEncryption ?? false {
+            propertyArray.append((type: "LabelOnly", value: "SLUG-WATCH-PROPERTY-NOTIFY-ENC"))
+        }
+        if characteristicInstance?.requiresIndicateEncryption ?? false {
+            propertyArray.append((type: "LabelOnly", value: "SLUG-WATCH-PROPERTY-INDICATE-ENC"))
+        }
+        if characteristicInstance?.requiresAuthenticatedSignedWrites ?? false {
+            propertyArray.append((type: "LabelOnly", value: "SLUG-WATCH-PROPERTY-AUTH-SW"))
+        }
+        if characteristicInstance?.hasExtendedProperties ?? false {
+            propertyArray.append((type: "LabelOnly", value: "SLUG-WATCH-PROPERTY-EXTENDED"))
+        }
+        
+        if !propertyArray.isEmpty {
+            let keyArray = propertyArray.map { $0.type }
+            propertiesTable?.setRowTypes(keyArray)
+            for item in propertyArray.enumerated() {
+                if let row = propertiesTable?.rowController(at: item.offset) as? RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Label {
+                    row.characteristicInstance = characteristicInstance
+                    row.labelObject?.setText(item.element.value)
+                } else if let row = propertiesTable?.rowController(at: item.offset) as? RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Button {
+                    row.characteristicInstance = characteristicInstance
+                    row.buttonObject?.setTitle(item.element.value)
+                } else if let row = propertiesTable?.rowController(at: item.offset) as? RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Switch {
+                    row.characteristicInstance = characteristicInstance
+                    row.switchObject?.setOn(characteristicInstance?.isNotifying ?? false)
+                    row.switchObject?.setTitle(item.element.value)
+                }
+            }
+        }
     }
 }
 

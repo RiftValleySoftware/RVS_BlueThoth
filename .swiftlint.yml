@@ -35,3 +35,4 @@ cyclomatic_complexity:
 
 excluded:
 - Carthage
+- Tests/RVS_BlueThoth_Test_Harness_WatchOS/RVS_BlueThoth_Test_Harness_WatchOS_Extension

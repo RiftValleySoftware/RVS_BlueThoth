@@ -171,37 +171,50 @@
                     <items>
                         <table alignment="left" id="zZ9-G4-weG">
                             <items>
-                                <tableRow identifier="LabelOnly" selectable="NO" id="0ct-mk-fyk">
+                                <tableRow identifier="LabelOnly" selectable="NO" id="0ct-mk-fyk" customClass="RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Label" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
                                     <group key="rootItem" width="1" alignment="left" id="CxD-bx-5Ot">
                                         <items>
                                             <label width="1" alignment="left" text="Label" textAlignment="center" id="BvJ-sL-jeZ"/>
                                         </items>
                                     </group>
+                                    <connections>
+                                        <outlet property="labelObject" destination="BvJ-sL-jeZ" id="tK3-fz-r9v"/>
+                                    </connections>
                                 </tableRow>
-                                <tableRow identifier="ButtonOnly" selectable="NO" id="Zrs-dS-xlm">
+                                <tableRow identifier="ButtonOnly" selectable="NO" id="Zrs-dS-xlm" customClass="RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Button" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
                                     <group key="rootItem" width="1" alignment="left" id="geK-4t-rbY">
                                         <items>
-                                            <button width="1" alignment="left" title="Button" id="sZX-Ee-GLd"/>
+                                            <button width="1" alignment="left" title="Button" id="sZX-Ee-GLd">
+                                                <connections>
+                                                    <action selector="buttonHit" destination="Zrs-dS-xlm" id="xy1-RV-4Ze"/>
+                                                </connections>
+                                            </button>
                                         </items>
                                     </group>
+                                    <connections>
+                                        <outlet property="buttonObject" destination="sZX-Ee-GLd" id="cDG-cS-ian"/>
+                                    </connections>
                                 </tableRow>
-                                <tableRow identifier="SwitchOnly" selectable="NO" id="kbW-TP-zZk">
+                                <tableRow identifier="SwitchOnly" selectable="NO" id="kbW-TP-zZk" customClass="RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Switch" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
                                     <group key="rootItem" width="1" alignment="left" id="BKE-ic-7wj">
                                         <items>
-                                            <switch width="1" alignment="left" value="YES" title="Switch" id="ge4-6W-uCY"/>
+                                            <switch width="1" alignment="left" value="YES" title="Switch" id="ge4-6W-uCY">
+                                                <connections>
+                                                    <action selector="switchChanged:" destination="kbW-TP-zZk" id="WdE-gi-Phx"/>
+                                                </connections>
+                                            </switch>
                                         </items>
                                     </group>
-                                </tableRow>
-                                <tableRow identifier="SelectableLabelOnly" id="gLa-24-G1J">
-                                    <group key="rootItem" width="1" alignment="left" id="bIE-Yq-LtX">
-                                        <items>
-                                            <label width="1" alignment="left" text="Label" textAlignment="center" id="dS1-Pu-pmm"/>
-                                        </items>
-                                    </group>
+                                    <connections>
+                                        <outlet property="switchObject" destination="ge4-6W-uCY" id="cVB-ps-gcB"/>
+                                    </connections>
                                 </tableRow>
                             </items>
                         </table>
                     </items>
+                    <connections>
+                        <outlet property="propertiesTable" destination="zZ9-G4-weG" id="4Li-nf-Y98"/>
+                    </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="1208" y="28"/>

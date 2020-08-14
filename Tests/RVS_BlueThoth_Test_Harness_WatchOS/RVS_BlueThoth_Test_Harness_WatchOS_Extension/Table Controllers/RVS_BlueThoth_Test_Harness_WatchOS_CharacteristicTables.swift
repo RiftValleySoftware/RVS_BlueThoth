@@ -27,17 +27,59 @@ import RVS_BlueThoth_WatchOS
 /* ###################################################################################################################################### */
 // MARK: - Label-Only Table Controller -
 /* ###################################################################################################################################### */
-class RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Label: NSObject {
+class RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Base: NSObject {
+    /* ################################################################## */
+    /**
+     */
+    var characteristicInstance: CGA_Bluetooth_Characteristic?
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Label-Only Table Controller -
+/* ###################################################################################################################################### */
+class RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Label: RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Base {
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var labelObject: WKInterfaceLabel!
 }
 
 /* ###################################################################################################################################### */
 // MARK: - Button Table Controller -
 /* ###################################################################################################################################### */
-class RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Button: NSObject {
+class RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Button: RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Base {
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var buttonObject: WKInterfaceButton!
+
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func buttonHit() {
+        characteristicInstance?.readValue()
+    }
 }
 
 /* ###################################################################################################################################### */
 // MARK: - Switch Table Controller -
 /* ###################################################################################################################################### */
-class RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Switch: NSObject {
+class RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Switch: RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Base {
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var switchObject: WKInterfaceSwitch!
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func switchChanged(_ inValue: Bool) {
+        if let characteristicInstance = characteristicInstance {
+            if characteristicInstance.isNotifying && !inValue {
+                characteristicInstance.stopNotifying()
+            } else if !characteristicInstance.isNotifying && inValue {
+                characteristicInstance.startNotifying()
+            }
+        }
+    }
 }
