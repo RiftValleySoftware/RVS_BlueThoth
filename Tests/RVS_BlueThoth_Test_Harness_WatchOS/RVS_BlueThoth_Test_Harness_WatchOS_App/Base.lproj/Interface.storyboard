@@ -151,6 +151,7 @@
                                     </group>
                                     <connections>
                                         <outlet property="characteristicLabel" destination="mHI-Vu-nz5" id="nsb-gq-BGP"/>
+                                        <segue destination="3lU-Hc-S5H" kind="push" id="sqC-hB-3uZ"/>
                                     </connections>
                                 </tableRow>
                             </items>
@@ -162,6 +163,32 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="879" y="28"/>
+        </scene>
+        <!--Characteristic Details-->
+        <scene sceneID="t9r-v2-sQl">
+            <objects>
+                <controller identifier="RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicViewController" title="Characteristic Details" backgroundImage="background-gradient" id="3lU-Hc-S5H" customClass="RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicViewController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
+                    <items>
+                        <table alignment="left" id="zZ9-G4-weG">
+                            <items>
+                                <tableRow identifier="LabelOnly" selectable="NO" id="0ct-mk-fyk">
+                                    <group key="rootItem" width="1" alignment="left" id="CxD-bx-5Ot"/>
+                                </tableRow>
+                                <tableRow identifier="ButtonOnly" selectable="NO" id="Zrs-dS-xlm">
+                                    <group key="rootItem" width="1" alignment="left" id="geK-4t-rbY"/>
+                                </tableRow>
+                                <tableRow identifier="SwitchOnly" selectable="NO" id="kbW-TP-zZk">
+                                    <group key="rootItem" width="1" alignment="left" id="BKE-ic-7wj"/>
+                                </tableRow>
+                                <tableRow identifier="SelectableLabelOnly" id="gLa-24-G1J">
+                                    <group key="rootItem" width="1" alignment="left" id="bIE-Yq-LtX"/>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="1208" y="28"/>
         </scene>
     </scenes>
     <resources>

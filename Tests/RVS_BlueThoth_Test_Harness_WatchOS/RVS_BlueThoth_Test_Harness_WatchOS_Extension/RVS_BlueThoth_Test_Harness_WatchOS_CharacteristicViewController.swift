@@ -30,50 +30,36 @@ import RVS_BlueThoth_WatchOS
 /**
  This View Controller is for the individual device screen.
  */
-class RVS_BlueThoth_Test_Harness_WatchOS_ServiceViewController: RVS_BlueThoth_Test_Harness_WatchOS_Base {
+class RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicViewController: RVS_BlueThoth_Test_Harness_WatchOS_Base {
     /* ################################################################## */
     /**
-     This is the device discovery struct that describes this device.
+     This is the Characteristic instance.
      */
-    var serviceInstance: CGA_Bluetooth_Service?
+    var characteristicInstance: CGA_Bluetooth_Characteristic?
     
     /* ################################################################## */
     /**
      This displays the Characteristics the Service has available.
      */
-    @IBOutlet weak var characteristicsTable: WKInterfaceTable!
+    @IBOutlet weak var propertiesTable: WKInterfaceTable!
 }
 
 /* ###################################################################################################################################### */
 // MARK: - Instance Methods -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_ServiceViewController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicViewController {
     /* ################################################################## */
     /**
-     This adds Services to the table for display.
+     This adds Characteristic Properties to the table for display.
      */
     func populateTable() {
-        if  let serviceInstance = serviceInstance,
-            0 < serviceInstance.count {
-            let rowControllerInitializedArray = [String](repeatElement("RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTableController", count: serviceInstance.count))
-            
-            characteristicsTable.setNumberOfRows(rowControllerInitializedArray.count, withRowType: "RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTableController")
-
-            for item in rowControllerInitializedArray.enumerated() {
-                if let charRow = characteristicsTable.rowController(at: item.offset) as? RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTableController {
-                    charRow.characteristicInstance = serviceInstance[item.offset]
-                }
-            }
-        } else {
-            characteristicsTable.setNumberOfRows(0, withRowType: "")
-        }
     }
 }
 
 /* ###################################################################################################################################### */
 // MARK: - Overridden Base Class Methods -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_ServiceViewController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicViewController {
     /* ################################################################## */
     /**
      This is called as the view is established.
@@ -81,42 +67,22 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ServiceViewController {
      - parameter withContext: The context, passed in from the main view. It will be the device discovery struct.
      */
     override func awake(withContext inContext: Any?) {
-        if let context = inContext as? CGA_Bluetooth_Service {
+        if let context = inContext as? CGA_Bluetooth_Characteristic {
             id = context.id
             super.awake(withContext: inContext)
-            serviceInstance = context
+            characteristicInstance = context
             setTitle(id.localizedVariant)
             updateUI()
         } else {
             super.awake(withContext: inContext)
         }
     }
-    
-    /* ################################################################## */
-    /**
-     Table touch handler.
-     
-     - parameters:
-        - withIdentifier: The segue ID for this (we ignore)
-        - in: The table instance
-        - rowIndex: The vertical position (0-based) of the row that was touched.
-     
-        - returns: The context, if any. Can be nil.
-     */
-    override func contextForSegue(withIdentifier inSegueIdentifier: String, in inTable: WKInterfaceTable, rowIndex inRowIndex: Int) -> Any? {
-        if  let serviceInstance = serviceInstance,
-            (0..<serviceInstance.count).contains(inRowIndex) {
-            return serviceInstance[inRowIndex]
-        }
-        
-        return nil
-    }
 }
 
 /* ###################################################################################################################################### */
 // MARK: - RVS_BlueThoth_Test_Harness_WatchOS_Base_Protocol Conformance -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_ServiceViewController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicViewController {
     /* ################################################################## */
     /**
      This sets everything up to reflect the current state of the Central Manager.
