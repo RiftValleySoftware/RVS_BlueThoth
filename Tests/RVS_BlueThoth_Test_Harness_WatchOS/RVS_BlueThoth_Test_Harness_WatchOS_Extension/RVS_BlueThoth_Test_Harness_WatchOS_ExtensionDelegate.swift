@@ -44,7 +44,7 @@ extension CGA_PersistentPrefs {
 /**
  This extension adds a bit of extra "sauce" to the shared prefs class, in that it adds stuff specific to our platform.
  */
-extension Array where Element: RVS_BlueThoth_Test_Harness_WatchOS_Base {
+extension Array where Element: RVS_BlueThoth_Test_Harness_WatchOS_BaseInterfaceController {
     /* ################################################################## */
     /**
      This subscript allows us to use an Array just like a Dictionary.
@@ -81,13 +81,13 @@ extension Array where Element: RVS_BlueThoth_Test_Harness_WatchOS_Base {
     /**
      The main controller will always be the first one.
      */
-    var mainViewController: RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController? { first as? RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController }
+    var mainViewController: RVS_BlueThoth_Test_Harness_WatchOS_MainInterfaceController? { first as? RVS_BlueThoth_Test_Harness_WatchOS_MainInterfaceController }
     
     /* ################################################################## */
     /**
      The top controller will always be the last one (most times, we will just have two controllers in the Array, anyway).
      */
-    var topViewController: RVS_BlueThoth_Test_Harness_WatchOS_Base? { last }
+    var topViewController: RVS_BlueThoth_Test_Harness_WatchOS_BaseInterfaceController? { last }
 }
 
 /* ###################################################################################################################################### */
@@ -107,7 +107,7 @@ class RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: NSObject {
     /**
      This contains all of our screens. The key is the ID of the device or attribute associated with that screen.
      */
-    var screenList: [RVS_BlueThoth_Test_Harness_WatchOS_Base] = []
+    var screenList: [RVS_BlueThoth_Test_Harness_WatchOS_BaseInterfaceController] = []
     
     /* ################################################################## */
     /**
@@ -119,13 +119,13 @@ class RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: NSObject {
     /**
      Quick accessor for the main discovery screen.
      */
-    var mainScreen: RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController? { screenList.mainViewController }
+    var mainScreen: RVS_BlueThoth_Test_Harness_WatchOS_MainInterfaceController? { screenList.mainViewController }
     
     /* ################################################################## */
     /**
      Quick accessor for the top screen.
      */
-    var topScreen: RVS_BlueThoth_Test_Harness_WatchOS_Base? { screenList.topViewController }
+    var topScreen: RVS_BlueThoth_Test_Harness_WatchOS_BaseInterfaceController? { screenList.topViewController }
 }
 
 /* ###################################################################################################################################### */

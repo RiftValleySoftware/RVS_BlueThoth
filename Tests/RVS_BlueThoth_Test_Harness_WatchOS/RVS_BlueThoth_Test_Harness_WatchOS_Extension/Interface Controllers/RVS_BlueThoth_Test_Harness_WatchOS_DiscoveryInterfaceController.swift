@@ -30,50 +30,36 @@ import RVS_BlueThoth_WatchOS
 /**
  This View Controller is for the individual device screen.
  */
-class RVS_BlueThoth_Test_Harness_WatchOS_ServiceViewController: RVS_BlueThoth_Test_Harness_WatchOS_Base {
+class RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController: RVS_BlueThoth_Test_Harness_WatchOS_BaseInterfaceController {
+    /* ################################################################## */
+    /**
+     The segue ID for the connection segue (from the CONNECT button).
+     */
+    static let connectionSegueID = "connect-to-device"
+    
     /* ################################################################## */
     /**
      This is the device discovery struct that describes this device.
      */
-    var serviceInstance: CGA_Bluetooth_Service?
+    weak var deviceDiscoveryData: RVS_BlueThoth.DiscoveryData!
     
     /* ################################################################## */
     /**
-     This displays the Characteristics the Service has available.
+     This label displays the advertising strings.
      */
-    @IBOutlet weak var characteristicsTable: WKInterfaceTable!
-}
-
-/* ###################################################################################################################################### */
-// MARK: - Instance Methods -
-/* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_ServiceViewController {
+    @IBOutlet weak var advertisingInformationLabel: WKInterfaceLabel!
+    
     /* ################################################################## */
     /**
-     This adds Services to the table for display.
+     If the device is connectable, this button is displayed, and will bring in the connected device screen.
      */
-    func populateTable() {
-        if  let serviceInstance = serviceInstance,
-            0 < serviceInstance.count {
-            let rowControllerInitializedArray = [String](repeatElement("RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTableController", count: serviceInstance.count))
-            
-            characteristicsTable.setNumberOfRows(rowControllerInitializedArray.count, withRowType: "RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTableController")
-
-            for item in rowControllerInitializedArray.enumerated() {
-                if let charRow = characteristicsTable.rowController(at: item.offset) as? RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTableController {
-                    charRow.characteristicInstance = serviceInstance[item.offset]
-                }
-            }
-        } else {
-            characteristicsTable.setNumberOfRows(0, withRowType: "")
-        }
-    }
+    @IBOutlet weak var connectButton: WKInterfaceButton!
 }
 
 /* ###################################################################################################################################### */
 // MARK: - Overridden Base Class Methods -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_ServiceViewController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
     /* ################################################################## */
     /**
      This is called as the view is established.
@@ -81,47 +67,56 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ServiceViewController {
      - parameter withContext: The context, passed in from the main view. It will be the device discovery struct.
      */
     override func awake(withContext inContext: Any?) {
-        if let context = inContext as? CGA_Bluetooth_Service {
-            id = context.id
-            super.awake(withContext: inContext)
-            serviceInstance = context
-            setTitle(id.localizedVariant)
-            updateUI()
-        } else {
-            super.awake(withContext: inContext)
+        if let context = inContext as? RVS_BlueThoth.DiscoveryData {
+            deviceDiscoveryData = context
+            id = context.identifier + "-DISCOVERED"
+            setTitle(deviceDiscoveryData.preferredName.isEmpty ? "SLUG-NO-DEVICE-NAME".localizedVariant : deviceDiscoveryData.preferredName)
+            connectButton?.setTitle("SLUG-CONNECT".localizedVariant)
+            connectButton?.setHidden(!deviceDiscoveryData.canConnect)
         }
     }
     
     /* ################################################################## */
     /**
-     Table touch handler.
-     
-     - parameters:
-        - withIdentifier: The segue ID for this (we ignore)
-        - in: The table instance
-        - rowIndex: The vertical position (0-based) of the row that was touched.
-     
-        - returns: The context, if any. Can be nil.
+     This is called as the view is about to become active.
      */
-    override func contextForSegue(withIdentifier inSegueIdentifier: String, in inTable: WKInterfaceTable, rowIndex inRowIndex: Int) -> Any? {
-        if  let serviceInstance = serviceInstance,
-            (0..<serviceInstance.count).contains(inRowIndex) {
-            return serviceInstance[inRowIndex]
+    override func willActivate() {
+        super.willActivate()
+        // We should never be connected in this screen.
+        if let peripheral = deviceDiscoveryData?.peripheralInstance {
+            #if DEBUG
+                print("Device: \(peripheral.id) disconnecting")
+            #endif
+            peripheral.disconnect()
         }
+        updateUI()
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called as we switch to the connection screen.
+     
+     - parameter withIdentifier: The String that identifies the segue.
+     - returns: nil, if the segue is not ours, or the device discovery data.
+     */
+    override func contextForSegue(withIdentifier inSegueIdentifier: String) -> Any? {
+        print(inSegueIdentifier)
+        guard Self.connectionSegueID == inSegueIdentifier else { return nil }
         
-        return nil
+        return deviceDiscoveryData
     }
 }
 
 /* ###################################################################################################################################### */
 // MARK: - RVS_BlueThoth_Test_Harness_WatchOS_Base_Protocol Conformance -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_ServiceViewController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
     /* ################################################################## */
     /**
      This sets everything up to reflect the current state of the Central Manager.
      */
     override func updateUI() {
-        populateTable()
+        let advertisingStrings = RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.createAdvertimentStringsFor(deviceDiscoveryData.advertisementData, id: deviceDiscoveryData.identifier, power: deviceDiscoveryData.rssi)
+        advertisingInformationLabel.setText(advertisingStrings.joined(separator: "\n-\n"))
     }
 }

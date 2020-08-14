@@ -44,7 +44,7 @@ protocol RVS_BlueThoth_Test_Harness_WatchOS_Base_Protocol {
 /**
  This is a base class for screen instance View Controllers.
  */
-class RVS_BlueThoth_Test_Harness_WatchOS_Base: WKInterfaceController, RVS_BlueThoth_Test_Harness_WatchOS_Base_Protocol {
+class RVS_BlueThoth_Test_Harness_WatchOS_BaseInterfaceController: WKInterfaceController, RVS_BlueThoth_Test_Harness_WatchOS_Base_Protocol {
     /* ################################################################## */
     /**
      This is a stored property that each screen sets to its ID.
@@ -84,7 +84,7 @@ class RVS_BlueThoth_Test_Harness_WatchOS_Base: WKInterfaceController, RVS_BlueTh
 /* ###################################################################################################################################### */
 // MARK: - RVS_BlueThoth_Test_Harness_WatchOS_Base_Protocol Conformance -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_Base {
+extension RVS_BlueThoth_Test_Harness_WatchOS_BaseInterfaceController {
     /* ################################################################## */
     /**
      Default does nothing.
@@ -96,7 +96,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_Base {
 /* ###################################################################################################################################### */
 // MARK: - Base Class Override Methods -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_Base {
+extension RVS_BlueThoth_Test_Harness_WatchOS_BaseInterfaceController {
     /* ################################################################## */
     /**
      Called just before the view activates.

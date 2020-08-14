@@ -30,12 +30,12 @@ import RVS_BlueThoth_WatchOS
 /**
  This View Controller is for the individual device screen.
  */
-class RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController: RVS_BlueThoth_Test_Harness_WatchOS_Base {
+class RVS_BlueThoth_Test_Harness_WatchOS_DeviceInterfaceController: RVS_BlueThoth_Test_Harness_WatchOS_BaseInterfaceController {
     /* ################################################################## */
     /**
      This is the device discovery struct that describes this device.
      */
-    var deviceDiscoveryData: RVS_BlueThoth.DiscoveryData!
+    weak var deviceDiscoveryData: RVS_BlueThoth.DiscoveryData!
     
     /* ################################################################## */
     /**
@@ -53,7 +53,7 @@ class RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController: RVS_BlueThoth_Tes
 /* ###################################################################################################################################### */
 // MARK: - Instance Methods -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceInterfaceController {
     /* ################################################################## */
     /**
      This adds Services to the table for display.
@@ -79,7 +79,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
 /* ###################################################################################################################################### */
 // MARK: - Overridden Base Class Methods -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceInterfaceController {
     /* ################################################################## */
     /**
      This is called as the view is established.
@@ -136,7 +136,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
 /* ###################################################################################################################################### */
 // MARK: - RVS_BlueThoth_Test_Harness_WatchOS_Base_Protocol Conformance -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceInterfaceController {
     /* ################################################################## */
     /**
      This sets everything up to reflect the current state of the Central Manager.

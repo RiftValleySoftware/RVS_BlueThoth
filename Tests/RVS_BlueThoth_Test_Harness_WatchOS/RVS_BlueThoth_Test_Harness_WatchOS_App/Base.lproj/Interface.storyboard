@@ -9,7 +9,7 @@
         <!--SLUG-DEVICES-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller title="SLUG-DEVICES" backgroundImage="background-gradient" id="AgC-eL-Hgc" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
+                <controller title="SLUG-DEVICES" backgroundImage="background-gradient" id="AgC-eL-Hgc" customClass="RVS_BlueThoth_Test_Harness_WatchOS_MainInterfaceController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
                     <items>
                         <imageView width="100" height="100" alignment="center" verticalAlignment="center" image="NoBT" id="3SO-EZ-3zF"/>
                         <button width="30" height="30" alignment="right" verticalAlignment="bottom" alpha="0.5" backgroundImage="ellipsis.circle.fill" catalog="system" id="Ol8-Ij-rQ6">
@@ -50,10 +50,10 @@
             </objects>
             <point key="canvasLocation" x="30" y="28"/>
         </scene>
-        <!--Blue Thoth Test Harness WatchOS Prefs Controller-->
+        <!--Blue Thoth Test Harness WatchOS Prefs Interface Controller-->
         <scene sceneID="gJy-fj-2qq">
             <objects>
-                <controller id="Im9-Lv-tgM" customClass="RVS_BlueThoth_Test_Harness_WatchOS_PrefsController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
+                <controller id="Im9-Lv-tgM" customClass="RVS_BlueThoth_Test_Harness_WatchOS_PrefsInterfaceController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
                     <items>
                         <switch width="1" alignment="left" title="SLUG-CONNECTED-ONLY" id="Wga-Gi-NdI">
                             <connections>
@@ -89,7 +89,7 @@
         <!--Device-Screen-->
         <scene sceneID="UxI-nT-USb">
             <objects>
-                <controller identifier="Device-Screen" backgroundImage="background-gradient" id="Nkb-53-HMU" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryViewController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
+                <controller identifier="Device-Screen" backgroundImage="background-gradient" id="Nkb-53-HMU" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
                     <items>
                         <label width="1" alignment="left" text="Label" numberOfLines="0" id="nyz-mY-M4L"/>
                         <button width="1" alignment="left" title="SLUG-CONNECT" id="vn1-qE-crI">
@@ -109,7 +109,7 @@
         <!--Connected Device Screen-->
         <scene sceneID="oNp-XT-HEc">
             <objects>
-                <controller identifier="Connected-Device-Screen" backgroundImage="background-gradient" fullBounds="YES" id="s4R-NB-7GP" userLabel="Connected Device Screen" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DeviceViewController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
+                <controller identifier="Connected-Device-Screen" backgroundImage="background-gradient" fullBounds="YES" id="s4R-NB-7GP" userLabel="Connected Device Screen" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DeviceInterfaceController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
                     <items>
                         <label width="1" alignment="center" verticalAlignment="center" text="SLUG-CONNECTING" textAlignment="center" id="U2K-bl-slL"/>
                         <table alignment="left" id="CkK-cX-MQ8">
@@ -139,7 +139,7 @@
         <!--Service Details Screen-->
         <scene sceneID="vpn-a4-0An">
             <objects>
-                <controller identifier="Service-Details-Screen" title="Service Details Screen" backgroundImage="background-gradient" id="k70-7h-bDn" customClass="RVS_BlueThoth_Test_Harness_WatchOS_ServiceViewController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
+                <controller identifier="Service-Details-Screen" title="Service Details Screen" backgroundImage="background-gradient" id="k70-7h-bDn" customClass="RVS_BlueThoth_Test_Harness_WatchOS_ServiceInterfaceController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
                     <items>
                         <table alignment="left" id="CHh-nW-qEK">
                             <items>
@@ -167,21 +167,37 @@
         <!--Characteristic Details-->
         <scene sceneID="t9r-v2-sQl">
             <objects>
-                <controller identifier="RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicViewController" title="Characteristic Details" backgroundImage="background-gradient" id="3lU-Hc-S5H" customClass="RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicViewController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
+                <controller identifier="RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicViewController" title="Characteristic Details" backgroundImage="background-gradient" id="3lU-Hc-S5H" customClass="RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicInterfaceController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
                     <items>
                         <table alignment="left" id="zZ9-G4-weG">
                             <items>
                                 <tableRow identifier="LabelOnly" selectable="NO" id="0ct-mk-fyk">
-                                    <group key="rootItem" width="1" alignment="left" id="CxD-bx-5Ot"/>
+                                    <group key="rootItem" width="1" alignment="left" id="CxD-bx-5Ot">
+                                        <items>
+                                            <label width="1" alignment="left" text="Label" textAlignment="center" id="BvJ-sL-jeZ"/>
+                                        </items>
+                                    </group>
                                 </tableRow>
                                 <tableRow identifier="ButtonOnly" selectable="NO" id="Zrs-dS-xlm">
-                                    <group key="rootItem" width="1" alignment="left" id="geK-4t-rbY"/>
+                                    <group key="rootItem" width="1" alignment="left" id="geK-4t-rbY">
+                                        <items>
+                                            <button width="1" alignment="left" title="Button" id="sZX-Ee-GLd"/>
+                                        </items>
+                                    </group>
                                 </tableRow>
                                 <tableRow identifier="SwitchOnly" selectable="NO" id="kbW-TP-zZk">
-                                    <group key="rootItem" width="1" alignment="left" id="BKE-ic-7wj"/>
+                                    <group key="rootItem" width="1" alignment="left" id="BKE-ic-7wj">
+                                        <items>
+                                            <switch width="1" alignment="left" value="YES" title="Switch" id="ge4-6W-uCY"/>
+                                        </items>
+                                    </group>
                                 </tableRow>
                                 <tableRow identifier="SelectableLabelOnly" id="gLa-24-G1J">
-                                    <group key="rootItem" width="1" alignment="left" id="bIE-Yq-LtX"/>
+                                    <group key="rootItem" width="1" alignment="left" id="bIE-Yq-LtX">
+                                        <items>
+                                            <label width="1" alignment="left" text="Label" textAlignment="center" id="dS1-Pu-pmm"/>
+                                        </items>
+                                    </group>
                                 </tableRow>
                             </items>
                         </table>

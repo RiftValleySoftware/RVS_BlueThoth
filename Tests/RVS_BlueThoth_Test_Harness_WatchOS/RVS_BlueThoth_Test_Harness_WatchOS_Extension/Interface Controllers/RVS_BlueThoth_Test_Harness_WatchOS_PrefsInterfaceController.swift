@@ -30,7 +30,7 @@ import RVS_BlueThoth_WatchOS
 /**
  This controls the modal prefs ("more") screen.
  */
-class RVS_BlueThoth_Test_Harness_WatchOS_PrefsController: WKInterfaceController {
+class RVS_BlueThoth_Test_Harness_WatchOS_PrefsInterfaceController: WKInterfaceController {
     /* ################################################################## */
     /**
      The switch for "Connected Only"
@@ -95,7 +95,7 @@ class RVS_BlueThoth_Test_Harness_WatchOS_PrefsController: WKInterfaceController 
 /* ###################################################################################################################################### */
 // MARK: - IBAction Methods -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_PrefsController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_PrefsInterfaceController {
     /* ################################################################## */
     /**
      Called when the "Connected Devices Only" switch is selected.
@@ -133,7 +133,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_PrefsController {
 /* ###################################################################################################################################### */
 // MARK: - Base Class Override Methods -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_PrefsController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_PrefsInterfaceController {
     /* ################################################################## */
     /**
      Called as the View is set up.
@@ -170,7 +170,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_PrefsController {
 /* ###################################################################################################################################### */
 // MARK: - Instance Methods -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_PrefsController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_PrefsInterfaceController {
     /* ################################################################## */
     /**
      This sets the various items to match the values recorded.

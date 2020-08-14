@@ -27,7 +27,7 @@ import RVS_BlueThoth_WatchOS
 /* ###################################################################################################################################### */
 // MARK: - Main Watch App Discovery Interface Controller -
 /* ###################################################################################################################################### */
-class RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController: RVS_BlueThoth_Test_Harness_WatchOS_Base {
+class RVS_BlueThoth_Test_Harness_WatchOS_MainInterfaceController: RVS_BlueThoth_Test_Harness_WatchOS_BaseInterfaceController {
     /* ################################################################## */
     /**
      This is the ID for the main Discovery Screen.
@@ -56,7 +56,7 @@ class RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController: RVS_BlueT
 /* ###################################################################################################################################### */
 // MARK: - IBAction Methods -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_MainInterfaceController {
     /* ################################################################## */
     /**
      Called when the Scanning switch changes value
@@ -82,7 +82,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
 /* ###################################################################################################################################### */
 // MARK: - Base Class Override Methods -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_MainInterfaceController {
     /* ################################################################## */
     /**
      Called as the View is set up.
@@ -132,7 +132,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
 /* ###################################################################################################################################### */
 // MARK: - Instance Methods -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_MainInterfaceController {
     /* ################################################################## */
     /**
      This adds devices to the table for display.
@@ -160,7 +160,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
 /* ###################################################################################################################################### */
 // MARK: - RVS_BlueThoth_Test_Harness_WatchOS_Base_Protocol Conformance -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_MainInterfaceController {
     /* ################################################################## */
     /**
      This sets everything up to reflect the current state of the Central Manager.
