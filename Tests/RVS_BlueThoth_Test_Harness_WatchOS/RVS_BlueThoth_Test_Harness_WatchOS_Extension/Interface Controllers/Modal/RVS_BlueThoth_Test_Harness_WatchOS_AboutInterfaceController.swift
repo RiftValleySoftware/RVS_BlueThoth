@@ -33,11 +33,13 @@ import RVS_BlueThoth_WatchOS
 class RVS_BlueThoth_Test_Harness_WatchOS_AboutInterfaceController: WKInterfaceController {
     /* ################################################################## */
     /**
+     This label displays the app version, extracted from the bundle.
      */
     @IBOutlet weak var versionLabel: WKInterfaceLabel!
     
     /* ################################################################## */
     /**
+     This displays the info text.
      */
     @IBOutlet weak var infoLabel: WKInterfaceLabel!
 }
