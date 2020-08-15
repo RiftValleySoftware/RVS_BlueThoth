@@ -93,8 +93,10 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DescriptorInterfaceController {
         var labelText = ""
         
         if let descriptor = descriptorInstance as? CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration {
-            labelText = "SLUG-ACC-DESCRIPTOR-CLIENTCHAR-NOTIFY-\(descriptor.isNotifying ? "YES" : "NO")".localizedVariant
-            labelText += "\n" + "SLUG-ACC-DESCRIPTOR-CLIENTCHAR-INDICATE-\(descriptor.isIndicating ? "YES" : "NO")".localizedVariant
+            let isNotifying = descriptor.isNotifying
+            let isIndicating = descriptor.isIndicating
+            labelText = "SLUG-ACC-DESCRIPTOR-CLIENTCHAR-NOTIFY-\(isNotifying ? "YES" : "NO")".localizedVariant
+            labelText += "\n" + "SLUG-ACC-DESCRIPTOR-CLIENTCHAR-INDICATE-\(isIndicating ? "YES" : "NO")".localizedVariant
         }
         
         if let descriptor = descriptorInstance as? CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties {

@@ -422,6 +422,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: CGA_BlueThoth_De
         #if DEBUG
             print("Service Update Received")
         #endif
+        inService.forEach { $0.readValue() }
         screenList.topViewController?.updateUI()
     }
     
@@ -441,9 +442,27 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: CGA_BlueThoth_De
                 print("\tString Value: \"\(stringValue)\"")
             }
         #endif
+        inCharacteristic.forEach { $0.readValue() }
         screenList.topViewController?.updateUI()
     }
 
+    /* ################################################################## */
+    /**
+     Called to tell the instance that a Characteristic changed its notification state.
+     
+     - parameter inCentralManager: The central manager that is calling this.
+     - parameter device: The device instance that contained the changed Service.
+     - parameter service: The Service instance that contained the changed Characteristic.
+     - parameter changedCharacteristicNotificationState: The Characteristic that was changed.
+     */
+    func centralManager(_ inCentral: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, changedCharacteristicNotificationState inCharacteristic: CGA_Bluetooth_Characteristic) {
+        #if DEBUG
+            print("Characteristic Notification State Changed to \(inCharacteristic.isNotifying ? "ON" : "OFF")")
+        #endif
+        inCharacteristic.forEach { $0.readValue() }
+        screenList.topViewController?.updateUI()
+    }
+    
     /* ################################################################## */
     /**
      Called to tell the instance that a Descriptor changed.
