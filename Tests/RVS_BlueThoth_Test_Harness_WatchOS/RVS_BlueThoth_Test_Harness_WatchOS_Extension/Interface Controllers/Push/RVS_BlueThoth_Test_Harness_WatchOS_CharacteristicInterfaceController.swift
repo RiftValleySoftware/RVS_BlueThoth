@@ -125,6 +125,13 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicInterfaceController {
             }
         }
     }
+    
+    /* ################################################################## */
+    /**
+     Establishes accessibility labels.
+     */
+    func setAccessibility() {
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -180,6 +187,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicInterfaceController {
      This sets everything up to reflect the current state of the Characteristic.
      */
     override func updateUI() {
+        setAccessibility()
         populateTable()
     }
 }

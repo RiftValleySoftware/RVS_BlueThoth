@@ -51,6 +51,12 @@ class RVS_BlueThoth_Test_Harness_WatchOS_MainInterfaceController: RVS_BlueThoth_
      The table that lists the discovered devices.
      */
     @IBOutlet weak var deviceListTable: WKInterfaceTable!
+    
+    /* ################################################################## */
+    /**
+     The "More" button.
+     */
+    @IBOutlet weak var infoButton: WKInterfaceButton!
 }
 
 /* ###################################################################################################################################### */
@@ -75,6 +81,25 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_MainInterfaceController {
         } else {
             centralManager?.stopScanning()
             scanningSwitch?.setOn(false)
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Instance Methods -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_WatchOS_MainInterfaceController {
+    /* ################################################################## */
+    /**
+     Establishes accessibility labels.
+     */
+    func setAccessibility() {
+        if  let centralManager = centralManager {
+            scanningSwitch?.setAccessibilityLabel(("SLUG-ACC-SCANNING-BUTTON-O" + (centralManager.isScanning ? "N" : "FF")).localizedVariant)
+            deviceListTable?.setAccessibilityLabel("SLUG-ACC-DEVICELIST-TABLE".localizedVariant)
+            infoButton?.setAccessibilityLabel("SLUG-ACC-SETTINGS-BUTTON".localizedVariant)
+        } else {
+            noBTImage?.setAccessibilityLabel("SLUG-ACC-NO-BT-IMAGE".localizedVariant)
         }
     }
 }
@@ -178,7 +203,8 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_MainInterfaceController {
             deviceListTable?.setHidden(true)
             scanningSwitch?.setHidden(true)
         }
-
+        
+        setAccessibility()
         populateTable()
     }
 }

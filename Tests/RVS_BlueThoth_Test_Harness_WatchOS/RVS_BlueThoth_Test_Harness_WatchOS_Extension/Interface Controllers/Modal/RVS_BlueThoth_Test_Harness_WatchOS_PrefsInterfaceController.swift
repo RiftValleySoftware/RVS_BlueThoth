@@ -180,5 +180,13 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_PrefsInterfaceController {
         emptyNamesSwitch?.setOn(emptyNames)
         rssiLevelLabel?.setText(String(format: "SLUG-RSSI-LEVEL-FORMAT".localizedVariant, currentRSSI))
         minimumRSSISlider?.setValue(Float(currentRSSI))
+        setAccessibility()
+    }
+
+    /* ################################################################## */
+    /**
+     Establishes accessibility labels.
+     */
+    func setAccessibility() {
     }
 }

@@ -28,52 +28,38 @@ import RVS_BlueThoth_WatchOS
 // MARK: - Device Screen Controller -
 /* ###################################################################################################################################### */
 /**
- This View Controller is for the individual Service screen.
+ This View Controller is for the individual Characteristic screen.
  */
-class RVS_BlueThoth_Test_Harness_WatchOS_ServiceInterfaceController: RVS_BlueThoth_Test_Harness_WatchOS_BaseInterfaceController {
+class RVS_BlueThoth_Test_Harness_WatchOS_DescriptorInterfaceController: RVS_BlueThoth_Test_Harness_WatchOS_BaseInterfaceController {
     /* ################################################################## */
     /**
-     This is the device discovery struct that describes this device.
+     This is the Descriptor instance.
      */
-    weak var serviceInstance: CGA_Bluetooth_Service?
-    
+    weak var descriptorInstance: CGA_Bluetooth_Descriptor?
+
     /* ################################################################## */
     /**
-     This displays the Characteristics the Service has available.
+     Displays the Descriptor value as text (if possible).
      */
-    @IBOutlet weak var characteristicsTable: WKInterfaceTable!
+    @IBOutlet weak var valueLabel: WKInterfaceLabel!
 }
 
 /* ###################################################################################################################################### */
 // MARK: - Instance Methods -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_ServiceInterfaceController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_DescriptorInterfaceController {
     /* ################################################################## */
     /**
-     This adds Services to the table for display.
+     Establishes accessibility labels.
      */
-    func populateTable() {
-        if  let serviceInstance = serviceInstance,
-            0 < serviceInstance.count {
-            let rowControllerInitializedArray = [String](repeatElement("RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTableController", count: serviceInstance.count))
-            
-            characteristicsTable.setNumberOfRows(rowControllerInitializedArray.count, withRowType: "RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTableController")
-
-            for item in rowControllerInitializedArray.enumerated() {
-                if let charRow = characteristicsTable.rowController(at: item.offset) as? RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTableController {
-                    charRow.characteristicInstance = serviceInstance[item.offset]
-                }
-            }
-        } else {
-            characteristicsTable.setNumberOfRows(0, withRowType: "")
-        }
+    func setAccessibility() {
     }
 }
 
 /* ###################################################################################################################################### */
 // MARK: - Overridden Base Class Methods -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_ServiceInterfaceController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_DescriptorInterfaceController {
     /* ################################################################## */
     /**
      This is called as the view is established.
@@ -81,47 +67,44 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ServiceInterfaceController {
      - parameter withContext: The context, passed in from the main view. It will be the device discovery struct.
      */
     override func awake(withContext inContext: Any?) {
-        if let context = inContext as? CGA_Bluetooth_Service {
+        if let context = inContext as? CGA_Bluetooth_Descriptor {
             id = context.id
             super.awake(withContext: inContext)
-            serviceInstance = context
+            descriptorInstance = context
             setTitle(id.localizedVariant)
             updateUI()
+            setAccessibility()
         } else {
             super.awake(withContext: inContext)
         }
-    }
-    
-    /* ################################################################## */
-    /**
-     Table touch handler.
-     
-     - parameters:
-        - withIdentifier: The segue ID for this (we ignore)
-        - in: The table instance
-        - rowIndex: The vertical position (0-based) of the row that was touched.
-     
-        - returns: The context, if any. Can be nil.
-     */
-    override func contextForSegue(withIdentifier inSegueIdentifier: String, in inTable: WKInterfaceTable, rowIndex inRowIndex: Int) -> Any? {
-        if  let serviceInstance = serviceInstance,
-            (0..<serviceInstance.count).contains(inRowIndex) {
-            return serviceInstance[inRowIndex]
-        }
-        
-        return nil
     }
 }
 
 /* ###################################################################################################################################### */
 // MARK: - RVS_BlueThoth_Test_Harness_WatchOS_Base_Protocol Conformance -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_ServiceInterfaceController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_DescriptorInterfaceController {
     /* ################################################################## */
     /**
-     This sets everything up to reflect the current state of the Service.
+     This sets everything up to reflect the current state of the Descriptor.
      */
     override func updateUI() {
-        populateTable()
+        var labelText = ""
+        
+        if let descriptor = descriptorInstance as? CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration {
+            labelText = "SLUG-ACC-DESCRIPTOR-CLIENTCHAR-NOTIFY-\(descriptor.isNotifying ? "YES" : "NO")".localizedVariant
+            labelText += "\n" + "SLUG-ACC-DESCRIPTOR-CLIENTCHAR-INDICATE-\(descriptor.isIndicating ? "YES" : "NO")".localizedVariant
+        }
+        
+        if let descriptor = descriptorInstance as? CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties {
+            labelText = "SLUG-ACC-DESCRIPTOR-EXTENDED-RELIABLE-WR-\(descriptor.isReliableWriteEnabled ? "YES" : "NO")".localizedVariant
+            labelText += "\n" + "SLUG-ACC-DESCRIPTOR-EXTENDED-AUX-WR-\(descriptor.isWritableAuxiliariesEnabled ? "YES" : "NO")".localizedVariant
+        }
+        
+        if let descriptor = descriptorInstance as? CGA_Bluetooth_Descriptor_PresentationFormat {
+            labelText = "SLUG-CHAR-PRESENTATION-\(descriptor.stringValue ?? "255")".localizedVariant
+        }
+        
+        valueLabel?.setText(labelText)
     }
 }

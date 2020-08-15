@@ -160,6 +160,9 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-ACC-DEVICELIST-TABLE-ADVERTISING-DATA"        =   "This is the advertising Data for this device.";
 "SLUG-ACC-SETTINGS-BUTTON"          =   "App Settings. This will bring in a screen that will allow you to specify some settings for the app.";
 "SLUG-ACC-INFO-BUTTON"              =   "About this app. This will bring in a screen that will give basic information about this app.";
+// Watch-Only
+"SLUG-ACC-CONNECT-BUTTON"           =   "Pressing this button will connect the device.";
+"SLUG-ACC-NO-BT-IMAGE"              =   "Bluetooth is not available.";
 
 // MARK: - The Peripheral Information Screen
 "SLUG-ACC-BACK-BUTTON"              =   "Return to the screen with the details for this Peripheral";

@@ -25,73 +25,50 @@ import Foundation
 import RVS_BlueThoth_WatchOS
 
 /* ###################################################################################################################################### */
-// MARK: - Device Screen Controller -
+// MARK: - Prefs Modal Screen Controller -
 /* ###################################################################################################################################### */
 /**
- This View Controller is for the individual Characteristic screen.
+ This controls the modal prefs ("more") screen.
  */
-class RVS_BlueThoth_Test_Harness_WatchOS_DescriptorInterfaceController: RVS_BlueThoth_Test_Harness_WatchOS_BaseInterfaceController {
+class RVS_BlueThoth_Test_Harness_WatchOS_AboutInterfaceController: WKInterfaceController {
     /* ################################################################## */
     /**
-     This is the Descriptor instance.
      */
-    weak var descriptorInstance: CGA_Bluetooth_Descriptor?
-
+    @IBOutlet weak var versionLabel: WKInterfaceLabel!
+    
     /* ################################################################## */
     /**
-     Displays the Descriptor value as text (if possible).
      */
-    @IBOutlet weak var valueLabel: WKInterfaceLabel!
+    @IBOutlet weak var infoLabel: WKInterfaceLabel!
 }
 
 /* ###################################################################################################################################### */
-// MARK: - Overridden Base Class Methods -
+// MARK: - Instance Methods -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_DescriptorInterfaceController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_AboutInterfaceController {
     /* ################################################################## */
     /**
-     This is called as the view is established.
-     
-     - parameter withContext: The context, passed in from the main view. It will be the device discovery struct.
+     Establishes accessibility labels.
      */
-    override func awake(withContext inContext: Any?) {
-        if let context = inContext as? CGA_Bluetooth_Descriptor {
-            id = context.id
-            super.awake(withContext: inContext)
-            descriptorInstance = context
-            setTitle(id.localizedVariant)
-            updateUI()
-        } else {
-            super.awake(withContext: inContext)
-        }
+    func setAccessibility() {
     }
 }
 
 /* ###################################################################################################################################### */
-// MARK: - RVS_BlueThoth_Test_Harness_WatchOS_Base_Protocol Conformance -
+// MARK: - Base Class Override Methods -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_DescriptorInterfaceController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_AboutInterfaceController {
     /* ################################################################## */
     /**
-     This sets everything up to reflect the current state of the Descriptor.
+     Called as the View is set up.
+     
+     - parameter withContext: The context provided to the view, as it was instantiated.
      */
-    override func updateUI() {
-        var labelText = ""
-        
-        if let descriptor = descriptorInstance as? CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration {
-            labelText = "SLUG-ACC-DESCRIPTOR-CLIENTCHAR-NOTIFY-\(descriptor.isNotifying ? "YES" : "NO")".localizedVariant
-            labelText += "\n" + "SLUG-ACC-DESCRIPTOR-CLIENTCHAR-INDICATE-\(descriptor.isIndicating ? "YES" : "NO")".localizedVariant
-        }
-        
-        if let descriptor = descriptorInstance as? CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties {
-            labelText = "SLUG-ACC-DESCRIPTOR-EXTENDED-RELIABLE-WR-\(descriptor.isReliableWriteEnabled ? "YES" : "NO")".localizedVariant
-            labelText += "\n" + "SLUG-ACC-DESCRIPTOR-EXTENDED-AUX-WR-\(descriptor.isWritableAuxiliariesEnabled ? "YES" : "NO")".localizedVariant
-        }
-        
-        if let descriptor = descriptorInstance as? CGA_Bluetooth_Descriptor_PresentationFormat {
-            labelText = "SLUG-CHAR-PRESENTATION-\(descriptor.stringValue ?? "255")".localizedVariant
-        }
-        
-        valueLabel?.setText(labelText)
+    override func awake(withContext inContext: Any?) {
+        super.awake(withContext: inContext)
+        setTitle("SLUG-DONE".localizedVariant)
+        versionLabel?.setText(String(format: "SLUG-VERSION-FORMAT".localizedVariant, Bundle.main.appVersionString, Bundle.main.appVersionBuildString))
+        infoLabel.setText("SLUG-MAIN-INFO-TEXT".localizedVariant)
+        setAccessibility()
     }
 }

@@ -43,6 +43,7 @@
                     </items>
                     <connections>
                         <outlet property="deviceListTable" destination="cwd-pb-B5i" id="7Ql-6G-54p"/>
+                        <outlet property="infoButton" destination="Ol8-Ij-rQ6" id="xIU-AS-qcZ"/>
                         <outlet property="noBTImage" destination="3SO-EZ-3zF" id="sgR-hm-2I7"/>
                         <outlet property="scanningSwitch" destination="mMb-tO-hBH" id="Ksz-e6-zE1"/>
                     </connections>

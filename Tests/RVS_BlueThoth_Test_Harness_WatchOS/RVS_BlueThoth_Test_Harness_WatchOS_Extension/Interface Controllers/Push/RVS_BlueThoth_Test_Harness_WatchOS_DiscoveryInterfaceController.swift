@@ -30,7 +30,13 @@ import RVS_BlueThoth_WatchOS
 /**
  This View Controller is for the individual device screen.
  */
-class RVS_BlueThoth_Test_Harness_WatchOS_DeviceInterfaceController: RVS_BlueThoth_Test_Harness_WatchOS_BaseInterfaceController {
+class RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController: RVS_BlueThoth_Test_Harness_WatchOS_BaseInterfaceController {
+    /* ################################################################## */
+    /**
+     The segue ID for the connection segue (from the CONNECT button).
+     */
+    static let connectionSegueID = "connect-to-device"
+    
     /* ################################################################## */
     /**
      This is the device discovery struct that describes this device.
@@ -39,47 +45,36 @@ class RVS_BlueThoth_Test_Harness_WatchOS_DeviceInterfaceController: RVS_BlueThot
     
     /* ################################################################## */
     /**
-     This label is shown while the device is undergoing a connection, and is hidden upon connection.
+     This label displays the advertising strings.
      */
-    @IBOutlet weak var connectingLabel: WKInterfaceLabel!
-
+    @IBOutlet weak var advertisingInformationLabel: WKInterfaceLabel!
+    
     /* ################################################################## */
     /**
-     This displays the Services the device has available.
+     If the device is connectable, this button is displayed, and will bring in the connected device screen.
      */
-    @IBOutlet weak var servicesTable: WKInterfaceTable!
+    @IBOutlet weak var connectButton: WKInterfaceButton!
 }
 
 /* ###################################################################################################################################### */
 // MARK: - Instance Methods -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceInterfaceController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
     /* ################################################################## */
     /**
-     This adds Services to the table for display.
+     Establishes accessibility labels.
      */
-    func populateTable() {
-        if  let deviceInstance = deviceDiscoveryData?.peripheralInstance,
-            0 < deviceInstance.count {
-            let rowControllerInitializedArray = [String](repeatElement("RVS_BlueThoth_Test_Harness_WatchOS_ServiceTableController", count: deviceInstance.count))
-            
-            servicesTable.setNumberOfRows(rowControllerInitializedArray.count, withRowType: "RVS_BlueThoth_Test_Harness_WatchOS_ServiceTableController")
-
-            for item in rowControllerInitializedArray.enumerated() {
-                if let serviceRow = servicesTable.rowController(at: item.offset) as? RVS_BlueThoth_Test_Harness_WatchOS_ServiceTableController {
-                    serviceRow.serviceInstance = deviceInstance[item.offset]
-                }
-            }
-        } else {
-            servicesTable.setNumberOfRows(0, withRowType: "")
-        }
+    func setAccessibility() {
+        advertisingInformationLabel?.setAccessibilityLabel("SLUG-ACC-DEVICELIST-TABLE-ADVERTISING-DATA".localizedVariant)
+        
+        connectButton?.setAccessibilityLabel("SLUG-ACC-CONNECT-BUTTON".localizedVariant)
     }
 }
 
 /* ###################################################################################################################################### */
 // MARK: - Overridden Base Class Methods -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceInterfaceController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
     /* ################################################################## */
     /**
      This is called as the view is established.
@@ -88,68 +83,56 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceInterfaceController {
      */
     override func awake(withContext inContext: Any?) {
         if let context = inContext as? RVS_BlueThoth.DiscoveryData {
-            id = context.identifier + "-CONNECTED"
-            super.awake(withContext: inContext)
             deviceDiscoveryData = context
-            connectingLabel?.setHidden(false)
-            connectingLabel?.setText("SLUG-CONNECTING".localizedVariant)
+            id = context.identifier + "-DISCOVERED"
             setTitle(deviceDiscoveryData.preferredName.isEmpty ? "SLUG-NO-DEVICE-NAME".localizedVariant : deviceDiscoveryData.preferredName)
-        } else {
-            super.awake(withContext: inContext)
+            connectButton?.setTitle("SLUG-CONNECT".localizedVariant)
+            connectButton?.setHidden(!deviceDiscoveryData.canConnect)
         }
     }
     
     /* ################################################################## */
     /**
-     Called as the screen is activated
+     This is called as the view is about to become active.
      */
     override func willActivate() {
         super.willActivate()
-        if !(deviceDiscoveryData?.isConnected ?? false) {
+        // We should never be connected in this screen.
+        if let peripheral = deviceDiscoveryData?.peripheralInstance {
             #if DEBUG
-                print("Device: \(deviceDiscoveryData?.identifier ?? "ERROR") connecting")
+                print("Device: \(peripheral.id) disconnecting")
             #endif
-            deviceDiscoveryData?.connect()
+            peripheral.disconnect()
         }
+        updateUI()
     }
     
     /* ################################################################## */
     /**
-     Table touch handler.
+     This is called as we switch to the connection screen.
      
-     - parameters:
-        - withIdentifier: The segue ID for this (we ignore)
-        - in: The table instance
-        - rowIndex: The vertical position (0-based) of the row that was touched.
-     
-        - returns: The context, if any. Can be nil.
+     - parameter withIdentifier: The String that identifies the segue.
+     - returns: nil, if the segue is not ours, or the device discovery data.
      */
-    override func contextForSegue(withIdentifier inSegueIdentifier: String, in inTable: WKInterfaceTable, rowIndex inRowIndex: Int) -> Any? {
-        if  let device = deviceDiscoveryData?.peripheralInstance,
-            inRowIndex < device.count {
-            return device[inRowIndex]
-        }
-        return nil
+    override func contextForSegue(withIdentifier inSegueIdentifier: String) -> Any? {
+        print(inSegueIdentifier)
+        guard Self.connectionSegueID == inSegueIdentifier else { return nil }
+        
+        return deviceDiscoveryData
     }
 }
 
 /* ###################################################################################################################################### */
 // MARK: - RVS_BlueThoth_Test_Harness_WatchOS_Base_Protocol Conformance -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceInterfaceController {
+extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
     /* ################################################################## */
     /**
-     This sets everything up to reflect the current state of the Peripheral.
+     This sets everything up to reflect the current state of the Peripheral Discovery.
      */
     override func updateUI() {
-        if  let device = deviceDiscoveryData?.peripheralInstance,
-            device.isConnected {
-            populateTable()
-            connectingLabel?.setHidden(true)
-            servicesTable?.setHidden(false)
-        } else {
-            connectingLabel?.setHidden(false)
-            servicesTable?.setHidden(true)
-        }
+        let advertisingStrings = RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.createAdvertimentStringsFor(deviceDiscoveryData.advertisementData, id: deviceDiscoveryData.identifier, power: deviceDiscoveryData.rssi)
+        advertisingInformationLabel?.setText(advertisingStrings.joined(separator: "\n-\n"))
+        setAccessibility()
     }
 }
