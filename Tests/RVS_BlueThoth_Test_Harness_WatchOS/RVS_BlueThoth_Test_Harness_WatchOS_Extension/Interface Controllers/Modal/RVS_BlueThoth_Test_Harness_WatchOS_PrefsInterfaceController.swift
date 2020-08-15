@@ -131,6 +131,18 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_PrefsInterfaceController {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - Instance Methods -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_WatchOS_PrefsInterfaceController {
+    /* ################################################################## */
+    /**
+     Establishes accessibility labels.
+     */
+    func setAccessibility() {
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Base Class Override Methods -
 /* ###################################################################################################################################### */
 extension RVS_BlueThoth_Test_Harness_WatchOS_PrefsInterfaceController {
@@ -181,12 +193,5 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_PrefsInterfaceController {
         rssiLevelLabel?.setText(String(format: "SLUG-RSSI-LEVEL-FORMAT".localizedVariant, currentRSSI))
         minimumRSSISlider?.setValue(Float(currentRSSI))
         setAccessibility()
-    }
-
-    /* ################################################################## */
-    /**
-     Establishes accessibility labels.
-     */
-    func setAccessibility() {
     }
 }
