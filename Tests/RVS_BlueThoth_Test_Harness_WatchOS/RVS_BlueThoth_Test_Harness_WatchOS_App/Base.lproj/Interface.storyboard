@@ -240,7 +240,14 @@
         <!--Descriptor Details-->
         <scene sceneID="4ne-FE-W7j">
             <objects>
-                <controller title="Descriptor Details" backgroundImage="background-gradient" id="i0c-vz-KLP" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DescriptorInterfaceController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension"/>
+                <controller title="Descriptor Details" backgroundImage="background-gradient" id="i0c-vz-KLP" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DescriptorInterfaceController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
+                    <items>
+                        <label width="1" alignment="left" text="Label" numberOfLines="0" id="yJ7-7J-Vem"/>
+                    </items>
+                    <connections>
+                        <outlet property="valueLabel" destination="yJ7-7J-Vem" id="S6g-CY-1If"/>
+                    </connections>
+                </controller>
             </objects>
             <point key="canvasLocation" x="1506" y="27"/>
         </scene>

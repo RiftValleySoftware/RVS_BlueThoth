@@ -177,7 +177,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicInterfaceController {
 extension RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicInterfaceController {
     /* ################################################################## */
     /**
-     This sets everything up to reflect the current state of the Central Manager.
+     This sets everything up to reflect the current state of the Characteristic.
      */
     override func updateUI() {
         populateTable()

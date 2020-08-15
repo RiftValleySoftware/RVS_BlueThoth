@@ -67,10 +67,10 @@ public class CGA_Bluetooth_Characteristic: CGA_Bluetooth_Characteristic_Protocol
 
     /* ################################################################## */
     /**
-     This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Service
+     This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Characteristic
      */
     public weak var parent: CGA_Class_Protocol?
-
+    
     /* ################################################################## */
     /**
      This holds the instance of CBCharacteristic that is used by this instance.
@@ -402,7 +402,7 @@ extension CGA_Bluetooth_Characteristic {
     /**
      This casts the parent as a Service Wrapper.
      */
-    internal var service: CGA_Bluetooth_Service! { parent as? CGA_Bluetooth_Service }
+    public var service: CGA_Bluetooth_Service! { parent as? CGA_Bluetooth_Service }
         
     /* ################################################################## */
     /**

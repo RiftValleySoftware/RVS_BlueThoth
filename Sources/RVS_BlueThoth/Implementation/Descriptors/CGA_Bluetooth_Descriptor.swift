@@ -232,7 +232,7 @@ public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Interna
     /**
      This casts the parent as a Characteristic Wrapper.
      */
-    internal var characteristic: CGA_Bluetooth_Characteristic! { parent as? CGA_Bluetooth_Characteristic }
+    public var characteristic: CGA_Bluetooth_Characteristic! { parent as? CGA_Bluetooth_Characteristic }
     
     /* ################################################################## */
     /**

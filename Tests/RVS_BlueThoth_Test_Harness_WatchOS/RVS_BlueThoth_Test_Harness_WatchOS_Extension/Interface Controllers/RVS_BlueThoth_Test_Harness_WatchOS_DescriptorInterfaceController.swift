@@ -36,6 +36,12 @@ class RVS_BlueThoth_Test_Harness_WatchOS_DescriptorInterfaceController: RVS_Blue
      This is the Descriptor instance.
      */
     weak var descriptorInstance: CGA_Bluetooth_Descriptor?
+
+    /* ################################################################## */
+    /**
+     Displays the Descriptor value as text (if possible).
+     */
+    @IBOutlet weak var valueLabel: WKInterfaceLabel!
 }
 
 /* ###################################################################################################################################### */
@@ -67,8 +73,25 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DescriptorInterfaceController {
 extension RVS_BlueThoth_Test_Harness_WatchOS_DescriptorInterfaceController {
     /* ################################################################## */
     /**
-     This sets everything up to reflect the current state of the Central Manager.
+     This sets everything up to reflect the current state of the Descriptor.
      */
     override func updateUI() {
+        var labelText = ""
+        
+        if let descriptor = descriptorInstance as? CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration {
+            labelText = "SLUG-ACC-DESCRIPTOR-CLIENTCHAR-NOTIFY-\(descriptor.isNotifying ? "YES" : "NO")".localizedVariant
+            labelText += "\n" + "SLUG-ACC-DESCRIPTOR-CLIENTCHAR-INDICATE-\(descriptor.isIndicating ? "YES" : "NO")".localizedVariant
+        }
+        
+        if let descriptor = descriptorInstance as? CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties {
+            labelText = "SLUG-ACC-DESCRIPTOR-EXTENDED-RELIABLE-WR-\(descriptor.isReliableWriteEnabled ? "YES" : "NO")".localizedVariant
+            labelText += "\n" + "SLUG-ACC-DESCRIPTOR-EXTENDED-AUX-WR-\(descriptor.isWritableAuxiliariesEnabled ? "YES" : "NO")".localizedVariant
+        }
+        
+        if let descriptor = descriptorInstance as? CGA_Bluetooth_Descriptor_PresentationFormat {
+            labelText = "SLUG-CHAR-PRESENTATION-\(descriptor.stringValue ?? "255")".localizedVariant
+        }
+        
+        valueLabel?.setText(labelText)
     }
 }

@@ -91,7 +91,7 @@ public class CGA_Bluetooth_Service: CGA_Bluetooth_Service_Protocol_Internal {
     /**
      This casts the parent as a Peripheral Wrapper.
      */
-    internal var peripheral: CGA_Bluetooth_Peripheral! { parent as? CGA_Bluetooth_Peripheral }
+    public var peripheral: CGA_Bluetooth_Peripheral! { parent as? CGA_Bluetooth_Peripheral }
     
     /* ################################################################## */
     /**

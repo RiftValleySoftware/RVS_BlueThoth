@@ -119,7 +119,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ServiceInterfaceController {
 extension RVS_BlueThoth_Test_Harness_WatchOS_ServiceInterfaceController {
     /* ################################################################## */
     /**
-     This sets everything up to reflect the current state of the Central Manager.
+     This sets everything up to reflect the current state of the Service.
      */
     override func updateUI() {
         populateTable()

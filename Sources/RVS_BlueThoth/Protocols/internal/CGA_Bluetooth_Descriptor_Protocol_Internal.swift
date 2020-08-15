@@ -40,13 +40,7 @@ internal protocol CGA_Bluetooth_Descriptor_Protocol_Internal: CGA_Bluetooth_Desc
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Characteristic
      */
     var parent: CGA_Class_Protocol? { get }
-    
-    /* ################################################################## */
-    /**
-     This casts the parent as a Characteristic Wrapper.
-     */
-    var characteristic: CGA_Bluetooth_Characteristic! { get }
-    
+
     /* ################################################################## */
     /**
      This will contain any required scan criteria. It simply passes on the Central criteria.

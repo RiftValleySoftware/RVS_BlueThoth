@@ -139,7 +139,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceInterfaceController {
 extension RVS_BlueThoth_Test_Harness_WatchOS_DeviceInterfaceController {
     /* ################################################################## */
     /**
-     This sets everything up to reflect the current state of the Central Manager.
+     This sets everything up to reflect the current state of the Peripheral.
      */
     override func updateUI() {
         if  let device = deviceDiscoveryData?.peripheralInstance,

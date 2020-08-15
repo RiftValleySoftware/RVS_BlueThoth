@@ -44,12 +44,6 @@ internal protocol CGA_Bluetooth_Service_Protocol_Internal: CGA_Bluetooth_Service
     
     /* ################################################################## */
     /**
-     This casts the parent as a Peripheral Wrapper.
-     */
-    var peripheral: CGA_Bluetooth_Peripheral! { get }
-    
-    /* ################################################################## */
-    /**
      This will contain any required scan criteria. It simply passes on the Central criteria.
      */
     var scanCriteria: RVS_BlueThoth.ScanCriteria! { get }

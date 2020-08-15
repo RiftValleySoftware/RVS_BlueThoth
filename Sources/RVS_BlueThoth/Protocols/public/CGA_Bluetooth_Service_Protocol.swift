@@ -47,6 +47,12 @@ public protocol CGA_Bluetooth_Service_Protocol: class, RVS_SequenceProtocol {
      This returns the parent Central Manager
      */
     var central: RVS_BlueThoth? { get }
+    
+    /* ################################################################## */
+    /**
+     This casts the parent as a Peripheral Wrapper.
+     */
+    var peripheral: CGA_Bluetooth_Peripheral! { get }
 
     // MARK: Public Methods
     

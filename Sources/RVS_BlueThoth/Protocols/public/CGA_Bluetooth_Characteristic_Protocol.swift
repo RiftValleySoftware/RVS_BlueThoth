@@ -50,6 +50,12 @@ public protocol CGA_Bluetooth_Characteristic_Protocol: class, RVS_SequenceProtoc
     
     /* ################################################################## */
     /**
+     This casts the parent as a Service Wrapper.
+     */
+    var service: CGA_Bluetooth_Service! { get }
+
+    /* ################################################################## */
+    /**
      Returns true, if the Characteristic can write (eithe with or without response).
      */
     var canWrite: Bool { get }

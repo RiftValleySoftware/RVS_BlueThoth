@@ -113,7 +113,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
 extension RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController {
     /* ################################################################## */
     /**
-     This sets everything up to reflect the current state of the Central Manager.
+     This sets everything up to reflect the current state of the Peripheral Discovery.
      */
     override func updateUI() {
         let advertisingStrings = RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.createAdvertimentStringsFor(deviceDiscoveryData.advertisementData, id: deviceDiscoveryData.identifier, power: deviceDiscoveryData.rssi)

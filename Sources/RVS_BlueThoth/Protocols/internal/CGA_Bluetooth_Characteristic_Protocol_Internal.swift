@@ -34,18 +34,18 @@ internal protocol CGA_Bluetooth_Characteristic_Protocol_Internal: CGA_Bluetooth_
      This is the UUID for the Characteristic type. It is not used for external purposes.
      */
     static var uuid: String { get }
-    
-    /* ################################################################## */
-    /**
-     This casts the parent as a Service Wrapper.
-     */
-    var service: CGA_Bluetooth_Service! { get }
         
     /* ################################################################## */
     /**
      This will contain any required scan criteria. It simply passes on the Central criteria.
      */
     var scanCriteria: RVS_BlueThoth.ScanCriteria! { get }
+    
+    /* ################################################################## */
+    /**
+     This casts the parent as a Service Wrapper.
+     */
+    var service: CGA_Bluetooth_Service! { get }
 
     /* ################################################################## */
     /**

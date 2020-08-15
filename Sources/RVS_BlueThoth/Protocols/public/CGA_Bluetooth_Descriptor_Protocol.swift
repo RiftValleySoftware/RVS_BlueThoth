@@ -46,6 +46,12 @@ public protocol CGA_Bluetooth_Descriptor_Protocol: CGA_Class_Protocol {
      This holds the instance of CBDescriptor that is used by this instance.
      */
     var cbElementInstance: CBDescriptor! { get }
+    
+    /* ################################################################## */
+    /**
+     This casts the parent as a Characteristic Wrapper.
+     */
+    var characteristic: CGA_Bluetooth_Characteristic! { get }
 
     /* ################################################################## */
     /**
