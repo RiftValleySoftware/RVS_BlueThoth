@@ -74,6 +74,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ServiceInterfaceController {
      Establishes accessibility labels.
      */
     func setAccessibility() {
+        characteristicsTable?.setAccessibilityLabel("SLUG-ACC-CHARACTERISTIC-TABLE-WATCH".localizedVariant)
     }
 }
 

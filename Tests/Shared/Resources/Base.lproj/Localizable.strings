@@ -198,8 +198,12 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-ACC-WRITE-VALUE"                                          =   "Enter a string to be sent to the Characteristic.";
 "SLUG-ACC-REFRESH"                                              =   "If you select this, the value will be removed, and you can start over.";
 
+// Watch-Only
+"SLUG-ACC-CHARACTERISTIC-TABLE-WATCH"                           =   "This table lists the Characteristics available in this Service. Touch a Characteristic to see its properties and Descriptors.";
+"SLUG-ACC-CHARACTERISTIC-ELEMENTS-TABLE-WATCH"                  =   "This is a list of the properties and descriptors for this Characteristic.";
+
 // MARK: - The Descriptor List Screen
-"SLUG-ACC-DESCRIPTOR-TABLE"         =   "This is a list of the descriptors for this Characteristic. Selecting a row will cause that descriptor to refresh its value.";
+"SLUG-ACC-DESCRIPTOR-TABLE"                                     =   "This is a list of the descriptors for this Characteristic. Selecting a row will cause that descriptor to refresh its value.";
 
 "SLUG-ACC-DESCRIPTOR-CLIENTCHAR-NOTIFY-NO"                      =   "Is Not Notifying. ";
 "SLUG-ACC-DESCRIPTOR-CLIENTCHAR-NOTIFY-YES"                     =   "Is Notifying. ";
@@ -211,6 +215,9 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-ACC-DESCRIPTOR-EXTENDED-AUX-WR-NO"                        =   "Writable Auxiliaries is Not Enabled.";
 "SLUG-ACC-DESCRIPTOR-EXTENDED-AUX-WR-YES"                       =   "Writable Auxiliaries is Enabled.";
 "SLUG-ACC-DESCRIPTOR-INTERACT-BUTTON"                           =   "If you select this button, a screen will appear, allowing you to interact with this Characteristic.";
+
+// Watch-Only
+"SLUG-ACC-DESCRIPTOR-VALUE"                                     =   "This is a textual representation of the Descriptor value.";
 
 // MARK: - The App Settings Screen
 // Mac-only

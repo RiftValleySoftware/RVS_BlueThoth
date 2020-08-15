@@ -139,6 +139,9 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_PrefsInterfaceController {
      Establishes accessibility labels.
      */
     func setAccessibility() {
+        connectedOnlySwitch?.setAccessibilityLabel("SLUG-ACC-CONNECTED-ONLY-BUTTON-O" + (connectedOnly ? "FF" : "N").localizedVariant)
+        emptyNamesSwitch?.setAccessibilityLabel("SLUG-ACC-EMPTY-NAMES-BUTTON-O" + (emptyNames ? "FF" : "N").localizedVariant)
+        minimumRSSISlider?.setAccessibilityLabel(String(format: "SLUG-ACC-SLIDER-FORMAT".localizedVariant, currentRSSI))
     }
 }
 

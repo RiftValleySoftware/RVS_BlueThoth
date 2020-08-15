@@ -24,6 +24,8 @@
 	<string>The App Needs to Discover and Connect to Bluetooth Devices.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>The App Needs to Discover and Connect to Bluetooth Devices.</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2020 Rift Valley Software, Inc. All rights reserved.</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

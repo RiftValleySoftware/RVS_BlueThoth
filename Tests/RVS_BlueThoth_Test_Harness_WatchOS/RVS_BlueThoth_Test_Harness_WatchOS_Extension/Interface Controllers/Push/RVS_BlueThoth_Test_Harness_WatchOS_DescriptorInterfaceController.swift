@@ -53,6 +53,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_DescriptorInterfaceController {
      Establishes accessibility labels.
      */
     func setAccessibility() {
+        valueLabel?.setAccessibilityLabel("SLUG-ACC-DESCRIPTOR-VALUE".localizedVariant)
     }
 }
 
