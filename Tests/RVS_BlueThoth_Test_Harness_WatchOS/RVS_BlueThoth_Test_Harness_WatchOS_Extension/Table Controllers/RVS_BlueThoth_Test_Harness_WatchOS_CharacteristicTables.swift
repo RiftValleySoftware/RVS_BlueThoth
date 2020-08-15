@@ -31,7 +31,7 @@ class RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Base: NSObject {
     /* ################################################################## */
     /**
      */
-    var characteristicInstance: CGA_Bluetooth_Characteristic?
+    var blueThothElementInstance: Any?
 }
 
 /* ###################################################################################################################################### */
@@ -57,7 +57,7 @@ class RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Button: RVS_BlueTh
     /**
      */
     @IBAction func buttonHit() {
-        characteristicInstance?.readValue()
+        (blueThothElementInstance as? CGA_Bluetooth_Characteristic)?.readValue()
     }
 }
 
@@ -74,7 +74,7 @@ class RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Switch: RVS_BlueTh
     /**
      */
     @IBAction func switchChanged(_ inValue: Bool) {
-        if let characteristicInstance = characteristicInstance {
+        if let characteristicInstance = blueThothElementInstance as? CGA_Bluetooth_Characteristic {
             if characteristicInstance.isNotifying && !inValue {
                 characteristicInstance.stopNotifying()
             } else if !characteristicInstance.isNotifying && inValue {
@@ -82,4 +82,14 @@ class RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Switch: RVS_BlueTh
             }
         }
     }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Descriptor Button Table Controller -
+/* ###################################################################################################################################### */
+class RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_DescriptorButton: RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Base {
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var labelObject: WKInterfaceLabel!
 }

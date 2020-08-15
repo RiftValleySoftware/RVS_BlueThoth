@@ -331,7 +331,9 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: CGA_BlueThoth_De
         #if DEBUG
             print("Disconnecting Device")
         #endif
-        screenList.topViewController?.popToRootController()
+        if (inDevice.id + "-DISCOVERED") != screenList.topViewController?.id {
+            screenList.topViewController?.popToRootController()
+        }
     }
     
     /* ################################################################## */

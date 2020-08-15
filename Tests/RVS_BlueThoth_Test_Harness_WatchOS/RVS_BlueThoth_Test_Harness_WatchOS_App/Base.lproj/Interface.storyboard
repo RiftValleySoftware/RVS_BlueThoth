@@ -91,12 +91,13 @@
             <objects>
                 <controller identifier="Device-Screen" backgroundImage="background-gradient" id="Nkb-53-HMU" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
                     <items>
-                        <label width="1" alignment="left" text="Label" numberOfLines="0" id="nyz-mY-M4L"/>
                         <button width="1" alignment="left" title="SLUG-CONNECT" id="vn1-qE-crI">
+                            <color key="titleColor" red="0.1007060781" green="0.33945328000000002" blue="0.99620097880000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <segue destination="s4R-NB-7GP" kind="push" identifier="connect-to-device" id="bnF-F7-UZH"/>
                             </connections>
                         </button>
+                        <label width="1" alignment="left" text="Label" numberOfLines="0" id="nyz-mY-M4L"/>
                     </items>
                     <connections>
                         <outlet property="advertisingInformationLabel" destination="nyz-mY-M4L" id="Bt5-59-2EU"/>
@@ -111,7 +112,9 @@
             <objects>
                 <controller identifier="Connected-Device-Screen" backgroundImage="background-gradient" fullBounds="YES" id="s4R-NB-7GP" userLabel="Connected Device Screen" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DeviceInterfaceController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
                     <items>
-                        <label width="1" alignment="center" verticalAlignment="center" text="SLUG-CONNECTING" textAlignment="center" id="U2K-bl-slL"/>
+                        <label width="1" alignment="center" verticalAlignment="center" text="SLUG-CONNECTING" textAlignment="center" id="U2K-bl-slL">
+                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </label>
                         <table alignment="left" id="CkK-cX-MQ8">
                             <items>
                                 <tableRow identifier="RVS_BlueThoth_Test_Harness_WatchOS_ServiceTableController" id="cKw-Qg-Wuf" customClass="RVS_BlueThoth_Test_Harness_WatchOS_ServiceTableController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
@@ -185,6 +188,7 @@
                                     <group key="rootItem" width="1" alignment="left" id="geK-4t-rbY">
                                         <items>
                                             <button width="1" alignment="left" title="Button" id="sZX-Ee-GLd">
+                                                <color key="titleColor" red="0.1007060781" green="0.33945328000000002" blue="0.99620097880000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <connections>
                                                     <action selector="buttonHit" destination="Zrs-dS-xlm" id="xy1-RV-4Ze"/>
                                                 </connections>
@@ -199,6 +203,8 @@
                                     <group key="rootItem" width="1" alignment="left" id="BKE-ic-7wj">
                                         <items>
                                             <switch width="1" alignment="left" value="YES" title="Switch" id="ge4-6W-uCY">
+                                                <color key="titleColor" red="0.1007060781" green="0.33945328000000002" blue="0.99620097880000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="tintColor" red="0.1007060781" green="0.33945328000000002" blue="0.99620097880000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <connections>
                                                     <action selector="switchChanged:" destination="kbW-TP-zZk" id="WdE-gi-Phx"/>
                                                 </connections>
@@ -207,6 +213,18 @@
                                     </group>
                                     <connections>
                                         <outlet property="switchObject" destination="ge4-6W-uCY" id="cVB-ps-gcB"/>
+                                    </connections>
+                                </tableRow>
+                                <tableRow identifier="DescriptorButton" id="BWJ-Xo-eS9" userLabel="DescriptorButton" customClass="RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_DescriptorButton" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" id="lxQ-lC-XGp">
+                                        <items>
+                                            <label width="1" alignment="left" text="Label" textAlignment="center" numberOfLines="0" id="DzX-J3-VQq"/>
+                                        </items>
+                                        <color key="backgroundColor" red="0.1007060781" green="0.33945328000000002" blue="0.99620097880000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="labelObject" destination="DzX-J3-VQq" id="bow-it-Bdt"/>
+                                        <segue destination="i0c-vz-KLP" kind="push" id="izG-JZ-dL8"/>
                                     </connections>
                                 </tableRow>
                             </items>
@@ -218,6 +236,13 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="1208" y="28"/>
+        </scene>
+        <!--Descriptor Details-->
+        <scene sceneID="4ne-FE-W7j">
+            <objects>
+                <controller title="Descriptor Details" backgroundImage="background-gradient" id="i0c-vz-KLP" customClass="RVS_BlueThoth_Test_Harness_WatchOS_DescriptorInterfaceController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension"/>
+            </objects>
+            <point key="canvasLocation" x="1506" y="27"/>
         </scene>
     </scenes>
     <resources>

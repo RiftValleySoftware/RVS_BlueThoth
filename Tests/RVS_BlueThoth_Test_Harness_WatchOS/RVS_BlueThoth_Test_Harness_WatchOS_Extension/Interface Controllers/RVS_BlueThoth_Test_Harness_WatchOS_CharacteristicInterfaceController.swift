@@ -36,7 +36,13 @@ class RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicInterfaceController: RVS_
      This is the Characteristic instance.
      */
     weak var characteristicInstance: CGA_Bluetooth_Characteristic?
-    
+
+    /* ################################################################## */
+    /**
+     This is the row index of the first Descriptor.
+     */
+    var baseOfDescriptors = 0
+
     /* ################################################################## */
     /**
      This displays the Characteristics the Service has available.
@@ -53,6 +59,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicInterfaceController {
      This adds Characteristic Properties to the table for display.
      */
     func populateTable() {
+        baseOfDescriptors = -1
         var propertyArray: [(type: String, value: String)] = []
         if  (characteristicInstance?.canRead ?? false) || (characteristicInstance?.canNotify ?? false),
             let stringValue = characteristicInstance?.stringValue,
@@ -89,21 +96,31 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicInterfaceController {
         if characteristicInstance?.hasExtendedProperties ?? false {
             propertyArray.append((type: "LabelOnly", value: "SLUG-WATCH-PROPERTY-EXTENDED"))
         }
+
+        baseOfDescriptors = propertyArray.count
+        
+        characteristicInstance?.forEach {
+            propertyArray.append((type: "DescriptorButton", value: $0.id.localizedVariant))
+        }
         
         if !propertyArray.isEmpty {
             let keyArray = propertyArray.map { $0.type }
             propertiesTable?.setRowTypes(keyArray)
             for item in propertyArray.enumerated() {
                 if let row = propertiesTable?.rowController(at: item.offset) as? RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Label {
-                    row.characteristicInstance = characteristicInstance
+                    row.blueThothElementInstance = characteristicInstance
                     row.labelObject?.setText(item.element.value)
                 } else if let row = propertiesTable?.rowController(at: item.offset) as? RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Button {
-                    row.characteristicInstance = characteristicInstance
+                    row.blueThothElementInstance = characteristicInstance
                     row.buttonObject?.setTitle(item.element.value)
                 } else if let row = propertiesTable?.rowController(at: item.offset) as? RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_Switch {
-                    row.characteristicInstance = characteristicInstance
+                    row.blueThothElementInstance = characteristicInstance
                     row.switchObject?.setOn(characteristicInstance?.isNotifying ?? false)
                     row.switchObject?.setTitle(item.element.value)
+                } else if let row = propertiesTable?.rowController(at: item.offset) as? RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables_DescriptorButton,
+                    let descriptor = characteristicInstance?[item.offset - baseOfDescriptors] {
+                    row.blueThothElementInstance = descriptor
+                    row.labelObject?.setText(item.element.value)
                 }
             }
         }
@@ -130,6 +147,27 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicInterfaceController {
         } else {
             super.awake(withContext: inContext)
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     Table touch handler.
+     
+     - parameters:
+        - withIdentifier: The segue ID for this (we ignore)
+        - in: The table instance
+        - rowIndex: The vertical position (0-based) of the row that was touched.
+     
+        - returns: The context, if any. Can be nil.
+     */
+    override func contextForSegue(withIdentifier inSegueIdentifier: String, in inTable: WKInterfaceTable, rowIndex inRowIndex: Int) -> Any? {
+        if  (0...inRowIndex).contains(baseOfDescriptors),
+            let characteristicInstance = characteristicInstance,
+            (0..<characteristicInstance.count).contains(inRowIndex - baseOfDescriptors) {
+            return characteristicInstance[inRowIndex - baseOfDescriptors]
+        }
+        
+        return nil
     }
 }
 
