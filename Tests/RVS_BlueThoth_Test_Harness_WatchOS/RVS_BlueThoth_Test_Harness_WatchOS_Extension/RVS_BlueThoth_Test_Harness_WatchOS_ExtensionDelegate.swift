@@ -39,6 +39,66 @@ extension CGA_PersistentPrefs {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - Bundle Extension -
+/* ###################################################################################################################################### */
+/**
+ This extension adds a few simple accessors for some of the more common bundle items.
+ */
+extension Bundle {
+    // MARK: General Stuff for common Apple-Supplied Items
+    
+    /* ################################################################## */
+    /**
+     The app name, as a string. It is required, and "ERROR" is returned if it is not present.
+     */
+    var appDisplayName: String { (object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ?? object(forInfoDictionaryKey: "CFBundleName") as? String) ?? "ERROR" }
+
+    /* ################################################################## */
+    /**
+     The app version, as a string. It is required, and "ERROR" is returned if it is not present.
+     */
+    var appVersionString: String { object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "ERROR" }
+    
+    /* ################################################################## */
+    /**
+     The build version, as a string. It is required, and "ERROR" is returned if it is not present.
+     */
+    var appVersionBuildString: String { object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "ERROR" }
+    
+    /* ################################################################## */
+    /**
+     If there is a copyright string, it is returned here. It may be nil.
+     */
+    var copyrightString: String? { object(forInfoDictionaryKey: "NSHumanReadableCopyright") as? String }
+
+    // MARK: Specific to this app.
+    
+    /* ################################################################## */
+    /**
+     If there is a copyright site URI, it is returned here as a String. It may be nil.
+     */
+    var siteURIAsString: String? { object(forInfoDictionaryKey: "InfoScreenCopyrightSiteURL") as? String }
+    
+    /* ################################################################## */
+    /**
+     If there is a help site URI, it is returned here as a String. It may be nil.
+     */
+    var helpURIAsString: String? { object(forInfoDictionaryKey: "InfoScreenHelpSiteURL") as? String }
+    
+    /* ################################################################## */
+    /**
+     If there is a copyright site URI, it is returned here as a URL. It may be nil.
+     */
+    var siteURI: URL? { URL(string: siteURIAsString ?? "") }
+    
+    /* ################################################################## */
+    /**
+     If there is a help site URI, it is returned here as a URL. It may be nil.
+     */
+    var helpURI: URL? { URL(string: helpURIAsString ?? "") }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Special Array Extension -
 /* ###################################################################################################################################### */
 /**

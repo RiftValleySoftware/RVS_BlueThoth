@@ -131,6 +131,7 @@
 		D48AD8E1245CA9340043BCE7 /* CGA_Bluetooth_Descriptor_UserDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48AD8DF245CA9340043BCE7 /* CGA_Bluetooth_Descriptor_UserDescription.swift */; };
 		D49BACA32459CF150022E2CD /* RVS_BlueThoth_Callbacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49BACA22459CF140022E2CD /* RVS_BlueThoth_Callbacks.swift */; };
 		D49E0C9324CF0BA300AE566B /* RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49E0C9224CF0BA300AE566B /* RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController.swift */; };
+		D4B38B1324E8251B00629536 /* RVS_BlueThoth_Test_Harness_WatchOS_AboutInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B38B1224E8251B00629536 /* RVS_BlueThoth_Test_Harness_WatchOS_AboutInterfaceController.swift */; };
 		D4B49CF02455128300932C3D /* CGA_Bluetooth_Peripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B49C9E24550F1800932C3D /* CGA_Bluetooth_Peripheral.swift */; };
 		D4B49CF12455128300932C3D /* CGA_Bluetooth_Service_CurrentTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B49CA024550F1800932C3D /* CGA_Bluetooth_Service_CurrentTime.swift */; };
 		D4B49CF22455128300932C3D /* CGA_Bluetooth_Service_DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B49CA124550F1800932C3D /* CGA_Bluetooth_Service_DeviceInfo.swift */; };
@@ -427,6 +428,7 @@
 		D49E0C9224CF0BA300AE566B /* RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_MacOS_CharacteristicViewController.swift; sourceTree = "<group>"; };
 		D4AF6F9424A3A3F100A3382E /* TVOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TVOS-Info.plist"; sourceTree = "<group>"; };
 		D4AF6F9524A3A3F100A3382E /* WatchOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WatchOS-Info.plist"; sourceTree = "<group>"; };
+		D4B38B1224E8251B00629536 /* RVS_BlueThoth_Test_Harness_WatchOS_AboutInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_WatchOS_AboutInterfaceController.swift; sourceTree = "<group>"; };
 		D4B49C8B24550F1800932C3D /* CGA_Bluetooth_Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Protocols.swift; sourceTree = "<group>"; };
 		D4B49C8E24550F1800932C3D /* CGA_Bluetooth_Characteristic_CurrentTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Characteristic_CurrentTime.swift; sourceTree = "<group>"; };
 		D4B49C8F24550F1800932C3D /* CGA_Bluetooth_Characteristic_LocalTimeInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Characteristic_LocalTimeInformation.swift; sourceTree = "<group>"; };
@@ -747,6 +749,7 @@
 			children = (
 				D40A392824E0771400B08133 /* RVS_BlueThoth_Test_Harness_WatchOS_BaseInterfaceController.swift */,
 				D41F873224E41F1E006724E2 /* RVS_BlueThoth_Test_Harness_WatchOS_PrefsInterfaceController.swift */,
+				D4B38B1224E8251B00629536 /* RVS_BlueThoth_Test_Harness_WatchOS_AboutInterfaceController.swift */,
 				D4B6750A24DDA66C00B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_MainInterfaceController.swift */,
 				D43399B124E18F86008ECEF0 /* RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryInterfaceController.swift */,
 				D40A392624E0760B00B08133 /* RVS_BlueThoth_Test_Harness_WatchOS_DeviceInterfaceController.swift */,
@@ -1385,6 +1388,7 @@
 				D44A0E9624E5A863007A89A9 /* RVS_BlueThoth_Test_Harness_WatchOS_ServiceInterfaceController.swift in Sources */,
 				D487628B24E57C7000B340D2 /* RVS_BlueThoth_Test_Harness_WatchOS_ServiceTableController.swift in Sources */,
 				D4B6751424DDA68000B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_MainInterfaceController.swift in Sources */,
+				D4B38B1324E8251B00629536 /* RVS_BlueThoth_Test_Harness_WatchOS_AboutInterfaceController.swift in Sources */,
 				D4C906C924E6B2BD004DA68D /* RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables.swift in Sources */,
 				D415EE7D24E8080400DA829F /* RVS_BlueThoth_Test_Harness_WatchOS_DescriptorInterfaceController.swift in Sources */,
 				D44A0E9824E5B18F007A89A9 /* RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTableController.swift in Sources */,

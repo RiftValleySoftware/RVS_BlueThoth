@@ -65,6 +65,7 @@
                                 <action selector="emptyNamesSwitchHit:" destination="Im9-Lv-tgM" id="nLX-5J-VvH"/>
                             </connections>
                         </switch>
+                        <separator alignment="left" id="ggo-BH-E42"/>
                         <label alignment="left" text="SLUG-MINIMUM-RSSI-LABEL" id="vPP-2v-1n2">
                             <fontDescription key="font" style="UICTFontTextStyleTitle2"/>
                         </label>
@@ -74,6 +75,13 @@
                                 <action selector="rssiSliderChanged:" destination="Im9-Lv-tgM" id="QqI-Oe-sfS"/>
                             </connections>
                         </slider>
+                        <separator alignment="left" id="JR1-dU-pEm"/>
+                        <button width="40" height="40" alignment="center" verticalAlignment="center" backgroundImage="info.circle.fill" catalog="system" id="78y-Kx-7l3">
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <segue destination="ILa-BV-QCa" kind="modal" id="J35-9Y-wKD"/>
+                            </connections>
+                        </button>
                     </items>
                     <connections>
                         <outlet property="connectedOnlySwitch" destination="Wga-Gi-NdI" id="mVx-50-OOT"/>
@@ -84,7 +92,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="30" y="366"/>
+            <point key="canvasLocation" x="30" y="390"/>
         </scene>
         <!--Device-Screen-->
         <scene sceneID="UxI-nT-USb">
@@ -106,6 +114,24 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="306" y="28"/>
+        </scene>
+        <!--About Screen-->
+        <scene sceneID="vAR-EX-D6M">
+            <objects>
+                <controller title="About Screen" backgroundImage="background-gradient" id="ILa-BV-QCa" customClass="RVS_BlueThoth_Test_Harness_WatchOS_AboutInterfaceController" customModule="RVS_BlueThoth_WatchOS_Test_Harness_WatchKit_Extension">
+                    <items>
+                        <label width="1" alignment="left" text="Label" textAlignment="center" id="1z7-nY-756">
+                            <fontDescription key="font" style="UICTFontTextStyleSubhead"/>
+                        </label>
+                        <label width="1" alignment="left" text="Label" numberOfLines="0" id="oLt-2y-mNw"/>
+                    </items>
+                    <connections>
+                        <outlet property="infoLabel" destination="oLt-2y-mNw" id="Dds-dD-D0g"/>
+                        <outlet property="versionLabel" destination="1z7-nY-756" id="mrh-bK-xu1"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="306" y="389"/>
         </scene>
         <!--Connected Device Screen-->
         <scene sceneID="oNp-XT-HEc">
@@ -256,5 +282,6 @@
         <image name="NoBT" width="341.5" height="341.5"/>
         <image name="background-gradient" width="1" height="1000"/>
         <image name="ellipsis.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="info.circle.fill" catalog="system" width="128" height="121"/>
     </resources>
 </document>
