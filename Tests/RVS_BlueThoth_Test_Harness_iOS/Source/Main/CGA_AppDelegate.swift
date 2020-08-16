@@ -45,6 +45,18 @@ extension CGA_PersistentPrefs {
 class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
     /* ################################################################## */
     /**
+     This is the Bluetooth Central Manager instance. Everything goes through this.
+     */
+    static var centralManager: RVS_BlueThoth?
+    
+    /* ################################################################## */
+    /**
+     Quick access to the app delegate object.
+     */
+    class var appDelegateObject: CGA_AppDelegate! { UIApplication.shared.delegate as? CGA_AppDelegate }
+
+    /* ################################################################## */
+    /**
      Displays the given message and title in an alert with an "OK" button.
      
      - parameter header: a string to be displayed as the title of the alert. It is localized by this method.
@@ -176,12 +188,6 @@ class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
 
     /* ################################################################## */
     /**
-     This is the Bluetooth Central Manager instance. Everything goes through this.
-     */
-    static var centralManager: RVS_BlueThoth?
-
-    /* ################################################################## */
-    /**
      Used to force orientation for the Settings screen.
      */
     var orientationLock = UIInterfaceOrientationMask.allButUpsideDown
@@ -191,12 +197,6 @@ class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
      The required window property.
      */
     var window: UIWindow?
-    
-    /* ################################################################## */
-    /**
-     Quick access to the app delegate object.
-     */
-    class var appDelegateObject: CGA_AppDelegate! { UIApplication.shared.delegate as? CGA_AppDelegate }
     
     /* ################################################################## */
     /**

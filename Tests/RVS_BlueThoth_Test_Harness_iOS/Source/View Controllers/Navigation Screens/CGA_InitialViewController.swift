@@ -362,7 +362,12 @@ extension CGA_InitialViewController {
     private func _stopScanning() {
         CGA_AppDelegate.centralManager?.stopScanning()
     }
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Instance Methods -
+/* ###################################################################################################################################### */
+extension CGA_InitialViewController {
     /* ################################################################## */
     /**
      This sets up the accessibility and voiceover strings for the screen.

@@ -27,7 +27,7 @@ import UIKit
 /* ###################################################################################################################################### */
 /**
  */
-class RVS_BlueThoth_Test_Harness_tvOS_Main_ViewController: UIViewController {
+class CGA_InitialViewController: CGA_BaseViewController {
     /* ################################################################## */
     /**
      The image that is displayed if bluetooth is not available.
@@ -38,7 +38,7 @@ class RVS_BlueThoth_Test_Harness_tvOS_Main_ViewController: UIViewController {
 /* ###################################################################################################################################### */
 // MARK: - Base Class Overrides -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_tvOS_Main_ViewController {
+extension CGA_InitialViewController {
     /* ################################################################## */
     /**
      Called just after the view hierarchy has loaded.
