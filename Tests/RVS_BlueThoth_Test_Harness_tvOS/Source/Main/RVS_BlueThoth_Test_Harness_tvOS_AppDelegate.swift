@@ -23,45 +23,34 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 import UIKit
 
 /* ###################################################################################################################################### */
-// MARK: -
+// MARK: - The Main App Delegate -
 /* ###################################################################################################################################### */
 /**
+ This implements the main application delegate functionality.
  */
 @UIApplicationMain
-class RVS_BlueThoth_Test_Harness_tvOS_AppDelegate: UIResponder, UIApplicationDelegate {
+class RVS_BlueThoth_Test_Harness_tvOS_AppDelegate: UIResponder {
     /* ################################################################## */
     /**
+     The required window instance.
      */
     var window: UIWindow?
+}
 
+/* ###################################################################################################################################### */
+// MARK: - UIApplicationDelegate Conformance -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_tvOS_AppDelegate: UIApplicationDelegate {
     /* ################################################################## */
     /**
+     Called when the application has completed its launch setup.
+     
+     - parameter: The application instance.
+     - parameter didFinishLaunchingWithOptions: The launch options, as a Dictionary.
+     
+     - returns: true, if the application to finish launch. False will abort the launch.
      */
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(_: UIApplication, didFinishLaunchingWithOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         return true
-    }
-
-    /* ################################################################## */
-    /**
-     */
-    func applicationWillResignActive(_ application: UIApplication) {
-    }
-
-    /* ################################################################## */
-    /**
-     */
-    func applicationDidEnterBackground(_ application: UIApplication) {
-    }
-
-    /* ################################################################## */
-    /**
-     */
-    func applicationWillEnterForeground(_ application: UIApplication) {
-    }
-
-    /* ################################################################## */
-    /**
-     */
-    func applicationDidBecomeActive(_ application: UIApplication) {
     }
 }

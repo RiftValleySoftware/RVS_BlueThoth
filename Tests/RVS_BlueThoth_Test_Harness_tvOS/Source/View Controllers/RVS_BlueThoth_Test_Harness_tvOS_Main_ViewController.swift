@@ -23,18 +23,25 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 import UIKit
 
 /* ###################################################################################################################################### */
-// MARK: -
+// MARK: - Main Discovery View Controller -
 /* ###################################################################################################################################### */
 /**
  */
 class RVS_BlueThoth_Test_Harness_tvOS_Main_ViewController: UIViewController {
     /* ################################################################## */
     /**
+     The image that is displayed if bluetooth is not available.
      */
     @IBOutlet weak var noBTImage: UIImageView!
+}
 
+/* ###################################################################################################################################### */
+// MARK: - Base Class Overrides -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth_Test_Harness_tvOS_Main_ViewController {
     /* ################################################################## */
     /**
+     Called just after the view hierarchy has loaded.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
