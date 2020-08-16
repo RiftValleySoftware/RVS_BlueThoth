@@ -31,6 +31,12 @@ import RVS_BlueThoth_TVOS
 class CGA_InitialViewController: CGA_BaseViewController {
     /* ################################################################## */
     /**
+     This is a simple accessor for the app Central Manager Instance.
+     */
+    var centralManager: RVS_BlueThoth! { CGA_AppDelegate.centralManager }
+
+    /* ################################################################## */
+    /**
      Returns the pushed device details screen. Nil, if none.
      */
     private var _currentDeviceScreen: CGA_UpdatableScreenViewController! { navigationController?.topViewController as? CGA_UpdatableScreenViewController }
@@ -40,13 +46,19 @@ class CGA_InitialViewController: CGA_BaseViewController {
      The image that is displayed if bluetooth is not available.
      */
     @IBOutlet weak var noBTImage: UIImageView!
+
+    /* ################################################################## */
+    /**
+     This segmented control manages the scanning state of the app.
+     */
+    @IBOutlet weak var scanningSegmentedControl: UISegmentedControl!
     
     /* ################################################################## */
     /**
      Returns true, if the Central Manager is currently scanning.
      */
-    var isScanning: Bool { CGA_AppDelegate.centralManager?.isScanning ?? false }
-    
+    var isScanning: Bool { centralManager?.isScanning ?? false }
+
     /* ################################################################## */
     /**
      Used as a semaphore (yuck) to indicate that the Central was (or was not) scanning before the view disappeared.
@@ -85,11 +97,11 @@ extension CGA_InitialViewController {
      */
     private func _startScanning() {
         let scanCriteria = prefs.scanCriteria
-        CGA_AppDelegate.centralManager?.scanCriteria = scanCriteria
-        CGA_AppDelegate.centralManager?.minimumRSSILevelIndBm = prefs.minimumRSSILevel
-        CGA_AppDelegate.centralManager?.discoverOnlyConnectablePeripherals = prefs.discoverOnlyConnectableDevices
-        CGA_AppDelegate.centralManager?.allowEmptyNames = prefs.allowEmptyNames
-        CGA_AppDelegate.centralManager?.startScanning(duplicateFilteringIsOn: !prefs.continuouslyUpdatePeripherals)
+        centralManager?.scanCriteria = scanCriteria
+        centralManager?.minimumRSSILevelIndBm = prefs.minimumRSSILevel
+        centralManager?.discoverOnlyConnectablePeripherals = prefs.discoverOnlyConnectableDevices
+        centralManager?.allowEmptyNames = prefs.allowEmptyNames
+        centralManager?.startScanning(duplicateFilteringIsOn: !prefs.continuouslyUpdatePeripherals)
     }
     
     /* ################################################################## */
@@ -122,6 +134,25 @@ extension CGA_InitialViewController {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - IBAction Methods -
+/* ###################################################################################################################################### */
+extension CGA_InitialViewController {
+    /* ################################################################## */
+    /**
+     Called when the scanning control changes.
+     
+     - parameter inSegmentedControl: The control that changed.
+     */
+    @IBAction func scanningControlChanged(_ inSegmentedControl: UISegmentedControl) {
+        if 0 == inSegmentedControl.selectedSegmentIndex {
+            _startScanning()
+        } else {
+            _stopScanning()
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Overridden Superclass Methods -
 /* ###################################################################################################################################### */
 extension CGA_InitialViewController {
@@ -132,6 +163,8 @@ extension CGA_InitialViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         CGA_AppDelegate.centralManager = RVS_BlueThoth(delegate: self)
+        scanningSegmentedControl?.setTitle(scanningSegmentedControl?.titleForSegment(at: 0)?.localizedVariant, forSegmentAt: 0)
+        scanningSegmentedControl?.setTitle(scanningSegmentedControl?.titleForSegment(at: 1)?.localizedVariant, forSegmentAt: 1)
     }
     
     /* ################################################################## */
@@ -174,7 +207,8 @@ extension CGA_InitialViewController: CGA_UpdatableScreenViewController {
      This simply makes sure that the table is displayed if BT is available, or the "No BT" image is shown, if it is not.
      */
     func updateUI() {
-        noBTImage?.isHidden = (CGA_AppDelegate.centralManager?.isBTAvailable ?? true)
+        noBTImage?.isHidden = (centralManager?.isBTAvailable ?? true)
+        scanningSegmentedControl?.selectedSegmentIndex = (centralManager?.isScanning ?? false) ? 0 : 1
         setUpAccessibility()
     }
 }
