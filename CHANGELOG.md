@@ -1,12 +1,13 @@
 # RVS_BlueThoth Change Log
 
-## 1.5.0.0000
+## 1.4.2.0000
 
-- **TBD**
+- **August 15, 2020**
 
 - Added WatchOS test harness.
 - Some documentation fixes.
 - Reorganized to create default SPM structure.
+- Fixed a few minor issues with the SDK.
 
 ## 1.4.1.0000
 
