@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="16097.2" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="appleTV" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Blue Thoth Test Harness tvOS Main View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="RVS_BlueThoth_Test_Harness_tvOS_Main_ViewController" customModule="RVS_BlueThoth_Test_Harness_tvOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="cUe-hU-xVR">
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BlueThothLogo" translatesAutoresizingMaskIntoConstraints="NO" id="6ib-gm-JiZ">
+                                <rect key="frame" x="636" y="216" width="648" height="648"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="6ib-gm-JiZ" secondAttribute="height" multiplier="1:1" id="cLT-qw-aJc"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoBT" translatesAutoresizingMaskIntoConstraints="NO" id="yzE-e2-FwM" userLabel="NoBT Image">
+                                <rect key="frame" x="636" y="216" width="648" height="648"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="yzE-e2-FwM" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="BIg-1G-Irv"/>
+                            <constraint firstItem="yzE-e2-FwM" firstAttribute="height" secondItem="6ib-gm-JiZ" secondAttribute="height" id="FdD-Lv-dl5"/>
+                            <constraint firstItem="yzE-e2-FwM" firstAttribute="width" secondItem="6ib-gm-JiZ" secondAttribute="width" id="JwA-0H-chF"/>
+                            <constraint firstItem="6ib-gm-JiZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="LHv-ej-tb3"/>
+                            <constraint firstItem="6ib-gm-JiZ" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" priority="999" id="TaR-qr-h47"/>
+                            <constraint firstItem="6ib-gm-JiZ" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" priority="999" id="esd-Gz-Aqn"/>
+                            <constraint firstItem="6ib-gm-JiZ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="hvc-SR-B2K"/>
+                            <constraint firstItem="cUe-hU-xVR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="hw3-P3-fV0"/>
+                            <constraint firstItem="6ib-gm-JiZ" firstAttribute="height" relation="lessThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.6" id="iCq-YO-sch"/>
+                            <constraint firstItem="yzE-e2-FwM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jS5-25-JLB"/>
+                            <constraint firstItem="6ib-gm-JiZ" firstAttribute="width" relation="lessThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.6" id="kFB-cd-WQ7"/>
+                            <constraint firstAttribute="bottom" secondItem="cUe-hU-xVR" secondAttribute="bottom" id="lER-FC-RuV"/>
+                            <constraint firstItem="cUe-hU-xVR" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="oT5-Ed-tjp"/>
+                            <constraint firstAttribute="trailing" secondItem="cUe-hU-xVR" secondAttribute="trailing" id="pvH-B0-Ecs"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wu6-TO-1qx"/>
+                    </view>
+                    <connections>
+                        <outlet property="noBTImage" destination="yzE-e2-FwM" id="SNX-Yv-mYc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52" y="63"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="BlueThothLogo" width="307" height="305"/>
+        <image name="NoBT" width="342" height="342"/>
+        <image name="background-gradient" width="1" height="1000"/>
+    </resources>
+</document>
