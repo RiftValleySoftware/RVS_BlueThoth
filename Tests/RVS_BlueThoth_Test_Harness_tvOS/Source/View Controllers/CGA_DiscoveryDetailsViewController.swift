@@ -49,6 +49,12 @@ class CGA_DiscoveryDetailsViewController: CGA_BaseViewController {
     /**
      */
     @IBOutlet weak var connectButton: UIButton!
+    
+    /* ################################################################## */
+    /**
+     This label displays the device name.
+     */
+    @IBOutlet weak var nameLabel: UILabel!
 }
 
 /* ###################################################################################################################################### */
@@ -88,8 +94,8 @@ extension CGA_DiscoveryDetailsViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        connectButton?.setTitle(connectButton?.title(for: .normal)?.localizedVariant, for: .normal)
         detailsDisplayTextView?.text = CGA_AppDelegate.createAdvertimentStringsFor(discoveryData.advertisementData, id: discoveryData.identifier).joined(separator: "\n")
+        nameLabel?.text = (discoveryData?.preferredName.isEmpty ?? true) ? (discoveryData?.identifier ?? "ERROR") : discoveryData?.preferredName
         updateUI()
     }
     
@@ -101,7 +107,7 @@ extension CGA_DiscoveryDetailsViewController {
      */
     override func viewWillAppear(_ inAnimated: Bool) {
         super.viewWillAppear(inAnimated)
-        discoveryData?.disconnect()
+        updateUI()
     }
     
     /* ################################################################## */
@@ -129,6 +135,7 @@ extension CGA_DiscoveryDetailsViewController: CGA_UpdatableScreenViewController 
      */
     func updateUI() {
         connectButton?.isHidden = !(discoveryData?.canConnect ?? false)
+        connectButton?.setTitle(discoveryData.isConnected ? "SLUG-SERVICES".localizedVariant : "SLUG-CONNECT".localizedVariant, for: .normal)
         setUpAccessibility()
     }
 }

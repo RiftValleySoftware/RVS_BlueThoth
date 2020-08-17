@@ -99,22 +99,11 @@ extension CGA_InitialViewController {
     
     /* ################################################################## */
     /**
-     Calling this toggles the scanning mode.
-     */
-    private func _toggleScanningMode() {
-        if isScanning {
-            _stopScanning()
-        } else {
-            _startScanning()
-        }
-    }
-    
-    /* ################################################################## */
-    /**
      Starts scanning for Peripherals. If already scanning, nothing happens.
      */
     private func _startScanning() {
         let scanCriteria = prefs.scanCriteria
+        centralManager?.startOver()
         centralManager?.scanCriteria = scanCriteria
         centralManager?.minimumRSSILevelIndBm = prefs.minimumRSSILevel
         centralManager?.discoverOnlyConnectablePeripherals = prefs.discoverOnlyConnectableDevices
@@ -195,10 +184,6 @@ extension CGA_InitialViewController {
         super.viewWillAppear(inAnimated)
         // We always make sure that nothing is connected.
         CGA_AppDelegate.centralManager?.forEach { $0.discoveryData?.disconnect() }
-
-        if wasScanning {
-            CGA_AppDelegate.centralManager?.restartScanning()
-        }
         updateUI()
     }
     
@@ -279,6 +264,7 @@ extension CGA_InitialViewController: UITableViewDelegate {
     /**
      */
     func tableView(_: UITableView, didSelectRowAt inIndexPath: IndexPath) {
+        centralManager?.stopScanning()
         performSegue(withIdentifier: Self.showDetailsSegueID, sender: centralManager?.stagedBLEPeripherals[inIndexPath.row])
     }
 }

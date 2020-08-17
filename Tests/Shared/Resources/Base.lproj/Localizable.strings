@@ -63,7 +63,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-DEVICE"                       =   "Device";
 "SLUG-DISCONNECT"                   =   "DISCONNECT";
 
-// Watch-Only
+// Watch and TV-Only
 "SLUG-CONNECT"                      =   "CONNECT";
 
 // MARK: - Characteristics Screen

@@ -45,6 +45,12 @@ class CGA_ConnectedViewController: CGA_BaseViewController {
      The centering view for the busy indicator.
      */
     @IBOutlet weak var spinnerContainerView: UIView!
+    
+    /* ################################################################## */
+    /**
+     This label displays the device name.
+     */
+    @IBOutlet weak var nameLabel: UILabel!
 }
 
 /* ###################################################################################################################################### */
@@ -76,6 +82,7 @@ extension CGA_ConnectedViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         connectingLabel?.text = (connectingLabel?.text ?? "ERROR").localizedVariant
+        nameLabel?.text = (discoveryData?.preferredName.isEmpty ?? true) ? (discoveryData?.identifier ?? "ERROR") : discoveryData?.preferredName
         discoveryData?.connect()
         updateUI()
     }
