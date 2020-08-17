@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D40A392724E0760B00B08133 /* RVS_BlueThoth_Test_Harness_WatchOS_DeviceInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40A392624E0760B00B08133 /* RVS_BlueThoth_Test_Harness_WatchOS_DeviceInterfaceController.swift */; };
 		D40A392924E0771400B08133 /* RVS_BlueThoth_Test_Harness_WatchOS_BaseInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40A392824E0771400B08133 /* RVS_BlueThoth_Test_Harness_WatchOS_BaseInterfaceController.swift */; };
+		D4119B0224EB18C3004AE6FB /* CGA_SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4119B0124EB18C3004AE6FB /* CGA_SettingsViewController.swift */; };
 		D41330A424674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41330A324674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.swift */; };
 		D41330A624674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41330A524674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController.swift */; };
 		D41330A824674F1500502D83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D41330A724674F1500502D83 /* Assets.xcassets */; };
@@ -406,6 +407,7 @@
 /* Begin PBXFileReference section */
 		D40A392624E0760B00B08133 /* RVS_BlueThoth_Test_Harness_WatchOS_DeviceInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_WatchOS_DeviceInterfaceController.swift; sourceTree = "<group>"; };
 		D40A392824E0771400B08133 /* RVS_BlueThoth_Test_Harness_WatchOS_BaseInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_WatchOS_BaseInterfaceController.swift; sourceTree = "<group>"; };
+		D4119B0124EB18C3004AE6FB /* CGA_SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_SettingsViewController.swift; sourceTree = "<group>"; };
 		D41330A124674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RVS_BlueThoth_Test_Harness_MacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D41330A324674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.swift; sourceTree = "<group>"; };
 		D41330A524674F1400502D83 /* RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController.swift; sourceTree = "<group>"; };
@@ -757,6 +759,7 @@
 				D47F059C24EAACB3007C29DA /* CGA_ConnectedViewController.swift */,
 				D4F21FAA24EACF1200C632D7 /* CGA_ServiceViewController.swift */,
 				D426966E24EAE04A00ABFA44 /* CGA_CharacteristicViewController.swift */,
+				D4119B0124EB18C3004AE6FB /* CGA_SettingsViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -1566,6 +1569,7 @@
 			files = (
 				D42DDDD324E96F260072E7CA /* CGA_AppDelegate.swift in Sources */,
 				D47F059B24EAA638007C29DA /* CGA_DiscoveryDetailsViewController.swift in Sources */,
+				D4119B0224EB18C3004AE6FB /* CGA_SettingsViewController.swift in Sources */,
 				D42DDDE324E970B70072E7CA /* CGA_PersistentPrefs.swift in Sources */,
 				D426966F24EAE04A00ABFA44 /* CGA_CharacteristicViewController.swift in Sources */,
 				D42DDDCF24E96F260072E7CA /* CGA_InitialViewController.swift in Sources */,

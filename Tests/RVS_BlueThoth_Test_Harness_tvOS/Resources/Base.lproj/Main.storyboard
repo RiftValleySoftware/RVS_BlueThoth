@@ -55,6 +55,7 @@
                                 <segments>
                                     <segment title="SLUG-SCANNING"/>
                                     <segment title="SLUG-NOT-SCANNING"/>
+                                    <segment title="" image="Gear"/>
                                 </segments>
                                 <connections>
                                     <action selector="scanningControlChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Ihw-Ve-qeG"/>
@@ -91,6 +92,7 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="O3a-SO-GlR" firstAttribute="leading" secondItem="wu6-TO-1qx" secondAttribute="leading" id="6Vs-K7-WMu"/>
+                            <constraint firstItem="wu6-TO-1qx" firstAttribute="trailing" secondItem="O3a-SO-GlR" secondAttribute="trailing" id="BBb-kU-cKG"/>
                             <constraint firstItem="yzE-e2-FwM" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="BIg-1G-Irv"/>
                             <constraint firstItem="O3a-SO-GlR" firstAttribute="top" secondItem="wu6-TO-1qx" secondAttribute="top" id="EUY-FP-UUt"/>
                             <constraint firstItem="yzE-e2-FwM" firstAttribute="height" secondItem="6ib-gm-JiZ" secondAttribute="height" id="FdD-Lv-dl5"/>
@@ -100,7 +102,6 @@
                             <constraint firstItem="6ib-gm-JiZ" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" priority="999" id="TaR-qr-h47"/>
                             <constraint firstItem="PVT-9h-YmQ" firstAttribute="leading" secondItem="wu6-TO-1qx" secondAttribute="leading" id="Y1z-4r-MFQ"/>
                             <constraint firstItem="6ib-gm-JiZ" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" priority="999" id="esd-Gz-Aqn"/>
-                            <constraint firstItem="wu6-TO-1qx" firstAttribute="trailing" secondItem="O3a-SO-GlR" secondAttribute="trailing" id="gdh-ux-eUH"/>
                             <constraint firstItem="6ib-gm-JiZ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="hvc-SR-B2K"/>
                             <constraint firstItem="cUe-hU-xVR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="hw3-P3-fV0"/>
                             <constraint firstItem="6ib-gm-JiZ" firstAttribute="height" relation="lessThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.6" id="iCq-YO-sch"/>
@@ -120,11 +121,54 @@
                         <outlet property="noBTImage" destination="yzE-e2-FwM" id="SNX-Yv-mYc"/>
                         <outlet property="scanningSegmentedControl" destination="O3a-SO-GlR" id="744-vo-vma"/>
                         <segue destination="Jbj-m4-9ak" kind="show" identifier="show-discovery-details" id="WgZ-xp-6Kq"/>
+                        <segue destination="GUR-Cd-VOt" kind="show" identifier="show-settings" id="qtB-Ff-6Ph"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="52" y="63"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="QsV-uD-nF4">
+            <objects>
+                <viewController id="GUR-Cd-VOt" customClass="CGA_SettingsViewController" customModule="RVS_BlueThoth_Test_Harness_tvOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zUn-FM-rTL"/>
+                        <viewControllerLayoutGuide type="bottom" id="N6u-Yg-ho4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1qV-cq-OTU">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="VwY-bk-2SZ">
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.15000000596046448" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BlueThothLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Jyh-3Z-5nc">
+                                <rect key="frame" x="636" y="216" width="648" height="648"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Jyh-3Z-5nc" secondAttribute="height" multiplier="1:1" id="6sG-Mo-rAY"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="VwY-bk-2SZ" secondAttribute="bottom" id="1t7-2H-4rQ"/>
+                            <constraint firstItem="Jyh-3Z-5nc" firstAttribute="height" relation="lessThanOrEqual" secondItem="1qV-cq-OTU" secondAttribute="height" multiplier="0.6" id="Bo7-zM-1TB"/>
+                            <constraint firstItem="Jyh-3Z-5nc" firstAttribute="width" relation="lessThanOrEqual" secondItem="1qV-cq-OTU" secondAttribute="width" multiplier="0.6" id="CsF-Q2-7Fb"/>
+                            <constraint firstItem="Jyh-3Z-5nc" firstAttribute="height" secondItem="1qV-cq-OTU" secondAttribute="height" priority="750" id="FO9-xa-32P"/>
+                            <constraint firstItem="VwY-bk-2SZ" firstAttribute="leading" secondItem="1qV-cq-OTU" secondAttribute="leading" id="OYx-G2-3gW"/>
+                            <constraint firstItem="Jyh-3Z-5nc" firstAttribute="centerX" secondItem="1qV-cq-OTU" secondAttribute="centerX" id="TqX-LO-G0Z"/>
+                            <constraint firstAttribute="trailing" secondItem="VwY-bk-2SZ" secondAttribute="trailing" id="U14-QU-fxU"/>
+                            <constraint firstItem="VwY-bk-2SZ" firstAttribute="top" secondItem="1qV-cq-OTU" secondAttribute="top" id="Yv0-kB-MjJ"/>
+                            <constraint firstItem="Jyh-3Z-5nc" firstAttribute="width" secondItem="1qV-cq-OTU" secondAttribute="width" priority="750" id="a3L-b8-ko9"/>
+                            <constraint firstItem="Jyh-3Z-5nc" firstAttribute="centerY" secondItem="1qV-cq-OTU" secondAttribute="centerY" id="xOf-Dq-ge9"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ofq-aF-c0o"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="WxR-LF-tGt"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ljc-Fd-9J0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52" y="1535"/>
         </scene>
         <!--Discovery Details View Controller-->
         <scene sceneID="5Cq-9a-dRI">
@@ -512,6 +556,7 @@
     </scenes>
     <resources>
         <image name="BlueThothLogo" width="307" height="305"/>
+        <image name="Gear" width="25" height="25"/>
         <image name="NoBT" width="342" height="342"/>
         <image name="background-gradient" width="1" height="1000"/>
     </resources>

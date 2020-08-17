@@ -89,16 +89,6 @@ extension CGA_ServiceViewController {
     
     /* ################################################################## */
     /**
-     Called just before the view will appear. We use this to ensure that we are disconnected.
-     
-     - parameter inAnimated: ignored, but passed to the superclas.
-     */
-    override func viewWillAppear(_ inAnimated: Bool) {
-        super.viewWillAppear(inAnimated)
-    }
-    
-    /* ################################################################## */
-    /**
      Called just before the characteristics display screen is pushed.
      
      - parameter for: The segue that is being executed.

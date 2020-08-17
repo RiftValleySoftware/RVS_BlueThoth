@@ -43,6 +43,12 @@ class CGA_InitialViewController: CGA_BaseViewController {
     
     /* ################################################################## */
     /**
+     The segue ID of the "Show Settings" screen.
+     */
+    static let showSettingsSegueID = "show-settings"
+    
+    /* ################################################################## */
+    /**
      This is a simple accessor for the app Central Manager Instance.
      */
     var centralManager: RVS_BlueThoth! { CGA_AppDelegate.centralManager }
@@ -158,6 +164,9 @@ extension CGA_InitialViewController {
             _startScanning()
         } else {
             _stopScanning()
+            if 2 == inSegmentedControl.selectedSegmentIndex {
+                performSegue(withIdentifier: Self.showSettingsSegueID, sender: nil)
+            }
         }
     }
 }
