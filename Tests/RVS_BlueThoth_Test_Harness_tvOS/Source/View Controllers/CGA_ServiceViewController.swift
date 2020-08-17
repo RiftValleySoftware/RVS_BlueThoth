@@ -28,36 +28,18 @@ import RVS_BlueThoth_TVOS
 /* ###################################################################################################################################### */
 /**
  */
-class CGA_ConnectedViewController: CGA_BaseViewController {
+class CGA_ServiceViewController: CGA_BaseViewController {
     /* ################################################################## */
     /**
      The reuse ID for each row of the table.
      */
-    static let servceTableCellReuseID = "basic-service"
+    static let characteristicTableCellReuseID = "basic-characteristic"
     
     /* ################################################################## */
     /**
-     The segue ID of the "Show Discovery Details" screen.
+     The Service wrapper instance for this Service.
      */
-    static let characteristicsSegueID = "show-characteristics"
-    
-    /* ################################################################## */
-    /**
-     The discovery data for this device.
-     */
-    var discoveryData: RVS_BlueThoth.DiscoveryData!
-
-    /* ################################################################## */
-    /**
-     The temporary label that is put up while connecting.
-     */
-    @IBOutlet weak var connectingLabel: UILabel!
-    
-    /* ################################################################## */
-    /**
-     The centering view for the busy indicator.
-     */
-    @IBOutlet weak var spinnerContainerView: UIView!
+    var serviceInstance: CGA_Bluetooth_Service!
     
     /* ################################################################## */
     /**
@@ -67,15 +49,15 @@ class CGA_ConnectedViewController: CGA_BaseViewController {
 
     /* ################################################################## */
     /**
-     The table that displays the services.
+     The table that displays the Characteristics.
      */
-    @IBOutlet weak var serviceTableView: UITableView!
+    @IBOutlet weak var characteristicsTableView: UITableView!
 }
 
 /* ###################################################################################################################################### */
 // MARK: - Instance Methods -
 /* ###################################################################################################################################### */
-extension CGA_ConnectedViewController {
+extension CGA_ServiceViewController {
     /* ################################################################## */
     /**
      This sets up the accessibility and voiceover strings for the screen.
@@ -87,16 +69,14 @@ extension CGA_ConnectedViewController {
 /* ###################################################################################################################################### */
 // MARK: - Base Class Overrides -
 /* ###################################################################################################################################### */
-extension CGA_ConnectedViewController {
+extension CGA_ServiceViewController {
     /* ################################################################## */
     /**
      Called just after the view hierarchy has loaded.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        connectingLabel?.text = (connectingLabel?.text ?? "ERROR").localizedVariant
-        nameLabel?.text = (discoveryData?.preferredName.isEmpty ?? true) ? (discoveryData?.identifier ?? "ERROR") : discoveryData?.preferredName
-        discoveryData?.connect()
+        nameLabel?.text = serviceInstance?.id.localizedVariant
         updateUI()
     }
     
@@ -109,35 +89,17 @@ extension CGA_ConnectedViewController {
     override func viewWillAppear(_ inAnimated: Bool) {
         super.viewWillAppear(inAnimated)
     }
-    
-    /* ################################################################## */
-    /**
-     Called just before the characteristics display screen is pushed.
-     
-     - parameter for: The segue that is being executed.
-     - parameter sender: The discovery information.
-     */
-    override func prepare(for inSegue: UIStoryboardSegue, sender inSender: Any?) {
-        if  let destination = inSegue.destination as? CGA_ServiceViewController,
-            let serviceInstance = inSender as? CGA_Bluetooth_Service {
-            destination.serviceInstance = serviceInstance
-        }
-    }
 }
 
 /* ###################################################################################################################################### */
 // MARK: - CGA_UpdatableScreenViewController Conformance -
 /* ###################################################################################################################################### */
-extension CGA_ConnectedViewController: CGA_UpdatableScreenViewController {
+extension CGA_ServiceViewController: CGA_UpdatableScreenViewController {
     /* ################################################################## */
     /**
      This simply makes sure that the table is displayed if BT is available, or the "No BT" image is shown, if it is not.
      */
     func updateUI() {
-        connectingLabel?.isHidden = discoveryData?.isConnected ?? true
-        spinnerContainerView?.isHidden = discoveryData?.isConnected ?? true
-        serviceTableView?.isHidden = !(discoveryData?.isConnected ?? false)
-        serviceTableView?.reloadData()
         setUpAccessibility()
     }
 }
@@ -145,15 +107,15 @@ extension CGA_ConnectedViewController: CGA_UpdatableScreenViewController {
 /* ###################################################################################################################################### */
 // MARK: - UITableViewDataSource Conformance -
 /* ###################################################################################################################################### */
-extension CGA_ConnectedViewController: UITableViewDataSource {
+extension CGA_ServiceViewController: UITableViewDataSource {
     /* ################################################################## */
     /**
      */
     func tableView(_ inTableView: UITableView, cellForRowAt inIndexPath: IndexPath) -> UITableViewCell {
-        if  let ret = inTableView.dequeueReusableCell(withIdentifier: Self.servceTableCellReuseID),
-            let peripheralInstance = discoveryData.peripheralInstance {
-            let service = peripheralInstance[inIndexPath.row]
-            ret.textLabel?.text = service.id.localizedVariant
+        if  let ret = inTableView.dequeueReusableCell(withIdentifier: Self.characteristicTableCellReuseID),
+            let serviceInstance = serviceInstance {
+            let characteristic = serviceInstance[inIndexPath.row]
+            ret.textLabel?.text = characteristic.id.localizedVariant
             return ret
         }
         
@@ -163,17 +125,5 @@ extension CGA_ConnectedViewController: UITableViewDataSource {
     /* ################################################################## */
     /**
      */
-    func tableView(_: UITableView, numberOfRowsInSection: Int) -> Int { discoveryData.peripheralInstance?.count ?? 0 }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - UITableViewDelegate Conformance -
-/* ###################################################################################################################################### */
-extension CGA_ConnectedViewController: UITableViewDelegate {
-    /* ################################################################## */
-    /**
-     */
-    func tableView(_: UITableView, didSelectRowAt inIndexPath: IndexPath) {
-        performSegue(withIdentifier: Self.characteristicsSegueID, sender: discoveryData.peripheralInstance?[inIndexPath.row])
-    }
+    func tableView(_: UITableView, numberOfRowsInSection: Int) -> Int { serviceInstance?.count ?? 0 }
 }
