@@ -168,6 +168,65 @@ extension CGA_CharacteristicViewController {
             let label = ("SLUG-PROPERTIES-NOTIFY-O" + ((characteristicInstance?.isNotifying ?? false) ? "N" : "FF")).localizedVariant
             tableRowData.append(TableRowStruct(title: label, target: characteristicInstance, action: toggleCharacteristicNotify))
         }
+        
+        if characteristicInstance?.canIndicate ?? false {
+            tableRowData.append(TableRowStruct(title: "SLUG-WATCH-PROPERTY-INDICATE".localizedVariant))
+        }
+        
+        if characteristicInstance?.canWriteWithoutResponse ?? false {
+            tableRowData.append(TableRowStruct(title: "SLUG-WATCH-PROPERTY-WRITE".localizedVariant))
+        }
+        
+        if characteristicInstance?.canWriteWithResponse ?? false {
+            tableRowData.append(TableRowStruct(title: "SLUG-WATCH-PROPERTY-WRITE-RESP".localizedVariant))
+        }
+        
+        if characteristicInstance?.requiresAuthenticatedSignedWrites ?? false {
+            tableRowData.append(TableRowStruct(title: "SLUG-WATCH-PROPERTY-AUTH-SW".localizedVariant))
+        }
+        
+        if characteristicInstance?.canBroadcast ?? false {
+            tableRowData.append(TableRowStruct(title: "SLUG-WATCH-PROPERTY-BROADCAST".localizedVariant))
+        }
+
+        if characteristicInstance?.requiresNotifyEncryption ?? false {
+            tableRowData.append(TableRowStruct(title: "SLUG-WATCH-PROPERTY-NOTIFY-ENC".localizedVariant))
+        }
+        
+        if characteristicInstance?.requiresIndicateEncryption ?? false {
+            tableRowData.append(TableRowStruct(title: "SLUG-WATCH-PROPERTY-INDICATE-ENC".localizedVariant))
+        }
+        
+        if characteristicInstance?.hasExtendedProperties ?? false {
+            tableRowData.append(TableRowStruct(title: "SLUG-WATCH-PROPERTY-EXTENDED".localizedVariant))
+        }
+        
+        for descriptor in characteristicInstance {
+            if  let descriptor = descriptor as? CGA_Bluetooth_Descriptor {
+                var descString = descriptor.stringValue ?? ""
+                if !descString.isEmpty {
+                    descString += "\n"
+                }
+                
+                descString += descriptor.id.localizedVariant
+                
+                if let characteristic = descriptor as? CGA_Bluetooth_Descriptor_ClientCharacteristicConfiguration {
+                    descString += "\n" + "SLUG-ACC-DESCRIPTOR-CLIENTCHAR-NOTIFY-\(characteristic.isNotifying ? "YES" : "NO")".localizedVariant
+                    descString += "SLUG-ACC-DESCRIPTOR-CLIENTCHAR-INDICATE-\(characteristic.isIndicating ? "YES" : "NO")".localizedVariant
+                }
+                
+                if let characteristic = descriptor as? CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties {
+                    descString += "\n" + "SLUG-ACC-DESCRIPTOR-EXTENDED-RELIABLE-WR-\(characteristic.isReliableWriteEnabled ? "YES" : "NO")".localizedVariant
+                    descString += "SLUG-ACC-DESCRIPTOR-EXTENDED-AUX-WR-\(characteristic.isWritableAuxiliariesEnabled ? "YES" : "NO")".localizedVariant
+                }
+                
+                if let characteristic = descriptor as? CGA_Bluetooth_Descriptor_PresentationFormat {
+                    descString += "\n" + "SLUG-CHAR-PRESENTATION-\(characteristic.stringValue ?? "255")".localizedVariant
+                }
+                
+                tableRowData.append(TableRowStruct(title: descString, target: descriptor, action: readDescriptorData))
+            }
+        }
     }
 }
 
@@ -217,10 +276,18 @@ extension CGA_CharacteristicViewController: CGA_UpdatableScreenViewController {
 extension CGA_CharacteristicViewController: UITableViewDataSource {
     /* ################################################################## */
     /**
+     Called to provide the data to display in the indicated table cell.
+     
+     - parameters:
+        - inTableView: The Table View that is asking for this View.
+        - cellForRowAt: The IndexPath of the cell.
+     
+     - returns: A new view, set up for the indicated cell.
      */
     func tableView(_ inTableView: UITableView, cellForRowAt inIndexPath: IndexPath) -> UITableViewCell {
         if let ret = inTableView.dequeueReusableCell(withIdentifier: Self.labelTableCellReuseID) {
             ret.textLabel?.text = tableRowData[inIndexPath.row].title
+            ret.textLabel?.isEnabled = !(nil == tableRowData[inIndexPath.row].action)
             
             return ret
         }
@@ -229,6 +296,7 @@ extension CGA_CharacteristicViewController: UITableViewDataSource {
     
     /* ################################################################## */
     /**
+     - returns: The number of rows in the table.
      */
     func tableView(_: UITableView, numberOfRowsInSection: Int) -> Int { tableRowData.count }
 }
@@ -239,6 +307,32 @@ extension CGA_CharacteristicViewController: UITableViewDataSource {
 extension CGA_CharacteristicViewController: UITableViewDelegate {
     /* ################################################################## */
     /**
+     Called when a row is about to be highlighted.
+     
+     - parameter: ignored
+     - parameter shouldHighlightRowAt: The IndexPath of the selected row.
+     
+     - returns: True (allow row to highlight), or false (don't allow)..
+     */
+    func tableView(_: UITableView, shouldHighlightRowAt inIndexPath: IndexPath) -> Bool { nil != tableRowData[inIndexPath.row].action }
+
+    /* ################################################################## */
+    /**
+     Called when a row is about to be selected.
+     
+     - parameter: ignored
+     - parameter willSelectRowAt: The IndexPath of the selected row.
+     
+     - returns: Either nil (don't select), or the given index path.
+     */
+    func tableView(_: UITableView, willSelectRowAt inIndexPath: IndexPath) -> IndexPath? { nil != tableRowData[inIndexPath.row].action ? inIndexPath : nil }
+
+    /* ################################################################## */
+    /**
+     Called when a row is selected.
+     
+     - parameter: ignored
+     - parameter didSelectRowAt: The IndexPath of the selected row.
      */
     func tableView(_: UITableView, didSelectRowAt inIndexPath: IndexPath) {
         let handler = tableRowData[inIndexPath.row]

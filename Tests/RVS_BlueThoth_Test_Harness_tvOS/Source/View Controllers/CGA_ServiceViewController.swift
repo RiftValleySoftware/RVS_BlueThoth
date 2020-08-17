@@ -130,6 +130,13 @@ extension CGA_ServiceViewController: CGA_UpdatableScreenViewController {
 extension CGA_ServiceViewController: UITableViewDataSource {
     /* ################################################################## */
     /**
+     Called to provide the data to display in the indicated table cell.
+     
+     - parameters:
+        - inTableView: The Table View that is asking for this View.
+        - cellForRowAt: The IndexPath of the cell.
+     
+     - returns: A new view, set up for the indicated cell.
      */
     func tableView(_ inTableView: UITableView, cellForRowAt inIndexPath: IndexPath) -> UITableViewCell {
         if  let ret = inTableView.dequeueReusableCell(withIdentifier: Self.characteristicTableCellReuseID),
@@ -144,6 +151,7 @@ extension CGA_ServiceViewController: UITableViewDataSource {
     
     /* ################################################################## */
     /**
+     - returns: The number of rows in the table.
      */
     func tableView(_: UITableView, numberOfRowsInSection: Int) -> Int { serviceInstance?.count ?? 0 }
 }
@@ -154,6 +162,10 @@ extension CGA_ServiceViewController: UITableViewDataSource {
 extension CGA_ServiceViewController: UITableViewDelegate {
     /* ################################################################## */
     /**
+     Called when a row is selected.
+     
+     - parameter: ignored
+     - parameter didSelectRowAt: The IndexPath of the selected row.
      */
     func tableView(_: UITableView, didSelectRowAt inIndexPath: IndexPath) {
         performSegue(withIdentifier: Self.characteristicDetailSegueID, sender: serviceInstance?[inIndexPath.row])

@@ -94,7 +94,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-VALUE-LABEL"                  =   "VALUE:";
 "SLUG-WRITE-TEXT-FIELD-LABEL"       =   "WRITE:";
 "SLUG-WRITE-TEXT-FIELD-PLACEHOLDER" =   "Enter Text to Send to Peripheral";
-// Watch-Only
+// Watch-TV-Only
 "SLUG-WATCH-PROPERTY-READ"          =   "READ";
 "SLUG-WATCH-PROPERTY-NOTIFY"        =   "NOTIFY";
 "SLUG-WATCH-PROPERTY-WRITE"         =   "WRITE";
