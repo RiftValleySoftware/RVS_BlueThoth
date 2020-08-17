@@ -354,9 +354,7 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
         #if DEBUG
             print("Peripheral Update")
         #endif
-        if let currentScreen = _currentDeviceScreen as? CGA_InitialViewController {
-            currentScreen.updateUI()
-        }
+        _currentDeviceScreen?.updateUI()
     }
     
     /* ################################################################## */
@@ -371,12 +369,26 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
         #if DEBUG
             print("Service Update Received")
         #endif
-        if let currentScreen = _currentDeviceScreen {
-            currentScreen.updateUI()
-        } else {
-        }
+        _currentDeviceScreen?.updateUI()
     }
     
+    /* ################################################################## */
+    /**
+     Called to tell the instance that a Characteristic changed its notification state.
+     
+     - parameter inCentralManager: The central manager that is calling this.
+     - parameter device: The device instance that contained the changed Service.
+     - parameter service: The Service instance that contained the changed Characteristic.
+     - parameter changedCharacteristicNotificationState: The Characteristic that was changed.
+     */
+    func centralManager(_ inCentral: RVS_BlueThoth, device inDevice: CGA_Bluetooth_Peripheral, service inService: CGA_Bluetooth_Service, changedCharacteristicNotificationState inCharacteristic: CGA_Bluetooth_Characteristic) {
+        #if DEBUG
+            print("Characteristic Notification State Changed to \(inCharacteristic.isNotifying ? "ON" : "OFF")")
+        #endif
+        inCharacteristic.forEach { $0.readValue() }
+        _currentDeviceScreen?.updateUI()
+    }
+
     /* ################################################################## */
     /**
      Called to tell the instance that a Characteristic changed its value.
@@ -399,9 +411,8 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
         } else if   let currentScreen = _currentDeviceScreen as? CGA_WriteableElementContainer,
                     currentScreen.writeableElementInstance?.id == inCharacteristic.id {
             currentScreen.updateUI()
-        } else if   let currentScreen = _currentDeviceScreen {
-            currentScreen.updateUI()
         } else {
+            _currentDeviceScreen?.updateUI()
         }
     }
 
@@ -425,10 +436,7 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
                 print("\tDescriptor String Value: \"\(stringValue)\"")
             }
         #endif
-        if let currentScreen = _currentDeviceScreen {
-            currentScreen.updateUI()
-        } else {
-        }
+        _currentDeviceScreen?.updateUI()
     }
     
     /* ################################################################## */
