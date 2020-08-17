@@ -31,6 +31,18 @@ import RVS_BlueThoth_TVOS
 class CGA_InitialViewController: CGA_BaseViewController {
     /* ################################################################## */
     /**
+     Used to generate table rows.
+     */
+    static let discoveryTableCellReuseID = "discovery-table-cell"
+    
+    /* ################################################################## */
+    /**
+     The segue ID of the "Show Discovery Details" screen.
+     */
+    static let showDetailsSegueID = "show-discovery-details"
+    
+    /* ################################################################## */
+    /**
      This is a simple accessor for the app Central Manager Instance.
      */
     var centralManager: RVS_BlueThoth! { CGA_AppDelegate.centralManager }
@@ -52,6 +64,12 @@ class CGA_InitialViewController: CGA_BaseViewController {
      This segmented control manages the scanning state of the app.
      */
     @IBOutlet weak var scanningSegmentedControl: UISegmentedControl!
+
+    /* ################################################################## */
+    /**
+     This table lists all discovered devices.
+     */
+    @IBOutlet weak var discoveryTableView: UITableView!
     
     /* ################################################################## */
     /**
@@ -177,17 +195,16 @@ extension CGA_InitialViewController {
         super.viewWillAppear(inAnimated)
         // We always make sure that nothing is connected.
         CGA_AppDelegate.centralManager?.forEach { $0.discoveryData?.disconnect() }
-        
+
         if wasScanning {
             CGA_AppDelegate.centralManager?.restartScanning()
         }
-        
         updateUI()
     }
     
     /* ################################################################## */
     /**
-     Called just before the view disappears. We use this to show the navBar.
+     Called just before the view disappears.
      
      - parameter inAnimated: True, if the appearance is animated (we ignore this).
      */
@@ -195,6 +212,20 @@ extension CGA_InitialViewController {
         super.viewWillDisappear(inAnimated)
         wasScanning = isScanning
         CGA_AppDelegate.centralManager?.stopScanning()
+    }
+    
+    /* ################################################################## */
+    /**
+     Called just before the discovery details screen is pushed.
+     
+     - parameter for: The segue that is being executed.
+     - parameter sender: The discovery information.
+     */
+    override func prepare(for inSegue: UIStoryboardSegue, sender inSender: Any?) {
+        if  let destination = inSegue.destination as? CGA_DiscoveryDetailsViewController,
+            let discoveryData = inSender as? RVS_BlueThoth.DiscoveryData {
+            destination.discoveryData = discoveryData
+        }
     }
 }
 
@@ -208,8 +239,47 @@ extension CGA_InitialViewController: CGA_UpdatableScreenViewController {
      */
     func updateUI() {
         noBTImage?.isHidden = (centralManager?.isBTAvailable ?? true)
+        scanningSegmentedControl?.isHidden = !(centralManager?.isBTAvailable ?? false)
+        discoveryTableView?.isHidden = !(centralManager?.isBTAvailable ?? false)
         scanningSegmentedControl?.selectedSegmentIndex = (centralManager?.isScanning ?? false) ? 0 : 1
+        discoveryTableView?.reloadData()
         setUpAccessibility()
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - UITableViewDataSource Conformance -
+/* ###################################################################################################################################### */
+extension CGA_InitialViewController: UITableViewDataSource {
+    /* ################################################################## */
+    /**
+     */
+    func tableView(_ inTableView: UITableView, cellForRowAt inIndexPath: IndexPath) -> UITableViewCell {
+        if  let ret = inTableView.dequeueReusableCell(withIdentifier: Self.discoveryTableCellReuseID),
+            let centralManager = centralManager {
+            let peripheralDiscoveryInfo = centralManager.stagedBLEPeripherals[inIndexPath.row]
+            ret.textLabel?.text = peripheralDiscoveryInfo.preferredName.isEmpty ? "SLUG-NO-DEVICE-NAME".localizedVariant : peripheralDiscoveryInfo.preferredName
+            return ret
+        }
+        
+        return UITableViewCell()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func tableView(_: UITableView, numberOfRowsInSection: Int) -> Int { centralManager?.stagedBLEPeripherals.count ?? 0 }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - UITableViewDelegate Conformance -
+/* ###################################################################################################################################### */
+extension CGA_InitialViewController: UITableViewDelegate {
+    /* ################################################################## */
+    /**
+     */
+    func tableView(_: UITableView, didSelectRowAt inIndexPath: IndexPath) {
+        performSegue(withIdentifier: Self.showDetailsSegueID, sender: centralManager?.stagedBLEPeripherals[inIndexPath.row])
     }
 }
 
@@ -243,7 +313,7 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
      - parameter inCentralManager: The central manager that is calling this.
      */
     func centralManagerPoweredOn(_ inCentralManager: RVS_BlueThoth) {
-        _startScanning()
+        updateUI()
     }
 
     /* ################################################################## */
@@ -285,7 +355,6 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
         #if DEBUG
             print("Disconnecting Device")
         #endif
-        _resetToRoot()
     }
     
     /* ################################################################## */

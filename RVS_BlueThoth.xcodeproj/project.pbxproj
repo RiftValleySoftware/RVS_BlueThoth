@@ -139,6 +139,8 @@
 		D477C41024E9ACE10017D336 /* CGA_BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D431EC2A24675E8D0094BB23 /* CGA_BaseViewController.swift */; };
 		D477C41124E9AD3B0017D336 /* CGA_BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D431EC2A24675E8D0094BB23 /* CGA_BaseViewController.swift */; };
 		D47AE94D24DDEF5B00F5BCD8 /* RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47AE94C24DDEF5B00F5BCD8 /* RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController.swift */; };
+		D47F059B24EAA638007C29DA /* CGA_DiscoveryDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47F059A24EAA637007C29DA /* CGA_DiscoveryDetailsViewController.swift */; };
+		D47F059D24EAACB3007C29DA /* CGA_ConnectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47F059C24EAACB3007C29DA /* CGA_ConnectedViewController.swift */; };
 		D487628B24E57C7000B340D2 /* RVS_BlueThoth_Test_Harness_WatchOS_ServiceTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D487628A24E57C7000B340D2 /* RVS_BlueThoth_Test_Harness_WatchOS_ServiceTableController.swift */; };
 		D48AD8E0245CA9340043BCE7 /* CGA_Bluetooth_Descriptor_UserDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48AD8DF245CA9340043BCE7 /* CGA_Bluetooth_Descriptor_UserDescription.swift */; };
 		D48AD8E1245CA9340043BCE7 /* CGA_Bluetooth_Descriptor_UserDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48AD8DF245CA9340043BCE7 /* CGA_Bluetooth_Descriptor_UserDescription.swift */; };
@@ -459,6 +461,8 @@
 		D4700E282455EA9B004E99D3 /* iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOS-Info.plist"; sourceTree = "<group>"; };
 		D4706CEB245E0B5E0060404D /* CGA_Bluetooth_Descriptor_PresentationFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Descriptor_PresentationFormat.swift; sourceTree = "<group>"; };
 		D47AE94C24DDEF5B00F5BCD8 /* RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_WatchOS_DiscoveryTableController.swift; sourceTree = "<group>"; };
+		D47F059A24EAA637007C29DA /* CGA_DiscoveryDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_DiscoveryDetailsViewController.swift; sourceTree = "<group>"; };
+		D47F059C24EAACB3007C29DA /* CGA_ConnectedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_ConnectedViewController.swift; sourceTree = "<group>"; };
 		D487628A24E57C7000B340D2 /* RVS_BlueThoth_Test_Harness_WatchOS_ServiceTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_WatchOS_ServiceTableController.swift; sourceTree = "<group>"; };
 		D48AD8DF245CA9340043BCE7 /* CGA_Bluetooth_Descriptor_UserDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Descriptor_UserDescription.swift; sourceTree = "<group>"; };
 		D49BACA22459CF140022E2CD /* RVS_BlueThoth_Callbacks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Callbacks.swift; sourceTree = "<group>"; };
@@ -745,6 +749,8 @@
 			isa = PBXGroup;
 			children = (
 				D42DDDC724E96F260072E7CA /* CGA_InitialViewController.swift */,
+				D47F059A24EAA637007C29DA /* CGA_DiscoveryDetailsViewController.swift */,
+				D47F059C24EAACB3007C29DA /* CGA_ConnectedViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -1553,8 +1559,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D42DDDD324E96F260072E7CA /* CGA_AppDelegate.swift in Sources */,
+				D47F059B24EAA638007C29DA /* CGA_DiscoveryDetailsViewController.swift in Sources */,
 				D42DDDE324E970B70072E7CA /* CGA_PersistentPrefs.swift in Sources */,
 				D42DDDCF24E96F260072E7CA /* CGA_InitialViewController.swift in Sources */,
+				D47F059D24EAACB3007C29DA /* CGA_ConnectedViewController.swift in Sources */,
 				D477C41124E9AD3B0017D336 /* CGA_BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
