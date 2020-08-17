@@ -31,6 +31,13 @@ import RVS_BlueThoth_TVOS
 class CGA_ConnectedViewController: CGA_BaseViewController {
     /* ################################################################## */
     /**
+     The reuse ID for each row of the table.
+     */
+    static let servceTableCellReuseID = "basic-service"
+    
+    /* ################################################################## */
+    /**
+     The discovery data for this device.
      */
     var discoveryData: RVS_BlueThoth.DiscoveryData!
 
@@ -51,6 +58,12 @@ class CGA_ConnectedViewController: CGA_BaseViewController {
      This label displays the device name.
      */
     @IBOutlet weak var nameLabel: UILabel!
+
+    /* ################################################################## */
+    /**
+     The table that displays the services.
+     */
+    @IBOutlet weak var serviceTableView: UITableView!
 }
 
 /* ###################################################################################################################################### */
@@ -109,6 +122,32 @@ extension CGA_ConnectedViewController: CGA_UpdatableScreenViewController {
     func updateUI() {
         connectingLabel?.isHidden = discoveryData?.isConnected ?? true
         spinnerContainerView?.isHidden = discoveryData?.isConnected ?? true
+        serviceTableView?.isHidden = !(discoveryData?.isConnected ?? false)
+        serviceTableView?.reloadData()
         setUpAccessibility()
     }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - UITableViewDataSource Conformance -
+/* ###################################################################################################################################### */
+extension CGA_ConnectedViewController: UITableViewDataSource {
+    /* ################################################################## */
+    /**
+     */
+    func tableView(_ inTableView: UITableView, cellForRowAt inIndexPath: IndexPath) -> UITableViewCell {
+        if  let ret = inTableView.dequeueReusableCell(withIdentifier: Self.servceTableCellReuseID),
+            let peripheralInstance = discoveryData.peripheralInstance {
+            let service = peripheralInstance[inIndexPath.row]
+            ret.textLabel?.text = service.id.localizedVariant
+            return ret
+        }
+        
+        return UITableViewCell()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func tableView(_: UITableView, numberOfRowsInSection: Int) -> Int { discoveryData.peripheralInstance?.count ?? 0 }
 }

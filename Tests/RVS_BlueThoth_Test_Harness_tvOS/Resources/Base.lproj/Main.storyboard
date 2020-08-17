@@ -232,6 +232,33 @@
                                     <constraint firstAttribute="width" secondItem="yTN-Tw-602" secondAttribute="height" multiplier="1:1" id="DvZ-PD-Fsa"/>
                                 </constraints>
                             </imageView>
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" sectionHeaderHeight="66" sectionFooterHeight="66" translatesAutoresizingMaskIntoConstraints="NO" id="hkc-nd-YKn">
+                                <rect key="frame" x="90" y="159" width="1740" height="861"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="basic-service" textLabel="z6K-b1-cXT" style="IBUITableViewCellStyleDefault" id="aP2-pi-kVS">
+                                        <rect key="frame" x="0.0" y="66" width="1740" height="66"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aP2-pi-kVS" id="fr3-ZB-exQ">
+                                            <rect key="frame" x="0.0" y="0.0" width="1740" height="66"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="z6K-b1-cXT">
+                                                    <rect key="frame" x="20" y="0.0" width="1700" height="66"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="38"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="b7M-LQ-y02" id="q1U-BO-iig"/>
+                                    <outlet property="delegate" destination="b7M-LQ-y02" id="H1z-Lv-K58"/>
+                                </connections>
+                            </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6iY-z5-Mnr">
                                 <rect key="frame" x="90" y="68" width="1740" height="91"/>
                                 <constraints>
@@ -270,6 +297,8 @@
                         <constraints>
                             <constraint firstItem="yTN-Tw-602" firstAttribute="height" relation="lessThanOrEqual" secondItem="0DU-96-UQX" secondAttribute="height" multiplier="0.6" id="0Zf-5s-z7K"/>
                             <constraint firstItem="6iY-z5-Mnr" firstAttribute="trailing" secondItem="4Eh-WX-xCQ" secondAttribute="trailing" id="AdE-Qu-Oc0"/>
+                            <constraint firstItem="hkc-nd-YKn" firstAttribute="bottom" secondItem="4Eh-WX-xCQ" secondAttribute="bottom" id="EWY-9V-B4p"/>
+                            <constraint firstItem="hkc-nd-YKn" firstAttribute="leading" secondItem="4Eh-WX-xCQ" secondAttribute="leading" id="Iaf-Vn-Hto"/>
                             <constraint firstItem="yTN-Tw-602" firstAttribute="centerX" secondItem="0DU-96-UQX" secondAttribute="centerX" id="LOR-ba-Bkj"/>
                             <constraint firstItem="Ggm-Zt-FlG" firstAttribute="leading" secondItem="4Eh-WX-xCQ" secondAttribute="leading" constant="16" id="MhW-Ps-cUH"/>
                             <constraint firstItem="6iY-z5-Mnr" firstAttribute="leading" secondItem="4Eh-WX-xCQ" secondAttribute="leading" id="P4u-Cs-co1"/>
@@ -286,8 +315,10 @@
                             <constraint firstItem="4Eh-WX-xCQ" firstAttribute="bottom" secondItem="1Ap-Ts-CfT" secondAttribute="bottom" id="jah-fa-uB2"/>
                             <constraint firstItem="BAb-k9-psM" firstAttribute="top" secondItem="0DU-96-UQX" secondAttribute="top" id="mid-wc-odA"/>
                             <constraint firstItem="1Ap-Ts-CfT" firstAttribute="top" secondItem="Ggm-Zt-FlG" secondAttribute="bottom" id="nhl-Ke-ExH"/>
+                            <constraint firstItem="hkc-nd-YKn" firstAttribute="top" secondItem="6iY-z5-Mnr" secondAttribute="bottom" id="q2r-RC-3DC"/>
                             <constraint firstItem="Ggm-Zt-FlG" firstAttribute="height" secondItem="0DU-96-UQX" secondAttribute="height" multiplier="0.25" id="s2q-VT-eY8"/>
                             <constraint firstAttribute="bottom" secondItem="BAb-k9-psM" secondAttribute="bottom" id="vbV-Zn-wgi"/>
+                            <constraint firstItem="4Eh-WX-xCQ" firstAttribute="trailing" secondItem="hkc-nd-YKn" secondAttribute="trailing" id="w6B-DA-Bt3"/>
                             <constraint firstItem="yTN-Tw-602" firstAttribute="width" secondItem="0DU-96-UQX" secondAttribute="width" priority="750" id="y3y-qO-F0s"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4Eh-WX-xCQ"/>
@@ -296,6 +327,7 @@
                     <connections>
                         <outlet property="connectingLabel" destination="Ggm-Zt-FlG" id="Epd-md-pGJ"/>
                         <outlet property="nameLabel" destination="6iY-z5-Mnr" id="a3N-jq-tOq"/>
+                        <outlet property="serviceTableView" destination="hkc-nd-YKn" id="bjt-rU-1D0"/>
                         <outlet property="spinnerContainerView" destination="1Ap-Ts-CfT" id="wv8-NA-eYu"/>
                     </connections>
                 </viewController>
