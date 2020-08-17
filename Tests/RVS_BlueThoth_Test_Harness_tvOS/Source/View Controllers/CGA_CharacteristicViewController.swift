@@ -28,24 +28,18 @@ import RVS_BlueThoth_TVOS
 /* ###################################################################################################################################### */
 /**
  */
-class CGA_ServiceViewController: CGA_BaseViewController {
+class CGA_CharacteristicViewController: CGA_BaseViewController {
     /* ################################################################## */
     /**
-     The reuse ID for each row of the table.
+     The reuse ID for rows with just a label.
      */
-    static let characteristicTableCellReuseID = "basic-characteristic"
-    
-    /* ################################################################## */
-    /**
-     The ID of the segue to show Characteristic detail.
-     */
-    static let characteristicDetailSegueID = "show-characteristic-detail"
+    static let labelTableCellReuseID = "basic-label"
     
     /* ################################################################## */
     /**
      The Service wrapper instance for this Service.
      */
-    var serviceInstance: CGA_Bluetooth_Service!
+    var characteristicInstance: CGA_Bluetooth_Characteristic!
     
     /* ################################################################## */
     /**
@@ -57,13 +51,13 @@ class CGA_ServiceViewController: CGA_BaseViewController {
     /**
      The table that displays the Characteristics.
      */
-    @IBOutlet weak var characteristicsTableView: UITableView!
+    @IBOutlet weak var descriptorsTableView: UITableView!
 }
 
 /* ###################################################################################################################################### */
 // MARK: - Instance Methods -
 /* ###################################################################################################################################### */
-extension CGA_ServiceViewController {
+extension CGA_CharacteristicViewController {
     /* ################################################################## */
     /**
      This sets up the accessibility and voiceover strings for the screen.
@@ -75,14 +69,14 @@ extension CGA_ServiceViewController {
 /* ###################################################################################################################################### */
 // MARK: - Base Class Overrides -
 /* ###################################################################################################################################### */
-extension CGA_ServiceViewController {
+extension CGA_CharacteristicViewController {
     /* ################################################################## */
     /**
      Called just after the view hierarchy has loaded.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        nameLabel?.text = serviceInstance?.id.localizedVariant
+        nameLabel?.text = characteristicInstance?.id.localizedVariant
         updateUI()
     }
     
@@ -95,26 +89,12 @@ extension CGA_ServiceViewController {
     override func viewWillAppear(_ inAnimated: Bool) {
         super.viewWillAppear(inAnimated)
     }
-    
-    /* ################################################################## */
-    /**
-     Called just before the characteristics display screen is pushed.
-     
-     - parameter for: The segue that is being executed.
-     - parameter sender: The discovery information.
-     */
-    override func prepare(for inSegue: UIStoryboardSegue, sender inSender: Any?) {
-        if  let destination = inSegue.destination as? CGA_CharacteristicViewController,
-            let characteristicInstance = inSender as? CGA_Bluetooth_Characteristic {
-            destination.characteristicInstance = characteristicInstance
-        }
-    }
 }
 
 /* ###################################################################################################################################### */
 // MARK: - CGA_UpdatableScreenViewController Conformance -
 /* ###################################################################################################################################### */
-extension CGA_ServiceViewController: CGA_UpdatableScreenViewController {
+extension CGA_CharacteristicViewController: CGA_UpdatableScreenViewController {
     /* ################################################################## */
     /**
      This simply makes sure that the table is displayed if BT is available, or the "No BT" image is shown, if it is not.
@@ -127,35 +107,16 @@ extension CGA_ServiceViewController: CGA_UpdatableScreenViewController {
 /* ###################################################################################################################################### */
 // MARK: - UITableViewDataSource Conformance -
 /* ###################################################################################################################################### */
-extension CGA_ServiceViewController: UITableViewDataSource {
+extension CGA_CharacteristicViewController: UITableViewDataSource {
     /* ################################################################## */
     /**
      */
     func tableView(_ inTableView: UITableView, cellForRowAt inIndexPath: IndexPath) -> UITableViewCell {
-        if  let ret = inTableView.dequeueReusableCell(withIdentifier: Self.characteristicTableCellReuseID),
-            let serviceInstance = serviceInstance {
-            let characteristic = serviceInstance[inIndexPath.row]
-            ret.textLabel?.text = characteristic.id.localizedVariant
-            return ret
-        }
-        
         return UITableViewCell()
     }
     
     /* ################################################################## */
     /**
      */
-    func tableView(_: UITableView, numberOfRowsInSection: Int) -> Int { serviceInstance?.count ?? 0 }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - UITableViewDelegate Conformance -
-/* ###################################################################################################################################### */
-extension CGA_ServiceViewController: UITableViewDelegate {
-    /* ################################################################## */
-    /**
-     */
-    func tableView(_: UITableView, didSelectRowAt inIndexPath: IndexPath) {
-        performSegue(withIdentifier: Self.characteristicDetailSegueID, sender: serviceInstance?[inIndexPath.row])
-    }
+    func tableView(_: UITableView, numberOfRowsInSection: Int) -> Int { 0 }
 }

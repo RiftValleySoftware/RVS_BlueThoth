@@ -416,11 +416,98 @@
                     <connections>
                         <outlet property="characteristicsTableView" destination="V6Q-EC-8rz" id="dps-F4-SSf"/>
                         <outlet property="nameLabel" destination="kVs-2J-sJC" id="lJa-9a-zMe"/>
+                        <segue destination="YrV-4p-VJr" kind="show" identifier="show-characteristic-detail" id="zra-mW-LDh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LZt-Cg-WVz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="7027" y="63"/>
+        </scene>
+        <!--Characteristic View Controller-->
+        <scene sceneID="TJr-e5-rgN">
+            <objects>
+                <viewController id="YrV-4p-VJr" userLabel="Characteristic View Controller" customClass="CGA_CharacteristicViewController" customModule="RVS_BlueThoth_Test_Harness_tvOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ypl-CM-6Wc"/>
+                        <viewControllerLayoutGuide type="bottom" id="cGZ-6y-ODe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="95R-4i-V0K">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="FCl-hp-JCa">
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.15000000596046448" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BlueThothLogo" translatesAutoresizingMaskIntoConstraints="NO" id="ksx-cr-o0e">
+                                <rect key="frame" x="636" y="216" width="648" height="648"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ksx-cr-o0e" secondAttribute="height" multiplier="1:1" id="dO0-34-hOa"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLS-mJ-YcK">
+                                <rect key="frame" x="90" y="60" width="1740" height="91"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="91" id="IUH-QS-7YP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" sectionHeaderHeight="66" sectionFooterHeight="66" translatesAutoresizingMaskIntoConstraints="NO" id="VIq-5L-fdc" userLabel="Descriptors Table View">
+                                <rect key="frame" x="106" y="159" width="1708" height="836"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="basic-label" textLabel="q10-Mq-HGX" style="IBUITableViewCellStyleDefault" id="oOv-4D-1JA" userLabel="basic-label">
+                                        <rect key="frame" x="0.0" y="66" width="1708" height="66"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oOv-4D-1JA" id="gg6-aa-WiG">
+                                            <rect key="frame" x="0.0" y="0.0" width="1708" height="66"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="q10-Mq-HGX">
+                                                    <rect key="frame" x="20" y="0.0" width="1668" height="66"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="YrV-4p-VJr" id="9Lf-kb-ZKk"/>
+                                    <outlet property="delegate" destination="YrV-4p-VJr" id="wio-Ah-VJo"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="FCl-hp-JCa" secondAttribute="bottom" id="7ws-3T-9OI"/>
+                            <constraint firstItem="ksx-cr-o0e" firstAttribute="width" relation="lessThanOrEqual" secondItem="95R-4i-V0K" secondAttribute="width" multiplier="0.6" id="FUu-HD-Zlc"/>
+                            <constraint firstItem="FCl-hp-JCa" firstAttribute="top" secondItem="95R-4i-V0K" secondAttribute="top" id="Gzc-Hi-INX"/>
+                            <constraint firstItem="dLS-mJ-YcK" firstAttribute="leading" secondItem="KWF-Gz-xh9" secondAttribute="leading" id="IGp-SM-SeB"/>
+                            <constraint firstItem="KWF-Gz-xh9" firstAttribute="trailing" secondItem="dLS-mJ-YcK" secondAttribute="trailing" id="KTt-m6-wFS"/>
+                            <constraint firstItem="FCl-hp-JCa" firstAttribute="leading" secondItem="95R-4i-V0K" secondAttribute="leading" id="RcQ-ro-wmc"/>
+                            <constraint firstItem="ksx-cr-o0e" firstAttribute="height" relation="lessThanOrEqual" secondItem="95R-4i-V0K" secondAttribute="height" multiplier="0.6" id="RjN-4l-77f"/>
+                            <constraint firstItem="ksx-cr-o0e" firstAttribute="centerY" secondItem="95R-4i-V0K" secondAttribute="centerY" id="UCl-oW-qM7"/>
+                            <constraint firstItem="ksx-cr-o0e" firstAttribute="height" secondItem="95R-4i-V0K" secondAttribute="height" priority="750" id="W43-57-nF5"/>
+                            <constraint firstAttribute="trailing" secondItem="FCl-hp-JCa" secondAttribute="trailing" id="a1A-Dp-oJE"/>
+                            <constraint firstItem="dLS-mJ-YcK" firstAttribute="top" secondItem="KWF-Gz-xh9" secondAttribute="top" id="cib-ko-nhc"/>
+                            <constraint firstItem="ksx-cr-o0e" firstAttribute="centerX" secondItem="95R-4i-V0K" secondAttribute="centerX" id="hyY-Sb-lGi"/>
+                            <constraint firstItem="ksx-cr-o0e" firstAttribute="width" secondItem="95R-4i-V0K" secondAttribute="width" priority="750" id="ig1-8y-yv9"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="KWF-Gz-xh9"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="tOX-iw-yDh"/>
+                    <connections>
+                        <outlet property="descriptorsTableView" destination="VIq-5L-fdc" id="c3S-Dn-XNA"/>
+                        <outlet property="nameLabel" destination="dLS-mJ-YcK" id="CVq-EH-Oeb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6gM-Qc-X8i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="9364" y="63"/>
         </scene>
     </scenes>
     <resources>
