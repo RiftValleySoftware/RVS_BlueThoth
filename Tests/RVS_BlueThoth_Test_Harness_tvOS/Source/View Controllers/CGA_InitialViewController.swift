@@ -358,7 +358,7 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
             currentScreen.updateUI()
         }
     }
-
+    
     /* ################################################################## */
     /**
      Called to tell the instance that a Service changed.
@@ -371,6 +371,10 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
         #if DEBUG
             print("Service Update Received")
         #endif
+        if let currentScreen = _currentDeviceScreen {
+            currentScreen.updateUI()
+        } else {
+        }
     }
     
     /* ################################################################## */
@@ -395,8 +399,9 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
         } else if   let currentScreen = _currentDeviceScreen as? CGA_WriteableElementContainer,
                     currentScreen.writeableElementInstance?.id == inCharacteristic.id {
             currentScreen.updateUI()
+        } else if   let currentScreen = _currentDeviceScreen {
+            currentScreen.updateUI()
         } else {
-            
         }
     }
 
@@ -420,6 +425,10 @@ extension CGA_InitialViewController: CGA_BlueThoth_Delegate {
                 print("\tDescriptor String Value: \"\(stringValue)\"")
             }
         #endif
+        if let currentScreen = _currentDeviceScreen {
+            currentScreen.updateUI()
+        } else {
+        }
     }
     
     /* ################################################################## */
