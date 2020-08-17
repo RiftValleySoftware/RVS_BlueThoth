@@ -137,6 +137,9 @@ extension CGA_InitialViewController {
      This sets up the accessibility and voiceover strings for the screen.
      */
     func setUpAccessibility() {
+        noBTImage?.accessibilityLabel = "SLUG-ACC-NO-BT-IMAGE".localizedVariant
+        scanningSegmentedControl?.accessibilityLabel = ("SLUG-ACC-SCANNING-BUTTON-O" + ((centralManager?.isScanning ?? false) ? "N" : "FF")).localizedVariant
+        discoveryTableView?.accessibilityLabel = "SLUG-ACC-DEVICELIST-TABLE-MAC".localizedVariant
     }
 }
 

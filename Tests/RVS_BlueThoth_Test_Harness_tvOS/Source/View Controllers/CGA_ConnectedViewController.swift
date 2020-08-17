@@ -81,6 +81,9 @@ extension CGA_ConnectedViewController {
      This sets up the accessibility and voiceover strings for the screen.
      */
     func setUpAccessibility() {
+        connectingLabel?.accessibilityLabel = "SLUG-ACC-CONNECTING-LABEL".localizedVariant
+        spinnerContainerView?.accessibilityLabel = "SLUG-ACC-CONNECTING-LABEL".localizedVariant
+        serviceTableView?.accessibilityLabel = "SLUG-ACC-SERVICES-TABLE".localizedVariant
     }
 }
 

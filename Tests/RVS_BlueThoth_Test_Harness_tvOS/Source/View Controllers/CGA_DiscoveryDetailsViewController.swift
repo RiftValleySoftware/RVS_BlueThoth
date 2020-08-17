@@ -81,6 +81,7 @@ extension CGA_DiscoveryDetailsViewController {
      This sets up the accessibility and voiceover strings for the screen.
      */
     func setUpAccessibility() {
+        connectButton?.accessibilityLabel = "SLUG-ACC-CONNECT-BUTTON".localizedVariant
     }
 }
 

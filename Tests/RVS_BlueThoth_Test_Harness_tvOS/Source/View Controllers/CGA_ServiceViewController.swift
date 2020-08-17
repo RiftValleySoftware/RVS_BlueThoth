@@ -69,6 +69,7 @@ extension CGA_ServiceViewController {
      This sets up the accessibility and voiceover strings for the screen.
      */
     func setUpAccessibility() {
+        characteristicsTableView?.accessibilityLabel = "SLUG-ACC-CHARACTERISTIC-TABLE-WATCH".localizedVariant
     }
 }
 

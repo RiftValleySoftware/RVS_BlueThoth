@@ -146,6 +146,7 @@ extension CGA_CharacteristicViewController {
      This sets up the accessibility and voiceover strings for the screen.
      */
     func setUpAccessibility() {
+        descriptorsTableView?.accessibilityLabel = "SLUG-ACC-CHARACTERISTIC-ELEMENTS-TABLE-WATCH".localizedVariant
     }
     
     /* ################################################################## */
@@ -287,8 +288,9 @@ extension CGA_CharacteristicViewController: UITableViewDataSource {
     func tableView(_ inTableView: UITableView, cellForRowAt inIndexPath: IndexPath) -> UITableViewCell {
         if let ret = inTableView.dequeueReusableCell(withIdentifier: Self.labelTableCellReuseID) {
             ret.textLabel?.text = tableRowData[inIndexPath.row].title
-            ret.textLabel?.isEnabled = !(nil == tableRowData[inIndexPath.row].action)
-            
+            ret.textLabel?.isEnabled = nil != tableRowData[inIndexPath.row].action
+            ret.selectionStyle = (nil == tableRowData[inIndexPath.row].action) ? .default : .none
+            ret.isUserInteractionEnabled = nil != tableRowData[inIndexPath.row].action
             return ret
         }
         return UITableViewCell()
