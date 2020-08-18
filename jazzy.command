@@ -19,7 +19,7 @@ jazzy   --readme ./Sources/RVS_BlueThoth/README-PUBLIC.md \
         --exclude ./Sources/RVS_BlueThoth/Implementation/Peripherals/CGA_Bluetooth_Peripheral_Callbacks.swift,./Sources/RVS_BlueThoth/RVS_BlueThoth_Callbacks.swift \
         --output docs/framework-public \
         --build-tool-arguments -scheme,"RVS_BlueThoth_iOS"
-cp ./Sources/RVS_BlueThoth/img/* docs/framework-public/img
+cp ./img/* docs/framework-public/img
 
 echo "\nCreating Internal API Docs for the iOS Test Harness and Framework\n"
 
