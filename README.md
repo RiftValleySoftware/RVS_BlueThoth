@@ -82,7 +82,7 @@ Once you have the package installed, you'll need to import the module into any f
 
 RVS_BlueThoth implements [a Delegate pattern](https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Delegation.html) (but implemented more like an [Observer](https://en.wikipedia.org/wiki/Observer_pattern)).
 
-In order to reduce the complexity of the SDK, we have created [a single "bottleneck" delegate protocol](https://riftvalleysoftware.github.io/RVS_BlueThoth/framework-internal/Protocols/CGA_BlueThoth_Delegate.html), that handles all responses from the SDK.
+In order to reduce the complexity of the SDK, we have created [a single "bottleneck" delegate protocol](https://riftvalleysoftware.github.io/RVS_BlueThoth/framework-public/Protocols/CGA_BlueThoth_Delegate.html), that handles all responses from the SDK.
 
 If you are implementing an application-focused layer over RVS_BlueThoth, then you may want to consider dividing this into Observers or Bindings. That's up to you. In order to use the SDK, you need to have a single delegate that can handle the various callbacks, and dispatch them accordingly.
 
@@ -94,10 +94,10 @@ The delegate needs to be a class (as opposed to a struct), and is weakly referen
 
 Examples of the delegate in the four test harnesses are in the following source files:
 
-- [The iOS Test Harness](https://github.com/RiftValleySoftware/RVS_BlueThoth/blob/master/Tests/RVS_BlueThoth_Test_Harness_iOS/Source/View%20Controllers/Navigation%20Screens/CGA_InitialViewController.swift)
-- [The MacOS Test Harness](https://github.com/RiftValleySoftware/RVS_BlueThoth/blob/master/Tests/RVS_BlueThoth_Test_Harness_MacOS/Source/Main/RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.swift)
-- [The WatchOS Test Harness](https://github.com/RiftValleySoftware/RVS_BlueThoth/blob/master/Tests/RVS_BlueThoth_Test_Harness_WatchOS/RVS_BlueThoth_Test_Harness_WatchOS_Extension/RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.swift)
-- [The tvOS Test Harness](https://github.com/RiftValleySoftware/RVS_BlueThoth/blob/master/Tests/RVS_BlueThoth_Test_Harness_tvOS/Source/Main/CGA_AppDelegate.swift)
+- [The iOS Test Harness](https://github.com/RiftValleySoftware/RVS_BlueThoth/blob/master/Tests/RVS_BlueThoth_Test_Harness_iOS/Source/View%20Controllers/Navigation%20Screens/CGA_InitialViewController.swift#L443)
+- [The MacOS Test Harness](https://github.com/RiftValleySoftware/RVS_BlueThoth/blob/master/Tests/RVS_BlueThoth_Test_Harness_MacOS/Source/Main/RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.swift#L209)
+- [The WatchOS Test Harness](https://github.com/RiftValleySoftware/RVS_BlueThoth/blob/master/Tests/RVS_BlueThoth_Test_Harness_WatchOS/RVS_BlueThoth_Test_Harness_WatchOS_Extension/RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.swift#L318)
+- [The tvOS Test Harness](https://github.com/RiftValleySoftware/RVS_BlueThoth/blob/master/Tests/RVS_BlueThoth_Test_Harness_tvOS/Source/View%20Controllers/Navigation/CGA_InitialViewController.swift#L299)
 
 ## Creating An Instance
 
@@ -105,7 +105,7 @@ We start by instantiating [the RVS_BlueThoth class](https://github.com/RiftValle
 
     CGA_AppDelegate.centralManager = RVS_BlueThoth(delegate: self)
 
-This example is from [the tvOS Test Harness](https://github.com/RiftValleySoftware/RVS_BlueThoth/blob/master/Tests/RVS_BlueThoth_Test_Harness_tvOS/Source/View%20Controllers/Navigation/CGA_InitialViewController.swift)
+This example is from [the tvOS Test Harness](https://github.com/RiftValleySoftware/RVS_BlueThoth/blob/master/Tests/RVS_BlueThoth_Test_Harness_tvOS/Source/View%20Controllers/Navigation/CGA_InitialViewController.swift#L184)
 
 Note that we provide the delegate immediately. It is likely to get a callback quickly, indicating that the Bluetooth system is set up, and ready to start scanning for peripherals.
 
