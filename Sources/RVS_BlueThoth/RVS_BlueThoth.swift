@@ -56,7 +56,7 @@ public class RVS_BlueThoth: NSObject, RVS_SequenceProtocol {
 
     /* ################################################################## */
     /**
-     If tue (default), then scanning is done with duplicate filtering on, which reduces the number of times the discovery callback is made.
+     If true (default), then scanning is done with duplicate filtering on, which reduces the number of times the discovery callback is made.
      */
     public var duplicateFilteringIsOn: Bool = true
     
