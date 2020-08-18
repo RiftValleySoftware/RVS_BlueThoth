@@ -328,7 +328,7 @@
 <p>Note that we provide the delegate immediately. It is likely to get a callback quickly, indicating that the Bluetooth system is set up, and ready to start scanning for peripherals.</p>
 <h2 id='scanning-for-peripherals' class='heading'>Scanning for Peripherals</h2>
 
-<p>Once the Bluetooth system is ready, we can start scanning for Peripherals (also from the tvOS test harness):</p>
+<p>Once the Bluetooth system is ready, we can start scanning for Peripherals (<a href="https://github.com/RiftValleySoftware/RVS_BlueThoth/blob/master/Tests/RVS_BlueThoth_Test_Harness_tvOS/Source/View%20Controllers/Navigation/CGA_InitialViewController.swift#L111">also from the tvOS test harness</a>):</p>
 <pre class="highlight plaintext"><code>centralManager?.scanCriteria = scanCriteria
 centralManager?.minimumRSSILevelIndBm = prefs.minimumRSSILevel
 centralManager?.discoverOnlyConnectablePeripherals = prefs.discoverOnlyConnectableDevices

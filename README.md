@@ -111,7 +111,7 @@ Note that we provide the delegate immediately. It is likely to get a callback qu
 
 ## Scanning for Peripherals
 
-Once the Bluetooth system is ready, we can start scanning for Peripherals (also from the tvOS test harness):
+Once the Bluetooth system is ready, we can start scanning for Peripherals ([also from the tvOS test harness](https://github.com/RiftValleySoftware/RVS_BlueThoth/blob/master/Tests/RVS_BlueThoth_Test_Harness_tvOS/Source/View%20Controllers/Navigation/CGA_InitialViewController.swift#L111)):
 
     centralManager?.scanCriteria = scanCriteria
     centralManager?.minimumRSSILevelIndBm = prefs.minimumRSSILevel
