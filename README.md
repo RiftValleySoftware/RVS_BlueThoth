@@ -62,7 +62,7 @@ RVS_BlueThoth does not implement [unit tests](https://developer.apple.com/librar
 
 ## The Test Harness Apps Are Serious code
 
-Each of the test harness apps is a fully-qualified, "App Store release-ready" application. They act as "Bluetooth sniffer" apps. In fact, [the iOS test harness]() has actually been converted into [a released app on the iOS App Store](https://riftvalleysoftware.com/work/ios-apps/bluevanclef/) ([here is the source code](https://github.com/RiftValleySoftware/BlueVanClef)).
+Each of the test harness apps is a fully-qualified, "App Store release-ready" application. They act as "Bluetooth sniffer" apps. In fact, [the iOS test harness](https://github.com/RiftValleySoftware/RVS_BlueThoth/tree/master/Tests/RVS_BlueThoth_Test_Harness_iOS) has actually been converted into [a released app on the iOS App Store](https://riftvalleysoftware.com/work/ios-apps/bluevanclef/) ([here is the source code](https://github.com/RiftValleySoftware/BlueVanClef)).
 
 They should provide excellent "starting points," when learning to implement the SDK.
 
