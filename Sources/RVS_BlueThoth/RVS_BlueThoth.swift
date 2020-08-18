@@ -158,7 +158,7 @@ public class RVS_BlueThoth: NSObject, RVS_SequenceProtocol {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - Private Instance Methods -
+// MARK: - Internal Instance Methods -
 /* ###################################################################################################################################### */
 /**
  These methods ensure that the delegate calls are made in the main thread.
@@ -207,7 +207,7 @@ extension RVS_BlueThoth {
     /**
      This is called to send a new peripheral message to the delegate.
      */
-    private func _sendConnectedPeripheral(_ inPeripheral: CGA_Bluetooth_Peripheral) {
+    internal func _sendConnectedPeripheral(_ inPeripheral: CGA_Bluetooth_Peripheral) {
         DispatchQueue.main.async {
             #if DEBUG
                 print("Sending a connected Peripheral message to the delegate.")
@@ -220,7 +220,7 @@ extension RVS_BlueThoth {
     /**
      This is called to send a Device update message to the delegate.
      */
-    private func _sendDeviceUpdate(_ inDevice: CGA_Bluetooth_Peripheral) {
+    internal func _sendDeviceUpdate(_ inDevice: CGA_Bluetooth_Peripheral) {
         DispatchQueue.main.async {
             #if DEBUG
                 print("Sending a Device Update message to the delegate.")
@@ -233,7 +233,7 @@ extension RVS_BlueThoth {
     /**
      This is called to send a Device Ready for Write message to the delegate.
      */
-    private func _sendDeviceReadyForWrite(_ inDevice: CGA_Bluetooth_Peripheral) {
+    internal func _sendDeviceReadyForWrite(_ inDevice: CGA_Bluetooth_Peripheral) {
         DispatchQueue.main.async {
             #if DEBUG
                 print("Sending a Device Ready For Write message to the delegate.")
@@ -246,7 +246,7 @@ extension RVS_BlueThoth {
     /**
      This is called to send a Service update message to the delegate.
      */
-    private func _sendServiceUpdate(_ inService: CGA_Bluetooth_Service) {
+    internal func _sendServiceUpdate(_ inService: CGA_Bluetooth_Service) {
         DispatchQueue.main.async {
             #if DEBUG
                 print("Sending a Service Update message to the delegate.")
@@ -261,7 +261,7 @@ extension RVS_BlueThoth {
     /**
      This is called to send a Characteristic Write Complete message to the delegate.
      */
-    private func _sendCharacteristicWriteComplete(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
+    internal func _sendCharacteristicWriteComplete(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
         DispatchQueue.main.async {
             #if DEBUG
                 print("Sending a Characteristic Write Complete message to the delegate.")
@@ -277,7 +277,7 @@ extension RVS_BlueThoth {
     /**
      This is called to send a Characteristic notification update message to the delegate.
      */
-    private func _sendCharacteristicNotificationUpdate(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
+    internal func _sendCharacteristicNotificationUpdate(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
         DispatchQueue.main.async {
             if  let service = inCharacteristic.service,
                 let device = service.peripheral {
@@ -293,7 +293,7 @@ extension RVS_BlueThoth {
     /**
      This is called to send a Characteristic update message to the delegate.
      */
-    private func _sendCharacteristicUpdate(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
+    internal func _sendCharacteristicUpdate(_ inCharacteristic: CGA_Bluetooth_Characteristic) {
         DispatchQueue.main.async {
             if  let service = inCharacteristic.service,
                 let device = service.peripheral {
@@ -312,7 +312,7 @@ extension RVS_BlueThoth {
     /**
      This is called to send a Descriptor update message to the delegate.
      */
-    private func _sendDescriptorUpdate(_ inDescriptor: CGA_Bluetooth_Descriptor) {
+    internal func _sendDescriptorUpdate(_ inDescriptor: CGA_Bluetooth_Descriptor) {
         DispatchQueue.main.async {
             #if DEBUG
                 print("Sending a Descriptor Update message to the delegate.")
@@ -586,100 +586,6 @@ extension RVS_BlueThoth {
         #endif
         _sendPeripheralDisconnect(inPeripheral)
         sequence_contents.removeThisDevice(inPeripheral.discoveryData.cbPeripheral)
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - CGA_Class_UpdateDescriptor Conformance -
-/* ###################################################################################################################################### */
-extension RVS_BlueThoth: CGA_Class_Protocol_UpdateDescriptor {
-    /* ################################################################## */
-    /**
-     This returns the parent Central Manager(Ourself)
-     */
-    public var central: RVS_BlueThoth? { self }
-
-    /* ################################################################## */
-    /**
-     This class is the "endpoint" of all errors, so it passes the error back to the delegate.
-     */
-    public func handleError(_ inError: CGA_Errors) { reportError(inError) }
-    
-    /* ################################################################## */
-    /**
-     The Central Manager does not have a UUID.
-     */
-    public var id: String { "" }
-    
-    /* ################################################################## */
-    /**
-     This is called to inform an instance that a Device changed.
-     
-     - parameter inDevice: The Peripheral wrapper instance that changed.
-     */
-    public func updateThisDevice(_ inDevice: CGA_Bluetooth_Peripheral) { _sendDeviceUpdate(inDevice) }
-    
-    /* ################################################################## */
-    /**
-     This is called to inform an instance that a Device is ready for a write.
-     
-     - parameter inDevice: The Peripheral wrapper instance that is ready for a write.
-     */
-    public func sendDeviceReadyForWrite(_ inDevice: CGA_Bluetooth_Peripheral) { _sendDeviceReadyForWrite(inDevice) }
-    
-    /* ################################################################## */
-    /**
-     This is called to inform an instance that a Service changed.
-     
-     - parameter inService: The Service wrapper instance that changed.
-     */
-    public func updateThisService(_ inService: CGA_Bluetooth_Service) { _sendServiceUpdate(inService) }
-    
-    /* ################################################################## */
-    /**
-     This is called to inform an instance that a Characteristic downstream changed.
-     
-     - parameter inCharacteristic: The Characteristic wrapper instance that reported a write complete.
-     */
-    public func reportWriteCompleteForThisCharacteristic(_ inCharacteristic: CGA_Bluetooth_Characteristic) { _sendCharacteristicWriteComplete(inCharacteristic) }
-    
-    /* ################################################################## */
-    /**
-     This is called to inform an instance that a Characteristic changed its notification state.
-     
-     - parameter inCharacteristic: The Characteristic wrapper instance that changed.
-     */
-    public func updateThisCharacteristicNotificationState(_ inCharacteristic: CGA_Bluetooth_Characteristic) { _sendCharacteristicNotificationUpdate(inCharacteristic) }
-    
-    /* ################################################################## */
-    /**
-     This is called to inform an instance that a Characteristic downstream changed.
-     
-     - parameter inCharacteristic: The Characteristic wrapper instance that changed.
-     */
-    public func updateThisCharacteristic(_ inCharacteristic: CGA_Bluetooth_Characteristic) { _sendCharacteristicUpdate(inCharacteristic) }
-
-    /* ################################################################## */
-    /**
-     This is called to inform an instance that a Descriptor downstream changed.
-     
-     - parameter inDescriptor: The Descriptor wrapper instance that changed.
-     */
-    public func updateThisDescriptor(_ inDescriptor: CGA_Bluetooth_Descriptor) { _sendDescriptorUpdate(inDescriptor) }
-    
-    /* ################################################################## */
-    /**
-     This eliminates all of the stored and staged results.
-     */
-    public func clear() {
-        #if DEBUG
-            print("Clearing the decks.")
-        #endif
-        
-        stagedBLEPeripherals = []
-        ignoredBLEPeripherals = []
-        sequence_contents = []
-        _updateDelegate()
     }
 }
 

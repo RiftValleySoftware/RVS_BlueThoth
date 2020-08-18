@@ -184,7 +184,5 @@ extension CGA_AppDelegate: UIApplicationDelegate {
      
      - returns: true, if the application to finish launch. False will abort the launch.
      */
-    func application(_: UIApplication, didFinishLaunchingWithOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        return true
-    }
+    func application(_: UIApplication, didFinishLaunchingWithOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool { true }
 }

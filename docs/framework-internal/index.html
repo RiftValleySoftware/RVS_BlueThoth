@@ -234,22 +234,111 @@
             <p><img src="img/icon.png" alt="Icon"></p>
 <h1 id='rvs_bluethoth' class='heading'>RVS_BlueThoth</h1>
 
-<p>This is a Bluetooth SDK for &ldquo;Central&rdquo; (Client) Core Bluetooth (BLE) implementation.</p>
+<p>This is a low-level, <a href="https://developer.apple.com/swift/">native Swift</a> Bluetooth SDK for <a href="https://developer.apple.com/documentation/corebluetooth/cbcentralmanager">&ldquo;Central&rdquo; (Client)</a> Core Bluetooth (BLE) implementation.</p>
 
 <p>It abstracts some of the more &ldquo;tedious&rdquo; aspects of using Core Bluetooth; allowing the app to easily implement a Bluetooth Client functionality.</p>
 
-<p><a href="https://github.com/RiftValleySoftware/RVS_BlueThoth">This is the GitHub repo for this project.</a> It is 100% open-source, MIT-licensed code.</p>
-<h1 id='installation' class='heading'>INSTALLATION</h1>
-<h2 id='a-href-https-swift-org-package-manager-this-project-requires-use-of-the-swift-package-manager-spm-a' class='heading'><a href="https://swift.org/package-manager/">This Project Requires Use of  the Swift Package Manager (SPM)</a></h2>
+<p><a href="https://github.com/RiftValleySoftware/RVS_BlueThoth">This is the GitHub repo for this project.</a></p>
 
-<p>If you are unfamiliar with the SPM, <a href="https://littlegreenviper.com/series/spm/">this series</a> may be helpful.
-You can use SPM to load the project as a dependency, by referencing its <a href="https://github.com/RiftValleySoftware/RVS_BlueThoth/">GitHub Repo</a> URI (SSH: <a href="git@github.com:RiftValleySoftware/RVS_BlueThoth.git">git@github.com:RiftValleySoftware/RVS_BlueThoth.git</a>, or HTTPS: <a href="https://github.com/RiftValleySoftware/RVS_BlueThoth.git">https://github.com/RiftValleySoftware/RVS_BlueThoth.git</a>).</p>
+<p><a href="https://riftvalleysoftware.github.io/RVS_BlueThoth/">This is the project technical documentation</a></p>
+<h1 id='what-problem-does-this-solve' class='heading'>WHAT PROBLEM DOES THIS SOLVE?</h1>
 
-<p>Once you have the dependency attached, you reference it by adding an import to the files that consume the package:</p>
+<p>Implementing <a href="https://developer.apple.com/documentation/corebluetooth">the Apple Core Bluetooth SDK</a> can be a rather tedious process. For example, discovery of <a href="https://developer.apple.com/documentation/corebluetooth/cbservice">Services</a>, <a href="https://developer.apple.com/documentation/corebluetooth/cbcharacteristic">Characteristics</a>, and <a href="https://developer.apple.com/documentation/corebluetooth/cbdescriptor">Descriptors</a> can be intricate and time-consuming. RVS_BlueThoth takes care of that in the &ldquo;background,&rdquo; allowing you to concentrate on providing a richer experience to the users of your application or SDK.</p>
+<h1 id='low-level-sdk' class='heading'>LOW-LEVEL SDK</h1>
+
+<p>RVS_BlueThoth is not really designed to be a direct dependency of an application-layer system (although it is demonstrated that way, in <a href="https://github.com/RiftValleySoftware/RVS_BlueThoth/tree/master/Tests">the test harnesses</a>). Rather, it is designed to be the basis for application-specific <a href="https://en.wikipedia.org/wiki/Facade_pattern">&ldquo;Façade&rdquo;</a> layers, such as <a href="https://en.wikipedia.org/wiki/On-board_diagnostics">OBD</a> adapters, or <a href="https://gotennamesh.com">mesh device</a> drivers.</p>
+<h1 id='ultra-high-quality' class='heading'>ULTRA-HIGH QUALITY</h1>
+
+<p>The basic philosophy behind RVS_BlueThoth, is that it is a fundamental infrastructure element, and, as such, it needs to be of the highest quality possible. All efforts have been made to ensure that it works flawlessly.</p>
+<h1 id='license' class='heading'>LICENSE</h1>
+
+<p>RVS_BlueThoth is 100% open-source, <a href="https://opensource.org/licenses/MIT">MIT-licensed</a> code.</p>
+
+<p>You are free to use it as you wish, but be aware that we are under no obligation to support the project, and there are NO GUARANTEES as to whether or not it is fit for your purposes.</p>
+<h1 id='requirements' class='heading'>REQUIREMENTS</h1>
+<h2 id='external-dependencies' class='heading'>External Dependencies</h2>
+<h3 id='a-href-https-swift-org-package-manager-this-project-requires-use-of-the-swift-package-manager-spm-a' class='heading'><a href="https://swift.org/package-manager/">This Project Requires Use of the Swift Package Manager (SPM)</a></h3>
+
+<p>If you are unfamiliar with the SPM, <a href="https://littlegreenviper.com/series/spm/">this series</a> may be helpful.</p>
+
+<p>RVS_BlueThoth has one external build dependency: <a href="https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox">the RVS_Generic_Swift_Toolbox Project</a> (also written and supported by The Great Rift Valley Software Company). If you wish to build <a href="https://github.com/RiftValleySoftware/RVS_BlueThoth/tree/master/Tests">the test harnesses</a>, then you also need <a href="https://github.com/RiftValleySoftware/RVS_PersistentPrefs">the RVS_PersistentPrefs Project</a>.</p>
+
+<p><a href="https://github.com/RiftValleySoftware/RVS_BlueThoth/tree/master/RVS_BlueThoth.xcworkspace">The included XCode workspace</a> has these dependencies already.</p>
+<h2 id='native-swift-only' class='heading'>Native Swift Only</h2>
+
+<p>RVS_BlueThoth is a fully native Swift SDK. It does not interface with Objective-C.</p>
+
+<p>RVS_BlueThoth will work on all of the Apple operating systems (<a href="https://www.apple.com/ios">iOS</a>/<a href="https://www.apple.com/ipados">iPadOS</a>, <a href="https://www.apple.com/macos">MacOS</a>, <a href="https://www.apple.com/tvos/">tvOS</a>, and <a href="https://www.apple.com/watchos/">WatchOS</a>). It can be incorporated into projects that target any of these environments.</p>
+<h2 id='static-library' class='heading'>Static Library</h2>
+
+<p>The SPM build is provided as a static library, as opposed to <a href="https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/OverviewOfDynamicLibraries.html">a dynamic framework</a>. RVS_BlueThoth is a fairly &ldquo;light&rdquo; codebase, and is likely to be one of the smaller components of any given project. If you prefer a dynamic library, it can be easily changed in <a href="https://github.com/RiftValleySoftware/RVS_BlueThoth/blob/master/Package.swift">the <code>Package.swift</code> file</a> for the project. There are no resource, or non-code components, in the SDK. It is a simple executable codebase.</p>
+<h2 id='will-not-work-on-a-simulator' class='heading'>Will Not Work On A simulator</h2>
+
+<p>It should be noted that Core Bluetooth requires use of a device; not a simulator. The library will not work on a simulator, registering a Bluetooth Not Available error.</p>
+<h1 id='testing' class='heading'>TESTING</h1>
+
+<p>RVS_BlueThoth does not implement <a href="https://developer.apple.com/library/archive/documentation/ToolsLanguages/Conceptual/Xcode_Overview/UnitTesting.html">unit tests</a>. Instead, it provides four <a href="https://github.com/RiftValleySoftware/RVS_PersistentPrefs/tree/master/Tests">test harness apps</a>; one for each of the supported platforms (<a href="https://github.com/RiftValleySoftware/RVS_BlueThoth/tree/master/Tests/RVS_BlueThoth_Test_Harness_iOS">iOS/iPadOS</a>, <a href="https://github.com/RiftValleySoftware/RVS_BlueThoth/tree/master/Tests/RVS_BlueThoth_Test_Harness_MacOS">MacOS</a>, <a href="https://github.com/RiftValleySoftware/RVS_BlueThoth/tree/master/Tests/RVS_BlueThoth_Test_Harness_tvOS">tvOS</a>, and <a href="https://github.com/RiftValleySoftware/RVS_BlueThoth/tree/master/Tests/RVS_BlueThoth_Test_Harness_WatchOS">WatchOS</a>).</p>
+
+<p><a href="https://littlegreenviper.com/miscellany/testing-harness-vs-unit/">Here is an article that explains the philosophy behind the use of test harnesses.</a></p>
+<h2 id='the-test-harness-apps-are-serious-code' class='heading'>The Test Harness Apps Are Serious code</h2>
+
+<p>Each of the test harness apps is a fully-qualified, &ldquo;App Store release-ready&rdquo; application. They act as &ldquo;Bluetooth sniffer&rdquo; apps. In fact, <a href="">the iOS test harness</a> has actually been converted into <a href="https://riftvalleysoftware.com/work/ios-apps/bluevanclef/">a released app on the iOS App Store</a> (<a href="https://github.com/RiftValleySoftware/BlueVanClef">here is the source code</a>).</p>
+
+<p>They should provide excellent &ldquo;starting points,&rdquo; when learning to implement the SDK.</p>
+<h1 id='implementation' class='heading'>IMPLEMENTATION</h1>
+<h2 id='installation' class='heading'>Installation</h2>
+
+<p>As noted previously, you should use <a href="https://swift.org/package-manager/">the Swift Package Manager (SPM)</a> to import the project into your own project. If you are unsure how to do that, then <a href="https://littlegreenviper.com/miscellany/spm/implementing-swift-package-manager-05/">this article may be quite helpful</a>.</p>
+
+<p>The SSH GitHub URI is <a href="git@github.com:RiftValleySoftware/RVS_BlueThoth.git"><code>git@github.com:RiftValleySoftware/RVS_BlueThoth.git</code></a>, and the HTTPS GitHub URI is <a href="https://github.com/RiftValleySoftware/RVS_BlueThoth.git"><code>https://github.com/RiftValleySoftware/RVS_BlueThoth.git</code></a>).</p>
+
+<p>Once you have the package installed, you&rsquo;ll need to import the module into any files that use it, by adding the following to the beginning of the file:</p>
 <pre class="highlight plaintext"><code>import RVS_BlueThoth
 </code></pre>
+<h2 id='delegate-required' class='heading'>Delegate Required</h2>
 
-<p>This project has a couple of sub-dependencies to the <a href="https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox">RVS_Generic_Swift_Toolbox</a> project (required to use the SDK), and the <a href="https://github.com/RiftValleySoftware/RVS_PersistentPrefs">RVS_Persistent_Prefs project</a> (which is only used for the test harness, and is not necessary for the SDK user).</p>
+<p>RVS_BlueThoth implements <a href="https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Delegation.html">a Delegate pattern</a> (but implemented more like an <a href="https://en.wikipedia.org/wiki/Observer_pattern">Observer</a>).</p>
+
+<p>In order to reduce the complexity of the SDK, we have created <a href="https://riftvalleysoftware.github.io/RVS_BlueThoth/framework-internal/Protocols/CGA_BlueThoth_Delegate.html">a single &ldquo;bottleneck&rdquo; delegate protocol</a>, that handles all responses from the SDK.</p>
+
+<p>If you are implementing an application-focused layer over RVS_BlueThoth, then you may want to consider dividing this into Observers or Bindings. That&rsquo;s up to you. In order to use the SDK, you need to have a single delegate that can handle the various callbacks, and dispatch them accordingly.</p>
+
+<p>The delegate is &ldquo;one-way,&rdquo; like an observer. It receives callbacks from the SDK, and does not respond in any way.</p>
+
+<p>All delegate callbacks are in the main thread.</p>
+
+<p>The delegate needs to be a class (as opposed to a struct), and is weakly referenced from within the SDK (meaning that you need to make sure that it stays around).</p>
+
+<p>Examples of the delegate in the four test harnesses are in the following source files:</p>
+
+<ul>
+<li><a href="https://github.com/RiftValleySoftware/RVS_BlueThoth/blob/master/Tests/RVS_BlueThoth_Test_Harness_iOS/Source/View%20Controllers/Navigation%20Screens/CGA_InitialViewController.swift">The iOS Test Harness</a></li>
+<li><a href="https://github.com/RiftValleySoftware/RVS_BlueThoth/blob/master/Tests/RVS_BlueThoth_Test_Harness_MacOS/Source/Main/RVS_BlueThoth_Test_Harness_MacOS_AppDelegate.swift">The MacOS Test Harness</a></li>
+<li><a href="https://github.com/RiftValleySoftware/RVS_BlueThoth/blob/master/Tests/RVS_BlueThoth_Test_Harness_WatchOS/RVS_BlueThoth_Test_Harness_WatchOS_Extension/RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.swift">The WatchOS Test Harness</a></li>
+<li><a href="https://github.com/RiftValleySoftware/RVS_BlueThoth/blob/master/Tests/RVS_BlueThoth_Test_Harness_tvOS/Source/Main/CGA_AppDelegate.swift">The tvOS Test Harness</a></li>
+</ul>
+<h2 id='creating-an-instance' class='heading'>Creating An Instance</h2>
+
+<p>We start by instantiating <a href="https://github.com/RiftValleySoftware/RVS_BlueThoth/blob/master/Sources/RVS_BlueThoth/RVS_BlueThoth.swift">the RVS_BlueThoth class</a>:</p>
+<pre class="highlight plaintext"><code>CGA_AppDelegate.centralManager = RVS_BlueThoth(delegate: self)
+</code></pre>
+
+<p>This example is from <a href="https://github.com/RiftValleySoftware/RVS_BlueThoth/blob/master/Tests/RVS_BlueThoth_Test_Harness_tvOS/Source/View%20Controllers/Navigation/CGA_InitialViewController.swift">the tvOS Test Harness</a></p>
+
+<p>Note that we provide the delegate immediately. It is likely to get a callback quickly, indicating that the Bluetooth system is set up, and ready to start scanning for peripherals.</p>
+<h2 id='scanning-for-peripherals' class='heading'>Scanning for Peripherals</h2>
+
+<p>Once the Bluetooth system is ready, we can start scanning for Peripherals (also from the tvOS test harness):</p>
+<pre class="highlight plaintext"><code>centralManager?.scanCriteria = scanCriteria
+centralManager?.minimumRSSILevelIndBm = prefs.minimumRSSILevel
+centralManager?.discoverOnlyConnectablePeripherals = prefs.discoverOnlyConnectableDevices
+centralManager?.allowEmptyNames = prefs.allowEmptyNames
+centralManager?.startScanning(duplicateFilteringIsOn: !prefs.continuouslyUpdatePeripherals)
+</code></pre>
+
+<p>It is possible to set a few properties that control how to deal with discovered Peripherals.</p>
+
+<p>From here, on, it is best to use <a href="https://riftvalleysoftware.github.io/RVS_BlueThoth/framework-public/Classes/RVS_BlueThoth.html">the technical documentation</a>.</p>
 
           </div>
         </section>
@@ -258,7 +347,7 @@ You can use SPM to load the project as a dependency, by referencing its <a href=
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-08-15)</p>
+      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-08-18)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

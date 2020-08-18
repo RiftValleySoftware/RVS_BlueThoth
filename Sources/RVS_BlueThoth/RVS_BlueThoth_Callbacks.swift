@@ -292,3 +292,97 @@ extension RVS_BlueThoth: CBCentralManagerDelegate {
         }
     }
 }
+
+/* ###################################################################################################################################### */
+// MARK: - CGA_Class_UpdateDescriptor Conformance -
+/* ###################################################################################################################################### */
+extension RVS_BlueThoth: CGA_Class_Protocol_UpdateDescriptor {
+    /* ################################################################## */
+    /**
+     This returns the parent Central Manager(Ourself)
+     */
+    public var central: RVS_BlueThoth? { self }
+
+    /* ################################################################## */
+    /**
+     This class is the "endpoint" of all errors, so it passes the error back to the delegate.
+     */
+    public func handleError(_ inError: CGA_Errors) { reportError(inError) }
+    
+    /* ################################################################## */
+    /**
+     The Central Manager does not have a UUID.
+     */
+    public var id: String { "" }
+    
+    /* ################################################################## */
+    /**
+     This is called to inform an instance that a Device changed.
+     
+     - parameter inDevice: The Peripheral wrapper instance that changed.
+     */
+    public func updateThisDevice(_ inDevice: CGA_Bluetooth_Peripheral) { _sendDeviceUpdate(inDevice) }
+    
+    /* ################################################################## */
+    /**
+     This is called to inform an instance that a Device is ready for a write.
+     
+     - parameter inDevice: The Peripheral wrapper instance that is ready for a write.
+     */
+    public func sendDeviceReadyForWrite(_ inDevice: CGA_Bluetooth_Peripheral) { _sendDeviceReadyForWrite(inDevice) }
+    
+    /* ################################################################## */
+    /**
+     This is called to inform an instance that a Service changed.
+     
+     - parameter inService: The Service wrapper instance that changed.
+     */
+    public func updateThisService(_ inService: CGA_Bluetooth_Service) { _sendServiceUpdate(inService) }
+    
+    /* ################################################################## */
+    /**
+     This is called to inform an instance that a Characteristic downstream changed.
+     
+     - parameter inCharacteristic: The Characteristic wrapper instance that reported a write complete.
+     */
+    public func reportWriteCompleteForThisCharacteristic(_ inCharacteristic: CGA_Bluetooth_Characteristic) { _sendCharacteristicWriteComplete(inCharacteristic) }
+    
+    /* ################################################################## */
+    /**
+     This is called to inform an instance that a Characteristic changed its notification state.
+     
+     - parameter inCharacteristic: The Characteristic wrapper instance that changed.
+     */
+    public func updateThisCharacteristicNotificationState(_ inCharacteristic: CGA_Bluetooth_Characteristic) { _sendCharacteristicNotificationUpdate(inCharacteristic) }
+    
+    /* ################################################################## */
+    /**
+     This is called to inform an instance that a Characteristic downstream changed.
+     
+     - parameter inCharacteristic: The Characteristic wrapper instance that changed.
+     */
+    public func updateThisCharacteristic(_ inCharacteristic: CGA_Bluetooth_Characteristic) { _sendCharacteristicUpdate(inCharacteristic) }
+
+    /* ################################################################## */
+    /**
+     This is called to inform an instance that a Descriptor downstream changed.
+     
+     - parameter inDescriptor: The Descriptor wrapper instance that changed.
+     */
+    public func updateThisDescriptor(_ inDescriptor: CGA_Bluetooth_Descriptor) { _sendDescriptorUpdate(inDescriptor) }
+    
+    /* ################################################################## */
+    /**
+     This eliminates all of the stored and staged results.
+     */
+    public func clear() {
+        #if DEBUG
+            print("Clearing the decks.")
+        #endif
+        
+        stagedBLEPeripherals = []
+        ignoredBLEPeripherals = []
+        sequence_contents = []
+        _updateDelegate()
+    }
+}
