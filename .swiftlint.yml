@@ -14,8 +14,8 @@ opt_in_rules:
 - comma
 
 function_body_length:
-- 69 # warning
-- 70 # error
+- 79 # warning
+- 80 # error
 
 file_length:
 - 1499  # warning
@@ -30,8 +30,8 @@ line_length:
 - 300 # error
 
 cyclomatic_complexity:
-- 10  # warning
-- 11 # error
+- 11  # warning
+- 12 # error
 
 excluded:
 - Carthage

@@ -105,6 +105,13 @@ extension RVS_BlueThoth: CBCentralManagerDelegate {
         - rssi: The signal strength, in DB.
      */
     public func centralManager(_ inCentralManager: CBCentralManager, didDiscover inPeripheral: CBPeripheral, advertisementData inAdvertisementData: [String: Any], rssi inRSSI: NSNumber) {
+        guard 127 > inRSSI.intValue else {
+            #if DEBUG
+                print("Discarding Peripheral: \(inPeripheral.identifier.uuidString), because its RSSI level of \(inRSSI.intValue) is illegal")
+            #endif
+            return
+        }
+        
         guard minimumRSSILevelIndBm <= inRSSI.intValue else {
             #if DEBUG
                 print("Discarding Peripheral: \(inPeripheral.identifier.uuidString), because its RSSI level of \(inRSSI.intValue) is less than our minimum RSSI threshold of \(minimumRSSILevelIndBm)")

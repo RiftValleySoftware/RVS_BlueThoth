@@ -142,6 +142,15 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 // Mac-Only
 "SLUG-PREFERENCES"                  =   "Preferences";
 
+// TV-Only
+"SLUG-CONTINUOUS-ON"                =   "Continuously Update";
+"SLUG-CONTINUOUS-OFF"               =   "Update Once";
+"SLUG-CONNECTABLE-ON"               =   "Only Connectable Devices";
+"SLUG-CONNECTABLE-OFF"              =   "All Devices";
+"SLUG-EMPTY-NAMES-ON"               =   "Allow Empty Names";
+"SLUG-EMPTY-NAMES-OFF"              =   "Named Devices Only";
+"SLUG-MINIMUM-RSSI-LABEL-DBM"       =   "Minimum RSSI (dBm):";
+
 /// MARK: - ACCESSIBILITY STRINGS
 
 // MARK: - The Initial Device List Screen
@@ -245,6 +254,9 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-ACC-EMPTY-NAMES-SWITCH-OFF"                   =   "This switch controls whether or not the app will only display devices that advertise or contain names. The switch is currently off, which means that only devices with names are being displayed in the list.";
 "SLUG-ACC-ALWAYS-USE-CRLF-OFF"                      =   "This switch controls whether or not the app will always send endlines (next line, or carriage return) as a Carriage Return/Linefeed pair. The switch is currently off, which means that we will send simple linefeeds.";
 "SLUG-ACC-ALWAYS-USE-CRLF-ON"                       =   "This switch controls whether or not the app will always send endlines (next line, or carriage return) as a Carriage Return/Linefeed pair. The switch is currently on, which means that we will always send carriage return/linefeed pairs.";
+
+// TV-Only
+"SLUG-ACC-MINIMUM-RSSI-SEGMENTED-SWITCH"            =   "This segmented switch allows you to choose a minimum RSSI level.";
 
 // MARK: - The About Screen
 "SLUG-ACC-APP-NAME-LABEL-FORMAT"    =   "This is the name of the app. It is \"%@.\"";

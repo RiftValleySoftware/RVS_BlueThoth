@@ -240,6 +240,7 @@ extension CGA_InitialViewController: CGA_UpdatableScreenViewController {
         discoveryTableView?.isHidden = !(centralManager?.isBTAvailable ?? false)
         scanningSegmentedControl?.selectedSegmentIndex = (centralManager?.isScanning ?? false) ? 0 : 1
         discoveryTableView?.reloadData()
+        discoveryTableView?.isUserInteractionEnabled = !(centralManager?.isScanning ?? false)
         setUpAccessibility()
     }
 }
@@ -262,7 +263,9 @@ extension CGA_InitialViewController: UITableViewDataSource {
         if  let ret = inTableView.dequeueReusableCell(withIdentifier: Self.discoveryTableCellReuseID),
             let centralManager = centralManager {
             let peripheralDiscoveryInfo = centralManager.stagedBLEPeripherals[inIndexPath.row]
-            ret.textLabel?.text = peripheralDiscoveryInfo.preferredName.isEmpty ? "SLUG-NO-DEVICE-NAME".localizedVariant : peripheralDiscoveryInfo.preferredName
+            let powerString = " (" + String(format: "SLUG-RSSI-LEVEL-FORMAT".localizedVariant, peripheralDiscoveryInfo.rssi) + ")"
+            ret.textLabel?.text = (peripheralDiscoveryInfo.preferredName.isEmpty ? "SLUG-NO-DEVICE-NAME".localizedVariant : peripheralDiscoveryInfo.preferredName) + powerString
+            ret.textLabel?.textColor = centralManager.isScanning ? UIColor(white: 1.0, alpha: 0.5) : .white
             return ret
         }
         
