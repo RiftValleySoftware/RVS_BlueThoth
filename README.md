@@ -122,3 +122,7 @@ Once the Bluetooth system is ready, we can start scanning for Peripherals (also 
 It is possible to set a few properties that control how to deal with discovered Peripherals.
 
 From here, on, it is best to use [the API documentation](https://riftvalleysoftware.github.io/RVS_BlueThoth/framework-public/Classes/RVS_BlueThoth.html), or the [in-depth technical documentation]([the technical documentation](https://riftvalleysoftware.github.io/RVS_BlueThoth/framework-internal/Classes/RVS_BlueThoth.html)).
+
+# REPORTING ISSUES
+
+If you have any bugs, feature requests, feedback, etc., please feel free to [open a GitHub issue](https://github.com/RiftValleySoftware/RVS_BlueThoth/issues/new), or [contact us directly](https://riftvalleysoftware.com/#contact).
