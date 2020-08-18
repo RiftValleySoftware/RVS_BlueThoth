@@ -39,17 +39,6 @@ public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Interna
     
     /* ################################################################## */
     /**
-     */
-    public var concatenateValue: Bool = false
-    
-    /* ################################################################## */
-    /**
-     */
-    @discardableResult
-    public func clearConcatenate(newValue inNewValue: Bool? = nil) -> Bool { false }
-    
-    /* ################################################################## */
-    /**
      This attempts to cast the value of the Descriptor into a Data object.
      */
     public var dataValue: Data? {

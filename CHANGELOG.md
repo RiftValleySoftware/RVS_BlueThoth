@@ -1,5 +1,11 @@
 # RVS_BlueThoth Change Log
 
+## 1.5.0.0000
+
+- **August 18, 2020**
+
+- This is the first "official" release.
+
 ## 1.4.2.0000
 
 - **August 15, 2020**
