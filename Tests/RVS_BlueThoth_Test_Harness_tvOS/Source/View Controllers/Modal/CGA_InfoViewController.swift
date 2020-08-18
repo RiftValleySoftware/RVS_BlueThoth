@@ -24,17 +24,17 @@ import UIKit
 import RVS_BlueThoth_TVOS
 
 /* ###################################################################################################################################### */
-// MARK: - Connected Peripheral View Controller -
+// MARK: - Info View Controller -
 /* ###################################################################################################################################### */
 /**
  */
-class CGA_SettingsViewController: UIViewController {
+class CGA_InfoViewController: UIViewController {
 }
 
 /* ###################################################################################################################################### */
 // MARK: - Instance Methods -
 /* ###################################################################################################################################### */
-extension CGA_SettingsViewController {
+extension CGA_InfoViewController {
     /* ################################################################## */
     /**
      This sets up the accessibility and voiceover strings for the screen.
@@ -46,7 +46,7 @@ extension CGA_SettingsViewController {
 /* ###################################################################################################################################### */
 // MARK: - Base Class Overrides -
 /* ###################################################################################################################################### */
-extension CGA_SettingsViewController {
+extension CGA_InfoViewController {
     /* ################################################################## */
     /**
      Called just after the view hierarchy has loaded.
@@ -70,7 +70,7 @@ extension CGA_SettingsViewController {
 /* ###################################################################################################################################### */
 // MARK: - CGA_UpdatableScreenViewController Conformance -
 /* ###################################################################################################################################### */
-extension CGA_SettingsViewController: CGA_UpdatableScreenViewController {
+extension CGA_InfoViewController: CGA_UpdatableScreenViewController {
     /* ################################################################## */
     /**
      This simply makes sure that the table is displayed if BT is available, or the "No BT" image is shown, if it is not.

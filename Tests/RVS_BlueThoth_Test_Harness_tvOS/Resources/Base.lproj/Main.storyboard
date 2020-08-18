@@ -553,6 +553,48 @@
             </objects>
             <point key="canvasLocation" x="9364" y="63"/>
         </scene>
+        <!--Info View Controller-->
+        <scene sceneID="idC-5S-FFa">
+            <objects>
+                <viewController id="tfR-Ak-O0W" customClass="CGA_InfoViewController" customModule="RVS_BlueThoth_Test_Harness_tvOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="N3c-Iy-uEo"/>
+                        <viewControllerLayoutGuide type="bottom" id="vug-Xp-AeT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tCb-5v-azp">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="mCi-kw-kDv">
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.15000000596046448" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BlueThothLogo" translatesAutoresizingMaskIntoConstraints="NO" id="lgJ-48-WJf">
+                                <rect key="frame" x="636" y="216" width="648" height="648"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="lgJ-48-WJf" secondAttribute="height" multiplier="1:1" id="Hmp-H4-8Kg"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="mCi-kw-kDv" firstAttribute="top" secondItem="tCb-5v-azp" secondAttribute="top" id="40v-v1-87e"/>
+                            <constraint firstItem="lgJ-48-WJf" firstAttribute="centerY" secondItem="tCb-5v-azp" secondAttribute="centerY" id="7E0-Lg-LVP"/>
+                            <constraint firstItem="lgJ-48-WJf" firstAttribute="width" relation="lessThanOrEqual" secondItem="tCb-5v-azp" secondAttribute="width" multiplier="0.6" id="AeG-wF-6ij"/>
+                            <constraint firstAttribute="bottom" secondItem="mCi-kw-kDv" secondAttribute="bottom" id="L7d-Ie-Nfn"/>
+                            <constraint firstItem="mCi-kw-kDv" firstAttribute="leading" secondItem="tCb-5v-azp" secondAttribute="leading" id="OFq-ff-T8j"/>
+                            <constraint firstItem="lgJ-48-WJf" firstAttribute="centerX" secondItem="tCb-5v-azp" secondAttribute="centerX" id="fZq-mm-pi0"/>
+                            <constraint firstItem="lgJ-48-WJf" firstAttribute="width" secondItem="tCb-5v-azp" secondAttribute="width" priority="750" id="sGp-qf-wQ7"/>
+                            <constraint firstAttribute="trailing" secondItem="mCi-kw-kDv" secondAttribute="trailing" id="ss2-PV-VOD"/>
+                            <constraint firstItem="lgJ-48-WJf" firstAttribute="height" relation="lessThanOrEqual" secondItem="tCb-5v-azp" secondAttribute="height" multiplier="0.6" id="uCn-iX-4Xo"/>
+                            <constraint firstItem="lgJ-48-WJf" firstAttribute="height" secondItem="tCb-5v-azp" secondAttribute="height" priority="750" id="zPB-uK-UZa"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="JoD-Y2-JOt"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Ypp-95-51z"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="czH-01-oDB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52" y="2866"/>
+        </scene>
     </scenes>
     <resources>
         <image name="BlueThothLogo" width="307" height="305"/>
