@@ -53,6 +53,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 // Advertisement Data Additions
 "SLUG-MAIN-LIST-DATE-FORMAT"        =   "MM/dd/yyyy h:mm:ss.SSS a";
 "SLUG-ID"                           =   "ID";
+"SLUG-RSSI-LEVEL-FORMAT-ADV"        =   "Power: %d dBm";
 
 // Mac Main Window Title
 "SLUG-INITIAL"                      =   "RVS_BlueThoth_Test_Harness_MacOS";
@@ -131,7 +132,6 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "SLUG-SERVICE-FILTERS"              =   "Advertised Services:";
 "SLUG-CHARACTERISTIC-FILTERS"       =   "Characteristics:";
 "SLUG-MINIMUM-RSSI-LABEL"           =   "Minimum RSSI:";
-"SLUG-RSSI-LEVEL-FORMAT-ADV"        =   "Power: %d dBm";
 "SLUG-RSSI-LEVEL-FORMAT"            =   "%d dBm";
 "SLUG-MINIMUM-RSSI-LEFT-FORMAT"     =   "%d";
 "SLUG-MINIMUM-RSSI-RIGHT-FORMAT"    =   "%d";
