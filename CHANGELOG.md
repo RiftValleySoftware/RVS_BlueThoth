@@ -1,5 +1,12 @@
 # RVS_BlueThoth Change Log
 
+## 1.5.1.0000
+
+- **TBD**
+
+- Updated the reported versions of all the test harnesses and the framework targets.
+- Added a computed property to the AdvertisementData struct, to access advertised Services.
+
 ## 1.5.0.0000
 
 - **August 18, 2020**

@@ -696,6 +696,12 @@ extension RVS_BlueThoth {
          Returns any manufacturer-specific data. Nil, if not provided.
          */
         public var manufacturerData: Data? { advertisementData["kCBAdvDataRxSecondaryPHY"] as? Data }
+        
+        /* ################################################################## */
+        /**
+         Returns a list of UUID Strings, describing any advertised Services.
+         */
+        public var advertisedServiceUUIDS: [String]? { (advertisementData["kCBAdvDataServiceUUIDs"] as? NSArray)?.compactMap { String(describing: $0) } }
     }
     
     /* ################################################################################################################################## */

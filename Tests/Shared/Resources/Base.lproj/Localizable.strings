@@ -288,6 +288,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 "kCBAdvDataServiceUUIDs"            =   "Advertised Services";
 "kCBAdvDataTimestamp"               =   "Timestamp";
 "kCBAdvDataTxPowerLevel"            =   "Transmit Power Level";
+"kCBAdvDataServiceUUIDs"            =   "Services";
 
 // MARK: - GATT Service IDs
 "1800"                              =    "Generic Access";
