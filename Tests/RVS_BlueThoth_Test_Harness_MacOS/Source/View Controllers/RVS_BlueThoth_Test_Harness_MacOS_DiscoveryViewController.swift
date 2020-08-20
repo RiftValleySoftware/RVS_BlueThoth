@@ -302,10 +302,12 @@ extension RVS_BlueThoth_Test_Harness_MacOS_DiscoveryViewController {
                 } else {
                     ret += "\t\(key): \(value)"
                 }
+            } else if let value = value as? NSArray {   // An NSArray can be strung together in one line.
+                ret += "\(key): " + value.reduce("", { (curr, nxt) -> String in (!curr.isEmpty ? ", " : "") + curr + String(describing: nxt).localizedVariant })
             } else {    // Anything else is just a described instance of something or other.
-                ret += "\t\(key): \(String(describing: value))"
+                ret += "\(key): \(String(describing: value))"
             }
-            
+
             return ret
         }.split(separator: "\n").map { String($0) }
         

@@ -2,10 +2,11 @@
 
 ## 1.5.1.0000
 
-- **TBD**
+- **August 20, 2020**
 
 - Updated the reported versions of all the test harnesses and the framework targets.
 - Added a computed property to the AdvertisementData struct, to access advertised Services.
+- Simplified the advertisement string display a bit, in the test harnesses.
 
 ## 1.5.0.0000
 

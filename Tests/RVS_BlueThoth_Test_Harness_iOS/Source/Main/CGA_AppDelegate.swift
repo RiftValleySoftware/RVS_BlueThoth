@@ -143,10 +143,12 @@ class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
                 } else {
                     ret += "\(key): \(value)"
                 }
+            } else if let value = value as? NSArray {   // An NSArray can be strung together in one line.
+                ret += "\(key): " + value.reduce("", { (curr, nxt) -> String in (!curr.isEmpty ? ", " : "") + curr + String(describing: nxt).localizedVariant })
             } else {    // Anything else is just a described instance of something or other.
                 ret += "\(key): \(String(describing: value))"
             }
-            
+
             return ret
         }.split(separator: "\n").map { String($0) }
         
