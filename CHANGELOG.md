@@ -1,5 +1,11 @@
 # RVS_BlueThoth Change Log
 
+## 1.5.2.0000
+
+- **TBD**
+
+- Some minor documentation tweaks.
+
 ## 1.5.1.0000
 
 - **August 20, 2020**

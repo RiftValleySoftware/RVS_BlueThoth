@@ -524,9 +524,9 @@ extension RVS_BlueThoth {
                 let wrapperObject = sequence_contents[cbPeripheral]
         else { return false }
         #if DEBUG
-            print("Disconnecting \(inPeripheral.preferredName).")
+            print("RVS_BlueThoth Disconnecting \(inPeripheral.preferredName).")
         #endif
-        wrapperObject.disconnectionRequested = true // This is a [yuck] semaphore, letting us know that this s an expected disconnection.
+        wrapperObject.disconnectionRequested = true // This is a [yuck] semaphore, letting us know that this is an expected disconnection.
         cbCentral.cancelPeripheralConnection(cbPeripheral)
         
         return true
