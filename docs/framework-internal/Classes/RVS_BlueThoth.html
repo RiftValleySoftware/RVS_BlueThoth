@@ -254,6 +254,88 @@ This acts as a Core Bluetooth Central, and aggregates Peripherals, which, in tur
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C24_static_timeoutInSeconds33_63B094CF6444969EFC1F35B165946F98LLSdvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/_static_timeoutInSeconds" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C24_static_timeoutInSeconds33_63B094CF6444969EFC1F35B165946F98LLSdvpZ">_static_timeoutInSeconds</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is how many seconds we wait, before declaring a timeout.
+Default is 5 seconds, but the value can be changed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">_static_timeoutInSeconds</span><span class="p">:</span> <span class="kt">TimeInterval</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C16scanningServicesSaySSGvp"></a>
+                    <a name="//apple_ref/swift/Property/scanningServices" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C16scanningServicesSaySSGvp">scanningServices</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This holds any Services (as Strings) that were specified when scanning started.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">internal</span> <span class="k">var</span> <span class="nv">scanningServices</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C17cbElementInstanceSo16CBCentralManagerCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/cbElementInstance" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C17cbElementInstanceSo16CBCentralManagerCSgvp">cbElementInstance</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This holds the instance of CBCentralManager that is used by this instance.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">internal</span> <span class="k">var</span> <span class="nv">cbElementInstance</span><span class="p">:</span> <span class="kt">CBCentralManager</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C8delegateAA04CGA_bC9_Delegate_pSgvp"></a>
                     <a name="//apple_ref/swift/Property/delegate" class="dashAnchor"></a>
                     <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C8delegateAA04CGA_bC9_Delegate_pSgvp">delegate</a>
@@ -608,6 +690,34 @@ The Default is -100. It can be changed by the SDK user, for subsequent scans.</p
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C16timeoutInSecondsSdvp"></a>
+                    <a name="//apple_ref/swift/Property/timeoutInSeconds" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C16timeoutInSecondsSdvp">timeoutInSeconds</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is how many seconds we wait, before declaring a timeout.
+Default is 5 seconds, but the value can be changed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">timeoutInSeconds</span><span class="p">:</span> <span class="kt">TimeInterval</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C17sequence_contentsACSayAA24CGA_Bluetooth_PeripheralCG_tcfc"></a>
                     <a name="//apple_ref/swift/Method/init(sequence_contents:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C17sequence_contentsACSayAA24CGA_Bluetooth_PeripheralCG_tcfc">init(sequence_contents:<wbr>)</a>
@@ -647,116 +757,6 @@ The Default is -100. It can be changed by the SDK user, for subsequent scans.</p
                             </tr>
                           </tbody>
                         </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C16scanningServicesSaySSGvp"></a>
-                    <a name="//apple_ref/swift/Property/scanningServices" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C16scanningServicesSaySSGvp">scanningServices</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This holds any Services (as Strings) that were specified when scanning started.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">internal</span> <span class="k">var</span> <span class="nv">scanningServices</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C17cbElementInstanceSo16CBCentralManagerCSgvp"></a>
-                    <a name="//apple_ref/swift/Property/cbElementInstance" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C17cbElementInstanceSo16CBCentralManagerCSgvp">cbElementInstance</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This holds the instance of CBCentralManager that is used by this instance.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">internal</span> <span class="k">var</span> <span class="nv">cbElementInstance</span><span class="p">:</span> <span class="kt">CBCentralManager</span><span class="o">!</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C24_static_timeoutInSeconds33_63B094CF6444969EFC1F35B165946F98LLSdvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/_static_timeoutInSeconds" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C24_static_timeoutInSeconds33_63B094CF6444969EFC1F35B165946F98LLSdvpZ">_static_timeoutInSeconds</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This is how many seconds we wait, before declaring a timeout.
-Default is 5 seconds, but the value can be changed.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">_static_timeoutInSeconds</span><span class="p">:</span> <span class="kt">TimeInterval</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:17RVS_BlueThoth_iOS0a1_bC0C16timeoutInSecondsSdvp"></a>
-                    <a name="//apple_ref/swift/Property/timeoutInSeconds" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17RVS_BlueThoth_iOS0a1_bC0C16timeoutInSecondsSdvp">timeoutInSeconds</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This is how many seconds we wait, before declaring a timeout.
-Default is 5 seconds, but the value can be changed.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">timeoutInSeconds</span><span class="p">:</span> <span class="kt">TimeInterval</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
-                        </div>
                       </div>
                     </section>
                   </div>

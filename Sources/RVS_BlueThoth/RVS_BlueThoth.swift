@@ -38,6 +38,25 @@ import RVS_Generic_Swift_Toolbox
 public class RVS_BlueThoth: NSObject, RVS_SequenceProtocol {
     /* ################################################################## */
     /**
+     This is how many seconds we wait, before declaring a timeout.
+     Default is 5 seconds, but the value can be changed.
+     */
+    private static var _static_timeoutInSeconds: TimeInterval = 5.0
+    
+    /* ################################################################## */
+    /**
+     This holds any Services (as Strings) that were specified when scanning started.
+     */
+    internal var scanningServices: [String] = []
+    
+    /* ################################################################## */
+    /**
+     This holds the instance of CBCentralManager that is used by this instance.
+     */
+    internal var cbElementInstance: CBCentralManager!
+
+    /* ################################################################## */
+    /**
      The Central Manager Delegate object.
      */
     public weak var delegate: CGA_BlueThoth_Delegate?
@@ -128,6 +147,16 @@ public class RVS_BlueThoth: NSObject, RVS_SequenceProtocol {
     
     /* ################################################################## */
     /**
+     This is how many seconds we wait, before declaring a timeout.
+     Default is 5 seconds, but the value can be changed.
+     */
+    public var timeoutInSeconds: TimeInterval {
+        get { Self._static_timeoutInSeconds }
+        set { Self._static_timeoutInSeconds = newValue }
+    }
+
+    /* ################################################################## */
+    /**
      The required init, with a "primed" sequence.
      
      - parameter sequence_contents: The initial value of the Array cache. It should be empty.
@@ -135,35 +164,6 @@ public class RVS_BlueThoth: NSObject, RVS_SequenceProtocol {
     public required init(sequence_contents inSequenceContents: [Element]) {
         sequence_contents = inSequenceContents
         super.init()    // Since we derive from NSObject, we must call the super init()
-    }
-    
-    /* ################################################################## */
-    /**
-     This holds any Services (as Strings) that were specified when scanning started.
-     */
-    internal var scanningServices: [String] = []
-    
-    /* ################################################################## */
-    /**
-     This holds the instance of CBCentralManager that is used by this instance.
-     */
-    internal var cbElementInstance: CBCentralManager!
-    
-    /* ################################################################## */
-    /**
-     This is how many seconds we wait, before declaring a timeout.
-     Default is 5 seconds, but the value can be changed.
-     */
-    private static var _static_timeoutInSeconds: TimeInterval = 5.0
-    
-    /* ################################################################## */
-    /**
-     This is how many seconds we wait, before declaring a timeout.
-     Default is 5 seconds, but the value can be changed.
-     */
-    var timeoutInSeconds: TimeInterval {
-        get { Self._static_timeoutInSeconds }
-        set { Self._static_timeoutInSeconds = newValue }
     }
 }
 
