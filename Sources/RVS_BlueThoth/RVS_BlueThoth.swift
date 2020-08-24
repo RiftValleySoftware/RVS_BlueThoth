@@ -155,6 +155,16 @@ public class RVS_BlueThoth: NSObject, RVS_SequenceProtocol {
      Default is 5 seconds, but the value can be changed.
      */
     private static var _static_timeoutInSeconds: TimeInterval = 5.0
+    
+    /* ################################################################## */
+    /**
+     This is how many seconds we wait, before declaring a timeout.
+     Default is 5 seconds, but the value can be changed.
+     */
+    var timeoutInSeconds: TimeInterval {
+        get { Self._static_timeoutInSeconds }
+        set { Self._static_timeoutInSeconds = newValue }
+    }
 }
 
 /* ###################################################################################################################################### */

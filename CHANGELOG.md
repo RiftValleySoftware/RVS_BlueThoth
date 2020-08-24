@@ -1,10 +1,11 @@
 # RVS_BlueThoth Change Log
 
-## 1.5.2.0000
+## 1.5.2.3000
 
-- **TBD**
+- **August 24, 2020**
 
 - Some minor documentation tweaks.
+- Added the ability to change the timeout from an instance. Not super thread-safe, but it is not something that should ever give us that type of problem.
 
 ## 1.5.1.0000
 
