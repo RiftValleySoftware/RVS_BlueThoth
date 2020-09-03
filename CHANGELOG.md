@@ -5,6 +5,7 @@
 - **September 3, 2020**
 
 - Added states for disconnecting or connecting to the discovery info type.
+- Upped the dependency version for the included dependency.
 
 ## 1.5.2.3000
 

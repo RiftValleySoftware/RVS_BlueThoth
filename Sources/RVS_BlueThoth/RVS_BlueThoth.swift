@@ -790,6 +790,12 @@ extension RVS_BlueThoth {
         
         /* ############################################################## */
         /**
+         Returns true, if the peripheral is currently disconnected (as opposed to connecting/disconnecting/connected).
+         */
+        public var isDisconnected: Bool { .disconnected == cbPeripheral?.state }
+
+        /* ############################################################## */
+        /**
          Returns true, if the peripheral is currently undergoing connection.
          */
         public var isConnecting: Bool { .connecting == cbPeripheral?.state }
