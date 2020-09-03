@@ -790,6 +790,18 @@ extension RVS_BlueThoth {
         
         /* ############################################################## */
         /**
+         Returns true, if the peripheral is currently undergoing connection.
+         */
+        public var isConnecting: Bool { .connecting == cbPeripheral?.state }
+        
+        /* ############################################################## */
+        /**
+         Returns true, if the peripheral is currently undergoing disconnection.
+         */
+        public var isDisconnecting: Bool { .disconnecting == cbPeripheral?.state }
+
+        /* ############################################################## */
+        /**
          This asks the Central Manager to ignore this device.
          
          - returns: True, if the ignore worked.

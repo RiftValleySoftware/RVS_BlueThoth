@@ -1,5 +1,11 @@
 # RVS_BlueThoth Change Log
 
+## 1.5.3.3000
+
+- **September 3, 2020**
+
+- Added states for disconnecting or connecting to the discovery info type.
+
 ## 1.5.2.3000
 
 - **August 24, 2020**
