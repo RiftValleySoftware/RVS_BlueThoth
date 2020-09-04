@@ -401,12 +401,18 @@ public extension Data {
      */
     @discardableResult
     mutating func castInto<T>(_ inValue: inout T, offsetInBytes inOffsetInBytes: UInt = 0) -> Int {
-        // Makes sure that we don't try to read past the end of the data.
-        let endPoint = Swift.max(0, Swift.min(MemoryLayout<T>.size, count - Int(inOffsetInBytes))) + Int(inOffsetInBytes)
-        let len = endPoint - Int(inOffsetInBytes)
-        guard 0 < len else { return 0 }   // We cannot go past the end.
+        // Makes sure that we don't try to read past the end of the data, or the input type.
+        // September 4, 2020: Added the min(MemoryLayout<T>.size...), to ensure that we don't go past the given size, either (assuming some kind of offset).
+        let intOffset = Int(inOffsetInBytes)
+        let len = Swift.max(0, count - intOffset)
+        let endPoint = Swift.min(count, len + intOffset)
+        let outputMaxSize = MemoryLayout<T>.size
+        
+        guard   0 < len,
+                outputMaxSize >= len else { return 0 }   // We cannot go past the end.
+        
         _ = Swift.withUnsafeMutableBytes(of: &inValue) {
-            self.copyBytes(to: $0, from: Int(inOffsetInBytes)..<endPoint)
+            self.copyBytes(to: $0, from: intOffset..<endPoint)
         }
         
         return len

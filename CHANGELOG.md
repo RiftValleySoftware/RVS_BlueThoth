@@ -1,5 +1,11 @@
 # RVS_BlueThoth Change Log
 
+## 1.5.4.3000
+
+- **September 4, 2020**
+
+- Addressed a possible crasher, in system IDs being provided with an offset, that could cause casting to overrun memory. The same bug resulted in incorrect readings of some integer values.
+
 ## 1.5.3.3000
 
 - **September 3, 2020**
