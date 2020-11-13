@@ -178,11 +178,12 @@ public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Interna
     public func readValue() {
         if  let serviceWrapper = characteristic?.service,
             let peripheralWrapper = serviceWrapper.peripheral,
-            let peripheral = peripheralWrapper.cbElementInstance {
+            let peripheral = peripheralWrapper.cbElementInstance,
+            let descriptor = cbElementInstance {
             #if DEBUG
                 print("Reading the value for the \(id) Descriptor.")
             #endif
-            peripheral.readValue(for: cbElementInstance)
+            peripheral.readValue(for: descriptor)
         }
     }
     
@@ -195,11 +196,12 @@ public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Interna
     public func writeValue(_ inData: Data) {
         if  let serviceWrapper = characteristic?.service,
             let peripheralWrapper = serviceWrapper.peripheral,
-            let peripheral = peripheralWrapper.cbElementInstance {
+            let peripheral = peripheralWrapper.cbElementInstance,
+            let descriptor = cbElementInstance {
             #if DEBUG
                 print("Writing this value: \(inData) for the \(id) Descriptor.")
             #endif
-            peripheral.writeValue(inData, for: cbElementInstance)
+            peripheral.writeValue(inData, for: descriptor)
         }
     }
 

@@ -234,11 +234,12 @@ public class CGA_Bluetooth_Characteristic: CGA_Bluetooth_Characteristic_Protocol
     public func readValue() {
         if  canRead,
             let peripheralWrapper = service?.peripheral,
-            let peripheral = peripheralWrapper.cbElementInstance {
+            let peripheral = peripheralWrapper.cbElementInstance,
+            let characteristic = cbElementInstance {
             #if DEBUG
                 print("Reading the value for the \(id) Characteristic.")
             #endif
-            peripheral.readValue(for: cbElementInstance)
+            peripheral.readValue(for: characteristic)
         }
     }
     

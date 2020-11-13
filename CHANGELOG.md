@@ -1,5 +1,11 @@
 # RVS_BlueThoth Change Log
 
+## 1.5.5.3000
+
+- **November 13, 2020**
+
+- Addresses possible crashes, when reading descriptors. Unable to reproduce, but I think I can at least avoid crashes.
+
 ## 1.5.4.3000
 
 - **September 4, 2020**
