@@ -2,7 +2,7 @@
 
 ## 1.6.0.3000
 
-- **September 23, 2020**
+- **September 23, 2021**
 
 - Updated to work with the latest toolchains.
 
