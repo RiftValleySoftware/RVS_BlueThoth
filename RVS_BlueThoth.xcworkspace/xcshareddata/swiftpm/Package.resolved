@@ -6,8 +6,8 @@
         "repositoryURL": "git@github.com:RiftValleySoftware/RVS_Generic_Swift_Toolbox.git",
         "state": {
           "branch": null,
-          "revision": "efcb055d7dbfaa43b903102189daab2416d0f8f8",
-          "version": "1.6.2"
+          "revision": "c7f2ec1488731ee239eb5aa0f92a0044ed44c228",
+          "version": "1.6.3"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "git@github.com:RiftValleySoftware/RVS_PersistentPrefs.git",
         "state": {
           "branch": null,
-          "revision": "899c905f452dc585f23cc26fd6f7a11b7fda7481",
-          "version": "1.2.3"
+          "revision": "a891e047ff2e9b6cda585fb465ffd00039d3f4f3",
+          "version": "1.2.4"
         }
       }
     ]
