@@ -225,7 +225,12 @@ public enum CGA_Errors: Error, Equatable {
      - returns: A CGA_Errors.internalError instance, with any nesting added.
      */
     public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, service inService: CBService) -> CGA_Errors {
-        self.serviceError(error: self.returnNestedInternalErrorBasedOnThis(inError, peripheral: inService.peripheral), id: inService.uuid.uuidString)
+        // Let me explain what this weird-ass thing is about:
+        // Apparently, in the iOS15/Monterey? world, these are now optional, but they are not, for older operating systems.
+        // So we assign to an optional, then we always have an optional to unwind.
+        let pripheralOptional: CBPeripheral? = inService.peripheral
+        guard let peripheral = pripheralOptional else { return self.returnNestedInternalErrorBasedOnThis(inError, service: inService) }
+        return self.serviceError(error: self.returnNestedInternalErrorBasedOnThis(inError, peripheral: peripheral), id: inService.uuid.uuidString)
     }
     
     /* ################################################################## */
@@ -238,7 +243,12 @@ public enum CGA_Errors: Error, Equatable {
      - returns: A CGA_Errors.internalError instance, with any nesting added.
      */
     public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, characteristic inCharacteristic: CBCharacteristic) -> CGA_Errors {
-        self.characteristicError(error: self.returnNestedInternalErrorBasedOnThis(inError, service: inCharacteristic.service), id: inCharacteristic.uuid.uuidString)
+        // Let me explain what this weird-ass thing is about:
+        // Apparently, in the iOS15/Monterey? world, these are now optional, but they are not, for older operating systems.
+        // So we assign to an optional, then we always have an optional to unwind.
+        let serviceOptional: CBService? = inCharacteristic.service
+        guard let service = serviceOptional else { return self.returnNestedInternalErrorBasedOnThis(inError, characteristic: inCharacteristic) }
+        return self.characteristicError(error: self.returnNestedInternalErrorBasedOnThis(inError, service: service), id: inCharacteristic.uuid.uuidString)
     }
     
     /* ################################################################## */
@@ -251,6 +261,11 @@ public enum CGA_Errors: Error, Equatable {
      - returns: A CGA_Errors.internalError instance, with any nesting added.
      */
     public static func returnNestedInternalErrorBasedOnThis(_ inError: Error?, descriptor inDescriptor: CBDescriptor) -> CGA_Errors {
-        self.descriptorError(error: self.returnNestedInternalErrorBasedOnThis(inError, characteristic: inDescriptor.characteristic), id: inDescriptor.uuid.uuidString)
+        // Let me explain what this weird-ass thing is about:
+        // Apparently, in the iOS15/Monterey? world, these are now optional, but they are not, for older operating systems.
+        // So we assign to an optional, then we always have an optional to unwind.
+        let characteristicOptional: CBCharacteristic? = inDescriptor.characteristic
+        guard let characteristic = characteristicOptional else { return self.returnNestedInternalErrorBasedOnThis(inError, descriptor: inDescriptor) }
+        return self.descriptorError(error: self.returnNestedInternalErrorBasedOnThis(inError, characteristic: characteristic), id: inDescriptor.uuid.uuidString)
     }
 }

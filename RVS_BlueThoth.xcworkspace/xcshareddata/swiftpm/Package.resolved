@@ -15,8 +15,8 @@
         "repositoryURL": "git@github.com:RiftValleySoftware/RVS_PersistentPrefs.git",
         "state": {
           "branch": null,
-          "revision": "d71d6bfaf1791b2e472f8e21e8fbc9428c5303af",
-          "version": "1.2.1"
+          "revision": "899c905f452dc585f23cc26fd6f7a11b7fda7481",
+          "version": "1.2.3"
         }
       }
     ]

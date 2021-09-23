@@ -34,7 +34,7 @@ import Foundation
 /**
  This protocol is the "base" protocol to which all the exposed types conform.
  */
-public protocol CGA_Class_Protocol: class {
+public protocol CGA_Class_Protocol: AnyObject {
     /* ################################################################## */
     /**
      REQUIRED: This is used to reference an "owning instance" of this instance.
@@ -216,7 +216,7 @@ extension CGA_Class_Protocol_UpdateDescriptor {
  All delegate callbacks are made in the main thread.
  This is the only delegate for the BlueThoth framework. All events in the system come to this one place.
  */
-public protocol CGA_BlueThoth_Delegate: class {
+public protocol CGA_BlueThoth_Delegate: AnyObject {
     /* ################################################################## */
     /**
      OPTIONAL: This is called to tell the instance to do whatever it needs to do to handle an error.

@@ -29,7 +29,7 @@ import RVS_Generic_Swift_Toolbox
 /**
  This protocol publishes a public interface for our Characteristic wrapper classes.
  */
-public protocol CGA_Bluetooth_Characteristic_Protocol: class, RVS_SequenceProtocol {
+public protocol CGA_Bluetooth_Characteristic_Protocol: AnyObject, RVS_SequenceProtocol {
     /* ################################################################## */
     /**
      This returns a unique UUID String for the instance.

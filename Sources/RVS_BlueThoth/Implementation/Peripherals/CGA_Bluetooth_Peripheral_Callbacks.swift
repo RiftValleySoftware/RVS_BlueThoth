@@ -474,12 +474,17 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
         #if DEBUG
             print("Received a Characteristic Update delegate callback for the \(inDescriptor.uuid.uuidString) Descriptor.")
         #endif
+        // Let me explain what this weird-ass thing is about:
+        // Apparently, in the iOS15/Monterey? world, these are now optional, but they are not, for older operating systems.
+        // So we assign to an optional, then we always have an optional to unwind.
+        let charOptional: CBCharacteristic? = inDescriptor.characteristic
         if let error = inError {
             #if DEBUG
                 print("ERROR!: \(error.localizedDescription) for Descriptor \(inDescriptor.uuid.uuidString)")
             #endif
             central?.reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(error, descriptor: inDescriptor))
-        } else if   let characteristic = sequence_contents.characteristic(inDescriptor.characteristic),
+        } else if   let charTemp: CBCharacteristic = charOptional,
+                    let characteristic = sequence_contents.characteristic(charTemp),
                     let descriptor = characteristic.sequence_contents[inDescriptor] as? CGA_Bluetooth_Descriptor {
             #if DEBUG
                 print("Updated the \(descriptor.id) Descriptor value: \(String(describing: descriptor.value))")
@@ -535,12 +540,17 @@ extension CGA_Bluetooth_Peripheral: CBPeripheralDelegate {
         #if DEBUG
             print("Received a Descriptor Write delegate callback.")
         #endif
+        // Let me explain what this weird-ass thing is about:
+        // Apparently, in the iOS15/Monterey? world, these are now optional, but they are not, for older operating systems.
+        // So we assign to an optional, then we always have an optional to unwind.
+        let charTempOptional: CBCharacteristic? = inDescriptor.characteristic
         if let error = inError {
             #if DEBUG
                 print("ERROR!: \(String(describing: error))")
             #endif
             central?.reportError(.internalError(error: error, id: id))
-        } else if   let characteristic = sequence_contents.characteristic(inDescriptor.characteristic),
+        } else if   let charTemp = charTempOptional,
+                    let characteristic = sequence_contents.characteristic(charTemp),
                     let descriptor = characteristic.sequence_contents[inDescriptor] as? CGA_Bluetooth_Descriptor {
             central?.updateThisDescriptor(descriptor)
         } else {

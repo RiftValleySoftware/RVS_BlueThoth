@@ -29,7 +29,7 @@ import RVS_Generic_Swift_Toolbox
 /**
  This protocol publishes a public interface for our Service wrapper classes.
  */
-public protocol CGA_Bluetooth_Service_Protocol: class, RVS_SequenceProtocol {
+public protocol CGA_Bluetooth_Service_Protocol: AnyObject, RVS_SequenceProtocol {
     /* ################################################################## */
     /**
      This is used to reference an "owning instance" of this instance, and it should be a CGA_Bluetooth_Peripheral
