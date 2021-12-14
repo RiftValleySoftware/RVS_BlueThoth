@@ -14,16 +14,16 @@
          location = "group:Package.swift">
       </FileRef>
       <FileRef
-         location = "group:/Volumes/Development/RiftValley/RVS_BlueThoth/jazzy.command">
-      </FileRef>
-      <FileRef
          location = "group:LICENSE">
       </FileRef>
       <FileRef
          location = "group:.swiftlint.yml">
       </FileRef>
+      <FileRef
+         location = "group:jazzy.command">
+      </FileRef>
    </Group>
    <FileRef
-      location = "group:/Volumes/Development/RiftValley/RVS_BlueThoth/RVS_BlueThoth.xcodeproj">
+      location = "group:RVS_BlueThoth.xcodeproj">
    </FileRef>
 </Workspace>

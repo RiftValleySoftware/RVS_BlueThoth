@@ -1,5 +1,11 @@
 # RVS_BlueThoth Change Log
 
+## 1.6.1.3000
+
+- **December 14, 2021**
+
+- Updated the tools.
+
 ## 1.6.0.3000
 
 - **September 23, 2021**
