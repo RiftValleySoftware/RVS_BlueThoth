@@ -1,4 +1,4 @@
-![Icon](img/icon.png)
+![Icon](icon.png)
 
 RVS_BlueThoth (Public SDK Documentation)
 =
