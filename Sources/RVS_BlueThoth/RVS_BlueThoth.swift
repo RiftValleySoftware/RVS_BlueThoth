@@ -33,7 +33,8 @@ import RVS_Generic_Swift_Toolbox
 /* ###################################################################################################################################### */
 /**
  This is the main class that is instantiated in order to implement the Bluetooth subsystem.
- This acts as a Core Bluetooth Central, and aggregates Peripherals, which, in turn, aggregate Characteristics, which, in turn, may aggregate Descriptors.
+ This acts as a Core Bluetooth Central, and aggregates Peripherals, which, in turn, aggregate Services,
+ which, in turn, aggregate Characteristics, which, in turn, may aggregate Descriptors.
  */
 public class RVS_BlueThoth: NSObject, RVS_SequenceProtocol {
     /* ################################################################## */
