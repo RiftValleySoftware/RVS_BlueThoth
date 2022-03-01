@@ -1,7 +1,5 @@
 # ``RVS_BlueThoth``
 
-![Icon](icon.png)
-
 This is a low-level, [native Swift](https://developer.apple.com/swift/) Bluetooth SDK for ["Central" (Client)](https://developer.apple.com/documentation/corebluetooth/cbcentralmanager) Core Bluetooth (BLE) implementation.
 
 ## Objective
