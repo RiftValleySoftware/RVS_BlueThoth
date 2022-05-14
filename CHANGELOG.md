@@ -1,5 +1,12 @@
 # RVS_BlueThoth Change Log
 
+## 1.6.3
+
+- **May 14, 2022**
+
+- Updated the `RVS_Generic_Swift_Toolbox` dependency.
+- Updated the `RVS__Persistent_Prefs` dependency.
+
 ## 1.6.2
 
 - **January 27, 2022**

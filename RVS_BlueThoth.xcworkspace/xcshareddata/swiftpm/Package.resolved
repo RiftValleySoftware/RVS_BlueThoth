@@ -1,25 +1,23 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "RVS_Generic_Swift_Toolbox",
-        "repositoryURL": "git@github.com:RiftValleySoftware/RVS_Generic_Swift_Toolbox.git",
-        "state": {
-          "branch": null,
-          "revision": "e9f1fdac950d711c58e592163bc30b040999229e",
-          "version": "1.6.4"
-        }
-      },
-      {
-        "package": "RVS_Persistent_Prefs",
-        "repositoryURL": "git@github.com:RiftValleySoftware/RVS_PersistentPrefs.git",
-        "state": {
-          "branch": null,
-          "revision": "2d09ade2ceca2b573f25d9fefbe33d98e0d19d02",
-          "version": "1.2.5"
-        }
+  "pins" : [
+    {
+      "identity" : "rvs_generic_swift_toolbox",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:RiftValleySoftware/RVS_Generic_Swift_Toolbox.git",
+      "state" : {
+        "revision" : "3b99716ed5d5fa2dcb66051787ed1ab03b7af03f",
+        "version" : "1.7.2"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "rvs_persistentprefs",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:RiftValleySoftware/RVS_PersistentPrefs.git",
+      "state" : {
+        "revision" : "d0cd6794eb57d3cf8f590c863a87e8e87749db44",
+        "version" : "1.2.8"
+      }
+    }
+  ],
+  "version" : 2
 }
