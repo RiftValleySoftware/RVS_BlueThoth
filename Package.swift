@@ -33,7 +33,7 @@ let package = Package(
         .watchOS(.v5)
     ],
     products: [
-        .library(name: "RVS-BlueThoth",
+        .library(name: "RVS_BlueThoth",
                  targets: [
                     "RVS_BlueThoth"
                     ]
