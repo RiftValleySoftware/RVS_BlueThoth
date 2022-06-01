@@ -1,9 +1,10 @@
 # RVS_BlueThoth Change Log
 
-## 1.7.0
+## 1.7.1
 
 - **June 1, 2022**
 
+- Lowered the MacOS requirement.
 - Removed the dash-notation.
 - Updated the `RVS_Generic_Swift_Toolbox` dependency.
 - Updated the `RVS__Persistent_Prefs` dependency.
