@@ -1,6 +1,6 @@
 # RVS_BlueThoth Change Log
 
-## 1.6.4
+## 1.6.5
 
 - **June 1, 2022**
 
