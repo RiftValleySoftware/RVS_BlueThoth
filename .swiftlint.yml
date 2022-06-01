@@ -5,6 +5,7 @@ disabled_rules:
 - syntactic_sugar
 - todo
 - implicit_getter
+- no_space_in_method_call
 
 opt_in_rules:
 - control_statement
