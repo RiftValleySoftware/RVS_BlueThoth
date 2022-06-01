@@ -40,12 +40,12 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(name: "RVS_Generic_Swift_Toolbox", url: "git@github.com:RiftValleySoftware/RVS_Generic_Swift_Toolbox.git", from: "1.7.2")
+        .package(name: "RVS_Generic_Swift_Toolbox", url: "git@github.com:RiftValleySoftware/RVS_Generic_Swift_Toolbox.git", from: "1.8.1")
     ],
     targets: [
         .target(
             name: "RVS_BlueThoth",
-            dependencies: [.product(name: "RVS-Generic-Swift-Toolbox", package: "RVS_Generic_Swift_Toolbox")]
+            dependencies: [.product(name: "RVS_Generic_Swift_Toolbox", package: "RVS_Generic_Swift_Toolbox")]
             )
     ]
 )
