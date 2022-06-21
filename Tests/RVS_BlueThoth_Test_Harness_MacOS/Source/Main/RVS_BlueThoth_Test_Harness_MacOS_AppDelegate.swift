@@ -21,7 +21,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 */
 
 import Cocoa
-import RVS_BlueThoth_MacOS
+import RVS_BlueThoth
 
 /* ###################################################################################################################################### */
 // MARK: - Preferences Extension -

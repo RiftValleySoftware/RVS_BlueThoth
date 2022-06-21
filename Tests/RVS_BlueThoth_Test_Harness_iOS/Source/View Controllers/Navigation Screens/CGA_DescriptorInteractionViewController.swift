@@ -21,7 +21,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 */
 
 import UIKit
-import RVS_BlueThoth_iOS
+import RVS_BlueThoth
 
 /* ###################################################################################################################################### */
 // MARK: - The Interaction View Controller -

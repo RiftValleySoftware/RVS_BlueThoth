@@ -1,5 +1,11 @@
 # RVS_BlueThoth Change Log
 
+## 1.7.2
+
+- **June 21, 2022**
+
+- Changed the MacOS and iOS test harnesses to use the package, linked locally. No changes to API.
+
 ## 1.7.1
 
 - **June 1, 2022**
