@@ -2,7 +2,7 @@
 
 ## 1.7.3
 
-- **June 21, 2022**
+- **June 26, 2022**
 
 - Also changed the WatchOS and TVOS test harnesses to use the local module. No changes to API.
 
