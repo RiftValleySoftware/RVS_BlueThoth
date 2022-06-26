@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D45D2646245F4BD7001906EC"
-               BuildableName = "RVS_BlueThoth_TVOS.framework"
-               BlueprintName = "RVS_BlueThoth_TVOS"
+               BlueprintIdentifier = "D49DA23824675DAE00A10344"
+               BuildableName = "RVS_BlueThoth_Test_Harness_iOS.app"
+               BlueprintName = "RVS_BlueThoth_Test_Harness_iOS"
                ReferencedContainer = "container:RVS_BlueThoth.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -40,6 +40,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D49DA23824675DAE00A10344"
+            BuildableName = "RVS_BlueThoth_Test_Harness_iOS.app"
+            BlueprintName = "RVS_BlueThoth_Test_Harness_iOS"
+            ReferencedContainer = "container:RVS_BlueThoth.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -47,15 +57,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D45D2646245F4BD7001906EC"
-            BuildableName = "RVS_BlueThoth_TVOS.framework"
-            BlueprintName = "RVS_BlueThoth_TVOS"
+            BlueprintIdentifier = "D49DA23824675DAE00A10344"
+            BuildableName = "RVS_BlueThoth_Test_Harness_iOS.app"
+            BlueprintName = "RVS_BlueThoth_Test_Harness_iOS"
             ReferencedContainer = "container:RVS_BlueThoth.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

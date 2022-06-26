@@ -23,7 +23,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 import UIKit
 
 #if os(tvOS)
-    import RVS_BlueThoth_TVOS
+    import RVS_BlueThoth
 #endif
 
 #if os(iOS)

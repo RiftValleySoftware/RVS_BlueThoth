@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D44E0CDF24DD9E62003E3FD4"
-               BuildableName = "RVS_BlueThoth_WatchOS_Test_Harness.app"
-               BlueprintName = "RVS_BlueThoth_WatchOS_Test_Harness WatchKit App"
-               ReferencedContainer = "container:RVS_BlueThoth.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D44E0CDC24DD9E62003E3FD4"
-               BuildableName = "RVS_BlueThoth_WatchOS_Test_Harness.app"
-               BlueprintName = "RVS_BlueThoth_WatchOS_Test_Harness"
+               BlueprintIdentifier = "D41330A024674F1400502D83"
+               BuildableName = "RVS_BlueThoth_Test_Harness_MacOS.app"
+               BlueprintName = "RVS_BlueThoth_Test_Harness_MacOS"
                ReferencedContainer = "container:RVS_BlueThoth.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -58,9 +44,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D44E0CDF24DD9E62003E3FD4"
-            BuildableName = "RVS_BlueThoth_WatchOS_Test_Harness.app"
-            BlueprintName = "RVS_BlueThoth_WatchOS_Test_Harness WatchKit App"
+            BlueprintIdentifier = "D41330A024674F1400502D83"
+            BuildableName = "RVS_BlueThoth_Test_Harness_MacOS.app"
+            BlueprintName = "RVS_BlueThoth_Test_Harness_MacOS"
             ReferencedContainer = "container:RVS_BlueThoth.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -75,9 +61,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D44E0CDF24DD9E62003E3FD4"
-            BuildableName = "RVS_BlueThoth_WatchOS_Test_Harness.app"
-            BlueprintName = "RVS_BlueThoth_WatchOS_Test_Harness WatchKit App"
+            BlueprintIdentifier = "D41330A024674F1400502D83"
+            BuildableName = "RVS_BlueThoth_Test_Harness_MacOS.app"
+            BlueprintName = "RVS_BlueThoth_Test_Harness_MacOS"
             ReferencedContainer = "container:RVS_BlueThoth.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

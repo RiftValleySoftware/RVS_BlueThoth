@@ -21,7 +21,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 */
 
 import WatchKit
-import RVS_BlueThoth_WatchOS
+import RVS_BlueThoth
 
 /* ###################################################################################################################################### */
 // MARK: - Preferences Extension -

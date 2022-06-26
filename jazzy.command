@@ -18,11 +18,11 @@ jazzy   --readme ./Sources/RVS_BlueThoth/README-PUBLIC.md \
         --theme fullwidth \
         --exclude ./Sources/RVS_BlueThoth/Implementation/Peripherals/CGA_Bluetooth_Peripheral_Callbacks.swift,./Sources/RVS_BlueThoth/RVS_BlueThoth_Callbacks.swift \
         --output docs/framework-public \
-        --build-tool-arguments -scheme,"RVS_BlueThoth_iOS"
+        --build-tool-arguments -scheme,"RVS_BlueThoth"
 cp ./Sources/RVS_BlueThoth/RVS_BlueThoth.docc/Resources/* docs/framework-public/img
 cp ./icon.png docs/framework-public/icon.png
 
-echo "\nCreating Internal API Docs for the iOS Test Harness and Framework\n"
+echo "\nCreating Internal API Docs for the iOS Framework\n"
 
 jazzy   --readme ./README.md \
         --github_url https://github.com/RiftValleySoftware/RVS_BlueThoth/ \
@@ -30,7 +30,7 @@ jazzy   --readme ./README.md \
         --min_acl private \
         --theme fullwidth \
         --output docs/framework-internal \
-        --build-tool-arguments -scheme,"RVS_BlueThoth_iOS"
+        --build-tool-arguments -scheme,"RVS_BlueThoth"
 cp ./Sources/RVS_BlueThoth/RVS_BlueThoth.docc/Resources/* docs/framework-internal/img
 cp ./icon.png docs/framework-internal/icon.png
 

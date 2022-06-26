@@ -1,5 +1,11 @@
 # RVS_BlueThoth Change Log
 
+## 1.7.3
+
+- **June 21, 2022**
+
+- Also changed the WatchOS and TVOS test harnesses to use the local module. No changes to API.
+
 ## 1.7.2
 
 - **June 21, 2022**

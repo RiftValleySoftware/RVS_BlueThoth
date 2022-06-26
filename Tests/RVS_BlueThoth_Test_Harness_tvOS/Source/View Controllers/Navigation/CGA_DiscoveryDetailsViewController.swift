@@ -21,7 +21,7 @@ The Great Rift Valley Software Company: https://riftvalleysoftware.com
 */
 
 import UIKit
-import RVS_BlueThoth_TVOS
+import RVS_BlueThoth
 
 /* ###################################################################################################################################### */
 // MARK: - Discovery Details View Controller -

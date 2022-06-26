@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1210"
+   LastUpgradeVersion = "1340"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D45D2616245F4AC1001906EC"
-               BuildableName = "RVS_BlueThoth_WatchOS.framework"
-               BlueprintName = "RVS_BlueThoth_WatchOS"
+               BlueprintIdentifier = "D4485CE52868CBB500695C57"
+               BuildableName = "libRVS_BlueThoth.a"
+               BlueprintName = "RVS_BlueThoth"
                ReferencedContainer = "container:RVS_BlueThoth.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -50,9 +50,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D45D2616245F4AC1001906EC"
-            BuildableName = "RVS_BlueThoth_WatchOS.framework"
-            BlueprintName = "RVS_BlueThoth_WatchOS"
+            BlueprintIdentifier = "D4485CE52868CBB500695C57"
+            BuildableName = "libRVS_BlueThoth.a"
+            BlueprintName = "RVS_BlueThoth"
             ReferencedContainer = "container:RVS_BlueThoth.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
