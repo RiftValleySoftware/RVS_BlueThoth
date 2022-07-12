@@ -54,8 +54,10 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/$(PRODUCT_NAME)">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D44E0CDF24DD9E62003E3FD4"
@@ -63,7 +65,7 @@
             BlueprintName = "RVS_BlueThoth_WatchOS_Test_Harness WatchKit App"
             ReferencedContainer = "container:RVS_BlueThoth.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -71,8 +73,10 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/$(PRODUCT_NAME)">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D44E0CDF24DD9E62003E3FD4"
@@ -80,7 +84,16 @@
             BlueprintName = "RVS_BlueThoth_WatchOS_Test_Harness WatchKit App"
             ReferencedContainer = "container:RVS_BlueThoth.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D44E0CDF24DD9E62003E3FD4"
+            BuildableName = "RVS_BlueThoth_WatchOS_Test_Harness.app"
+            BlueprintName = "RVS_BlueThoth_WatchOS_Test_Harness WatchKit App"
+            ReferencedContainer = "container:RVS_BlueThoth.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
