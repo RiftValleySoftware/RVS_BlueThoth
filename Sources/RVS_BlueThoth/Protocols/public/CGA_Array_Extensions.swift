@@ -277,7 +277,7 @@ public extension Array where Element == CGA_Bluetooth_Characteristic {
      - returns: The found Element, or nil, if not found.
      */
     subscript(_ inItem: CBUUID) -> Element! {
-        for element in self where element.cbElementInstance.uuid.uuidString == inItem.uuidString {
+        for element in self where element.cbElementInstance?.uuid.uuidString == inItem.uuidString {
             return element
         }
         
@@ -292,7 +292,7 @@ public extension Array where Element == CGA_Bluetooth_Characteristic {
      - returns: The found Element, or nil, if not found.
      */
     subscript(_ inItem: CBCharacteristic) -> Element! {
-        for element in self where element.cbElementInstance.uuid.uuidString == inItem.uuid.uuidString {
+        for element in self where element.cbElementInstance?.uuid.uuidString == inItem.uuid.uuidString {
             return element
         }
         
@@ -350,7 +350,7 @@ public extension Array where Element == CGA_Bluetooth_Descriptor_Protocol {
      - returns: The found Element, or nil, if not found.
      */
     subscript(_ inItem: CBUUID) -> Element! {
-        for element in self where element.cbElementInstance.uuid.uuidString == inItem.uuidString {
+        for element in self where element.cbElementInstance?.uuid.uuidString == inItem.uuidString {
             return element
         }
         
@@ -365,7 +365,7 @@ public extension Array where Element == CGA_Bluetooth_Descriptor_Protocol {
      - returns: The found Element, or nil, if not found.
      */
     subscript(_ inItem: CBAttribute) -> Element! {
-        for element in self where element.cbElementInstance.uuid.uuidString == inItem.uuid.uuidString {
+        for element in self where element.cbElementInstance?.uuid.uuidString == inItem.uuid.uuidString {
             return element
         }
         

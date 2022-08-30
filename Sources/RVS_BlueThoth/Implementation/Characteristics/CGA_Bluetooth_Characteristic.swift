@@ -75,7 +75,7 @@ public class CGA_Bluetooth_Characteristic: CGA_Bluetooth_Characteristic_Protocol
     /**
      This holds the instance of CBCharacteristic that is used by this instance.
      */
-    public weak var cbElementInstance: CBCharacteristic!
+    public weak var cbElementInstance: CBCharacteristic?
 
     /* ################################################################## */
     /**
@@ -210,7 +210,7 @@ public class CGA_Bluetooth_Characteristic: CGA_Bluetooth_Characteristic_Protocol
      */
     public var extendedProperties: (isReliableWriteEnabled: Bool, isWritableAuxiliariesEnabled: Bool)? {
         guard hasExtendedProperties else { return nil }
-        let extensionDescriptors = sequence_contents.filter({ CBUUIDCharacteristicExtendedPropertiesString == $0.cbElementInstance.uuid.uuidString })
+        let extensionDescriptors = sequence_contents.filter({ CBUUIDCharacteristicExtendedPropertiesString == $0.cbElementInstance?.uuid.uuidString })
         guard let extensionDescriptor = extensionDescriptors[0] as? CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties else { return nil }
         return (isReliableWriteEnabled: extensionDescriptor.isReliableWriteEnabled, isWritableAuxiliariesEnabled: extensionDescriptor.isWritableAuxiliariesEnabled)
     }
@@ -315,6 +315,7 @@ public class CGA_Bluetooth_Characteristic: CGA_Bluetooth_Characteristic_Protocol
     public func writeValue(_ inData: Data, withResponseIfPossible inWithResponse: Bool = false) {
         if  canWrite,
             let peripheralWrapper = service?.peripheral,
+            let cbElementInstance = cbElementInstance,
             let peripheral = peripheralWrapper.cbElementInstance {
             #if DEBUG
                 let stringValue = String(data: inData, encoding: .utf8) ?? String(describing: inData)
@@ -403,13 +404,13 @@ extension CGA_Bluetooth_Characteristic {
     /**
      This casts the parent as a Service Wrapper.
      */
-    public var service: CGA_Bluetooth_Service! { parent as? CGA_Bluetooth_Service }
+    public var service: CGA_Bluetooth_Service? { parent as? CGA_Bluetooth_Service }
         
     /* ################################################################## */
     /**
      This will contain any required scan criteria. It simply passes on the Central criteria.
      */
-    internal var scanCriteria: RVS_BlueThoth.ScanCriteria! { service?.scanCriteria }
+    internal var scanCriteria: RVS_BlueThoth.ScanCriteria? { service?.scanCriteria }
 
     /* ################################################################## */
     /**

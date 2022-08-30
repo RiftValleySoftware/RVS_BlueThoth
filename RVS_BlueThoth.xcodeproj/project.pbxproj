@@ -111,7 +111,6 @@
 		D4B6751424DDA68000B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_MainInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B6750A24DDA66C00B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_MainInterfaceController.swift */; };
 		D4B6751524DDA68000B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B6750B24DDA66C00B32A63 /* RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate.swift */; };
 		D4BB6ABF24B3B5F1006FB2ED /* CGA_CharacteristicInteractionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BB6ABE24B3B5F1006FB2ED /* CGA_CharacteristicInteractionViewController.swift */; };
-		D4C3110B287DC5CC00FE88E6 /* RVS_BlueThoth in Frameworks */ = {isa = PBXBuildFile; productRef = D4C3110A287DC5CC00FE88E6 /* RVS_BlueThoth */; };
 		D4C3110D287DC5D200FE88E6 /* RVS_BlueThoth in Frameworks */ = {isa = PBXBuildFile; productRef = D4C3110C287DC5D200FE88E6 /* RVS_BlueThoth */; };
 		D4C3110F287DC5DE00FE88E6 /* RVS_BlueThoth in Frameworks */ = {isa = PBXBuildFile; productRef = D4C3110E287DC5DE00FE88E6 /* RVS_BlueThoth */; };
 		D4C31111287DC5E300FE88E6 /* RVS_BlueThoth in Frameworks */ = {isa = PBXBuildFile; productRef = D4C31110287DC5E300FE88E6 /* RVS_BlueThoth */; };
@@ -121,6 +120,7 @@
 		D4DFB1C724BDE3290044D59A /* RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DFB1C624BDE3290044D59A /* RVS_BlueThoth_Test_Harness_MacOS_PeripheralViewController.swift */; };
 		D4EB895924EB560A006DEF57 /* CGA_InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EB895824EB560A006DEF57 /* CGA_InfoViewController.swift */; };
 		D4F21FAB24EACF1200C632D7 /* CGA_ServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F21FAA24EACF1200C632D7 /* CGA_ServiceViewController.swift */; };
+		D4F6429928BE393A007B7B3F /* RVS_BlueThoth in Frameworks */ = {isa = PBXBuildFile; productRef = D4F6429828BE393A007B7B3F /* RVS_BlueThoth */; };
 		D4F853F424BE4C12007136BE /* RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F853F324BE4C11007136BE /* RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController.swift */; };
 		D4F8EB7C2467651A00CCA9E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D431EC1E24675E8D0094BB23 /* Localizable.strings */; };
 		D4F8EB7D2467651E00CCA9E8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D431EC2024675E8D0094BB23 /* InfoPlist.strings */; };
@@ -279,7 +279,6 @@
 		D4B6751124DDA66C00B32A63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4BB6ABE24B3B5F1006FB2ED /* CGA_CharacteristicInteractionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_CharacteristicInteractionViewController.swift; sourceTree = "<group>"; };
 		D4BC2F6F245B4C13003B4775 /* CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties.swift; sourceTree = "<group>"; };
-		D4C31109287DC5BC00FE88E6 /* RVS_BlueThoth */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RVS_BlueThoth; sourceTree = "<group>"; };
 		D4C906C824E6B2BD004DA68D /* RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTables.swift; sourceTree = "<group>"; };
 		D4C9781724BA408400D58528 /* CGA_DescriptorInteractionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_DescriptorInteractionViewController.swift; sourceTree = "<group>"; };
 		D4D3726424605421009B1F9E /* CGA_Bluetooth_Descriptor_AggregateFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Descriptor_AggregateFormat.swift; sourceTree = "<group>"; };
@@ -290,6 +289,7 @@
 		D4E2F4E024587624008A8317 /* CGA_Bluetooth_Peripheral_Callbacks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_Bluetooth_Peripheral_Callbacks.swift; sourceTree = "<group>"; };
 		D4EB895824EB560A006DEF57 /* CGA_InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_InfoViewController.swift; sourceTree = "<group>"; };
 		D4F21FAA24EACF1200C632D7 /* CGA_ServiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGA_ServiceViewController.swift; sourceTree = "<group>"; };
+		D4F6429428BE3903007B7B3F /* RVS_BlueThoth */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RVS_BlueThoth; sourceTree = "<group>"; };
 		D4F853F324BE4C11007136BE /* RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVS_BlueThoth_Test_Harness_MacOS_PreferencesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -333,7 +333,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4C3110B287DC5CC00FE88E6 /* RVS_BlueThoth in Frameworks */,
+				D4F6429928BE393A007B7B3F /* RVS_BlueThoth in Frameworks */,
 				D47F11472847DE5B00B9AD44 /* RVS_Persistent_Prefs in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -431,11 +431,11 @@
 		D420C88B242FCD5600FCB9E0 = {
 			isa = PBXGroup;
 			children = (
+				D4F6429328BE3903007B7B3F /* Packages */,
 				D48D85172430F05500A925ED /* Sources */,
 				D41330B724674FA200502D83 /* Tests */,
 				D420C895242FCD5600FCB9E0 /* Products */,
-				D4C31105287DC5A900FE88E6 /* Frameworks */,
-				D4C31109287DC5BC00FE88E6 /* RVS_BlueThoth */,
+				D4F6429528BE391C007B7B3F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -784,13 +784,6 @@
 			path = RVS_BlueThoth_Test_Harness_WatchOS_App;
 			sourceTree = "<group>";
 		};
-		D4C31105287DC5A900FE88E6 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		D4E06EDA24E8547B00DB525C /* Modal */ = {
 			isa = PBXGroup;
 			children = (
@@ -832,6 +825,21 @@
 				D426966E24EAE04A00ABFA44 /* CGA_CharacteristicViewController.swift */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		D4F6429328BE3903007B7B3F /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				D4F6429428BE3903007B7B3F /* RVS_BlueThoth */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		D4F6429528BE391C007B7B3F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D4F8EB7B246764F900CCA9E8 /* Resources */ = {
@@ -980,7 +988,7 @@
 			name = RVS_BlueThoth_Test_Harness_iOS;
 			packageProductDependencies = (
 				D47F11462847DE5B00B9AD44 /* RVS_Persistent_Prefs */,
-				D4C3110A287DC5CC00FE88E6 /* RVS_BlueThoth */,
+				D4F6429828BE393A007B7B3F /* RVS_BlueThoth */,
 			);
 			productName = RVS_BlueThoth_Test_Harness_iOS;
 			productReference = D49DA23924675DAE00A10344 /* RVS_BlueThoth_Test_Harness_iOS.app */;
@@ -1376,7 +1384,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.7.4;
+				MARKETING_VERSION = 1.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-BlueThoth-Test-Harness-MacOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1399,7 +1407,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.7.4;
+				MARKETING_VERSION = 1.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-BlueThoth-Test-Harness-MacOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1537,7 +1545,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.4;
+				MARKETING_VERSION = 1.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.RVS-BlueThoth-Test-Harness-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
@@ -1559,7 +1567,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.4;
+				MARKETING_VERSION = 1.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.RVS-BlueThoth-Test-Harness-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
@@ -1609,7 +1617,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3000;
 				DEVELOPMENT_TEAM = P53V4JS928;
-				MARKETING_VERSION = 1.7.4;
+				MARKETING_VERSION = 1.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.RVS-BlueToth-WatchOS-Test-Harness";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1623,7 +1631,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3000;
 				DEVELOPMENT_TEAM = P53V4JS928;
-				MARKETING_VERSION = 1.7.4;
+				MARKETING_VERSION = 1.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.RVS-BlueToth-WatchOS-Test-Harness";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1642,7 +1650,7 @@
 				DEVELOPMENT_TEAM = P53V4JS928;
 				IBSC_MODULE = RVS_BlueToth_WatchOS_Test_Harness_WatchKit_Extension;
 				INFOPLIST_FILE = Tests/RVS_BlueThoth_Test_Harness_WatchOS/RVS_BlueThoth_Test_Harness_WatchOS_App/Info.plist;
-				MARKETING_VERSION = 1.7.4;
+				MARKETING_VERSION = 1.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.RVS-BlueToth-WatchOS-Test-Harness.watchkitapp";
 				PRODUCT_NAME = RVS_BlueThoth_WatchOS_Test_Harness;
 				SDKROOT = watchos;
@@ -1663,7 +1671,7 @@
 				DEVELOPMENT_TEAM = P53V4JS928;
 				IBSC_MODULE = RVS_BlueToth_WatchOS_Test_Harness_WatchKit_Extension;
 				INFOPLIST_FILE = Tests/RVS_BlueThoth_Test_Harness_WatchOS/RVS_BlueThoth_Test_Harness_WatchOS_App/Info.plist;
-				MARKETING_VERSION = 1.7.4;
+				MARKETING_VERSION = 1.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.RVS-BlueToth-WatchOS-Test-Harness.watchkitapp";
 				PRODUCT_NAME = RVS_BlueThoth_WatchOS_Test_Harness;
 				SDKROOT = watchos;
@@ -1689,7 +1697,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.7.4;
+				MARKETING_VERSION = 1.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.RVS-BlueToth-WatchOS-Test-Harness.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension";
 				SDKROOT = watchos;
@@ -1715,7 +1723,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.7.4;
+				MARKETING_VERSION = 1.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.RVS-BlueToth-WatchOS-Test-Harness.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension";
 				SDKROOT = watchos;
@@ -1740,7 +1748,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.4;
+				MARKETING_VERSION = 1.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-BlueThoth-Test-Harness-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1762,7 +1770,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.4;
+				MARKETING_VERSION = 1.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-BlueThoth-Test-Harness-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1894,10 +1902,6 @@
 			package = D4C9988324B239BA0028BE9E /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */;
 			productName = RVS_Persistent_Prefs;
 		};
-		D4C3110A287DC5CC00FE88E6 /* RVS_BlueThoth */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = RVS_BlueThoth;
-		};
 		D4C3110C287DC5D200FE88E6 /* RVS_BlueThoth */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RVS_BlueThoth;
@@ -1907,6 +1911,10 @@
 			productName = RVS_BlueThoth;
 		};
 		D4C31110287DC5E300FE88E6 /* RVS_BlueThoth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RVS_BlueThoth;
+		};
+		D4F6429828BE393A007B7B3F /* RVS_BlueThoth */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RVS_BlueThoth;
 		};

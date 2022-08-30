@@ -52,7 +52,7 @@ public protocol CGA_Bluetooth_Service_Protocol: AnyObject, RVS_SequenceProtocol 
     /**
      This casts the parent as a Peripheral Wrapper.
      */
-    var peripheral: CGA_Bluetooth_Peripheral! { get }
+    var peripheral: CGA_Bluetooth_Peripheral? { get }
 
     // MARK: Public Methods
     

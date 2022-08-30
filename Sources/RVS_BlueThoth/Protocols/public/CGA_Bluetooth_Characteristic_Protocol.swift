@@ -46,13 +46,13 @@ public protocol CGA_Bluetooth_Characteristic_Protocol: AnyObject, RVS_SequencePr
     /**
      This holds the instance of CBDescriptor that is used by this instance.
      */
-    var cbElementInstance: CBCharacteristic! { get }
+    var cbElementInstance: CBCharacteristic? { get }
     
     /* ################################################################## */
     /**
      This casts the parent as a Service Wrapper.
      */
-    var service: CGA_Bluetooth_Service! { get }
+    var service: CGA_Bluetooth_Service? { get }
 
     /* ################################################################## */
     /**

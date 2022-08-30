@@ -1,5 +1,11 @@
 # RVS_BlueThoth Change Log
 
+## 1.8.0
+
+- **August 30, 2022**
+
+- Some basic work to make the API a bit more robust. This does introduce some minor changes to the API, as we are not publishing implicit optionals, anymore.
+
 ## 1.7.4
 
 - **July 12, 2022**

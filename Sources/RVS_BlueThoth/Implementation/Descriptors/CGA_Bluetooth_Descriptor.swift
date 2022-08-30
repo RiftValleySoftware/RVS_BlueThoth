@@ -167,7 +167,7 @@ public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Interna
     /**
      This holds the instance of CBDescriptor that is used by this instance.
      */
-    public weak var cbElementInstance: CBDescriptor!
+    public weak var cbElementInstance: CBDescriptor?
     
     // MARK: Public Methods
     
@@ -223,13 +223,13 @@ public class CGA_Bluetooth_Descriptor: CGA_Bluetooth_Descriptor_Protocol_Interna
     /**
      This casts the parent as a Characteristic Wrapper.
      */
-    public var characteristic: CGA_Bluetooth_Characteristic! { parent as? CGA_Bluetooth_Characteristic }
+    public var characteristic: CGA_Bluetooth_Characteristic? { parent as? CGA_Bluetooth_Characteristic }
     
     /* ################################################################## */
     /**
      This will contain any required scan criteria. It simply passes on the Central criteria.
      */
-    internal var scanCriteria: RVS_BlueThoth.ScanCriteria! { characteristic?.scanCriteria }
+    internal var scanCriteria: RVS_BlueThoth.ScanCriteria? { characteristic?.scanCriteria }
     
     /* ################################################################## */
     /**

@@ -45,7 +45,7 @@ internal protocol CGA_Bluetooth_Descriptor_Protocol_Internal: CGA_Bluetooth_Desc
     /**
      This will contain any required scan criteria. It simply passes on the Central criteria.
      */
-    var scanCriteria: RVS_BlueThoth.ScanCriteria! { get }
+    var scanCriteria: RVS_BlueThoth.ScanCriteria? { get }
     
     /* ################################################################## */
     /**

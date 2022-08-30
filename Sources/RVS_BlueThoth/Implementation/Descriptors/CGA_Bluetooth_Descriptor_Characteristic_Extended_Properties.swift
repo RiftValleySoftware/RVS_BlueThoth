@@ -34,7 +34,7 @@ public class CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties: CGA_Bl
      - returns: True, if the Characteristic has Reliable Write Enabled.
      */
     public var isReliableWriteEnabled: Bool {
-        guard let value = cbElementInstance.value as? Int8 else { return false }
+        guard let value = cbElementInstance?.value as? Int8 else { return false }
         return 1 == value & 0x01
     }
     
@@ -43,7 +43,7 @@ public class CGA_Bluetooth_Descriptor_Characteristic_Extended_Properties: CGA_Bl
      - returns: True, if the Characteristic has Writable Auxiliaries enabled.
      */
     public var isWritableAuxiliariesEnabled: Bool {
-        guard let value = cbElementInstance.value as? Int8 else { return false }
+        guard let value = cbElementInstance?.value as? Int8 else { return false }
         return 2 == value & 0x02
     }
     

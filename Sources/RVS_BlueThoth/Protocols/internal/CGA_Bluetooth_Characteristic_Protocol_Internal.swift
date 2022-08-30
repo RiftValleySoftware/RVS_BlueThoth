@@ -39,13 +39,13 @@ internal protocol CGA_Bluetooth_Characteristic_Protocol_Internal: CGA_Bluetooth_
     /**
      This will contain any required scan criteria. It simply passes on the Central criteria.
      */
-    var scanCriteria: RVS_BlueThoth.ScanCriteria! { get }
+    var scanCriteria: RVS_BlueThoth.ScanCriteria? { get }
     
     /* ################################################################## */
     /**
      This casts the parent as a Service Wrapper.
      */
-    var service: CGA_Bluetooth_Service! { get }
+    var service: CGA_Bluetooth_Service? { get }
 
     /* ################################################################## */
     /**
