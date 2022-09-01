@@ -1,5 +1,11 @@
 # RVS_BlueThoth Change Log
 
+## 1.9.0
+
+- **September 1, 2022**
+
+- More changing implicit optionals to explicit ones.
+
 ## 1.8.0
 
 - **August 30, 2022**

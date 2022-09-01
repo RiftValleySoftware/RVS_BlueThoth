@@ -767,8 +767,8 @@ extension CGA_InitialViewController: UITableViewDataSource {
             }
             
             // Set up the accessibility stuff.
-            if !centralManager.stagedBLEPeripherals[inIndexPath.row].advertisementData.localName.isEmpty {
-                tableCell.nameLabel?.accessibilityLabel = String(format: "SLUG-ACC-DEVICELIST-TABLE-NAME-ADVERTISED-FORMAT".localizedVariant, centralManager.stagedBLEPeripherals[inIndexPath.row].advertisementData.localName)
+            if !(centralManager.stagedBLEPeripherals[inIndexPath.row].advertisementData?.localName.isEmpty ?? false) {
+                tableCell.nameLabel?.accessibilityLabel = String(format: "SLUG-ACC-DEVICELIST-TABLE-NAME-ADVERTISED-FORMAT".localizedVariant, centralManager.stagedBLEPeripherals[inIndexPath.row].advertisementData?.localName ?? "")
             } else if !centralManager.stagedBLEPeripherals[inIndexPath.row].name.isEmpty {
                 tableCell.nameLabel?.accessibilityLabel = String(format: "SLUG-ACC-DEVICELIST-TABLE-NAME-SIMPLE-FORMAT".localizedVariant, centralManager.stagedBLEPeripherals[inIndexPath.row].name)
             } else {

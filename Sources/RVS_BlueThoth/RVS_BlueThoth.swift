@@ -115,7 +115,7 @@ public class RVS_BlueThoth: NSObject, RVS_SequenceProtocol {
     /**
      This will contain any required scan criteria.
      */
-    public var scanCriteria: ScanCriteria!
+    public var scanCriteria: ScanCriteria?
 
     /* ################################################################## */
     /**
@@ -370,7 +370,7 @@ extension RVS_BlueThoth {
      - parameter scanCriteria: If there are particular scan criteria to be applied to the discovery process, they are supplied here. If left alone, it will be nil, and all entities will be searched.
      - parameter queue: The queue to be used for this instance. If not specified, the main thread is used.
      */
-    public convenience init(delegate inDelegate: CGA_BlueThoth_Delegate! = nil, scanCriteria inScanCriteria: ScanCriteria! = nil, queue inQueue: DispatchQueue? = nil) {
+    public convenience init(delegate inDelegate: CGA_BlueThoth_Delegate? = nil, scanCriteria inScanCriteria: ScanCriteria? = nil, queue inQueue: DispatchQueue? = nil) {
         self.init(sequence_contents: [])
         delegate = inDelegate
         scanCriteria = inScanCriteria
@@ -404,8 +404,8 @@ extension RVS_BlueThoth {
             cbCentral.stopScan()
         }
         
-        var services: [CBUUID]!
-        let options: [String: Any]! = duplicateFilteringIsOn ? nil : [CBCentralManagerScanOptionAllowDuplicatesKey: true]
+        var services: [CBUUID]?
+        let options: [String: Any]? = duplicateFilteringIsOn ? nil : [CBCentralManagerScanOptionAllowDuplicatesKey: true]
         
         scanningServices = []
         
@@ -471,7 +471,7 @@ extension RVS_BlueThoth {
                                     If false, then the scan will not be started, even if it was scanning.
                                     If not provided, then the scanning will restart, if it was previously scanning.
      */
-    public func startOver(_ inScan: Bool! = nil) {
+    public func startOver(_ inScan: Bool? = nil) {
         #if DEBUG
             print("Starting The Central Manager Peripheral Discovery Over From Scratch.")
         #endif
@@ -505,7 +505,7 @@ extension RVS_BlueThoth {
             #if DEBUG
                 print("ERROR! \(String(describing: inPeripheral?.name)) cannot be connected, because of an internal error.")
             #endif
-            let id = inPeripheral?.identifier ?? inPeripheral?.cbPeripheral.identifier.uuidString ?? ""
+            let id = inPeripheral?.identifier ?? inPeripheral?.cbPeripheral?.identifier.uuidString ?? ""
             if let peripheral = inPeripheral?.cbPeripheral {
                 reportError(CGA_Errors.returnNestedInternalErrorBasedOnThis(nil, peripheral: peripheral))
             } else {
@@ -596,7 +596,9 @@ extension RVS_BlueThoth {
             print("Removing \(inPeripheral.discoveryData.preferredName).")
         #endif
         _sendPeripheralDisconnect(inPeripheral)
-        sequence_contents.removeThisDevice(inPeripheral.discoveryData.cbPeripheral)
+        if let cbPeripheral = inPeripheral.discoveryData.cbPeripheral {
+            sequence_contents.removeThisDevice(cbPeripheral)
+        }
     }
 }
 
@@ -622,11 +624,11 @@ extension RVS_BlueThoth {
      */
     public struct ScanCriteria {
         /// This is a list of identifier UUIDs for specific Bluetooth devices.
-        public let peripherals: [String]!
+        public let peripherals: [String]?
         /// This is a list of UUIDs for Services that will be scanned.
-        public let services: [String]!
+        public let services: [String]?
         /// This is a list of UUIDs for specific Characteristics to be discovered within Services.
-        public let characteristics: [String]!
+        public let characteristics: [String]?
         
         /* ############################################################## */
         /**
@@ -643,7 +645,7 @@ extension RVS_BlueThoth {
             - services: This is a list of UUIDs for Advertised Services that will be scanned.
             - characteristics: This is a list of UUIDs for specific Characteristics to be discovered within Services.
          */
-        public  init(peripherals inPeripherals: [String]!, services inServices: [String]!, characteristics inCharacteristics: [String]!) {
+        public  init(peripherals inPeripherals: [String]?, services inServices: [String]?, characteristics inCharacteristics: [String]?) {
             peripherals = inPeripherals
             services = inServices
             characteristics = inCharacteristics
@@ -732,7 +734,7 @@ extension RVS_BlueThoth {
         /**
          This holds the advertisement data that came with the discovery.
          */
-        public var advertisementData: AdvertisementData!
+        public var advertisementData: AdvertisementData?
 
         /* ############################################################## */
         /**
@@ -763,13 +765,13 @@ extension RVS_BlueThoth {
         /**
          This is true, if the Peripheral advertisement data indicates the Peripheral can be connected.
          */
-        public var canConnect: Bool { advertisementData.isConnectable }
+        public var canConnect: Bool { advertisementData?.isConnectable ?? false }
         
         /* ############################################################## */
         /**
          This is the "Local Name," from the advertisement data.
          */
-        public var localName: String { advertisementData.localName }
+        public var localName: String { advertisementData?.localName ?? "" }
         
         /* ############################################################## */
         /**
@@ -897,7 +899,7 @@ extension RVS_BlueThoth {
         /**
          The actual Peripheral instance, cast as CBPeripheral.
          */
-        internal var cbPeripheral: CBPeripheral! { peripheral as? CBPeripheral }
+        internal var cbPeripheral: CBPeripheral? { peripheral as? CBPeripheral }
         
         /* ################################################################## */
         /**
