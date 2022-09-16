@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:RiftValleySoftware/RVS_Generic_Swift_Toolbox.git",
       "state" : {
-        "revision" : "d0efffe9b91694ade75a791b3602a8460df662bf",
-        "version" : "1.10.1"
+        "revision" : "044dc85a2b789521b63ffddaaf9589624d39826f",
+        "version" : "1.10.2"
       }
     },
     {
@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:RiftValleySoftware/RVS_PersistentPrefs.git",
       "state" : {
-        "revision" : "9d47061aa74821eab8e454dd1b63521f5801ae91",
-        "version" : "1.3.2"
+        "revision" : "7a55b281b5cf8ad8cf161af957e78d63f13e3594",
+        "version" : "1.3.3"
       }
     }
   ],
