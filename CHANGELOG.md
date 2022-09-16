@@ -1,5 +1,12 @@
 # RVS_BlueThoth Change Log
 
+## 1.9.1
+
+- **September 16, 2022**
+
+- Updated to the latest tools.
+- Updated SwiftLint
+
 ## 1.9.0
 
 - **September 1, 2022**

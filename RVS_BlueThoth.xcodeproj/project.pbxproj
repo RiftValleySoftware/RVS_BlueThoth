@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -88,7 +88,7 @@
 		D44A0E9624E5A863007A89A9 /* RVS_BlueThoth_Test_Harness_WatchOS_ServiceInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44A0E9524E5A863007A89A9 /* RVS_BlueThoth_Test_Harness_WatchOS_ServiceInterfaceController.swift */; };
 		D44A0E9824E5B18F007A89A9 /* RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44A0E9724E5B18F007A89A9 /* RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicTableController.swift */; };
 		D44E0CE124DD9E62003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D44E0CE024DD9E62003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		D44E0CF024DD9E63003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D44E0CEF24DD9E63003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D44E0CF024DD9E63003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D44E0CEF24DD9E63003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D45A99EB24E6D56600A4D22A /* RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45A99EA24E6D56600A4D22A /* RVS_BlueThoth_Test_Harness_WatchOS_CharacteristicInterfaceController.swift */; };
 		D477C41024E9ACE10017D336 /* CGA_BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D431EC2A24675E8D0094BB23 /* CGA_BaseViewController.swift */; };
 		D477C41124E9AD3B0017D336 /* CGA_BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D431EC2A24675E8D0094BB23 /* CGA_BaseViewController.swift */; };
@@ -165,15 +165,15 @@
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D44E0D0024DD9E64003E3FD4 /* Embed App Extensions */ = {
+		D44E0D0024DD9E64003E3FD4 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				D44E0CF024DD9E63003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension.appex in Embed App Extensions */,
+				D44E0CF024DD9E63003E3FD4 /* RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -881,6 +881,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D42DDDC524E96F000072E7CA /* Build configuration list for PBXNativeTarget "RVS_BlueThoth_Test_Harness_tvOS" */;
 			buildPhases = (
+				D46730E428D4FF210098BD43 /* SwiftLint */,
 				D42DDDB024E96EFE0072E7CA /* Sources */,
 				D42DDDB124E96EFE0072E7CA /* Frameworks */,
 				D42DDDB224E96EFE0072E7CA /* Resources */,
@@ -902,6 +903,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4485CEA2868CBB500695C57 /* Build configuration list for PBXNativeTarget "RVS_BlueThoth" */;
 			buildPhases = (
+				D46730E328D4FEC10098BD43 /* SwiftLint */,
 				D4485CE22868CBB500695C57 /* Sources */,
 				D4485CE32868CBB500695C57 /* Frameworks */,
 			);
@@ -938,7 +940,7 @@
 			buildConfigurationList = D44E0D0424DD9E64003E3FD4 /* Build configuration list for PBXNativeTarget "RVS_BlueThoth_WatchOS_Test_Harness WatchKit App" */;
 			buildPhases = (
 				D44E0CDE24DD9E62003E3FD4 /* Resources */,
-				D44E0D0024DD9E64003E3FD4 /* Embed App Extensions */,
+				D44E0D0024DD9E64003E3FD4 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -1001,7 +1003,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1210;
+				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = "The Great Rift Valley Software Company";
 				TargetAttributes = {
 					D41330A024674F1400502D83 = {
@@ -1110,7 +1112,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		D4B6750824DDA2F700B32A63 /* SwiftLint */ = {
+		D46730E328D4FEC10098BD43 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if command -v swiftlint\nthen\n    swiftlint\nfi\n";
+		};
+		D46730E428D4FF210098BD43 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1126,10 +1147,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if test -f \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"\nfi\n";
+			shellScript = "if command -v swiftlint\nthen\n    swiftlint\nfi\n";
+		};
+		D4B6750824DDA2F700B32A63 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if command -v swiftlint\nthen\n    swiftlint\nfi\n";
 		};
 		D4B6F0FF2496523000282766 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -1144,10 +1185,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if test -f \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"\nfi\n";
+			shellScript = "if command -v swiftlint\nthen\n    swiftlint\nfi\n";
 		};
 		D4B6F1002496528300282766 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -1162,7 +1204,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if test -f \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Project-Meta/SwiftLint/swiftlint\"\nfi\n";
+			shellScript = "if command -v swiftlint\nthen\n    swiftlint\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1377,6 +1419,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 3000;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Tests/RVS_BlueThoth_Test_Harness_MacOS/Meta/Info.plist;
@@ -1400,6 +1443,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 3000;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Tests/RVS_BlueThoth_Test_Harness_MacOS/Meta/Info.plist;
@@ -1448,6 +1492,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1510,6 +1555,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;

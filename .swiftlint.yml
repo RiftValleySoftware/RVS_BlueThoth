@@ -6,6 +6,7 @@ disabled_rules:
 - todo
 - implicit_getter
 - no_space_in_method_call
+- line_length
 
 opt_in_rules:
 - control_statement
@@ -25,10 +26,6 @@ file_length:
 type_body_length:
 - 300 # warning
 - 400 # error
-
-line_length:
-- 270 # warning
-- 300 # error
 
 cyclomatic_complexity:
 - 11  # warning
