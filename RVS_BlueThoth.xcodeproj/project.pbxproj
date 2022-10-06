@@ -1427,7 +1427,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-BlueThoth-Test-Harness-MacOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1451,7 +1451,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-BlueThoth-Test-Harness-MacOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1591,7 +1591,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.RVS-BlueThoth-Test-Harness-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
@@ -1613,7 +1613,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.RVS-BlueThoth-Test-Harness-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
@@ -1696,7 +1696,7 @@
 				DEVELOPMENT_TEAM = P53V4JS928;
 				IBSC_MODULE = RVS_BlueToth_WatchOS_Test_Harness_WatchKit_Extension;
 				INFOPLIST_FILE = Tests/RVS_BlueThoth_Test_Harness_WatchOS/RVS_BlueThoth_Test_Harness_WatchOS_App/Info.plist;
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.RVS-BlueToth-WatchOS-Test-Harness.watchkitapp";
 				PRODUCT_NAME = RVS_BlueThoth_WatchOS_Test_Harness;
 				SDKROOT = watchos;
@@ -1717,7 +1717,7 @@
 				DEVELOPMENT_TEAM = P53V4JS928;
 				IBSC_MODULE = RVS_BlueToth_WatchOS_Test_Harness_WatchKit_Extension;
 				INFOPLIST_FILE = Tests/RVS_BlueThoth_Test_Harness_WatchOS/RVS_BlueThoth_Test_Harness_WatchOS_App/Info.plist;
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.RVS-BlueToth-WatchOS-Test-Harness.watchkitapp";
 				PRODUCT_NAME = RVS_BlueThoth_WatchOS_Test_Harness;
 				SDKROOT = watchos;
@@ -1743,7 +1743,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.RVS-BlueToth-WatchOS-Test-Harness.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension";
 				SDKROOT = watchos;
@@ -1769,7 +1769,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.RVS-BlueToth-WatchOS-Test-Harness.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "RVS_BlueThoth_WatchOS_Test_Harness WatchKit Extension";
 				SDKROOT = watchos;
@@ -1794,7 +1794,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-BlueThoth-Test-Harness-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1816,7 +1816,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.RVS-BlueThoth-Test-Harness-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1909,7 +1909,7 @@
 			repositoryURL = "git@github.com:RiftValleySoftware/RVS_PersistentPrefs.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.3;
+				minimumVersion = 1.3.4;
 			};
 		};
 		D4C9988824B23A3B0028BE9E /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */ = {
@@ -1917,7 +1917,7 @@
 			repositoryURL = "git@github.com:RiftValleySoftware/RVS_Generic_Swift_Toolbox.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.10.2;
+				minimumVersion = 1.11.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

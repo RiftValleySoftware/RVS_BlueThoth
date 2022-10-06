@@ -1,5 +1,11 @@
 # RVS_BlueThoth Change Log
 
+## 1.9.2
+
+- **October 6, 2022**
+
+- Updated the test harness dependencies. No API changes.
+
 ## 1.9.1
 
 - **September 16, 2022**
