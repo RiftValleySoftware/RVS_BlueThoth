@@ -1,5 +1,11 @@
 # RVS_BlueThoth Change Log
 
+## 1.9.3
+
+- **December 11, 2022**
+
+- Updated the package file, to reflect the proper dependency version. No API changes.
+
 ## 1.9.2
 
 - **October 6, 2022**
