@@ -17,9 +17,6 @@
          location = "group:LICENSE">
       </FileRef>
       <FileRef
-         location = "group:.swiftlint.yml">
-      </FileRef>
-      <FileRef
          location = "group:jazzy.command">
       </FileRef>
    </Group>

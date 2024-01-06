@@ -1,5 +1,12 @@
 # RVS_BlueThoth Change Log
 
+## 1.9.4
+
+- **January 6, 2024**
+
+- Added privacy declarations.
+- Had to remove SwiftLint, as it stopped working.
+
 ## 1.9.3
 
 - **December 11, 2022**
