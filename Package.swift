@@ -27,7 +27,7 @@ import PackageDescription
 let package = Package(
     name: "RVS_BlueThoth",
     platforms: [
-        .iOS(.v11),
+        .iOS(.v13),
         .tvOS(.v11),
         .macOS(.v10_14),
         .watchOS(.v5)
@@ -40,7 +40,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(name: "RVS_Generic_Swift_Toolbox", url: "git@github.com:RiftValleySoftware/RVS_Generic_Swift_Toolbox.git", from: "1.11.0")
+        .package(name: "RVS_Generic_Swift_Toolbox", url: "git@github.com:RiftValleySoftware/RVS_Generic_Swift_Toolbox.git", from: "1.13.1")
     ],
     targets: [
         .target(

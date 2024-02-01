@@ -69,11 +69,11 @@ class CGA_AppDelegate: UIResponder, UIApplicationDelegate {
             var presentedBy = inPresentingViewController
             
             if nil == presentedBy {
-                presentedBy = (UIApplication.shared.windows.filter { $0.isKeyWindow }.first)?.rootViewController
+                presentedBy = (appDelegateObject?.window?.windowScene?.windows.filter { $0.isKeyWindow }.first)?.rootViewController
             }
             
             if nil == presentedBy {
-                presentedBy = UIApplication.shared.delegate?.window??.rootViewController
+                presentedBy = appDelegateObject?.window?.rootViewController
             }
 
             if nil != presentedBy {

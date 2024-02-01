@@ -1,5 +1,16 @@
 # RVS_BlueThoth Change Log
 
+## 1.9.5
+
+- **February 1, 2024**
+
+- Updated to the latest versions of libraries, et al.
+- Tweaked a bit of code to account for deprecated calls.
+- Upped the iOS version to minimum 13, just to make it less of a support burden.
+- Updated the dependencies to the latest.
+
+>N.B. Looks like Apple is trying to strongarm us into using SwiftUI for Watch and TV. I'm not really up to rewriting the wole test harness (right now), but I'll probably do that, at some time. Note that the Watch and TV targets may bork, in the test harness.
+
 ## 1.9.4
 
 - **January 6, 2024**
