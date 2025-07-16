@@ -196,7 +196,7 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate {
     /**
      Quick access to the extension delegate object.
      */
-    class var extensionDelegateObject: RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate! { WKExtension.shared().delegate as? RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate }
+    class var extensionDelegateObject: RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate! { WKApplication.shared().delegate as? RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate }
     
     /* ################################################################## */
     /**
@@ -274,9 +274,9 @@ extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - WKExtensionDelegate Conformance -
+// MARK: - WKApplicationDelegate Conformance -
 /* ###################################################################################################################################### */
-extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: WKExtensionDelegate {
+extension RVS_BlueThoth_Test_Harness_WatchOS_ExtensionDelegate: WKApplicationDelegate {
     /* ################################################################## */
     /**
      This is called while the app is in the background, with various tasks that need to be handled.

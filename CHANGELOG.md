@@ -1,5 +1,11 @@
 # RVS_BlueThoth Change Log
 
+## 1.10.0
+
+- **July 16, 2025**
+
+- Updated dependencies and tools.
+
 ## 1.9.5
 
 - **February 1, 2024**
