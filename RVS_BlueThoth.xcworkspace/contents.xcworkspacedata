@@ -17,6 +17,9 @@
          location = "group:LICENSE">
       </FileRef>
       <FileRef
+         location = "group:Project-Meta/Warnings.xcconfig">
+      </FileRef>
+      <FileRef
          location = "group:jazzy.command">
       </FileRef>
    </Group>
